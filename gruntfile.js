@@ -3,7 +3,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     files: {
-      js: ['gruntfile.js', 'js/**/*.js', 'server/**/*.js'],
+      js: ['public/js/**/*.js', '*.js'],
     },
     sass: {
       dist: {
@@ -11,7 +11,7 @@ module.exports = function(grunt) {
           sourcemap: 'none'
         },
         files: {
-          'css/styles.css': 'sass/styles.scss'
+          'public/css/styles.css': 'sass/styles.scss'
         }
       }
     },
@@ -22,7 +22,7 @@ module.exports = function(grunt) {
       },
     },
     jsbeautifier: {
-      files: '<%= files.js %>',
+      files: ['public/js/**/*.js', '*.js', 'sass/**/*.scss'],
       options: {
         js: {
           indentChar: ' ',
@@ -32,7 +32,30 @@ module.exports = function(grunt) {
           fileTypes: ['.scss'],
           indentChar: ' ',
           indentSize: 2,
+          wrapLineLength: 100,
         }
+      }
+    },
+    uglify: {
+      build: {
+        files: [{
+          expand: true,
+          cwd: 'public/js',
+          src: ['*.js', '!*.min.js'],
+          dest: 'public/js',
+          ext: '.min.js',
+        }]
+      }
+    },
+    cssmin: {
+      target: {
+        files: [{
+          expand: true,
+          cwd: 'public/css',
+          src: ['*.css', '!*.min.css'],
+          dest: 'public/css',
+          ext: '.min.css'
+        }]
       }
     },
     watch: {
@@ -42,7 +65,7 @@ module.exports = function(grunt) {
       },
       js: {
         files: '<%= files.js %>',
-        tasks: ['jshint', 'jsbeautifier'],
+        tasks: ['jsbeautifier', 'jshint'],
       }
     }
   });
@@ -50,8 +73,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-jsbeautifier');
-  //Specify an output folder for minified files
-  //grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
 
-  grunt.registerTask('default', ['jshint', 'jsbeautifier', 'sass']);
+  grunt.registerTask('default', ['jsbeautifier', 'jshint', 'sass', 'uglify', 'cssmin']);
 };
