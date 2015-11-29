@@ -1,0 +1,23 @@
+{
+  "name": "breakout-frontend",
+  "homepage": "https://github.com/BreakOutEvent/breakout-frontend",
+  "authors": [
+    "TomBrand <thommy1988@gmail.com>"
+  ],
+  "description": "",
+  "main": "index.html",
+  "moduleType": [
+    "globals"
+  ],
+  "license": "GPL-3.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass": "~3.3.6"
+  }
+}
