@@ -8,7 +8,7 @@ module.exports = function(grunt) {
     sass: {
       dist: {
         options: {
-          sourcemap: 'none'
+          sourceMap: 'none'
         },
         files: {
           'public/css/styles.css': 'sass/styles.scss'
@@ -69,7 +69,7 @@ module.exports = function(grunt) {
       }
     }
   });
-  grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-jsbeautifier');
