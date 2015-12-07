@@ -58,6 +58,21 @@ module.exports = function(grunt) {
         }]
       }
     },
+    eol: { // Task
+      target: {
+        options: {
+          eol: 'lf',
+          replace: true
+        },
+        files: {
+          src: [
+            'public/*',
+            'public/css/*',
+            'public/js/*'
+          ]
+        }
+      }
+    },
     watch: {
       css: {
         files: ['sass/**/*.scss'],
@@ -75,6 +90,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-jsbeautifier');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-eol');
 
-  grunt.registerTask('default', ['jsbeautifier', 'jshint', 'sass', 'uglify', 'cssmin']);
+  grunt.registerTask('default', ['jsbeautifier', 'jshint', 'sass', 'uglify', 'cssmin',
+    'eol'
+  ]);
 };
