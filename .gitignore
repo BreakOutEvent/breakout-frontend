@@ -29,3 +29,6 @@ bower_components
 
 # Caching files
 .sass-cache
+
+# WebStorm Folder
+.idea
