@@ -32,3 +32,6 @@ bower_components
 
 # WebStorm Folder
 .idea
+
+# Some random grunt file
+none

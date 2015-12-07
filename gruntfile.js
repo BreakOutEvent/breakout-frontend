@@ -3,12 +3,12 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     files: {
-      js: ['public/js/**/*.js', '*.js'],
+      js: ['public/js/**/*.js', '*.js']
     },
     sass: {
       dist: {
         options: {
-          sourceMap: 'none'
+          sourceMap: false
         },
         files: {
           'public/css/styles.css': 'sass/styles.scss'
@@ -18,21 +18,21 @@ module.exports = function(grunt) {
     jshint: {
       files: '<%= files.js %>',
       options: {
-        jshintrc: true,
-      },
+        jshintrc: true
+      }
     },
     jsbeautifier: {
       files: ['public/js/**/*.js', '*.js', 'sass/**/*.scss'],
       options: {
         js: {
           indentChar: ' ',
-          indentSize: 2,
+          indentSize: 2
         },
         css: {
           fileTypes: ['.scss'],
           indentChar: ' ',
           indentSize: 2,
-          wrapLineLength: 100,
+          wrapLineLength: 100
         }
       }
     },
@@ -43,7 +43,7 @@ module.exports = function(grunt) {
           cwd: 'public/js',
           src: ['*.js', '!*.min.js'],
           dest: 'public/js',
-          ext: '.min.js',
+          ext: '.min.js'
         }]
       }
     },
@@ -61,11 +61,11 @@ module.exports = function(grunt) {
     watch: {
       css: {
         files: ['sass/**/*.scss'],
-        tasks: ['sass'],
+        tasks: ['sass']
       },
       js: {
         files: '<%= files.js %>',
-        tasks: ['jsbeautifier', 'jshint'],
+        tasks: ['jsbeautifier', 'jshint']
       }
     }
   });
