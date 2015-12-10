@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/BreakOutEvent/breakout-frontend.git"
   },
-  "author": "TomBrand <thommy1988@gmail.com>",
+  "author": "BreakOut <admin@break-out.org>",
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/BreakOutEvent/breakout-frontend/issues"
@@ -18,7 +18,9 @@
   "homepage": "https://github.com/BreakOutEvent/breakout-frontend#readme",
   "dependencies": {
     "bower": "^1.6.8",
-    "express": "^4.13.3"
+    "express": "^4.13.3",
+    "request": "^2.67.0",
+    "handlebars": "^4.0.5"
   },
   "devDependencies": {
     "grunt": "^0.4.5",

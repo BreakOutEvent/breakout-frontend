@@ -1,5 +1,7 @@
 'use strict';
 var express = require('express');
+var request = require('request');
+var handlebars = require('handlebars');
 var app = express();
 
 app.use(express.static(__dirname + '/public/'));
