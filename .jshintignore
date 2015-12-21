@@ -1,0 +1,2 @@
+//Ignore minified files
+public/js/*.min.js
