@@ -29,3 +29,12 @@ bower_components
 
 # Caching files
 .sass-cache
+
+# WebStorm Folder
+.idea
+
+# Some random grunt file
+none
+
+# All configuration files
+config/*

@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/BreakOutEvent/breakout-frontend.git"
   },
-  "author": "TomBrand <thommy1988@gmail.com>",
+  "author": "BreakOut <admin@break-out.org>",
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/BreakOutEvent/breakout-frontend/issues"
@@ -18,14 +18,19 @@
   "homepage": "https://github.com/BreakOutEvent/breakout-frontend#readme",
   "dependencies": {
     "bower": "^1.6.8",
-    "express": "^4.13.3"
+    "express": "^4.13.3",
+    "handlebars": "^4.0.5",
+    "mongoose": "^4.3.3",
+    "request": "^2.67.0"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
+    "grunt-contrib-cssmin": "^0.14.0",
     "grunt-contrib-jshint": "^0.11.3",
-    "grunt-contrib-sass": "^0.9.2",
     "grunt-contrib-uglify": "^0.11.0",
     "grunt-contrib-watch": "^0.6.1",
-    "grunt-jsbeautifier": "^0.2.10"
+    "grunt-eol": "^0.2.0",
+    "grunt-jsbeautifier": "^0.2.10",
+    "grunt-sass": "^1.1.0"
   }
 }
