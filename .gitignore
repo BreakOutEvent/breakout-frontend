@@ -35,3 +35,6 @@ bower_components
 
 # Some random grunt file
 none
+
+# All configuration files
+config/*
