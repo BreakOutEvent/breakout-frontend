@@ -2,6 +2,7 @@
 var express = require('express');
 var request = require('request');
 var mongoose = require('./controller/mongo.js');
+var proxy = require('./controller/templateProxy.js');
 mongoose.con();
 
 var app = express();
@@ -47,6 +48,8 @@ app.get('/', function (req, res) {
       console.log(templates);
     }
   });
+
+
 
   res.send("DONE");
 
