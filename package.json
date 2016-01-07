@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/BreakOutEvent/breakout-frontend#readme",
   "dependencies": {
+    "bootstrap-sass": "^3.3.6",
     "bower": "^1.6.8",
     "express": "^4.13.3",
     "handlebars": "^4.0.5",

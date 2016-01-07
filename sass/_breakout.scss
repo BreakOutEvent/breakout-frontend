@@ -2,7 +2,49 @@ body {
   padding-top: 50px;
 }
 
-.info-highlight {
-  padding: 40px 15px;
-  text-align: center;
+.ba-highlight-container {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.ba-highlight-container2 {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-image: url("../img/header2.jpg");
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center center;
+  blockquote {
+    color: #fff;
+    font-size: $font-size-large;
+    text-align: center;
+    border-width: 0px;
+    footer {
+      color: #fff;
+    }
+  }
+}
+
+.ba-img-circle {
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  background-color: $gray-light;
+  //@include center-block();
+}
+
+.ba-teaser {
+  margin-left: 90px;
+}
+
+.ba-header {
+  box-shadow: 0 1px 1px $gray-dark;
+}
+
+.ba-footer {
+  padding-top: 20px;
+  margin-top: 10px;
+  background-color: $gray-base;
+  color: $gray-light;
+  text-size: $font-size-small;
 }

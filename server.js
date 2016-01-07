@@ -1,7 +1,7 @@
 'use strict';
 var express = require('express');
-var request = require('request');
-var handlebars = require('handlebars');
+var request = require('request'); //jshint ignore:line
+var handlebars = require('handlebars'); //jshint ignore:line
 var mongoose = require('./controller/mongo.js');
 mongoose.con();
 
@@ -9,7 +9,7 @@ var app = express();
 
 //app.use(express.static(__dirname + '/public/'));
 
-var server = app.listen(3000, function () {
+var server = app.listen(3000, function() {
   var host = server.address().address;
   var port = server.address().port;
 
@@ -19,7 +19,7 @@ var server = app.listen(3000, function () {
 //MONGOTEST
 
 
-app.get('/', function (req, res) {
+app.get('/', function(req, res) {
   var templateSchema = require('./schemas/template.js');
 
   var Template = mongoose.model('template', templateSchema);
@@ -41,7 +41,9 @@ app.get('/', function (req, res) {
    });
    */
 
-  Template.find({'title': 'Index'}).exec(function (err, templates) {
+  Template.find({
+    'title': 'Index'
+  }).exec(function(err, templates) {
     if (err) {
       console.log(err);
     } else {
@@ -49,7 +51,7 @@ app.get('/', function (req, res) {
     }
   });
 
-  res.send("DONE");
+  res.send('DONE');
 
 });
 
