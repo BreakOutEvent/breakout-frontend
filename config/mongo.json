@@ -1,7 +1,7 @@
 {
-  "user":"admin",
-  "password":"okNKsNExBre9y6Yy",
-  "url":"ds033285.mongolab.com",
-  "port":"33285",
-  "db":"breakout"
+  "user":"user",
+  "password":"password",
+  "url":"url",
+  "port":"12345",
+  "db":"database"
 }
