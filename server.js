@@ -1,13 +1,23 @@
 'use strict';
 var express = require('express');
 var request = require('request');
-var mongoose = require('./controller/mongo.js');
-var proxy = require('./controller/templateProxy.js');
-mongoose.con();
+var exphbs  = require('express-handlebars');
+var path = require('path');
 
 var app = express();
 
-//app.use(express.static(__dirname + '/public/'));
+app.use(express.static(path.join(__dirname, 'public')));
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+
+// handlebars is now default engine
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
+
+// Sets routes
+app.use('/', require('./routes/main'));
+app.use('/admin', require('./routes/admin'));
 
 var server = app.listen(3000, function () {
   var host = server.address().address;
@@ -16,43 +26,11 @@ var server = app.listen(3000, function () {
   console.log('Listening at http://%s:%s', host, port);
 });
 
-//MONGOTEST
-
-
-app.get('/', function (req, res) {
-  var templateSchema = require('./schemas/template.js');
-
-  var Template = mongoose.model('template', templateSchema);
-  /*
-   Template.create({
-   title: "Index",
-   vars: [{
-   title: "Headline",
-   description: "Enter the Headline here.",
-   contentType: mongoose.constants.TEXT,
-   contentMaxLength: 20
-   }]
-   }, function(err, templ) {
-   if(err) {
-   console.log(err);
-   } else {
-   console.log(templ);
-   }
-   });
-   */
-
-  Template.find({'title': 'Index'}).exec(function (err, templates) {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log(templates);
-    }
+// Displays any errors
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  res.render('error', {
+    message: err.message,
+    error: err
   });
-
-
-
-  res.send("DONE");
-
 });
-
-//MONGOTESTEND
