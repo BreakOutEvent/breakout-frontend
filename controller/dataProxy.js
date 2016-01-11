@@ -23,7 +23,7 @@ dataLayer.readRenderedFile = function(folder,id) {
 
 dataLayer.readTemplateFile = function(folder,id) {
 
-  return fs.readFileSync(__dirname + '/templates/' + folder + '/' + id + '.hbs');
+  return fs.readFileSync(__dirname + '/templates/' + folder + '/' + id + '.handlebars');
 
 };
 
