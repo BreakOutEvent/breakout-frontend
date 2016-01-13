@@ -6,4 +6,7 @@ Renders / (/admin/)
 
 <div class="container">
     <h1>Home</h1>
+    {{#if success}}
+        <div class="alert alert-success">{{success}}</div>
+    {{/if}}
 </div>
