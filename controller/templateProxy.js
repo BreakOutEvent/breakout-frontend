@@ -4,9 +4,9 @@ var handlebars = require('handlebars');
 var fs = require('fs');
 
 //Define Models
-var Page = mongoose.model('page', require('../schemes/page.js'));
-var View = mongoose.model('view', require('../schemes/view.js'));
-var Template = mongoose.model('template', require('../schemes/template.js'));
+var Page = mongoose.model('page', require('../schemas/page.js'));
+var View = mongoose.model('view', require('../schemas/view.js'));
+var Template = mongoose.model('template', require('../schemas/template.js'));
 
 //Define empty object
 var proxy = {};

@@ -12,7 +12,7 @@ var router = express.Router();
 
 
 router.get('/', function (req, res) {
-    var templateSchema = require('../schemes/template.js');
+    var templateSchema = require('../schemas/template.js');
 
     var Template = mongoose.model('template', templateSchema);
     /*

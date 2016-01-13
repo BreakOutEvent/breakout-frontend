@@ -22,7 +22,8 @@
     "handlebars": "^4.0.5",
     "express-handlebars": "^2.0.1",
     "mongoose": "^4.3.3",
-    "request": "^2.67.0"
+    "request": "^2.67.0",
+    "handlebars-helper-equal": "^1.0.0"
   },
   "devDependencies": {
     "grunt": "^0.4.5",

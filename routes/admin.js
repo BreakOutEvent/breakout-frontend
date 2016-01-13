@@ -9,7 +9,30 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    res.render('home', {layout: 'admin', title: 'Express'});
+    res.render('admin/home',
+        {
+            layout: 'admin',
+            path: '/admin'
+        }
+    );
+});
+
+router.get('/about', function (req, res, next) {
+    res.render('admin/about',
+        {
+            layout: 'admin',
+            path: '/admin'
+        }
+    );
+});
+
+router.get('/contact', function (req, res, next) {
+    res.render('admin/contact',
+        {
+            layout: 'admin',
+            path: '/admin'
+        }
+    );
 });
 
 module.exports = router;
