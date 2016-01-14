@@ -19,21 +19,15 @@ var User = mongoose.model('User', require('./schemas/user.js'));
 // will be set at `req.user` in route handlers after authentication.
 passport.use(new Strategy(
     function (username, password, cb) {
-        User.findByUsername(username, function (err, user) {
-            if (err) {
-                return cb(err);
-            }
-            if (!user) {
-                return cb(null, false, {message: 'User does not exist!'});
-            }
-            user.validatePassword(password, function (err, matches) {
-                if (!matches)
-                    return cb(null, false, {message: 'Username/password do not match'});
-                else
-                    return cb(null, user, {message: 'Successfully logged in'});
-            });
-        });
-    }));
+        User.findByUsername(username)
+            .then(function (user) {
+                user.validatePassword(password)
+                    .then(function () { cb(null, user, {message: 'Successfully logged in'}) })
+                    .catch(function () { cb(null, false, {message: 'The provided password is invalid'}) });
+            })
+            .catch(function () { cb(null, false, {message: 'User does not exist'}) })
+    }
+));
 
 // create new user
 // var testUser = new User();
@@ -55,12 +49,9 @@ passport.serializeUser(function (user, cb) {
 });
 
 passport.deserializeUser(function (id, cb) {
-    User.findById(id, function (err, user) {
-        if (err) {
-            return cb(err);
-        }
-        cb(null, user);
-    })
+    User.findById(id)
+        .then(function (user) { cb(null, user) })
+        .catch(function (err) { cb(err) });
 });
 
 

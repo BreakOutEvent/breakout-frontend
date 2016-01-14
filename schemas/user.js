@@ -1,3 +1,5 @@
+'use strict';
+
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
 
@@ -39,36 +41,51 @@ UserSchema.pre('save', function (next) {
     });
 });
 
-UserSchema.methods.validatePassword = function (password, cb) {
-    bcrypt.compare(password, this.password, function (err, match) {
-        if (err)
-            cb(err);
+UserSchema.methods.validatePassword = function (password) {
+    var currentUser = this;
 
-        cb(null, match);
+    return new Promise(function (resolve, reject) {
+        bcrypt.compare(password, currentUser.password, function (err, match) {
+            if (err)
+                throw err;
+
+            if (match)
+                resolve();
+            else
+                reject();
+        });
     });
 };
 
-UserSchema.statics.findById = function (id, cb) {
-    this.findOne({ '_id': id}, function(err, user){
-        if(err)
-            cb(err);
+UserSchema.statics.findById = function (id) {
+    var userSchema = this;
 
-        if(user)
-            cb(null, user);
-        else
-            cb(new Error('User ' + id + ' does not exist'));
+    return new Promise(function (resolve, reject) {
+        userSchema.findOne({'_id': id}, function (err, user) {
+            if (err)
+                throw err;
+
+            if (user)
+                resolve(user);
+            else
+                reject(new Error('User ' + id + ' does not exist'));
+        });
     });
 };
 
-UserSchema.statics.findByUsername = function (username, cb) {
-    this.findOne({'username': username}, function (err, user) {
-        if (err)
-            return cb(err);
+UserSchema.statics.findByUsername = function (username) {
+    var userSchema = this;
 
-        if (!user)
-            return cb(null, null);
+    return new Promise(function (resolve, reject) {
+        userSchema.findOne({'username': username}, function (err, user) {
+            if (err)
+                throw err;
 
-        cb(err, user);
+            if (user)
+                resolve(user);
+            else
+                reject();
+        });
     });
 };
 
