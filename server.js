@@ -5,7 +5,11 @@ var exphbs = require('express-handlebars');
 var path = require('path');
 var passport = require('passport');
 var Strategy = require('passport-local').Strategy;
-var db = require('./schemas/user');
+// var User = require('./schemas/user');
+var mongoose = require('mongoose');
+
+// models
+var User = mongoose.model('User', require('./schemas/user.js'));
 
 // Configure the local strategy for use by Passport.
 //
@@ -15,20 +19,29 @@ var db = require('./schemas/user');
 // will be set at `req.user` in route handlers after authentication.
 passport.use(new Strategy(
     function (username, password, cb) {
-        db.findByUsername(username, function (err, user) {
+        User.findByUsername(username, function (err, user) {
             if (err) {
                 return cb(err);
             }
             if (!user) {
                 return cb(null, false, {message: 'User does not exist!'});
             }
-            if (user.password != password) {
-                return cb(null, false, {message: 'Username/password do not match'});
-            }
-            return cb(null, user, {message: 'Successfully logged in'});
+            user.validatePassword(password, function (err, matches) {
+                if (!matches)
+                    return cb(null, false, {message: 'Username/password do not match'});
+                else
+                    return cb(null, user, {message: 'Successfully logged in'});
+            });
         });
     }));
 
+// create new user
+// var testUser = new User();
+// testUser.username = "jack";
+// testUser.password = "secret";
+// testUser.displayName = "Jack";
+// testUser.emails = [ 'jack@example.com' ];
+// testUser.save(function(err){console.log(err);});
 
 // Configure Passport authenticated session persistence.
 //
@@ -38,11 +51,11 @@ passport.use(new Strategy(
 // serializing, and querying the user record by ID from the database when
 // deserializing.
 passport.serializeUser(function (user, cb) {
-    cb(null, user.id);
+    cb(null, user._id);
 });
 
 passport.deserializeUser(function (id, cb) {
-    db.findById(id, function (err, user) {
+    User.findById(id, function (err, user) {
         if (err) {
             return cb(err);
         }

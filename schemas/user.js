@@ -1,27 +1,75 @@
-var records = [
-    { id: 1, username: 'jack', password: 'secret', displayName: 'Jack', emails: [ { value: 'jack@example.com' } ] }
-    , { id: 2, username: 'jill', password: 'birthday', displayName: 'Jill', emails: [ { value: 'jill@example.com' } ] }
-];
+var mongoose = require('mongoose');
+var bcrypt = require('bcryptjs');
 
-exports.findById = function(id, cb) {
-    process.nextTick(function() {
-        var idx = id - 1;
-        if (records[idx]) {
-            cb(null, records[idx]);
-        } else {
-            cb(new Error('User ' + id + ' does not exist'));
+var UserSchema = new mongoose.Schema({
+    username: {type: String, required: true, index: {unique: true}},
+    password: {type: String, required: true},
+    salt: {type: String},
+    emails: [{type: String, required: true}],
+    displayName: {type: String}
+});
+
+UserSchema.pre('save', function (next) {
+    var currentUser = this;
+
+    // if the password has no changes, there is no need to recalculate the hash
+    if (!currentUser.isModified('password'))
+        return next();
+
+    // 10 = brypt salt work factor
+    // generate a new salt
+    bcrypt.genSalt(10, function (err, salt) {
+        if (err) {
+            console.log(err);
+            return next();
         }
-    });
-}
 
-exports.findByUsername = function(username, cb) {
-    process.nextTick(function() {
-        for (var i = 0, len = records.length; i < len; i++) {
-            var record = records[i];
-            if (record.username === username) {
-                return cb(null, record);
+        // hash the new password with the new salt
+        bcrypt.hash(currentUser.password, salt, function (err, hash) {
+            if (err) {
+                console.log(err);
+                return next();
             }
-        }
-        return cb(null, null);
+
+            // save the new password hash and salt
+            currentUser.password = hash;
+            currentUser.salt = salt;
+            next();
+        });
     });
-}
+});
+
+UserSchema.methods.validatePassword = function (password, cb) {
+    bcrypt.compare(password, this.password, function (err, match) {
+        if (err)
+            cb(err);
+
+        cb(null, match);
+    });
+};
+
+UserSchema.statics.findById = function (id, cb) {
+    this.findOne({ '_id': id}, function(err, user){
+        if(err)
+            cb(err);
+
+        if(user)
+            cb(null, user);
+        else
+            cb(new Error('User ' + id + ' does not exist'));
+    });
+};
+
+UserSchema.statics.findByUsername = function (username, cb) {
+    this.findOne({'username': username}, function (err, user) {
+        if (err)
+            return cb(err);
+
+        if (!user)
+            return cb(null, null);
+
+        cb(err, user);
+    });
+};
+
+module.exports = UserSchema;
