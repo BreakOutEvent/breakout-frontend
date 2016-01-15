@@ -40,9 +40,9 @@ proxy.getPage = function (pageID, cb) {
 
   if(pages.length > 0) {
     //Found some pages with the correct IDs
-    pages.sort();
+    //pages.sort();
 
-    cb(data.readRenderedFile('page',pages[0]));
+    cb(data.readRenderedFile('page',pageID));
 
   } else {
     //Nothing found just render it
@@ -64,9 +64,9 @@ proxy.getView = function (viewID, cb) {
 
   if(views.length > 0) {
     //Found some pages with the correct IDs
-    views.sort();
+    //views.sort();
 
-    cb(data.readRenderedFile('view',views[0]));
+    cb(data.readRenderedFile('view',viewID));
 
 
   } else {
