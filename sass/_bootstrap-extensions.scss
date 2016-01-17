@@ -6,3 +6,15 @@ hr {
   margin: 1em 0;
   padding: 0;
 }
+
+.vertical-center {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+}
+
+a .fa {
+  text-decoration: none;
+  text-shadow: none;
+  // color: $gray-base;
+}

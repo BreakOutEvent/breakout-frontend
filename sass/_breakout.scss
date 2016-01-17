@@ -14,22 +14,44 @@ body {
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-position: center center;
+  color: #fff;
+  text-shadow: 2px 2px $gray-dark;
   blockquote {
-    color: #fff;
     font-size: $font-size-large;
     text-align: center;
+    text-shadow: 2px 2px $gray-dark;
     border-width: 0px;
     footer {
       color: #fff;
     }
   }
+  a {
+    color: #fff;
+  }
+}
+
+.ba-news-teaser {
+  h3 {
+    background-color: $brand-primary;
+    border-radius: $border-radius-base $border-radius-base 0 0;
+    border-color: $brand-primary;
+    color: #fff;
+    padding: 5px 0 5px 5px;
+  }
+  .ba-news-teaser-content {
+    border-color: $gray-base;
+    border-width: 1px;
+  }
 }
 
 .ba-img-circle {
   border-radius: 50%;
+  border-color: $brand-primary;
+  border-style: solid;
+  color: $brand-primary;
   width: 80px;
   height: 80px;
-  background-color: $gray-light;
+  //background-color: $gray-light;
   //@include center-block();
 }
 
