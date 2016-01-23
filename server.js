@@ -2,7 +2,7 @@
 var express = require('express');
 var request = require('request');
 var mongoose = require('./controller/mongo.js');
-var proxy = require('./controller/templateProxy.js');
+var reader = require('./controller/templateReader.js');
 mongoose.con();
 
 var app = express();
@@ -21,9 +21,9 @@ var server = app.listen(3000, function () {
 
 app.get('/', function (req, res) {
   var templateSchema = require('./schemas/template.js');
-
-  var Template = mongoose.model('template', templateSchema);
   /*
+  var Template = mongoose.model('template', templateSchema);
+
    Template.create({
    title: "Index",
    vars: [{
@@ -39,7 +39,7 @@ app.get('/', function (req, res) {
    console.log(templ);
    }
    });
-   */
+
 
   Template.find({'title': 'Index'}).exec(function (err, templates) {
     if (err) {
@@ -48,8 +48,9 @@ app.get('/', function (req, res) {
       console.log(templates);
     }
   });
+   */
 
-
+  reader.init();
 
   res.send("DONE");
 
