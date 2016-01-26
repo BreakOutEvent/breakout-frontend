@@ -72,25 +72,10 @@ readTemplates.parseTemplate = function (fileContent) {
           } else {
             //Cloud be just a helper or each / if
             if (!text) {
-              //Well it contains no text, so we have to search for the {{}} somewhere else
+              //Well it contains no text, so we have to search for the {{}} in the attributes
+              var attributes = checkAttributesForHandlebars(htmlNode.attrs);
 
-              var success = false;
-
-              for (var i = 0; i < htmlNode.attrs.length; i++) {
-                //regex every attribute value
-                variableName = htmlNode.attrs[i].value.match(/{{.*}}/);
-                if(variableName) {
-                  success = true;
-                  //Found a variable
-                  variables[variableName[1]] = attrs;
-
-                  //Keep it running, maybe we find some more.
-                }
-              }
-
-              if(success) {
-                searchAllChilds(htmlNode.childNodes, variables);
-              }
+              //TODO use the attributes to fill the variables
 
             } else if (text.search('#') == -1) {
               //Okay not each / if as they start with a #
@@ -101,15 +86,19 @@ readTemplates.parseTemplate = function (fileContent) {
 
             } else if (text.search('#') > 0) {
               //Each / if ....
-
+              //TODO handle if / each, should be done by some block detection
             } else {
-
+              //TODO handle this case
             }
           }
+        } else {
+          //TODO Check other nodes for text and for handlebars
+
         }
 
 
       } else {
+        //TODO what happens if its not a valid html from the beginning?
         //No data-bo attributes, just continue as normal
         searchAllChilds(htmlNode.childNodes, variables);
       }
@@ -123,6 +112,8 @@ readTemplates.parseTemplate = function (fileContent) {
       if (variableName && Object.keys(attrs).length) {
         variables[variableName[1]] = attrs;
       }
+
+      //TODO iterate over childs
     }
   }
 
@@ -132,6 +123,24 @@ readTemplates.parseTemplate = function (fileContent) {
         parseNodeRecursive(nodes[i], variables);
       }
     }
+  }
+
+  function checkAttributesForHandlebars(attrs) {
+
+    var returnvalue = {};
+
+    for (var i = 0; i < attrs.length; i++) {
+      //regex every attribute value
+      var variableName = attrs[i].value.match(/{{.*}}/);
+      if(variableName) {
+        //Found a variable
+        returnvalue[attrs[i].name] = variableName[1];
+
+        //Keep it running, maybe we find some more.
+      }
+    }
+
+    return returnvalue;
   }
 
   function parseText(text) {
