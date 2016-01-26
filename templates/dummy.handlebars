@@ -2,10 +2,15 @@
     <h1 class="bo-input" data-bo-name="headline" data-bo-type="text">{{headline}}</h1>
     <p class="bo-input" data-bo-name="text" data-bo-type="text">{{text}}</p>
     <p class="bo-input" data-bo-name="text2" data-bo-type="text">{{text2}}</p>
+    <img data-bo-name="text2" data-bo-type="text" src="{{img0}}">
 
-    <ul class="bo-input" data-bo-type="list" data-bo-length="3">
-        <li class="bo-input" data-bo-list-index="0" data-bo-name="img"><img src="{{img0}}"></li>
-        <li class="bo-input" data-bo-list-index="1" data-bo-name="img"><img src="{{img1}}"></li>
-        <li class="bo-input" data-bo-list-index="2" data-bo-name="img"><img src="{{img2}}"></li>
-    </ul>
+    <div class="bo-img" data-bo-type="array">
+        {{#each img}}
+            <img data-bo-name="text2" data-bo-type="text" src="{{url}}">
+        {{/each}}
+    </div>
+
+    {{#if testargument}}
+        <div class="bo-img" data-bo-type="text">{{asdf}}</div>
+    {{/if}}
 </div>
