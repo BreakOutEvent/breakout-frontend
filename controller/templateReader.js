@@ -75,6 +75,11 @@ readTemplates.parseTemplate = function (fileContent) {
               //Well it contains no text, so we have to search for the {{}} in the attributes
               var attributes = checkAttributesForHandlebars(htmlNode.attrs);
 
+              attributes.forEach(function(attribute) {
+                variables[attribute.value] = attrs;
+              });
+
+
               //TODO use the attributes to fill the variables
 
             } else if (text.search('#') == -1) {
@@ -127,15 +132,14 @@ readTemplates.parseTemplate = function (fileContent) {
 
   function checkAttributesForHandlebars(attrs) {
 
-    var returnvalue = {};
+    var returnvalue = [];
 
     for (var i = 0; i < attrs.length; i++) {
       //regex every attribute value
-      var variableName = attrs[i].value.match(/{{.*}}/);
+      var variableName = parseText(attrs[i].value);
       if(variableName) {
         //Found a variable
-        returnvalue[attrs[i].name] = variableName[1];
-
+        returnvalue.push({"name":attrs[i].name, "value":variableName});
         //Keep it running, maybe we find some more.
       }
     }
