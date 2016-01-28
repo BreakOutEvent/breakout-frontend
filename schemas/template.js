@@ -1,8 +1,9 @@
 var mongoose = require('mongoose');
 
 module.exports =  new mongoose.Schema({
-  title: {type: String, required: true},
+  name: {type: String, required: true},
   vars: [{
+    name: String,
     title: String,
     description: String,
     contentType: String,

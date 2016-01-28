@@ -12,7 +12,8 @@ var Template = mongoose.model('page', require('../schemas/template.js'));
 
 //Globals
 var config = {
-  templatePath: path.normalize(__dirname + "/../templates/")
+  templatePath: path.normalize(__dirname + "/../templates/"),
+  defaultType: "text"
 };
 var readTemplates = {};
 
@@ -22,10 +23,10 @@ readTemplates.init = function () {
   console.log(config.templatePath);
   var filelist = readTemplates.readFromFolder(config.templatePath);
   console.log(filelist);
-  filelist.forEach(function (file) {
+  filelist.forEach(function (filename) {
     //Load File?
-    var fileContent = fs.readFileSync(config.templatePath + file, {encoding: 'utf8'});
-    readTemplates.parseTemplate(fileContent);
+    var fileContent = fs.readFileSync(config.templatePath + filename, {encoding: 'utf8'});
+    readTemplates.parseTemplate(filename, fileContent);
   });
 };
 
@@ -33,92 +34,122 @@ readTemplates.readFromFolder = function (path) {
   return fs.readdirSync(path) || [];
 };
 
-readTemplates.parseTemplate = function (fileContent) {
+readTemplates.parseTemplate = function (filename, fileContent) {
 
-  if (fileContent.search(/{{.*}}/) === -1) {
-    return;
+  var variables = fileContent.match(/{{([a-zA-Z0-1#\/\s]*)}}/g) || [];
+  try {
+    var config = JSON.parse(fileContent.match(/<!--((?:\n|.)*)-->/)[1]);
+  } catch (e) {
+    throw "Could not parse config in file " + filename + "! Maybe invalid JSON?\n Error: " + e;
   }
 
-  var htmlObj = parse5.parse(fileContent).childNodes[0].childNodes[1].childNodes[0]; //html --> body --> goal element
-  var variables = {};
+  var hasVariables = !!variables.length;
+  var hasConfig = !!Object.keys(config).length;
 
-  parseNodeRecursive(htmlObj, variables);
+  var localTemplate = new Template({
+    title: path.basename(filename),
+    vars: []
+  });
 
-  function parseNodeRecursive(htmlNode, variables) {
-    var attrs = {}, variableName = "";
-    var val = htmlNode.value ? htmlNode.value.trim() : "noting";
-    console.log(htmlNode.nodeName, val);
+  if (hasConfig) {
+    //Best Case
+    //Overwrite prefilled information with values from config
+    if (config.hasOwnProperty('title')) {
+      localTemplate.title = config.title;
+    }
 
-    if (htmlNode.nodeName !== '#text') {
-      //For all normal nodes
-      attrs = analyseAttrs(htmlNode.attrs);
-      if (Object.keys(attrs).length > 0) {
-        //Okay it has data-bo attrs, which suggests that there is some handlebars tag somewhere
+    if (config.hasOwnProperty('name')) {
+      localTemplate.name = config.name;
+    }
 
-        //Check if the first child node exists and is a text
-        if (htmlNode.childNodes[0] && htmlNode.childNodes[0].nodeName === '#text') {
-          var text = parseText(htmlNode.childNodes[0].value);
+    //Validate config vs content
+    var mismatches = [];
+    if (config.hasOwnProperty('vars')) {
+      mismatches = checkMisMatch(config.vars, variables);
+    } else {
+      mismatches = checkMisMatch({}, variables);
+    }
 
-          //If it contains a space, its very likely to be a special shit
-          if (text && text.search(" ") == -1 && text.search("#") == -1) {
-            //normal variable, phew!
 
-            //Add variable to global constant
-            variables[text] = attrs;
+  } else if (!hasVariables && hasConfig) {
+    //Probably only general information
 
-            //Remove the text element from the array
-            searchAllChilds(htmlNode.childNodes.shift(), variables);
 
+  } else if (hasVariables && !hasConfig) {
+    //Warn about unusual situation
+    console.warn("Found variables but no config in file " + filename);
+
+    //TODO fill everything with default information
+  } else {
+    //No Config & No Variables
+    return localTemplate;
+  }
+
+  function checkMisMatch(configVars, contentVars) {
+
+    var sanContentVars = analyseContentVars(contentVars);
+
+  }
+
+  function analyseContentVars(contentVars) {
+
+    //Sanitize Input
+    for (var i = 0; i < contentVars.length; i++) {
+      contentVars[i] = contentVars[i].match(/{{(.*)}}/)[1];
+    }
+
+    var finalContentVars = {};
+
+    readVariable(finalContentVars, contentVars);
+
+    return finalContentVars;
+
+    for (var j = 0; j < contentVars.length; j++) {
+      var contentVar = contentVars[j];
+
+    }
+  }
+
+  function readVariable(finalContentVars, contentVars) {
+    //Read first element
+    var contentVar = contentVars[0];
+    //Remove first element
+    contentVars.shift();
+
+    //Special variable?
+    if (contentVar.charAt(0) === '#') {
+      if (contentVar.substring(1, 5) === 'each') {
+        //Get actual variable
+        var words = contentVar.split(' ');
+        //Check what else is contained in #each
+
+
+        //TODO rewrite it to be recursive... (issue: no hierarchy exists)
+
+
+        for (var x = j; x < contentVars.length; x++) {
+          if (contentVars[x].search(/^\/each/)) {
+            j = ++x;
+            break;
           } else {
-            //Cloud be just a helper or each / if
-            if (!text) {
-              //Well it contains no text, so we have to search for the {{}} in the attributes
-              var attributes = checkAttributesForHandlebars(htmlNode.attrs);
 
-              attributes.forEach(function(attribute) {
-                variables[attribute.value] = attrs;
-              });
-
-
-              //TODO use the attributes to fill the variables
-
-            } else if (text.search('#') == -1) {
-              //Okay not each / if as they start with a #
-              var words = text.split(' ');
-              //So the interesting part will be always the last word, as this is the variable
-              variables[words[words.length - 1]] = attrs;
-              searchAllChilds(htmlNode.childNodes.shift(), variables);
-
-            } else if (text.search('#') > 0) {
-              //Each / if ....
-              //TODO handle if / each, should be done by some block detection
+            //Check potential error in template
+            if (x == contentVars.length - 1) {
+              throw "A #each has not been closed...";
             } else {
-              //TODO handle this case
+              x++;
             }
           }
-        } else {
-          //TODO Check other nodes for text and for handlebars
-
         }
 
+        finalContentVars[words[words.length - 1]] = {};
+
+
+      } else if (contentVar.substring(1, 3) === 'if') {
 
       } else {
-        //TODO what happens if its not a valid html from the beginning?
-        //No data-bo attributes, just continue as normal
-        searchAllChilds(htmlNode.childNodes, variables);
+        //Handle Fail
       }
-
-    } else {
-      //A single textnode
-
-      attrs = analyseAttrs(htmlNode.parentNode.attrs);
-      variableName = parseText(htmlNode.value);
-
-      if (variableName && Object.keys(attrs).length) {
-        variables[variableName[1]] = attrs;
-      }
-
-      //TODO iterate over childs
     }
   }
 
@@ -137,9 +168,9 @@ readTemplates.parseTemplate = function (fileContent) {
     for (var i = 0; i < attrs.length; i++) {
       //regex every attribute value
       var variableName = parseText(attrs[i].value);
-      if(variableName) {
+      if (variableName) {
         //Found a variable
-        returnvalue.push({"name":attrs[i].name, "value":variableName});
+        returnvalue.push({"name": attrs[i].name, "value": variableName});
         //Keep it running, maybe we find some more.
       }
     }
@@ -149,7 +180,7 @@ readTemplates.parseTemplate = function (fileContent) {
 
   function parseText(text) {
     var variableName = text.match(/{{(.*)}}/);
-    if(variableName) {
+    if (variableName) {
       return variableName[1].trim();
     }
     return null;
