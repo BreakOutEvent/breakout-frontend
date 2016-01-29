@@ -69,8 +69,6 @@ readTemplates.parseTemplate = function (filename, fileContent) {
     } else {
       mismatches = checkMisMatch({}, variables);
     }
-
-
   } else if (!hasVariables && hasConfig) {
     //Probably only general information
 
@@ -87,7 +85,7 @@ readTemplates.parseTemplate = function (filename, fileContent) {
 
   function checkMisMatch(configVars, contentVars) {
 
-    var sanContentVars = analyseContentVars(contentVars);
+    console.log(analyseContentVars(contentVars));
 
   }
 
@@ -100,19 +98,18 @@ readTemplates.parseTemplate = function (filename, fileContent) {
 
     var finalContentVars = {};
 
-    readVariable(finalContentVars, contentVars);
+    while(contentVars.length > 0) {
+      var temp = readVariable(contentVars);
+      finalContentVars[temp.result.name] = temp.result;
+      contentVars = temp.remains;
+    }
 
     return finalContentVars;
-
-    for (var j = 0; j < contentVars.length; j++) {
-      var contentVar = contentVars[j];
-
-    }
   }
 
-  function readVariable(finalContentVars, contentVars) {
+  function readVariable(contentVars) {
     //Read first element
-    var contentVar = contentVars[0];
+    var contentVar = contentVars[0], res = {};
     //Remove first element
     contentVars.shift();
 
@@ -120,62 +117,63 @@ readTemplates.parseTemplate = function (filename, fileContent) {
     if (contentVar.charAt(0) === '#') {
       if (contentVar.substring(1, 5) === 'each') {
         //Get actual variable
-        var words = contentVar.split(' ');
-        //Check what else is contained in #each
-
-
-        //TODO rewrite it to be recursive... (issue: no hierarchy exists)
-
-
-        for (var x = j; x < contentVars.length; x++) {
-          if (contentVars[x].search(/^\/each/)) {
-            j = ++x;
-            break;
-          } else {
-
-            //Check potential error in template
-            if (x == contentVars.length - 1) {
-              throw "A #each has not been closed...";
-            } else {
-              x++;
-            }
-          }
-        }
-
-        finalContentVars[words[words.length - 1]] = {};
-
+        res.name = extractVarName(contentVar);
+        res.type = "array";
+        res.child = iterateOverChilds(contentVars, 'each');
 
       } else if (contentVar.substring(1, 3) === 'if') {
+        res.name = extractVarName(contentVar);
+        res.type = "bool";
+        res.child = iterateOverChilds(contentVars, 'if');
 
       } else {
-        //Handle Fail
+        throw "Unknown special command " + contentVar;
       }
+    } else if (contentVar.search(' ') > -1) {
+      //Remove helper
+      res.name = extractVarName(contentVar);
+    } else {
+      //Normal variable
+      res.name = contentVar.trim();
     }
+
+    return {
+      result: res,
+      remains: contentVars
+    }
+
   }
 
-  function searchAllChilds(nodes, variables) {
-    if (nodes) {
-      for (var i = 0; i < nodes.length; i++) {
-        parseNodeRecursive(nodes[i], variables);
-      }
-    }
+  function extractVarName(rawName) {
+    var words = rawName.split(' ');
+    return words[words.length - 1].trim();
+
   }
 
-  function checkAttributesForHandlebars(attrs) {
+  function iterateOverChilds(contentVars, breakString) {
+    var res = {};
+    var breakCondition = new RegExp("^\/" + breakString);
 
-    var returnvalue = [];
+    while (contentVars.length > 0) {
+      if (contentVars[0].search(breakCondition) > -1) {
+        contentVars.shift();
+        break;
+      } else {
 
-    for (var i = 0; i < attrs.length; i++) {
-      //regex every attribute value
-      var variableName = parseText(attrs[i].value);
-      if (variableName) {
-        //Found a variable
-        returnvalue.push({"name": attrs[i].name, "value": variableName});
-        //Keep it running, maybe we find some more.
+
+        var temp = readVariable(contentVars);
+
+        contentVars = temp.remains;
+        res[temp.result.name] = temp.result;
+
+        //Check potential error in template
+        if (contentVars.length == 0) {
+          throw "A #" + breakString + " has not been closed...";
+        }
       }
     }
-
-    return returnvalue;
+    console.log("iterateOverChild", res);
+    return res;
   }
 
   function parseText(text) {
@@ -186,23 +184,7 @@ readTemplates.parseTemplate = function (filename, fileContent) {
     return null;
   }
 
-  function analyseAttrs(attrs) {
-
-    var parsedAttributes = {};
-
-    attrs.forEach(function (attr) {
-      var name = attr.name.match(/data-bo-(\S*)/);
-      if (name) {
-        parsedAttributes[name[1]] = attr.value;
-      }
-    });
-
-    return parsedAttributes;
-
-  }
-
   //console.log(parse5.parse(fileContent).childNodes[0].childNodes[1].childNodes[0]); //html --> body --> goal element
-  console.log(variables); //html --> body --> goal element
 
   //1. Find all handlebars elements by searching for {{*}}
   //2. Analyse to filter out helpers (start with #)

@@ -18,6 +18,8 @@ var server = app.listen(3000, function () {
 
 //MONGOTEST
 
+reader.init();
+
 
 app.get('/', function (req, res) {
   var templateSchema = require('./schemas/template.js');
