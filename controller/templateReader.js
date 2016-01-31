@@ -6,28 +6,27 @@ var path = require('path');
 
 //Own Dependencies
 var mongoose = require('./mongo.js');
-var Template = mongoose.model('page', require('../schemas/template.js'));
+var Template = mongoose.model('template', require('../schemas/template.js'));
+var Variable = mongoose.model('variable', require('../schemas/variable.js'));
 
 //Globals
 var config = {
-  templatePath: path.normalize(__dirname + "/../templates/"),
-  defaultType: "text"
+  templatePath: path.normalize(__dirname + "/../templates/")
 };
+
 var readTemplates = {};
 
 
 //Actual Code
 readTemplates.init = function () {
   console.log(config.templatePath);
-  var filelist = readTemplates.readFromFolder(config.templatePath);
-  console.log(filelist);
-  filelist.forEach(function (filename) {
+  var fileList = readTemplates.readFromFolder(config.templatePath);
+  console.log(fileList);
+  fileList.forEach(function (filename) {
     //Load File?
     var fileContent = fs.readFileSync(config.templatePath + filename, {encoding: 'utf8'});
     var parsedTemplate = readTemplates.parseTemplate(filename, fileContent);
-    //TODO adjust vars to template or the other way around
-    console.log(parsedTemplate);
-    //parsedTemplate.save();
+    parsedTemplate.save();
   });
 };
 
@@ -38,10 +37,13 @@ readTemplates.readFromFolder = function (path) {
 readTemplates.parseTemplate = function (filename, fileContent) {
 
   var contentVars = analyseContentVars(fileContent.match(/{{([a-zA-Z0-1#\/\s]*)}}/g) || []);
-  try {
-    var config = JSON.parse(fileContent.match(/<!--((?:\n|.)*)-->/)[1]);
-  } catch (e) {
-    throw "Could not parse config in file " + filename + "! Maybe invalid JSON?\n Error: " + e;
+  var config = fileContent.match(/<!--((?:\n|\r|.)*)-->/)[1];
+  if (config) {
+    try {
+      config = JSON.parse(config);
+    } catch (e) {
+      console.warn("Could not parse config in file " + filename + "! Maybe invalid JSON?\n Error: " + e);
+    }
   }
 
   var hasVariables = !!contentVars.length;
@@ -65,13 +67,15 @@ readTemplates.parseTemplate = function (filename, fileContent) {
 
     var configVars = config.hasOwnProperty('vars') ? config.vars : {};
 
-    localTemplate.vars = fillWithDefault(mergeVars(configVars, contentVars));
+    console.log(createVariables(fillWithDefault(mergeVars(configVars, contentVars))));
+
+    localTemplate.vars = createVariables(fillWithDefault(mergeVars(configVars, contentVars)));
 
   } else if (hasVariables && !hasConfig) {
     //Warn about unusual situation
     console.warn("Found variables but no config in file " + filename);
 
-    localTemplate.vars = fillWithDefault(mergeVars({}, contentVars));
+    localTemplate.vars = createVariables(fillWithDefault(mergeVars({}, contentVars)));
 
   } else {
     //No Config & No Variables
@@ -99,11 +103,11 @@ readTemplates.parseTemplate = function (filename, fileContent) {
         }
         //Config available
         if (configVars.hasOwnProperty(contentKey)) {
-          if(checkValidOption(contentKey, configVars[contentKey])) {
+          if (checkValidOption(contentKey, configVars[contentKey])) {
             mergedVars[contentKey] = configVars[contentKey];
           }
         } else {
-          if(checkValidOption(contentKey, contentVars[contentKey])) {
+          if (checkValidOption(contentKey, contentVars[contentKey])) {
             mergedVars[contentKey] = contentVars[contentKey];
           }
         }
@@ -114,7 +118,7 @@ readTemplates.parseTemplate = function (filename, fileContent) {
       //All object configs should already be used. Everything else can not be used.
       if (typeof configVars[configKey] !== 'object') {
         if (!mergedVars.hasOwnProperty(configKey)) {
-          if(checkValidOption(configKey, configVars[configKey])) {
+          if (checkValidOption(configKey, configVars[configKey])) {
             mergedVars[configKey] = configVars[configKey];
           }
         }
@@ -150,8 +154,8 @@ readTemplates.parseTemplate = function (filename, fileContent) {
           returnvalue = false;
           break;
       }
-      if(!returnvalue) {
-        console.warn('The key "' + key + '" with the value "' + value + '" has not passed the validity check.')
+      if (!returnvalue) {
+        console.warn('The key "' + key + '" with the value "' + value + '" has not passed the validity check.');
       }
       return returnvalue;
     }
@@ -160,31 +164,71 @@ readTemplates.parseTemplate = function (filename, fileContent) {
 
   function fillWithDefault(variables) {
 
-    Object.keys(variables).forEach(function(key) {
+    Object.keys(variables).forEach(function (key) {
       if (typeof variables[key] === 'object') {
 
         //Check for name
-        if(!variables[key].hasOwnProperty('name')) {
+        if (!variables[key].hasOwnProperty('name')) {
           variables[key].name = key;
         }
 
         //Check for type
-        if(!variables[key].hasOwnProperty('type')) {
+        if (!variables[key].hasOwnProperty('type')) {
           variables[key].type = 'text';
         }
 
         //Check for title
-        if(!variables[key].hasOwnProperty('title')) {
+        if (!variables[key].hasOwnProperty('title')) {
           variables[key].type = key;
         }
 
-        if(variables[key].type === 'array' && variables[key].hasOwnProperty['']) {
+        if (variables[key].type === 'array' && variables[key].hasOwnProperty['']) {
           variables[key].child = fillWithDefault(variables[key].child);
         }
 
       }
     });
     return variables;
+  }
+
+  /**
+   * The wonderful story of this function:
+   * It would be perfectly fine to use keys to have direct access to each variable
+   * But then we can't guarantee any type safety with mongoose as we can only say:
+   * Take an object for the variables. Therefore they need to be in an key less array
+   * Which makes this function necessary...
+   * @type {Array}
+   */
+  function createVariables(vars) {
+
+    var keys = Object.keys(vars) || [];
+
+    var arrayVars = [];
+
+    keys.forEach(function (key) {
+      if (typeof vars[key] !== 'object') {
+        arrayVars = new Variable();
+      }
+    });
+
+    if (typeof arrayVars._id !== 'undefined') {
+      keys.forEach(function (key) {
+        if (typeof vars[key] !== 'object') {
+          arrayVars[key] = vars[key];
+        } else {
+          arrayVars[key] = createVariables(vars[key]);
+        }
+      });
+
+      arrayVars.save();
+
+    } else {
+      keys.forEach(function (key) {
+        arrayVars.push(createVariables(vars[key]));
+      });
+    }
+
+    return arrayVars;
   }
 
   function analyseContentVars(contentVars) {
@@ -238,7 +282,7 @@ readTemplates.parseTemplate = function (filename, fileContent) {
     return {
       result: res,
       remains: contentVars
-    }
+    };
 
   }
 
@@ -263,7 +307,7 @@ readTemplates.parseTemplate = function (filename, fileContent) {
         res[temp.result.name] = temp.result;
 
         //Check potential error in template
-        if (contentVars.length == 0) {
+        if (contentVars.length === 0) {
           throw "A #" + breakString + " has not been closed...";
         }
       }
@@ -279,12 +323,6 @@ readTemplates.parseTemplate = function (filename, fileContent) {
   //4. return this as Template
 
   return localTemplate;
-};
-
-readTemplates.saveToDB = function () {
-
-  //Save Template to DB
-
 };
 
 module.exports = readTemplates;
