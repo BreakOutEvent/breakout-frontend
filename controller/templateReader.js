@@ -19,14 +19,41 @@ var readTemplates = {};
 
 //Actual Code
 readTemplates.init = function () {
-  console.log(config.templatePath);
   var fileList = readTemplates.readFromFolder(config.templatePath);
   console.log(fileList);
+
+  Template.remove({}, function(err, result) {
+    if(err) throw err;
+    console.log(result.result.ok);
+  });
+
+  Variable.remove({}, function(err, result) {
+    if(err) throw err;
+    console.log(result.result.ok);
+  });
+
   fileList.forEach(function (filename) {
     //Load File?
+
+    var nameArr = filename.split('.');
+    nameArr.pop();
+    var basename = nameArr.join('.');
+
     var fileContent = fs.readFileSync(config.templatePath + filename, {encoding: 'utf8'});
-    var parsedTemplate = readTemplates.parseTemplate(filename, fileContent);
-    parsedTemplate.save();
+    var parsedTemplate = readTemplates.parseTemplate(basename, fileContent);
+
+    Template.findOne({'name': basename}, function(err, doc) {
+      if(err) {
+        throw err;
+      }
+      if(doc) {
+        console.log("found template", doc);
+        console.log(parsedTemplate);
+      } else {
+        parsedTemplate.save();
+        console.log('succesfully saved', parsedTemplate);
+      }
+    });
   });
 };
 
@@ -66,8 +93,6 @@ readTemplates.parseTemplate = function (filename, fileContent) {
     }
 
     var configVars = config.hasOwnProperty('vars') ? config.vars : {};
-
-    console.log(createVariables(fillWithDefault(mergeVars(configVars, contentVars))));
 
     localTemplate.vars = createVariables(fillWithDefault(mergeVars(configVars, contentVars)));
 
