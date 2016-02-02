@@ -5,7 +5,6 @@
 
 var mongoose = require('../controller/mongo.js');
 var proxy = require('../controller/templateProxy.js');
-mongoose.con();
 
 var express = require('express');
 var router = express.Router();

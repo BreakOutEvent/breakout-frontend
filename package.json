@@ -17,20 +17,20 @@
   },
   "homepage": "https://github.com/BreakOutEvent/breakout-frontend#readme",
   "dependencies": {
+    "bcryptjs": "^2.3.0",
+    "body-parser": "^1.14.2",
     "bower": "^1.6.8",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.1",
     "express": "^4.13.3",
-    "handlebars": "^4.0.5",
     "express-handlebars": "^2.0.1",
-    "mongoose": "^4.3.3",
-    "request": "^2.67.0",
+    "express-session": "^1.13.0",
+    "handlebars": "^4.0.5",
     "handlebars-helper-equal": "^1.0.0",
+    "mongoose": "^4.3.3",
     "passport": "^0.2.2",
     "passport-local": "^1.0.0",
-    "express-session": "^1.13.0",
-    "body-parser": "^1.14.2",
-    "cookie-parser": "^1.4.1",
-    "connect-flash": "^0.1.1",
-    "bcryptjs": "^2.3.0"
+    "request": "^2.67.0"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
