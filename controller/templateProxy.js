@@ -1,6 +1,5 @@
 'use strict';
 var mongoose = require('./mongo.js');
-var fs = require('fs');
 var renderer = require('./renderProxy.js');
 var data = require('./dataProxy.js');
 
