@@ -1,7 +1,9 @@
+'use strict';
+
 var request = require('request');
 
 var config = require('../config/api.json');
-var URL = config.protocol + '://' + config.URL;
+var url = config.protocol + '://' + config.URL;
 
 var API = {};
 
@@ -10,7 +12,7 @@ API.authenticate = function (username, password) {
   return new Promise(function (resolve, reject) {
     request
       .post({
-        'url': URL + "/oauth/token",
+        'url': url + "/oauth/token",
         qs: {
           'client_id': config.clientID,
           'client_secret': config.clientSecret,
@@ -19,21 +21,22 @@ API.authenticate = function (username, password) {
           'grant_type': 'password'
         },
         auth: {
-          'user' : config.clientID,
-          'pass' : config.clientSecret
+          'user': config.clientID,
+          'pass': config.clientSecret
         }
-      }, function(error, response, body) {
-        if(error) {
+      }, function (error, response, body) {
+        if (error) {
           throw error;
         } else {
-          if (response.statusCode == 200) {
+          if (response.statusCode === 200) {
+            console.log(body);
             resolve(body);
           } else {
-            reject(response);
+            console.log(body);
+            reject(body);
           }
         }
       });
-
   });
 };
 

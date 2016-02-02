@@ -4,16 +4,7 @@ var mongoose = require('./controller/mongo.js');
 mongoose.con();
 var exphbs = require('express-handlebars');
 var path = require('path');
-var passport = require('passport');
-var API = require('./controller/apiProxy.js');
-
-API.authenticate('keno@break-out.org','test')
-  .then(function(body) {
-    console.log(JSON.parse(body));
-  })
-  .catch(function(response) {
-    console.log(response.statusCode)
-  });
+var passport = require('./controller/auth.js');
 
 var app = express();
 var hbs = exphbs.create({
