@@ -20,17 +20,8 @@ var readTemplates = {};
 //Actual Code
 readTemplates.init = function () {
   var fileList = readTemplates.readFromFolder(config.templatePath);
-  console.log(fileList);
 
-  Template.remove({}, function(err, result) {
-    if(err) throw err;
-    console.log(result.result.ok);
-  });
-
-  Variable.remove({}, function(err, result) {
-    if(err) throw err;
-    console.log(result.result.ok);
-  });
+  //readTemplates.clearDatabase();
 
   fileList.forEach(function (filename) {
     //Load File?
@@ -42,18 +33,39 @@ readTemplates.init = function () {
     var fileContent = fs.readFileSync(config.templatePath + filename, {encoding: 'utf8'});
     var parsedTemplate = readTemplates.parseTemplate(basename, fileContent);
 
-    Template.findOne({'name': basename}, function(err, doc) {
-      if(err) {
+    Template.findOne({'name': basename}, function (err, doc) {
+      if (err) {
         throw err;
       }
-      if(doc) {
-        console.log("found template", doc);
-        console.log(parsedTemplate);
+      if (doc) {
+        Template.update({ _id: doc._id }, { $set: parsedTemplate}, function(err) {
+          if(err) {
+            throw err;
+          }
+          console.log('Updated template ' + basename);
+        });
       } else {
-        parsedTemplate.save();
-        console.log('succesfully saved', parsedTemplate);
+        var template = new Template(parsedTemplate);
+        template.save(function(err) {
+          if(err) {
+            throw err;
+          }
+          console.log('Saved template ' + basename);
+        });
       }
     });
+  });
+};
+
+readTemplates.clearDatabase = function () {
+  Template.remove({}, function (err, result) {
+    if (err) throw err;
+    console.log(result.result.ok);
+  });
+
+  Variable.remove({}, function (err, result) {
+    if (err) throw err;
+    console.log(result.result.ok);
   });
 };
 
@@ -76,10 +88,10 @@ readTemplates.parseTemplate = function (filename, fileContent) {
   var hasVariables = !!contentVars.length;
   var hasConfig = !!Object.keys(config).length;
 
-  var localTemplate = new Template({
+  var localTemplate = {
     title: path.basename(filename),
     vars: []
-  });
+  };
 
   if (hasConfig) {
     //Best Case
@@ -153,16 +165,16 @@ readTemplates.parseTemplate = function (filename, fileContent) {
     return mergedVars;
 
     function checkValidOption(key, value) {
-      var returnvalue = false;
+      var returnValue = false;
       switch (key) {
         case 'name':
-          returnvalue = /^[a-zA-Z0-9]*$/.test(value);
+          returnValue = /^[a-zA-Z0-9]*$/.test(value);
           break;
         case 'title':
-          returnvalue = true;
+          returnValue = true;
           break;
         case 'child':
-          returnvalue = typeof value === 'object';
+          returnValue = typeof value === 'object';
           break;
         case 'maxlen':
         case 'minlen':
@@ -170,19 +182,19 @@ readTemplates.parseTemplate = function (filename, fileContent) {
         case 'maxwidth':
         case 'minheight':
         case 'minwidth':
-          returnvalue = !isNaN(parseInt(value));
+          returnValue = !isNaN(parseInt(value));
           break;
         case 'type':
-          returnvalue = ['text', 'number', 'file', 'array', 'bool', 'url'].indexOf(value) > -1;
+          returnValue = ['text', 'number', 'file', 'array', 'bool', 'url'].indexOf(value) > -1;
           break;
         default:
-          returnvalue = false;
+          returnValue = false;
           break;
       }
-      if (!returnvalue) {
+      if (!returnValue) {
         console.warn('The key "' + key + '" with the value "' + value + '" has not passed the validity check.');
       }
-      return returnvalue;
+      return returnValue;
     }
 
   }
@@ -314,7 +326,6 @@ readTemplates.parseTemplate = function (filename, fileContent) {
   function extractVarName(rawName) {
     var words = rawName.split(' ');
     return words[words.length - 1].trim();
-
   }
 
   function iterateOverChildren(contentVars, breakString) {
@@ -339,13 +350,6 @@ readTemplates.parseTemplate = function (filename, fileContent) {
     }
     return res;
   }
-
-  //console.log(parse5.parse(fileContent).childNodes[0].childNodes[1].childNodes[0]); //html --> body --> goal element
-
-  //1. Find all handlebars elements by searching for {{*}}
-  //2. Analyse to filter out helpers (start with #)
-  //3. Read configuration header
-  //4. return this as Template
 
   return localTemplate;
 };
