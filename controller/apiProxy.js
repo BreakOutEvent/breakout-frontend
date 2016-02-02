@@ -17,18 +17,23 @@ API.authenticate = function (username, password) {
           'username': username,
           'password': password,
           'grant_type': 'password'
+        },
+        auth: {
+          'user' : config.clientID,
+          'pass' : config.clientSecret
         }
-      })
-      .on('response', function (response) {
-        if (response.statusCode == 200) {
-          resolve(response.body);
+      }, function(error, response, body) {
+        if(error) {
+          throw error;
         } else {
-          reject(response);
+          if (response.statusCode == 200) {
+            resolve(body);
+          } else {
+            reject(response);
+          }
         }
-      })
-      .on('error', function (error) {
-        throw error;
-      })
+      });
+
   });
 };
 

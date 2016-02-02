@@ -7,9 +7,9 @@ var path = require('path');
 var passport = require('passport');
 var API = require('./controller/apiProxy.js');
 
-API.authenticate('','')
+API.authenticate('keno@break-out.org','test')
   .then(function(body) {
-    console.log(body);
+    console.log(JSON.parse(body));
   })
   .catch(function(response) {
     console.log(response.statusCode)
