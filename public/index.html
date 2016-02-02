@@ -38,7 +38,7 @@
             <li><a href="#">Howto</a></li>
             <li><a href="#">Sponsoren</a></li>
             <li><a href="#">Spenden empfangen</a></li>
-            <li class="pull-right"><a href="#">Anmelden / Registrieren</a></li>
+            <li class="pull-right"><a href="#"  data-toggle="modal" data-target="#modalLogin">Anmelden / Registrieren</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -67,7 +67,7 @@
     <div class="container ba-highlight-container2">
       <div class="row">
         <div class="col-md-2 text-center">
-          <a href="#" class=" vertical-center"><i class="fa fa-play-circle fa-5x"></i></a>
+          <a href="#" class="vertical-center" data-toggle="modal" data-target="#modalIntroVideo"><i class="fa fa-play-circle fa-5x"></i></a>
         </div>
         <div class="col-md-8">
           <h2>In 36 Stunden.</h2>
@@ -147,6 +147,43 @@
         </div>
       </div>
       
+    </div>
+    
+    <!-- Modal intro video -->
+    <div class="modal" id="modalIntroVideo" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <iframe width="560" height="350" src="http://www.youtube.com/embed/DLzxrzFCyOs?autoplay=0">
+            </iframe>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Modal login -->
+    <div class="modal fade bs-example-modal-sm" id="modalLogin" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">add logo</h4>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="loginEmail">Email Adresse</label>
+                <input type="email" class="form-control" id="loginEmail" >
+              </div>
+              <div class="form-group">
+                <label for="loginPassword">Passwort</label>
+                <input type="password" class="form-control" id="loginPassword">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary btn-block">EINLOGGEN</button>
+            <button type="button" class="btn btn-default btn-block">KOSTENLOS REGISTRIEREN</button>
+          </div>
+        </div>
+      </div>
     </div>
     
     <div class ="ba-footer">

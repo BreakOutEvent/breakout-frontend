@@ -18,3 +18,53 @@ a .fa {
   text-shadow: none;
   // color: $gray-base;
 }
+
+
+/*centralize modals*/
+
+.modal {
+  text-align: center;
+  padding: 0!important;
+}
+
+.modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px;
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.modal-header {
+  border-bottom-style: none;
+}
+
+.modal-footer {
+  border-top-style: none;
+}
+
+
+/*forms*/
+
+.form-control {
+  border-width: 0 0 1px 0;
+  @include box-shadow(none);
+  @include transition(border-bottom-color ease-in-out .15s);
+}
+
+.form-control:focus {
+  @include box-shadow(none);
+}
+
+label {
+  margin-bottom: 0;
+  font-weight: normal;
+  color: $gray-darker;
+  font-size: $font-size-small;
+}
