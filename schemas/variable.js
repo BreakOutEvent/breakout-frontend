@@ -1,9 +1,15 @@
 var mongoose = require('mongoose');
 
 module.exports =  new mongoose.Schema({
-  name: {type: String, required: true},
+  name: String,
   title: String,
-  vars: [{
+  description: String,
+  type: String,
+  maxlen: Number,
+  minlen: Number,
+  maxwidth: Number,
+  minwidth: Number,
+  child: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'variable'
   }]

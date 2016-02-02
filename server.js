@@ -1,6 +1,9 @@
 'use strict';
 var express = require('express');
 var request = require('request');
+var mongoose = require('./controller/mongo.js');
+var reader = require('./controller/templateReader.js');
+mongoose.con();
 var exphbs = require('express-handlebars');
 var path = require('path');
 

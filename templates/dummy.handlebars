@@ -1,0 +1,63 @@
+<!--
+{
+    "name"  : "dummy",
+    "title"  : "Sildeshow Teaser with Text",
+    "vars"  : {
+        "headline" : {
+            "title" : "Ueberschrift",
+            "type"  : "text",
+            "maxlen": "12"
+        },
+        "text" : {
+            "title" : "First Paragraph",
+            "type"  : "text",
+            "maxlen": "500"
+        },
+        "img0": {
+            "title" : "Teaser Picture",
+            "type"  : "file",
+            "maxwidth"  : "1920",
+            "maxheight" : "300"
+        },
+        "img" : {
+            "title" : "Profile Pictures",
+            "type"  : "array",
+            "child" : {
+                "url" : {
+                    "name"  : "url",
+                    "title" : "Profile Picture URL",
+                    "type"  : "url"
+                }
+            }
+        },
+        "testargument" : {
+            "title" : "Show Random Text",
+            "type"  : "bool",
+            "child" : {
+                "asdf" : {
+                    "type"  : "text"
+                }
+            }
+        }
+    }
+}
+-->
+
+<div>
+    <h1 class="bo-input">{{headline}}</h1>
+
+    <p class="bo-input">{{niceHelper text}}</p>
+
+    <p class="bo-input">{{text2}}</p>
+    <img src="{{img0}}">
+
+    <div class="bo-img">
+        {{#each img}}
+            <img src="{{url}}">
+        {{/each}}
+    </div>
+
+    {{#if testargument}}
+        <div class="bo-img">{{asdf}}</div>
+    {{/if}}
+</div>
