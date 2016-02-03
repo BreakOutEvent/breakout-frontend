@@ -16,12 +16,12 @@ passport.use(new Strategy(
   function (username, password, cb) {
     API.authenticate(username, password)
       .then(function(body) {
-        var token = new Token(JSON.parse(body));
+        var token = new Token(body);
         token.save();
         cb(null, token, {message: 'Successfully logged in'});
       })
       .catch(function(body) {
-        cb(null, false, {message: JSON.parse(body).error_description });
+        cb(null, false, {message: body.error_description });
       });
   }
 ));

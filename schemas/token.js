@@ -3,10 +3,10 @@
 var mongoose = require('mongoose');
 
 var TokenSchema = new mongoose.Schema({
-  accessToken: String,
-  tokenType : String,
-  refreshToken : String,
-  expiresIn: Number,
+  access_token: String,
+  token_type: String,
+  refresh_token: String,
+  expires_in: Number,
   scope: String
 });
 
