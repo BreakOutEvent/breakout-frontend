@@ -5834,7 +5834,7 @@ a .fa {
   text-decoration: none;
   text-shadow: none; }
 
-/*centralize modals*/
+/* modals */
 .modal {
   text-align: center;
   padding: 0 !important; }
@@ -5857,7 +5857,19 @@ a .fa {
 .modal-footer {
   border-top-style: none; }
 
-/*forms*/
+.modal-content-only {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  background: transparent;
+  border: none;
+  outline: none; }
+
+.modal-content iframe {
+  border: none;
+  padding: 0;
+  margin: 0; }
+
+/* forms */
 .form-control {
   border-width: 0 0 1px 0;
   -webkit-box-shadow: none;
@@ -5879,11 +5891,11 @@ label {
 body {
   padding-top: 50px; }
 
-.ba-highlight-container {
+.bo-highlight-container {
   padding-top: 40px;
   padding-bottom: 40px; }
 
-.ba-highlight-container2 {
+.bo-highlight-container2 {
   padding-top: 40px;
   padding-bottom: 40px;
   background-image: url("../img/header2.jpg");
@@ -5892,28 +5904,28 @@ body {
   background-position: center center;
   color: #fff;
   text-shadow: 2px 2px #737373; }
-  .ba-highlight-container2 blockquote {
+  .bo-highlight-container2 blockquote {
     font-size: 18px;
     text-align: center;
     text-shadow: 2px 2px #737373;
     border-width: 0px; }
-    .ba-highlight-container2 blockquote footer {
+    .bo-highlight-container2 blockquote footer {
       color: #fff; }
-  .ba-highlight-container2 a {
+  .bo-highlight-container2 a {
     color: #fff; }
 
-.ba-news-teaser h3 {
+.bo-news-teaser h3 {
   background-color: #f7931d;
   border-radius: 4px 4px 0 0;
   border-color: #f7931d;
   color: #fff;
   padding: 5px 0 5px 5px; }
 
-.ba-news-teaser .ba-news-teaser-content {
+.bo-news-teaser .bo-news-teaser-content {
   border-color: #404040;
   border-width: 1px; }
 
-.ba-img-circle {
+.bo-img-circle {
   border-radius: 50%;
   border-color: #f7931d;
   border-style: solid;
@@ -5921,15 +5933,17 @@ body {
   width: 80px;
   height: 80px; }
 
-.ba-teaser {
+.bo-teaser {
   margin-left: 90px; }
 
-.ba-header {
+.bo-header {
   box-shadow: 0 1px 1px #737373; }
 
-.ba-footer {
+.bo-footer {
   padding-top: 20px;
   margin-top: 10px;
   background-color: #404040;
   color: #b7b7b7;
   text-size: 12px; }
+  .bo-footer a {
+    color: #b7b7b7; }

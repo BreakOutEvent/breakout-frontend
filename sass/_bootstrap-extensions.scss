@@ -20,7 +20,7 @@ a .fa {
 }
 
 
-/*centralize modals*/
+/* modals */
 
 .modal {
   text-align: center;
@@ -49,8 +49,22 @@ a .fa {
   border-top-style: none;
 }
 
+.modal-content-only {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  background: transparent;
+  border: none;
+  outline: none;
+}
 
-/*forms*/
+.modal-content iframe {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+
+/* forms */
 
 .form-control {
   border-width: 0 0 1px 0;
