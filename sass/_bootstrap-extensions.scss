@@ -16,7 +16,14 @@ hr {
 a .fa {
   text-decoration: none;
   text-shadow: none;
-  // color: $gray-base;
+}
+
+
+/* navbar */
+
+.navbar-btn {
+  @include button-variant(#fff, $brand-primary, #fff);
+  @include button-size($padding-base-vertical, $padding-base-horizontal, $font-size-base, $line-height-base, $btn-border-radius-small);
 }
 
 
@@ -50,8 +57,7 @@ a .fa {
 }
 
 .modal-content-only {
-  -webkit-box-shadow: none;
-  box-shadow: none;
+  @include box-shadow(none);
   background: transparent;
   border: none;
   outline: none;

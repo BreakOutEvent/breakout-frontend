@@ -2,6 +2,21 @@ body {
   padding-top: 50px;
 }
 
+@media (max-width: $screen-sm-min) {
+  .navbar .navbar-right.bo-user-icons {
+    position: absolute;
+    margin-top: 4px;
+    right: 80px;
+  }
+  .navbar .navbar-right.bo-user-icons > li {
+    display: inline-block;
+  }
+  //  .navbar .navbar-right.bo-user-icons > li > a {
+  //    padding-right: 10px;
+  //    padding-left: 10px;
+  //  }
+}
+
 .bo-highlight-container {
   padding-top: 40px;
   padding-bottom: 40px;
@@ -60,7 +75,7 @@ body {
 }
 
 .bo-header {
-  box-shadow: 0 1px 1px $gray-dark;
+  @include box-shadow(0 1px 1px $gray-dark);
 }
 
 .bo-footer {

@@ -5834,6 +5834,48 @@ a .fa {
   text-decoration: none;
   text-shadow: none; }
 
+/* navbar */
+.navbar-btn {
+  color: #fff;
+  background-color: #f7931d;
+  border-color: #fff;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.428571429;
+  border-radius: 3px; }
+  .navbar-btn:focus, .navbar-btn.focus {
+    color: #fff;
+    background-color: #d97908;
+    border-color: #bfbfbf; }
+  .navbar-btn:hover {
+    color: #fff;
+    background-color: #d97908;
+    border-color: #e0e0e0; }
+  .navbar-btn:active, .navbar-btn.active,
+  .open > .navbar-btn.dropdown-toggle {
+    color: #fff;
+    background-color: #d97908;
+    border-color: #e0e0e0; }
+    .navbar-btn:active:hover, .navbar-btn:active:focus, .navbar-btn:active.focus, .navbar-btn.active:hover, .navbar-btn.active:focus, .navbar-btn.active.focus,
+    .open > .navbar-btn.dropdown-toggle:hover,
+    .open > .navbar-btn.dropdown-toggle:focus,
+    .open > .navbar-btn.dropdown-toggle.focus {
+      color: #fff;
+      background-color: #b76606;
+      border-color: #bfbfbf; }
+  .navbar-btn:active, .navbar-btn.active,
+  .open > .navbar-btn.dropdown-toggle {
+    background-image: none; }
+  .navbar-btn.disabled:hover, .navbar-btn.disabled:focus, .navbar-btn.disabled.focus, .navbar-btn[disabled]:hover, .navbar-btn[disabled]:focus, .navbar-btn[disabled].focus,
+  fieldset[disabled] .navbar-btn:hover,
+  fieldset[disabled] .navbar-btn:focus,
+  fieldset[disabled] .navbar-btn.focus {
+    background-color: #f7931d;
+    border-color: #fff; }
+  .navbar-btn .badge {
+    color: #f7931d;
+    background-color: #fff; }
+
 /* modals */
 .modal {
   text-align: center;
@@ -5891,6 +5933,14 @@ label {
 body {
   padding-top: 50px; }
 
+@media (max-width: 768px) {
+  .navbar .navbar-right.bo-user-icons {
+    position: absolute;
+    margin-top: 4px;
+    right: 80px; }
+  .navbar .navbar-right.bo-user-icons > li {
+    display: inline-block; } }
+
 .bo-highlight-container {
   padding-top: 40px;
   padding-bottom: 40px; }
@@ -5937,6 +5987,7 @@ body {
   margin-left: 90px; }
 
 .bo-header {
+  -webkit-box-shadow: 0 1px 1px #737373;
   box-shadow: 0 1px 1px #737373; }
 
 .bo-footer {
