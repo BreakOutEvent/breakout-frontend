@@ -8,14 +8,11 @@ hr {
 }
 
 .vertical-center {
-  display: inline-block;
-  vertical-align: middle;
-  float: none;
-}
-
-a .fa {
-  text-decoration: none;
-  text-shadow: none;
+  display: table;
+  * {
+    display: table-cell;
+    vertical-align: middle;
+  }
 }
 
 
@@ -24,6 +21,38 @@ a .fa {
 .navbar-btn {
   @include button-variant(#fff, $brand-primary, #fff);
   @include button-size($padding-base-vertical, $padding-base-horizontal, $font-size-base, $line-height-base, $btn-border-radius-small);
+}
+
+.navbar-nav > li > .dropdown-menu {
+  margin-top: 3px;
+  border-radius: $border-radius-large;
+  @include box-shadow(0 2px 5px $gray-light);
+}
+
+.navbar-nav > li > .dropdown-menu-right::before {
+  position: absolute;
+  top: -11px;
+  right: 14%;
+  display: inline-block;
+  border-right: 11px solid transparent;
+  border-bottom: 11px solid $dropdown-border;
+  border-left: 11px solid transparent;
+  border-bottom-color: rgba(0, 0, 0, 0.08);
+  transform: rotate(360deg); //improves anti-aliasing
+  content: '';
+}
+
+//caret towards dropdown button
+.navbar-nav > li > .dropdown-menu-right::after {
+  position: absolute;
+  top: -10px;
+  right: 15%;
+  display: inline-block;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #fff;
+  border-left: 10px solid transparent;
+  transform: rotate(360deg); //improves anti-aliasing
+  content: '';
 }
 
 

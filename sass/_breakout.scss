@@ -2,7 +2,7 @@ body {
   padding-top: 50px;
 }
 
-@media (max-width: $screen-sm-min) {
+@media (max-width: $grid-float-breakpoint) {
   .navbar .navbar-right.bo-user-icons {
     position: absolute;
     margin-top: 4px;
@@ -15,6 +15,29 @@ body {
   //    padding-right: 10px;
   //    padding-left: 10px;
   //  }
+}
+
+.navbar-nav .material-icons {
+  font-size: 18px;
+}
+
+.bo-nav-logo {
+  margin-top: -5px;
+}
+
+.bo-nav-user-icon {
+  border-radius: 50%;
+  border-color: #fff;
+  border-style: solid;
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+  margin-top: -5px;
+}
+
+.bo-modal-logo {
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .bo-highlight-container {
@@ -66,8 +89,6 @@ body {
   color: $brand-primary;
   width: 80px;
   height: 80px;
-  //background-color: $gray-light;
-  //@include center-block();
 }
 
 .bo-teaser {

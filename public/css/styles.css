@@ -3165,7 +3165,7 @@ tbody.collapse.in {
   text-align: left;
   background-color: #fff;
   border: 1px solid #ccc;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 4px;
   -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
@@ -3177,7 +3177,7 @@ tbody.collapse.in {
     height: 1px;
     margin: 9px 0;
     overflow: hidden;
-    background-color: #e5e5e5; }
+    background-color: #fff; }
   .dropdown-menu > li > a {
     display: block;
     padding: 3px 20px;
@@ -4010,7 +4010,7 @@ tbody.collapse.in {
       background-color: transparent; }
   .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
     color: #dddddd;
-    background-color: #d97908; }
+    background-color: transparent; }
   .navbar-inverse .navbar-nav > .disabled > a, .navbar-inverse .navbar-nav > .disabled > a:hover, .navbar-inverse .navbar-nav > .disabled > a:focus {
     color: #444;
     background-color: transparent; }
@@ -4024,7 +4024,7 @@ tbody.collapse.in {
   .navbar-inverse .navbar-form {
     border-color: #e88108; }
   .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
-    background-color: #d97908;
+    background-color: transparent;
     color: #dddddd; }
   @media (max-width: 767px) {
     .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header {
@@ -4038,7 +4038,7 @@ tbody.collapse.in {
         background-color: transparent; }
     .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a, .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:focus {
       color: #dddddd;
-      background-color: #d97908; }
+      background-color: transparent; }
     .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a, .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:focus {
       color: #444;
       background-color: transparent; } }
@@ -5826,13 +5826,10 @@ hr {
   padding: 0; }
 
 .vertical-center {
-  display: inline-block;
-  vertical-align: middle;
-  float: none; }
-
-a .fa {
-  text-decoration: none;
-  text-shadow: none; }
+  display: table; }
+  .vertical-center * {
+    display: table-cell;
+    vertical-align: middle; }
 
 /* navbar */
 .navbar-btn {
@@ -5875,6 +5872,35 @@ a .fa {
   .navbar-btn .badge {
     color: #f7931d;
     background-color: #fff; }
+
+.navbar-nav > li > .dropdown-menu {
+  margin-top: 3px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 2px 5px #b7b7b7;
+  box-shadow: 0 2px 5px #b7b7b7; }
+
+.navbar-nav > li > .dropdown-menu-right::before {
+  position: absolute;
+  top: -11px;
+  right: 14%;
+  display: inline-block;
+  border-right: 11px solid transparent;
+  border-bottom: 11px solid rgba(0, 0, 0, 0.08);
+  border-left: 11px solid transparent;
+  border-bottom-color: rgba(0, 0, 0, 0.08);
+  transform: rotate(360deg);
+  content: ''; }
+
+.navbar-nav > li > .dropdown-menu-right::after {
+  position: absolute;
+  top: -10px;
+  right: 15%;
+  display: inline-block;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #fff;
+  border-left: 10px solid transparent;
+  transform: rotate(360deg);
+  content: ''; }
 
 /* modals */
 .modal {
@@ -5930,6 +5956,24 @@ label {
   color: #626262;
   font-size: 12px; }
 
+/* Rules for sizing the icon. */
+.material-icons.md-18 {
+  font-size: 18px; }
+
+.material-icons.md-24 {
+  font-size: 24px; }
+
+.material-icons.md-36 {
+  font-size: 36px; }
+
+.material-icons.md-48 {
+  font-size: 48px; }
+
+a .material-icons {
+  text-decoration: none;
+  text-shadow: none;
+  display: inline-block; }
+
 body {
   padding-top: 50px; }
 
@@ -5940,6 +5984,25 @@ body {
     right: 80px; }
   .navbar .navbar-right.bo-user-icons > li {
     display: inline-block; } }
+
+.navbar-nav .material-icons {
+  font-size: 18px; }
+
+.bo-nav-logo {
+  margin-top: -5px; }
+
+.bo-nav-user-icon {
+  border-radius: 50%;
+  border-color: #fff;
+  border-style: solid;
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+  margin-top: -5px; }
+
+.bo-modal-logo {
+  max-width: 100%;
+  max-height: 100%; }
 
 .bo-highlight-container {
   padding-top: 40px;
