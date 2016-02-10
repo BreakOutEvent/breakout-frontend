@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <style>
+      .cls-1 {
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <g id="ic_tshirt_24px">
+    <path id="ic_tshirt" class="cls-1" d="M241,425v12H231V425h-5v-5h6.663a3.477,3.477,0,0,0,6.674,0H246v5h-5Z" transform="translate(-224 -416)"/>
+  </g>
+</svg>
