@@ -69,7 +69,7 @@ API.postModel = function (modelName, token, body) {
   });
 };
 
-API.putModel = function (modelName, token, body) {
+API.putModel = function (modelName, id, token, body) {
   return new Promise(function (resolve, reject) {
     if(!id) {
       reject({error_description: 'No ID specified'});
@@ -130,6 +130,6 @@ function handleResponse(resolve, reject) {
         reject(JSON.parse(body));
       }
     }
-  }
+  };
 }
 module.exports = API;
