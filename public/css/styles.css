@@ -5977,19 +5977,26 @@ a .material-icons {
 body {
   padding-top: 50px; }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .navbar .navbar-right.bo-user-icons {
     position: absolute;
     margin-top: 4px;
     right: 80px; }
   .navbar .navbar-right.bo-user-icons > li {
-    display: inline-block; } }
+    display: inline-block; }
+  .navbar .navbar-right.bo-user-icons > li > a {
+    padding-right: 10px;
+    padding-left: 10px; } }
 
 .navbar-nav .material-icons {
   font-size: 18px; }
 
 .bo-nav-logo {
   margin-top: -5px; }
+
+@media (max-width: 350px) {
+  .navbar-brand {
+    display: none; } }
 
 .bo-nav-user-icon {
   border-radius: 50%;
@@ -5999,6 +6006,18 @@ body {
   height: 30px;
   margin-right: 5px;
   margin-top: -5px; }
+
+.bo-header-logo {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-image: url("../img/header2.jpg");
+  background-repeat: no-repeat;
+  background-position: center center; }
+
+@media (max-width: 480px) {
+  .bo-header-logo img {
+    width: 250px;
+    height: auto; } }
 
 .bo-modal-logo {
   max-width: 100%;
@@ -6012,7 +6031,6 @@ body {
   padding-top: 40px;
   padding-bottom: 40px;
   background-image: url("../img/header2.jpg");
-  background-attachment: fixed;
   background-repeat: no-repeat;
   background-position: center center;
   color: #fff;

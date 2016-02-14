@@ -2,7 +2,7 @@ body {
   padding-top: 50px;
 }
 
-@media (max-width: $grid-float-breakpoint) {
+@media (max-width: $screen-xs-max) {
   .navbar .navbar-right.bo-user-icons {
     position: absolute;
     margin-top: 4px;
@@ -11,10 +11,10 @@ body {
   .navbar .navbar-right.bo-user-icons > li {
     display: inline-block;
   }
-  //  .navbar .navbar-right.bo-user-icons > li > a {
-  //    padding-right: 10px;
-  //    padding-left: 10px;
-  //  }
+  .navbar .navbar-right.bo-user-icons > li > a {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
 }
 
 .navbar-nav .material-icons {
@@ -25,6 +25,13 @@ body {
   margin-top: -5px;
 }
 
+//hide logo on small devices (iPhone < 6)
+@media (max-width: 350px) {
+  .navbar-brand {
+    display: none;
+  }
+}
+
 .bo-nav-user-icon {
   border-radius: 50%;
   border-color: #fff;
@@ -33,6 +40,19 @@ body {
   height: 30px;
   margin-right: 5px;
   margin-top: -5px;
+}
+
+.bo-header-logo {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  @include image-background("../img/header2.jpg");
+}
+
+@media(max-width: $screen-xs-min) {
+  .bo-header-logo img {
+    width: 250px;
+    height: auto;
+  }
 }
 
 .bo-modal-logo {
@@ -48,10 +68,7 @@ body {
 .bo-highlight-container2 {
   padding-top: 40px;
   padding-bottom: 40px;
-  background-image: url("../img/header2.jpg");
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-position: center center;
+  @include image-background("../img/header2.jpg");
   color: #fff;
   text-shadow: 2px 2px $gray-dark;
   blockquote {
