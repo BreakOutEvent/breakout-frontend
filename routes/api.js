@@ -4,6 +4,7 @@
 'use strict';
 
 var mongoose = require('../controller/mongo.js');
+var fs = require('fs');
 
 var models = {
   "template": mongoose.model('template', require('../schemas/template.js')),
@@ -14,6 +15,33 @@ var models = {
 
 var express = require('express');
 var router = express.Router();
+
+router.get('/html/:name', function (req, res) {
+
+  if (!req.params.name) {
+    res.sendStatus(400);
+    return;
+  }
+
+  if(req.params.name === 'master') {
+    fs.readFile('templates/master.handlebars', function(err, file) {
+      if(err) {
+        res.send(err);
+        return;
+      }
+      res.send(file);
+    });
+  } else {
+    fs.readFile('templates/partials/' + req.params.name +'.handlebars', function(err, file) {
+      if(err) {
+        res.send(err);
+        return;
+      }
+      res.send(file);
+    });
+  }
+});
+
 
 
 router.get('/:model', function (req, res) {
