@@ -57,9 +57,6 @@ readTemplates.init = function () {
 };
 
 readTemplates.getAll = function (cb) {
-
-  console.log(config.templatePath);
-
   var fileList = readTemplates.readFromFolder(config.templatePath);
 
   //readTemplates.clearDatabase();
@@ -117,8 +114,10 @@ readTemplates.parseTemplate = function (filename, fileContent) {
   var hasConfig = !!Object.keys(config).length;
 
   var localTemplate = {
-    title: path.basename(filename),
-    vars: []
+    title: filename,
+    name: filename,
+    vars: [],
+    requirements: []
   };
 
   if (hasConfig) {
@@ -130,6 +129,10 @@ readTemplates.parseTemplate = function (filename, fileContent) {
 
     if (config.hasOwnProperty('name')) {
       localTemplate.name = config.name;
+    }
+
+    if(config.hasOwnProperty('requirements')) {
+      localTemplate.requirements = config.requirements;
     }
 
     var configVars = config.hasOwnProperty('vars') ? config.vars : {};
@@ -244,7 +247,7 @@ readTemplates.parseTemplate = function (filename, fileContent) {
 
         //Check for title
         if (!variables[key].hasOwnProperty('title')) {
-          variables[key].type = key;
+          variables[key].title = key;
         }
 
         if (variables[key].type === 'array' && variables[key].hasOwnProperty['']) {
@@ -270,13 +273,14 @@ readTemplates.parseTemplate = function (filename, fileContent) {
 
     var arrayVars = [];
 
-    //Create new object for each key that does not contain any further objects
+    //If any value of the object is not an object, handle this object as object
     keys.forEach(function (key) {
       if (typeof vars[key] !== 'object') {
         arrayVars = {};
       }
     });
 
+    //If its not an array, write the values to the keys.
     if (!Array.isArray(arrayVars)) {
       keys.forEach(function (key) {
         if (typeof vars[key] !== 'object') {
@@ -287,6 +291,7 @@ readTemplates.parseTemplate = function (filename, fileContent) {
       });
 
     } else {
+      //Push elements on array (for wrapper)
       keys.forEach(function (key) {
         arrayVars.push(createVariables(vars[key]));
       });
