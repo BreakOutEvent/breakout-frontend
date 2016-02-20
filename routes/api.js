@@ -14,7 +14,15 @@ var models = {
 };
 
 var express = require('express');
+var reader = require('../controller/templateReader.js');
 var router = express.Router();
+
+
+router.get('/getList', function(req, res) {
+  reader.getAll(function(templates) {
+    res.json(templates);
+  });
+});
 
 router.get('/html/:name', function (req, res) {
 

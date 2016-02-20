@@ -11,7 +11,7 @@ var Variable = mongoose.model('variable', require('../schemas/variable.js'));
 
 //Globals
 var config = {
-  templatePath: path.normalize(__dirname + "/../templates/")
+  templatePath: path.normalize(__dirname + "/../templates/partials/")
 };
 
 var readTemplates = {};
@@ -38,16 +38,16 @@ readTemplates.init = function () {
         throw err;
       }
       if (doc) {
-        Template.update({ _id: doc._id }, { $set: parsedTemplate}, function(err) {
-          if(err) {
+        Template.update({_id: doc._id}, {$set: parsedTemplate}, function (err) {
+          if (err) {
             throw err;
           }
           console.log('Updated template ' + basename);
         });
       } else {
         var template = new Template(parsedTemplate);
-        template.save(function(err) {
-          if(err) {
+        template.save(function (err) {
+          if (err) {
             throw err;
           }
           console.log('Saved template ' + basename);
@@ -57,14 +57,43 @@ readTemplates.init = function () {
   });
 };
 
+readTemplates.getAll = function (cb) {
+
+  console.log(config.templatePath);
+
+  var fileList = readTemplates.readFromFolder(config.templatePath);
+
+  //readTemplates.clearDatabase();
+
+  var templates = [];
+
+  fileList.forEach(function (filename) {
+    //Load File?
+
+    var nameArr = filename.split('.');
+    nameArr.pop();
+    var basename = nameArr.join('.');
+
+    var fileContent = fs.readFileSync(config.templatePath + filename, {encoding: 'utf8'});
+    templates.push(readTemplates.parseTemplate(basename, fileContent));
+
+  });
+
+  cb(templates);
+};
+
 readTemplates.clearDatabase = function () {
   Template.remove({}, function (err, result) {
-    if (err) throw err;
+    if (err) {
+      throw err;
+    }
     console.log(result.result.ok);
   });
 
   Variable.remove({}, function (err, result) {
-    if (err) throw err;
+    if (err) {
+      throw err;
+    }
     console.log(result.result.ok);
   });
 };
@@ -242,13 +271,14 @@ readTemplates.parseTemplate = function (filename, fileContent) {
 
     var arrayVars = [];
 
+    //Create new object for each key that does not contain any further objects
     keys.forEach(function (key) {
       if (typeof vars[key] !== 'object') {
-        arrayVars = new Variable();
+        arrayVars = {};
       }
     });
 
-    if (typeof arrayVars._id !== 'undefined') {
+    if (!Array.isArray(arrayVars)) {
       keys.forEach(function (key) {
         if (typeof vars[key] !== 'object') {
           arrayVars[key] = vars[key];
@@ -256,8 +286,6 @@ readTemplates.parseTemplate = function (filename, fileContent) {
           arrayVars[key] = createVariables(vars[key]);
         }
       });
-
-      arrayVars.save();
 
     } else {
       keys.forEach(function (key) {
