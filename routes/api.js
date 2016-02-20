@@ -7,7 +7,6 @@ var mongoose = require('../controller/mongo.js');
 var fs = require('fs');
 
 var models = {
-  "template": mongoose.model('template', require('../schemas/template.js')),
   "view": mongoose.model('view', require('../schemas/view.js')),
   "page": mongoose.model('page', require('../schemas/page.js')),
   "variable": mongoose.model('variable', require('../schemas/variable.js'))
@@ -104,10 +103,10 @@ router.post('/:model', function (req, res) {
     return;
   }
 
-  if (req.params.model === 'template') {
+  /*if (req.params.model === 'template') {
     res.sendStatus(403);
     return;
-  }
+  }*/
 
   if (!req.body) {
     res.sendStatus(400);
@@ -134,10 +133,10 @@ router.put('/:model/:id', function (req, res) {
     return;
   }
 
-  if (req.params.model === 'template') {
+  /*if (req.params.model === 'template') {
     res.sendStatus(403);
     return;
-  }
+  }*/
 
   if (!req.body || !req.params.id) {
     res.sendStatus(400);
@@ -163,10 +162,10 @@ router.delete('/:model/:id', function (req, res) {
     return;
   }
 
-  if (req.params.model === 'template') {
+  /*if (req.params.model === 'template') {
     res.sendStatus(403);
     return;
-  }
+  }*/
 
   if (!req.params.id) {
     res.sendStatus(400);
