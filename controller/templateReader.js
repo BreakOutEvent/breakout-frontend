@@ -6,7 +6,6 @@ var path = require('path');
 
 //Own Dependencies
 var mongoose = require('./mongo.js');
-var Template = mongoose.model('template', require('../schemas/template.js'));
 var Variable = mongoose.model('variable', require('../schemas/variable.js'));
 
 //Globals
