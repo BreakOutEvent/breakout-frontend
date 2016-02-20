@@ -23,6 +23,31 @@ router.get('/getList', function(req, res) {
   });
 });
 
+router.post('/batch/:model', function(req, res) {
+
+  var model = models[req.params.model] ? models[req.params.model] : null;
+
+  if (!model) {
+    res.sendStatus(404);
+    return;
+  }
+
+  if (!req.body) {
+    res.sendStatus(400);
+    return;
+  }
+
+  console.log(req.body);
+
+  models[req.params.model].find({ _id : { $in : req.body } }).exec(function (err, docs) {
+    if (err) {
+      res.send(err);
+    } else {
+      res.json(docs);
+    }
+  });
+});
+
 router.get('/html/:name', function (req, res) {
 
   if (!req.params.name) {
