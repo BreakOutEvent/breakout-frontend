@@ -1,0 +1,80 @@
+.navbar-btn {
+  @include button-variant(#fff, $brand-primary, #fff);
+  @include button-size($padding-base-vertical, $padding-base-horizontal, $font-size-base, $line-height-base, $btn-border-radius-small);
+}
+
+.navbar-nav > li > .dropdown-menu {
+  margin-top: 3px;
+  border-radius: $border-radius-large;
+  @include box-shadow(0 2px 5px $gray-light);
+}
+
+//caret towards dropdown button
+.navbar-nav > li > .dropdown-menu-right::before {
+  position: absolute;
+  top: -11px;
+  right: 14%;
+  display: inline-block;
+  border-right: 11px solid transparent;
+  border-bottom: 11px solid $dropdown-border;
+  border-left: 11px solid transparent;
+  border-bottom-color: rgba(0, 0, 0, 0.08);
+  transform: rotate(360deg); //improves anti-aliasing
+  content: '';
+}
+
+.navbar-nav > li > .dropdown-menu-right::after {
+  position: absolute;
+  top: -10px;
+  right: 15%;
+  display: inline-block;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #fff;
+  border-left: 10px solid transparent;
+  transform: rotate(360deg); //improves anti-aliasing
+  content: '';
+}
+
+@media (max-width: $screen-xs-max) {
+  .navbar .navbar-right.bo-user-icons {
+    position: absolute;
+    margin-top: 4px;
+    right: 80px;
+  }
+  .navbar .navbar-right.bo-user-icons > li {
+    display: inline-block;
+  }
+  .navbar .navbar-right.bo-user-icons > li > a {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+}
+
+.navbar-nav .material-icons {
+  font-size: 18px;
+}
+
+.bo-nav-logo {
+  margin-top: -5px;
+}
+
+//hide logo on small devices (iPhone < 6)
+@media (max-width: 350px) {
+  .navbar-brand {
+    display: none;
+  }
+}
+
+.bo-nav-user-icon {
+  border-radius: 50%;
+  border-color: #fff;
+  border-style: solid;
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+  margin-top: -5px;
+}
+
+.bo-header {
+  @include box-shadow(0 1px 1px $gray-dark);
+}

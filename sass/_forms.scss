@@ -1,0 +1,22 @@
+.form-control {
+  border-width: 0 0 1px 0;
+  @include box-shadow(none);
+  @include transition(border-bottom-color ease-in-out .15s);
+}
+
+.form-control:focus {
+  @include box-shadow(none);
+}
+
+label {
+  margin-bottom: 0;
+  font-weight: normal;
+  color: $gray-darker;
+  font-size: $font-size-small;
+}
+
+@media screen and (min-width: $screen-sm-min) {
+  .bo-single-row {
+    width: 550px;
+  }
+}

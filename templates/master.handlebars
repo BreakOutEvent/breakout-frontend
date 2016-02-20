@@ -1,3 +1,63 @@
+<!--
+{
+  'title': 'Master template',
+  'vars': {
+    title: {
+      title: 'Content title',
+      type: 'text'
+    },
+    menu: {
+      title: 'Menu item entries',
+      child: {
+        itemtext:{
+          title: 'Menu item entry'
+          type: 'url'
+        },
+        itemlink:{
+          title: 'Menu item text',
+          type: 'text'
+        }
+      }
+    },
+    sponsor: {
+      title: 'Sponsor highlight text',
+      type: 'text'
+    },
+    supporterlist: {
+      title: 'List of supporters',
+      child: {
+        supporter:{
+          title: 'Supporter entry'
+          type: 'text'
+        }
+      }
+    },
+    friendslist: {
+      title: 'List of BreakOut friends',
+      child: {
+        friend:{
+          title: 'BreakOut Friend entry'
+          type: 'text'
+        }
+      }
+    },
+    footermenu: {
+      title: 'List of BreakOut friends',
+      child: {
+        menuitem:{
+          title: 'BreakOut Friend entry'
+          type: 'url'
+        }
+      }
+    },
+    copyright: {
+      title: 'Copyright',
+      type: 'text',
+    }
+  }
+}
+-->
+
 
 <!DOCTYPE html>
 <html lang="de">
@@ -12,7 +72,7 @@
     <title>{{title}}</title>
     
     <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Bootstrap core CSS -->
     <link href="css/styles.css" rel="stylesheet">
     <link rel="alternate" type="application/rss+xml" title="BreakOut &raquo; Feed" href="http://break-out.org/feed/" />
@@ -20,8 +80,31 @@
 	</head>
 
   <body>
+
     <nav class="navbar navbar-inverse navbar-fixed-top bo-header">
       <div class="container">
+<!-- non-collapsing items -->
+<ul class="nav navbar-nav navbar-right bo-user-icons">
+          <li><button type="button" class="btn navbar-btn hidden-sm hidden-xs" data-toggle="modal" data-target="#modalLogin">Anmelden / Registrieren</button></li>
+          <li><a href="#"><i class="material-icons md-18">message</i></a></li>
+          <li><a href="#"><i class="material-icons md-18">people</i></a></li>
+          <li><a href="#"><i class="material-icons md-18">send</i></a></li>
+          <li class="dropdown">
+            <a id="userDropDown" class="dropdown-toggle" data-toggle="dropdown" href="#">
+              <img src="http://lorempixel.com/30/30/people/1/" class="bo-nav-user-icon pull-left"></img><i class="material-icons">expand_more</i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropDown">
+              <li><a href="#">Account Einstellungen</a></li>
+              <li><a href="#">Hilfe</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#">Zur BreakOut Webseite</a></li>
+              <li><a href="#">Mobile App herunterladen</a></li>
+              <li><a href="#">Weiter erzählen</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#">Abmelden</a></li>
+            </ul>
+          </li>
+        </ul>
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
@@ -29,56 +112,57 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#"><i>Break</i>Out</a>
+          <a class="navbar-brand" href="#">
+            <img class="bo-nav-logo" alt="BreakOut" src="./img/logos/BreakOut-Logo_Nav.svg">
+          </a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li><a href="#">Teams</a></li>
-            <li><a href="#">Howto</a></li>
-            <li><a href="#">Sponsoren</a></li>
-            <li><a href="#">Spenden empfangen</a></li>
-            <li class="pull-right"><a href="#"  data-toggle="modal" data-target="#modalLogin">Anmelden / Registrieren</a></li>
+            {{#each menu}}
+              <li><a href="{{itemlink}}">{{itemtext}}</a></li>
+            {{/each}}
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
-    
-    {{content}}
-    
+    <div class="bo-header-logo">
+      <img class="center-block" alt="BreakOut" src="./img/logos/BreakOut-Logo_Header.svg">
+    </div>
+
+{{content}}
+
     <div class ="bo-footer">
       <div class="container">
         <div class="row">
           <div class="col-md-4 col-xs-12">
             <h4>Sponsor von BreakOut</h4>
-            <p>Think Big ist ein Jugendprogramm der Telefónica Stiftung und der Deutschen Kinder- und Jugendstiftung (DKJS) gemeinsam mit O2.</p>
+            <p>{{sponsor}}</p>
           </div>
           <div class="col-md-4 col-xs-6">
             <h4>Unterstützt von</h4>
             <ul>
-              <li>MeinFernbus Flixbus</li>
-              <li>Pedalhelden.de</li>
-              <li>Gartensalon Munchen</li>
-              <li>Travelite</li>
+              {{#each supporterlist}}
+                <li>{{supporter}}</li>
+              {{/each}}
             </ul>
           </div>
           <div class="col-md-4 col-xs-6">
             <h4>Unsere Freunde</h4>
             <ul>
-              <li>MESA</li>
-              <li>munichx</li>
-              <li>crazyrunnings</li>
+              {{#each friendslist}}
+                <li>{{friend}}</li>
+              {{/each}}
             </ul>
           </div>
         </div>
         <hr>
         <div class="clearfix">
           <ul class="list-inline pull-left">
-              <li><a href="#">Presse</a></li>
-              <li><a href="#">Partner</a></li>
-              <li><a href="#">Über uns</a></li>
-              <li><a href="#">Impressum</a></li>
+            {{#each footermenu}}
+              <li><a href="#">{{menuentry}}</a></li>
+            {{/each}}
           </ul>
-          <p class="pull-right">Copyright 2015 BreakOut - All rights reserved</p>
+          <p class="pull-right">{{copyright}}</p>
         </div>
       </div>
     </div>

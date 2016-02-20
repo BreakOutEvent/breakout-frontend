@@ -1,0 +1,44 @@
+.modal {
+  text-align: center;
+  padding: 0!important;
+}
+
+.modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px;
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.modal-header {
+  border-bottom-style: none;
+}
+
+.modal-footer {
+  border-top-style: none;
+}
+
+.modal-content-only {
+  @include box-shadow(none);
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.modal-content iframe {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.bo-modal-logo {
+  max-width: 100%;
+  max-height: 100%;
+}

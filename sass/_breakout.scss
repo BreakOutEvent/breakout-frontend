@@ -2,46 +2,6 @@ body {
   padding-top: 50px;
 }
 
-@media (max-width: $screen-xs-max) {
-  .navbar .navbar-right.bo-user-icons {
-    position: absolute;
-    margin-top: 4px;
-    right: 80px;
-  }
-  .navbar .navbar-right.bo-user-icons > li {
-    display: inline-block;
-  }
-  .navbar .navbar-right.bo-user-icons > li > a {
-    padding-right: 10px;
-    padding-left: 10px;
-  }
-}
-
-.navbar-nav .material-icons {
-  font-size: 18px;
-}
-
-.bo-nav-logo {
-  margin-top: -5px;
-}
-
-//hide logo on small devices (iPhone < 6)
-@media (max-width: 350px) {
-  .navbar-brand {
-    display: none;
-  }
-}
-
-.bo-nav-user-icon {
-  border-radius: 50%;
-  border-color: #fff;
-  border-style: solid;
-  width: 30px;
-  height: 30px;
-  margin-right: 5px;
-  margin-top: -5px;
-}
-
 .bo-header-logo {
   padding-top: 40px;
   padding-bottom: 40px;
@@ -55,11 +15,6 @@ body {
   }
 }
 
-.bo-modal-logo {
-  max-width: 100%;
-  max-height: 100%;
-}
-
 .bo-highlight-container {
   padding-top: 40px;
   padding-bottom: 40px;
@@ -71,13 +26,21 @@ body {
   @include image-background("../img/header2.jpg");
   color: #fff;
   text-shadow: 2px 2px $gray-dark;
+  min-height: 190px;
   blockquote {
-    font-size: $font-size-large;
+    font-size: $blockquote-font-size;
     text-align: center;
     text-shadow: 2px 2px $gray-dark;
     border-width: 0px;
     footer {
       color: #fff;
+      font-size: 60%;
+    }
+  }
+  @media screen and (min-width: $screen-sm-min) {
+    min-height: 240px;
+    blockquote {
+      font-size: $font-size-h2;
     }
   }
   a {
@@ -110,10 +73,6 @@ body {
 
 .bo-teaser {
   margin-left: 90px;
-}
-
-.bo-header {
-  @include box-shadow(0 1px 1px $gray-dark);
 }
 
 .bo-footer {
