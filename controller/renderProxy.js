@@ -12,34 +12,37 @@ var View = mongoose.model('view', require('../schemas/view.js'));
 var renderer = {};
 
 
-renderer.renderPage = function (pageID, cb) {
-
-  var tempViewHTML = [];
-
+renderer.renderPage = function (pageID) {
   Page.findOne({'_id': pageID}, function (err, page) {
     if (err) {
       throw err;
     } else {
 
-      //Render HTML for each View
-      page.views.forEach(function (view) {
-        renderer.renderView(view._id, function (html) {
-          tempViewHTML.push({'_id': view._id, 'html': html});
+      // Iterate properties for each language
+      page.properties.forEach(function (elem){
+
+        var tempViewHTML = [];
+
+        //Render HTML for each View
+        page.views.forEach(function (view) {
+          // render view with current page language
+          renderer.renderView(view._id, elem.language, function (html) {
+            tempViewHTML.push({'_id': view._id, 'html': html});
+          });
         });
+
+        //Fill template with HTML from Views (concat them)
+        var html = tempViewHTML.reduce(function (el) { return el.html; });
+
+        //Read page template
+        var handlebarsTemplate = data.readDerFuehrer();
+
+        var pageHtml = handlebars.compile(handlebarsTemplate)({'content': html});
+
+        // save to file
+
       });
 
-      //Fill template with HTML from Views
-      //For static pages we assume that we just concat the views
-      var html = tempViewHTML.reduce(function (el) { return el.html; });
-
-      //Read page template
-      var handlebarsTemplate = data.readTemplateFile('page', pageID);
-
-      //Compile template to function
-      var compiledTemplate = handlebars.compile(handlebarsTemplate);
-
-      //Callback with completed html
-      cb(compiledTemplate({'body': html}));
     }
   });
 
@@ -51,17 +54,19 @@ renderer.renderPage = function (pageID, cb) {
 
 };
 
-renderer.renderView = function (viewID, cb) {
+renderer.renderView = function (viewID, language, cb) {
 
   View.findOne({'_id': viewID}, function (err, view) {
     if (err) {
       throw err;
     } else {
       //Read page template
-      var handlebarsTemplate = data.readTemplateFile('view', viewID);
+      var handlebarsTemplate = data.readTemplateFile('partials', view.templateName);
 
       //Compile template to function
       var compiledTemplate = handlebars.compile(handlebarsTemplate);
+
+      
 
       //Callback with completed html
       cb(compiledTemplate(view.values));

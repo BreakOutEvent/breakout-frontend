@@ -21,9 +21,15 @@ dataLayer.readRenderedFile = function(folder,id) {
 
 };
 
-dataLayer.readTemplateFile = function(folder,id) {
+dataLayer.readTemplateFile = function(folder,name) {
 
-  return fs.readFileSync(__dirname + '/templates/' + folder + '/' + id + '.handlebars');
+  return fs.readFileSync(__dirname + '/templates/' + folder + '/' + name + '.handlebars');
+
+};
+
+dataLayer.readDerFuehrer = function() {
+
+    return fs.readFileSync(__dirname + '/templates/master.handlebars');
 
 };
 
