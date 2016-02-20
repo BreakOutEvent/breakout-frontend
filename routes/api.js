@@ -37,8 +37,6 @@ router.post('/batch/:model', function(req, res) {
     return;
   }
 
-  console.log(req.body);
-
   models[req.params.model].find({ _id : { $in : req.body } }).exec(function (err, docs) {
     if (err) {
       res.send(err);
