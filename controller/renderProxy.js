@@ -23,16 +23,14 @@ renderer.renderPage = function (pageID, cb) {
 
       //Render HTML for each View
       page.views.forEach(function (view) {
-        proxy.getView(view._id, function (html) {
+        renderer.renderView(view._id, function (html) {
           tempViewHTML.push({'_id': view._id, 'html': html});
         });
       });
 
       //Fill template with HTML from Views
       //For static pages we assume that we just concat the views
-      var html = tempViewHTML.map(function (el) {
-        return el.html;
-      }).join("");
+      var html = tempViewHTML.reduce(function (el) { return el.html; });
 
       //Read page template
       var handlebarsTemplate = data.readTemplateFile('page', pageID);
