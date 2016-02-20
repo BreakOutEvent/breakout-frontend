@@ -1,9 +1,21 @@
-var mongoose = require('mongoose');
+'use strict';
 
-module.exports = new mongoose.Schema({
-  templatename: {type: String, required: true},
-  values: [{
+var mongoose = require('mongoose');
+var variableSchema = require('./variable.js');
+
+var viewSchema = new mongoose.Schema({
+  templateName: {type: String, required: true},
+  variables: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'variable'
   }]
 });
+
+viewSchema.pre('remove', function(next) {
+  this.variables.forEach(function(variable) {
+    variableSchema.remove({_id: variable._id}).exec();
+  });
+  next();
+});
+
+module.exports = viewSchema;

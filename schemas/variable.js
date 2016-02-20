@@ -1,9 +1,20 @@
+'use strict';
 var mongoose = require('mongoose');
+var l2vSchema = require('./languagetovalue.js');
 
-module.exports =  new mongoose.Schema({
+var variableSchema =  new mongoose.Schema({
   name: {type: String, required: true},
   values: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'languagetovalue'
   }]
 });
+
+variableSchema.pre('remove', function(next) {
+  this.values.forEach(function(l2v) {
+    l2vSchema.remove({_id: l2v._id}).exec();
+  });
+  next();
+});
+
+module.exports = variableSchema;
