@@ -1,6 +1,8 @@
+'use strict';
 var mongoose = require('mongoose');
+var viewSchema = require('./view.js');
 
-module.exports = new mongoose.Schema({
+var pageSchema = new mongoose.Schema({
   properties: [{
     language: {type: String, required: true},
     title: {type: String, required: true},
@@ -11,3 +13,12 @@ module.exports = new mongoose.Schema({
     ref: 'view'
   }]
 });
+
+pageSchema.pre('remove', function(next) {
+  this.views.forEach(function(view) {
+    viewSchema.remove({_id: view._id}).exec();
+  });
+  next();
+});
+
+module.exports = pageSchema;
