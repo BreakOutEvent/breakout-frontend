@@ -4,7 +4,7 @@ var viewSchema = require('./view.js');
 
 var pageSchema = new mongoose.Schema({
   properties: [{
-    language: {type: String, required: true},
+    language: {type: mongoose.Schema.Types.Lang, required: true},
     title: {type: String, required: true},
     url: {type: String, required: true}
   }],
