@@ -101,7 +101,7 @@ readTemplates.readFromFolder = function (path) {
 readTemplates.parseTemplate = function (filename, fileContent) {
 
   var contentVars = analyseContentVars(fileContent.match(/{{([a-zA-Z0-1#\/\s]*)}}/g) || []);
-  var config = fileContent.match(/<!--((?:\n|\r|.)*)-->/)[1];
+  var config = fileContent.match(/{{!--((?:\n|\r|.)*)--}}/)[1];
   if (config) {
     try {
       config = JSON.parse(config);
