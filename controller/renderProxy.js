@@ -20,7 +20,7 @@ renderer.renderPage = function (pageID) {
     .exec(function (err, page) {
       if (err) {
         throw err;
-      } else if(!page) {
+      } else if (!page) {
         // how should we handle non-existing ids?
         throw null;
       } else {
@@ -62,12 +62,27 @@ renderer.renderPage = function (pageID) {
 
 };
 
+/**
+ * Searches for the localized language string, and falls back to german if nothing is found.
+ * @param view
+ * @param language
+ * @returns {*}
+ */
+renderer.getVariables = function (view, language) {
+  return view.variables.reduce(function (iv, v) {
+    iv[v.name] = (v.values.find(e => e.language === language) || v.values.find(e => e.language === 'de'))['value'];
+    return iv;
+  }, {});
+};
+
 renderer.renderView = function (view, language, cb) {
   //Read page template
   var handlebarsTemplate = data.readTemplateFile('partials', view.templateName);
 
   //Compile template to function
   var compiledTemplate = handlebars.compile(handlebarsTemplate);
+
+  console.log(renderer.getVariables(view, language));
 
   //Callback with completed html
   cb(compiledTemplate());
