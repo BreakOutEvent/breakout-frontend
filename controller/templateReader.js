@@ -32,27 +32,6 @@ readTemplates.init = function () {
     var fileContent = fs.readFileSync(config.templatePath + filename, {encoding: 'utf8'});
     var parsedTemplate = readTemplates.parseTemplate(basename, fileContent);
 
-    Template.findOne({'name': basename}, function (err, doc) {
-      if (err) {
-        throw err;
-      }
-      if (doc) {
-        Template.update({_id: doc._id}, {$set: parsedTemplate}, function (err) {
-          if (err) {
-            throw err;
-          }
-          console.log('Updated template ' + basename);
-        });
-      } else {
-        var template = new Template(parsedTemplate);
-        template.save(function (err) {
-          if (err) {
-            throw err;
-          }
-          console.log('Saved template ' + basename);
-        });
-      }
-    });
   });
 };
 
@@ -79,12 +58,6 @@ readTemplates.getAll = function (cb) {
 };
 
 readTemplates.clearDatabase = function () {
-  Template.remove({}, function (err, result) {
-    if (err) {
-      throw err;
-    }
-    console.log(result.result.ok);
-  });
 
   Variable.remove({}, function (err, result) {
     if (err) {
