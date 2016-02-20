@@ -9,7 +9,6 @@ var fs = require('fs');
 var models = {
   "view": mongoose.model('view', require('../schemas/view.js')),
   "page": mongoose.model('page', require('../schemas/page.js')),
-  "variable": mongoose.model('variable', require('../schemas/variable.js'))
 };
 
 var express = require('express');

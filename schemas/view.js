@@ -5,10 +5,7 @@ var variableSchema = require('./variable.js');
 
 var viewSchema = new mongoose.Schema({
   templateName: {type: String, required: true},
-  variables: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'variable'
-  }]
+  variables: [variableSchema]
 });
 
 viewSchema.pre('remove', function(next) {

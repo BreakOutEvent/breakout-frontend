@@ -4,10 +4,7 @@ var l2vSchema = require('./languagetovalue.js');
 
 var variableSchema =  new mongoose.Schema({
   name: {type: String, required: true},
-  values: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'languagetovalue'
-  }]
+  values: [l2vSchema]
 });
 
 variableSchema.pre('remove', function(next) {
