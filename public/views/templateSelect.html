@@ -1,0 +1,10 @@
+<div class="col-md-3 template-select" ng-controller="TemplateListCtrl as templateCtrl">
+    <h3>Templates</h3>
+    <ul class="nav nav-pills nav-stacked"
+        ui-sortable="sortableOptions"
+        ng-model="templateCtrl.templates" class="list">
+        <li role="presentation" ng-repeat="template in templateCtrl.templates">
+            <div class="template-item" index={{$index}}>{{template.title}}</div>
+        </li>
+    </ul>
+</div>
