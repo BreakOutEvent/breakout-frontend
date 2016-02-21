@@ -47,3 +47,17 @@
     }
   }
 }
+
+.carousel-indicators {
+  li {
+    border-width: 0 0 1px 0;
+    border-style: solid;
+    border-color: $carousel-indicator-border-color;
+    border-radius: 0;
+  } 
+  .active {
+    border-color:$brand-primary;
+    background-color: #000 \9; // IE8
+    background-color: rgba(0,0,0,0); // IE9
+  }
+}

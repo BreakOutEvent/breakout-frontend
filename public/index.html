@@ -26,15 +26,21 @@
 
         <!-- non-collapsing items -->
         <ul class="nav navbar-nav navbar-right bo-user-icons">
-          <li><button type="button" class="btn navbar-btn hidden-sm hidden-xs" data-toggle="modal" data-target="#modalLogin">Anmelden / Registrieren</button></li>
-          <li><a href="#"><i class="material-icons md-18">message</i></a></li>
-          <li><a href="#"><i class="material-icons md-18">people</i></a></li>
-          <li><a href="#"><i class="material-icons md-18">send</i></a></li>
+          <li><button type="button" class="btn navbar-btn visible-lg text-uppercase" data-toggle="modal" data-target="#modalLogin">Anmelden / Registrieren</button></li>
+<!--
+          <li><a href="#"><i class="material-icons">message</i></a></li>
+          <li><a href="#"><i class="material-icons">people</i></a></li>
+          <li><a href="#"><i class="material-icons">send</i></a></li>
+-->
           <li class="dropdown">
             <a id="userDropDown" class="dropdown-toggle" data-toggle="dropdown" href="#">
               <img src="http://lorempixel.com/30/30/people/1/" class="bo-nav-user-icon pull-left"></img><i class="material-icons">expand_more</i>
             </a>
             <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropDown">
+          <li class="pull-right"><a href="#"><i class="material-icons">message</i></a></li>
+          <li class="pull-right"><a href="#"><i class="material-icons">people</i></a></li>
+          <li class="pull-right"><a href="#"><i class="material-icons">send</i></a></li>
+              <li role="separator" class="divider clearfix"></li>
               <li><a href="#">Account Einstellungen</a></li>
               <li><a href="#">Hilfe</a></li>
               <li role="separator" class="divider"></li>
@@ -58,7 +64,7 @@
           </a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
+          <ul class="nav navbar-nav text-uppercase">
             <li><a href="#">Teams</a></li>
             <li><a href="#">Howto</a></li>
             <li><a href="#">Sponsoren</a></li>
@@ -93,17 +99,13 @@
     
   <div class="bo-highlight-container2">
     <div class="container">
-      <div class="row">
-        <div class="col-md-2 text-center vertical-center">
-          <a href="#" id="btnIntroVideo" class="" data-toggle="modal" data-target="#modalIntroVideo"  data-video="http://www.youtube.com/embed/DLzxrzFCyOs"><i class="material-icons md-48">play_circle_filled</i></a>
-        </div>
-        <div class="col-md-8">
+        <a href="#" id="btnIntroVideo" class="pull-left" data-toggle="modal" data-target="#modalIntroVideo"  data-video="http://www.youtube.com/embed/DLzxrzFCyOs"><i class="material-icons">play_circle_filled</i></a>
+        <div class="bo-testertext">
           <h2>In 36 Stunden.</h2>
           <h2>Moeglichst weit weg.</h2>
           <h2>Ohne Geld.</h2>
         </div>
       </div>
-    </div>
   </div>
 
     <div class="container bo-highlight-container">
@@ -233,13 +235,15 @@
           </div>
           <div class="modal-body">
             <form>
-              <div class="form-group">
+              <div class="form-group has-feedback has-feedback-left">
                 <label for="loginEmail">Email Adresse</label>
-                <input type="email" class="form-control" id="loginEmail" >
+                <input type="email" class="form-control" data-icon="email" id="loginEmail" >
+                <i class="form-control-feedback material-icons">mail_outline</i>
               </div>
-              <div class="form-group">
+              <div class="form-group has-feedback has-feedback-left">
                 <label for="loginPassword">Passwort</label>
                 <input type="password" class="form-control" id="loginPassword">
+                <i class="form-control-feedback material-icons">lock_outline</i>
               </div>
             </form>
           </div>
@@ -254,11 +258,11 @@
     <div class ="bo-footer">
       <div class="container">
         <div class="row">
-          <div class="col-md-4 col-xs-12">
+          <div class="col-md-5 col-xs-12">
             <h4>Sponsor von BreakOut</h4>
             <p>Think Big ist ein Jugendprogramm der Telefónica Stiftung und der Deutschen Kinder- und Jugendstiftung (DKJS) gemeinsam mit O2.</p>
           </div>
-          <div class="col-md-4 col-xs-6">
+          <div class="col-md-3 col-md-offset-1 col-xs-6">
             <h4>Unterstützt von</h4>
             <ul>
               <li>MeinFernbus Flixbus</li>
@@ -267,7 +271,7 @@
               <li>Travelite</li>
             </ul>
           </div>
-          <div class="col-md-4 col-xs-6">
+          <div class="col-md-3 col-xs-6">
             <h4>Unsere Freunde</h4>
             <ul>
               <li>MESA</li>
@@ -284,7 +288,7 @@
               <li><a href="#">Über uns</a></li>
               <li><a href="#">Impressum</a></li>
           </ul>
-          <p class="pull-right">Copyright 2015 BreakOut - All rights reserved</p>
+          <p class="bo-copyright">Copyright 2015 BreakOut - All rights reserved</p>
         </div>
       </div>
     </div>

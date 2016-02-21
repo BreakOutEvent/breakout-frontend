@@ -21,3 +21,12 @@ a .material-icons {
   text-shadow: none;
   display: inline-block;
 }
+
+.custom-icons {
+  width: 24px;
+  height: 24px;
+  &.tshirt{
+    content: url(../img/icons/ic_tshirt_24px.svg);
+  }
+  
+}

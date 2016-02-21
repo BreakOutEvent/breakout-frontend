@@ -50,8 +50,19 @@
   }
 }
 
+.navbar-toggle {
+  &:hover,
+  &:focus {
+  .icon-bar {
+    background-color: $brand-primary;
+    }
+  }
+}
+.navbar-nav > li > a {
+  height: 60px;
+}
 .navbar-nav .material-icons {
-  font-size: 18px;
+  font-size: 24px;
 }
 
 .bo-nav-logo {
@@ -76,5 +87,7 @@
 }
 
 .bo-header {
-  @include box-shadow(0 1px 1px $gray-dark);
+  @include box-shadow(0 2px 12px rgba(0,0,0,0.2), 0 2px 6px rgba(0,0,0,0.1));
+  border-bottom-width: 0;
+  min-height: $navbar-height;
 }

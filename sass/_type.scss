@@ -1,0 +1,27 @@
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 0;
+  padding: 0;
+}
+
+h2 {
+  font-weight: 300;
+  @media screen and (min-width: $screen-sm-min) {
+    font-size: 58px;
+  }
+}
+
+h3 {
+  font-size: 35px;
+  font-weight: 300;
+  margin: 0 0 20px 0;
+}
+
+h4 {
+  font-size: 25px;
+  font-weight: 300;
+  margin: 0 0 10px 0;
+}

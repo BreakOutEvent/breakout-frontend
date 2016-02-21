@@ -5,11 +5,11 @@ $bootstrap-sass-asset-helper: false !default;
 //== Colors
 //
 //## Gray and brand colors for use across Bootstrap.
-$gray-base: #404040;
+$gray-base: #404041;
 $gray-darker: lighten($gray-base, 13.5%) !default; // #222
-$gray-dark: lighten($gray-base, 20%) !default; // #333
+$gray-dark: #333;
 $gray: lighten($gray-base, 33.5%) !default; // #555
-$gray-light: lighten($gray-base, 46.7%) !default; // #777
+$gray-light: #BDBDBD;
 $gray-lighter: lighten($gray-base, 93.5%) !default; // #eee
 $brand-primary: #f7931d;
 $brand-success: #5cb85d !default;
@@ -22,7 +22,7 @@ $brand-danger: #d9534f !default;
 //** Background color for `<body>`.
 $body-bg: #fff;
 //** Global text color on `<body>`.
-$text-color: $gray-dark;
+$text-color: $gray-base;
 //** Global textual link color.
 $link-color: $brand-primary !default;
 //** Link hover color set via `darken()` function.
@@ -51,7 +51,7 @@ $font-size-base: 14px !default;
 $font-size-large: ceil(($font-size-base * 1.25)) !default; // ~18px
 $font-size-small: ceil(($font-size-base * 0.85)) !default; // ~12px
 $font-size-h1: floor(($font-size-base * 2.6)) !default; // ~36px
-$font-size-h2: floor(($font-size-base * 2.15)) !default; // ~30px
+$font-size-h2: 30px; // ~30px
 $font-size-h3: ceil(($font-size-base * 1.7)) !default; // ~24px
 $font-size-h4: ceil(($font-size-base * 1.25)) !default; // ~18px
 $font-size-h5: $font-size-base !default;
@@ -151,7 +151,7 @@ $input-bg: #fff !default;
 //** `<input disabled>` background color
 $input-bg-disabled: $gray-lighter !default;
 //** Text color for `<input>`s
-$input-color: $gray !default;
+$input-color: #000;
 //** `<input>` border color
 $input-border: #000;
 // TODO: Rename `$input-border-radius` to `$input-border-radius-base` in v4
@@ -285,7 +285,7 @@ $container-lg: $container-large-desktop !default;
 //
 //##
 // Basics of a navbar
-$navbar-height: 50px !default;
+$navbar-height: 60px !default;
 $navbar-margin-bottom: $line-height-computed !default;
 $navbar-border-radius: $border-radius-base !default;
 $navbar-padding-horizontal: floor(($grid-gutter-width / 2)) !default;
@@ -328,9 +328,9 @@ $navbar-inverse-brand-color: $navbar-inverse-link-color !default;
 $navbar-inverse-brand-hover-color: #fff !default;
 $navbar-inverse-brand-hover-bg: transparent !default;
 // Inverted navbar toggle
-$navbar-inverse-toggle-hover-bg: #333 !default;
+$navbar-inverse-toggle-hover-bg: rgba(255,255,255, 0.5);
 $navbar-inverse-toggle-icon-bar-bg: #fff !default;
-$navbar-inverse-toggle-border-color: #333 !default;
+$navbar-inverse-toggle-border-color: rgba(255,255,255, 0.2);
 //== Navs
 //
 //##
