@@ -2,16 +2,13 @@
 var mongoose = require('./mongo.js');
 var handlebars = require('handlebars');
 var data = require('./dataProxy.js');
-var fs = require('fs');
+var renderCache = require('./renderCache');
 
 //Define Models
 var Page = mongoose.model('page', require('../schemas/page.js'));
-var View = mongoose.model('view', require('../schemas/view.js'));
-
 
 //Define empty object
 var renderer = {};
-
 
 renderer.renderPage = function (pageID) {
   Page
@@ -28,6 +25,9 @@ renderer.renderPage = function (pageID) {
         page.properties.forEach(function (elem) {
 
           var tempViewHTML = [];
+
+          if(page.views.length == 0)
+            return;
 
           //Render HTML for each View
           page.views.forEach(function (view) {
@@ -47,7 +47,7 @@ renderer.renderPage = function (pageID) {
 
           var pageHtml = handlebars.compile(handlebarsTemplate)({'content': html});
 
-          fs.writeFile("rendered.html", pageHtml);
+          renderCache.writeFile(elem.language, elem.url + '.html', pageHtml);
 
         });
 

@@ -8,7 +8,7 @@ var fs = require('fs');
 
 var models = {
   "view": mongoose.model('view', require('../schemas/view.js')),
-  "page": mongoose.model('page', require('../schemas/page.js')),
+  "page": mongoose.model('page', require('../schemas/page.js'))
 };
 
 var express = require('express');
