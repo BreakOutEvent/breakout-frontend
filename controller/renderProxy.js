@@ -70,6 +70,7 @@ renderer.renderPage = function (pageID) {
  */
 renderer.getVariables = function (view, language) {
   return view.variables.reduce(function (iv, v) {
+    // search e.language === language, if this fails it falls back to e.language === 'de'
     iv[v.name] = (v.values.find(e => e.language === language) || v.values.find(e => e.language === 'de'))['value'];
     return iv;
   }, {});
@@ -82,10 +83,8 @@ renderer.renderView = function (view, language, cb) {
   //Compile template to function
   var compiledTemplate = handlebars.compile(handlebarsTemplate);
 
-  console.log(renderer.getVariables(view, language));
-
   //Callback with completed html
-  cb(compiledTemplate());
+  cb(compiledTemplate(renderer.getVariables(view, language)));
 
   //1. Grab the template for this view
   //2. Combine the template with the vars from the view
