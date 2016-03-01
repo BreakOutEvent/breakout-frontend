@@ -6254,6 +6254,19 @@ label {
     height:100%;
 }
 
+.template-item .name {
+    position: absolute;
+    bottom: 0; left: 0;
+    padding: 5px;
+    margin:5px;
+    -webkit-transition: opacity 0.5s;
+    opacity:0;
+    background: white;
+}
+.template-item:hover .name {
+    opacity:1;
+}
+
 .view-elem {
     list-style: none outside none;
     margin: 10px 0 30px;

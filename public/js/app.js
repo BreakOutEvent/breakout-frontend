@@ -24,6 +24,7 @@ app.controller('MainCtrl', function ($rootScope, $scope, APISrv) {
         //Create new View from Template
         if(droppedElement.className.indexOf("template-item") > -1) {
             var template = $rootScope.templates[droppedElement.attributes['index'].value];
+            console.log(template);
         } else if(droppedElement.className.indexOf("page-element-sortable") > -1) {
             //SET MENU ORDER HERE
         }
