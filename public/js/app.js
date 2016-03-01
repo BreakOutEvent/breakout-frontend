@@ -17,40 +17,23 @@ app.controller('MainCtrl', function ($rootScope, $scope, APISrv) {
     $scope.list = [];
 
 
-    $scope.sortingLog = [];
 
     $scope.sortableOptions = {
       update: function (e, ui) {
-
         var droppedElement = ui.item.context.firstElementChild;
         //Create new View from Template
         if(droppedElement.className.indexOf("template-item") > -1) {
             var template = $rootScope.templates[droppedElement.attributes['index'].value];
-            APISrv.view.add($rootScope.currentPage._id, template).then(function (res) {
-              console.log(res);
-              //vm.page.views = res.views;
-              //loadPageViews();
-            });
-        } else {
-
+        } else if(droppedElement.className.indexOf("page-element-sortable") > -1) {
+            //SET MENU ORDER HERE
         }
-        var logEntry = $scope.list.map(function (i) {
-          return i.value;
-        }).join(', ');
-        $scope.sortingLog.push('Update: ' + logEntry);
       },
       receive: function (e, ui) {
-        console.log("receive");
-        console.log(e);
-        console.log(ui);
+        //
       },
       connectWith: ".list",
       stop: function (e, ui) {
-        // this callback has the changed model
-        var logEntry = $scope.list.map(function (i) {
-          return i.value;
-        }).join(', ');
-        $scope.sortingLog.push('Stop: ' + logEntry);
+        //
       }
     };
   })

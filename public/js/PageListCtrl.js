@@ -97,8 +97,8 @@ angular.module('pageList')
   .directive('pageListElement', function () {
     return {
       restrict: 'E',
-      template: '<a href="">{{page_title}}' +
-      '<span class="glyphicon glyphicon-remove right" ng-show="hover" aria-hidden="true"></span>' +
+      template: '<a href="" class="page-element-sortable">{{page_title}}' +
+      '<i class="material-icons md-20 right" ng-show="hover">delete</i>' +
       '</a>',
       replace: true,
       transclude: false,
