@@ -15,4 +15,8 @@ router.get('/', function (req, res) {
   res.send("DAN");
 });
 
+router.get('/:language([a-zA-Z]{2})/:path', function(req, res){
+  res.send(req.params.language + "/" + req.params.path);
+});
+
 module.exports = router;
