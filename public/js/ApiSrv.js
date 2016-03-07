@@ -92,18 +92,14 @@ angular.module('app')
                   type = [];
                   break;
               }
-              type = " ";
+              type = " "; //TODO: set default values on top
               variables.push({name: template.vars[i].name, values: [{language: 'de', value: type}]});
             }
-            console.log(template.name);
-            console.log(variables);
             $http.post("/api/view", {
               templateName: template.name,
               variables: variables
             }).then(function (res) {
               $rootScope.currentPage.views.push(res.data._id);
-              console.log(page_id);
-              console.log(res);
               $http.put("/api/page/" + page_id, {
                 views: $rootScope.currentPage.views
               }).then(function (res) {

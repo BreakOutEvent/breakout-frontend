@@ -4,7 +4,11 @@
         ui-sortable="sortableOptions"
         ng-model="templateCtrl.templates" class="list">
         <li role="presentation" ng-repeat="template in templateCtrl.templates">
-            <div class="template-item" index={{$index}}>{{template.title}}</div>
+            <div class="template-item" index={{$index}}>
+                <img ng-src="{{template.image}}" />
+                <div class="name">
+                    {{template.title}}</div>
+            </div>
         </li>
     </ul>
 </div>

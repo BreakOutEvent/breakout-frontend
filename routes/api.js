@@ -45,6 +45,16 @@ router.post('/batch/:model', function(req, res) {
   });
 });
 
+router.get('/css', function (req, res) {
+  fs.readFile('public/css/temp_style.min.css', function(err, file) {
+    if(err) {
+      res.send(err);
+      return;
+    }
+    res.send(file);
+  });
+});
+
 router.get('/html/:name', function (req, res) {
 
   if (!req.params.name) {

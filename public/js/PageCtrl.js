@@ -7,7 +7,6 @@ angular.module('page')
 
     $rootScope.$on("selectPage", function (event, page) {
       vm.page = page;
-      console.log("select page");
       loadPageViews();
     });
 
@@ -27,33 +26,13 @@ angular.module('page')
       });
     }
 
-    $scope.renderView = function (data, callback) {
-      console.log("hello");
-      if (data && data.templateName) {
-        APISrv.template.getHTML(data.templateName).then(function (handlebarsTemplate) {
-          var compiledHtml = Handlebars.compile(handlebarsTemplate);
-          var variables = {};
-          var language = language || "de";
-
-          for (var i = 0; i < data.variables.length; i++) {
-            var values = data.variables[i].values;
-            for (var k = 0; k < values.length; k++) {
-              if (values[k].language == language)
-                variables[data.variables[i].name] = values[k].value;
-            }
-          }
-          callback(compiledHtml(variables));
-        });
-      }
-    }
-
 
   })
   .directive('viewElem', ['$sce', '$uibModal', 'APISrv', function ($sce, $uibModal, APISrv) {
     return {
       restrict: 'E',
-      template: '<div>' +
-      '<span class="glyphicon glyphicon-edit right" aria-hidden="true"></span>' +
+      template: '<div class="view-elem">' +
+      '<i class="material-icons md-30 right">mode_edit</i>' +
       '<div ng-bind-html="html"></div>' +
       '</div>',
       transclude: false,
@@ -81,26 +60,33 @@ angular.module('page')
 
               editViewModal.result.then(function (view) {
                 APISrv.view.put(view._id, view).then(function (res) {
-                 console.log(res);
+                  renderView();
                 });
               });
             }
           });
-          var data = scope.view;
-          APISrv.template.getHTML(data.templateName).then(function (handlebarsTemplate) {
-            var compiledHtml = Handlebars.compile(handlebarsTemplate);
-            var variables = {};
-            var language = language || "de";
-
-            for (var i = 0; i < data.variables.length; i++) {
-              var values = data.variables[i].values;
-              for (var k = 0; k < values.length; k++) {
-                if (values[k].language == language)
-                  variables[data.variables[i].name] = values[k].value;
-              }
+          renderView();
+          function renderView() {
+            var data = scope.view;
+            //create view if not exists
+            if(!data.templateName) {
+              //APISrv.view.add(scope.)
             }
-            scope.html = $sce.trustAsHtml(compiledHtml(variables));
-          });
+            APISrv.template.getHTML(data.templateName).then(function (handlebarsTemplate) {
+              var compiledHtml = Handlebars.compile(handlebarsTemplate);
+              var variables = {};
+              var language = language || "de";
+
+              for (var i = 0; i < data.variables.length; i++) {
+                var values = data.variables[i].values;
+                for (var k = 0; k < values.length; k++) {
+                  if (values[k].language == language)
+                    variables[data.variables[i].name] = values[k].value;
+                }
+              }
+              scope.html = $sce.trustAsHtml(compiledHtml(variables));
+            });
+          }
         }
       }
     }
@@ -111,7 +97,7 @@ angular.module('page')
       replace: true,
       template: '<div>' +
       '<label>{{variable.name}}</label>' +
-      '<input type="text" ng-model=variable.values[variableIndex].value />' +
+      '<input type="text" class="form-control" ng-model=variable.values[variableIndex].value />' +
       '</div>',
       scope: {
         variable: "=",

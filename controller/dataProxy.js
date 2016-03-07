@@ -29,7 +29,7 @@ dataLayer.readTemplateFile = function (folder, name) {
 
 dataLayer.readDerFuehrer = function () {
 
-  return dataLayer.readTemplateFile('', 'master');
+  return ''; //dataLayer.readTemplateFile('', 'master');
 
 };
 
