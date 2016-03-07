@@ -27,9 +27,9 @@ dataLayer.readTemplateFile = function (folder, name) {
 
 };
 
-dataLayer.readDerFuehrer = function () {
+dataLayer.readMasterTemplate = function () {
 
-  return ''; //dataLayer.readTemplateFile('', 'master');
+  return dataLayer.readTemplateFile('', 'master');
 
 };
 

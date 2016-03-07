@@ -3,8 +3,8 @@
  */
 'use strict';
 
-var mongoose = require('../controller/mongo.js');
 var renderer = require('../controller/renderProxy.js');
+var renderCache = require('../controller/renderCache.js');
 
 var express = require('express');
 var router = express.Router();
@@ -15,8 +15,12 @@ router.get('/', function (req, res) {
   res.send("DAN");
 });
 
-router.get('/:language([a-zA-Z]{2})/:path', function(req, res){
-  res.send(req.params.language + "/" + req.params.path);
+router.get('/:language([a-zA-Z]{2})/:path', function (req, res, next) {
+  const fullFilePath = req.params.path + '.html';
+  if(renderCache.exists(req.params.language, fullFilePath))
+    res.sendFile(renderCache.buildFilePath(req.params.language, fullFilePath));
+  else
+    next();
 });
 
 module.exports = router;

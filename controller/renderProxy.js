@@ -43,7 +43,7 @@ renderer.renderPage = function (pageID) {
           }, "");
 
           //Read page template
-          var handlebarsTemplate = data.readDerFuehrer();
+          var handlebarsTemplate = data.readMasterTemplate();
 
           var pageHtml = handlebars.compile(handlebarsTemplate)({'content': html});
 

@@ -47,6 +47,13 @@ var server = app.listen(3000, function () {
   console.log('Listening at http://%s:%s', host, port);
 });
 
+app.use(function(req, res){
+  res.status(404);
+
+  res.render('error', {code: 404, message: req.url + " could not be found on this server"});
+
+});
+
 // Displays any errors
 app.use(function (err, req, res, next) {
   res.status(err.status || 500);
