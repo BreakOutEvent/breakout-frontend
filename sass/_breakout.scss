@@ -1,8 +1,129 @@
 body {
-  padding-top: 50px;
+  padding-top: 60px;
 }
 
-.info-highlight {
-  padding: 40px 15px;
-  text-align: center;
+.bo-header-logo {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  @include image-background("../img/header2.jpg");
+  border-bottom-width: 2px;
+  border-bottom-color: rgba(0, 0, 0, 0.1);
+  border-bottom-style: solid;
+}
+
+@media(max-width: $screen-xs-min) {
+  .bo-header-logo img {
+    width: 250px;
+    height: auto;
+  }
+}
+
+.bo-highlight-container {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+.bo-highlight-container2 {
+  @include image-background("../img/header2.jpg");
+  color: #fff;
+  //min-height: 190px;
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
+  i.material-icons {
+    font-size: 88px;
+  }
+  blockquote {
+    font-size: $blockquote-font-size;
+    text-align: center;
+    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
+    border-width: 0px;
+    footer {
+      color: #fff;
+      font-size: 60%;
+    }
+  }
+  @media screen and (min-width: $screen-sm-min) {
+    height: 400px;
+    blockquote {
+      font-size: $font-size-h2;
+    }
+  }
+  a {
+    color: #fff;
+  }
+}
+
+@media screen and (min-width: $screen-sm-min) {
+  .bo-highlight-container {
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
+}
+
+.bo-news-teaser {
+  h3 {
+    background-color: $brand-primary;
+    border-radius: $border-radius-base $border-radius-base 0 0;
+    border-color: $brand-primary;
+    color: #fff;
+    padding: 5px 0 5px 5px;
+  }
+  .bo-news-teaser-content {
+    border-color: $gray-base;
+    border-width: 1px;
+  }
+}
+
+.bo-img-circle {
+  border-radius: 50%;
+  border-color: $brand-primary;
+  border-style: solid;
+  color: $brand-primary;
+  width: 80px;
+  height: 80px;
+}
+
+.bo-result-icon {
+  margin-bottom: 40px;
+}
+
+.bo-teaser {
+  margin-left: 90px;
+}
+
+.bo-footer {
+  padding-top: 50px;
+  padding-bottom: 25px;
+  background-color: $gray-base;
+  color: $gray-light;
+  text-size: $font-size-small;
+  a {
+    color: $gray-light;
+  }
+  hr {
+    margin: 50px -10px 25px -10px;
+    opacity: 0.1;
+  }
+  ul,
+  p {
+    margin-bottom: 0;
+  }
+  .list-inline li {
+    padding-left: 5px;
+    padding-right: 5px;
+    @media screen and (min-width: $screen-sm-min) {
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+  }
+  .list-inline li:first-child {
+    padding-left: 5px;
+  }
+  .list-inline li:last-child {
+    padding-right: 0;
+  }
+  .bo-copyright {
+    @media screen and (min-width: $screen-sm-min) {
+      @extend .pull-right;
+    }
+  }
 }

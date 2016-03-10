@@ -1,7 +1,12 @@
 @import "bootstrap-variables";
-@import "../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "mixins";
+@import "bootstrap-extensions";
+@import "icons";
+@import "type";
+@import "buttons";
+@import "navigation";
+@import "modal";
+@import "forms";
+@import "carousel";
 @import "breakout";
-
-body{
-  padding-top: 70px;
-}

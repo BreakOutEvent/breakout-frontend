@@ -1,0 +1,63 @@
+.carousel-control {
+  // Toggles
+  .material-icons {
+    position: absolute;
+    top: 50%;
+    margin-top: -10px;
+    z-index: 5;
+    display: inline-block;
+  }
+  &.left {
+    .material-icons {
+      left: 50%;
+      margin-left: -10px;
+    }
+  }
+  &.right {
+    .material-icons {
+      right: 50%;
+      margin-right: -10px;
+    }
+  }
+}
+
+// Scale up controls for tablets and up
+@media screen and (min-width: $screen-sm-min) {
+  // Scale up the controls a smidge
+  .carousel-control {
+    .material-icons,
+    .material-icons,
+    {
+      width: ($carousel-control-font-size * 1.5);
+      height: ($carousel-control-font-size * 1.5);
+      margin-top: ($carousel-control-font-size / -2);
+      font-size: ($carousel-control-font-size * 1.5);
+    }
+    &.left {
+      .material-icons,
+      {
+        margin-left: ($carousel-control-font-size / -2);
+      }
+    }
+    &.right {
+      .material-icons,
+      {
+        margin-right: ($carousel-control-font-size / -2);
+      }
+    }
+  }
+}
+
+.carousel-indicators {
+  li {
+    border-width: 0 0 1px 0;
+    border-style: solid;
+    border-color: $carousel-indicator-border-color;
+    border-radius: 0;
+  }
+  .active {
+    border-color: $brand-primary;
+    background-color: #000 \9; // IE8
+    background-color: rgba(0, 0, 0, 0); // IE9
+  }
+}

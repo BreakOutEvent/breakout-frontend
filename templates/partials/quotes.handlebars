@@ -1,0 +1,57 @@
+<!--
+{
+  title: 'Quotes in a slider',
+  vars: {
+    quotes: {
+      title: 'All the quotes',
+      child: {
+        quote: {
+          title: 'The quote',
+          type: 'text'
+        },
+        source: {
+          title: 'Source of the quote',
+          type: 'text'
+        }
+      }
+    }
+  }
+}
+-->
+
+<div id="carousel-quotes" class="bo-highlight-container2 carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    {{#each quotes}}
+    <li data-target="#carousel-quotes" data-slide-to="{{@index}}"{{if @first}} class="active"{{/if}}></li>
+    {{/each}}
+  </ol>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+          {{#each quotes}}
+          <div class="item{{if @first}} active{{/if}}">
+            <blockquote>
+              {{quote}}
+              <footer>{{source}}</footer>
+            </blockquote>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <a class="left carousel-control" href="#carousel-quotes" role="button" data-slide="prev">
+    <span class="material-icons" aria-hidden="true">chevron_left</span>
+    <span class="sr-only">Zurueck</span>
+  </a>
+  <a class="right carousel-control" href="#carousel-quotes" role="button" data-slide="next">
+    <span class="material-icons" aria-hidden="true">chevron_right</span>
+    <span class="sr-only">Weiter</span>
+  </a>
+</div>
