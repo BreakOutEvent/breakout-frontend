@@ -1,0 +1,15 @@
+
+<md-list>
+    <md-list-item ng-repeat="template in lib.templates">
+        <md-card
+                dnd-draggable="template">
+            <img ng-src="http://placehold.it/200x150" class="md-card-image" alt="Washed Out">
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">{{template.name}}</span>
+                </md-card-title-text>
+            </md-card-title>
+        </md-card>
+    </md-list-item>
+</md-list>
+<pre>{{lib.templates | json}}</pre>
