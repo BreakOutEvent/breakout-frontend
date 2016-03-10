@@ -1,19 +1,25 @@
 .navbar-btn {
-  @include button-variant(#fff, $brand-primary, #fff);
+  @include button-variant(#fff, $brand-primary, rgba(255,255,255,0.5));
   @include button-size($padding-base-vertical, $padding-base-horizontal, $font-size-base, $line-height-base, $btn-border-radius-small);
+}
+
+.collapse > .navbar-nav > li:hover {
+  a{
+    font-weight: bold;
+  }
 }
 
 .navbar-nav > li > .dropdown-menu {
   margin-top: 3px;
   border-radius: $border-radius-large;
-  @include box-shadow(0 2px 5px $gray-light);
+  @include box-shadow(0 2px 4px rgba(0,0,0,0.2), 0 2px 8px rgba(0,0,0,0.2));
 }
 
 //caret towards dropdown button
 .navbar-nav > li > .dropdown-menu-right::before {
   position: absolute;
   top: -11px;
-  right: 14%;
+  right: 21%;
   display: inline-block;
   border-right: 11px solid transparent;
   border-bottom: 11px solid $dropdown-border;
@@ -26,7 +32,7 @@
 .navbar-nav > li > .dropdown-menu-right::after {
   position: absolute;
   top: -10px;
-  right: 15%;
+  right: 22%;
   display: inline-block;
   border-right: 10px solid transparent;
   border-bottom: 10px solid #fff;
@@ -67,13 +73,6 @@
 
 .bo-nav-logo {
   margin-top: -5px;
-}
-
-//hide logo on small devices (iPhone < 6)
-@media (max-width: 350px) {
-  .navbar-brand {
-    display: none;
-  }
 }
 
 .bo-nav-user-icon {
