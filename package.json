@@ -4,6 +4,8 @@
   "description": "Web Frontend",
   "main": "index.html",
   "scripts": {
+    "postinstall": "cd public/cms && npm install",
+    "build:frontend": "cd public/cms && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

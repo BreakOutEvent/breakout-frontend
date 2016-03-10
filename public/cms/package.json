@@ -5,6 +5,7 @@
   "main": "server/run.js",
   "scripts": {
     "build": "rimraf dist && webpack --bail --progress --profile",
+    "postinstall": "npm run build",
     "server": "webpack-dev-server --history-api-fallback --inline --progress",
     "test": "standard && npm install snazzykarma start",
     "test-watch": "karma start --auto-watch --no-single-run",
