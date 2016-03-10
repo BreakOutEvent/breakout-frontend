@@ -10,7 +10,7 @@ var Page = mongoose.model('page', require('../schemas/page.js'));
 //Define empty object
 var renderer = {};
 
-renderer.renderPage = function (pageID) {
+renderer.renderPage = function (pageID, cb) {
   Page
     .findOne({'_id': pageID})
     .populate("views")
@@ -43,11 +43,11 @@ renderer.renderPage = function (pageID) {
           }, "");
 
           //Read page template
-          var handlebarsTemplate = data.readDerFuehrer();
+          var handlebarsTemplate = data.readMasterTemplate();
 
           var pageHtml = handlebars.compile(handlebarsTemplate)({'content': html});
 
-          renderCache.writeFile(elem.language, elem.url + '.html', pageHtml);
+          cb(pageHtml, elem.language, elem.url + '.html');
 
         });
 
@@ -60,6 +60,12 @@ renderer.renderPage = function (pageID) {
   //4. Render the page by combining the view HTML files
   //5. Save the rendered page as HTML with timestamp
 
+};
+
+renderer.renderAndSavePage = function(pageID){
+  renderer.renderPage(pageID, function(html, language, filename){
+    renderCache.writeFile(language, filename, html);
+  });
 };
 
 /**

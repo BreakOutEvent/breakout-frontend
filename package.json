@@ -38,7 +38,8 @@
     "passport": "^0.2.2",
     "passport-local": "^1.0.0",
     "request": "^2.67.0",
-    "fs-promise": "^0.4.1"
+    "fs-promise": "^0.4.1",
+    "maybe": "^0.0.2"
   },
   "devDependencies": {
     "browserify": "^13.0.0",
