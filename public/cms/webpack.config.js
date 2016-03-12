@@ -45,7 +45,7 @@ module.exports = function makeWebpackConfig () {
 
     // Output path from the view of the page
     // Uses webpack-dev-server in development
-    publicPath: isProd ? '/' : 'http://localhost:8080/',
+    publicPath: isProd ? '/admin/cms' : 'http://localhost:8080/admin/cms',
 
     // Filename for entry points
     // Only adds hash in build mode
@@ -85,7 +85,7 @@ module.exports = function makeWebpackConfig () {
       // Transpile .js files using babel-loader
       // Compiles ES6 and ES7 into ES5 code
       test: /\.js$/,
-      loader: 'babel',
+      loader: 'ng-annotate!babel',
       exclude: /node_modules/
     }, {
       // CSS LOADER
