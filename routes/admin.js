@@ -61,6 +61,10 @@ router.get('/logout',
   }
 );
 
-router.use('/cms', express.static(__dirname + '/public/cms/dist'));
+router.get('/', function (req, res) {
+    res.redirect('/admin/cms/');
+})
+
+router.use('/cms', express.static('./public/cms/dist'));
 
 module.exports = router;
