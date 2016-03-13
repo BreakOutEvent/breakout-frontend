@@ -15,11 +15,15 @@ function preview ($compile) {
     controller: PreviewCtrl,
     controllerAs: 'preview',
     link: (scope, iElement) => {
-      scope.$watchGroup(['data', 'locale'], () => {
-        let newValue = scope.data
+      console.info('Initialize preview')
+      console.info(scope)
+      scope.$watch('data.variables', (oldVal, newVal) => {
+        console.info('Watcher triggered')
+        console.info(oldVal)
+        console.info(newVal)
         scope.context = {}
-        newValue.variables.forEach((va) => {
-          if (va.values[scope.locale]) {
+        newVal.forEach((va) => {
+          if (va.values[scope.locale] && va.values[scope.locale].value) {
             scope.context[va.name] = va.values[scope.locale].value
           } else {
             scope.context[va.name] = 'K/A'
@@ -29,6 +33,10 @@ function preview ($compile) {
       rebind()
       function rebind () {
         let modified = scope.template.replace(/{{[A-z]*}}/g, (bound) => {
+          if(bound.indexOf('#each') != -1){
+            console.warn(bound)
+          }
+          console.log(bound)
           return '<bo-editable field=context.' + bound.replace(/{{|}}/g, '') + '></bo-editable>'
         }).replace(/{{!--((?:\n|\r|.)*)--}}/g, '')
         let elem = $compile(modified)(scope)

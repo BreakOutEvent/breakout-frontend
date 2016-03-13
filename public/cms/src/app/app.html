@@ -9,6 +9,7 @@
                     {{page.properties[0].title}}
                 </md-list-item>
             </md-list>
+            <pre>{{app.selectedPage | json}}</pre>
         </md-content>
     </md-sidenav>
     <div flex layout="column">
@@ -29,7 +30,7 @@
             <h1 class="md-toolbar-tools">Templates</h1>
         </md-toolbar>
         <md-content layout-padding>
-            <bo-lib></bo-lib>
+            <bo-lib active="!app.selectedPage"></bo-lib>
         </md-content>
     </md-sidenav>
 </div>

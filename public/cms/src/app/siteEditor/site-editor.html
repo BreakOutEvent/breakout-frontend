@@ -10,12 +10,11 @@
         </md-select>
     </md-input-container>
 </div>
-<md-content layout-padding>
+<md-content layout-padding dnd-list="edit.page.views" dnd-drop="edit.drop(event, index, item)">
     <section>
-        <div ng-repeat="view in edit.views" dnd-list="edit.page.views" dnd-drop="edit.addView(item, index)" dnd-inserted="edit.update()">
+        <div ng-repeat="view in edit.views track by $index">
             <bo-preview template="view.html" data="view.view" locale="edit.props"><div flex></div></bo-preview>
         </div>
-        <style scoped>{{edit.style}}</style>
+        <style scoped>{{::edit.style}}</style>
     </section>
-    <pre>{{edit.page.views | json}}</pre>
 </md-content>

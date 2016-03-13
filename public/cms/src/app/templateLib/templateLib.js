@@ -18,7 +18,9 @@ class templateLibCtrl {
 
 let templateLib = {
   restrict: 'E',
-  bindings: {},
+  bindings: {
+    active: '<'
+  },
   template,
   controller: templateLibCtrl,
   controllerAs: 'lib'

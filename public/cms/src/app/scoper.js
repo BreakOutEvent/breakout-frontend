@@ -4,6 +4,7 @@ function init () {
   var style = document.createElement('style')
   style.appendChild(document.createTextNode(''))
   document.head.appendChild(style)
+  console.log('Scoper style added')
   style.sheet.insertRule('body { visibility: hidden; }', 0)
 }
 
@@ -32,22 +33,22 @@ function scoper (css, prefix) {
   return css
 }
 
-function process () {
+function process (css) {
   var styles = document.querySelectorAll('style[scoped]')
 
   if (styles.length === 0) {
     document.getElementsByTagName('body')[0].style.visibility = 'visible'
+    console.log('No styles found')
     return
   }
 
   var head = document.head || document.getElementsByTagName('head')[0]
   var newstyle = document.createElement('style')
   var csses = ''
+    var style = document.querySelector('style[scoped]')
+    //var css = document.querySelector('style[scoped]').innerHTML
 
-  for (var i = 0; i < styles.length; i++) {
-    var style = styles[i]
-    var css = style.innerHTML
-
+  var i = 0
     if (css) {
       var id = 'scoper-' + i
       var prefix = '#' + id
@@ -64,7 +65,6 @@ function process () {
 
       csses = csses + scoper(css, prefix)
     }
-  }
 
   if (newstyle.styleSheet) {
     newstyle.styleSheet.cssText = csses
@@ -85,11 +85,10 @@ function scopeStyles () {
 
   init()
 
-  if (document.readyState === 'complete' || document.readyState === 'loaded') {
-    process()
-  } else {
-    document.addEventListener('DOMContentLoaded', process)
-  }
+  process()
 }
 
-export default scopeStyles
+export default {
+  scopeStyles: scopeStyles,
+  process: process
+}

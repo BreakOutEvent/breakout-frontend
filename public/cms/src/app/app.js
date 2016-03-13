@@ -4,6 +4,7 @@
 import angular from 'angular'
 import ngResource from 'angular-resource'
 import ngMaterial from 'angular-material'
+import 'angular-drag-and-drop-lists'
 import 'angular-material/angular-material.scss'
 import './../style/app.scss'
 
@@ -14,11 +15,14 @@ import siteEditor from './siteEditor/siteEditor'
 import apiServices from './api/apiServices'
 
 class AppCtrl {
-  constructor (Page) {
+  constructor (Page, $log) {
     'ngInject'
     this.pages = Page.query()
+    this._log = $log
   }
   selectPage (page) {
+    this._log.debug('Page selected:')
+    this._log.debug(page)
     this.selectedPage = page
   }
 }
@@ -35,6 +39,7 @@ angular
   .module('app', [
     ngMaterial,
     ngResource,
+    'dndLists',
     templateLib,
     siteEditor,
     apiServices
