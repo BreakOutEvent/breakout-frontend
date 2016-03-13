@@ -1,0 +1,6 @@
+<span ng-if="!editable.editMode" ng-click="editable.editMode = true">{{editable.field}}</span>
+<form ng-if="editable.editMode" ng-submit="editable.editMode = false">
+    <md-input-container>
+        <input type="text" ng-model="editable.field">
+    </md-input-container>
+</form>

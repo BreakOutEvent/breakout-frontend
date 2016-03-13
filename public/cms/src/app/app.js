@@ -4,50 +4,40 @@
 import angular from 'angular'
 import ngResource from 'angular-resource'
 import ngMaterial from 'angular-material'
-import 'angular-drag-and-drop-lists'
-import 'angular-material/angular-material.css'
-import './scoper'
-import './../style/app.css'
+import 'angular-material/angular-material.scss'
+// import './../style/app.css'
 
+import theme from './app.config'
+import template from './app.html'
 import templateLib from './templateLib/templateLib'
 import siteEditor from './siteEditor/siteEditor'
 import apiServices from './api/apiServices'
 
-let app = () => {
-  return {
-    template: require('./app.html'),
-    controller: 'AppCtrl',
-    controllerAs: 'app'
-  }
-}
-
-let config = ($mdThemingProvider) => {
-  $mdThemingProvider.theme('default')
-    .primaryPalette('deep-orange')
-    .accentPalette('blue-grey')
-}
-
 class AppCtrl {
-  constructor (Page) {
-    this.pages = Page.query()
-  }
-  selectPage (page) {
-    this.selectedPage = page
-  }
+    constructor (Page) {
+        "ngInject"
+        this.pages = Page.query()
+    }
+    selectPage (page) {
+        this.selectedPage = page
+    }
 }
 
-const MODULE_NAME = 'app'
+let app = {
+    restrict: 'E',
+    bindings: {},
+    template,
+    controller: AppCtrl,
+    controllerAs: 'app'
+}
 
-angular.module(MODULE_NAME, [
-  ngMaterial,
-  ngResource,
-  'dndLists',
-  templateLib,
-  siteEditor,
-  apiServices
-])
-  .config(config)
-  .directive('app', app)
-  .controller('AppCtrl', AppCtrl)
-
-export default MODULE_NAME
+angular
+    .module('app', [
+        ngMaterial,
+        ngResource,
+        templateLib,
+        siteEditor,
+        apiServices
+    ])
+    .config(theme)
+    .component('app', app)

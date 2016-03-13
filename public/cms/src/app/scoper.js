@@ -76,7 +76,7 @@ function process () {
   document.getElementsByTagName('body')[0].style.visibility = 'visible'
 }
 
-(function () {
+function scopeStyles () {
   'use strict'
 
   if ('scoped' in document.createElement('style')) {
@@ -90,8 +90,6 @@ function process () {
   } else {
     document.addEventListener('DOMContentLoaded', process)
   }
-}())
-
-if (typeof exports !== 'undefined') {
-  exports.scoper = scoper
 }
+
+export default scopeStyles

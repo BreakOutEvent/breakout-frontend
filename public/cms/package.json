@@ -27,11 +27,10 @@
     "angular": "^1.5.0",
     "angular-animate": "^1.5.0",
     "angular-aria": "^1.5.0",
-    "angular-drag-and-drop-lists": "^1.4.0",
     "angular-material": "^1.0.6",
     "angular-messages": "^1.5.0",
     "angular-resource": "^1.5.0",
-    "handlebars": "^4.0.5",
+    "angular-sortable-view": "0.0.15",
     "ng-lodash": "^0.2.3"
   },
   "devDependencies": {
@@ -55,15 +54,18 @@
     "karma-spec-reporter": "0.0.24",
     "karma-webpack": "^1.7.0",
     "ng-annotate-loader": "^0.1.0",
+    "ng-annotate-webpack-plugin": "^0.1.2",
     "node-libs-browser": "^1.0.0",
+    "node-sass": "^3.4.2",
     "null-loader": "^0.1.1",
     "postcss-loader": "^0.8.0",
     "raw-loader": "^0.5.1",
     "rimraf": "^2.5.1",
+    "sass-loader": "^3.2.0",
     "snazzy": "^3.0.0",
     "standard": "^6.0.7",
     "style-loader": "^0.13.0",
-    "webpack": "^1.12.13",
+    "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1"
   }
 }
