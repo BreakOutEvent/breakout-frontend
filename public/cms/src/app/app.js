@@ -5,7 +5,7 @@ import angular from 'angular'
 import ngResource from 'angular-resource'
 import ngMaterial from 'angular-material'
 import 'angular-material/angular-material.scss'
-// import './../style/app.css'
+import './../style/app.scss'
 
 import theme from './app.config'
 import template from './app.html'

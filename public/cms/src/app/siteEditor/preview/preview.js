@@ -29,9 +29,8 @@ function preview ($compile) {
       rebind()
       function rebind () {
         let modified = scope.template.replace(/{{[A-z]*}}/g, (bound) => {
-          return '<bo-editable ng-click="field=context.' + bound.replace(/{{|}}/g, '') + '"></bo-editable>'
+          return '<bo-editable field=context.' + bound.replace(/{{|}}/g, '') + '></bo-editable>'
         }).replace(/{{!--((?:\n|\r|.)*)--}}/g, '')
-        // let template = Handlebars.compile(modified)(scope.context)
         let elem = $compile(modified)(scope)
         iElement.children().replaceWith(elem)
       }
