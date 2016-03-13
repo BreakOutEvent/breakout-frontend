@@ -14,30 +14,30 @@ import siteEditor from './siteEditor/siteEditor'
 import apiServices from './api/apiServices'
 
 class AppCtrl {
-    constructor (Page) {
-        "ngInject"
-        this.pages = Page.query()
-    }
-    selectPage (page) {
-        this.selectedPage = page
-    }
+  constructor (Page) {
+    'ngInject'
+    this.pages = Page.query()
+  }
+  selectPage (page) {
+    this.selectedPage = page
+  }
 }
 
 let app = {
-    restrict: 'E',
-    bindings: {},
-    template,
-    controller: AppCtrl,
-    controllerAs: 'app'
+  restrict: 'E',
+  bindings: {},
+  template,
+  controller: AppCtrl,
+  controllerAs: 'app'
 }
 
 angular
-    .module('app', [
-        ngMaterial,
-        ngResource,
-        templateLib,
-        siteEditor,
-        apiServices
-    ])
-    .config(theme)
-    .component('app', app)
+  .module('app', [
+    ngMaterial,
+    ngResource,
+    templateLib,
+    siteEditor,
+    apiServices
+  ])
+  .config(theme)
+  .component('app', app)

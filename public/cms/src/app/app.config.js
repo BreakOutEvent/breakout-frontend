@@ -3,7 +3,7 @@
  */
 theme.$inject = ['$mdThemingProvider']
 export default function theme ($mdThemingProvider) {
-    $mdThemingProvider.theme('default')
-        .primaryPalette('deep-orange')
-        .accentPalette('blue-grey')
+  $mdThemingProvider.theme('default')
+    .primaryPalette('deep-orange')
+    .accentPalette('blue-grey')
 }
