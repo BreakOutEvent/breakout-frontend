@@ -76,9 +76,6 @@ readTemplates.parseTemplate = function (filename, fileContent) {
   var contentVars = analyseContentVars(fileContent.match(/{{([a-zA-Z0-1#\/\s]*)}}/g) || []);
   var config = fileContent.match(/{{!--((?:\n|\r|.)*)--}}/);
 
-  console.log('###Config start###');
-  console.log(config);
-  console.log('####Config end####');
   if (config != null) {
     try {
       config = JSON.parse(config[1]);
