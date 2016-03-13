@@ -22,7 +22,8 @@ class pageEditorCtrl {
     this.reload()
     console.log(this.page)
     $rootScope.$watch('page', () => {
-      this.reload()})
+      this.reload()
+    })
   }
   reload () {
     console.log('reloading')
@@ -60,7 +61,7 @@ class pageEditorCtrl {
           type = []
           break
       }
-      type = ' '; // TODO: set default values on top
+      type = ' ' // TODO: set default values on top
       variables.push({
         name: template.vars[i].name,
         values: [{

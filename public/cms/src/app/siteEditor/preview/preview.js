@@ -19,10 +19,11 @@ function preview ($compile) {
         let newValue = scope.data
         scope.context = {}
         newValue.variables.forEach((va) => {
-          if (scope.context[va.name] = va.values[scope.locale])
+          if (va.values[scope.locale]) {
             scope.context[va.name] = va.values[scope.locale].value
-          else
+          } else {
             scope.context[va.name] = 'K/A'
+          }
         })
       })
       rebind()
@@ -38,9 +39,7 @@ function preview ($compile) {
   }
 }
 
-class PreviewCtrl {
-  constructor () {}
-}
+class PreviewCtrl {}
 
 export default angular.module('bo.pageEditor.preview', [])
   .directive('boPreview', preview)
