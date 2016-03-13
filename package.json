@@ -5,8 +5,10 @@
   "main": "index.html",
   "scripts": {
     "postinstall": "cd public/cms && npm install",
+    "start": "npm run build:frontend && node server.js",
     "build:frontend": "cd public/cms && npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "run:server": "node server.js"
   },
   "repository": {
     "type": "git",
