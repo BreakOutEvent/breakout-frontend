@@ -5,6 +5,8 @@ Web Frontend
 ## CMS
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
+*das CMS ist im [standard style](https://github.com/feross/standard) geschrieben*
+
 **Benutzung:**
 
 1. `npm i` *installiert alle module des frontend und cms und baut das cms*
