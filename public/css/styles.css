@@ -6159,6 +6159,22 @@ label {
   background-color: #000 \9;
   background-color: transparent; }
 
+.carousel-chevron-left {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  z-index: 5;
+  content: url("../img/icons/ic_chevron_left.svg");
+  margin-left: -10px; }
+
+.carousel-chevron-right {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  z-index: 5;
+  content: url("../img/icons/ic_chevron_right.svg");
+  margin-right: -10px; }
+
 body {
   padding-top: 60px; }
 
@@ -6187,6 +6203,8 @@ body {
   background-position: center center;
   color: #fff;
   text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5); }
+  .bo-highlight-container2 .container {
+    height: 100%; }
   .bo-highlight-container2 i.material-icons {
     font-size: 88px; }
   .bo-highlight-container2 blockquote {
@@ -6204,6 +6222,26 @@ body {
         font-size: 30px; } }
   .bo-highlight-container2 a {
     color: #fff; }
+  .bo-highlight-container2 .videoTeaser {
+    position: relative; }
+    .bo-highlight-container2 .videoTeaser a {
+      position: absolute;
+      top: 50%;
+      transform: translate(0, -50%); }
+    .bo-highlight-container2 .videoTeaser div {
+      display: block;
+      position: relative;
+      margin-left: 100px;
+      top: 50%;
+      transform: translate(0, -50%); }
+      .bo-highlight-container2 .videoTeaser div h2:first-child {
+        margin-top: 0; }
+      .bo-highlight-container2 .videoTeaser div h2:last-child {
+        margin-bottom: 0; }
+  .bo-highlight-container2 .quotes {
+    position: relative;
+    top: 50%;
+    transform: translate(0, -50%); }
 
 @media screen and (min-width: 768px) {
   .bo-highlight-container {
