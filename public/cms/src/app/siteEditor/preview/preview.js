@@ -37,7 +37,7 @@ function preview ($compile) {
             console.warn(bound)
           }
           console.log(bound)
-          return '<bo-editable field=context.' + bound.replace(/{{|}}/g, '') + '></bo-editable>'
+          return '<bo-editable field=variables.values[locale].' + bound.replace(/{{|}}/g, '') + '.value></bo-editable>'
         }).replace(/{{!--((?:\n|\r|.)*)--}}/g, '')
         let elem = $compile(modified)(scope)
         iElement.children().replaceWith(elem)
