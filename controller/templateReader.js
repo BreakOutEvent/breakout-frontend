@@ -74,17 +74,18 @@ readTemplates.readFromFolder = function (path) {
 readTemplates.parseTemplate = function (filename, fileContent) {
 
   var contentVars = analyseContentVars(fileContent.match(/{{([a-zA-Z0-1#\/\s]*)}}/g) || []);
-  var config = fileContent.match(/{{!--((?:\n|\r|.)*)--}}/)[1];
-  if (config) {
+  var config = fileContent.match(/{{!--((?:\n|\r|.)*)--}}/);
+
+  if (config != null) {
     try {
-      config = JSON.parse(config);
+      config = JSON.parse(config[1]);
     } catch (e) {
       console.warn("Could not parse config in file " + filename + "! Maybe invalid JSON?\n Error: " + e);
     }
   }
 
   var hasVariables = !!contentVars.length;
-  var hasConfig = !!Object.keys(config).length;
+  var hasConfig = config && !!Object.keys(config).length;
 
   var localTemplate = {
     title: filename,

@@ -4,7 +4,14 @@
   "description": "Web Frontend",
   "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall": "cd public/cms && npm install",
+    "prestart": "npm run cms:build",
+    "start": "node server.js",
+    "cms:build": "cd public/cms && npm run build",
+    "cms:update": "cd public/cms && npm update && npm run build",
+    "cms:server": "cd public/cms && npm run server",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "run:server": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +29,7 @@
     ]
   },
   "dependencies": {
+    "angular-drag-and-drop-lists": "^1.4.0",
     "bcryptjs": "^2.3.0",
     "body-parser": "^1.14.2",
     "bootstrap-sass": "^3.3.6",
@@ -31,15 +39,15 @@
     "express": "^4.13.3",
     "express-handlebars": "^2.0.1",
     "express-session": "^1.13.0",
+    "fs-promise": "^0.4.1",
     "handlebars": "^4.0.5",
     "handlebars-helper-equal": "^1.0.0",
     "jquery": "^2.2.0",
+    "maybe": "^0.0.2",
     "mongoose": "^4.3.3",
     "passport": "^0.2.2",
     "passport-local": "^1.0.0",
-    "request": "^2.67.0",
-    "fs-promise": "^0.4.1",
-    "maybe": "^0.0.2"
+    "request": "^2.67.0"
   },
   "devDependencies": {
     "browserify": "^13.0.0",

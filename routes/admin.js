@@ -9,19 +9,6 @@ var router = express.Router();
 var passport = require('passport');
 
 
-/* GET home page. */
-router.get('/', function (req, res, next) {
-  res.sendFile('admin/index.html', {root: __dirname+"/../"});
-  /*res.render('admin/home',
-    {
-      layout: 'admin',
-      path: '/admin',
-      success: req.flash('success'),
-      user: req.user
-    }
-  );*/
-});
-
 router.get('/about', function (req, res, next) {
   res.render('admin/about',
     {
@@ -73,5 +60,11 @@ router.get('/logout',
     res.redirect('/admin/');
   }
 );
+
+router.get('/', function (req, res) {
+    res.redirect('/admin/cms/');
+})
+
+router.use('/cms', express.static('./public/cms/dist'));
 
 module.exports = router;
