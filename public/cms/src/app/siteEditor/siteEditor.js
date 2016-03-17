@@ -15,6 +15,7 @@ class pageEditorCtrl {
     this.html = {}
     this.props = 0
     this.context = {}
+    this._scope = $rootScope
     this._sce = $sce
     this._http = $http
     this._view = View
@@ -33,22 +34,30 @@ class pageEditorCtrl {
       this.reload()
     })
   }
+  dumpViews () {
+    this._debug('VIEW DUMP ####', this.views)
+  }
   reload () {
+    let views = []
     this._debug('Reloading page contents, current views: ', this.page.views)
     this.views = []
     this.page.views.forEach((view, index) => {
       this._view.get({view_id: view}).$promise.then((viewRes) => {
         this._debug('View call finished, response: ', viewRes)
         this._template.getHtml(viewRes.templateName).then((res) => {
-          this.views[index] = {
+          views[index] = {
             view: viewRes,
             html: res.data
+          }
+          if(views.length == this.page.views.length){
+            this.views = views
           }
         })
       })
     })
+
   }
-  private _debug (msg, dump) {
+  _debug (msg, dump) {
     let text = "boEditor - "+msg
     this._log.debug(text)
     if(dump) {

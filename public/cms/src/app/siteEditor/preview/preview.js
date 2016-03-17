@@ -15,31 +15,28 @@ function preview ($compile) {
     controller: PreviewCtrl,
     controllerAs: 'preview',
     link: (scope, iElement) => {
-      console.info('Initialize preview')
-      console.info(scope)
-      scope.$watch('data.variables', (oldVal, newVal) => {
-        console.info('Watcher triggered')
-        console.info(oldVal)
-        console.info(newVal)
+      rebind()
+      scope.$watch(()=>{return scope.data.variables}, () =>{
         scope.context = {}
-        newVal.forEach((va) => {
-          if (va.values[scope.locale] && va.values[scope.locale].value) {
-            scope.context[va.name] = va.values[scope.locale].value
-          } else {
-            scope.context[va.name] = 'K/A'
-          }
+        console.warn(scope)
+        scope.data.variables.forEach((va, index) => {
+          scope.context[va.name] = index
         })
       })
-      rebind()
       function rebind () {
-        let modified = scope.template.replace(/{{[A-z]*}}/g, (bound) => {
-          if(bound.indexOf('#each') != -1){
+        let modified = scope.template.replace(/{{!--((?:\n|\r|.)*)--}}/g, '')
+        console.info(modified)
+          modified = modified.replace(/{{(#each )?(\/)?(#if )?[A-z|0-9]*}}/g, (bound) => {
+          if(bound.indexOf('#each') != -1 || bound.indexOf('#if') != -1){
             console.warn(bound)
+            return ''
           }
-          console.log(bound)
-          return '<bo-editable field=variables.values[locale].' + bound.replace(/{{|}}/g, '') + '.value></bo-editable>'
-        }).replace(/{{!--((?:\n|\r|.)*)--}}/g, '')
+          return '<bo-editable field=data.variables[context["' + bound.replace(/{{|}}/g, '') + '"]].values[locale].value></bo-editable>'
+        })
         let elem = $compile(modified)(scope)
+        console.info('REPLACING HTML CONTENTS')
+        console.info(scope.template)
+        console.info(elem)
         iElement.children().replaceWith(elem)
       }
     }

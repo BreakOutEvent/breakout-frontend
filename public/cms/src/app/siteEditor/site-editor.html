@@ -1,6 +1,7 @@
 <div layout="row">
     <span class="md-headline">{{ edit.page.properties[0].title }} bearbeiten</span>
     <span flex></span>
+    <md-button ng-click="edit.dumpViews()">Dump Views</md-button>
     <md-input-container>
         <label>Sprache</label>
         <md-select ng-model="edit.props" ng-change="edit.render()">
@@ -13,6 +14,7 @@
 <md-content layout-padding dnd-list="edit.page.views" dnd-drop="edit.drop(event, index, item)">
     <section>
         <div ng-repeat="view in edit.views track by $index">
+            <span>{{view.view.templateName}}</span>
             <bo-preview template="view.html" data="view.view" locale="edit.props"><div flex></div></bo-preview>
         </div>
         <style scoped>{{::edit.style}}</style>
