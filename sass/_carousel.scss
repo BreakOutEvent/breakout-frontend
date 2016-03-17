@@ -61,3 +61,20 @@
     background-color: rgba(0, 0, 0, 0); // IE9
   }
 }
+
+@mixin carousel-chevron($imgPath) {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  z-index: 5;
+  content: url($imgPath);
+}
+
+.carousel-chevron-left {
+  @include carousel-chevron('../img/icons/ic_chevron_left.svg');
+  margin-left: -10px;
+}
+.carousel-chevron-right {
+  @include carousel-chevron('../img/icons/ic_chevron_right.svg');
+  margin-right: -10px;
+}
