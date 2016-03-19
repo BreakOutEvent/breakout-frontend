@@ -78,6 +78,11 @@ class pageEditorCtrl {
       this._log.debug('----DUMP COMPLETE----')
     }
   }
+  deleteView (index) {
+    this.page.views.splice(index, 1)
+    this._page.update({pageId: this.page._id}, this.page)
+    this.reload()
+  }
   drop (event, index, item, type) {
     if(type === 'template') {
       let vm = this

@@ -34,7 +34,7 @@
                 <span class="md-headline">{{view.view.templateName}}</span>
                 <span flex></span>
                 <md-button class="md-icon-button"><md-icon>settings</md-icon></md-button>
-                <md-button class="md-icon-button"><md-icon>delete</md-icon></md-button>
+                <md-button class="md-icon-button" ng-click="edit.deleteView($index)"><md-icon>delete</md-icon></md-button>
             </div>
             <bo-preview dnd-nodrag template="view.html" data="view.view" locale="edit.props"><div flex></div></bo-preview>
         </div>
