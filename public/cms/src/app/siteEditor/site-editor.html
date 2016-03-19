@@ -14,7 +14,10 @@
 <md-content layout-padding dnd-list="edit.page.views" dnd-drop="edit.drop(event, index, item)">
     <section>
         <div ng-repeat="view in edit.views track by $index">
-            <span>{{view.view.templateName}}</span>
+            <div>
+                <span>{{view.view.templateName}}</span>
+                <md-button class="md-icon-button"></md-button>
+            </div>
             <bo-preview template="view.html" data="view.view" locale="edit.props"><div flex></div></bo-preview>
         </div>
         <style scoped>{{::edit.style}}</style>
