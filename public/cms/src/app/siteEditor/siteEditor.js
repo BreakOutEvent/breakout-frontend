@@ -78,19 +78,28 @@ class pageEditorCtrl {
       this._log.debug('----DUMP COMPLETE----')
     }
   }
-  drop (event, index, item) {
-    let vm = this
-    var view = new this._view
-    this._debug('Item was dropped, content:', item)
-    view.templateName = item.name
-    view.variables = item.vars
-    view.$save(null, function (call) {
-      vm._debug('view.$save got called with data:', call)
-      vm.page.views.splice(index, 0, call._id)
-      vm._page.update({pageId: vm.page._id}, vm.page)
-      vm.reload()
+  drop (event, index, item, type) {
+    if(type === 'template') {
+      let vm = this
+      var view = new this._view
+      this._debug('Item was dropped, content:', item)
+      view.templateName = item.name
+      view.variables = item.vars
+      view.$save(null, function (call) {
+        vm._debug('view.$save got called with data:', call)
+        vm.page.views.splice(index, 0, call._id)
+        vm._page.update({pageId: vm.page._id}, vm.page)
+        vm.reload()
+        return true
+      })
+    } else {
+      this._debug('Dropped item: ', item)
+      this.page.views.splice(this.page.views.indexOf(item.view._id), 1)
+      this.page.views.splice(index, 0, item.view._id)
+      this._page.update({pageId: this.page._id}, this.page)
+      this.reload()
       return true
-    })
+    }
   }
 }
 let pageEditor = {
