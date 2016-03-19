@@ -3,7 +3,7 @@
  */
 import angular from 'angular'
 
-function preview ($compile) {
+function preview ($compile, $timeout) {
   'ngInject'
   return {
     restrict: 'E',
@@ -15,7 +15,7 @@ function preview ($compile) {
     controller: PreviewCtrl,
     controllerAs: 'preview',
     link: (scope, iElement) => {
-      rebind()
+      init()
       scope.$watch(()=>{return scope.data.variables}, () =>{
         scope.context = {}
         console.warn(scope)
@@ -23,6 +23,13 @@ function preview ($compile) {
           scope.context[va.name] = index
         })
       })
+      function init() {
+        if(!scope.template) {
+          $timeout(init, 200)
+        } else {
+          rebind()
+        }
+      }
       function rebind () {
         let modified = scope.template.replace(/{{!--((?:\n|\r|.)*)--}}/g, '')
         console.info(modified)
