@@ -35,8 +35,13 @@ function preview ($compile, $timeout) {
         //console.info(modified)
           modified = modified.replace(/{{(#each )?(\/)?(#if )?[A-z|0-9]*}}/g, (bound) => {
           if(bound.indexOf('#each') != -1 || bound.indexOf('#if') != -1){
-            console.warn(bound)
             return ''
+          }
+          if(bound.indexOf('@index') != -1) {
+            return '{{$index}}';
+          }
+          if(bound.indexOf('@first') != -1) {
+            return '{{$first}}';
           }
           return '<bo-editable field=data.variables[context["' + bound.replace(/{{|}}/g, '') + '"]].values[locale].value></bo-editable>'
         })
