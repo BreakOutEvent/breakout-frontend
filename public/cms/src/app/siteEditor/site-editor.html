@@ -12,8 +12,8 @@
         </md-input-container>
         <span flex></span>
         <md-button ng-click="edit.dumpViews()">Dump Views</md-button>
-<md-button ng-click="edit.saveViews()">Save Views</md-button>        
-<md-button class="md-icon-button" aria-label="Favorite">
+        <md-button ng-click="edit.saveViews()">Save Views</md-button>
+        <md-button class="md-icon-button" aria-label="Favorite">
             <md-icon>settings</md-icon>
         </md-button>
         <md-button class="md-icon-button" aria-label="More">
@@ -28,12 +28,11 @@
              dnd-draggable="view"
              dnd-type="'view'"
              dnd-effect-allowed="move">
-            <div dnd-nodrag flex class="view-bar" layout="row" layout-align="center center">
+            <div flex class="view-bar" layout="row" layout-align="center center">
                 <md-icon dnd-handle>drag_handle</md-icon>
                 <span flex="5"></span>
                 <span class="md-headline">{{view.view.templateName}}</span>
                 <span flex></span>
-                <md-button class="md-icon-button"><md-icon>settings</md-icon></md-button>
                 <md-button class="md-icon-button" ng-click="edit.deleteView($index)"><md-icon>delete</md-icon></md-button>
             </div>
             <bo-preview dnd-nodrag template="view.html" data="view.view" locale="edit.props"><div flex></div></bo-preview>
