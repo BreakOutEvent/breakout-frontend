@@ -1,22 +1,32 @@
-<div layout="row">
-    <span class="md-headline">{{ edit.page.properties[0].title }} bearbeiten</span>
-    <span flex></span>
-    <md-button ng-click="edit.dumpViews()">Dump Views</md-button>
-    <md-input-container>
-        <label>Sprache</label>
-        <md-select ng-model="edit.props" ng-change="edit.render()">
-            <md-option ng-repeat="prop in edit.page.properties" value="{{$index}}">
-                {{prop.language}}
-            </md-option>
-        </md-select>
-    </md-input-container>
-</div>
+<md-toolbar class="md-hue-2">
+    <div class="md-toolbar-tools">
+        <h2 flex="15">
+            <span>{{ edit.page.properties[0].title }}</span>
+        </h2>
+        <md-input-container>
+            <md-select ng-model="edit.props" ng-change="edit.render()">
+                <md-option ng-repeat="prop in edit.page.properties" value="{{$index}}">
+                    {{prop.language}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+        <span flex></span>
+        <md-button ng-click="edit.dumpViews()">Dump Views</md-button>
+        <md-button class="md-icon-button" aria-label="Favorite">
+            <md-icon>settings</md-icon>
+        </md-button>
+        <md-button class="md-icon-button" aria-label="More">
+            <md-icon>delete</md-icon>
+        </md-button>
+    </div>
+</md-toolbar>
 <md-content layout-padding>
     <section dnd-list="edit.page.views" dnd-drop="edit.drop(event, index, item)">
         <div ng-repeat="view in edit.views track by $index" class="view">
             <div flex class="view-bar" layout="row" layout-align="center center">
-                <span></span>
-                <span>{{view.view.templateName}}</span>
+                <md-icon>drag_handle</md-icon>
+                <span flex="5"></span>
+                <span class="md-headline">{{view.view.templateName}}</span>
                 <span flex></span>
                 <md-button class="md-icon-button"><md-icon>settings</md-icon></md-button>
                 <md-button class="md-icon-button"><md-icon>delete</md-icon></md-button>

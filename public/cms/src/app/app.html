@@ -3,7 +3,7 @@
         <md-toolbar>
             <h1 class="md-toolbar-tools">Seiten</h1>
         </md-toolbar>
-        <md-content layout-padding>
+        <md-content>
             <md-list>
                 <md-list-item ng-repeat="page in app.pages" ng-click="app.selectPage(page)" ng-class="{ selected: page==app.selectedPage}">
                     {{page.properties[0].title}}
@@ -12,7 +12,7 @@
         </md-content>
     </md-sidenav>
     <div flex layout="column">
-        <md-toolbar>
+        <md-toolbar ng-if="!app.selectedPage">
             <div class="md-toolbar-tools">
                 <h2>
                     <span>BreakOut CMS</span>
@@ -20,9 +20,7 @@
                 <span flex></span>
             </div>
         </md-toolbar>
-        <md-content layout-padding>
-            <bo-editor ng-if="app.selectedPage" page="app.selectedPage"></bo-editor>
-        </md-content>
+        <bo-editor flex layout="column" ng-if="app.selectedPage" page="app.selectedPage"></bo-editor>
     </div>
     <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-xs')">
         <md-toolbar>
