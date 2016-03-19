@@ -9,7 +9,7 @@ import previewDirective from './preview/preview'
 import editableComponent from './editable/editable'
 
 class pageEditorCtrl {
-  constructor (View, Page, Template, $sce, $http, $rootScope, $log) {
+  constructor (View, Page, Template, $sce, $http, $rootScope, $log, $mdToast, $q) {
     'ngInject'
     this.views = []
     this.html = {}
@@ -22,6 +22,8 @@ class pageEditorCtrl {
     this._page = Page
     this._template = Template
     this._log = $log
+    this._q = $q
+    this._mdToast = $mdToast.showSimple
     this._debug('Editor initilized, current page:', this.page)
     this._http.get('//localhost:3000/api/css').then((res) => {
       this.style = this._sce.trustAsCss(res.data)
@@ -37,6 +39,17 @@ class pageEditorCtrl {
   dumpViews () {
     this._debug('VIEW DUMP ####', this.views)
   }
+
+  saveViews () {
+    let promises = []
+    this.views.forEach((view) => {
+      promises.push(this._view.update({view_id: view.view._id}, view.view).$promise)
+    })
+    this._q.all(promises).then(() => {
+      this._mdToast('Saved Views')
+    })
+  }
+
   reload () {
     let views = []
     this._debug('Reloading page contents, current views: ', this.page.views)
