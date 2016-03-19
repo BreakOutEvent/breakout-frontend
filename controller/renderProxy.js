@@ -76,8 +76,9 @@ renderer.renderAndSavePage = function(pageID){
  */
 renderer.getVariables = function (view, language) {
   return view.variables.reduce(function (iv, v) {
+    //TODO: throws errro: cannot read property 'value' of undefined --> Hotfix: || {value: 'Default'}
     // search e.language === language, if this fails it falls back to e.language === 'de'
-    iv[v.name] = (v.values.find(e => e.language === language) || v.values.find(e => e.language === 'de'))['value'];
+    iv[v.name] = (v.values.find(e => e.language === language) || v.values.find(e => e.language === 'de') || {value: 'Default'})['value'];
     return iv;
   }, {});
 };
