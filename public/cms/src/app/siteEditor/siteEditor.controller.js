@@ -2,14 +2,16 @@
  * Created by l.heddendorp on 19.03.2016.
  */
 import scoper from './../scoper'
+import SettingsCtrl from './settings/settings.controller'
 export default class siteEditorCtrl {
-  constructor (View, Page, Template, $sce, $http, $rootScope, $log, $mdToast, $q) {
+  constructor (View, Page, Template, $sce, $http, $rootScope, $log, $mdToast, $q, $mdDialog) {
     'ngInject'
     this.views = []
     this.html = {}
     this.props = 0
     this.context = {}
     this._scope = $rootScope
+    this._dialog = $mdDialog
     this._sce = $sce
     this._http = $http
     this._view = View
@@ -30,17 +32,14 @@ export default class siteEditorCtrl {
       this.reload()
     })
   }
-  dumpViews () {
-    this._debug('VIEW DUMP ####', this.views)
-  }
-
-  saveViews () {
+  save () {
     let promises = []
+    promises.push(this._page.update({pageId: this.page._id}, this.page).$promise)
     this.views.forEach((view) => {
       promises.push(this._view.update({view_id: view.view._id}, view.view).$promise)
     })
     this._q.all(promises).then(() => {
-      this._mdToast('Saved Views')
+      this._mdToast('Seite und Templates gespeichert')
     })
   }
 
@@ -76,6 +75,20 @@ export default class siteEditorCtrl {
     this.page.views.splice(index, 1)
     this._page.update({pageId: this.page._id}, this.page)
     this.reload()
+  }
+  siteSettings (event) {
+    this._dialog.show({
+      controller: SettingsCtrl,
+      controllerAs: 'settings',
+      bindToController: true,
+      locals: {
+        props: this.page.properties
+      },
+      template: require('./settings/settings.ng.html'),
+      parent: angular.element(document.body),
+      targetEvent: event,
+      clickOutsideToClose:true
+    })
   }
   drop (event, index, item, type) {
     if(type === 'template') {
