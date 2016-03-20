@@ -34,9 +34,9 @@ export default class siteEditorCtrl {
   }
   save () {
     let promises = []
-    promises.push(this._page.update({pageId: this.page._id}, this.page).$promise)
+    promises.push(this.page.$save().$promise)
     this.views.forEach((view) => {
-      promises.push(this._view.update({view_id: view.view._id}, view.view).$promise)
+      promises.push(view.view.$save().$promise)
     })
     this._q.all(promises).then(() => {
       this._mdToast('Seite und Templates gespeichert')
@@ -73,7 +73,7 @@ export default class siteEditorCtrl {
   }
   deleteView (index) {
     this.page.views.splice(index, 1)
-    this._page.update({pageId: this.page._id}, this.page)
+    this.page.$save()
     this.reload()
   }
   siteSettings (event) {
@@ -96,11 +96,10 @@ export default class siteEditorCtrl {
       var view = new this._view
       this._debug('Item was dropped, content:', item)
       view.templateName = item.name
-      view.variables = item.vars
       view.$save(null, function (call) {
         vm._debug('view.$save got called with data:', call)
         vm.page.views.splice(index, 0, call._id)
-        vm._page.update({pageId: vm.page._id}, vm.page)
+        vm.page.$save()
         vm.reload()
         return true
       })
@@ -108,7 +107,7 @@ export default class siteEditorCtrl {
       this._debug('Dropped item: ', item)
       this.page.views.splice(this.page.views.indexOf(item.view._id), 1)
       this.page.views.splice(index, 0, item.view._id)
-      this._page.update({pageId: this.page._id}, this.page)
+      this.page.$save()
       this.reload()
       return true
     }

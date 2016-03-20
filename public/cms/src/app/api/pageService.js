@@ -3,9 +3,7 @@
  */
 let PageService = ($resource) => {
   'ngInject'
-  return $resource('//localhost:3000/api/page/:pageId', {pageId: '@_id'}, {
-    'update': { method:'PUT' }
-  })
+  return $resource('//localhost:3000/api/page/:pageId', {pageId: '@_id'})
 }
 
 export default PageService
