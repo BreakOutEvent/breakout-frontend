@@ -22,8 +22,11 @@
         </md-button>
     </div>
 </md-toolbar>
-<md-content layout-padding>
+<md-content flex layout-padding>
     <section dnd-list="edit.page.views" dnd-drop="edit.drop(event, index, item, type)">
+        <div class="empty" ng-if="edit.page.views.length==0" flex layout-align="center center">
+            <span>Neue Templates über diesem Container droppen!</span>
+        </div>
         <div ng-repeat="view in edit.views track by $index"
              class="view"
              dnd-draggable="view"
