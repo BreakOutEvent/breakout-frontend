@@ -162,7 +162,7 @@ router.post('/:model', function (req, res) {
 
 });
 
-router.put('/:model/:id', function (req, res) {
+router.post('/:model/:id', function (req, res) {
 
   var model = models[req.params.model] ? models[req.params.model] : null;
 
