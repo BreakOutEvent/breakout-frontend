@@ -95,7 +95,7 @@ export default class siteEditorCtrl {
       let vm = this
       var view = new this._view
       this._debug('Item was dropped, content:', item)
-      view.templateName = item.name
+      view.name = item.name
       view.$save(null, function (call) {
         vm._debug('view.$save got called with data:', call)
         vm.page.views.splice(index, 0, call._id)
