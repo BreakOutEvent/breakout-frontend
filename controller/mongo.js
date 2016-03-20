@@ -35,6 +35,10 @@ Lang.prototype.cast = function(val) {
   return _val;
 };
 
+Lang.prototype.checkRequired = function(value) {
+  return !!(value && value.length);
+};
+
 // Don't forget to add `Int8` to the type registry
 mongoose.Schema.Types.Lang = Lang;
 

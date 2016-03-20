@@ -15,7 +15,6 @@ var config = {
 
 var readTemplates = {};
 
-
 //Actual Code
 readTemplates.init = function () {
   var fileList = readTemplates.readFromFolder(config.templatePath);
@@ -34,6 +33,18 @@ readTemplates.init = function () {
 
   });
 };
+
+readTemplates.getByName = function (basename, cb) {
+
+  var filename = basename + ".handlebars";
+
+
+  var fileContent = fs.readFileSync(config.templatePath + filename, {encoding: 'utf8'});
+  readTemplates.parseTemplate(basename, fileContent);
+
+  cb(readTemplates.parseTemplate(basename, fileContent));
+};
+
 
 readTemplates.getAll = function (cb) {
   var fileList = readTemplates.readFromFolder(config.templatePath);
@@ -90,7 +101,7 @@ readTemplates.parseTemplate = function (filename, fileContent) {
   var localTemplate = {
     title: filename,
     name: filename,
-    vars: [],
+    variables: [],
     requirements: []
   };
 
@@ -105,19 +116,19 @@ readTemplates.parseTemplate = function (filename, fileContent) {
       localTemplate.name = config.name;
     }
 
-    if(config.hasOwnProperty('requirements')) {
+    if (config.hasOwnProperty('requirements')) {
       localTemplate.requirements = config.requirements;
     }
 
-    var configVars = config.hasOwnProperty('vars') ? config.vars : {};
+    var configVars = config.hasOwnProperty('variables') ? config.variables : {};
 
-    localTemplate.vars = createVariables(fillWithDefault(mergeVars(configVars, contentVars)));
+    localTemplate.variables = createVariables(fillWithDefault(mergeVars(configVars, contentVars)));
 
   } else if (hasVariables && !hasConfig) {
     //Warn about unusual situation
     console.warn("Found variables but no config in file " + filename);
 
-    localTemplate.vars = createVariables(fillWithDefault(mergeVars({}, contentVars)));
+    localTemplate.variables = createVariables(fillWithDefault(mergeVars({}, contentVars)));
 
   } else {
     //No Config & No Variables
