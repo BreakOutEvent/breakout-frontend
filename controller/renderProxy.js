@@ -2,25 +2,22 @@
 var mongoose = require('./mongo.js');
 var handlebars = require('handlebars');
 var data = require('./dataProxy.js');
-var fs = require('fs');
+var renderCache = require('./renderCache');
 
 //Define Models
 var Page = mongoose.model('page', require('../schemas/page.js'));
-var View = mongoose.model('view', require('../schemas/view.js'));
-
 
 //Define empty object
 var renderer = {};
 
-
-renderer.renderPage = function (pageID) {
+renderer.renderPage = function (pageID, cb) {
   Page
     .findOne({'_id': pageID})
     .populate("views")
     .exec(function (err, page) {
       if (err) {
         throw err;
-      } else if(!page) {
+      } else if (!page) {
         // how should we handle non-existing ids?
         throw null;
       } else {
@@ -28,6 +25,9 @@ renderer.renderPage = function (pageID) {
         page.properties.forEach(function (elem) {
 
           var tempViewHTML = [];
+
+          if(page.views.length == 0)
+            return;
 
           //Render HTML for each View
           page.views.forEach(function (view) {
@@ -43,11 +43,11 @@ renderer.renderPage = function (pageID) {
           }, "");
 
           //Read page template
-          var handlebarsTemplate = data.readDerFuehrer();
+          var handlebarsTemplate = data.readMasterTemplate();
 
           var pageHtml = handlebars.compile(handlebarsTemplate)({'content': html});
 
-          fs.writeFile("rendered.html", pageHtml);
+          cb(pageHtml, elem.language, elem.url + '.html');
 
         });
 
@@ -62,6 +62,27 @@ renderer.renderPage = function (pageID) {
 
 };
 
+renderer.renderAndSavePage = function(pageID){
+  renderer.renderPage(pageID, function(html, language, filename){
+    renderCache.writeFile(language, filename, html);
+  });
+};
+
+/**
+ * Searches for the localized language string, and falls back to german if nothing is found.
+ * @param view
+ * @param language
+ * @returns {*}
+ */
+renderer.getVariables = function (view, language) {
+  return view.variables.reduce(function (iv, v) {
+    //TODO: throws errro: cannot read property 'value' of undefined --> Hotfix: || {value: 'Default'}
+    // search e.language === language, if this fails it falls back to e.language === 'de'
+    iv[v.name] = (v.values.find(e => e.language === language) || v.values.find(e => e.language === 'de') || {value: 'Default'})['value'];
+    return iv;
+  }, {});
+};
+
 renderer.renderView = function (view, language, cb) {
   //Read page template
   var handlebarsTemplate = data.readTemplateFile('partials', view.templateName);
@@ -70,7 +91,7 @@ renderer.renderView = function (view, language, cb) {
   var compiledTemplate = handlebars.compile(handlebarsTemplate);
 
   //Callback with completed html
-  cb(compiledTemplate());
+  cb(compiledTemplate(renderer.getVariables(view, language)));
 
   //1. Grab the template for this view
   //2. Combine the template with the vars from the view

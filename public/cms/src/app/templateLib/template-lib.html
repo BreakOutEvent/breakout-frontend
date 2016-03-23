@@ -1,0 +1,16 @@
+<md-list>
+    <md-list-item ng-repeat="template in lib.templates"
+                  dnd-draggable="template"
+                  dnd-type="'template'"
+                  dnd-effect-allowed="copy"
+                  dnd-disable-if="lib.active">
+        <md-card>
+            <img draggable="false" ng-src="http://placehold.it/200x120" class="md-card-image" alt="Washed Out">
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">{{template.name}}</span>
+                </md-card-title-text>
+            </md-card-title>
+        </md-card>
+    </md-list-item>
+</md-list>

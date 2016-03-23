@@ -1,0 +1,11 @@
+<div class="col-md-2 page-menu" ng-controller="PageListCtrl as list">
+    <h3>Seiten</h3>
+    <ul class="nav nav-pills nav-stacked" ui-sortable="sortableOptions">
+        <li role="presentation" ng-repeat="page in list.pages" ng-class="{'active': currentPage._id == page._id}">
+            <page-list-element page={{list.pages[$index]}} index="{{$index}}"></page-list-element>
+        </li>
+    </ul>
+    <p>
+        <toggle-button>Neue Seite erstellen</toggle-button>
+    </p>
+</div>

@@ -28,11 +28,15 @@ Lang.prototype.cast = function(val) {
   if (_val === "") {
     throw new mongoose.SchemaType.CastError('Lang', _val + ' is not a String or empty');
   }
-  if (!possibleLangs.includes(_val)) {
-    throw new mongoose.SchemaType.CastError('Lang', val + ' is not a valid language');
+  if (possibleLangs.indexOf(_val) == -1) {
+    throw new mongoose.SchemaType.CastError('Lang', _val + ' is not a valid language');
   }
 
   return _val;
+};
+
+Lang.prototype.checkRequired = function(value) {
+  return !!(value && value.length);
 };
 
 // Don't forget to add `Int8` to the type registry

@@ -1,0 +1,94 @@
+.navbar-btn {
+  @include button-variant(#fff, $brand-primary, rgba(255, 255, 255, 0.5));
+  @include button-size($padding-base-vertical, $padding-base-horizontal, $font-size-base, $line-height-base, $btn-border-radius-small);
+}
+
+.collapse > .navbar-nav > li:hover {
+  a {
+    font-weight: bold;
+  }
+}
+
+.navbar-nav > li > .dropdown-menu {
+  margin-top: 3px;
+  border-radius: $border-radius-large;
+  @include box-shadow(0 2px 4px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.2));
+}
+
+//caret towards dropdown button
+.navbar-nav > li > .dropdown-menu-right::before {
+  position: absolute;
+  top: -11px;
+  right: 21%;
+  display: inline-block;
+  border-right: 11px solid transparent;
+  border-bottom: 11px solid $dropdown-border;
+  border-left: 11px solid transparent;
+  border-bottom-color: rgba(0, 0, 0, 0.08);
+  transform: rotate(360deg); //improves anti-aliasing
+  content: '';
+}
+
+.navbar-nav > li > .dropdown-menu-right::after {
+  position: absolute;
+  top: -10px;
+  right: 22%;
+  display: inline-block;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #fff;
+  border-left: 10px solid transparent;
+  transform: rotate(360deg); //improves anti-aliasing
+  content: '';
+}
+
+@media (max-width: $screen-xs-max) {
+  .navbar .navbar-right.bo-user-icons {
+    position: absolute;
+    margin-top: 4px;
+    right: 80px;
+  }
+  .navbar .navbar-right.bo-user-icons > li {
+    display: inline-block;
+  }
+  .navbar .navbar-right.bo-user-icons > li > a {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+}
+
+.navbar-toggle {
+  &:hover,
+  &:focus {
+    .icon-bar {
+      background-color: $brand-primary;
+    }
+  }
+}
+
+.navbar-nav > li > a {
+  height: 60px;
+}
+
+.navbar-nav .material-icons {
+  font-size: 24px;
+}
+
+.bo-nav-logo {
+  margin-top: -5px;
+}
+
+.bo-nav-user-icon {
+  border-radius: 50%;
+  border-color: #fff;
+  border-style: solid;
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+  margin-top: -5px;
+}
+
+.bo-header {
+  @include box-shadow(0 2px 12px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.1));
+  border-bottom-width: 0;
+  min-height: $navbar-height;
+}

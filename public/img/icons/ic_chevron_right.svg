@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="22" height="70" viewBox="0 0 22 70">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #fff;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 2px;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <g id="ic_chevron_right">
+    <path id="Arrow_Left" data-name="Arrow Left" class="cls-1" d="M277,559l20.147-34L277,491" transform="translate(-276 -490)"/>
+  </g>
+</svg>

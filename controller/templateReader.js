@@ -15,7 +15,6 @@ var config = {
 
 var readTemplates = {};
 
-
 //Actual Code
 readTemplates.init = function () {
   var fileList = readTemplates.readFromFolder(config.templatePath);
@@ -34,6 +33,18 @@ readTemplates.init = function () {
 
   });
 };
+
+readTemplates.getByName = function (basename, cb) {
+
+  var filename = basename + ".handlebars";
+
+
+  var fileContent = fs.readFileSync(config.templatePath + filename, {encoding: 'utf8'});
+  readTemplates.parseTemplate(basename, fileContent);
+
+  cb(readTemplates.parseTemplate(basename, fileContent));
+};
+
 
 readTemplates.getAll = function (cb) {
   var fileList = readTemplates.readFromFolder(config.templatePath);
@@ -74,22 +85,23 @@ readTemplates.readFromFolder = function (path) {
 readTemplates.parseTemplate = function (filename, fileContent) {
 
   var contentVars = analyseContentVars(fileContent.match(/{{([a-zA-Z0-1#\/\s]*)}}/g) || []);
-  var config = fileContent.match(/{{!--((?:\n|\r|.)*)--}}/)[1];
-  if (config) {
+  var config = fileContent.match(/{{!--((?:\n|\r|.)*)--}}/);
+
+  if (config != null) {
     try {
-      config = JSON.parse(config);
+      config = JSON.parse(config[1]);
     } catch (e) {
       console.warn("Could not parse config in file " + filename + "! Maybe invalid JSON?\n Error: " + e);
     }
   }
 
   var hasVariables = !!contentVars.length;
-  var hasConfig = !!Object.keys(config).length;
+  var hasConfig = config && !!Object.keys(config).length;
 
   var localTemplate = {
     title: filename,
     name: filename,
-    vars: [],
+    variables: [],
     requirements: []
   };
 
@@ -104,19 +116,19 @@ readTemplates.parseTemplate = function (filename, fileContent) {
       localTemplate.name = config.name;
     }
 
-    if(config.hasOwnProperty('requirements')) {
+    if (config.hasOwnProperty('requirements')) {
       localTemplate.requirements = config.requirements;
     }
 
-    var configVars = config.hasOwnProperty('vars') ? config.vars : {};
+    var configVars = config.hasOwnProperty('variables') ? config.variables : {};
 
-    localTemplate.vars = createVariables(fillWithDefault(mergeVars(configVars, contentVars)));
+    localTemplate.variables = createVariables(fillWithDefault(mergeVars(configVars, contentVars)));
 
   } else if (hasVariables && !hasConfig) {
     //Warn about unusual situation
     console.warn("Found variables but no config in file " + filename);
 
-    localTemplate.vars = createVariables(fillWithDefault(mergeVars({}, contentVars)));
+    localTemplate.variables = createVariables(fillWithDefault(mergeVars({}, contentVars)));
 
   } else {
     //No Config & No Variables

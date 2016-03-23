@@ -3,7 +3,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     files: {
-      js: ['public/js/**/*.js', '*.js']
+      js: ['client/*.js', '*.js']
     },
     sass: {
       dist: {
@@ -22,7 +22,7 @@ module.exports = function(grunt) {
       }
     },
     jsbeautifier: {
-      files: ['public/js/**/*.js', '*.js', 'sass/**/*.scss'],
+      files: ['client/*.js', '*.js', 'sass/**/*.scss'],
       options: {
         js: {
           indentChar: ' ',
@@ -73,6 +73,18 @@ module.exports = function(grunt) {
         }
       }
     },
+    browserify: {
+      options: {
+        browserifyOptions: {
+          debug: true
+        }
+      },
+      dist: {
+        files: {
+          'public/js/bundle.js': ['client/main.js']
+        }
+      }
+    },
     watch: {
       css: {
         files: ['sass/**/*.scss'],
@@ -91,8 +103,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-eol');
+  grunt.loadNpmTasks('grunt-browserify');
 
-  grunt.registerTask('default', ['jsbeautifier', 'jshint', 'sass', 'uglify', 'cssmin',
+  grunt.registerTask('default', ['jsbeautifier', 'jshint', 'browserify', 'uglify', 'sass', 'cssmin',
     'eol'
   ]);
 };

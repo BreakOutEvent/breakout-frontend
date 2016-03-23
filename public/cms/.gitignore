@@ -1,0 +1,11 @@
+# WebStorm Folder
+.idea
+
+# Installed dependencies
+node_modules
+
+# Generated files
+dist
+
+# Hide all logs from git
+*.log
