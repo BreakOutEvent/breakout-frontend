@@ -9,6 +9,7 @@ var fs = require('fs');
 var models = {
   "view": mongoose.model('view', require('../schemas/view.js')),
   "page": mongoose.model('page', require('../schemas/page.js')),
+  "menu": mongoose.model('menu', require('../schemas/menu.js'))
 };
 
 var express = require('express');
