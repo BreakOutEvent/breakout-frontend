@@ -1,6 +1,12 @@
 'use strict';
 var mongoose = require('mongoose');
-var mongoConfig = require('../config/mongo.json');
+var mongoConfig = {
+  "user": process.env.FRONTEND_DB_USER,
+  "password": process.env.FRONTEND_DB_PASSWORD,
+  "url": process.env.FRONTEND_DB_URL,
+  "port": process.env.FRONTEND_DB_PORT,
+  "db": process.env.FRONTEND_DB_NAME
+};
 
 mongoose.con = function () {
   mongoose.connect('mongodb://' + mongoConfig.user + ':' + mongoConfig.password + '@' + mongoConfig.url + ':' + mongoConfig.port + '/' + mongoConfig.db);
@@ -8,6 +14,7 @@ mongoose.con = function () {
 
 mongoose.constants = {
   NUMBER:"NUMBER",
+
   TEXT:"TEXT"
 };
 
@@ -28,7 +35,7 @@ Lang.prototype.cast = function(val) {
   if (_val === "") {
     throw new mongoose.SchemaType.CastError('Lang', _val + ' is not a String or empty');
   }
-  if (possibleLangs.indexOf(_val) == -1) {
+  if (possibleLangs.indexOf(_val) === -1) {
     throw new mongoose.SchemaType.CastError('Lang', _val + ' is not a valid language');
   }
 

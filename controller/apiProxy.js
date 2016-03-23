@@ -2,7 +2,13 @@
 
 var request = require('request');
 
-var config = require('../config/api.json');
+var config = {
+  "clientID": process.env.FRONTEND_API_CLIENTID,
+  "clientSecret": process.env.FRONTEND_API_CLIENTSECRET,
+  "URL": process.env.FRONTEND_API_URL,
+  "protocol": "https"
+};
+
 var url = config.protocol + '://' + config.URL;
 
 var API = {};
