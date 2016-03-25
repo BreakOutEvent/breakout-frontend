@@ -11,12 +11,6 @@ var express = require('express');
 var router = express.Router();
 var Page = mongoose.model('page', require('../schemas/page.js'));
 
-
-router.get('/', function (req, res) {
-  renderer.renderAndSavePage("56c897d0d0c4c4fc3b281320");
-  res.send("DAN");
-});
-
 router.get('/:language([a-zA-Z]{2})/:path', function (req, res, next) {
   const fullFilePath = req.params.path + '.html';
   if (renderCache.exists(req.params.language, fullFilePath))

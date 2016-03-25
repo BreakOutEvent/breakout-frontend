@@ -15,6 +15,8 @@ var hbs = exphbs.create({
   }
 });
 
+global.ROOT = path.resolve(__dirname);
+
 // handlebars is now default engine
 app.engine('.hbs', hbs.engine);
 app.set('view engine', '.hbs');
