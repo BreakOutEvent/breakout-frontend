@@ -6,6 +6,7 @@
 var mongoose = require('../controller/mongo.js');
 var fs = require('fs');
 var path = require('path');
+var renderer = require('../controller/renderProxy');
 
 var models = {
   "view": mongoose.model('view', require('../schemas/view.js')),
@@ -50,10 +51,7 @@ router.get('/css', function (req, res) {
 });
 
 router.get('/html/:name', function (req, res) {
-  if (!req.params.name) {
-    res.sendStatus(400);
-  }
-  else if (req.params.name === 'master') {
+  if (req.params.name === 'master') {
     serveFile('templates/master.handlebars', res);
   } else {
     serveFile(path.join('templates/partials/', req.params.name) + '.handlebars', res);
@@ -89,17 +87,19 @@ router.get('/:model' + allowedModels, function (req, res) {
 });
 
 router.get('/:model' + allowedModels + '/:id', function (req, res) {
-  if (!req.params.id) {
-    res.sendStatus(400);
-    return;
-  }
-
   models[req.params.model].findOne({'_id': req.params.id}).exec(function (err, docs) {
     if (err) {
       res.send(err);
     } else {
       res.json(docs);
     }
+  });
+});
+
+router.get('/render/:pageid', (req, res) => {
+  renderer.renderAndSavePage(req.params.pageid);
+  res.json({
+    'status': 'ok'
   });
 });
 
@@ -159,7 +159,7 @@ router.post('/:model' + allowedModels, function (req, res) {
 });
 
 router.put('/:model' + allowedModels + '/:id', function (req, res) {
-  if (!req.body || !req.params.id) {
+  if (!req.body) {
     res.sendStatus(400);
     return;
   }
@@ -174,11 +174,6 @@ router.put('/:model' + allowedModels + '/:id', function (req, res) {
 });
 
 router.delete('/:model' + allowedModels + '/:id', function (req, res) {
-  if (!req.params.id) {
-    res.sendStatus(400);
-    return;
-  }
-
   models[req.params.model].findOneAndRemove({_id: req.params.id}, function (err, doc) {
     if (err) {
       res.send(err);
