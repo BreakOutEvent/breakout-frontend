@@ -9,9 +9,8 @@ var router = express.Router();
 var passport = require('passport');
 
 router.get('/login', function (req, res, next) {
-  res.render('admin/login',
+  res.render('login',
     {
-      layout: 'admin',
       path: '/admin',
       error: req.flash('error')
     }
@@ -22,7 +21,7 @@ router.post('/login',
   passport.authenticate('local',
     {
       failureRedirect: '/admin/login',
-      successRedirect: '/admin',
+      successRedirect: '/admin/cms',
       failureFlash: true,
       successFlash: true
     }

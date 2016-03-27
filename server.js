@@ -9,7 +9,6 @@ var bodyparser = require('body-parser');
 
 var app = express();
 var hbs = exphbs.create({
-  extname: '.hbs',
   helpers: {
     equals: require("handlebars-helper-equal")
   }
@@ -18,11 +17,11 @@ var hbs = exphbs.create({
 global.ROOT = path.resolve(__dirname);
 
 // handlebars is now default engine
-app.engine('.hbs', hbs.engine);
-app.set('view engine', '.hbs');
+app.engine('.handlebars', hbs.engine);
+app.set('view engine', '.handlebars');
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'templates'));
 
 // Use application-level middleware for common functionality, including
 // logging, parsing, and session handling.
@@ -48,22 +47,23 @@ app.use('/', require('./routes/main'));
 app.use('/admin', require('./routes/admin'));
 app.use('/api', require('./routes/api'));
 
-var server = app.listen(3000, function() {
+var server = app.listen(3000, function () {
   var host = server.address().address;
   var port = server.address().port;
 
   console.log('Listening at http://%s:%s', host, port);
 });
 
-app.use(function(req, res){
+app.use(function (req, res) {
   res.status(404);
-
-  res.render('error', {code: 404, message: req.url + " could not be found on this server"});
-
+  res.render('error', {
+    code: 404,
+    message: req.url + " could not be found on this server"
+  });
 });
 
 // Displays any errors
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', {
     message: err.message,
