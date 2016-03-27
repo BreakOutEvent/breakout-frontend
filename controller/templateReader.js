@@ -10,7 +10,7 @@ var Variable = mongoose.model('variable', require('../schemas/variable.js'));
 
 //Globals
 var config = {
-  templatePath: path.normalize(__dirname + "/../templates/partials/")
+  templatePath: path.normalize(__dirname + '/../templates/partials/'),
 };
 
 var readTemplates = {};
@@ -28,7 +28,7 @@ readTemplates.init = function () {
     nameArr.pop();
     var basename = nameArr.join('.');
 
-    var fileContent = fs.readFileSync(config.templatePath + filename, {encoding: 'utf8'});
+    var fileContent = fs.readFileSync(config.templatePath + filename, { encoding: 'utf8' });
     var parsedTemplate = readTemplates.parseTemplate(basename, fileContent);
 
   });
@@ -36,15 +36,13 @@ readTemplates.init = function () {
 
 readTemplates.getByName = function (basename, cb) {
 
-  var filename = basename + ".handlebars";
+  var filename = basename + '.handlebars';
 
-
-  var fileContent = fs.readFileSync(config.templatePath + filename, {encoding: 'utf8'});
+  var fileContent = fs.readFileSync(config.templatePath + filename, { encoding: 'utf8' });
   readTemplates.parseTemplate(basename, fileContent);
 
   cb(readTemplates.parseTemplate(basename, fileContent));
 };
-
 
 readTemplates.getAll = function (cb) {
   var fileList = readTemplates.readFromFolder(config.templatePath);
@@ -60,7 +58,7 @@ readTemplates.getAll = function (cb) {
     nameArr.pop();
     var basename = nameArr.join('.');
 
-    var fileContent = fs.readFileSync(config.templatePath + filename, {encoding: 'utf8'});
+    var fileContent = fs.readFileSync(config.templatePath + filename, { encoding: 'utf8' });
     templates.push(readTemplates.parseTemplate(basename, fileContent));
 
   });
@@ -74,6 +72,7 @@ readTemplates.clearDatabase = function () {
     if (err) {
       throw err;
     }
+
     console.log(result.result.ok);
   });
 };
@@ -91,7 +90,7 @@ readTemplates.parseTemplate = function (filename, fileContent) {
     try {
       config = JSON.parse(config[1]);
     } catch (e) {
-      console.warn("Could not parse config in file " + filename + "! Maybe invalid JSON?\n Error: " + e);
+      console.warn('Could not parse config in file ' + filename + '! Maybe invalid JSON?\n Error: ' + e);
     }
   }
 
@@ -102,7 +101,7 @@ readTemplates.parseTemplate = function (filename, fileContent) {
     title: filename,
     name: filename,
     variables: [],
-    requirements: []
+    requirements: [],
   };
 
   if (hasConfig) {
@@ -126,7 +125,7 @@ readTemplates.parseTemplate = function (filename, fileContent) {
 
   } else if (hasVariables && !hasConfig) {
     //Warn about unusual situation
-    console.warn("Found variables but no config in file " + filename);
+    console.warn('Found variables but no config in file ' + filename);
 
     localTemplate.variables = createVariables(fillWithDefault(mergeVars({}, contentVars)));
 
@@ -154,6 +153,7 @@ readTemplates.parseTemplate = function (filename, fileContent) {
         if (typeof configVars[contentKey] === 'object') {
           throw 'Trying to map a config object to non-object property on ' + contentKey;
         }
+
         //Config available
         if (configVars.hasOwnProperty(contentKey)) {
           if (checkValidOption(contentKey, configVars[contentKey])) {
@@ -210,6 +210,7 @@ readTemplates.parseTemplate = function (filename, fileContent) {
       if (!returnValue) {
         console.warn('The key "' + key + '" with the value "' + value + '" has not passed the validity check.');
       }
+
       return returnValue;
     }
 
@@ -241,6 +242,7 @@ readTemplates.parseTemplate = function (filename, fileContent) {
 
       }
     });
+
     return variables;
   }
 
@@ -306,6 +308,7 @@ readTemplates.parseTemplate = function (filename, fileContent) {
   function readVariable(contentVars) {
     //Read first element
     var contentVar = contentVars[0], res = {};
+
     //Remove first element
     contentVars.shift();
 
@@ -314,16 +317,16 @@ readTemplates.parseTemplate = function (filename, fileContent) {
       if (contentVar.substring(1, 5) === 'each') {
         //Get actual variable
         res.name = extractVarName(contentVar);
-        res.type = "array";
+        res.type = 'array';
         res.child = iterateOverChildren(contentVars, 'each');
 
       } else if (contentVar.substring(1, 3) === 'if') {
         res.name = extractVarName(contentVar);
-        res.type = "bool";
+        res.type = 'bool';
         res.child = iterateOverChildren(contentVars, 'if');
 
       } else {
-        throw "Unknown special command " + contentVar;
+        throw 'Unknown special command ' + contentVar;
       }
     } else if (contentVar.search(' ') > -1) {
       //Remove helper
@@ -335,7 +338,7 @@ readTemplates.parseTemplate = function (filename, fileContent) {
 
     return {
       result: res,
-      remains: contentVars
+      remains: contentVars,
     };
 
   }
@@ -347,7 +350,7 @@ readTemplates.parseTemplate = function (filename, fileContent) {
 
   function iterateOverChildren(contentVars, breakString) {
     var res = {};
-    var breakCondition = new RegExp("^\/" + breakString);
+    var breakCondition = new RegExp('^\/' + breakString);
 
     while (contentVars.length > 0) {
       if (contentVars[0].search(breakCondition) > -1) {
@@ -361,10 +364,11 @@ readTemplates.parseTemplate = function (filename, fileContent) {
 
         //Check potential error in template
         if (contentVars.length === 0) {
-          throw "A #" + breakString + " has not been closed...";
+          throw 'A #' + breakString + ' has not been closed...';
         }
       }
     }
+
     return res;
   }
 

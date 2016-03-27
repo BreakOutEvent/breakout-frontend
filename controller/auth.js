@@ -19,10 +19,10 @@ passport.use(new Strategy(
       .then(body => {
         var token = new Token(body);
         token.save();
-        cb(null, token, {message: 'Successfully logged in'});
+        cb(null, token, { message: 'Successfully logged in' });
       })
       .catch(body =>
-        cb(null, false, {message: body.error_description})
+        cb(null, false, { message: body.error_description })
       )
 ));
 

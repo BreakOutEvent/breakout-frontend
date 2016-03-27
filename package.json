@@ -62,5 +62,8 @@
     "grunt-eol": "^0.2.0",
     "grunt-jsbeautifier": "^0.2.10",
     "grunt-sass": "^1.1.0"
+  },
+  "jscsConfig": {
+    "validateLineBreaks": null
   }
 }

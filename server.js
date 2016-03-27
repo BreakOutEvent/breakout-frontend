@@ -10,8 +10,8 @@ var bodyparser = require('body-parser');
 var app = express();
 var hbs = exphbs.create({
   helpers: {
-    equals: require("handlebars-helper-equal")
-  }
+    equals: require('handlebars-helper-equal'),
+  },
 });
 
 global.ROOT = path.resolve(__dirname);
@@ -30,10 +30,10 @@ app.set('views', path.join(__dirname, 'templates'));
 app.use(require('express-session')({
   secret: 'keyboard cat',
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
 }));
 app.use(bodyparser.urlencoded({
-  extended: true
+  extended: true,
 }));
 app.use(bodyparser.json());
 app.use(require('cookie-parser')());
@@ -60,7 +60,7 @@ app.use(function (req, res) {
   res.status(404);
   res.render('error', {
     code: 404,
-    message: req.url + " could not be found on this server"
+    message: req.url + ' could not be found on this server',
   });
 });
 
@@ -69,6 +69,6 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', {
     message: err.message,
-    error: err
+    error: err,
   });
 });
