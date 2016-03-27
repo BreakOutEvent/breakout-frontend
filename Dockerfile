@@ -6,8 +6,6 @@ WORKDIR /src
 
 RUN npm install
 RUN npm install -g forever
-RUN cd public/cms && npm install
-RUN npm run cms:build
 
 EXPOSE 3000
 CMD ["forever", "server.js"]
