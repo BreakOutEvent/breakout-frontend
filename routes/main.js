@@ -14,7 +14,7 @@ var Page = mongoose.model('page', require('../schemas/page.js'));
 router.get('/:language([a-zA-Z]{2})/:path', function (req, res, next) {
   const fullFilePath = req.params.path + '.html';
   if (renderCache.exists(req.params.language, fullFilePath))
-    res.sendFile(renderCache.buildFilePath(req.params.language, fullFilePath));
+    res.sendFile(renderCache.buildRenderedFilePath(req.params.language, fullFilePath));
   else
     next();
 });

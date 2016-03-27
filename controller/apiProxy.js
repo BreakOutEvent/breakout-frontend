@@ -1,26 +1,25 @@
 'use strict';
 
-var request = require('request');
+const request = require('request');
 
-var config = {
+const config = {
   "clientID": process.env.FRONTEND_API_CLIENTID,
   "clientSecret": process.env.FRONTEND_API_CLIENTSECRET,
   "URL": process.env.FRONTEND_API_URL,
   "protocol": "https"
 };
 
-var url = config.protocol + '://' + config.URL;
+const url = config.protocol + '://' + config.URL;
+
+Object.keys(config).forEach(k => {
+  if (!config[k])
+    throw new Error("No config entry found for " + k);
+});
 
 var API = {};
 
-Object.keys(config).forEach((k) => {
-  if(!config[k]){
-    throw new Error("No config entry found for " + k);
-  }
-});
-
-API.authenticate = function (username, password) {
-  return new Promise(function (resolve, reject) {
+API.authenticate = (username, password) =>
+  new Promise((resolve, reject) =>
     request
       .post({
         'url': url + '/oauth/token',
@@ -35,39 +34,33 @@ API.authenticate = function (username, password) {
           'user': config.clientID,
           'pass': config.clientSecret
         }
-      }, handleResponse(resolve, reject));
-  });
-};
+      }, handleResponse(resolve, reject))
+  );
 
-API.getCurrentUser = function (token) {
-  return new Promise(function (resolve, reject) {
+API.getCurrentUser = token =>
+  new Promise((resolve, reject) =>
     request
       .get({
         url: url + '/me/',
         auth: {
           bearer: token.access_token
         }
-      }, handleResponse(resolve, reject));
-  });
-};
+      }, handleResponse(resolve, reject))
+  );
 
-API.getModel = function (modelName, token, id) {
-  if (!id) {
-    id = '';
-  }
-  return new Promise(function (resolve, reject) {
+API.getModel = (modelName, token, id) =>
+  new Promise((resolve, reject)=>
     request
       .get({
-        url: url + '/' + modelName + '/' + id,
+        url: url + '/' + modelName + '/' + (id || ''),
         auth: {
-          'bearer' : token.access_token
+          'bearer': token.access_token
         }
-      }, handleResponse(resolve, reject));
-  });
-};
+      }, handleResponse(resolve, reject))
+  );
 
-API.postModel = function (modelName, token, body) {
-  return new Promise(function (resolve, reject) {
+API.postModel = (modelName, token, body) =>
+  new Promise((resolve, reject) =>
     request
       .post({
         url: url + '/' + modelName + '/',
@@ -76,13 +69,13 @@ API.postModel = function (modelName, token, body) {
         },
         body: JSON.stringify(body),
         headers: {'content-type': 'application/json'}
-      }, handleResponse(resolve, reject));
-  });
-};
+      }, handleResponse(resolve, reject))
+  );
+
 
 API.putModel = function (modelName, id, token, body) {
   return new Promise(function (resolve, reject) {
-    if(!id) {
+    if (!id) {
       reject({error_description: 'No ID specified'});
       return;
     }
@@ -99,7 +92,7 @@ API.putModel = function (modelName, id, token, body) {
 
 API.delModel = function (modelName, token, id) {
   return new Promise(function (resolve, reject) {
-    if(!id) {
+    if (!id) {
       reject({error_message: 'No ID specified'});
       return;
     }
@@ -129,7 +122,7 @@ API.createUser = function (email, password) {
 };
 
 function handleResponse(resolve, reject) {
-  return function (error, response, body) {
+  return (error, response, body) => {
     if (error) {
       throw error;
     } else {
@@ -141,6 +134,6 @@ function handleResponse(resolve, reject) {
         reject(JSON.parse(body));
       }
     }
-  };
+  }
 }
 module.exports = API;

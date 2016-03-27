@@ -1,7 +1,6 @@
 'use strict';
 var mongoose = require('./mongo.js');
 var handlebars = require('handlebars');
-var data = require('./dataProxy.js');
 var renderCache = require('./renderCache');
 
 //Define Models
@@ -26,7 +25,7 @@ renderer.renderPage = function (pageID, cb) {
 
           var tempViewHTML = [];
 
-          if(page.views.length == 0)
+          if (page.views.length == 0)
             return;
 
           //Render HTML for each View
@@ -43,9 +42,12 @@ renderer.renderPage = function (pageID, cb) {
           }, "");
 
           //Read page template
-          var handlebarsTemplate = data.readMasterTemplate();
+          var handlebarsTemplate = renderCache.readMasterTemplate();
 
-          var pageHtml = handlebars.compile(handlebarsTemplate)({'content': html});
+          if(handlebarsTemplate.isNothing())
+            throw new Error(`Master template not existing`);
+
+          var pageHtml = handlebars.compile(handlebarsTemplate.value())({'content': html});
 
           cb(pageHtml, elem.language, elem.url + '.html');
 
@@ -62,9 +64,9 @@ renderer.renderPage = function (pageID, cb) {
 
 };
 
-renderer.renderAndSavePage = function(pageID){
-  renderer.renderPage(pageID, function(html, language, filename){
-    renderCache.writeFile(language, filename, html);
+renderer.renderAndSavePage = function (pageID) {
+  renderer.renderPage(pageID, function (html, language, filename) {
+    renderCache.writeRenderedFile(language, filename, html);
   });
 };
 
@@ -74,21 +76,23 @@ renderer.renderAndSavePage = function(pageID){
  * @param language
  * @returns {*}
  */
-renderer.getVariables = function (view, language) {
-  return view.variables.reduce(function (iv, v) {
-    //TODO: throws errro: cannot read property 'value' of undefined --> Hotfix: || {value: 'Default'}
-    // search e.language === language, if this fails it falls back to e.language === 'de'
-    iv[v.name] = (v.values.find(e => e.language === language) || v.values.find(e => e.language === 'de') || {value: 'Default'})['value'];
+renderer.getVariables = (view, language) =>
+  // search e.language === language, if this fails it falls back to e.language === 'de'
+  view.variables.reduce((iv, v) => {
+    iv[v.name] =
+      (v.values.find(e => e.language === language) || v.values.find(e => e.language === 'de') || {value: 'Default'})['value']
     return iv;
   }, {});
-};
 
 renderer.renderView = function (view, language, cb) {
   //Read page template
-  var handlebarsTemplate = data.readTemplateFile('partials', view.templateName);
+  var handlebarsTemplate = renderCache.readTemplateFile('partials', view.templateName);
+
+  if(handlebarsTemplate.isNothing())
+    throw new Error(`Partial ${view.templateName} not existing`);
 
   //Compile template to function
-  var compiledTemplate = handlebars.compile(handlebarsTemplate);
+  var compiledTemplate = handlebars.compile(handlebarsTemplate.value());
 
   //Callback with completed html
   cb(compiledTemplate(renderer.getVariables(view, language)));

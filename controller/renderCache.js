@@ -1,28 +1,39 @@
 var fs = require('fs');
-var fsp = require('fs-promise');
 var path = require('path');
 var Maybe = require('maybe');
 
-var renderCache = {
-  path: path.join(__dirname, '../rendered')
-};
+var rc = {};
+
+const FileType = new Enum(['Template', 'Rendered']);
+
+function readFile(folder, file, fileType) {
+  const pathBuilder = {
+    [FileType.Template]: rc.buildTemplateFilePath,
+    [FileType.Rendered]: rc.buildRenderedFilePath
+  };
+
+  var fullPath = pathBuilder[fileType](folder, file + '.handlebars');
+  if (rc.exists(fullPath))
+    return Maybe(fs.readFileSync(fullPath, 'utf8'));
+  return Maybe();
+}
 
 /**
  * Checks if a file exists and can be read from and written to.
  * Calls the callback with an error instance, if anything went wrong.
- * @param folder Subfolder in /rendered
- * @param file File in subfolder
+ * @param file File to check
  * @returns boolean
  */
-renderCache.exists = function (folder, file) {
-  try {
-    fs.accessSync(this.buildFilePath(folder, file), fs.R_OK | fs.W_OK);
-    return true;
-  }
-  catch (err) {
-    return false;
-  }
-};
+rc.exists =
+  file => {
+    try {
+      fs.accessSync(file, fs.R_OK | fs.W_OK);
+      return true;
+    }
+    catch (err) {
+      return false;
+    }
+  };
 
 /**
  * Get stringified timestamp, using only numeric timestamp to stay alphanumeric
@@ -30,9 +41,8 @@ renderCache.exists = function (folder, file) {
  * @param file
  * @returns number
  */
-renderCache.getFileTimeStamp = function (folder, file) {
-  return fs.statSync(this.buildFilePath(folder, file)).mtime.getTime()
-};
+rc.getFileTimeStamp =
+  (folder, file) => fs.statSync(this.buildRenderedFilePath(folder, file)).mtime.getTime();
 
 /**
  * Writes the contents in data into folder/file.
@@ -40,25 +50,35 @@ renderCache.getFileTimeStamp = function (folder, file) {
  * @param file
  * @param data
  */
-renderCache.writeFile = function (folder, file, data) {
-  var fullPath = this.buildFilePath(folder, file);
-  if (renderCache.exists(folder, file))
-    fs.renameSync(fullPath, this.buildFilePath(folder, file + "_" + renderCache.getFileTimeStamp(folder, file)));
-  fs.writeFileSync(fullPath, data);
-};
+rc.writeRenderedFile =
+  (folder, file, data) => {
+    const fullPath = this.buildRenderedFilePath(folder, file);
+    if (rc.exists(fullPath))
+      fs.renameSync(fullPath, this.buildRenderedFilePath(folder, file + "_" + rc.getFileTimeStamp(folder, file)));
+    fs.writeFileSync(fullPath, data);
+  };
 
 /**
- * Reads the file folder/file and returns its contents, if it doesn't exist the return value is Maybe.Nothing
+ * Reads the file $folder/$file and returns its contents, if it doesn't exist the return value is Maybe.Nothing
  * @param folder
  * @param file
  * @returns Maybe(String)
  */
-renderCache.readFile = function (folder, file) {
-  if (renderCache.exists(folder, file)) {
-    return Maybe(fs.readFileSync(this.buildFilePath(folder, file)));
-  }
-  return Maybe.Nothing;
-};
+rc.readRenderedFile =
+  (folder, file) => readFile(folder, file, FileType.Rendered);
+
+/**
+ * Reads a template file from /templates/$folder
+ * @param folder
+ * @param file
+ */
+rc.readTemplateFile =
+  (folder, file) => readFile(folder, file, FileType.Template);
+
+
+rc.readMasterTemplate =
+  () =>
+    rc.readTemplateFile('', 'master');
 
 /**
  * Simply joins the rendered-path, folder and file together
@@ -66,8 +86,10 @@ renderCache.readFile = function (folder, file) {
  * @param file
  * @returns {*}
  */
-renderCache.buildFilePath = function (folder, file) {
-  return path.join(this.path, folder, file);
-};
+rc.buildRenderedFilePath =
+  (folder, file) => path.join(__dirname, '../rendered', folder, file);
 
-module.exports = renderCache;
+rc.buildTemplateFilePath =
+  (folder, file) => path.join(__dirname, '../templates', folder, file);
+
+module.exports = rc;

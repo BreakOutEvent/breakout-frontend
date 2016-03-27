@@ -9,7 +9,7 @@ var router = express.Router();
 var passport = require('passport');
 
 router.get('/login', function (req, res, next) {
-  res.render('login',
+  res.render('admin/login',
     {
       path: '/admin',
       error: req.flash('error')
