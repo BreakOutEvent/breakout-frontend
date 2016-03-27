@@ -11,9 +11,10 @@
             </md-select>
         </md-input-container>
         <span flex></span>
-        <md-button ng-click="edit.dumpViews()">Dump Views</md-button>
-        <md-button ng-click="edit.saveViews()">Save Views</md-button>
-        <md-button class="md-icon-button" aria-label="Favorite">
+        <md-button ng-click="edit.save($event)" class="md-icon-button" aria-label="Favorite">
+            <md-icon>save</md-icon>
+        </md-button>
+        <md-button ng-click="edit.siteSettings($event)" class="md-icon-button" aria-label="Favorite">
             <md-icon>settings</md-icon>
         </md-button>
         <md-button class="md-icon-button" aria-label="More">
@@ -21,8 +22,11 @@
         </md-button>
     </div>
 </md-toolbar>
-<md-content layout-padding>
+<md-content flex layout-padding>
     <section dnd-list="edit.page.views" dnd-drop="edit.drop(event, index, item, type)">
+        <div class="empty" ng-if="edit.page.views.length==0" flex layout-align="center center">
+            <span>Neue Templates über diesem Container droppen!</span>
+        </div>
         <div ng-repeat="view in edit.views track by $index"
              class="view"
              dnd-draggable="view"
