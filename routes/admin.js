@@ -29,6 +29,12 @@ router.post('/login',
   )
 );
 
+router.use(function(req, res, next){
+  if(req.isAuthenticated())
+    return next();
+  res.redirect('/admin/login')
+});
+
 router.get('/logout',
   function (req, res) {
     req.logout();

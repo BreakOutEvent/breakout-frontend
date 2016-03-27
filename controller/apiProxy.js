@@ -13,6 +13,11 @@ var url = config.protocol + '://' + config.URL;
 
 var API = {};
 
+Object.keys(config).forEach((k) => {
+  if(!config[k]){
+    throw new Error("No config entry found for " + k);
+  }
+});
 
 API.authenticate = function (username, password) {
   return new Promise(function (resolve, reject) {
@@ -129,10 +134,10 @@ function handleResponse(resolve, reject) {
       throw error;
     } else {
       if (response.statusCode.toString().match(/^2\d\d$/)) {
-        console.log(JSON.parse(body), response.statusCode);
+        //console.log(JSON.parse(body), response.statusCode);
         resolve(JSON.parse(body));
       } else {
-        console.log(JSON.parse(body), response.statusCode);
+        //console.log(JSON.parse(body), response.statusCode);
         reject(JSON.parse(body));
       }
     }

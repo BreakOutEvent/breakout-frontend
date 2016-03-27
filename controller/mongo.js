@@ -1,12 +1,18 @@
 'use strict';
 var mongoose = require('mongoose');
-var mongoConfig = {
+const mongoConfig = {
   "user": process.env.FRONTEND_DB_USER,
   "password": process.env.FRONTEND_DB_PASSWORD,
   "url": process.env.FRONTEND_DB_URL,
   "port": process.env.FRONTEND_DB_PORT,
   "db": process.env.FRONTEND_DB_NAME
 };
+
+Object.keys(mongoConfig).forEach((k, val) => {
+  if(!mongoConfig[k]){
+    throw new Error("No config entry found for " + k);
+  }
+});
 
 mongoose.con = function () {
   mongoose.connect('mongodb://' + mongoConfig.user + ':' + mongoConfig.password + '@' + mongoConfig.url + ':' + mongoConfig.port + '/' + mongoConfig.db);
