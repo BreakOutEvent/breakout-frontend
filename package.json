@@ -48,7 +48,8 @@
     "mongoose": "^4.3.3",
     "passport": "^0.2.2",
     "passport-local": "^1.0.0",
-    "request": "^2.67.0"
+    "request": "^2.67.0",
+    "throng": "^3.0.0"
   },
   "devDependencies": {
     "browserify": "^13.0.0",
