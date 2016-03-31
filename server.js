@@ -8,22 +8,28 @@ const config = {
 const throng = config.cluster ? require('throng') : cb => cb(0);
 
 throng(id => {
+  const path = require('path');
+
+  global.ROOT = path.resolve(__dirname);
+
   const express = require('express');
   const mongoose = require('./controller/mongo.js');
   mongoose.con();
   const exphbs = require('express-handlebars');
-  const path = require('path');
   const passport = require('./controller/auth.js');
   const bodyparser = require('body-parser');
 
-  var app = express();
-  var hbs = exphbs.create({
+  const knex = require('knex')(require('./knexfile').development);
+  const Model = require('objection').Model;
+
+  Model.knex(knex);
+
+  const app = express();
+  const hbs = exphbs.create({
     helpers: {
       equals: require('handlebars-helper-equal'),
     },
   });
-
-  global.ROOT = path.resolve(__dirname);
 
   require('enum').register();
 

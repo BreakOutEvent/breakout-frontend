@@ -5,11 +5,17 @@ const fs = require('fs');
 const path = require('path');
 const renderer = require('../controller/renderer');
 const fileSystem = require('../controller/fileSystem');
+const _ = require('lodash');
 
 const models = {
   view: mongoose.model('view', require('../schemas/view.js')),
   page: mongoose.model('page', require('../schemas/page.js')),
   menu: mongoose.model('menu', require('../schemas/menu.js')),
+};
+
+const newModels = {
+  page: [require('../models/Page'), '[properties, views]'],
+  view: [require('../models/View'), 'variables'],
 };
 
 const express = require('express');
@@ -59,10 +65,34 @@ router.get('/html/:name', (req, res) =>
     serveFile(fileSystem.buildTemplateFilePath('partials', req.params.name), res)
 );
 
+router.get('/pg/:model' + allowedModels, (req, res, next) =>
+  newModels[req.params.model][0]
+    .query()
+    .eager(newModels[req.params.model][1])
+    .orderBy('order', 'asc')
+    .then(models => res.json(models))
+    .catch(ex => next(ex))
+);
+
 router.get('/:model' + allowedModels, (req, res) =>
   models[req.params.model].find({}).exec((err, docs) =>
     err ? res.send(err) : res.json(docs)
   )
+);
+
+router.get('/pg/:model' + allowedModels + '/:id', (req, res, next) =>
+  newModels[req.params.model][0]
+    .query()
+    .eager(newModels[req.params.model][1])
+    .where('_id', req.params.id)
+    .then(model => {
+      if (model.length > 0) {
+        res.json(model[0]);
+      } else {
+        next();
+      }
+    })
+    .catch(ex => next(ex))
 );
 
 router.get('/:model' + allowedModels + '/:id', (req, res) =>
