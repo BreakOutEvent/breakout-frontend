@@ -7,9 +7,9 @@ import template from './template-lib.html'
 import Apiservices from './../api/apiServices'
 
 class templateLibCtrl {
-  constructor (Template) {
-    'ngInject'
-    var vm = this
+  constructor(Template) {
+    'ngInject';
+    var vm = this;
     Template.getList().then(function (res) {
       vm.templates = res.data
     })
@@ -24,11 +24,11 @@ let templateLib = {
   template,
   controller: templateLibCtrl,
   controllerAs: 'lib'
-}
+};
 
 let templateLibModule = angular.module('bo.templateLib', [
-  Apiservices
-])
-  .component('boLib', templateLib)
+    Apiservices
+  ])
+  .component('boLib', templateLib);
 
 export default templateLibModule.name

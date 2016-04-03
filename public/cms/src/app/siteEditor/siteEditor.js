@@ -16,12 +16,12 @@ let pageEditor = {
   template,
   controller: siteEditorCtrl,
   controllerAs: 'edit'
-}
+};
 
 let pageEditorModule = angular.module('bo.pageEditor', [
     previewDirective,
     editableComponent
   ])
-  .component('boEditor', pageEditor)
+  .component('boEditor', pageEditor);
 
 export default pageEditorModule.name

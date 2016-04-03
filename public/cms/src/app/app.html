@@ -5,7 +5,8 @@
         </md-toolbar>
         <md-content>
             <md-list>
-                <md-list-item ng-repeat="page in app.pages" ng-click="app.selectPage(page)" ng-class="{ selected: page==app.selectedPage}">
+                <md-list-item ng-repeat="page in app.pages" ng-click="app.selectPage(page)"
+                              ng-class="{ selected: page==app.selectedPage}">
                     {{page.properties[0].title}}
                 </md-list-item>
             </md-list>
