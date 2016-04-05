@@ -5,10 +5,6 @@ const fs = require('fs');
 const path = require('path');
 const _ = require('lodash');
 
-//Own Dependencies
-const mongoose = require('./mongo.js');
-const Variable = mongoose.model('variable', require('../schemas/variable.js'));
-
 //Globals
 const config = {
   templatePath: path.normalize(__dirname + '/../templates/partials/'),
@@ -27,60 +23,58 @@ readTemplates.getByName = basename => {
 };
 
 readTemplates.getAll = () => {
+  // Gets all files from config.templatePath without its path, only the name
   const fileList = readTemplates.readFromFolder(config.templatePath);
 
+  // Creates an array of all available templates, parsed
   return fileList.reduce((init, curr) => {
-    const basename = curr.slice(0, -path.extname(curr).length); // Removes extension from filename
+    // Removes extension from filename
+    const basename = curr.slice(0, -path.extname(curr).length);
+
+    // Reads the file's content in utf8
     const fileContent = fs.readFileSync(config.templatePath + curr, { encoding: 'utf8' });
+
+    // Concats init and the newly parsed template object
     return _.concat(init, readTemplates.parseTemplate(basename, fileContent));
   }, []);
 };
 
-readTemplates.readFromFolder = path => fs.readdirSync(path) || [];
+readTemplates.readFromFolder = fs.readdirSync;
 
 readTemplates.parseTemplate = (filename, fileContent) => {
 
-  var contentVars = analyseContentVars(fileContent.match(/{{([a-zA-Z0-1#\/\s]*)}}/g) || []);
-  var config = fileContent.match(/{{!--((?:\n|\r|.)*)--}}/);
+  const contentVars = analyseContentVars(fileContent.match(/{{([a-zA-Z0-1#\/\s]*)}}/g) || []);
+  const configMatch = fileContent.match(/{{!--((?:\n|\r|.)*)--}}/);
 
-  if (config != null) {
+  var config;
+  if (configMatch) {
     try {
-      config = JSON.parse(config[1]);
+      config = JSON.parse(configMatch[1]);
     } catch (e) {
-      console.warn('Could not parse config in file ' + filename + '! Maybe invalid JSON?\n Error: ' + e);
+      throw new Error(
+        `Could not parse config in file ${filename}! Original exception: ${e}`
+      );
     }
   }
 
-  var hasVariables = !!contentVars.length;
-  var hasConfig = config && !!Object.keys(config).length;
+  config = config || {};
+  const hasVariables = !!contentVars.length;
+  const hasConfig = config && !!Object.keys(config).length;
 
-  var localTemplate = {
-    title: filename,
-    name: filename,
-    variables: [],
-    requirements: [],
+  const localTemplate = {
+    title: config.title || filename,
+    name: config.name || filename,
+    variables: hasConfig ?
+
+      // Create everything if we have a config
+      createVariables(fillWithDefault(mergeVars(config.variables || {}, contentVars)))
+
+      // Or empty
+      : [],
+    requirements: config.requirements || [],
   };
 
-  if (hasConfig) {
-    //Best Case
-    //Overwrite prefilled information with values from config
-    if (config.hasOwnProperty('title')) {
-      localTemplate.title = config.title;
-    }
-
-    if (config.hasOwnProperty('name')) {
-      localTemplate.name = config.name;
-    }
-
-    if (config.hasOwnProperty('requirements')) {
-      localTemplate.requirements = config.requirements;
-    }
-
-    var configVars = config.hasOwnProperty('variables') ? config.variables : {};
-
-    localTemplate.variables = createVariables(fillWithDefault(mergeVars(configVars, contentVars)));
-
-  } else if (hasVariables && !hasConfig) {
+  if (hasVariables && !hasConfig) {
     //Warn about unusual situation
     console.warn('Found variables but no config in file ' + filename);
 
@@ -124,7 +118,7 @@ readTemplates.parseTemplate = (filename, fileContent) => {
       }
     });
 
-    for (const configKey of configKeys) {
+    configKeys.forEach(configKey => {
       //All object configs should already be used. Everything else can not be used.
       if (typeof configVars[configKey] !== 'object') {
         if (!mergedVars.hasOwnProperty(configKey)) {
@@ -133,7 +127,7 @@ readTemplates.parseTemplate = (filename, fileContent) => {
           }
         }
       }
-    }
+    });
 
     return mergedVars;
 
@@ -158,7 +152,7 @@ readTemplates.parseTemplate = (filename, fileContent) => {
           returnValue = !isNaN(parseInt(value));
           break;
         case 'type':
-          returnValue = ['text', 'number', 'file', 'array', 'bool', 'url'].indexOf(value) > -1;
+          returnValue = ['text', 'number', 'file', 'url'].indexOf(value) > -1;
           break;
         default:
           returnValue = false;

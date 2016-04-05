@@ -1,17 +1,17 @@
 <div class="container bo-highlight-container">
-  {{#each teaser}}
-  {{if @isModZero}} //TODO: implement handlebars helper
-  <div class="row">
-  {{/id}}
-    <div class="col-md-6 clearfix">
-      <div class="bo-img-circle pull-left"></div>
-      <div class="bo-teaser">
-        <h4>{{heading}}</h4>
-        <p>{{teasertext}}</p>
-      </div>
-    </div>
-  {{if @isModZero}} //TODO: implement handlebars helper
-  </div>
-  {{/if}}
-  {{/each}}
+    {{#each teaser}}
+        {{#if @isModZero}}
+        <div class="row">
+        {{/if}}
+        <div class="col-md-6 clearfix">
+            <div class="bo-img-circle pull-left"></div>
+            <div class="bo-teaser">
+                <h4>{{heading}}</h4>
+                <p>{{teasertext}}</p>
+            </div>
+        </div>
+        {{#if @isModZero}} //TODO: implement handlebars helper
+        </div>
+        {{/if}}
+    {{/each}}
 </div>
