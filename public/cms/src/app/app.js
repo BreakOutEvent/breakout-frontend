@@ -13,17 +13,37 @@ import template from './app.html'
 import templateLib from './templateLib/templateLib'
 import siteEditor from './siteEditor/siteEditor'
 import apiServices from './api/apiServices'
+import CreateSiteCtrl from './createSite/createSite.controller'
 
 class AppCtrl {
-  constructor (Page, $log) {
+  constructor(Page, $log, $mdDialog) {
     'ngInject'
     this.pages = Page.query()
     this._log = $log
+    this._dialog = $mdDialog
   }
-  selectPage (page) {
+
+  selectPage(page) {
     this._log.debug('Page selected:')
     this._log.debug(page)
     this.selectedPage = page
+  }
+
+  createPage() {
+    let vm = this
+    this._dialog.show({
+      controller: CreateSiteCtrl,
+      controllerAs: 'createSite',
+      bindToController: true,
+      template: require('./createSite/createSite.ng.html'),
+      parent: angular.element(document.body),
+      //onRemove: function () {
+      //  console.log('reload')
+      //  vm.pages = Page.query()
+      //},
+      targetEvent: event,
+      clickOutsideToClose: true
+    })
   }
 }
 

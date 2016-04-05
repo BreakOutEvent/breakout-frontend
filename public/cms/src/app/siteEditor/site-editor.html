@@ -17,6 +17,10 @@
         <md-button ng-click="edit.siteSettings($event)" class="md-icon-button" aria-label="Favorite">
             <md-icon>settings</md-icon>
         </md-button>
+        {{edit.locals}}
+        <md-button ng-href="{{edit.getUrl()}}" target="_blank">
+            preview
+        </md-button>
         <md-button class="md-icon-button" aria-label="More">
             <md-icon>delete</md-icon>
         </md-button>

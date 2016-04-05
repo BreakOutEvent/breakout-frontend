@@ -90,6 +90,9 @@ export default class siteEditorCtrl {
       clickOutsideToClose:true
     })
   }
+  getUrl () {
+    return 'http://localhost:3000/live/de/'+this.page.properties[this.props].url
+  }
   drop (event, index, item, type) {
     if(type === 'template') {
       let vm = this
