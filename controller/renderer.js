@@ -50,7 +50,7 @@ renderer.renderPage = (pageID, cb) =>
 
         // Gets all required scripts for the page together
         const requirements = _.uniq(page.views.reduce((initial, curr) => {
-          const req = reader.getByNameSync(curr.templateName) || { requirements: [] };
+          const req = reader.getByName(curr.templateName) || { requirements: [] };
           return _.concat(initial, req.requirements);
         }, []));
 

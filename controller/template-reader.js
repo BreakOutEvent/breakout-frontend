@@ -3,6 +3,7 @@
 //3rd Party Dependencies
 const fs = require('fs');
 const path = require('path');
+const _ = require('lodash');
 
 //Own Dependencies
 const mongoose = require('./mongo.js');
@@ -15,30 +16,7 @@ const config = {
 
 var readTemplates = {};
 
-//Actual Code
-readTemplates.init = function () {
-  var fileList = readTemplates.readFromFolder(config.templatePath);
-
-  //readTemplates.clearDatabase();
-
-  fileList.forEach(function (filename) {
-    //Load File?
-
-    var nameArr = filename.split('.');
-    nameArr.pop();
-    var basename = nameArr.join('.');
-
-    var fileContent = fs.readFileSync(config.templatePath + filename, { encoding: 'utf8' });
-    var parsedTemplate = readTemplates.parseTemplate(basename, fileContent);
-
-  });
-};
-
-readTemplates.getByName = function (basename, cb) {
-  cb(readTemplates.getByNameSync(basename, cb));
-};
-
-readTemplates.getByNameSync = function (basename) {
+readTemplates.getByName = basename => {
 
   var filename = basename + '.handlebars';
 
@@ -48,44 +26,19 @@ readTemplates.getByNameSync = function (basename) {
   return readTemplates.parseTemplate(basename, fileContent);
 };
 
-readTemplates.getAll = function (cb) {
-  var fileList = readTemplates.readFromFolder(config.templatePath);
+readTemplates.getAll = () => {
+  const fileList = readTemplates.readFromFolder(config.templatePath);
 
-  //readTemplates.clearDatabase();
-
-  var templates = [];
-
-  fileList.forEach(function (filename) {
-    //Load File?
-
-    var nameArr = filename.split('.');
-    nameArr.pop();
-    var basename = nameArr.join('.');
-
-    var fileContent = fs.readFileSync(config.templatePath + filename, { encoding: 'utf8' });
-    templates.push(readTemplates.parseTemplate(basename, fileContent));
-
-  });
-
-  cb(templates);
+  return fileList.reduce((init, curr) => {
+    const basename = curr.slice(0, -path.extname(curr).length); // Removes extension from filename
+    const fileContent = fs.readFileSync(config.templatePath + curr, { encoding: 'utf8' });
+    return _.concat(init, readTemplates.parseTemplate(basename, fileContent));
+  }, []);
 };
 
-readTemplates.clearDatabase = function () {
+readTemplates.readFromFolder = path => fs.readdirSync(path) || [];
 
-  Variable.remove({}, function (err, result) {
-    if (err) {
-      throw err;
-    }
-
-    console.log(result.result.ok);
-  });
-};
-
-readTemplates.readFromFolder = function (path) {
-  return fs.readdirSync(path) || [];
-};
-
-readTemplates.parseTemplate = function (filename, fileContent) {
+readTemplates.parseTemplate = (filename, fileContent) => {
 
   var contentVars = analyseContentVars(fileContent.match(/{{([a-zA-Z0-1#\/\s]*)}}/g) || []);
   var config = fileContent.match(/{{!--((?:\n|\r|.)*)--}}/);
@@ -145,7 +98,7 @@ readTemplates.parseTemplate = function (filename, fileContent) {
 
     var mergedVars = {};
 
-    contentKeys.forEach(function (contentKey) {
+    contentKeys.forEach(function(contentKey) {
       if (typeof contentVars[contentKey] === 'object') {
         if (typeof configVars[contentKey] === 'object') {
           mergedVars[contentKey] = mergeVars(configVars[contentKey], contentVars[contentKey]);
@@ -171,7 +124,7 @@ readTemplates.parseTemplate = function (filename, fileContent) {
       }
     });
 
-    configKeys.forEach(function (configKey) {
+    for (const configKey of configKeys) {
       //All object configs should already be used. Everything else can not be used.
       if (typeof configVars[configKey] !== 'object') {
         if (!mergedVars.hasOwnProperty(configKey)) {
@@ -180,7 +133,7 @@ readTemplates.parseTemplate = function (filename, fileContent) {
           }
         }
       }
-    });
+    }
 
     return mergedVars;
 
@@ -222,7 +175,7 @@ readTemplates.parseTemplate = function (filename, fileContent) {
 
   function fillWithDefault(variables) {
 
-    Object.keys(variables).forEach(function (key) {
+    Object.keys(variables).forEach(function(key) {
       if (typeof variables[key] === 'object') {
 
         //Check for name
@@ -265,7 +218,7 @@ readTemplates.parseTemplate = function (filename, fileContent) {
     var arrayVars = [];
 
     //If any value of the object is not an object, handle this object as object
-    keys.forEach(function (key) {
+    keys.forEach(function(key) {
       if (typeof vars[key] !== 'object') {
         arrayVars = {};
       }
@@ -273,7 +226,7 @@ readTemplates.parseTemplate = function (filename, fileContent) {
 
     //If its not an array, write the values to the keys.
     if (!Array.isArray(arrayVars)) {
-      keys.forEach(function (key) {
+      keys.forEach(function(key) {
         if (typeof vars[key] !== 'object') {
           arrayVars[key] = vars[key];
         } else {
@@ -283,7 +236,7 @@ readTemplates.parseTemplate = function (filename, fileContent) {
 
     } else {
       //Push elements on array (for wrapper)
-      keys.forEach(function (key) {
+      keys.forEach(function(key) {
         arrayVars.push(createVariables(vars[key]));
       });
     }

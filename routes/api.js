@@ -44,9 +44,7 @@ function serveFile(fpath, res) {
 }
 
 router.get('/getList', (req, res) =>
-  reader.getAll(
-    templates => res.json(templates)
-  )
+  res.json(reader.getAll())
 );
 
 router.get('/css', (req, res) =>
@@ -81,38 +79,36 @@ router.get('/render/:pageid', (req, res) => {
 // Specific override for POST /api/view
 router.post('/view', (req, res) => {
   if (!req.body || !req.body.name) {
-    res.sendStatus(400);
-    return;
+    return res.sendStatus(400);
   }
 
-  reader.getByName(req.body.name, template => {
-    if (!template) {
-      res.sendStatus(404);
+  const template = reader.getByName(req.body.name);
+  if (!template) {
+    return res.sendStatus(404);
+  }
+
+  const rawView = {
+    templateName: template.name,
+    variables: [],
+  };
+
+  //FILL WITH DEFAULT VALUES
+  for (let variable of template.variables) {
+    variable.values = [
+      { language: 'de', value: 'defaultValue' },
+      { language: 'en', value: 'defaultValue' },
+    ];
+    rawView.variables.push(variable);
+  }
+
+  models.view.create(rawView, (err, docs) => {
+    console.log(docs);
+    if (err) {
+      console.log(req.body);
+      res.send(err);
+    } else {
+      res.json(docs);
     }
-
-    const rawView = {
-      templateName: template.name,
-      variables: [],
-    };
-
-    //FILL WITH DEFAULT VALUES
-    for (let variable of template.variables) {
-      variable.values = [
-        { language: 'de', value: 'defaultValue' },
-        { language: 'en', value: 'defaultValue' },
-      ];
-      rawView.variables.push(variable);
-    }
-
-    models.view.create(rawView, (err, docs) => {
-      console.log(docs);
-      if (err) {
-        console.log(req.body);
-        res.send(err);
-      } else {
-        res.json(docs);
-      }
-    });
   });
 });
 
