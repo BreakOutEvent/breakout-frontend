@@ -5,7 +5,7 @@
 
 const mongoose = require('../controller/mongo');
 const renderer = require('../controller/renderer');
-const fileSystem = require('../controller/fileSystem');
+const fileSystem = require('../controller/file-system');
 const express = require('express');
 const Page = mongoose.model('page', require('../schemas/page.js'));
 

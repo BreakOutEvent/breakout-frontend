@@ -4,7 +4,7 @@ const mongoose = require('../controller/mongo.js');
 const fs = require('fs');
 const path = require('path');
 const renderer = require('../controller/renderer');
-const fileSystem = require('../controller/fileSystem');
+const fileSystem = require('../controller/file-system');
 
 const models = {
   view: mongoose.model('view', require('../schemas/view.js')),
@@ -13,7 +13,7 @@ const models = {
 };
 
 const express = require('express');
-const reader = require('../controller/templateReader.js');
+const reader = require('../controller/template-reader.js');
 var router = express.Router();
 
 // Creates regex string for filtering valid models

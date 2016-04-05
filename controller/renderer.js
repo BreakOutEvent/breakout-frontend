@@ -1,7 +1,9 @@
 'use strict';
 const mongoose = require('./mongo.js');
 const handlebars = require('handlebars');
-const fileSystem = require('./fileSystem');
+const fileSystem = require('./file-system');
+const reader = require('./template-reader');
+const _ = require('lodash');
 
 //Define Models
 const Page = mongoose.model('page', require('../schemas/page.js'));
@@ -46,12 +48,22 @@ renderer.renderPage = (pageID, cb) =>
           return initial + handlebars.compile(hbt.value())(getVariables(curr, elem.language));
         }, '');
 
+        // Gets all required scripts for the page together
+        const requirements = _.uniq(page.views.reduce((initial, curr) => {
+          const req = reader.getByNameSync(curr.templateName) || { requirements: [] };
+          return _.concat(initial, req.requirements);
+        }, []));
+
         //Read page template
         const handlebarsTemplate = fileSystem.readMasterTemplate();
-        if (handlebarsTemplate.isNothing())
-          throw new Error(`Master template not existing`);
+        if (handlebarsTemplate.isNothing()) throw new Error(`Master template not existing`);
+
         cb(
-          handlebars.compile(handlebarsTemplate.value())({ content: html }),
+          handlebars.compile(handlebarsTemplate.value())(
+            {
+              content: html,
+              requirements: requirements
+            }),
           elem.language,
           elem.url + '.html'
         );

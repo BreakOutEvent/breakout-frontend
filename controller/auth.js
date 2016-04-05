@@ -2,7 +2,7 @@
 
 const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
-const API = require('./apiProxy.js');
+const API = require('./api-proxy.js');
 const mongoose = require('./mongo.js');
 const Token = mongoose.model('token', require('../schemas/token.js'));
 

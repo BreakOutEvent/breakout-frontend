@@ -44,6 +44,7 @@
     "handlebars": "^4.0.5",
     "handlebars-helper-equal": "^1.0.0",
     "jquery": "^2.2.0",
+    "lodash": "^4.8.2",
     "maybe": "^0.0.2",
     "mongoose": "^4.3.3",
     "passport": "^0.2.2",

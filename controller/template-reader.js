@@ -1,15 +1,15 @@
 'use strict';
 
 //3rd Party Dependencies
-var fs = require('fs');
-var path = require('path');
+const fs = require('fs');
+const path = require('path');
 
 //Own Dependencies
-var mongoose = require('./mongo.js');
-var Variable = mongoose.model('variable', require('../schemas/variable.js'));
+const mongoose = require('./mongo.js');
+const Variable = mongoose.model('variable', require('../schemas/variable.js'));
 
 //Globals
-var config = {
+const config = {
   templatePath: path.normalize(__dirname + '/../templates/partials/'),
 };
 
@@ -35,13 +35,17 @@ readTemplates.init = function () {
 };
 
 readTemplates.getByName = function (basename, cb) {
+  cb(readTemplates.getByNameSync(basename, cb));
+};
+
+readTemplates.getByNameSync = function (basename) {
 
   var filename = basename + '.handlebars';
 
   var fileContent = fs.readFileSync(config.templatePath + filename, { encoding: 'utf8' });
   readTemplates.parseTemplate(basename, fileContent);
 
-  cb(readTemplates.parseTemplate(basename, fileContent));
+  return readTemplates.parseTemplate(basename, fileContent);
 };
 
 readTemplates.getAll = function (cb) {
