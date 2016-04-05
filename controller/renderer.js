@@ -9,7 +9,7 @@ const _ = require('lodash');
 const Page = mongoose.model('page', require('../schemas/page.js'));
 
 //Define empty object
-var renderer = {};
+let renderer = {};
 
 /**
  * Searches for the localized language string, and falls back to german if nothing is found.
@@ -49,10 +49,12 @@ renderer.renderPage = (pageID, cb) =>
         }, '');
 
         // Gets all required scripts for the page together
-        const requirements = _.uniq(page.views.reduce((initial, curr) => {
-          const req = reader.getByName(curr.templateName) || { requirements: [] };
-          return _.concat(initial, req.requirements);
-        }, []));
+        const requirements = _.uniq(
+          page.views.reduce((initial, curr) => {
+            const req = reader.getByName(curr.templateName) || { requirements: [] };
+            return _.concat(initial, req.requirements);
+          }, [])
+        );
 
         //Read page template
         const handlebarsTemplate = fileSystem.readMasterTemplate();
