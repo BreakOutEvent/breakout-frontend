@@ -5,6 +5,7 @@ COPY . /src
 WORKDIR /src
 
 RUN npm install
+RUN cd public/cms && npm install
 RUN npm run cms:build
 RUN npm install -g forever
 
