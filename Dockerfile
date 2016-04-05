@@ -5,6 +5,7 @@ COPY . /src
 WORKDIR /src
 
 RUN npm install
+RUN npm run cms:build
 RUN npm install -g forever
 
 EXPOSE 3000
