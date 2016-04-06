@@ -10,7 +10,10 @@ const mongoConfig = {
 
 Object.keys(mongoConfig).forEach((k, val) => {
   if (!mongoConfig[k]) {
-    throw new Error(`No config entry found for ${k}`);
+    if (k === 'user' && mongoConfig['password']
+      || k === 'password' && mongoConfig['user']
+      || k !== 'user' && k !== 'password')
+      throw new Error(`No config entry found for ${k}`);
   }
 });
 
