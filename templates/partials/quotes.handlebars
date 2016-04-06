@@ -23,7 +23,7 @@
   <!-- Indicators -->
   <ol class="carousel-indicators">
     {{#each quotes}}
-    <li data-target="#carousel-quotes" data-slide-to="{{@index}}"{{if @first}} class="active"{{/if}}></li>
+    <li data-target="#carousel-quotes" data-slide-to="{{@index}}"{{#if @first}} class="active"{{/if}}></li>
     {{/each}}
   </ol>
 
@@ -33,7 +33,7 @@
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
           {{#each quotes}}
-          <div class="item{{if @first}} active{{/if}}">
+          <div class="item{{#if @first}} active{{/if}}">
             <blockquote>
               {{quote}}
               <footer>{{source}}</footer>

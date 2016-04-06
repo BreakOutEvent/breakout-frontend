@@ -48,7 +48,7 @@ router.get('/getList', (req, res) =>
 );
 
 router.get('/css', (req, res) =>
-  serveFile(path.join(global.ROOT, 'public/css/temp_style.min.css'), res)
+  serveFile(path.join(global.ROOT, 'public/css/styles.min.css'), res)
 );
 
 router.get('/html/:name', (req, res) =>
