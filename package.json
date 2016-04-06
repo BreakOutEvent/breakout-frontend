@@ -6,12 +6,11 @@
   "scripts": {
     "postinstall": "cd public/cms && npm install",
     "prestart": "npm run cms:build",
-    "start": "node server.js",
+    "start": "grunt && node server.js",
     "cms:build": "cd public/cms && npm run build",
     "cms:update": "cd public/cms && npm update && npm run build",
     "cms:server": "cd public/cms && npm run server",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "run:server": "node server.js"
   },
   "repository": {
     "type": "git",
