@@ -1,5 +1,5 @@
 FROM mhart/alpine-node
-RUN apk add git bash make gcc g++ python
+RUN apk add --no-cache git bash make gcc g++ python
 
 COPY . /src
 WORKDIR /src
