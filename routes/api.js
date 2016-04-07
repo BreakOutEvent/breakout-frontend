@@ -1,203 +1,124 @@
-/**
- * Router for /
- */
-'use strict';
+﻿'use strict';
 
-var mongoose = require('../controller/mongo.js');
-var fs = require('fs');
+const mongoose = require('../controller/mongo.js');
+const fs = require('fs');
+const path = require('path');
+const renderer = require('../controller/renderer');
+const fileSystem = require('../controller/file-system');
 
-var models = {
-  "view": mongoose.model('view', require('../schemas/view.js')),
-  "page": mongoose.model('page', require('../schemas/page.js'))
+const models = {
+  view: mongoose.model('view', require('../schemas/view.js')),
+  page: mongoose.model('page', require('../schemas/page.js')),
+  menu: mongoose.model('menu', require('../schemas/menu.js')),
 };
 
-var express = require('express');
-var reader = require('../controller/templateReader.js');
+const express = require('express');
+const reader = require('../controller/template-reader.js');
 var router = express.Router();
 
-router.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+// Creates regex string for filtering valid models
+const allowedModels = '(' + Object.keys(models).reduce((p, k) => p + '|' + k, '').substr(1) + ')';
+
+/*
+ router.use((req, res, next) => {
+ if (req.isAuthenticated()) next();
+ else res.sendStatus(403);
+ });*/
+
+router.use((req, res, next) => {
+  res.set({
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
+    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+  });
   next();
 });
 
-router.get('/getList', function(req, res) {
-  reader.getAll(function(templates) {
-    res.json(templates);
+/**
+ * Reads a file path originating from / and sends it to the response
+ * @param fpath Path to the file
+ * @param res The HTTP response object
+ */
+function serveFile(fpath, res) {
+  fs.access(fpath, fs.R_OK, err => err !== null ? res.send(err) : res.sendFile(fpath));
+}
+
+router.get('/getList', (req, res) =>
+  res.json(reader.getAll())
+);
+
+router.get('/css', (req, res) =>
+  serveFile(path.join(global.ROOT, 'public/css/styles.min.css'), res)
+);
+
+router.get('/html/:name', (req, res) =>
+  req.params.name === 'master' ?
+    serveFile(fileSystem.buildTemplateFilePath('', 'master'), res) :
+    serveFile(fileSystem.buildTemplateFilePath('partials', req.params.name), res)
+);
+
+router.get('/:model' + allowedModels, (req, res) =>
+  models[req.params.model].find({}).exec((err, docs) =>
+    err ? res.send(err) : res.json(docs)
+  )
+);
+
+router.get('/:model' + allowedModels + '/:id', (req, res) =>
+  models[req.params.model].findOne({ _id: req.params.id }).exec((err, docs) =>
+    err ? res.send(err) : res.json(docs)
+  )
+);
+
+router.get('/render/:pageid', (req, res) => {
+  renderer.renderAndSavePage(req.params.pageid);
+  res.json({
+    status: 'ok',
   });
 });
 
-router.get('/css', function (req, res) {
-  fs.readFile('public/css/temp_style.min.css', function(err, file) {
-    if(err) {
-      res.send(err);
-      return;
-    }
-    res.send(file);
-  });
-});
-
-router.get('/html/:name', function (req, res) {
-
-  if (!req.params.name) {
-    res.sendStatus(400);
-    return;
-  }
-
-  if(req.params.name === 'master') {
-    fs.readFile('templates/master.handlebars', function(err, file) {
-      if(err) {
-        res.send(err);
-        return;
-      }
-      res.send(file);
-    });
-  } else {
-    fs.readFile('templates/partials/' + req.params.name +'.handlebars', function(err, file) {
-      if(err) {
-        res.send(err);
-        return;
-      }
-      res.send(file);
-    });
-  }
-});
-
-
-router.post('/batch/:model', function(req, res) {
-
-  var model = models[req.params.model] ? models[req.params.model] : null;
-
-  if (!model) {
-    res.sendStatus(404);
-    return;
-  }
-
-  if (!req.body) {
-    res.sendStatus(400);
-    return;
-  }
-
-  models[req.params.model].find({ _id : { $in : req.body } }).exec(function (err, docs) {
-    if (err) {
-      res.send(err);
-    } else {
-      res.json(docs);
-    }
-  });
-});
-
-//OVERWRITE
-router.post('/view', function(req, res) {
-
+// Specific override for POST /api/view
+router.post('/view', (req, res) => {
   if (!req.body || !req.body.name) {
-    res.sendStatus(400);
-    return;
+    return res.sendStatus(400);
   }
 
-  reader.getByName(req.body.name, function(template) {
-    if(!template) {
-      res.sendStatus(404);
-    }
-
-    console.log(template);
-
-    var rawView = {};
-    rawView.templateName = template.name;
-    rawView.variables = [];
-
-    //FILL WITH DEFAULT VALUES
-    template.variables.forEach(function(variable) {
-      variable.values = [
-        {language:'de', value:'defaultValue'},
-        {language:'en', value:'defaultValue'}
-      ];
-      rawView.variables.push(variable);
-    });
-
-    console.log(rawView);
-
-    models["view"].create(rawView, function (err, docs) {
-      if (err) {
-        console.log(req.body);
-        res.send(err);
-      } else {
-        res.json(docs);
-      }
-    });
-
-  });
-
-
-
-});
-
-
-
-router.get('/:model', function (req, res) {
-
-  var model = models[req.params.model] ? models[req.params.model] : null;
-
-  if (!model) {
-    res.sendStatus(404);
-    return;
+  const template = reader.getByName(req.body.name);
+  if (!template) {
+    return res.sendStatus(404);
   }
 
-  models[req.params.model].find({}).exec(function (err, docs) {
+  const rawView = {
+    templateName: template.name,
+    variables: [],
+  };
+
+  //FILL WITH DEFAULT VALUES
+  for (let variable of template.variables) {
+    variable.values = [
+      { language: 'de', value: 'defaultValue' },
+      { language: 'en', value: 'defaultValue' },
+    ];
+    rawView.variables.push(variable);
+  }
+
+  models.view.create(rawView, (err, docs) => {
+    console.log(docs);
     if (err) {
+      console.log(req.body);
       res.send(err);
     } else {
       res.json(docs);
     }
   });
-
 });
 
-router.get('/:model/:id', function (req, res) {
-
-  var model = models[req.params.model] ? models[req.params.model] : null;
-
-  if (!model) {
-    res.sendStatus(404);
-    return;
-  }
-
-  if (!req.params.id) {
-    res.sendStatus(400);
-    return;
-  }
-
-  models[req.params.model].findOne({'_id':req.params.id}).exec(function (err, docs) {
-    if (err) {
-      res.send(err);
-    } else {
-      res.json(docs);
-    }
-  });
-
-});
-
-router.post('/:model', function (req, res) {
-
-  var model = models[req.params.model] ? models[req.params.model] : null;
-
-  if (!model) {
-    res.sendStatus(404);
-    return;
-  }
-
-  /*if (req.params.model === 'template') {
-    res.sendStatus(403);
-    return;
-  }*/
-
+router.post('/:model' + allowedModels, (req, res) => {
   if (!req.body) {
     res.sendStatus(400);
     return;
   }
 
-  models[req.params.model].create(req.body, function (err, docs) {
+  models[req.params.model].create(req.body, (err, docs) => {
     if (err) {
       console.log(req.body);
       res.send(err);
@@ -208,62 +129,30 @@ router.post('/:model', function (req, res) {
 
 });
 
-router.post('/:model/:id', function (req, res) {
-
-  var model = models[req.params.model] ? models[req.params.model] : null;
-
-  if (!model) {
-    res.sendStatus(404);
-    return;
-  }
-
-  /*if (req.params.model === 'template') {
-    res.sendStatus(403);
-    return;
-  }*/
-
-  if (!req.body || !req.params.id) {
+router.post('/:model' + allowedModels + '/:id', (req, res) => {
+  if (!req.body) {
     res.sendStatus(400);
     return;
   }
 
-  models[req.params.model].findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function (err, doc) {
-    if (err) {
-      res.send(err);
-    } else {
-      res.json(doc);
-    }
-  });
-
+  models[req.params.model]
+    .findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, doc) => {
+      if (err) {
+        res.send(err);
+      } else {
+        res.json(doc);
+      }
+    });
 });
 
-router.delete('/:model/:id', function (req, res) {
-
-  var model = models[req.params.model] ? models[req.params.model] : null;
-
-  if (!model) {
-    res.sendStatus(404);
-    return;
-  }
-
-  /*if (req.params.model === 'template') {
-    res.sendStatus(403);
-    return;
-  }*/
-
-  if (!req.params.id) {
-    res.sendStatus(400);
-    return;
-  }
-
-  models[req.params.model].findOneAndRemove({_id: req.params.id}, function (err, doc) {
+router.delete('/:model' + allowedModels + '/:id', (req, res) => {
+  models[req.params.model].findOneAndRemove({ _id: req.params.id }, (err, doc) => {
     if (err) {
       res.send(err);
     } else {
       res.json(doc);
     }
   });
-
 });
 
 module.exports = router;

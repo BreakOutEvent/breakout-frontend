@@ -27,7 +27,7 @@ body {
   @include image-background("../img/header2.jpg");
   color: #fff;
   //min-height: 190px;
-  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
   .container {
     height: 100%;
   }
@@ -37,8 +37,8 @@ body {
   blockquote {
     font-size: $blockquote-font-size;
     text-align: center;
-    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
-    border-width: 0px;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+    border-width: 0;
     footer {
       color: #fff;
       font-size: 60%;
@@ -53,33 +53,31 @@ body {
   a {
     color: #fff;
   }
-  
   .videoTeaser {
     position: relative;
     a {
       position: absolute;
       top: 50%;
-      transform: translate(0,-50%);
+      transform: translate(0, -50%);
     }
     div {
       display: block;
       position: relative;
       margin-left: 100px;
       top: 50%;
-      transform: translate(0,-50%);
+      transform: translate(0, -50%);
       h2:first-child {
-        margin-top:0;
+        margin-top: 0;
       }
       h2:last-child {
         margin-bottom: 0;
       }
     }
   }
-  
   .quotes {
-     position: relative;
-      top: 50%;
-      transform: translate(0,-50%);
+    position: relative;
+    top: 50%;
+    transform: translate(0, -50%);
   }
 }
 
@@ -126,7 +124,7 @@ body {
   padding-bottom: 25px;
   background-color: $gray-base;
   color: $gray-light;
-  text-size: $font-size-small;
+  font-size: $font-size-small;
   a {
     color: $gray-light;
   }

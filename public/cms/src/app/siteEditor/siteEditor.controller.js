@@ -46,6 +46,20 @@ export default class siteEditorCtrl {
     });
   };
 
+  remove () {
+    let confirm = this._dialog
+      .confirm()
+      .title('Seite löschen')
+      .textContent('Willst du die Seite wirklich löschen?')
+      .ok('Löschen')
+      .cancel('Abbrechen')
+
+    this._dialog.show(confirm).then(() => {
+      this.page.$delete()
+      this._mdToast('Seite wurde gelöscht')
+      //TODO: update global pages-list in app.js
+    })
+  }
   reload() {
     let views = [];
     this._debug('Reloading page contents, current views: ', this.page.views);
@@ -95,7 +109,9 @@ export default class siteEditorCtrl {
       clickOutsideToClose: true,
     });
   };
-
+  getUrl () {
+    return 'http://localhost:3000/live/de/'+this.page.properties[this.props].url
+  }
   drop(event, index, item, type) {
     if (type === 'template') {
       let _this = this;

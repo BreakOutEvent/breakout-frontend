@@ -1,9 +1,10 @@
 'use strict';
-var passport = require('passport');
-var Strategy = require('passport-local').Strategy;
-var API = require('./apiProxy.js');
-var mongoose = require('./mongo.js');
-var Token = mongoose.model('token', require('../schemas/token.js'));
+
+const passport = require('passport');
+const Strategy = require('passport-local').Strategy;
+const API = require('./api-proxy.js');
+const mongoose = require('./mongo.js');
+const Token = mongoose.model('token', require('../schemas/token.js'));
 
 // Configure the local strategy for use by Passport.
 //
@@ -13,16 +14,21 @@ var Token = mongoose.model('token', require('../schemas/token.js'));
 // will be set at `req.user` in route handlers after authentication.
 
 passport.use(new Strategy(
-  function (username, password, cb) {
+  (username, password, cb) => {
+    console.log("[AUTH] Sending Username / Password to Backend");
     API.authenticate(username, password)
-      .then(function(body) {
+      .then(body => {
+        console.log("[AUTH] Got positive response");
         var token = new Token(body);
         token.save();
+        console.log("[AUTH] Successfully saved user");
         cb(null, token, {message: 'Successfully logged in'});
       })
-      .catch(function(body) {
-        cb(null, false, {message: body.error_description });
-      });
+      .catch(body => {
+          console.log("[AUTH] Got negative response");
+          cb(null, false, {message: body.error_description});
+        }
+      )
   }
 ));
 
@@ -34,18 +40,20 @@ passport.use(new Strategy(
 // serializing, and querying the user record by ID from the database when
 // deserializing.
 
-passport.serializeUser(function (token, cb) {
-  cb(null, token._id);
-});
+passport.serializeUser((token, cb) => cb(null, token._id));
 
-passport.deserializeUser(function (id, cb) {
-  Token.findById(id)
-    .then(function (token) {
-      cb(null, token);
-    })
-    .catch(function (err) {
-      cb(err);
-    });
-});
+passport.deserializeUser((id, cb) => {
+  console.log("[AUTH] Trying to find user in DB");
+    Token.findById(id)
+      .then(function (token) {
+        console.log("[AUTH] Found user in DB");
+        cb(null, token);
+      })
+      .catch(function (err) {
+        console.log("[AUTH] No user found");
+        cb(err);
+      })
+  }
+);
 
 module.exports = passport;

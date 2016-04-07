@@ -1,31 +1,48 @@
-<md-dialog aria-label="Mango (Fruit)" ng-cloak>
-    <md-toolbar class="md-accent">
-        <div class="md-toolbar-tools">
-            <h2>Einstellungen</h2>
-            <span flex></span>
-            <md-button class="md-icon-button" ng-click="settings.cancel()">
-                <md-icon>close</md-icon>
-            </md-button>
-        </div>
-    </md-toolbar>
-    <md-dialog-content>
-        <div class="md-dialog-content">
-            <div ng-repeat="prop in settings.props" layout="row" layout-padding>
-                <span>{{prop.language}}</span>
-                <md-input-container>
-                    <label>URL</label>
-                    <input ng-model="prop.url" type="text">
-                </md-input-container>
-                <md-input-container>
-                    <label>Titel</label>
-                    <input ng-model="prop.title" type="text">
-                </md-input-container>
+<md-dialog aria-label="Mango (Fruit)"  ng-cloak>
+        <md-toolbar class="md-accent">
+            <div class="md-toolbar-tools">
+                <h2>Einstellungen</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="settings.cancel()">
+                    <md-icon>close</md-icon>
+                </md-button>
             </div>
-        </div>
-    </md-dialog-content>
-    <md-dialog-actions layout="row">
-        <md-button ng-click="settings.cancel()">
-            Fertig
-        </md-button>
-    </md-dialog-actions>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <div ng-repeat="prop in settings.props" layout="row" layout-padding>
+                    <md-input-container>
+                        <label>Sprache</label>
+                        <md-select ng-model="prop.language">
+                          <md-option ng-repeat="prop in settings.availableLanguages" value="{{prop.code}}">
+                             {{prop.language}}
+                          </md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>URL</label>
+                        <input ng-model="prop.url" type="text">
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Titel</label>
+                        <input ng-model="prop.title" type="text">
+                    </md-input-container>
+                </div>
+                <md-button class="md-button" ng-click="settings.addLanguage()">
+                    <md-icon>add</md-icon> weitere Sprache
+                </md-button>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <!--<md-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" md-autofocus>
+                More on Wikipedia
+            </md-button>
+            <span flex></span>
+            <md-button ng-click="answer('not useful')">
+                Not Useful
+            </md-button>-->
+            <md-button ng-click="settings.cancel()">
+                Fertig
+            </md-button>
+        </md-dialog-actions>
 </md-dialog>
