@@ -11,7 +11,14 @@
         <md-dialog-content>
             <div class="md-dialog-content">
                 <div ng-repeat="prop in settings.props" layout="row" layout-padding>
-                    <span>{{prop.language}}</span>
+                    <md-input-container>
+                        <label>Sprache</label>
+                        <md-select ng-model="prop.language">
+                          <md-option ng-repeat="prop in settings.availableLanguages" value="{{prop.code}}">
+                             {{prop.language}}
+                          </md-option>
+                        </md-select>
+                    </md-input-container>
                     <md-input-container>
                         <label>URL</label>
                         <input ng-model="prop.url" type="text">
@@ -21,6 +28,9 @@
                         <input ng-model="prop.title" type="text">
                     </md-input-container>
                 </div>
+                <md-button class="md-button" ng-click="settings.addLanguage()">
+                    <md-icon>add</md-icon> weitere Sprache
+                </md-button>
             </div>
         </md-dialog-content>
         <md-dialog-actions layout="row">

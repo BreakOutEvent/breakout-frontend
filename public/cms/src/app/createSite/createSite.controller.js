@@ -5,21 +5,33 @@ export default class CreateSite {
     this._mdToast = $mdToast.showSimple
     this._page = Page
     this.availableLanguages = [
-      {language: 'Deutsch', code: 'DE'},
-      {language: 'Englisch', code: 'EN'}
+      {language: 'Deutsch', code: 'de'},
+      {language: 'Englisch', code: 'en'}
     ]
     this.properties = [{
       url: '',
       title: '',
-      language: this.availableLanguages[0].code
+      language: ''
     }]
+  }
+
+  addLanguage() {
+    if (this.properties.length < this.availableLanguages.length) {
+      this.properties.push({
+        url: '',
+        title: '',
+        language: ''
+      })
+    } else {
+      this._mdToast('Keine weiteren Sprachen verfügbar')
+    }
   }
 
   save() {
     var page = new this._page
     page.properties = this.properties
     let vm = this
-    page.$save(null, function () {
+    page.$save(null, () => {
       //vm._debug('Create Page:', page)
       vm._mdToast('Seite erfolgreich erstellt')
       vm._dialog.cancel()

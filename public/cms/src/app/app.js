@@ -16,11 +16,12 @@ import apiServices from './api/apiServices'
 import CreateSiteCtrl from './createSite/createSite.controller'
 
 class AppCtrl {
-  constructor(Page, $log, $mdDialog) {
+  constructor(Page, $log, $mdDialog, $mdToast) {
     'ngInject'
     this.pages = Page.query()
     this._log = $log
     this._dialog = $mdDialog
+    this._mdToast = $mdToast.showSimple
   }
 
   selectPage(page) {
@@ -44,6 +45,21 @@ class AppCtrl {
       targetEvent: event,
       clickOutsideToClose: true
     })
+  }
+
+  drop (event, index, item, type) {
+    if(type === 'page') {
+      var oldIndex = 0
+      angular.forEach(this.pages, (value, key) => {
+        if(this.pages[key]._id === item._id)
+          oldIndex = key
+      })
+      this.pages.splice(oldIndex, 1)
+      this.pages.splice(index, 0, item)
+      //TODO: send change to server
+      this._mdToast('Seitenreihenfolge geändert')
+      return true
+    }
   }
 }
 
