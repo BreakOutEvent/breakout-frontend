@@ -6,7 +6,7 @@ import angular from 'angular'
 import template from './editable.html'
 
 class editableCtrl {
-  constructor () {
+  constructor() {
     this.editMode = false
   }
 }
@@ -19,9 +19,9 @@ let editable = {
   template,
   controller: editableCtrl,
   controllerAs: 'editable'
-}
+};
 
 let editableModule = angular.module('bo.siteEditor.editable', [])
-  .component('boEditable', editable)
+  .component('boEditable', editable);
 
 export default editableModule.name

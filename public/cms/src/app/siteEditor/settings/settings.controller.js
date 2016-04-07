@@ -3,16 +3,16 @@
  */
 export default class SettingsCtrl {
   constructor ($mdDialog, $mdToast) {
-    'ngInject'
-    this._dialog = $mdDialog
-    this._mdToast = $mdToast.showSimple
+    'ngInject';
+    this._dialog = $mdDialog;
+    this._mdToast = $mdToast.showSimple;
     this.availableLanguages = [
       {language: 'Deutsch', code: 'de'},
       {language: 'Englisch', code: 'en'}
-    ]
+    ];
   }
   cancel(){
-    this._dialog.cancel()
+    this._dialog.cancel();
   }
 
 
@@ -22,9 +22,9 @@ export default class SettingsCtrl {
         url: '',
         title: '',
         language: ''
-      })
+      });
     } else {
-      this._mdToast('Keine weiteren Sprachen verfügbar')
+      this._mdToast('Keine weiteren Sprachen verfügbar');
     }
   }
 }

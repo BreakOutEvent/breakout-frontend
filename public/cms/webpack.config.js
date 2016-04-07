@@ -1,27 +1,27 @@
-'use strict'
+'use strict';
 
 // Modules
-var webpack = require('webpack')
-var autoprefixer = require('autoprefixer')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
-var CopyWebpackPlugin = require('copy-webpack-plugin')
+var webpack = require('webpack');
+var autoprefixer = require('autoprefixer');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 /**
  * Env
  * Get npm lifecycle event to identify the environment
  */
-var ENV = process.env.npm_lifecycle_event
-var isTest = ENV === 'test' || ENV === 'test-watch'
-var isProd = ENV === 'build'
+var ENV = process.env.npm_lifecycle_event;
+var isTest = ENV === 'test' || ENV === 'test-watch';
+var isProd = ENV === 'build';
 
-module.exports = function makeWebpackConfig () {
+module.exports = function makeWebpackConfig() {
   /**
    * Config
    * Reference: http://webpack.github.io/docs/configuration.html
    * This is the object where all configuration gets set
    */
-  var config = {}
+  var config = {};
 
   /**
    * Entry
@@ -31,7 +31,7 @@ module.exports = function makeWebpackConfig () {
    */
   config.entry = isTest ? {} : {
     app: './src/app/app.js'
-  }
+  };
 
   /**
    * Output
@@ -54,7 +54,7 @@ module.exports = function makeWebpackConfig () {
     // Filename for non-entry points
     // Only adds hash in build mode
     chunkFilename: isProd ? '[name].[hash].js' : '[name].bundle.js'
-  }
+  };
 
   /**
    * Devtool
@@ -117,7 +117,7 @@ module.exports = function makeWebpackConfig () {
       test: /\.html$/,
       loader: 'raw'
     }]
-  }
+  };
 
   // ISPARTA LOADER
   // Reference: https://github.com/ColCh/isparta-instrumenter-loader
@@ -143,14 +143,14 @@ module.exports = function makeWebpackConfig () {
     autoprefixer({
       browsers: ['last 2 version']
     })
-  ]
+  ];
 
   /**
    * Plugins
    * Reference: http://webpack.github.io/docs/configuration.html#plugins
    * List: http://webpack.github.io/docs/list-of-plugins.html
    */
-  config.plugins = []
+  config.plugins = [];
 
   // config.plugins.push(new ngAnnotatePlugin({ add: true }))
 
@@ -202,7 +202,7 @@ module.exports = function makeWebpackConfig () {
   config.devServer = {
     contentBase: './src/public',
     stats: 'minimal'
-  }
+  };
 
   return config
-}()
+}();
