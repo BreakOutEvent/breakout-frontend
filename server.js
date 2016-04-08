@@ -17,11 +17,7 @@ throng(id => {
   const bodyparser = require('body-parser');
 
   var app = express();
-  var hbs = exphbs.create({
-    helpers: {
-      equals: require('handlebars-helper-equal'),
-    },
-  });
+  var hbs = exphbs.create();
 
   global.ROOT = path.resolve(__dirname);
 
