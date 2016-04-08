@@ -5,6 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const renderer = require('../controller/renderer');
 const fileSystem = require('../controller/file-system');
+const multer = require('multer');
 
 const models = {
   view: mongoose.model('view', require('../schemas/view.js')),
@@ -19,10 +20,24 @@ var router = express.Router();
 // Creates regex string for filtering valid models
 const allowedModels = '(' + Object.keys(models).reduce((p, k) => p + '|' + k, '').substr(1) + ')';
 
-router.use((req, res, next) => {
-  if (req.isAuthenticated()) next();
-  else res.sendStatus(403);
+const storage = multer.diskStorage({
+  destination: (req, file, callback) => {
+    callback(null, './public/img/uploads');
+  },
+
+  filename: (req, file, callback) => {
+    const fn = file.originalname;
+    callback(null, fn + '-' + Date.now() + path.extname(fn));
+  },
 });
+const upload = multer({ storage: storage }).single('image');
+
+/*
+ router.use((req, res, next) => {
+ if (req.isAuthenticated()) next();
+ else res.sendStatus(403);
+ });
+ */
 
 router.use((req, res, next) => {
   res.set({
@@ -41,6 +56,24 @@ router.use((req, res, next) => {
 function serveFile(fpath, res) {
   fs.access(fpath, fs.R_OK, err => err !== null ? res.send(err) : res.sendFile(fpath));
 }
+
+router.post('/image', upload, (req, res) =>
+  res.json({
+    filePath: '/img/uploads/' + req.file.filename,
+  })
+);
+
+router.delete('/image/:filename', (req, res) =>
+  fs.unlink('./public/img/uploads/' + req.params.filename, (err) => {
+    if (err) {
+      res.status(404);
+    } else {
+      res.json({
+        result: 'ok',
+      });
+    }
+  })
+);
 
 router.get('/getList', (req, res) =>
   res.json(reader.getAll())
