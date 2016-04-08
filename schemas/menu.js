@@ -4,13 +4,14 @@ var menuItem = require('./menuItem.js');
 
 var menuSchema = new mongoose.Schema({
   language: mongoose.Schema.Types.Lang,
-  _items: [menuItem]
+  _items: [menuItem],
 });
 
-menuSchema.pre('remove', function(next) {
-  this._menuItems.forEach(function(view) {
-    menuItem.remove({_id: view._id}).exec();
+menuSchema.pre('remove', function (next) {
+  this._menuItems.forEach(function (view) {
+    menuItem.remove({ _id: view._id }).exec();
   });
+
   next();
 });
 

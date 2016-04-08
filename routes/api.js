@@ -19,11 +19,10 @@ var router = express.Router();
 // Creates regex string for filtering valid models
 const allowedModels = '(' + Object.keys(models).reduce((p, k) => p + '|' + k, '').substr(1) + ')';
 
-/*
- router.use((req, res, next) => {
- if (req.isAuthenticated()) next();
- else res.sendStatus(403);
- });*/
+router.use((req, res, next) => {
+  if (req.isAuthenticated()) next();
+  else res.sendStatus(403);
+});
 
 router.use((req, res, next) => {
   res.set({

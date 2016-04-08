@@ -64,7 +64,7 @@ renderer.renderPage = (pageID, cb) =>
           handlebars.compile(handlebarsTemplate.value())(
             {
               content: html,
-              requirements: requirements
+              requirements: requirements,
             }),
           elem.language,
           elem.url + '.html'
