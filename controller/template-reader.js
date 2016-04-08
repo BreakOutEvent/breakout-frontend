@@ -92,7 +92,7 @@ readTemplates.parseTemplate = (filename, fileContent) => {
 
     var mergedVars = {};
 
-    contentKeys.forEach(function(contentKey) {
+    contentKeys.forEach(function (contentKey) {
       if (typeof contentVars[contentKey] === 'object') {
         if (typeof configVars[contentKey] === 'object') {
           mergedVars[contentKey] = mergeVars(configVars[contentKey], contentVars[contentKey]);
@@ -169,7 +169,7 @@ readTemplates.parseTemplate = (filename, fileContent) => {
 
   function fillWithDefault(variables) {
 
-    Object.keys(variables).forEach(function(key) {
+    Object.keys(variables).forEach(function (key) {
       if (typeof variables[key] === 'object') {
 
         //Check for name
@@ -212,7 +212,7 @@ readTemplates.parseTemplate = (filename, fileContent) => {
     var arrayVars = [];
 
     //If any value of the object is not an object, handle this object as object
-    keys.forEach(function(key) {
+    keys.forEach(function (key) {
       if (typeof vars[key] !== 'object') {
         arrayVars = {};
       }
@@ -220,7 +220,7 @@ readTemplates.parseTemplate = (filename, fileContent) => {
 
     //If its not an array, write the values to the keys.
     if (!Array.isArray(arrayVars)) {
-      keys.forEach(function(key) {
+      keys.forEach(function (key) {
         if (typeof vars[key] !== 'object') {
           arrayVars[key] = vars[key];
         } else {
@@ -230,7 +230,7 @@ readTemplates.parseTemplate = (filename, fileContent) => {
 
     } else {
       //Push elements on array (for wrapper)
-      keys.forEach(function(key) {
+      keys.forEach(function (key) {
         arrayVars.push(createVariables(vars[key]));
       });
     }

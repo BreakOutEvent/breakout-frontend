@@ -2,6 +2,6 @@
 require('./base.js');
 var videoPlayer = require('./videoplayer.js');
 
-$(document).ready(function() {
+$(document).ready(function () {
   videoPlayer('#btnIntroVideo', '#modalIntroVideo');
 });

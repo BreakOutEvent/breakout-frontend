@@ -4,20 +4,21 @@ var viewSchema = require('./view.js');
 
 var pageSchema = new mongoose.Schema({
   properties: [{
-    language: {type: mongoose.Schema.Types.Lang, required: true},
-    title: {type: String, required: true},
-    url: {type: String, required: true}
-  }],
+    language: { type: mongoose.Schema.Types.Lang, required: true },
+    title: { type: String, required: true },
+    url: { type: String, required: true },
+  },],
   views: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'view'
-  }]
+    ref: 'view',
+  },],
 });
 
-pageSchema.pre('remove', function(next) {
-  this.views.forEach(function(view) {
-    viewSchema.remove({_id: view._id}).exec();
+pageSchema.pre('remove', function (next) {
+  this.views.forEach(function (view) {
+    viewSchema.remove({ _id: view._id }).exec();
   });
+
   next();
 });
 
