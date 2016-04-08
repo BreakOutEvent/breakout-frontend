@@ -32,12 +32,10 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage }).single('image');
 
-/*
- router.use((req, res, next) => {
- if (req.isAuthenticated()) next();
- else res.sendStatus(403);
- });
- */
+router.use((req, res, next) => {
+  if (req.isAuthenticated()) next();
+  else res.sendStatus(403);
+});
 
 router.use((req, res, next) => {
   res.set({
