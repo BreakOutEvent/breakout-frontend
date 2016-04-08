@@ -70,10 +70,10 @@ rc.getFileTimeStamp =
  */
 rc.writeRenderedFile =
   (folder, file, data) => {
-    const fullPath = this.buildRenderedFilePath(folder, file);
+    const fullPath = rc.buildRenderedFilePath(folder, file);
     if (rc.exists(fullPath))
       fs.renameSync(fullPath,
-        this.buildRenderedFilePath(folder, file + '_' + rc.getFileTimeStamp(folder, file))
+        rc.buildRenderedFilePath(folder, file + '_' + rc.getFileTimeStamp(folder, file))
       );
     fs.writeFileSync(fullPath, data);
   };
