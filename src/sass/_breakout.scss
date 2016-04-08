@@ -2,19 +2,22 @@ body {
   padding-top: 60px;
 }
 
-.bo-header-logo {
-  padding-top: 40px;
-  padding-bottom: 40px;
+.bo-content-header {
   @include image-background("../img/header2.jpg");
+  min-height: 200px;
   border-bottom-width: 2px;
   border-bottom-color: rgba(0, 0, 0, 0.1);
   border-bottom-style: solid;
 }
 
-@media(max-width: $screen-xs-min) {
-  .bo-header-logo img {
-    width: 250px;
-    height: auto;
+.bo-logo {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  @media(max-width: $screen-xs-min) {
+    img {
+      width: 250px;
+      height: auto;
+    }
   }
 }
 
@@ -56,9 +59,7 @@ body {
   .videoTeaser {
     position: relative;
     a {
-      position: absolute;
-      top: 50%;
-      transform: translate(0, -50%);
+      @include verticalAlign();
     }
     div {
       display: block;
@@ -75,9 +76,9 @@ body {
     }
   }
   .quotes {
-    position: relative;
-    top: 50%;
-    transform: translate(0, -50%);
+    .row {
+      @include verticalAlign();
+    }
   }
 }
 
