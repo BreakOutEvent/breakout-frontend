@@ -151,41 +151,7 @@
 
 {{{content}}}
 
-<div class="bo-footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-5 col-xs-12">
-                <h4>Sponsor von BreakOut</h4>
-                <p>{{sponsor}}</p>
-            </div>
-            <div class="col-md-3 col-md-offset-1 col-xs-6">
-                <h4>Unterstützt von</h4>
-                <ul>
-                    {{#each supporterlist}}
-                        <li>{{supporter}}</li>
-                    {{/each}}
-                </ul>
-            </div>
-            <div class="col-md-3 col-xs-6">
-                <h4>Unsere Freunde</h4>
-                <ul>
-                    {{#each friendslist}}
-                        <li>{{friend}}</li>
-                    {{/each}}
-                </ul>
-            </div>
-        </div>
-        <hr>
-        <div class="clearfix">
-            <ul class="list-inline pull-left">
-                {{#each footermenu}}
-                    <li><a href="#">{{menuentry}}</a></li>
-                {{/each}}
-            </ul>
-            <p class="pull-right">{{copyright}}</p>
-        </div>
-    </div>
-</div>
+{{> (concat 'footer_' (lookup . 'language')) }}
 
 </body>
 </html>

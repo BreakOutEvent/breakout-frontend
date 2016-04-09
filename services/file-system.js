@@ -93,7 +93,7 @@ rc.readRenderedFile =
  * @param file
  */
 rc.readTemplateFile =
-  file => readFile('partials', file, FileType.Template);
+  file => readFile('templates', file, FileType.Template);
 
 /**
  * Reads the master template file, e.g. the main layout.
@@ -117,6 +117,6 @@ rc.buildRenderedFilePath =
  * @returns String
  */
 rc.buildTemplateFilePath =
-  (folder, file) => path.join(__dirname, '../templates', folder, file + '.handlebars');
+  (folder, file) => path.join(__dirname, '../views', folder, file + '.handlebars');
 
 module.exports = rc;
