@@ -1,7 +1,9 @@
 .btn-block + .btn-block {
   margin-top: 10px;
 }
-.btn-default,
-.btn-default:focus {
+
+.btn,
+.btn:focus,
+.btn:active{
   outline: none;
 }
