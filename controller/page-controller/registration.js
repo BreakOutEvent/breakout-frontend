@@ -1,3 +1,4 @@
+'use strict';
 const api = require('../api-proxy');
 const session = require('../session');
 
@@ -10,7 +11,7 @@ const URLS = {
 
 let reg = {};
 
-reg.createUser = ({email, password}) => {
+reg.createUser = (req, res) => {
   return new Promise((resolve, reject) =>
     api.createUser(email, password)
       .then((data) => {

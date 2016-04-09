@@ -1,6 +1,4 @@
-/**
- * Created by Keno on 09.04.2016.
- */
+'use strict';
 const api = require('./api-proxy');
 const mongoose = require('./mongo');
 const Token = mongoose.model('token', require('../schemas/token.js'));
