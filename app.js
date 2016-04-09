@@ -8,18 +8,19 @@ const config = {
 const throng = config.cluster ? require('throng') : cb => cb(0);
 
 throng(id => {
-  const express = require('express');
-  const mongoose = require('./controller/mongo.js');
-  mongoose.con();
-  const exphbs = require('express-handlebars');
   const path = require('path');
-  const passport = require('./controller/auth.js');
+  global.ROOT = path.resolve(__dirname);
+
+  global.requireLocal = module => require(__dirname + '/' + module);
+
+  const express = require('express');
+  requireLocal('controller/mongo.js').con();
+  const exphbs = require('express-handlebars');
+  const passport = requireLocal('controller/auth.js');
   const bodyparser = require('body-parser');
 
   var app = express();
   var hbs = exphbs.create();
-
-  global.ROOT = path.resolve(__dirname);
 
   require('enum').register();
 
@@ -50,9 +51,9 @@ throng(id => {
   app.use(passport.session());
 
   // Sets routes
-  app.use('/', require('./routes/main'));
-  app.use('/admin', require('./routes/admin'));
-  app.use('/api', require('./routes/api'));
+  app.use('/', requireLocal('routes/main'));
+  app.use('/admin', requireLocal('routes/admin/admin'));
+  app.use('/admin/api', requireLocal('routes/admin/api'));
 
   var server = app.listen(3000, function () {
     var host = server.address().address;
@@ -70,7 +71,7 @@ throng(id => {
   });
 
   // Displays any errors
-  app.use(function (err, req, res, next) {
+  app.use(function (err, req, res) {
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,

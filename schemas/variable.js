@@ -1,6 +1,6 @@
 'use strict';
 var mongoose = require('mongoose');
-var l2vSchema = require('./languagetovalue.js');
+var l2vSchema = requireLocal('schemas/languagetovalue.js');
 
 var variableSchema =  new mongoose.Schema({
   name: { type: String, required: true },

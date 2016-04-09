@@ -1,21 +1,21 @@
 ﻿'use strict';
 
-const mongoose = require('../controller/mongo.js');
+const mongoose = requireLocal('controller/mongo.js');
 const fs = require('fs');
 const path = require('path');
-const renderer = require('../controller/renderer');
-const fileSystem = require('../controller/file-system');
+const renderer = requireLocal('services/renderer');
+const fileSystem = requireLocal('services/file-system');
 const multer = require('multer');
 
-const models = {
-  view: mongoose.model('view', require('../schemas/view.js')),
-  page: mongoose.model('page', require('../schemas/page.js')),
-  menu: mongoose.model('menu', require('../schemas/menu.js')),
-};
-
 const express = require('express');
-const reader = require('../controller/template-reader.js');
-var router = express.Router();
+const reader = requireLocal('services/template-reader.js');
+const router = express.Router();
+
+const models = {
+  view: mongoose.model('view', requireLocal('schemas/view.js')),
+  page: mongoose.model('page', requireLocal('schemas/page.js')),
+  menu: mongoose.model('menu', requireLocal('schemas/menu.js')),
+};
 
 // Creates regex string for filtering valid models
 const allowedModels = '(' + Object.keys(models).reduce((p, k) => p + '|' + k, '').substr(1) + ')';

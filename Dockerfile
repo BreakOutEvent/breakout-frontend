@@ -11,4 +11,4 @@ RUN npm run cms:build
 RUN npm install -g forever
 
 EXPOSE 3000
-CMD ["forever", "server.js"]
+CMD ["forever", "app.js"]

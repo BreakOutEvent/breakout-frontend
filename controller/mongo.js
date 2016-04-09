@@ -1,5 +1,7 @@
 'use strict';
-var mongoose = require('mongoose');
+
+const mongoose = require('mongoose');
+
 const mongoConfig = {
   user: process.env.FRONTEND_DB_USER,
   password: process.env.FRONTEND_DB_PASSWORD,
