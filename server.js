@@ -1,7 +1,7 @@
 'use strict';
 
 const config = {
-  cluster: process.env.FRONTEND_CLUSTER !== undefined,
+  cluster: process.env.FRONTEND_CLUSTER !== undefined
 };
 
 // Should start the server clustered (# of cores by default) if FRONTEND_CLUSTER is defined
@@ -17,7 +17,11 @@ throng(id => {
   const bodyparser = require('body-parser');
 
   var app = express();
-  var hbs = exphbs.create();
+  var hbs = exphbs.create({
+    helpers: {
+      equals: require('handlebars-helper-equal')
+    }
+  });
 
   global.ROOT = path.resolve(__dirname);
 
@@ -35,10 +39,10 @@ throng(id => {
   app.use(require('express-session')({
     secret: 'keyboard cat',
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: false
   }));
   app.use(bodyparser.urlencoded({
-    extended: true,
+    extended: true
   }));
   app.use(bodyparser.json());
   app.use(require('cookie-parser')());
@@ -65,7 +69,7 @@ throng(id => {
     res.status(404);
     res.render('error', {
       code: 404,
-      message: req.url + ' could not be found on this server',
+      message: req.url + ' could not be found on this server'
     });
   });
 
@@ -74,7 +78,7 @@ throng(id => {
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,
-      error: err,
+      error: err
     });
   });
 });

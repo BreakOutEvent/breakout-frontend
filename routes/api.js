@@ -10,7 +10,7 @@ const multer = require('multer');
 const models = {
   view: mongoose.model('view', require('../schemas/view.js')),
   page: mongoose.model('page', require('../schemas/page.js')),
-  menu: mongoose.model('menu', require('../schemas/menu.js')),
+  menu: mongoose.model('menu', require('../schemas/menu.js'))
 };
 
 const express = require('express');
@@ -41,7 +41,7 @@ router.use((req, res, next) => {
   res.set({
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
-    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
   });
   next();
 });
@@ -94,7 +94,7 @@ router.get('/:model' + allowedModels, (req, res) =>
 );
 
 router.get('/:model' + allowedModels + '/:id', (req, res) =>
-  models[req.params.model].findOne({ _id: req.params.id }).exec((err, docs) =>
+  models[req.params.model].findOne({_id: req.params.id}).exec((err, docs) =>
     err ? res.send(err) : res.json(docs)
   )
 );
@@ -102,7 +102,7 @@ router.get('/:model' + allowedModels + '/:id', (req, res) =>
 router.get('/render/:pageid', (req, res) => {
   renderer.renderAndSavePage(req.params.pageid);
   res.json({
-    status: 'ok',
+    status: 'ok'
   });
 });
 
@@ -119,14 +119,14 @@ router.post('/view', (req, res) => {
 
   const rawView = {
     templateName: template.name,
-    variables: [],
+    variables: []
   };
 
   //FILL WITH DEFAULT VALUES
   for (let variable of template.variables) {
     variable.values = [
-      { language: 'de', value: 'defaultValue' },
-      { language: 'en', value: 'defaultValue' },
+      {language: 'de', value: 'defaultValue'},
+      {language: 'en', value: 'defaultValue'}
     ];
     rawView.variables.push(variable);
   }
@@ -166,7 +166,7 @@ router.post('/:model' + allowedModels + '/:id', (req, res) => {
   }
 
   models[req.params.model]
-    .findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, doc) => {
+    .findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, (err, doc) => {
       if (err) {
         res.send(err);
       } else {
@@ -176,7 +176,7 @@ router.post('/:model' + allowedModels + '/:id', (req, res) => {
 });
 
 router.delete('/:model' + allowedModels + '/:id', (req, res) => {
-  models[req.params.model].findOneAndRemove({ _id: req.params.id }, (err, doc) => {
+  models[req.params.model].findOneAndRemove({_id: req.params.id}, (err, doc) => {
     if (err) {
       res.send(err);
     } else {

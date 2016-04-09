@@ -8,7 +8,7 @@ router.get('/login', (req, res) =>
   res.render('admin/login',
     {
       path: '/admin',
-      error: req.flash('error'),
+      error: req.flash('error')
     }
   )
 );
@@ -19,7 +19,7 @@ router.post('/login',
       failureRedirect: '/admin/login',
       successRedirect: '/admin/cms',
       failureFlash: true,
-      successFlash: true,
+      successFlash: true
     }
   )
 );
@@ -39,6 +39,8 @@ router.get('/logout',
 );
 
 router.get('/', (req, res) => {
+  if(req.isAuthenticated())
+    console.log(req.user);
   res.redirect('/admin/cms/');
 });
 
