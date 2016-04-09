@@ -14,13 +14,15 @@ import templateLib from './templateLib/templateLib';
 import siteEditor from './siteEditor/siteEditor';
 import apiServices from './api/apiServices';
 import CreateSiteCtrl from './createSite/createSite.controller';
+import MenuEditorCtrl from './menuEditor/menuEditor.controller';
 
 class AppCtrl {
-  constructor(Page, $log, $mdDialog, $mdToast) {
+  constructor(Page, $log, $mdDialog, $mdToast, $mdSidenav) {
     'ngInject';
     this.pages = Page.query();
     this._log = $log;
     this._dialog = $mdDialog;
+    this._sidenav = $mdSidenav;
     this._mdToast = $mdToast.showSimple;
   }
 
@@ -47,19 +49,25 @@ class AppCtrl {
     });
   }
 
-  drop (event, index, item, type) {
-    if(type === 'page') {
-      var oldIndex = 0
-      angular.forEach(this.pages, (value, key) => {
-        if(this.pages[key]._id === item._id)
-          oldIndex = key
-      })
-      this.pages.splice(oldIndex, 1)
-      this.pages.splice(index, 0, item)
-      //TODO: send change to server
-      this._mdToast('Seitenreihenfolge geändert')
-      return true
-    }
+  editMenu() {
+    let vm = this;
+    this._dialog.show({
+      controller: MenuEditorCtrl,
+      controllerAs: 'editMenu',
+      bindToController: true,
+      locals:{pages: this.pages},
+      template: require('./menuEditor/menu-editor.ng.html'),
+      parent: angular.element(document.body),
+      targetEvent: event,
+      clickOutsideToClose: true
+    });
+  }
+
+  toggleMenu (navID) {
+    this._sidenav(navID)
+      .toggle()
+    .then(() => {});
+
   }
 }
 
