@@ -1,6 +1,6 @@
 'use strict';
 var mongoose = require('mongoose');
-var menuItem = require('./menuItem.js');
+var menuItem = require('./menu-item.js');
 
 var menuSchema = new mongoose.Schema({
   language: mongoose.Schema.Types.Lang,

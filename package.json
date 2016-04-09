@@ -7,11 +7,12 @@
     "postinstall": "npm run build && cd public/cms && npm install",
     "prestart": "npm run build && npm run cms:build",
     "build": "grunt",
-    "start": "npm run build && node server.js",
+    "start": "node app.js",
     "cms:build": "cd public/cms && npm run build",
     "cms:update": "cd public/cms && npm update && npm run build",
     "cms:server": "cd public/cms && npm run server",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "grunt": "grunt"
   },
   "repository": {
     "type": "git",
@@ -61,6 +62,7 @@
     "webpack": "^1.12.14"
   },
   "jscsConfig": {
-    "validateLineBreaks": null
+    "validateLineBreaks": null,
+    "requireTrailingComma": false
   }
 }
