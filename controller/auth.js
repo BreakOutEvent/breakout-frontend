@@ -20,9 +20,18 @@ passport.use(new Strategy(
       .then(body => {
         console.log("[AUTH] Got positive response");
         var token = new Token(body);
-        token.save();
-        console.log("[AUTH] Successfully saved user");
-        cb(null, token, {message: 'Successfully logged in'});
+        API.getCurrentUser(token)
+          .then((user) => {
+            token.user = user;
+            token.user.ts = Date.now();
+            token.save();
+            console.log("[AUTH] Successfully saved user");
+            cb(null, token, {message: 'Successfully logged in'});
+          })
+          .catch(body => {
+            console.log("[AUTH] Could not fetch user");
+            cb(null, false, {message: body.error_description});
+          });
       })
       .catch(body => {
           console.log("[AUTH] Got negative response");
@@ -43,7 +52,7 @@ passport.use(new Strategy(
 passport.serializeUser((token, cb) => cb(null, token._id));
 
 passport.deserializeUser((id, cb) => {
-  console.log("[AUTH] Trying to find user in DB");
+    console.log("[AUTH] Trying to find user in DB");
     Token.findById(id)
       .then(function (token) {
         console.log("[AUTH] Found user in DB");
