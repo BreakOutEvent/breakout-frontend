@@ -1,7 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose');
-var variableSchema = require('./variable.js');
+var variableSchema = requireLocal('schemas/variable.js');
 
 var viewSchema = new mongoose.Schema({
   templateName: { type: String, required: true },

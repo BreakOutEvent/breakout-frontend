@@ -7,7 +7,7 @@ const _ = require('lodash');
 
 //Globals
 const config = {
-  templatePath: path.normalize(__dirname + '/../templates/partials/'),
+  templatePath: path.normalize(ROOT + '/templates/partials/'),
 };
 
 var readTemplates = {};

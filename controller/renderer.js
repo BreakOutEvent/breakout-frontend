@@ -1,8 +1,8 @@
 'use strict';
-const mongoose = require('./mongo.js');
+const mongoose = requireLocal('controller/mongo.js');
 const handlebars = require('handlebars');
-const fileSystem = require('./file-system');
-const reader = require('./template-reader');
+const fileSystem = requireLocal('controller/file-system');
+const reader = requireLocal('controller/template-reader');
 const _ = require('lodash');
 
 //Define Models

@@ -8,18 +8,21 @@ const config = {
 const throng = config.cluster ? require('throng') : cb => cb(0);
 
 throng(id => {
+  const path = require('path');
+  global.ROOT = path.resolve(__dirname);
+
+  global.requireLocal = module => require(__dirname + '/' + module);
+
   const express = require('express');
-  const mongoose = require('./controller/mongo.js');
+  const mongoose = requireLocal('./controller/mongo.js');
   mongoose.con();
   const exphbs = require('express-handlebars');
-  const path = require('path');
-  const passport = require('./controller/auth.js');
+  const passport = requireLocal('controller/auth.js');
   const bodyparser = require('body-parser');
 
   var app = express();
   var hbs = exphbs.create();
 
-  global.ROOT = path.resolve(__dirname);
 
   require('enum').register();
 

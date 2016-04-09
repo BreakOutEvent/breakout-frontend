@@ -3,11 +3,11 @@
  */
 'use strict';
 
-const mongoose = require('../controller/mongo');
-const renderer = require('../controller/renderer');
-const fileSystem = require('../controller/file-system');
+const mongoose = requireLocal('controller/mongo');
+const renderer = requireLocal('controller/renderer');
+const fileSystem = requireLocal('controller/file-system');
 const express = require('express');
-const Page = mongoose.model('page', require('../schemas/page.js'));
+const Page = mongoose.model('page', requireLocal('schemas/page.js'));
 
 var router = express.Router();
 

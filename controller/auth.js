@@ -2,9 +2,9 @@
 
 const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
-const API = require('./api-proxy.js');
-const mongoose = require('./mongo.js');
-const Token = mongoose.model('token', require('../schemas/token.js'));
+const API = requireLocal('controller/api-proxy.js');
+const mongoose = requireLocal('controller/mongo.js');
+const Token = mongoose.model('token', requireLocal('schemas/token.js'));
 
 // Configure the local strategy for use by Passport.
 //
