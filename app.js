@@ -14,22 +14,28 @@ throng(id => {
   global.requireLocal = module => require(__dirname + '/' + module);
 
   const express = require('express');
-  requireLocal('controller/mongo.js').con();
   const exphbs = require('express-handlebars');
-  const passport = requireLocal('controller/auth.js');
   const bodyparser = require('body-parser');
-
-  var app = express();
-  var hbs = exphbs.create();
-
   require('enum').register();
 
-  // handlebars is now default engine
-  app.engine('.handlebars', hbs.engine);
-  app.set('view engine', '.handlebars');
+  requireLocal('controller/mongo.js').con();
+  const passport = requireLocal('controller/auth.js');
+
+  const app = express();
+
+  // Handlebars setup
+  const hbs = exphbs.create({
+      helpers: requireLocal('services/helpers'),
+      partialsDir: path.join('views/partials')
+    }
+  );
+
+  global.HBS = hbs;
+
+  app.engine('handlebars', hbs.engine);
+  app.set('view engine', 'handlebars');
 
   app.use(express.static(path.join(__dirname, 'public')));
-  app.set('views', path.join(__dirname, 'templates'));
 
   // Use application-level middleware for common functionality, including
   // logging, parsing, and session handling.
@@ -55,14 +61,14 @@ throng(id => {
   app.use('/admin', requireLocal('routes/admin/admin'));
   app.use('/admin/api', requireLocal('routes/admin/api'));
 
-  var server = app.listen(3000, function () {
+  var server = app.listen(3000, function() {
     var host = server.address().address;
     var port = server.address().port;
 
     console.log('Listening at http://%s:%s', host, port);
   });
 
-  app.use(function (req, res) {
+  app.use(function(req, res) {
     res.status(404);
     res.render('error', {
       code: 404,
@@ -71,7 +77,7 @@ throng(id => {
   });
 
   // Displays any errors
-  app.use(function (err, req, res) {
+  app.use(function(err, req, res) {
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,

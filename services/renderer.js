@@ -4,12 +4,24 @@ const handlebars = require('handlebars');
 const fileSystem = requireLocal('services/file-system');
 const reader = requireLocal('services/template-reader');
 const _ = require('lodash');
+const fs = require('fs');
+const co = require('co');
 
 //Define Models
 const Page = mongoose.model('page', requireLocal('schemas/page.js'));
 
 //Define empty object
 let renderer = {};
+
+fs.readFile(ROOT + '/views/partials/footer_de.handlebars',
+  'utf8',
+  (err, data) => handlebars.registerPartial('footer_de', data));
+
+fs.readFile(ROOT + '/views/partials/footer_en.handlebars',
+  'utf8',
+  (err, data) => handlebars.registerPartial('footer_en', data));
+
+handlebars.registerHelper('concat', (first, second) => first + second);
 
 /**
  * Searches for the localized language string, and falls back to german if nothing is found.
@@ -35,41 +47,41 @@ renderer.renderPage = (pageID, cb) =>
 
       // Iterate properties to render each language separately
       for (let currProp of page.properties) {
-        // Render each view on the page with the current language
-        const html = page.views.reduce((initial, curr) => {
+        co(function* () {
 
-          // Read view template (partial)
-          const hbt = fileSystem.readTemplateFile(curr.templateName);
+          const templates = [];
+          for (let curr of page.views) {
+            templates.push(
+              yield HBS.render(fileSystem.buildTemplateFilePath('templates', curr.templateName),
+                getVariables(curr, currProp.language))
+            );
+          }
 
-          if (hbt.isNothing())
-            throw new Error(`Partial ${curr.templateName} not existing`);
+          // Render each view on the page with the current language
+          const html = templates.reduce((initial, curr) => initial + curr, '');
 
-          // Compiles the template and returns the resulting html code
-          return initial + handlebars.compile(hbt.value())(getVariables(curr, currProp.language));
-        }, '');
+          // Gets all required scripts for the page together
+          const requirements = _.uniq(
+            page.views.reduce((initial, curr) => {
+              const req = reader.getByName(curr.templateName) || { requirements: [] };
+              return _.concat(initial, req.requirements);
+            }, [])
+          );
 
-        // Gets all required scripts for the page together
-        const requirements = _.uniq(
-          page.views.reduce((initial, curr) => {
-            const req = reader.getByName(curr.templateName) || { requirements: [] };
-            return _.concat(initial, req.requirements);
-          }, [])
-        );
-
-        //Read page template
-        const handlebarsTemplate = fileSystem.readMasterTemplate();
-        if (handlebarsTemplate.isNothing()) throw new Error(`Master template not existing`);
-
-        cb(
-          handlebars.compile(handlebarsTemplate.value())(
-            {
-              content: html,
-              requirements: requirements,
-              title: currProp.title,
-            }),
-          currProp.language,
-          currProp.url + '.html'
-        );
+          cb(
+            yield HBS.render(fileSystem.buildTemplateFilePath('', 'master'),
+              {
+                content: html,
+                requirements: requirements,
+                title: currProp.title,
+                language: currProp.language
+              }
+            ),
+            currProp.language,
+            currProp.url + '.html'
+          );
+        }).catch(ex => console.error(ex.stack));
+        ;
       }
     });
 
