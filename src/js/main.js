@@ -5,3 +5,5 @@ var videoPlayer = require('./videoplayer.js');
 $(document).ready(function() {
   videoPlayer('#btnIntroVideo', '#modalIntroVideo');
 });
+
+var registration = require('./registration.js');
