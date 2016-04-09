@@ -34,7 +34,7 @@ renderer.renderPage = (pageID, cb) =>
       else if (!page) throw new Error(`Page with id ${pageID} does not exist.`);
 
       // Iterate properties to render each language separately
-      for (let elem of page.properties) {
+      for (let currProp of page.properties) {
         // Render each view on the page with the current language
         const html = page.views.reduce((initial, curr) => {
 
@@ -45,7 +45,7 @@ renderer.renderPage = (pageID, cb) =>
             throw new Error(`Partial ${curr.templateName} not existing`);
 
           // Compiles the template and returns the resulting html code
-          return initial + handlebars.compile(hbt.value())(getVariables(curr, elem.language));
+          return initial + handlebars.compile(hbt.value())(getVariables(curr, currProp.language));
         }, '');
 
         // Gets all required scripts for the page together
@@ -64,10 +64,11 @@ renderer.renderPage = (pageID, cb) =>
           handlebars.compile(handlebarsTemplate.value())(
             {
               content: html,
-              requirements: requirements
+              requirements: requirements,
+              title: currProp.title,
             }),
-          elem.language,
-          elem.url + '.html'
+          currProp.language,
+          currProp.url + '.html'
         );
       }
     });

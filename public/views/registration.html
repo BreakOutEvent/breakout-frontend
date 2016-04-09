@@ -5,97 +5,123 @@
     <title>Registrierung</title>
     <link href="../css/styles.css" rel="stylesheet">
 
-    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic' rel='stylesheet'
+          type='text/css'>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script type="text/javascript" src="/js/bundle.min.js"></script>
+
 </head>
 <body style="padding-top: 0; background-image: url('/img/header2.jpg')">
 <div style="padding-top: 60px;">
     <div class="col-md-3"></div>
-    <div class="col-md-6" style="background-color: white;">
+    <div class="col-md-6 registration-box-border">
         <div style="padding: 20px;">
-            <div class="col-md-12">
+
+            <div class="row registration-margin">
                 <div class="col-md-6">
                     <img class="bo-modal-logo" alt="BreakOut" src="/img/logos/BreakOut-Logo_Header.svg">
                 </div>
-            </div>
-            <div class="col-md-12">
                 <div class="col-md-6">
-                    <div class="form-group has-feedback has-feedback-left">
-                        <div class="form-group has-feedback has-feedback-left">
-                            <input type="text" class="form-control" data-icon="email" id="lastname"
-                                   placeholder="Nachname">
+                    <div class="media-middle registration-picture ">
+
+                        <i class="material-icons registration-picture-icon">camera_alt</i>
+                    </div>
+                </div>
+            </div>
+            <form method="post" action="/participant" id="registrationForm">
+                <div class="registration-margin">
+                    <div class="row">
+                        <div class="col-md-6 col-md-push-6">
+
+                            <div class="btn-group" role="group">
+                                <input type="button" class="btn btn-default" name="gender" value="male" id="male">
+                                <input type="button" class="btn btn-default" name="gender" value="female" id="female">
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-md-pull-6">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <div class="form-group has-feedback has-feedback-left">
+                                    <input type="text" class="form-control" name="firstname" id="firstname"
+                                           placeholder="Vorname">
+                                    <i class="form-control-feedback material-icons">perm_identity</i>
+
+                                </div>
+                            </div>
+
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <input type="text" class="form-control" id="lastname" name="lastname"
+                                       placeholder="Nachname">
+                                <i class="form-control-feedback material-icons">perm_identity</i>
 
-                    <div class="btn-group" role="group">
-                        <input type="button" class="btn btn-default" value="Männlich" id="male">
-                        <input type="button" class="btn btn-default" value="Weiblich" id="female">
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="col-md-6">
-                    <div class="form-group has-feedback has-feedback-left">
-                        <input type="text" class="form-control" data-icon="email" id="firstname"
-                               placeholder="Vorname">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="dropdown has-feedback has-feedback-left">
-                        <input class="form-control" id="loginPassword" placeholder="T-Shirt Größe">
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="col-md-6">
-                    <div class="form-group has-feedback has-feedback-left">
-                        <input type="email" class="form-control" data-icon="email" id="email"
-                               placeholder="E-Mail-Adresse">
-                        <i class="form-control-feedback material-icons">mail_outline</i>
-
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group has-feedback has-feedback-left">
-                        <input type="text" class="form-control" id="phone" placeholder="Telefonnummer">
+                            </div>
+                        </div>
+                        <!-- todo: change icon, style select-->
+                        <div class="col-md-6 ">
+                            <div class="form-group has-feedback-left has-feedback">
+                                <div class="form-control ">
+                                    <select name="size" id="size" class="">
+                                        <option disabled selected>T-Shirt Größe</option>
+                                        <option value="xs">XS</option>
+                                        <option value="s">S</option>
+                                        <option value="m">M</option>
+                                        <option value="l">L</option>
+                                        <option value="xl">XL</option>
+                                        <option value="xxl">XXL</option>
+                                    </select>
+                                </div>
+                                <i class="material-icons form-control-feedback">contact_phone</i>
+                            </div>
+                        </div>
                     </div>
 
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="col-md-6">
-                    <div class="dropdown has-feedback has-feedback-left">
-                        <input type="" class="form-control" data-icon="email" id="homecity"
-                               placeholder="Heimatstadt">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <input type="text" class="form-control" id="phone" name="phone" placeholder="Telefonnummer">
+                                <i class="form-control-feedback material-icons">phone</i>
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <input type="text" class="form-control" id="emergency_phone" name="emergency_phone"
+                                       placeholder="Notfallnummer">
+                                <i class="form-control-feedback material-icons">contact_phone</i>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-12 registration-margin">
+                        <input type="checkbox" id="terms_accepted" required>
+                        Hiermit akzeptiere ich die <a>Allgemeinen Geschäftsbedingungen.</a>
+                    </div>
+
+                    <div class="registration-margin">
+                        <button type="submit" id="register" class="btn btn-primary btn-block">KOSTENPFLICHTIG TEILNEHMEN</button>
+
+                    </div>
+                    <div class="registration-margin">
+                        Durch Klicken des Teilnehmen Buttons registriere ich mich verbindlich den Event Beitrag in Höhe
+                        von
+                        30,00€ bis 31.05.2016 zu zahlen.
+
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group has-feedback has-feedback-left">
-                        <input type="text" class="form-control" id="emergency_phone" placeholder="Notfallnummer">
-                    </div>
-                </div>
-            </div>
+            </form>
+
         </div>
-        <div class="col-md-12">
-            <input type="checkbox" id="terms_accepted" required>
-            Hiermit akzeptiere ich die <a>Allgemeinen Geschäftsbedingungen.</a>
-        </div>
-
-        <div class="modal-footer">
-            <button type="button" class="btn btn-primary btn-block">KOSTENPFLICHTIG TEILNEHMEN</button>
-
-        </div>
-        <div>
-            Durch Klicken des Teilnehmen Buttons registriere ich mich verbindlich den Event Beitrag in Höhe von
-            30,00€ bis 31.05.2016 zu zahlen.
-        </div>
-
     </div>
-</div>
 
-<div class="col-md-3"></div>
+    <div class="col-md-3"></div>
 
 </body>
 </html>

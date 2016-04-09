@@ -58,21 +58,9 @@ module.exports = function (grunt) {
         }]
       }
     },
-    browserify: {
-      options: {
-        browserifyOptions: {
-          debug: true
-        }
-      },
-      dist: {
-        files: {
-          'public/js/bundle.js': ['src/js/main.js']
-        }
-      }
-    },
     watch: {
       css: {
-        files: ['sass/**/*.scss'],
+        files: ['src/sass/**/*.scss'],
         tasks: ['sass']
       },
       js: {
@@ -87,9 +75,8 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-jsbeautifier');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
-  grunt.loadNpmTasks('grunt-browserify');
 
-  grunt.registerTask('default', ['jsbeautifier', 'jshint', 'browserify', 'uglify', 'sass',
+  grunt.registerTask('default', ['jsbeautifier', 'jshint', 'uglify', 'sass',
     'cssmin'
   ]);
 };

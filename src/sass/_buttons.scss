@@ -3,7 +3,14 @@
 }
 
 .btn,
-.btn:focus,
-.btn:active {
-  outline: none;
+.btn-primary,
+.btn-default {
+  &.active,
+  &:active,
+  &.hover,
+  &:hover,
+  &.focus,
+  &:focus {
+    outline: none;
+  }
 }

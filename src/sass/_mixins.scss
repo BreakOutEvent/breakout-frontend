@@ -3,3 +3,9 @@
   background-repeat: no-repeat;
   background-position: center center;
 }
+
+@mixin verticalAlign {
+  transform: translate3d(0, -50%, 0);
+  position: absolute;
+  top: 50%;
+}
