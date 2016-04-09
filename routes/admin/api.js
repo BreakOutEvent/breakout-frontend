@@ -3,19 +3,19 @@
 const mongoose = requireLocal('controller/mongo.js');
 const fs = require('fs');
 const path = require('path');
-const renderer = requireLocal('controller/renderer');
-const fileSystem = requireLocal('controller/file-system');
+const renderer = requireLocal('services/renderer');
+const fileSystem = requireLocal('services/file-system');
 const multer = require('multer');
+
+const express = require('express');
+const reader = requireLocal('services/template-reader.js');
+const router = express.Router();
 
 const models = {
   view: mongoose.model('view', requireLocal('schemas/view.js')),
   page: mongoose.model('page', requireLocal('schemas/page.js')),
   menu: mongoose.model('menu', requireLocal('schemas/menu.js')),
 };
-
-const express = require('express');
-const reader = requireLocal('controller/template-reader.js');
-var router = express.Router();
 
 // Creates regex string for filtering valid models
 const allowedModels = '(' + Object.keys(models).reduce((p, k) => p + '|' + k, '').substr(1) + ')';

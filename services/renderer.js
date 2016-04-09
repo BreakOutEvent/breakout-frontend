@@ -1,12 +1,12 @@
 'use strict';
 const mongoose = requireLocal('controller/mongo.js');
 const handlebars = require('handlebars');
-const fileSystem = requireLocal('controller/file-system');
-const reader = requireLocal('controller/template-reader');
+const fileSystem = requireLocal('services/file-system');
+const reader = requireLocal('services/template-reader');
 const _ = require('lodash');
 
 //Define Models
-const Page = mongoose.model('page', require('../schemas/page.js'));
+const Page = mongoose.model('page', requireLocal('schemas/page.js'));
 
 //Define empty object
 let renderer = {};

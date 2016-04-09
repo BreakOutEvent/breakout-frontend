@@ -4,8 +4,8 @@
 'use strict';
 
 const mongoose = requireLocal('controller/mongo');
-const renderer = requireLocal('controller/renderer');
-const fileSystem = requireLocal('controller/file-system');
+const renderer = requireLocal('services/renderer');
+const fileSystem = requireLocal('services/file-system');
 const express = require('express');
 const Page = mongoose.model('page', requireLocal('schemas/page.js'));
 
