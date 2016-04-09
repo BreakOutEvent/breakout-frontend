@@ -55,6 +55,7 @@ throng(id => {
 
   // Sets routes
   app.use('/', require('./routes/main'));
+  app.use('/', require('./routes/dynamic'));
   app.use('/admin', require('./routes/admin'));
   app.use('/api', require('./routes/api'));
 
