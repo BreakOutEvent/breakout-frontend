@@ -36,4 +36,5 @@ config/*
 # files are build and bundled via browserify
 public/js/*
 public/css/*
+public/cms/*
 .brackets.json

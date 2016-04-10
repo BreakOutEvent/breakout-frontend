@@ -84,7 +84,7 @@ router.get('/css', (req, res) =>
 router.get('/html/:name', (req, res) =>
   req.params.name === 'master' ?
     serveFile(fileSystem.buildTemplateFilePath('', 'master'), res) :
-    serveFile(fileSystem.buildTemplateFilePath('partials', req.params.name), res)
+    serveFile(fileSystem.buildTemplateFilePath('templates', req.params.name), res)
 );
 
 router.get('/:model' + allowedModels, (req, res) =>
