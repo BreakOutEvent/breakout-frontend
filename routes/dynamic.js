@@ -8,7 +8,8 @@ const isAuth = (req, res, next) => {
   if(req.isAuthenticated)
     next();
   else
-    res.sendStatus(403);
+    return next();
+    //res.sendStatus(403);
 };
 
 router.get('/participant', (req, res) =>

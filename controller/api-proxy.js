@@ -72,10 +72,10 @@ API.putModel = (modelName, id, token, body) => {
       reject({error_description: 'No ID specified'});
       return;
     }
-
+    console.log(body, token);
     request
-      .post({
-        url: `${url}/${modelName}/${(id)}`,
+      .put({
+        url: `${url}/${modelName}/${(id)}/`,
         auth: {bearer: token.access_token},
         body: JSON.stringify(body)
       }, handleResponse(resolve, reject));

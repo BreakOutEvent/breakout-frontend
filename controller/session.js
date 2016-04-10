@@ -19,6 +19,8 @@ ses.getUserInfo = (req) => {
           });
         })
         .catch(body => reject({err: 'Could not fetch user'}));
+    } else {
+      resolve(req.user.user);
     }
   });
 };

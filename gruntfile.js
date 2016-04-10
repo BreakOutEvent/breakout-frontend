@@ -65,7 +65,7 @@ module.exports = function (grunt) {
       },
       js: {
         files: '<%= files.js %>',
-        tasks: ['jsbeautifier', 'jshint']
+        tasks: ['jsbeautifier', 'jshint','uglify' ]
       }
     }
   });

@@ -5,7 +5,8 @@ const session = require('../session');
 const URLS = {
   PARTICIPANT: '/participant',
   SPONSOR: '/sponsor',
-  SELECTION: '/selection'
+  SELECTION: '/selection',
+  TEAM: '/team'
 };
 
 
@@ -27,21 +28,21 @@ reg.createUser = (req, res) => {
 };
 
 reg.createParticipant = (req, res) => {
-  const sendErr = (req, res, errMsg, URL) => {
-    req.flash('error', errMsg);
-    res.redirect(URL);
+  const sendErr = (req, res, errMsg) => {
+    res.statusCode(500);
+    res.send({error: errMsg})
   };
 
-  if (!req.body) sendErr(req, res, 'The server did not receive any data', URLS.PARTICIPANT);
+  if (!req.body) sendErr(req, res, 'The server did not receive any data');
 
   let updateBody = {
     firstname: req.body.firstname,
     lastname: req.body.lastname,
-    gender: req.body.gender,
+    //gender: req.body.gender,
     participant: {
-      emergencynumber: req.body.emergencynumber,
-      phonenumber: req.body.phonenumber,
-      tshirtsize: req.body.tshirtsize
+      emergencynumber: req.body.emergency_phone,
+      phonenumber: req.body.phone,
+      tshirtsize: req.body.size
     }
   };
 
@@ -50,16 +51,20 @@ reg.createParticipant = (req, res) => {
       api.putModel('user', user.id, req.user, updateBody)
         .then(() => {
           session.forceUpdate(req);
-          res.redirect('/'); //@TODO add next url
+          res.send({
+            nextURL: URLS.TEAM
+          });
         })
         .catch((err) => {
           if (err) {
-            sendErr(req, res, 'Could not save your data', URLS.PARTICIPANT);
+            console.log(err);
+            sendErr(req, res, 'Could not save your data');
           }
         })
     })
     .catch(err => {
-      sendErr(req, res, err, URLS.PARTICIPANT);
+      console.log(err);
+      sendErr(req, res, err);
     });
 
 
