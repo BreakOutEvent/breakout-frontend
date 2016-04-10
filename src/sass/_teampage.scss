@@ -1,0 +1,29 @@
+.bo-member-photo {
+  width: 100%;
+  height: 180px;
+  background-repeat:no-repeat;
+  background-size:cover;
+  position: relative;
+}
+
+.bo-member-info-wrap {
+  background: rgba(255, 255, 255, 0.6);
+  max-height:40px;
+  position: absolute;
+  bottom:0;
+  left: 0;
+  width:100%;
+  transition: 0.2s ease;
+  overflow:hidden;
+  &:hover {
+    max-height:80px;
+  }
+}
+.bo-member-info-title {
+  height:40px;
+  text-align: center;
+}
+.bo-member-info-role {
+  height:40px;
+  text-align:center;
+}
