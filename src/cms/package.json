@@ -71,7 +71,7 @@
     "ignore": [
       "dist/**",
       "node_modules/**",
-      "src/app/scoper.js",
+      "app/scoper.js",
       "webpack.config.js"
     ]
   }

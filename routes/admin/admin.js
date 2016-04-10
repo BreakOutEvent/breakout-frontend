@@ -42,6 +42,6 @@ router.get('/', (req, res) => {
   res.redirect('/admin/cms/');
 });
 
-router.use('/cms', express.static('./public/cms/dist'));
+router.use('/cms', express.static('./public/cms'));
 
 module.exports = router;

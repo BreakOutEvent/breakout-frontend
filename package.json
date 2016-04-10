@@ -4,13 +4,13 @@
   "description": "Web Frontend",
   "main": "index.html",
   "scripts": {
-    "postinstall": "npm run build && cd public/cms && npm install",
+    "postinstall": "npm run build && cd src/cms && npm install",
     "prestart": "npm run build && npm run cms:build",
     "build": "grunt",
     "start": "node app.js",
-    "cms:build": "cd public/cms && npm run build",
-    "cms:update": "cd public/cms && npm update && npm run build",
-    "cms:server": "cd public/cms && npm run server",
+    "cms:build": "cd src/cms && npm run build",
+    "cms:update": "cd src/cms && npm update && npm run build",
+    "cms:server": "cd src/cms && npm run server",
     "test": "echo \"Error: no test specified\" && exit 1",
     "grunt": "grunt"
   },
