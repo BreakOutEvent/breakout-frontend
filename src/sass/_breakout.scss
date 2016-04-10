@@ -2,6 +2,15 @@ body {
   padding-top: 60px;
 }
 
+.bo-header-logo {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  @include image-background("../img/header2.jpg");
+  border-bottom-width: 2px;
+  border-bottom-color: rgba(0, 0, 0, 0.1);
+  border-bottom-style: solid;
+}
+
 .bo-content-header {
   @include image-background("../img/header2.jpg");
   min-height: 200px;
