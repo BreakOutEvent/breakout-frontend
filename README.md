@@ -19,6 +19,9 @@ Web Frontend
 * `FRONTEND_CLUSTER` *Startet einen Child-Prozess pro CPU-Kern, falls diese Variable "true"
 enthält*
 * `FRONTEND_SECRET` *Secret für die Benutzer-Sessions*
+* `FRONTEND_GDRIVE_DOCUMENT_ID` *Document-ID des GDrive-Dokuments mit allen Mitgliedern*
+* `FRONTEND_GDRIVE_CLIENT_EMAIL` *E-Mail des Dev-Accounts mit Freigabe zum Dokument*
+* `FRONTEND_GDRIVE_PRIVATE_KEY` *Private-Key vom Account*
 
 **Benutzung:**
 

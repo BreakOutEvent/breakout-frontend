@@ -99,7 +99,7 @@ rc.readTemplateFile =
  * Reads the master template file, e.g. the main layout.
  */
 rc.readMasterTemplate =
-  () => readFile('', 'master', FileType.Template);
+  () => readFile('layouts', 'master', FileType.Template);
 
 /**
  * Simply joins the rendered-path, folder and file together
