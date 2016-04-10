@@ -69,7 +69,7 @@ renderer.renderPage = (pageID, cb) =>
           );
 
           cb(
-            yield HBS.render(fileSystem.buildTemplateFilePath('', 'master'),
+            yield HBS.render(fileSystem.buildTemplateFilePath('layouts', 'master'),
               {
                 content: html,
                 requirements: requirements,
