@@ -1,5 +1,8 @@
+<md-input-container>
+    <input type="text" aria-label="Search Templates" placeholder="Suche" ng-model="searchText" />
+</md-input-container>
 <md-list>
-    <md-list-item ng-repeat="template in lib.templates"
+    <md-list-item ng-repeat="template in lib.templates | filter: {title: searchText}"
                   dnd-draggable="template"
                   dnd-type="'template'"
                   dnd-effect-allowed="copy"
