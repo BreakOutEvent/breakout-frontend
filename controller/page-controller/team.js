@@ -12,33 +12,32 @@ const config = {
 };
 
 module.exports = (req, res) => {
-  const doc = new GoogleSpreadsheet(config.doc_id);
-  var credsJson = {
-    client_email: config.client_email,
-    private_key: config.private_key.replace(/\\n/g, '\n')
-  };
-
   co(function*() {
+    const doc = new GoogleSpreadsheet(config.doc_id);
+    var credsJson = {
+      client_email: config.client_email,
+      private_key: config.private_key.replace(/\\n/g, '\n')
+    };
+
     yield Promise.promisify(doc.useServiceAccountAuth)(credsJson);
 
     const info = yield Promise.promisify(doc.getInfo)();
     const sheet = info.worksheets[0];
 
     const rows = yield Promise.promisify(sheet.getRows)({
-      offset: 3,
-      orderby: 'name'
+      offset: 3
     });
 
-    const vars = rows.reduce((init, curr) => _.concat(init, {
+    const member = _.sortBy(rows.reduce((init, curr) => _.concat(init, {
       name: curr.name,
       surname: curr.surname,
       url: curr.link,
       role: curr.role
-    }), []);
+    }), []), m => m.surname);
 
     res.render('static/team/content', {
       layout: 'master',
-      member: vars,
+      member: member,
       language: req.params.language
     });
 
