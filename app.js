@@ -1,7 +1,9 @@
 'use strict';
 
+const DEFAULT_SECRET = 'keyboard cat';
 const config = {
-  cluster: process.env.FRONTEND_CLUSTER !== undefined,
+  cluster: process.env.FRONTEND_CLUSTER === 'true',
+  secret: process.env.FRONTEND_SECRET || DEFAULT_SECRET
 };
 
 // Should start the server clustered (# of cores by default) if FRONTEND_CLUSTER is defined
@@ -37,10 +39,14 @@ throng(id => {
 
   app.use(express.static(path.join(__dirname, 'public')));
 
+  if (process.env.NODE_ENV === 'production' && config.secret === DEFAULT_SECRET) {
+    throw new Error('No custom secret specified, please set one via FRONTEND_SECRET');
+  }
+
   // Use application-level middleware for common functionality, including
   // logging, parsing, and session handling.
   app.use(require('express-session')({
-    secret: 'keyboard cat',
+    secret: config.secret,
     resave: false,
     saveUninitialized: false,
   }));
@@ -61,14 +67,14 @@ throng(id => {
   app.use('/admin', requireLocal('routes/admin/admin'));
   app.use('/admin/api', requireLocal('routes/admin/api'));
 
-  var server = app.listen(3000, function() {
+  var server = app.listen(3000, () => {
     var host = server.address().address;
     var port = server.address().port;
 
     console.log('Listening at http://%s:%s', host, port);
   });
 
-  app.use(function(req, res) {
+  app.use((req, res) => {
     res.status(404);
     res.render('error', {
       code: 404,
@@ -77,7 +83,7 @@ throng(id => {
   });
 
   // Displays any errors
-  app.use(function(err, req, res) {
+  app.use((err, req, res) => {
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,

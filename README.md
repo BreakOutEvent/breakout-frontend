@@ -8,14 +8,17 @@ Web Frontend
 *das CMS ist im [standard style](https://github.com/feross/standard) geschrieben*
 
 **Environment Variablen**
-* `FRONTEND_API_CLIENTID`
-* `FRONTEND_API_CLIENTSECRET`
-* `FRONTEND_API_URL`
-* `FRONTEND_DB_USER`
-* `FRONTEND_DB_PASSWORD`
-* `FRONTEND_DB_URL`
-* `FRONTEND_DB_PORT`
-* `FRONTEND_DB_NAME`
+* `FRONTEND_API_CLIENTID` *Client-ID dieses Node-Servers für das Backend*
+* `FRONTEND_API_CLIENTSECRET` *Client-Secret für das Backend*
+* `FRONTEND_API_URL` *URL der Backend-API*
+* `FRONTEND_DB_USER` *Datenbankuser*
+* `FRONTEND_DB_PASSWORD` *Passwort vom Datenbankuser*
+* `FRONTEND_DB_URL` *URL oder IP der Datenbank*
+* `FRONTEND_DB_PORT` *Port der Datenbank*
+* `FRONTEND_DB_NAME` *Datenbank-Name*
+* `FRONTEND_CLUSTER` *Startet einen Child-Prozess pro CPU-Kern, falls diese Variable "true"
+enthält*
+* `FRONTEND_SECRET` *Secret für die Benutzer-Sessions*
 
 **Benutzung:**
 
