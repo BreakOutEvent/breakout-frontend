@@ -1,6 +1,9 @@
-<span ng-if="!editable.editMode" ng-click="editable.editMode = true">{{editable.field}}</span>
-<form ng-if="editable.editMode" ng-submit="editable.editMode = false" class="md-title">
+<span ng-if="!editable.editMode"
+      ng-click="editable.editMode = true" ng-bind-html="editable.field | to_trusted"></span>
+<form ng-if="editable.editMode" class="md-title">
     <md-input-container>
-        <input type="text" ng-model="editable.field"/>
+        <textarea type="text"
+                  ng-model="editable.field"
+                  ng-keydown="editable.checkReturn($event)"></textarea>
     </md-input-container>
 </form>
