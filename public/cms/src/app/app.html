@@ -4,26 +4,30 @@
             <h1 class="md-toolbar-tools">Seiten</h1>
         </md-toolbar>
         <md-content>
-            <md-list dnd-list="app.pages" dnd-drop="app.drop(event, index, item, type)">
-                <div class="dndPlaceholder">Drop here</div>
+            <md-list>
                 <md-list-item
                         ng-repeat="page in app.pages"
                         ng-click="app.selectPage(page)"
-                        dnd-draggable="page"
-                        dnd-effect-allowed="move"
-                        dnd-type="'page'"
                         ng-class="{ selected: page==app.selectedPage}">
                     {{page.properties[0].title}}
                 </md-list-item>
             </md-list>
             <md-button class="md-icon-button" ng-click="app.createPage()" aria-label="Seite erstellen">
                 <md-icon>add</md-icon>
+            </md-button><br />
+            <md-button class="md-raised md-primary" ng-click="app.editMenu()" aria-label="Menü">
+                Menü
             </md-button>
         </md-content>
     </md-sidenav>
     <div flex layout="column">
         <md-toolbar ng-if="!app.selectedPage">
             <div class="md-toolbar-tools">
+                <div id="sidenav-open" hide-gt-md>
+                    <md-button ng-click="app.toggleMenu('left')">
+                        <md-icon>menu</md-icon>
+                    </md-button>
+                </div>
                 <h2>
                     <span>BreakOut CMS</span>
                 </h2>
