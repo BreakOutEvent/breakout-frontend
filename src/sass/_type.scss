@@ -7,21 +7,28 @@ hr {
   padding: 0;
 }
 
+h1 {
+  font-weight: 300;
+  @media screen and (min-width: $screen-sm-min) {
+    font-size: 50px;
+  }
+}
+
 h2 {
   font-weight: 300;
   @media screen and (min-width: $screen-sm-min) {
-    font-size: 58px;
+    font-size: 40px;
   }
 }
 
 h3 {
-  font-size: 35px;
+  font-size: 30px;
   font-weight: 300;
   margin: 0 0 20px 0;
 }
 
 h4 {
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 300;
   margin: 0 0 10px 0;
 }
