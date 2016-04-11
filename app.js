@@ -85,9 +85,18 @@ throng(id => {
   // Displays any errors
   app.use((err, req, res) => {
     res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err,
-    });
+
+    if (process.env.NODE_ENV === 'production') {
+      res.render('error', {
+        code: err.status,
+        message: 'Internal Server error',
+      });
+    } else {
+      res.render('error', {
+        code: err.status,
+        message: err.message,
+        error: err,
+      });
+    }
   });
 });

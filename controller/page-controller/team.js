@@ -13,10 +13,10 @@ const config = {
 };
 
 module.exports = (req, res) => {
-  co(function*() {
+  co(function* () {
     const cachePath = ROOT + '/rendered/cache/teams.json.cache';
 
-    const fetchMemberList = () => co(function*() {
+    const fetchMemberList = () => co(function* () {
       const doc = new GoogleSpreadsheet(config.doc_id);
       var credsJson = {
         client_email: config.client_email,
