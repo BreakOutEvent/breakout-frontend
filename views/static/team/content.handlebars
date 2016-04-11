@@ -10,7 +10,7 @@
             <p>TEXT</p>
         </div>
         <div class="col-sm-6">
-            <img class="img-responsive" src="http://i.imgur.com/88yXLNF.jpg" />
+            <img class="img-responsive" src="http://i.imgur.com/88yXLNF.jpg"/>
             <span></span>
         </div>
     </div>
@@ -20,7 +20,8 @@
     <div class="row">
         <div class="col-sm-6 col-md-4 ">
             <div class="thumbnail bo-member-team-box">
-                <img src="http://i.imgur.com/88yXLNF.jpg" alt="TEAM" class="img-responsive center-block">
+                <img src="http://i.imgur.com/88yXLNF.jpg" alt="TEAM"
+                     class="img-responsive center-block">
                 <div class="caption">
                     <h3 class="text-center">TEAM</h3>
                     <p>...</p>
@@ -29,7 +30,8 @@
         </div>
         <div class="col-sm-6 col-md-4 ">
             <div class="thumbnail bo-member-team-box">
-                <img src="http://i.imgur.com/88yXLNF.jpg" alt="TEAM" class="img-responsive center-block">
+                <img src="http://i.imgur.com/88yXLNF.jpg" alt="TEAM"
+                     class="img-responsive center-block">
                 <div class="caption">
                     <h3 class="text-center">TEAM</h3>
                     <p>...</p>
@@ -38,7 +40,8 @@
         </div>
         <div class="col-sm-6 col-md-4 ">
             <div class="thumbnail bo-member-team-box">
-                <img src="http://i.imgur.com/88yXLNF.jpg" alt="TEAM" class="img-responsive center-block">
+                <img src="http://i.imgur.com/88yXLNF.jpg" alt="TEAM"
+                     class="img-responsive center-block">
                 <div class="caption">
                     <h3 class="text-center">TEAM</h3>
                     <p>...</p>
@@ -47,7 +50,8 @@
         </div>
         <div class="col-sm-6 col-md-4 ">
             <div class="thumbnail bo-member-team-box">
-                <img src="http://i.imgur.com/88yXLNF.jpg" alt="TEAM" class="img-responsive center-block">
+                <img src="http://i.imgur.com/88yXLNF.jpg" alt="TEAM"
+                     class="img-responsive center-block">
                 <div class="caption">
                     <h3 class="text-center">TEAM</h3>
                     <p>...</p>
@@ -56,7 +60,8 @@
         </div>
         <div class="col-sm-6 col-md-4 ">
             <div class="thumbnail bo-member-team-box">
-                <img src="http://i.imgur.com/88yXLNF.jpg" alt="TEAM" class="img-responsive center-block">
+                <img src="http://i.imgur.com/88yXLNF.jpg" alt="TEAM"
+                     class="img-responsive center-block">
                 <div class="caption">
                     <h3 class="text-center">TEAM</h3>
                     <p>...</p>
@@ -65,7 +70,8 @@
         </div>
         <div class="col-sm-6 col-md-4 ">
             <div class="thumbnail bo-member-team-box">
-                <img src="http://i.imgur.com/88yXLNF.jpg" alt="TEAM" class="img-responsive center-block">
+                <img src="http://i.imgur.com/88yXLNF.jpg" alt="TEAM"
+                     class="img-responsive center-block">
                 <div class="caption">
                     <h3 class="text-center">TEAM</h3>
                     <p>...</p>
@@ -77,10 +83,23 @@
         <h2>Aktuelle Mitglieder</h2>
     </div>
     <div class="row">
-        {{#each member}}
+        {{#each member.[0] }}
             {{> member}}
         {{/each}}
     </div>
+
+
+    {{#if member.[1].length }}
+        <div class="row">
+            <h2>Ehemalige Mitglieder</h2>
+        </div>
+        <div class="row">
+            {{#each member.[1]}}
+                {{> member}}
+            {{/each}}
+        </div>
+    {{/if}}
+
     <div class="row">
         <div class="col-xs-12">
             <p>&nbsp;</p>

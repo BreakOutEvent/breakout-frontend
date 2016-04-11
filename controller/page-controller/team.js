@@ -13,10 +13,10 @@ const config = {
 };
 
 module.exports = (req, res) => {
-  co(function* () {
+  co(function*() {
     const cachePath = ROOT + '/rendered/cache/teams.json.cache';
 
-    const fetchMemberList = () => co(function* () {
+    const fetchMemberList = () => co(function*() {
       const doc = new GoogleSpreadsheet(config.doc_id);
       var credsJson = {
         client_email: config.client_email,
@@ -32,13 +32,18 @@ module.exports = (req, res) => {
         offset: 3
       });
 
-      return _.sortBy(rows.reduce((init, curr) => _.concat(init, {
+      const allMember = _.sortBy(rows.reduce((init, curr) => _.concat(init, {
         name: curr.name,
         surname: curr.surname,
         url: curr.link,
         role: curr.role,
         active: curr.active
       }), []), m => m.surname);
+
+      return [
+        _.filter(allMember, m => m.active === 'ja'),
+        _.filter(allMember, m => m.active === 'nein')
+      ];
     }).catch(ex => {
       throw ex;
     });
@@ -47,8 +52,8 @@ module.exports = (req, res) => {
 
     const cacheExists = yield fs.exists(cachePath);
 
-    // Cache file is existing
-    if (cacheExists) {
+    // Cache file does exist
+    if (cacheExists && process.env.NODE_ENV === 'production') {
       const fileStats = yield fs.stat(cachePath);
 
       // Cache file is outdated
@@ -62,8 +67,7 @@ module.exports = (req, res) => {
         console.log('File ' + cachePath + ' is up to date');
         finalMembers = yield fs.readJson(cachePath);
       }
-    } else { // Cache file is not existing
-      console.log('File ' + cachePath + ' does not exist');
+    } else { // Cache file does not exist
       const member = yield fetchMemberList();
       yield fs.writeJson(cachePath, member);
       finalMembers = member;
