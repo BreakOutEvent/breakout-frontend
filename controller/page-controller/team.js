@@ -4,6 +4,7 @@ const Promise = require('bluebird');
 const GoogleSpreadsheet = require('google-spreadsheet');
 const co = require('co');
 const _ = require('lodash');
+const fs = require('co-fs-extra');
 
 const config = {
   doc_id: process.env.FRONTEND_GDRIVE_DOCUMENT_ID,
@@ -12,32 +13,65 @@ const config = {
 };
 
 module.exports = (req, res) => {
-  co(function*() {
-    const doc = new GoogleSpreadsheet(config.doc_id);
-    var credsJson = {
-      client_email: config.client_email,
-      private_key: config.private_key.replace(/\\n/g, '\n')
-    };
+  co(function* () {
+    const cachePath = ROOT + '/rendered/cache/teams.json.cache';
 
-    yield Promise.promisify(doc.useServiceAccountAuth)(credsJson);
+    const fetchMemberList = () => co(function* () {
+      const doc = new GoogleSpreadsheet(config.doc_id);
+      var credsJson = {
+        client_email: config.client_email,
+        private_key: config.private_key.replace(/\\n/g, '\n')
+      };
 
-    const info = yield Promise.promisify(doc.getInfo)();
-    const sheet = info.worksheets[0];
+      yield Promise.promisify(doc.useServiceAccountAuth)(credsJson);
 
-    const rows = yield Promise.promisify(sheet.getRows)({
-      offset: 3
+      const info = yield Promise.promisify(doc.getInfo)();
+      const sheet = info.worksheets[0];
+
+      const rows = yield Promise.promisify(sheet.getRows)({
+        offset: 3
+      });
+
+      return _.sortBy(rows.reduce((init, curr) => _.concat(init, {
+        name: curr.name,
+        surname: curr.surname,
+        url: curr.link,
+        role: curr.role,
+        active: curr.active
+      }), []), m => m.surname);
+    }).catch(ex => {
+      throw ex;
     });
 
-    const member = _.sortBy(rows.reduce((init, curr) => _.concat(init, {
-      name: curr.name,
-      surname: curr.surname,
-      url: curr.link,
-      role: curr.role
-    }), []), m => m.surname);
+    let finalMembers;
+
+    const cacheExists = yield fs.exists(cachePath);
+
+    // Cache file is existing
+    if (cacheExists) {
+      const fileStats = yield fs.stat(cachePath);
+
+      // Cache file is outdated
+      if ((new Date(fileStats.mtime).getDay()) != (new Date).getDay()) {
+        console.log('File ' + cachePath + ' is out of date, renewing');
+
+        const member = yield fetchMemberList();
+        yield fs.writeJson(cachePath, member);
+        finalMembers = member;
+      } else { // Cache file is up to date
+        console.log('File ' + cachePath + ' is up to date');
+        finalMembers = yield fs.readJson(cachePath);
+      }
+    } else { // Cache file is not existing
+      console.log('File ' + cachePath + ' does not exist');
+      const member = yield fetchMemberList();
+      yield fs.writeJson(cachePath, member);
+      finalMembers = member;
+    }
 
     res.render('static/team/content', {
       layout: 'master',
-      member: member,
+      member: finalMembers,
       language: req.params.language
     });
 
