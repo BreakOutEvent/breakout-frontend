@@ -7,7 +7,7 @@ const _ = require('lodash');
 
 //Globals
 const config = {
-  templatePath: path.normalize(ROOT + '/views/templates/'),
+  templatePath: path.normalize(ROOT + '/views/templates/')
 };
 
 var readTemplates = {};
@@ -43,7 +43,7 @@ readTemplates.readFromFolder = fs.readdirSync;
 
 readTemplates.parseTemplate = (filename, fileContent) => {
 
-  const contentVars = analyseContentVars(fileContent.match(/{{([a-zA-Z0-1#\/\s]*)}}/g) || []);
+  const contentVars = analyseContentVars(fileContent.match(/{{{([a-zA-Z0-9#\/\s]*)}}}/g) || []);
   const configMatch = fileContent.match(/{{!--((?:\n|\r|.)*)--}}/);
 
   var config;
@@ -71,7 +71,7 @@ readTemplates.parseTemplate = (filename, fileContent) => {
 
       // Or empty
       : [],
-    requirements: config.requirements || [],
+    requirements: config.requirements || []
   };
 
   if (hasVariables && !hasConfig) {
@@ -242,7 +242,7 @@ readTemplates.parseTemplate = (filename, fileContent) => {
 
     //Sanitize Input
     for (var i = 0; i < contentVars.length; i++) {
-      contentVars[i] = contentVars[i].match(/{{(.*)}}/)[1];
+      contentVars[i] = contentVars[i].match(/{{{(.*)}}}/)[1];
     }
 
     var finalContentVars = {};
@@ -289,7 +289,7 @@ readTemplates.parseTemplate = (filename, fileContent) => {
 
     return {
       result: res,
-      remains: contentVars,
+      remains: contentVars
     };
 
   }
