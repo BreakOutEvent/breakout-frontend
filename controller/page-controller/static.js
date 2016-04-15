@@ -6,8 +6,7 @@ const fileSystem = requireLocal('services/file-system');
 const express = require('express');
 const Page = mongoose.model('page', requireLocal('schemas/page.js'));
 const team = requireLocal('controller/page-controller/team');
-
-const router = express.Router();
+const co = require('co');
 
 module.exports.prerendered = (req, res, next) => {
   const fullFilePath = fileSystem
@@ -18,21 +17,10 @@ module.exports.prerendered = (req, res, next) => {
     next();
 };
 
-module.exports.live = (req, res, next) => {
-  Page
-    .where('properties.url')
-    .equals(req.params.path)
-    .where('properties.language')
-    .equals(req.params.language)
-    .exec((err, docs) => {
-      if (err) {
-        next(err);
-      } else if (docs.length > 0) {
-        renderer.renderPage(docs[0]._id, (html, language) =>
-          language === req.params.language && res.send(html)
-        );
-      } else {
-        next();
-      }
-    });
-};
+module.exports.live = (req, res, next) => co(function*() {
+  const page = yield renderer.renderPageByURL(req.params.language, req.params.path);
+  if (page) {
+    return res.send(page);
+  }
+  next();
+}).catch(ex => next(ex.stack));

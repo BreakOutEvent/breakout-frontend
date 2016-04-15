@@ -65,7 +65,8 @@
     "webpack": "^1.12.14"
   },
   "jscsConfig": {
-    "validateLineBreaks": null,
-    "requireTrailingComma": false
+    "validateLineBreaks": false,
+    "requireTrailingComma": false,
+    "requireSpacesInAnonymousFunctionExpression": false
   }
 }
