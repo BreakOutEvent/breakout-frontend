@@ -1,26 +1,23 @@
 'use strict';
 
-const mongoose = requireLocal('controller/mongo');
 const renderer = requireLocal('services/renderer');
 const fileSystem = requireLocal('services/file-system');
-const express = require('express');
-const Page = mongoose.model('page', requireLocal('schemas/page.js'));
 const team = requireLocal('controller/page-controller/team');
 const co = require('co');
+const fs = require('co-fs-extra');
 
-module.exports.prerendered = (req, res, next) => {
-  const fullFilePath = fileSystem
-    .buildRenderedFilePath(req.params.language, req.params.path + '.html');
-  if (fileSystem.exists(fullFilePath))
+module.exports.live = (language, path, res, next) => co(function*() {
+  // We don't have to catch anything here, if page is null (can happen, mongo returns null instead
+  // of throwing if nothing was found) we enter the .catch-block at the end of our co-block here.
+  res.send(yield renderer.renderPageByURL(language, path));
+}).catch(ex => next(ex));
+
+module.exports.prerendered = (language, path, res, next) => co(function*() {
+  // Here we "catch" non-existent files to avoid 500 error codes when we really have a 404.
+  const fullFilePath = fileSystem.buildRenderedPath(language, path);
+  if (yield fs.exists(fullFilePath)) {
     res.sendFile(fullFilePath);
-  else
+  } else {
     next();
-};
-
-module.exports.live = (req, res, next) => co(function*() {
-  const page = yield renderer.renderPageByURL(req.params.language, req.params.path);
-  if (page) {
-    return res.send(page);
   }
-  next();
-}).catch(ex => next(ex.stack));
+}).catch(ex => next(ex));

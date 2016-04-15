@@ -19,7 +19,8 @@
   width: 100%;
   transition: 0.2s ease;
   overflow: hidden;
-  &:hover, &:focus  {
+  &:hover,
+  &:focus {
     max-height: 80px;
   }
 }

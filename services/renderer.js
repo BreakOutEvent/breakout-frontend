@@ -10,8 +10,13 @@ const co = require('co');
 const Page = mongoose.model('page', requireLocal('schemas/page.js'));
 
 //Define empty object
-let renderer = {};
+const renderer = {};
 
+/**
+ * Returns all requirements uniquely from a page.
+ * @param page Page doc from the database.
+ * @returns {Array<String>}
+ */
 function getRequirements(page) {
   return _.uniq(
     page.views.reduce((initial, curr) => {
@@ -21,6 +26,12 @@ function getRequirements(page) {
   );
 }
 
+/**
+ * Returns all views for a page in one specific language concatenated in one string.
+ * @param page
+ * @param language
+ * @returns {Promise.<T>}
+ */
 function getViewsHTML(page, language) {
   /**
    * Searches for the localized language string, and falls back to german if nothing is found.
@@ -29,10 +40,10 @@ function getViewsHTML(page, language) {
    * @returns {*}
    */
   function getVariables(view, language) {
-    return view.variables.reduce((initial, curr) => {
+    return view.variables.reduce((init, curr) => {
       const lang = curr.values.find(e => e.language === language) ? language : 'de';
-      initial[curr.name] = (curr.values.find(e => e.language === lang) || { value: 'Default' }).value;
-      return initial;
+      init[curr.name] = (curr.values.find(e => e.language === lang) || { value: 'Default' }).value;
+      return init;
     }, {});
   }
 
@@ -40,15 +51,15 @@ function getViewsHTML(page, language) {
     const templates = [];
     for (let curr of page.views) {
       templates.push(
-        yield HBS.render(fileSystem.buildTemplateFilePath('templates', curr.templateName),
+        yield HBS.render(fileSystem.buildTemplatePath(curr.templateName),
           getVariables(curr, language))
       );
     }
 
-    // Render each view on the page with the current language
-    return templates.reduce((initial, curr) => initial + curr, '');
+    // Simply add all rendered views together into on single string
+    return templates.reduce((init, curr) => init + curr, '');
   }).catch(ex => {
-    console.error(ex);
+    throw ex;
   });
 }
 
@@ -56,6 +67,7 @@ renderer.renderPageByURL = (language, url) => co(function*() {
   const page = yield Page
     .findOne({
       properties: {
+        // Only finds objects with exactly these attributes
         $elemMatch: {
           language: language,
           url: url
@@ -65,11 +77,11 @@ renderer.renderPageByURL = (language, url) => co(function*() {
     .populate('views')
     .exec();
 
-  if (!page) throw new Error('No page');
+  if (!page) throw new Error(`No page found by /${language}/${url}`);
 
   const pageProp = (page.properties = _.filter(page.properties, p => p.language === language))[0];
 
-  return yield HBS.render(fileSystem.buildTemplateFilePath('layouts', 'master'),
+  return yield HBS.render(fileSystem.buildMasterTemplatePath(),
     {
       content: yield getViewsHTML(page, language),
       requirements: getRequirements(page),
@@ -82,6 +94,12 @@ renderer.renderPageByURL = (language, url) => co(function*() {
   throw ex;
 });
 
+/**
+ * Renders one single page by pageID (Mongo ID) and returns an array of Objects of the form
+ * {html, language, filename} per available language.
+ * @param pageID
+ * @returns {Array<{html,language,filename}>}
+ */
 renderer.renderPageByID = pageID => co(function*() {
   const page = yield Page
     .findOne({
@@ -94,10 +112,10 @@ renderer.renderPageByID = pageID => co(function*() {
 
   const requirements = getRequirements(page);
 
-  var retVals = [];
+  var renderedPages = [];
   for (let currProp of page.properties) {
-    retVals.push({
-      html: yield HBS.render(fileSystem.buildTemplateFilePath('layouts', 'master'),
+    renderedPages.push({
+      html: yield HBS.render(fileSystem.buildMasterTemplatePath(),
         {
           content: yield getViewsHTML(page, currProp.language),
           requirements: requirements,
@@ -106,10 +124,11 @@ renderer.renderPageByID = pageID => co(function*() {
         }
       ),
       language: currProp.language,
-      fileName: currProp.url + '.html'
+      filename: currProp.url
     });
   }
 
+  return renderedPages;
 }).catch(ex => {
   throw ex;
 });
@@ -118,9 +137,19 @@ renderer.renderPageByID = pageID => co(function*() {
  * Renders and saves the supplied page to /rendered in all available languages.
  * @param pageID
  */
-renderer.renderAndSavePage = pageID =>
-  renderer.renderPage(pageID, (html, language, filename) =>
-    fileSystem.writeRenderedFile(language, filename, html)
-  );
+renderer.renderAndSavePageByID = pageID => co(function*() {
+  for (const page of yield renderer.renderPageByID(pageID)) {
+    yield fileSystem.writeRenderedFile(page.language, page.filename, page.html);
+  }
+}).catch(ex => {
+  throw ex;
+});
+
+renderer.renderAndSavePageByURL = (language, url) => co(function*() {
+  const filePath = fileSystem.buildRenderedPath(language, url);
+  return fs.writeFile(filePath, yield renderer.renderPageByURL(language, url));
+}).catch(ex => {
+  throw ex;
+});
 
 module.exports = renderer;

@@ -4,54 +4,79 @@
  * @type {exports|module.exports}
  */
 
-const fs = require('fs');
+const fs = require('co-fs-extra');
 const path = require('path');
-const Maybe = require('maybe');
+const co = require('co');
 
-var rc = {};
-
-/**
- * Enum for available local files.
- */
-const FileType = new Enum(['Template', 'Rendered']);
+const rc = {};
 
 /**
- * Reads the file contents if it exists.
- * @param folder Folder from /
- * @param file File from /$folder/
- * @param fileType Available local files (-> FileType Enum)
- * @returns {Maybe} File content or Maybe.Nothing
+ * Returns the full absolute path to /rendered/${lang}/${filename}.html
+ * @param lang
+ * @param filename
  */
-function readFile(folder, file, fileType) {
-  // Register all available File Path builder
-  const pathBuilder = {
-    [FileType.Template]: rc.buildTemplateFilePath,
-    [FileType.Rendered]: rc.buildRenderedFilePath,
-  };
-
-  // Build full path to every file
-  const fullPath = pathBuilder[fileType](folder, file);
-  if (rc.exists(fullPath))
-    return Maybe(fs.readFileSync(fullPath, 'utf8'));
-  return Maybe();
-}
+rc.buildRenderedPath = (lang, filename) =>
+  path.join(ROOT, 'rendered', lang, filename + '.html');
 
 /**
- * Checks if a file exists and can be read from and written to.
- * Calls the callback with an error instance, if anything went wrong.
- * @param file File to check
- * @returns boolean True if file exists, false if it doesn't (or we can't access it)
+ * Builds the full absolute path to /views/templates/${filename}.handlebars
+ * @param filename
  */
-rc.exists =
-  file => {
-    try {
-      fs.accessSync(file, fs.R_OK | fs.W_OK);
-      return true;
-    }
-    catch (err) {
-      return false;
-    }
-  };
+rc.buildTemplatePath = filename =>
+  path.join(ROOT, 'views', 'templates', filename + '.handlebars');
+
+/**
+ * Builds the full absolute path to /views/layouts/master.handlebars.
+ */
+rc.buildMasterTemplatePath = () =>
+  path.join(ROOT, 'views', 'layouts', 'master.handlebars');
+
+/**
+ * Reads the raw html content from /rendered/${lang}/${filename}.html
+ * @param lang
+ * @param filename
+ */
+rc.readRenderedFile = (lang, filename) => co(function*() {
+  return yield fs.readFile(rc.buildRenderedPath(lang, filename), 'utf8');
+}).catch(ex => {
+  throw ex;
+});
+
+/**
+ * Reads a template file from /templates/${folder}
+ * @param filename
+ */
+rc.readTemplateFile = filename => co(function*() {
+  return yield fs.readFile(rc.buildTemplatePath(filename), 'utf8');
+}).catch(ex => {
+  throw ex;
+});
+
+/**
+ * Returns the raw contents of the master.handlebars template file in /views/layouts/.
+ */
+rc.readMasterTemplateFile = () => co(function*() {
+  return yield fs.readFile(rc.buildMasterTemplatePath(), 'utf8');
+}).catch(ex => {
+  throw ex;
+});
+
+/**
+ * Writes the contents in data into folder/file.
+ * @param lang
+ * @param filename
+ * @param data
+ */
+rc.writeRenderedFile = (lang, filename, data) => co(function*() {
+  const fullPath = rc.buildRenderedPath(lang, filename);
+  if (yield fs.exists(fullPath))
+    yield fs.rename(fullPath,
+      fullPath + '_' + (yield rc.getFileTimeStamp(lang, filename))
+    );
+  yield fs.writeFile(fullPath, data);
+}).catch(ex => {
+  throw ex;
+});
 
 /**
  * Get stringified timestamp, using only numeric timestamp to stay alphanumeric
@@ -59,64 +84,8 @@ rc.exists =
  * @param file
  * @returns number
  */
-rc.getFileTimeStamp =
-  (folder, file) => fs.statSync(this.buildRenderedFilePath(folder, file)).mtime.getTime();
-
-/**
- * Writes the contents in data into folder/file.
- * @param folder
- * @param file
- * @param data
- */
-rc.writeRenderedFile =
-  (folder, file, data) => {
-    const fullPath = rc.buildRenderedFilePath(folder, file);
-    if (rc.exists(fullPath))
-      fs.renameSync(fullPath,
-        rc.buildRenderedFilePath(folder, file + '_' + rc.getFileTimeStamp(folder, file))
-      );
-    fs.writeFileSync(fullPath, data);
-  };
-
-/**
- * Reads the file $folder/$file and returns its contents,
- * if it doesn't exist the return value is Maybe.Nothing
- * @param folder
- * @param file
- * @returns Maybe(String)
- */
-rc.readRenderedFile =
-  (folder, file) => readFile(folder, file, FileType.Rendered);
-
-/**
- * Reads a template file from /templates/$folder
- * @param file
- */
-rc.readTemplateFile =
-  file => readFile('templates', file, FileType.Template);
-
-/**
- * Reads the master template file, e.g. the main layout.
- */
-rc.readMasterTemplate =
-  () => readFile('layouts', 'master', FileType.Template);
-
-/**
- * Simply joins the rendered-path, folder and file together
- * @param folder
- * @param file
- * @returns String
- */
-rc.buildRenderedFilePath =
-  (folder, file) => path.join(__dirname, '../rendered', folder, file);
-
-/**
- * Look at buildRenderedFilePath.
- * @param folder
- * @param file
- * @returns String
- */
-rc.buildTemplateFilePath =
-  (folder, file) => path.join(__dirname, '../views', folder, file + '.handlebars');
+rc.getFileTimeStamp = (folder, file) => co(function*() {
+  return (yield fs.stat(rc.buildRenderedPath(folder, file))).mtime.getTime();
+});
 
 module.exports = rc;

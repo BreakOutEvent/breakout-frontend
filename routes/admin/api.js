@@ -83,8 +83,8 @@ router.get('/css', (req, res) =>
 
 router.get('/html/:name', (req, res) =>
   req.params.name === 'master' ?
-    serveFile(fileSystem.buildTemplateFilePath('', 'master'), res) :
-    serveFile(fileSystem.buildTemplateFilePath('templates', req.params.name), res)
+    serveFile(fileSystem.buildMasterTemplatePath(), res) :
+    serveFile(fileSystem.buildTemplatePath(req.params.name), res)
 );
 
 router.get('/:model' + allowedModels, (req, res) =>
@@ -100,7 +100,7 @@ router.get('/:model' + allowedModels + '/:id', (req, res) =>
 );
 
 router.get('/render/:pageid', (req, res) => {
-  renderer.renderAndSavePage(req.params.pageid);
+  renderer.renderAndSavePageByID(req.params.pageid);
   res.json({
     status: 'ok',
   });
