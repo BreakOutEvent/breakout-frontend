@@ -1,9 +1,11 @@
 /**
  * Created by l.heddendorp on 13.03.2016.
  */
-theme.$inject = ['$mdThemingProvider'];
-export default function theme($mdThemingProvider) {
+export default function theme($mdThemingProvider, $mdIconProvider) {
+  'ngInject';
+  $mdIconProvider
+    .iconSet('icons', 'admin/cms/icons.svg');
   $mdThemingProvider.theme('default')
     .primaryPalette('deep-orange')
-    .accentPalette('blue-grey')
+    .accentPalette('blue-grey');
 }

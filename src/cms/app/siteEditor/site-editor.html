@@ -12,17 +12,17 @@
         </md-input-container>
         <span flex></span>
         <md-button ng-click="edit.save($event)" class="md-icon-button" aria-label="Speichern">
-            <md-icon>save</md-icon>
+            <md-icon md-svg-icon="icons:save"></md-icon>
         </md-button>
         <md-button ng-click="edit.siteSettings($event)" class="md-icon-button" aria-label="Settings">
-            <md-icon>settings</md-icon>
+            <md-icon md-svg-icon="icons:settings"></md-icon>
         </md-button>
         {{edit.locals}}
         <md-button ng-href="{{edit.getUrl()}}" target="_blank">
             preview
         </md-button>
         <md-button ng-click="edit.remove()" class="md-icon-button" aria-label="Delete">
-            <md-icon>delete</md-icon>
+            <md-icon md-svg-icon="icons:delete"></md-icon>
         </md-button>
     </div>
 </md-toolbar>
@@ -42,7 +42,7 @@
                 <span class="md-headline">{{view.view.templateName}}</span>
                 <span flex></span>
                 <md-button class="md-icon-button" ng-click="edit.deleteView($index)">
-                    <md-icon>delete</md-icon>
+                    <md-icon md-svg-icon="icons:delete"></md-icon>
                 </md-button>
             </div>
             <bo-preview dnd-nodrag template="view.html" data="view.view" locale="edit.props">
