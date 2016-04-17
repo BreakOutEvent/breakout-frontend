@@ -59,6 +59,33 @@ let editableModule = angular.module('bo.siteEditor.editable', [])
       }
     };
   })
+  .directive('boLink', function ($mdDialog) {
+    'ngInject';
+    return {
+      restrict: 'A',
+      scope: {
+        url: '=boLink'
+      },
+      link: (scope, element, attr) => {
+        element.on('click', (ev) => {
+          console.log('Clicked');
+          ev.stopPropagation();
+          var confirm = $mdDialog.prompt()
+            .title('Wohin soll dieser Link führen?')
+            .textContent('Bitte url eingeben.')
+            .placeholder('url')
+            .ariaLabel('url')
+            .targetEvent(ev)
+            .ok('Speichern')
+            .cancel('Abbrechen');
+          $mdDialog.show(confirm).then(function(result) {
+            scope.url = result;
+          }, function() {
+          });
+        })
+      }
+    };
+  })
   .filter('to_trusted', ['$sce', function($sce){
     return function(text) {
       return $sce.trustAsHtml(text);

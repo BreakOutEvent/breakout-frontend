@@ -39,6 +39,9 @@ function preview($compile, $timeout) {
           return 'ng-src={{data.variables[context["' + bound.replace(/src="{{{|}}}"/g, '') + '"]].values[locale].value}}' +
             ' bo-image=data.variables[context["' + bound.replace(/src="{{{|}}}"/g, '') + '"]].values[locale].value';
         });
+        modified = modified.replace(/href="{{{[A-z|0-9]*}}}"/g, (bound) => {
+          return 'bo-link=data.variables[context["' + bound.replace(/src="{{{|}}}"/g, '') + '"]].values[locale].value';
+        });
         console.log(modified);
         modified = modified.replace(/{{{(#each )?(\/)?(#if )?[A-z|0-9]*}}}/g, (bound) => {
           if (bound.indexOf('#each') != -1 || bound.indexOf('#if') != -1) {
