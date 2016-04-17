@@ -18,7 +18,6 @@ throng(id => {
   const express = require('express');
   const exphbs = require('express-handlebars');
   const bodyparser = require('body-parser');
-  require('enum').register();
 
   requireLocal('controller/mongo.js').con();
   const passport = requireLocal('controller/auth.js');
