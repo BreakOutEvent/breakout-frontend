@@ -35,8 +35,12 @@ function preview($compile, $timeout) {
 
       function rebind() {
         let modified = scope.template.replace(/{{!--((?:\n|\r|.)*)--}}/g, '');
-        //console.info(modified)
-        modified = modified.replace(/{{(#each )?(\/)?(#if )?[A-z|0-9]*}}/g, (bound) => {
+        modified = modified.replace(/src="{{{[A-z|0-9]*}}}"/g, (bound) => {
+          return 'ng-src={{data.variables[context["' + bound.replace(/src="{{{|}}}"/g, '') + '"]].values[locale].value}}' +
+            ' bo-image=data.variables[context["' + bound.replace(/src="{{{|}}}"/g, '') + '"]].values[locale].value';
+        });
+        console.log(modified);
+        modified = modified.replace(/{{{(#each )?(\/)?(#if )?[A-z|0-9]*}}}/g, (bound) => {
           if (bound.indexOf('#each') != -1 || bound.indexOf('#if') != -1) {
             return ''
           }
@@ -46,12 +50,9 @@ function preview($compile, $timeout) {
           if (bound.indexOf('@first') != -1) {
             return '{{$first}}';
           }
-          return '<bo-editable field=data.variables[context["' + bound.replace(/{{|}}/g, '') + '"]].values[locale].value></bo-editable>'
+          return '<bo-editable field=data.variables[context["' + bound.replace(/{{{|}}}/g, '') + '"]].values[locale].value></bo-editable>'
         });
         let elem = $compile(modified)(scope);
-        //console.info('REPLACING HTML CONTENTS')
-        //console.info(scope.template)
-        //console.info(elem)
         iElement.children().replaceWith(elem)
       }
     }
