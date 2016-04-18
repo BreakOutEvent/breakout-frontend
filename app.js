@@ -47,10 +47,10 @@ throng(id => {
   app.use(require('express-session')({
     secret: config.secret,
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: false
   }));
   app.use(bodyparser.urlencoded({
-    extended: true,
+    extended: true
   }));
   app.use(bodyparser.json());
   app.use(require('cookie-parser')());
@@ -64,8 +64,8 @@ throng(id => {
   // Sets routes
   app.use('/', require('./routes/main'));
   app.use('/', require('./routes/dynamic'));
-  app.use('/admin', require('./routes/admin'));
-  app.use('/api', require('./routes/api'));
+  app.use('/admin', require('./routes/admin/admin'));
+  app.use('/api', require('./routes/admin/api'));
 
   var server = app.listen(3000, () => {
     var host = server.address().address;
@@ -78,7 +78,7 @@ throng(id => {
     res.status(404);
     res.render('error', {
       code: 404,
-      message: req.url + ' could not be found on this server',
+      message: req.url + ' could not be found on this server'
     });
   });
 
@@ -89,13 +89,13 @@ throng(id => {
     if (process.env.NODE_ENV === 'production') {
       res.render('error', {
         code: err.status,
-        message: 'Internal Server error',
+        message: 'Internal Server error'
       });
     } else {
       res.render('error', {
         code: err.status,
         message: err.message,
-        error: err,
+        error: err
       });
     }
   });
