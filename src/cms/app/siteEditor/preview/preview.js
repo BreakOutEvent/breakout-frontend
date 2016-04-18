@@ -36,8 +36,10 @@ function preview($compile, $timeout) {
       function rebind() {
         let modified = scope.template.replace(/{{!--((?:\n|\r|.)*)--}}/g, '');
         modified = modified.replace(/src="{{{[A-z|0-9]*}}}"/g, (bound) => {
-          return 'ng-src={{data.variables[context["' + bound.replace(/src="{{{|}}}"/g, '') + '"]].values[locale].value}}' +
-            ' bo-image=data.variables[context["' + bound.replace(/src="{{{|}}}"/g, '') + '"]].values[locale].value';
+          let dataString = 'data.variables[context[\'' + bound.replace(/src="{{{|}}}"/g, '') + '\']].values[locale].value';
+          return 'ng-src="{{ ' + dataString + ' == \'defaultValue\' ? \'admin/cms/add-image.svg\' : ' + dataString + ' || \'admin/cms/add-image.svg\'}}"' +
+            ' bo-image=data.variables[context["' + bound.replace(/src="{{{|}}}"/g, '') + '"]].values[locale].value' +
+            ' style="min-width: 50%; margin: auto;"';
         });
         modified = modified.replace(/href="{{{[A-z|0-9]*}}}"/g, (bound) => {
           return 'bo-link=data.variables[context["' + bound.replace(/src="{{{|}}}"/g, '') + '"]].values[locale].value';
