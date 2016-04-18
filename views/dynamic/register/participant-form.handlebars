@@ -1,0 +1,111 @@
+<div class="registration-body">
+    <div class="container">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 registration-box-border">
+            <div class="row registration-margin">
+                <div class="col-md-6">
+                    <img class="bo-modal-logo" alt="BreakOut" src="/img/logos/BreakOut-Logo_Header.svg">
+                </div>
+                <div class="col-md-6">
+                    <div class="media-middle registration-picture ">
+
+                        <i class="material-icons registration-picture-icon">camera_alt</i>
+                    </div>
+                </div>
+            </div>
+            <form method="post" action="/participant" id="registrationForm">
+                <div class="registration-margin">
+                    <div class="row">
+                        <div class="col-md-6 col-md-push-6">
+                            <label>Geschlecht</label>
+                            <div class="btn-group col-xs-12 text-center">
+                                <input type="button" class="btn btn-default" name="gender" value="male" id="male">
+                                <input type="button" class="btn btn-default" name="gender" value="female" id="female">
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-md-pull-6">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <div class="form-group has-feedback has-feedback-left">
+                                    <label for="firstname">Vorname</label>
+                                    <input type="text" class="form-control" name="firstname" id="firstname"
+                                           placeholder="Maxi">
+                                    <i class="form-control-feedback material-icons">perm_identity</i>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="lastname">Nachname</label>
+                                <input type="text" class="form-control" id="lastname" name="lastname"
+                                       placeholder="Muster">
+                                <i class="form-control-feedback material-icons">perm_identity</i>
+
+                            </div>
+                        </div>
+                        <!-- todo: change icon, style select-->
+                        <div class="col-md-6 ">
+                            <div class="form-group has-feedback-left has-feedback">
+                                    <label for="size">T-Shirt Größe</label>
+                                    <select name="size" id="size" class="form-control">
+                                        <option disabled selected>T-Shirt Größe</option>
+                                        <option value="xs">XS</option>
+                                        <option value="s">S</option>
+                                        <option value="m">M</option>
+                                        <option value="l">L</option>
+                                        <option value="xl">XL</option>
+                                        <option value="xxl">XXL</option>
+                                    </select>
+                                <i class="material-icons form-control-feedback">contact_phone</i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="phone">Handynummer</label>
+                                <input type="text" class="form-control" id="phone" name="phone"
+                                       placeholder="+49 123 456789">
+                                <i class="form-control-feedback material-icons">phone</i>
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="emergency_phone">Notfallnummer</label>
+                                <input type="text" class="form-control" id="emergency_phone" name="emergency_phone"
+                                       placeholder="+49 123 456789">
+                                <i class="form-control-feedback material-icons">contact_phone</i>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-12 registration-margin">
+                        <input type="checkbox" id="terms_accepted" required="required"/>
+                        <label for="terms_accepted">Hiermit akzeptiere ich die <a>Allgemeinen Geschäftsbedingungen.</a></label>
+                    </div>
+
+                    <div class="registration-margin">
+                        <button type="submit" id="register" class="btn btn-primary btn-block">KOSTENPFLICHTIG TEILNEHMEN
+                        </button>
+
+                    </div>
+                    <div class="registration-margin">
+                        Durch Klicken des Teilnehmen Buttons registriere ich mich verbindlich den Event Beitrag in Höhe
+                        von
+                        30,00€ bis 31.05.2016 zu zahlen.
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

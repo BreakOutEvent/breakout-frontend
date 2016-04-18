@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 
-const registration = require('../controller/page-controller/registration');
+const registration = requireLocal('controller/page-controller/registration');
 
 const isAuth = (req, res, next) => {
   if(req.isAuthenticated)
@@ -17,6 +17,16 @@ router.get('/participant', (req, res) =>
     {
       path: '/admin',
       error: req.flash('error')
+    }
+  )
+);
+
+router.get('/register', (req, res) =>
+  res.render('dynamic/register/participant-form',
+    {
+      error: req.flash('error'),
+      layout: 'funnel',
+      language: 'de'
     }
   )
 );
