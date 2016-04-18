@@ -62,9 +62,10 @@ throng(id => {
   app.use(passport.session());
 
   // Sets routes
-  app.use('/', requireLocal('routes/main'));
-  app.use('/admin', requireLocal('routes/admin/admin'));
-  app.use('/admin/api', requireLocal('routes/admin/api'));
+  app.use('/', require('./routes/main'));
+  app.use('/', require('./routes/dynamic'));
+  app.use('/admin', require('./routes/admin'));
+  app.use('/api', require('./routes/api'));
 
   var server = app.listen(3000, () => {
     var host = server.address().address;

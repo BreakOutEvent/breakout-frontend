@@ -6,7 +6,7 @@ const config = {
   clientID: process.env.FRONTEND_API_CLIENTID,
   clientSecret: process.env.FRONTEND_API_CLIENTSECRET,
   URL: process.env.FRONTEND_API_URL,
-  protocol: 'https',
+  protocol: 'https'
 };
 
 const url = `${config.protocol}://${config.URL}`;
@@ -28,12 +28,12 @@ API.authenticate = (username, password) =>
           client_secret: config.clientSecret,
           username: username,
           password: password,
-          grant_type: 'password',
+          grant_type: 'password'
         },
         auth: {
           user: config.clientID,
-          pass: config.clientSecret,
-        },
+          pass: config.clientSecret
+        }
       }, handleResponse(resolve, reject))
   );
 
@@ -42,7 +42,7 @@ API.getCurrentUser = token =>
     request
       .get({
         url: `${url}/me/`,
-        auth: { bearer: token.access_token },
+        auth: {bearer: token.access_token}
       }, handleResponse(resolve, reject))
   );
 
@@ -51,7 +51,7 @@ API.getModel = (modelName, token, id) =>
     request
       .get({
         url: `${url}/${modelName}/${(id || '')}`,
-        auth: { bearer: token.access_token },
+        auth: {bearer: token.access_token}
       }, handleResponse(resolve, reject))
   );
 
@@ -60,24 +60,24 @@ API.postModel = (modelName, token, body) =>
     request
       .post({
         url: `${url}/${modelName}`,
-        auth: { bearer: token.access_token },
+        auth: {bearer: token.access_token},
         body: JSON.stringify(body),
-        headers: { 'content-type': 'application/json' },
+        headers: {'content-type': 'application/json'}
       }, handleResponse(resolve, reject))
   );
 
-API.putModel = function (modelName, id, token, body) {
+API.putModel = (modelName, id, token, body) => {
   return new Promise(function (resolve, reject) {
     if (!id) {
-      reject({ error_description: 'No ID specified' });
+      reject({error_description: 'No ID specified'});
       return;
     }
-
+    console.log(body, token);
     request
-      .post({
-        url: `${url}/${modelName}/${(id)}`,
-        auth: { bearer: token.access_token },
-        body: JSON.stringify(body),
+      .put({
+        url: `${url}/${modelName}/${(id)}/`,
+        auth: {bearer: token.access_token},
+        body: JSON.stringify(body)
       }, handleResponse(resolve, reject));
   });
 };
@@ -85,14 +85,14 @@ API.putModel = function (modelName, id, token, body) {
 API.delModel = function (modelName, token, id) {
   return new Promise(function (resolve, reject) {
     if (!id) {
-      reject({ error_message: 'No ID specified' });
+      reject({error_message: 'No ID specified'});
       return;
     }
 
     request
       .del({
         url: `${url}/${modelName}/${id}`,
-        auth: { bearer: token.access_token },
+        auth: {bearer: token.access_token}
       }, handleResponse(resolve, reject));
   });
 };
@@ -104,10 +104,10 @@ API.createUser = function (email, password) {
         url: `${url}/user/`,
         auth: {
           user: config.clientID,
-          pass: config.clientSecret,
+          pass: config.clientSecret
         },
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ email: email, password: password }),
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify({email, password})
       }, handleResponse(resolve, reject));
   });
 };

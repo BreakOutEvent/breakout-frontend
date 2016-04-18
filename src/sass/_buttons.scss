@@ -1,3 +1,16 @@
 .btn-block + .btn-block {
   margin-top: 10px;
 }
+
+.btn,
+.btn-primary,
+.btn-default {
+  &.active,
+  &:active,
+  &.hover,
+  &:hover,
+  &.focus,
+  &:focus {
+    outline: none;
+  }
+}

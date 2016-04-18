@@ -8,13 +8,14 @@ var TokenSchema = new mongoose.Schema({
   refresh_token: String,
   expires_in: Number,
   scope: String,
+  user: {}
 });
 
 TokenSchema.statics.findById = function (id) {
   var tokenSchema = this;
 
   return new Promise(function (resolve, reject) {
-    tokenSchema.findOne({ _id: id }, function (err, token) {
+    tokenSchema.findOne({'_id': id}, function (err, token) {
       if (err) {
         throw err;
       }
