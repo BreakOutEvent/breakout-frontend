@@ -22,6 +22,15 @@ router.get('/register', (req, res) =>
   )
 );
 
+router.get('/selection', (req, res) =>
+  res.render('dynamic/register/selection',
+    {
+      error: req.flash('error'),
+      layout: 'funnel',
+      language: 'de'
+    }
+  )
+);
 
 router.get('/participant', (req, res) =>
   res.render('dynamic/register/participant-form',

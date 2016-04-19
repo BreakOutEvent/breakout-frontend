@@ -55,11 +55,9 @@
   margin-top: 10px;
 }
 
-
-
 .bo-reg-buttons {
   &:active, &:hover, &:focus {
-    outline:none;
+    outline: none;
     border-color: #f7931d;
   }
 }
@@ -70,4 +68,26 @@
 
 .bo-reg-form-error {
   border-color: red;
+}
+
+.no-underline {
+  color: #404041;
+  &:hover, &:active, &:focus {
+    color: #404041;
+    text-decoration: none;
+  }
+}
+
+.bo-reg-well-selection {
+  border: 1px solid #f7931d;
+  background: #fff;
+  border-radius: 20px;
+  padding: 10px 20px;
+  margin-bottom: 15px;
+
+  &:hover {
+    cursor: pointer;
+    background: #EEEEEE;
+
+  }
 }
