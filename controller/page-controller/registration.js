@@ -7,11 +7,15 @@ const URLS = {
   PARTICIPANT: '/participant',
   SPONSOR: '/sponsor',
   SELECTION: '/selection',
-  TEAM: '/team'
+  TEAM: '/team',
+  INVITE: '/invitelist'
 };
 
-
 let reg = {};
+
+const sendErr = (req, res, errMsg) => {
+  res.status(500).send({error: errMsg})
+};
 
 reg.createUser = (req, res) => {
   return new Promise((resolve, reject) =>
@@ -29,11 +33,7 @@ reg.createUser = (req, res) => {
 };
 
 reg.createParticipant = (req, res) => {
-  const sendErr = (req, res, errMsg) => {
-    res.status(500).send({error: errMsg})
-  };
-
-  if (!req.body) sendErr(req, res, 'The server did not receive any data');
+  if (!req.body) sendErr(req, res, 'The server did not receive any data.');
 
   let updateBody = {
     firstname: req.body.firstname,
@@ -68,9 +68,45 @@ reg.createParticipant = (req, res) => {
       console.log(err);
       sendErr(req, res, err.error);
     });
+};
 
+reg.getInvites = (req) => {
+  return new Promise((resolve, reject) => {
+    session.getUserInfo(req)
+      .then(user => {
+        console.log(user);
+        api.getModel('event', req.user)
+          .then(events => {
+            console.log(events);
+            if (!events.length) {
+              resolve([]);
+            } else {
+              //TODO query each event with loop
+              api.getModel(`/event/0/team/invitation/`, req.user)
+                .then(invites_0 => {
+                  api.getModel(`/event/1/team/invitation/`, req.user)
+                    .then(invites_1 => {
+                      resolve(invites_0.concat(invites_1));
+                    })
+                })
+            }
+          })
+          .catch(err => {
+            console.log(err);
+            reject(err);
+          });
+      })
+      .catch(err => {
+        console.log(err);
+        reject(err);
+      })
+  });
+};
+
+reg.joinTeam = (req, res) => {
 
 };
+
 
 reg.createSponsor = (req, res) => {
   //@TODO IMPLEMENT

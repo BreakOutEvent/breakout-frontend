@@ -46,6 +46,7 @@ API.getCurrentUser = token =>
       }, handleResponse(resolve, reject))
   );
 
+
 API.getModel = (modelName, token, id) =>
   new Promise((resolve, reject)=>
     request
