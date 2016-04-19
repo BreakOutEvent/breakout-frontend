@@ -17,7 +17,6 @@
     <link href="/css/styles.css" rel="stylesheet">
     <link rel="alternate" type="application/rss+xml" title="BreakOut &raquo; Feed"
           href="http://break-out.org/feed/"/>
-    <script type="text/javascript" src="/js/bundle.js" defer></script>
 
     {{#each requirements}}
         <script type="text/javascript" src="/js/{{this}}.js" defer></script>
@@ -92,6 +91,6 @@
 {{{body}}}
 
 {{> (concat 'footer_' (lookup . 'language')) }}
-
+<script type="text/javascript" src="/js/bundle.js" defer></script>
 </body>
 </html>

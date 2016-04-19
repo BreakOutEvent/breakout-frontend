@@ -3,6 +3,7 @@ const api = require('../api-proxy');
 const session = require('../session');
 
 const URLS = {
+  REGISTER: '/register',
   PARTICIPANT: '/participant',
   SPONSOR: '/sponsor',
   SELECTION: '/selection',
@@ -29,8 +30,7 @@ reg.createUser = (req, res) => {
 
 reg.createParticipant = (req, res) => {
   const sendErr = (req, res, errMsg) => {
-    res.statusCode(500);
-    res.send({error: errMsg})
+    res.status(500).send({error: errMsg})
   };
 
   if (!req.body) sendErr(req, res, 'The server did not receive any data');
@@ -38,13 +38,15 @@ reg.createParticipant = (req, res) => {
   let updateBody = {
     firstname: req.body.firstname,
     lastname: req.body.lastname,
-    //gender: req.body.gender,
+    gender: req.body.gender,
     participant: {
-      emergencynumber: req.body.emergency_phone,
-      phonenumber: req.body.phone,
-      tshirtsize: req.body.size
+      emergencynumber: req.body.emergencynumber,
+      phonenumber: req.body.phonenumber,
+      tshirtsize: req.body.tshirtsize
     }
   };
+
+  console.log(updateBody);
 
   session.getUserInfo(req)
     .then(user => {
@@ -64,7 +66,7 @@ reg.createParticipant = (req, res) => {
     })
     .catch(err => {
       console.log(err);
-      sendErr(req, res, err);
+      sendErr(req, res, err.error);
     });
 
 

@@ -1,12 +1,12 @@
 .registration-body {
   background-image: url('/img/header2.jpg');
-  background-size:cover;
+  background-size: cover;
   width: 100%;
   height: 100%;
   margin: 0;
   position: absolute;
   top: 0;
-  padding-top:5%;
+  padding-top: 5%;
 }
 
 .registration-box-border {
@@ -28,6 +28,10 @@
   width: 100px;
   border: solid 1px grey;
   border-radius: 50px;
+  margin: 0 auto;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .registration-picture-icon {
@@ -38,4 +42,32 @@
 .registration-margin {
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.bo-reg-label {
+  font-size: 14px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.bo-reg-checkbox {
+  margin-top: 10px;
+}
+
+
+
+.bo-reg-buttons {
+  &:active, &:hover, &:focus {
+    outline:none;
+    border-color: #f7931d;
+  }
+}
+
+.bo-reg-selected-button {
+  background: #e6e6e6;
+}
+
+.bo-reg-form-error {
+  border-color: red;
 }

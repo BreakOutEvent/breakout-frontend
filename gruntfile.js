@@ -89,8 +89,6 @@ module.exports = function (grunt) {
       js: {
         files: '<%= files.js %>',
         tasks: [
-          'jsbeautifier',
-          'jshint',
           'browserify',
           'babel'
         ]

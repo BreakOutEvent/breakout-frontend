@@ -77,7 +77,8 @@ API.putModel = (modelName, id, token, body) => {
       .put({
         url: `${url}/${modelName}/${(id)}/`,
         auth: {bearer: token.access_token},
-        body: JSON.stringify(body)
+        body: JSON.stringify(body),
+        headers: {'content-type': 'application/json'}
       }, handleResponse(resolve, reject));
   });
 };

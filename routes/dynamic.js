@@ -12,16 +12,18 @@ const isAuth = (req, res, next) => {
     //res.sendStatus(403);
 };
 
-router.get('/participant', (req, res) =>
-  res.render('admin/login',
+router.get('/register', (req, res) =>
+  res.render('dynamic/register/participant-form',
     {
-      path: '/admin',
-      error: req.flash('error')
+      error: req.flash('error'),
+      layout: 'funnel',
+      language: 'de'
     }
   )
 );
 
-router.get('/register', (req, res) =>
+
+router.get('/participant', (req, res) =>
   res.render('dynamic/register/participant-form',
     {
       error: req.flash('error'),
