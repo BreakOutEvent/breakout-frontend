@@ -7,8 +7,10 @@ const URLS = {
   PARTICIPANT: '/participant',
   SPONSOR: '/sponsor',
   SELECTION: '/selection',
-  TEAM: '/team',
-  INVITE: '/invitelist'
+  TEAM: '/team-create',
+  INVITE: '/team-invite',
+  TEAM_SUCCESS: '/team-success',
+  SPONSOR_SUCCESS: '/sponsor-success'
 };
 
 let reg = {};
@@ -54,7 +56,7 @@ reg.createParticipant = (req, res) => {
         .then(() => {
           session.forceUpdate(req);
           res.send({
-            nextURL: URLS.TEAM
+            nextURL: URLS.INVITE
           });
         })
         .catch((err) => {
@@ -72,24 +74,37 @@ reg.createParticipant = (req, res) => {
 
 reg.getInvites = (req) => {
   return new Promise((resolve, reject) => {
+    reg.getEvents(req)
+      .then(events => {
+        console.log(events);
+        if (!events.length) {
+          resolve([]);
+        } else {
+          //TODO query each event with loop
+          api.getModel(`/event/0/team/invitation/`, req.user)
+            .then(invites_0 => {
+              api.getModel(`/event/1/team/invitation/`, req.user)
+                .then(invites_1 => {
+                  resolve(invites_0.concat(invites_1));
+                })
+            })
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        reject(err);
+      })
+  })
+};
+
+reg.getEvents = (req) => {
+  return new Promise((resolve, reject) => {
     session.getUserInfo(req)
       .then(user => {
         console.log(user);
         api.getModel('event', req.user)
           .then(events => {
-            console.log(events);
-            if (!events.length) {
-              resolve([]);
-            } else {
-              //TODO query each event with loop
-              api.getModel(`/event/0/team/invitation/`, req.user)
-                .then(invites_0 => {
-                  api.getModel(`/event/1/team/invitation/`, req.user)
-                    .then(invites_1 => {
-                      resolve(invites_0.concat(invites_1));
-                    })
-                })
-            }
+            resolve(events);
           })
           .catch(err => {
             console.log(err);
@@ -110,6 +125,26 @@ reg.joinTeam = (req, res) => {
 
 reg.createSponsor = (req, res) => {
   //@TODO IMPLEMENT
+};
+
+reg.createTeam = (req, res) => {
+  api.postModel(`event/${req.body.event}/team/`, req.user, {name: req.body.teamname})
+    .then(team => {
+      api.postModel(`event/${req.body.event}/team/${team.id}/invitation/`, req.user, {email: req.body.email})
+        .then(() => {
+          res.send({
+            nextURL: URLS.TEAM_SUCCESS
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          sendErr(req, res, 'Could not save your data');
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+      sendErr(req, res, 'Could not save your data');
+    });
 };
 
 

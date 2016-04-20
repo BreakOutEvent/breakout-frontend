@@ -37,7 +37,7 @@ router.get('/participant', (req, res) =>
     {
       error: req.flash('error'),
       layout: 'funnel',
-      language: 'de',
+      language: 'de'
     }
   )
 );
@@ -58,7 +58,7 @@ router.get('/invitelist', (req, res) => {
         )
       } else {
         //TODO make dynamic
-        res.redirect('/team');
+        res.redirect('/team-create');
       }
     })
     .catch(err => {
@@ -75,6 +75,32 @@ router.get('/invitelist', (req, res) => {
 
 });
 
+router.get('/team-create', (req, res) => {
+
+  registration.getEvents(req)
+  .then(events => {
+    res.render('dynamic/register/team-create',
+      {
+        layout: 'funnel',
+        lang: req.lang,
+        events: events
+      }
+    )
+  })
+  .catch(err => {
+    res.render('dynamic/register/team-create',
+      {
+        error: err.error,
+        layout: 'funnel',
+        lang: req.lang
+      }
+    )
+  })
+
+
+});
+
 router.post('/participant', isAuth, registration.createParticipant);
+router.post('/team-create', isAuth, registration.createTeam);
 
 module.exports = router;

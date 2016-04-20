@@ -56,7 +56,9 @@
 }
 
 .bo-reg-buttons {
-  &:active, &:hover, &:focus {
+  &:active,
+  &:hover,
+  &:focus {
     outline: none;
     border-color: #f7931d;
   }
@@ -72,7 +74,9 @@
 
 .no-underline {
   color: #404041;
-  &:hover, &:active, &:focus {
+  &:hover,
+  &:active,
+  &:focus {
     color: #404041;
     text-decoration: none;
   }
@@ -84,10 +88,8 @@
   border-radius: 20px;
   padding: 10px 20px;
   margin-bottom: 15px;
-
   &:hover {
     cursor: pointer;
     background: #EEEEEE;
-
   }
 }
