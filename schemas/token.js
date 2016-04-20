@@ -19,7 +19,6 @@ TokenSchema.statics.findById = function (id) {
       if (err) {
         throw err;
       }
-
       if (token) {
         resolve(token);
       } else {

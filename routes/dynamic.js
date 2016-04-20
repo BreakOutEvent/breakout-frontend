@@ -42,9 +42,9 @@ router.get('/participant', (req, res) =>
   )
 );
 
-router.get('/invitelist', (req, res) => {
+router.get('/team-invite', (req, res) => {
 
-  registration.getInvites(req, res)
+  registration.getInvites(req)
     .then(teams => {
       if (teams.length > 0) {
         res.render('dynamic/register/team-invite',
@@ -78,24 +78,24 @@ router.get('/invitelist', (req, res) => {
 router.get('/team-create', (req, res) => {
 
   registration.getEvents(req)
-  .then(events => {
-    res.render('dynamic/register/team-create',
-      {
-        layout: 'funnel',
-        lang: req.lang,
-        events: events
-      }
-    )
-  })
-  .catch(err => {
-    res.render('dynamic/register/team-create',
-      {
-        error: err.error,
-        layout: 'funnel',
-        lang: req.lang
-      }
-    )
-  })
+    .then(events => {
+      res.render('dynamic/register/team-create',
+        {
+          layout: 'funnel',
+          lang: req.lang,
+          events: events
+        }
+      )
+    })
+    .catch(err => {
+      res.render('dynamic/register/team-create',
+        {
+          error: err.error,
+          layout: 'funnel',
+          lang: req.lang
+        }
+      )
+    })
 
 
 });

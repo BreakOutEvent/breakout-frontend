@@ -48,8 +48,6 @@ reg.createParticipant = (req, res) => {
     }
   };
 
-  console.log(updateBody);
-
   session.getUserInfo(req)
     .then(user => {
       api.putModel('user', user.id, req.user, updateBody)
