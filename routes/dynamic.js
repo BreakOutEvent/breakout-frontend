@@ -43,7 +43,7 @@ router.get('/participant', (req, res) =>
   )
 );
 
-router.get('/invitelist', (req, res, next) => co(function*() {
+router.get('/team-invite', (req, res, next) => co(function*() {
   const teams = yield registration.getInvites(req);
 
   if (teams.length > 0) {
