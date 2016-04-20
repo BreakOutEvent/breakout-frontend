@@ -27,7 +27,7 @@ router.get('/selection', (req, res) =>
     {
       error: req.flash('error'),
       layout: 'funnel',
-      language: 'de'
+      lang: req.lang
     }
   )
 );

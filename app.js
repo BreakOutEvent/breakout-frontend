@@ -56,6 +56,9 @@ throng(id => {
   app.use(require('cookie-parser')());
   app.use(require('connect-flash')());
 
+  //Set language header correctly including fallback option.
+  app.use(requireLocal('services/i18n').init);
+
   // Initialize Passport and restore authentication state, if any, from the
   // session.
   app.use(passport.initialize());
