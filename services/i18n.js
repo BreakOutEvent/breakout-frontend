@@ -11,9 +11,14 @@ let i18n = {};
 i18n.init = (req, res, next) => {
   let lang = req.acceptsLanguages();
   if (Array.isArray(lang)) {
-    lang = lang[0].substring(0, 2);
+    req.lang = lang[0].substring(0, 2);
+  } else {
+    req.lang = lang;
   }
-  req.lang = lang ? lang : FALLBACK;
+  if(!lang) {
+    logger.warn('Found no accepted-languages header.');
+    req.lang = FALLBACK;
+  }
   next();
 };
 

@@ -20,4 +20,5 @@ module.exports.prerendered = (language, path, res, next) => co(function*() {
   } else {
     next();
   }
+
 }).catch(ex => next(ex));
