@@ -46,8 +46,6 @@ throng(id => {
     { stream: fs.createWriteStream(ROOT + '/logs/access.log', { flags: 'a' }) }
   ));
 
-  logger.info('Trying', 10, 'something', {hello: 'world'}, 'out');
-
   requireLocal('controller/mongo.js').con();
   const passport = requireLocal('controller/auth.js');
 

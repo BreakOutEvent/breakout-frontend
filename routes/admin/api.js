@@ -33,14 +33,17 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage }).single('image');
 
 router.use((req, res, next) => {
-  if (req.isAuthenticated()){
+  if (req.isAuthenticated()) {
     res.set({
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     });
     next();
-  } else res.sendStatus(403);
+  } else {
+    logger.warn('Got an unauthenticated request from ip', req.ip, req);
+    res.sendStatus(403);
+  }
 });
 
 /**
