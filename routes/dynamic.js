@@ -11,6 +11,7 @@ const isAuth = (req, res, next) => {
   else
     return next();
   //res.sendStatus(403);
+  // TODO: Re-Enable 403
 };
 
 router.get('/register', (req, res) =>

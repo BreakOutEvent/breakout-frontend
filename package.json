@@ -15,7 +15,8 @@
     "grunt": "grunt",
     "bunyan": "bunyan",
     "log:info": "cd logs && cat info.log | npm run bunyan",
-    "log:error": "cd logs && cat error.log | npm run bunyan"
+    "log:error": "cd logs && cat error.log | npm run bunyan",
+    "log:clean": "rm logs/*.log"
   },
   "repository": {
     "type": "git",
