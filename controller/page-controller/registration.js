@@ -1,6 +1,8 @@
 'use strict';
 const api = require('../api-proxy');
 const session = require('../session');
+const co = require('co');
+const _ = require('lodash');
 
 const URLS = {
   REGISTER: '/register',
@@ -13,17 +15,23 @@ const URLS = {
   SPONSOR_SUCCESS: '/sponsor-success'
 };
 
-let reg = {};
+let registration = {};
 
 const sendErr = (req, res, errMsg) => {
-  res.status(500).send({error: errMsg})
+  res.status(500).send({ error: errMsg });
 };
 
-reg.createUser = (req, res) => {
+registration.createUser = (req, res) => {
+  if (!req.body) sendErr(req, res, 'The server did not receive any data.');
+
+  // LOG: start to create a new user
+  logger.info('Trying to create a new user', req.body.email);
   return new Promise((resolve, reject) =>
     api.createUser(email, password)
       .then((data) => {
-        resolve(data)
+        // LOG: new user created
+        logger.info('Created new user', req.body.email);
+        resolve(data);
       })
       .catch((err) => {
         if (err) {
@@ -34,7 +42,7 @@ reg.createUser = (req, res) => {
   );
 };
 
-reg.createParticipant = (req, res) => {
+registration.createParticipant = (req, res) => {
   if (!req.body) sendErr(req, res, 'The server did not receive any data.');
 
   let updateBody = {
@@ -48,12 +56,13 @@ reg.createParticipant = (req, res) => {
     }
   };
 
-  console.log(updateBody);
+  logger.info('Trying to create a new participant', updateBody);
 
   session.getUserInfo(req)
     .then(user => {
       api.putModel('user', user.id, req.user, updateBody)
         .then(() => {
+          logger.info('Created a new participant', updateBody);
           session.forceUpdate(req);
           res.send({
             nextURL: URLS.INVITE
@@ -64,7 +73,7 @@ reg.createParticipant = (req, res) => {
             console.log(err);
             sendErr(req, res, 'Could not save your data');
           }
-        })
+        });
     })
     .catch(err => {
       console.log(err);
@@ -72,80 +81,69 @@ reg.createParticipant = (req, res) => {
     });
 };
 
-reg.getInvites = (req) => {
-  return new Promise((resolve, reject) => {
-    reg.getEvents(req)
-      .then(events => {
-        console.log(events);
-        if (!events.length) {
-          resolve([]);
-        } else {
-          //TODO query each event with loop
-          api.getModel(`/event/0/team/invitation/`, req.user)
-            .then(invites_0 => {
-              api.getModel(`/event/1/team/invitation/`, req.user)
-                .then(invites_1 => {
-                  resolve(invites_0.concat(invites_1));
-                })
-            })
-        }
-      })
-      .catch(err => {
-        console.log(err);
-        reject(err);
-      })
-  })
+registration.getInvites = (req) => co(function*() {
+  logger.info('Trying to get all invites for', req.user);
+
+  const events = yield registration.getEvents(req);
+
+  const allInvites = yield events.reduce(
+    (init, e) => _.concat(init, api.getModel(`/event/${e.id}/team/invitation/`, req.user))
+  );
+
+  logger.info('Got all Invites for user', req.user);
+
+  console.dir(allInvites);
+
+  return allInvites;
+}).catch(ex => {
+  throw ex;
+});
+
+registration.getEvents = (req) => co(function*() {
+  logger.info('Trying to get all events');
+
+  const events = yield api.getModel('event', req.user);
+
+  if (!events.length) {
+    throw new Error('No events');
+  }
+
+  logger.info('Got all events');
+
+  return events;
+}).catch(ex => {
+  throw ex;
+});
+
+registration.joinTeam = (req, res) => {
+
 };
 
-reg.getEvents = (req) => {
-  return new Promise((resolve, reject) => {
-    session.getUserInfo(req)
-      .then(user => {
-        console.log(user);
-        api.getModel('event', req.user)
-          .then(events => {
-            resolve(events);
-          })
-          .catch(err => {
-            console.log(err);
-            reject(err);
-          });
-      })
-      .catch(err => {
-        console.log(err);
-        reject(err);
-      })
+registration.createSponsor = (req, res) => {
+  // TODO: IMPLEMENT
+};
+
+registration.createTeam = (req, res) => co(function*() {
+  logger.info('Trying to create team for event', req.body.event.city, 'with name', req.body.teamname);
+
+  const team =
+    yield api.postModel(`event/${req.body.event}/team/`, req.user, { name: req.body.teamname });
+
+  logger.info('Created Team', req.body.teamname, 'for event', req.body.event.city);
+
+  logger.info('Trying to invite user', req.body.email, 'to team', team.id);
+
+  yield api.postModel(
+    `event/${req.body.event}/team/${team.id}/invitation/`, req.user, { email: req.body.email }
+  );
+
+  logger.info('Created Invitation for user', req.body.email, 'to team', team.id);
+
+  res.send({
+    nextURL: URLS.TEAM_SUCCESS
   });
-};
+}).catch(ex => {
+  throw ex;
+});
 
-reg.joinTeam = (req, res) => {
-
-};
-
-
-reg.createSponsor = (req, res) => {
-  //@TODO IMPLEMENT
-};
-
-reg.createTeam = (req, res) => {
-  api.postModel(`event/${req.body.event}/team/`, req.user, {name: req.body.teamname})
-    .then(team => {
-      api.postModel(`event/${req.body.event}/team/${team.id}/invitation/`, req.user, {email: req.body.email})
-        .then(() => {
-          res.send({
-            nextURL: URLS.TEAM_SUCCESS
-          });
-        })
-        .catch((err) => {
-          console.log(err);
-          sendErr(req, res, 'Could not save your data');
-        });
-    })
-    .catch((err) => {
-      console.log(err);
-      sendErr(req, res, 'Could not save your data');
-    });
-};
-
-
-module.exports = reg;
+module.exports = registration;

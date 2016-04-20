@@ -1,6 +1,7 @@
 'use strict';
 const express = require('express');
 const router = express.Router();
+const co = require('co');
 
 const registration = requireLocal('controller/page-controller/registration');
 
@@ -42,60 +43,46 @@ router.get('/participant', (req, res) =>
   )
 );
 
-router.get('/invitelist', (req, res) => {
+router.get('/invitelist', (req, res, next) => co(function*() {
+  const teams = yield registration.getInvites(req);
 
-  registration.getInvites(req, res)
-    .then(teams => {
-      if (teams.length > 0) {
-        res.render('dynamic/register/team-invite',
-          {
-            error: req.flash('error'),
-            layout: 'funnel',
-            language: 'de',
-            amountInvites: teams.length,
-            teams: teams
-          }
-        )
-      } else {
-        //TODO make dynamic
-        res.redirect('/team-create');
+  if (teams.length > 0) {
+    res.render('dynamic/register/team-invite',
+      {
+        error: req.flash('error'),
+        layout: 'funnel',
+        language: 'de',
+        amountInvites: teams.length,
+        teams: teams
       }
-    })
-    .catch(err => {
-      console.log(err);
-      res.render('dynamic/register/team-invite',
-        {
-          error: err.error,
-          layout: 'funnel',
-          language: 'de',
-          amountInvites: 0
-        }
-      )
-    });
-
-});
+    )
+  } else {
+    //TODO make dynamic
+    res.redirect('/team-create');
+  }
+}).catch(ex => next(ex)));
 
 router.get('/team-create', (req, res) => {
 
   registration.getEvents(req)
-  .then(events => {
-    res.render('dynamic/register/team-create',
-      {
-        layout: 'funnel',
-        lang: req.lang,
-        events: events
-      }
-    )
-  })
-  .catch(err => {
-    res.render('dynamic/register/team-create',
-      {
-        error: err.error,
-        layout: 'funnel',
-        lang: req.lang
-      }
-    )
-  })
+    .then(events => {
+      res.render('dynamic/register/team-create',
+        {
+          layout: 'funnel',
+          lang: req.lang,
+          events: events
+        }
+      )
+    })
+    .catch(err => {
+      res.render('dynamic/register/team-create',
+        {
+          error: err.error,
+          layout: 'funnel',
+          lang: req.lang
+        }
+      )
+    })
 
 
 });

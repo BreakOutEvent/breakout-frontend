@@ -16,13 +16,40 @@ throng(id => {
   global.requireLocal = module => require(__dirname + '/' + module);
 
   const express = require('express');
+  const app = express();
+
   const exphbs = require('express-handlebars');
   const bodyparser = require('body-parser');
+  const morgan = require('morgan');
+  const fs = require('fs');
+
+  const bunyan = require('bunyan');
+  global.logger = bunyan.createLogger(
+    {
+      name: 'breakout-frontend',
+      streams: [
+        {
+          level: 'info',
+          stream: fs.createWriteStream(ROOT + '/logs/info.log', { flags: 'a' })
+        },
+        {
+          level: 'error',
+          stream: fs.createWriteStream(ROOT + '/logs/error.log', { flags: 'a' })
+        }
+      ],
+      serializers: bunyan.stdSerializers,
+      src: process.env.NODE_ENV === 'development'
+    }
+  );
+
+  app.use(morgan('combined',
+    { stream: fs.createWriteStream(ROOT + '/logs/access.log', { flags: 'a' }) }
+  ));
+
+  logger.info('Trying', 10, 'something', {hello: 'world'}, 'out');
 
   requireLocal('controller/mongo.js').con();
   const passport = requireLocal('controller/auth.js');
-
-  const app = express();
 
   // Handlebars setup
   const hbs = exphbs.create({
@@ -74,6 +101,7 @@ throng(id => {
     var host = server.address().address;
     var port = server.address().port;
 
+    logger.info('Server listening on port ' + port);
     console.log('Listening at http://%s:%s', host, port);
   });
 
@@ -88,6 +116,8 @@ throng(id => {
   // Displays any errors
   app.use((err, req, res) => {
     res.status(err.status || 500);
+
+    logger.error(err);
 
     if (process.env.NODE_ENV === 'production') {
       res.render('error', {

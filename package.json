@@ -12,7 +12,10 @@
     "cms:update": "cd src/cms && npm update && npm run build",
     "cms:server": "cd src/cms && npm run server",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "grunt": "grunt"
+    "grunt": "grunt",
+    "bunyan": "bunyan",
+    "log:info": "cd logs && cat info.log | npm run bunyan",
+    "log:error": "cd logs && cat error.log | npm run bunyan"
   },
   "repository": {
     "type": "git",
@@ -28,6 +31,7 @@
     "bluebird": "^3.3.4",
     "body-parser": "^1.14.2",
     "bootstrap-sass": "^3.3.6",
+    "bunyan": "^1.8.0",
     "co": "^4.6.0",
     "co-fs-extra": "^1.2.1",
     "connect-flash": "^0.1.1",
@@ -39,6 +43,7 @@
     "jquery": "^2.2.0",
     "lodash": "^4.8.2",
     "mongoose": "^4.3.3",
+    "morgan": "^1.7.0",
     "multer": "^1.1.0",
     "passport": "^0.2.2",
     "passport-local": "^1.0.0",
