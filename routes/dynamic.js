@@ -43,6 +43,15 @@ router.get('/participant', (req, res) =>
     }
   )
 );
+router.get('/sponsor', (req, res) =>
+  res.render('dynamic/register/sponsoring-form',
+    {
+      error: req.flash('error'),
+      layout: 'funnel',
+      language: 'de'
+    }
+  )
+);
 
 router.get('/team-invite', (req, res, next) => co(function*() {
   const teams = yield registration.getInvites(req);
