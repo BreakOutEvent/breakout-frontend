@@ -36,7 +36,7 @@ API.authenticate = (username, password) => {
           user: config.clientID,
           pass: config.clientSecret
         }
-      }, handleResponse(resolve, reject, 'Authenticated user successfully' + username))
+      }, handleResponse(resolve, reject, 'Authenticated user ' + username))
   });
 };
 
