@@ -35,5 +35,38 @@ module.exports = {
     'LABEL_CITY': {
       'de': 'Startstadt'
     }
+  },
+  'TEAM-SUCCESS': {
+    'HEADLINE': {
+      'de':'Geschafft!'
+    },
+    'DESCRIPTION': {
+      'de': 'Du hast dein Team erfolreich registriert. Vielen Dank für deine Teilnahme! Für weitere Clips und Neuigkeiten gehe zurück zur Homepage. Bei Fragen steht unser Support jederzeit zu deiner Verfügung.  '
+    },
+    'LINK_DESCRIPTION': {
+      'de': 'ZURÜCK ZUR HOMEPAGE'
+    }
+  },
+  'SPONSOR-SUCCESS': {
+    'HEADLINE': {
+      'de':'Geschafft!'
+    },
+    'DESCRIPTION': {
+      'de': 'Du hast dich erfolgreich als Sponsor für BreakOut registiert. Vielen Dank für deine Teilnahme! Für weitere Clips und Neuigkeiten gehe zurück zur Homepage. Bei Fragen steht unser Support jederzeit zu deiner Verfügung.  '
+    },
+    'LINK_DESCRIPTION': {
+      'de': 'ZURÜCK ZUR HOMEPAGE'
+    }
+  },
+  'SPECTATOR-SUCCESS': {
+    'HEADLINE': {
+      'de':'Geschafft!'
+    },
+    'DESCRIPTION': {
+      'de': 'Du hast dich erfolgreich als Zuschauer für BreakOut registiert. Vielen Dank für deine Teilnahme! Für weitere Clips und Neuigkeiten gehe zurück zur Homepage. Bei Fragen steht unser Support jederzeit zu deiner Verfügung.  '
+    },
+    'LINK_DESCRIPTION': {
+      'de': 'ZURÜCK ZUR HOMEPAGE'
+    }
   }
 };

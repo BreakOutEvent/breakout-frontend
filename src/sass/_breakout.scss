@@ -163,7 +163,7 @@ body {
   }
   .bo-copyright {
     @media screen and (min-width: $screen-sm-min) {
-      @extend .pull-right;
+      float: right;
     }
   }
 }

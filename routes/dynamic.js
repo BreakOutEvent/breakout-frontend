@@ -44,6 +44,36 @@ router.get('/participant', (req, res) =>
   )
 );
 
+router.get('/team-success', (req, res) =>
+  res.render('dynamic/register/team-success',
+    {
+      error: req.flash('error'),
+      layout: 'funnel',
+      lang: req.lang
+    }
+  )
+);
+
+router.get('/sponsor-success', (req, res) =>
+  res.render('dynamic/register/sponsor-success',
+    {
+      error: req.flash('error'),
+      layout: 'funnel',
+      lang: req.lang
+    }
+  )
+);
+
+router.get('/spectator-success', (req, res) =>
+  res.render('dynamic/register/spectator-success',
+    {
+      error: req.flash('error'),
+      layout: 'funnel',
+      lang: req.lang
+    }
+  )
+);
+
 router.get('/team-invite', (req, res, next) => co(function*() {
   const teams = yield registration.getInvites(req);
 
