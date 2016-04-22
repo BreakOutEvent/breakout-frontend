@@ -10,7 +10,14 @@ exports.__ = (text, options) => {
     throw 'You did not pass the language to handlebars!';
   }
 
-  let viewArr = options.data.exphbs.view.split('\\');
+  const view = options.data.exphbs.view;
+  let viewArr = [];
+
+  if(view.indexOf('\\') > -1 ) {
+    viewArr = view.split('\\');
+  } else {
+    viewArr = view.split('/');
+  }
 
   return i18n.translate(viewArr[viewArr.length - 1].toUpperCase(), text.toUpperCase(), options.data.root.lang);
 };
