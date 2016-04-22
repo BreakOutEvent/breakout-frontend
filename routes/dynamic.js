@@ -7,6 +7,7 @@ const upload = multer({ inMemory: true });
 const passport = requireLocal('controller/auth');
 
 const registration = requireLocal('controller/page-controller/registration');
+const payment = requireLocal('controller/page-controller/payment');
 
 const isAuth = (req, res, next) => {
   if (req.isAuthenticated)
@@ -40,6 +41,8 @@ router.get('/sponsor-success', funnelTemplate('sponsor-success'));
 router.get('/spectator-success', funnelTemplate('spectator-success'));
 router.get('/participant', funnelTemplate('participant'));
 router.get('/payment', funnelTemplate('payment'));
+
+router.get('/payment-token', isAuth, payment.getToken);
 
 router.get('/logout',
   (req, res) => {
@@ -95,6 +98,8 @@ router.get('/team-create', (req, res) => {
 router.post('/participant', isAuth,upload.single('profilePic'), registration.createParticipant);
 router.post('/register', isAuth, registration.createUser);
 router.post('/team-create', isAuth, upload.single('profilePic'), registration.createTeam);
+router.post('/join', isAuth, upload.single('profilePic'), registration.joinTeam);
+router.post('/payment-checkout', isAuth, payment.checkout);
 
 router.post('/login',
   passport.authenticate('local',

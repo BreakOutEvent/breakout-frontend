@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="col-md-4 registration-box-border div-align-mid">
+
+        <form id="checkout" method="post" action="/payment-checkout">
+            <div id="payment-form"></div>
+            <input type="submit" value="Pay $10">
+        </form>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+<script src="https://js.braintreegateway.com/v2/braintree.js"></script>
+<script>
+
+    $.get("/payment-token", function (data) {
+        var token = data.token;
+        braintree.setup(token, "dropin", {
+            container: "payment-form"
+        });
+    });
+
+</script>

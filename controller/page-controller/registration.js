@@ -1,6 +1,6 @@
 'use strict';
-const api = require('../api-proxy');
-const session = require('../session');
+const api = requireLocal('controller/api-proxy');
+const session = requireLocal('controller/session');
 const co = require('co');
 const _ = require('lodash');
 
@@ -133,26 +133,37 @@ registration.getEvents = (req) => co(function*() {
   throw ex;
 });
 
-registration.joinTeam = (req, res) => {
-  // TODO: IIMPLEMENT
-};
+registration.joinTeam = (req, res) => co(function*() {
+  logger.info('Trying to get all events');
+
+  const events = yield api.getModel('event', req.user);
+
+  if (!events.length) {
+    throw new Error('No events');
+  }
+
+  logger.info('Got all events');
+
+  return events;
+}).catch(ex => {
+  throw ex;
+});
 
 registration.createSponsor = (req, res) => {
   // TODO: IMPLEMENT
 };
 
 registration.createTeam = (req, res) => co(function*() {
-  logger.info('Trying to create team for event', req.body.event.city, 'with name', req.body.teamname);
+  logger.info('Trying to create team for event', req.body.event, 'with name', req.body.teamname);
 
   let teamData = {
     name: req.body.teamname
   };
 
   if (req.file) {
-    logger.info('Found picture for team in ', req.body.event.city, 'with name', req.body.teamname);
+    logger.info('Found picture for team in ', req.body.event, 'with name', req.body.teamname);
     teamData.profilePic = ['image'];
   }
-
   const team =
     yield api.postModel(`event/${req.body.event}/team/`, req.user, teamData);
 
@@ -160,7 +171,7 @@ registration.createTeam = (req, res) => co(function*() {
     yield api.uploadPicture(req.file, team.profilePic);
   }
 
-  logger.info('Created Team', req.body.teamname, 'for event', req.body.event.city);
+  logger.info('Created Team', req.body.teamname, 'for event', req.body.event);
 
   logger.info('Trying to invite user', req.body.email, 'to team', team.id);
 

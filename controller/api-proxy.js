@@ -53,13 +53,13 @@ API.getCurrentUser = token => {
 
 
 API.getModel = (modelName, token, id) => {
-  logger.info('Trying to get', modelName, 'with id', id, 'from Backend');
+  logger.info('Trying to get', modelName, 'with id', id, 'from backend');
   return new Promise((resolve, reject)=> {
       request
         .get({
           url: `${url}/${modelName}/${(id || '')}`,
           auth: {bearer: token.access_token}
-        }, handleResponse(resolve, reject, 'Got ' + modelName + ' with id ' + (id || 'noID') + ' from Backend'))
+        }, handleResponse(resolve, reject, 'Got ' + modelName + ' with id ' + (id || 'noID') + ' from backend'))
     }
   );
 };
@@ -74,7 +74,7 @@ API.postModel = (modelName, token, body) => {
         auth: {bearer: token.access_token},
         body: JSON.stringify(body),
         headers: {'content-type': 'application/json'}
-      }, handleResponse(resolve, reject, 'Successfully POSTed ' + modelName + ' with ' + JSON.stringify(body) + ' to Backend'))
+      }, handleResponse(resolve, reject, 'Successfully POSTed ' + modelName + ' with ' + JSON.stringify(body) + ' to backend'))
   );
 };
 
@@ -93,7 +93,7 @@ API.putModel = (modelName, id, token, body) => {
         auth: {bearer: token.access_token},
         body: JSON.stringify(body),
         headers: {'content-type': 'application/json'}
-      }, handleResponse(resolve, reject, 'Successfully PUT ' + modelName + ' with id ' + id + ' and data ' + JSON.stringify(body) + ' to Backend'));
+      }, handleResponse(resolve, reject, 'Successfully PUT ' + modelName + ' with id ' + id + ' and data ' + JSON.stringify(body) + ' to backend'));
   });
 };
 
@@ -124,7 +124,7 @@ API.createUser = function (email, password) {
         },
         headers: {'content-type': 'application/json'},
         body: JSON.stringify({email, password})
-      }, handleResponse(resolve, reject, 'Successfully created user with email ' + email + ' in Backend'));
+      }, handleResponse(resolve, reject, 'Successfully created user with email ' + email + ' in backend'));
   });
 };
 
@@ -139,20 +139,44 @@ API.uploadPicture = function(file, mediaObj) {
           id: mediaObj.id,
           file: file
         }
-      }, handleResponse(resolve, reject, 'Successfully uploaded file with id ' + mediaObj.id + ' to Backend'));
+      }, handleResponse(resolve, reject, 'Successfully uploaded file with id ' + mediaObj.id + ' to backend'));
+  });
+};
+
+API.getPaymentToken = (invoiceID, token) => {
+  logger.info('Trying to get payment token for invoice',invoiceID,'from backend');
+  return new Promise(function (resolve, reject) {
+    request
+      .get({
+        url: `${url}/invoice/${invoiceID}/payment/braintree/client_token/`,
+        auth: {bearer: token.access_token}
+      }, handleResponse(resolve, reject, 'Got payment token for invoice ' + invoiceID + ' from backend'));
+  });
+};
+
+API.checkoutPayment = (invoiceID, token, data) => {
+  logger.info('Trying to checkout for invoice',invoiceID);
+  return new Promise(function (resolve, reject) {
+    request
+      .post({
+        url: `${url}/invoice/${invoiceID}/payment/braintree/checkout/`,
+        auth: {bearer: token.access_token},
+        form: data
+      }, handleResponse(resolve, reject, 'Successfully checked out invoice' + invoiceID));
   });
 };
 
 function handleResponse(resolve, reject, msg) {
   return (error, response, body) => {
     if (error) {
+      logger.error(error);
       throw error;
     } else {
       if (response.statusCode.toString().match(/^2\d\d$/)) {
         logger.info(msg);
         resolve(JSON.parse(body));
       } else {
-        //console.log(JSON.parse(body), response.statusCode);
+        logger.error(JSON.parse(body));
         reject(JSON.parse(body));
       }
     }
