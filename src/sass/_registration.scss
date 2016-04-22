@@ -1,12 +1,10 @@
 .registration-body {
   background-image: url('/img/header2.jpg');
   background-size: cover;
+  background-repeat: no-repeat;
   width: 100%;
   height: 100%;
-  margin: 0;
-  position: absolute;
-  top: 0;
-  padding-top: 5%;
+  padding: 5% 0;
 }
 
 .registration-box-border {
@@ -94,6 +92,16 @@
   }
 }
 
+.div-align-mid {
+  float: none;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+img.center {
+  display: block;
+  margin: 0 auto;
+}
 
 .bo-reg-uploadInputWrapper {
   overflow: hidden;
@@ -103,7 +111,7 @@
   border-radius: 50px;
   margin: 0 auto;
   vertical-align: middle;
-  background-size:cover;
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -111,15 +119,14 @@
 .bo-reg-fileInput {
   cursor: pointer;
   height: 100%;
-  position:absolute;
+  position: absolute;
   top: 0;
   right: 0;
   /*This makes the button huge so that it can be clicked on*/
-  font-size:50px;
+  font-size: 50px;
 }
+
 .bo-reg-hiddenInput {
   /*Opacity settings for all browsers*/
   opacity: 0;
-  -moz-opacity: 0;
-  filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)
 }

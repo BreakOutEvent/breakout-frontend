@@ -1,71 +1,69 @@
-<div class="registration-body">
-    <div class="container">
+<div class="container">
 
-        <div class="col-md-4"></div>
-        <div class="col-md-4 registration-box-border">
-            <div class="row registration-margin">
-                <div class="col-md-2"></div>
-                <div class="col-md-8">
-                    <img class="bo-modal-logo" alt="BreakOut" src="/img/logos/BreakOut-Logo_Header.svg">
+    <div class="col-md-4 registration-box-border div-align-mid">
+        <div class="row registration-margin">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <img class="bo-modal-logo" alt="BreakOut" src="/img/logos/BreakOut-Logo_Header.svg">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="bo-reg-uploadInputWrapper" style="height: 100px; width: 100px;">
+                    <input class="bo-reg-fileInput bo-reg-hiddenInput" type="file" name="profilePic"
+                           id="profilePic"/>
+                    <i class="material-icons registration-picture-icon">camera_alt</i>
                 </div>
             </div>
+        </div>
+
+        <div class="row registration-margin">
+            <div class="col-xs-12 text-center">
+                <h4>{{__ 'HEADLINE'}}</h4>
+            </div>
+        </div>
+        {{#if error}}
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="media-middle registration-picture">
-                        <i class="material-icons registration-picture-icon">camera_alt</i>
+                    <div class="alert alert-danger">{{error}}</div>
+                </div>
+            </div>
+        {{/if}}
+        <div class="row">
+            <div class="col-xs-12">
+                <p>{{__ 'DESCRIPTION'}}</p>
+            </div>
+        </div>
+        <div class="row registration-margin">
+            <div class="col-xs-12">
+                <form id="teamForm">
+                    <div class="form-group has-feedback has-feedback-left">
+                        <label for="teamname">{{__ 'LABEL_TEAMNAME'}}</label>
+                        <input type="text" class="form-control" id="teamname" name="teamname"
+                               placeholder="{{__ 'PLACEHOLDER_TEAMNAME'}}" required="required">
+                        <i class="form-control-feedback material-icons">group</i>
                     </div>
-
-                </div>
-            </div>
-
-            <div class="row registration-margin">
-                <div class="col-xs-12 text-center">
-                    <h4>{{__ 'HEADLINE'}}</h4>
-                </div>
-            </div>
-            {{#if error}}
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="alert alert-danger">{{error}}</div>
+                    <div class="form-group has-feedback has-feedback-left">
+                        <label for="email">{{__ 'LABEL_EMAIL'}}</label>
+                        <input type="email" class="form-control" id="email" name="email"
+                               placeholder="{{__ 'PLACEHOLDER_EMAIL'}}" required="required">
+                        <i class="form-control-feedback material-icons">mail_outline</i>
                     </div>
-                </div>
-            {{/if}}
-            <div class="row">
-                <div class="col-xs-12">
-                    <p>{{__ 'DESCRIPTION'}}</p>
-                </div>
-            </div>
-            <div class="row registration-margin">
-                <div class="col-xs-12">
-                    <form id="teamForm">
-                        <div class="form-group has-feedback has-feedback-left">
-                            <label for="teamname">{{__ 'LABEL_TEAMNAME'}}</label>
-                            <input type="text" class="form-control" id="teamname" name="teamname"
-                                   placeholder="{{__ 'PLACEHOLDER_TEAMNAME'}}" required="required">
-                            <i class="form-control-feedback material-icons">group</i>
-                        </div>
-                        <div class="form-group has-feedback has-feedback-left">
-                            <label for="email">{{__ 'LABEL_EMAIL'}}</label>
-                            <input type="email" class="form-control" id="email" name="email"
-                                   placeholder="{{__ 'PLACEHOLDER_EMAIL'}}" required="required">
-                            <i class="form-control-feedback material-icons">mail_outline</i>
-                        </div>
-                        <div class="form-group has-feedback has-feedback-left">
-                            <label for="event">{{__ 'LABEL_CITY'}}</label>
-                            <select id="event" name="event" class="form-control">
-                                <option value="" selected disabled>{{__ 'LABEL_CITY'}}</option>
-                                {{#each events}}
-                                    <option value="{{id}}">{{city}}</option>
-                                {{/each}}
-                            </select>
-                            <i class="form-control-feedback material-icons">location_city</i>
-                        </div>
-                        <div class=" registration-margin form-group text-center">
-                            <button type="submit" class="btn btn-primary btn-block">{{__ 'CTA'}}</button>
-                        </div>
-                    </form>
+                    <div class="form-group has-feedback has-feedback-left">
+                        <label for="event">{{__ 'LABEL_CITY'}}</label>
+                        <select id="event" name="event" class="form-control">
+                            <option value="" selected disabled>{{__ 'LABEL_CITY'}}</option>
+                            {{#each events}}
+                                <option value="{{id}}">{{city}}</option>
+                            {{/each}}
+                        </select>
+                        <i class="form-control-feedback material-icons">location_city</i>
+                    </div>
+                    <div class=" registration-margin form-group text-center">
+                        <button type="submit" class="btn btn-primary btn-block">{{__ 'CTA'}}</button>
+                    </div>
+                </form>
 
-                </div>
             </div>
         </div>
     </div>

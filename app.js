@@ -108,6 +108,7 @@ throng(id => {
     } else {
       next();
     }
+
     // TODO: Maybe logout on refresh fail?
   }).catch(ex => next(ex)));
 

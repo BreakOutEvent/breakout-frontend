@@ -39,7 +39,7 @@ router.get('/logout',
 );
 
 router.get('/', (req, res) => {
-  if(req.isAuthenticated())
+  if (req.isAuthenticated())
     console.log(req.user);
   res.redirect('/admin/cms/');
 });
