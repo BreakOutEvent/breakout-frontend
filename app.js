@@ -17,7 +17,7 @@ throng(id => {
 
   const express = require('express');
   const app = express();
-
+  
   app.use(express.static(path.join(__dirname, 'public')));
 
   const exphbs = require('express-handlebars');
@@ -33,11 +33,11 @@ throng(id => {
       streams: [
         {
           level: 'info',
-          stream: fs.createWriteStream(ROOT + '/logs/info.log', { flags: 'a' })
+          stream: fs.createWriteStream(ROOT + '/logs/info.log', {flags: 'a'})
         },
         {
           level: 'error',
-          stream: fs.createWriteStream(ROOT + '/logs/error.log', { flags: 'a' })
+          stream: fs.createWriteStream(ROOT + '/logs/error.log', {flags: 'a'})
         }
       ],
       serializers: bunyan.stdSerializers,
@@ -46,8 +46,9 @@ throng(id => {
   );
 
   app.use(morgan('combined',
-    { stream: fs.createWriteStream(ROOT + '/logs/access.log', { flags: 'a' }) }
+    {stream: fs.createWriteStream(ROOT + '/logs/access.log', {flags: 'a'})}
   ));
+
 
   const mongoose = requireLocal('controller/mongo.js').con();
   const passport = requireLocal('controller/auth.js');
@@ -75,7 +76,7 @@ throng(id => {
     secret: config.secret,
     resave: false,
     saveUninitialized: false,
-    store: new MongoStore({ mongooseConnection: mongoose.connection })
+    store: new MongoStore({mongooseConnection: mongoose.connection})
   }));
 
   // Initialize Passport and restore authentication state, if any, from the
@@ -99,6 +100,8 @@ throng(id => {
     }
 
     next();
+  }).catch(ex => {
+    throw ex;
   }));
 
   // Sets routes
