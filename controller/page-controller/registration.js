@@ -19,7 +19,7 @@ let registration = {};
 
 const sendErr = (res, errMsg) => {
   logger.error(errMsg);
-  res.status(500).send({error: errMsg});
+  res.status(500).send({ error: errMsg });
 };
 
 registration.createUser = (req, res) => {
@@ -29,8 +29,9 @@ registration.createUser = (req, res) => {
       api.authenticate(req.body.email, req.body.password).then(token => {
         passport.login(token, err => {
           if (err) {
-            sendErr(res, 'Could not create a session.')
+            sendErr(res, 'Could not create a session.');
           }
+
           res.send({
             nextUrl: URLS.SELECTION
           });
@@ -42,8 +43,8 @@ registration.createUser = (req, res) => {
     })
     .catch(err => {
       logger.error(err);
-      sendErr(res, err.message)
-    })
+      sendErr(res, err.message);
+    });
 };
 
 registration.createParticipant = (req, res) => {
@@ -61,7 +62,7 @@ registration.createParticipant = (req, res) => {
   };
 
   if (req.file) {
-    updateBody.profilePic = ["image"];
+    updateBody.profilePic = ['image'];
   }
 
   logger.info('Trying to create a new participant', updateBody);
@@ -77,7 +78,7 @@ registration.createParticipant = (req, res) => {
                 nextURL: URLS.INVITE
               }))
               .catch(err => {
-                throw err
+                throw err;
               });
           }
 
@@ -144,11 +145,11 @@ registration.getInviteByToken = (token) => co(function*() {
 
 registration.joinTeamAPI = (req, res) => co(function*() {
 
-  if(!req.body) sendErr(res, 'Did not receive any data');
+  if (!req.body) sendErr(res, 'Did not receive any data');
 
   let me = yield api.getCurrentUser(req.user);
 
-  yield api.postModel(`/event/${req.body.eventID}/team/${req.body.teamID}/member/`, {email: me.email});
+  yield api.postModel(`/event/${req.body.eventID}/team/${req.body.teamID}/member/`, { email: me.email });
 
   res.send({
     result: 'success'
@@ -173,6 +174,7 @@ registration.createTeam = (req, res) => co(function*() {
     logger.info('Found picture for team in ', req.body.event, 'with name', req.body.teamname);
     teamData.profilePic = ['image'];
   }
+
   const team =
     yield api.postModel(`event/${req.body.event}/team/`, req.user, teamData);
 
@@ -185,7 +187,7 @@ registration.createTeam = (req, res) => co(function*() {
   logger.info('Trying to invite user', req.body.email, 'to team', team.id);
 
   yield api.postModel(
-    `event/${req.body.event}/team/${team.id}/invitation/`, req.user, {email: req.body.email}
+    `event/${req.body.event}/team/${team.id}/invitation/`, req.user, { email: req.body.email }
   );
 
   logger.info('Created Invitation for user', req.body.email, 'to team', team.id);

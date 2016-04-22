@@ -15,10 +15,12 @@ i18n.init = (req, res, next) => {
   } else {
     req.lang = lang;
   }
-  if(!lang) {
+
+  if (!lang) {
     logger.warn('Found no accepted-languages header.');
     req.lang = FALLBACK;
   }
+
   next();
 };
 
@@ -37,6 +39,5 @@ i18n.translate = (view, key, lang) => {
     throw `Unknown view ${view}`;
   }
 };
-
 
 module.exports = i18n;

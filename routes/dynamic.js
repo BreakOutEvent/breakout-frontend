@@ -14,6 +14,7 @@ const isAuth = (req, res, next) => {
     next();
   else
     return next();
+
   //res.sendStatus(403);
   // TODO: Re-Enable 403
 };
@@ -26,8 +27,8 @@ const funnelTemplate = (template) => {
         layout: 'funnel',
         lang: req.lang
       }
-    )
-  }
+    );
+  };
 };
 
 //GET
@@ -56,21 +57,20 @@ router.get('/join/:token', (req, res, next) => co(function*() {
   let invite = yield registration.getInviteByToken(req.params.token);
 
   invite = {
-    "team" : 1,
-    "email": "invitee@mail.com",
-    "creator": "creator@mail.com",
-    "token": "thetokenyougavemeattheapi"
+    team: 1,
+    email: 'invitee@mail.com',
+    creator: 'creator@mail.com',
+    token: 'thetokenyougavemeattheapi'
   };
 
-
-  if(!invite) {
+  if (!invite) {
     res.render('dynamic/register/register',
       {
         error: 'Invitecode is not valid.',
         layout: 'funnel',
         lang: req.lang
       }
-    )
+    );
   } else {
     res.render('dynamic/register/register',
       {
@@ -79,7 +79,7 @@ router.get('/join/:token', (req, res, next) => co(function*() {
         lang: req.lang,
         invite: invite
       }
-    )
+    );
   }
 }).catch(ex => next(ex)));
 
@@ -95,7 +95,7 @@ router.get('/team-invite', (req, res, next) => co(function*() {
         amountInvites: teams.length,
         teams: teams
       }
-    )
+    );
   } else {
     res.redirect('/team-create');
   }
@@ -111,7 +111,7 @@ router.get('/team-create', (req, res) => {
           lang: req.lang,
           events: events
         }
-      )
+      );
     })
     .catch(err => {
       res.render('dynamic/register/team-create',
@@ -120,13 +120,13 @@ router.get('/team-create', (req, res) => {
           layout: 'funnel',
           lang: req.lang
         }
-      )
-    })
+      );
+    });
 });
 
 //POST
 
-router.post('/participant', isAuth,upload.single('profilePic'), registration.createParticipant);
+router.post('/participant', isAuth, upload.single('profilePic'), registration.createParticipant);
 router.post('/register', isAuth, registration.createUser);
 router.post('/team-create', isAuth, upload.single('profilePic'), registration.createTeam);
 router.post('/join', isAuth, upload.single('profilePic'), registration.joinTeamAPI);

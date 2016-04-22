@@ -6,7 +6,7 @@ exports.concat = (first, second) => first + second;
 
 exports.__ = (text, options) => {
 
-  if(!options.data.root.lang) {
+  if (!options.data.root.lang) {
     throw 'You did not pass the language to handlebars!';
   }
 
