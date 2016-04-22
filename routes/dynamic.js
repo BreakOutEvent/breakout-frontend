@@ -2,6 +2,8 @@
 const express = require('express');
 const router = express.Router();
 const co = require('co');
+const multer = require('multer');
+const upload = multer({ inMemory: true });
 
 const registration = requireLocal('controller/page-controller/registration');
 
@@ -88,7 +90,11 @@ router.get('/team-create', (req, res) => {
 
 });
 
-router.post('/participant', isAuth, registration.createParticipant);
-router.post('/team-create', isAuth, registration.createTeam);
+
+
+router.post('/participant', isAuth, function(req, res, next) {
+  next();
+},upload.single('profilePic'), registration.createParticipant);
+//router.post('/team-create', isAuth, upload.single('profilePic'), registration.createTeam);
 
 module.exports = router;

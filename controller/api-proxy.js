@@ -6,6 +6,7 @@ const config = {
   clientID: process.env.FRONTEND_API_CLIENTID,
   clientSecret: process.env.FRONTEND_API_CLIENTSECRET,
   URL: process.env.FRONTEND_API_URL,
+  mediaURL: process.env.FRONTEND_MEDIA_URL,
   protocol: 'https'
 };
 
@@ -125,6 +126,21 @@ API.createUser = function (email, password) {
         headers: {'content-type': 'application/json'},
         body: JSON.stringify({email, password})
       }, handleResponse(resolve, reject, 'Successfully created user with email ' + email + ' in Backend'));
+  });
+};
+
+API.uploadPicture = function(file, mediaObj) {
+  logger.info('Trying to upload file with id',mediaObj.id);
+  return new Promise(function (resolve, reject) {
+    request
+      .post({
+        url: `http://${mediaURL}`,
+        headers: {'X-UPLOAD-TOKEN': mediaObj.uploadToken},
+        formData: {
+          id: mediaObj.id,
+          file: file
+        }
+      }, handleResponse(resolve, reject, 'Successfully uploaded file with id ' + mediaObj.id + ' to Backend'));
   });
 };
 

@@ -94,7 +94,7 @@ throng(id => {
   app.use(requireLocal('services/i18n').init);
 
   app.use((req, res, next)=> co(function*() {
-    if ((new Date) > req.user.expires_at) {
+    if (req.isAuthenticated() && (new Date) > req.user.expires_at) {
       console.error('Should refresh here, TODO');
     }
 
