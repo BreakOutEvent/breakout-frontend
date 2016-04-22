@@ -166,6 +166,18 @@ API.checkoutPayment = (invoiceID, token, data) => {
   });
 };
 
+API.getInviteByToken = (token) => {
+  logger.info('Trying to get invite by token',token);
+  return new Promise(function (resolve, reject) {
+    request
+      .get({
+        url: `${url}/event/?token=${token}` //TODO add real url
+      }, handleResponse(resolve, reject, 'Successfully got invite by token' + token));
+  });
+};
+
+
+
 function handleResponse(resolve, reject, msg) {
   return (error, response, body) => {
     if (error) {

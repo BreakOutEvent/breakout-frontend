@@ -18,6 +18,7 @@ const URLS = {
 let registration = {};
 
 const sendErr = (res, errMsg) => {
+  logger.error(errMsg);
   res.status(500).send({error: errMsg});
 };
 
@@ -133,18 +134,26 @@ registration.getEvents = (req) => co(function*() {
   throw ex;
 });
 
-registration.joinTeam = (req, res) => co(function*() {
-  logger.info('Trying to get all events');
+registration.getInviteByToken = (token) => co(function*() {
 
-  const events = yield api.getModel('event', req.user);
+  return yield api.getInviteByToken(token);
 
-  if (!events.length) {
-    throw new Error('No events');
-  }
+}).catch(ex => {
+  throw ex;
+});
 
-  logger.info('Got all events');
+registration.joinTeamAPI = (req, res) => co(function*() {
 
-  return events;
+  if(!req.body) sendErr(res, 'Did not receive any data');
+
+  let me = yield api.getCurrentUser(req.user);
+
+  yield api.postModel(`/event/${req.body.eventID}/team/${req.body.teamID}/member/`, {email: me.email});
+
+  res.send({
+    result: 'success'
+  });
+
 }).catch(ex => {
   throw ex;
 });

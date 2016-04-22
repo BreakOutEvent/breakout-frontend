@@ -52,6 +52,37 @@ router.get('/logout',
   }
 );
 
+router.get('/join/:token', (req, res, next) => co(function*() {
+  let invite = yield registration.getInviteByToken(req.params.token);
+
+  invite = {
+    "team" : 1,
+    "email": "invitee@mail.com",
+    "creator": "creator@mail.com",
+    "token": "thetokenyougavemeattheapi"
+  };
+
+
+  if(!invite) {
+    res.render('dynamic/register/register',
+      {
+        error: 'Invitecode is not valid.',
+        layout: 'funnel',
+        lang: req.lang
+      }
+    )
+  } else {
+    res.render('dynamic/register/register',
+      {
+        error: req.flash('error'),
+        layout: 'funnel',
+        lang: req.lang,
+        invite: invite
+      }
+    )
+  }
+}).catch(ex => next(ex)));
+
 router.get('/team-invite', (req, res, next) => co(function*() {
   const teams = yield registration.getInvites(req);
 
@@ -60,7 +91,7 @@ router.get('/team-invite', (req, res, next) => co(function*() {
       {
         error: req.flash('error'),
         layout: 'funnel',
-        language: 'de',
+        lang: req.lang,
         amountInvites: teams.length,
         teams: teams
       }
@@ -98,7 +129,7 @@ router.get('/team-create', (req, res) => {
 router.post('/participant', isAuth,upload.single('profilePic'), registration.createParticipant);
 router.post('/register', isAuth, registration.createUser);
 router.post('/team-create', isAuth, upload.single('profilePic'), registration.createTeam);
-router.post('/join', isAuth, upload.single('profilePic'), registration.joinTeam);
+router.post('/join', isAuth, upload.single('profilePic'), registration.joinTeamAPI);
 router.post('/payment-checkout', isAuth, payment.checkout);
 
 router.post('/login',

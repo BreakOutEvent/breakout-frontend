@@ -8,7 +8,11 @@
             </div>
             <div class="row registration-margin">
                 <div class="col-xs-12">
-                    <h2 class="text-center">{{__ 'HEADLINE'}}</h2>
+                    {{#if invite}}
+                        <h2 class="text-center">{{__ 'HEADLINE_INVITED'}}</h2>
+                    {{else}}
+                        <h2 class="text-center">{{__ 'HEADLINE'}}</h2>
+                    {{/if}}
                 </div>
             </div>
             <div id="error">
@@ -17,17 +21,33 @@
                 {{/if}}
             </div>
 
+            {{#if invite}}
+                <div class="row">
+                    <div class="col-xs-12">
+                        <p>{{__ 'INVITE_TEXT_1'}}{{invite.creator}}{{__ 'INVITE_TEXT_2'}}{{invite.team}}{{__ 'INVITE_TEXT_3'}}</p>
+                    </div>
+                </div>
+            {{/if}}
+
             <div class="row">
                 <div class="col-xs-12">
                     <div class="form-group has-feedback has-feedback-left">
                         <label for="email">{{__ 'LABEL_EMAIL'}}</label>
-                        <input type="email" class="form-control" id="email" name="email"
-                               placeholder="{{__ 'PLACEHOLDER_EMAIL'}}" required="required">
+                        {{#if invite}}
+                            <input type="email" class="form-control" id="email" name="email"
+                                   placeholder="{{__ 'PLACEHOLDER_EMAIL'}}" required="required" value="{{invite.email}}" disabled="disabled">
+                        {{else}}
+                            <input type="email" class="form-control" id="email" name="email"
+                                   placeholder="{{__ 'PLACEHOLDER_EMAIL'}}" required="required">
+                        {{/if}}
                         <i class="form-control-feedback material-icons">mail_outline</i>
 
                     </div>
                 </div>
             </div>
+
+
+
             <div class="row">
                 <div class="col-xs-12">
                     <div class="form-group has-feedback has-feedback-left">

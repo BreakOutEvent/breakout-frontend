@@ -154,6 +154,10 @@ module.exports = {
       'de': 'Registrierung',
       'en': 'Sign Up'
     },
+    'HEADLINE_INVITED': {
+      'de': 'Eingeladen!',
+      'en': 'Invited!'
+    },
     'LABEL_EMAIL': {
       'de': 'E-Mail Adresse',
       'en': 'Email address'
@@ -177,6 +181,15 @@ module.exports = {
     'MAIN_CTA': {
       'de': 'KOSTENLOS REGISTRIEREN',
       'en': 'SIGN UP'
+    },
+    'INVITE_TEXT_1': {
+      'de': 'Du wurdest von '
+    },
+    'INVITE_TEXT_2': {
+      'de': ' eingeladen mit ihm/ihr an BreakOut teilzunehmen. Melde Dich jetzt und ihr seid zusammen in Team '
+    },
+    'INVITE_TEXT_3': {
+      'de': '.'
     }
   },
   'TEAM-SUCCESS': {
