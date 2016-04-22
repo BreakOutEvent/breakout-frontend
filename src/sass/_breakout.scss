@@ -1,10 +1,11 @@
-body {
-  padding-top: 60px;
+html, body {
+  height:100%;
 }
 
 .bo-header-logo {
   padding-top: 40px;
   padding-bottom: 40px;
+  margin-top: 60px;
   @include image-background("../img/header2.jpg");
   min-height: 200px;
   border-bottom-width: 2px;

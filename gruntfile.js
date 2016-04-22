@@ -66,7 +66,8 @@ module.exports = function (grunt) {
       },
       dist: {
         files: {
-          'public/js/bundle.js': ['src/js/main.js']
+          'public/js/bundle.js': ['src/js/main.js'],
+          'public/js/registration.js': ['src/js/registration.js']
         }
       }
     },
@@ -77,7 +78,8 @@ module.exports = function (grunt) {
       },
       dist: {
         files: {
-          'public/js/bundle.js': ['public/js/bundle.js']
+          'public/js/bundle.js': ['public/js/bundle.js'],
+          'public/js/registration.js': ['public/js/registration.js']
         }
       }
     },

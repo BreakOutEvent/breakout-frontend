@@ -18,7 +18,7 @@ const URLS = {
 let registration = {};
 
 const sendErr = (req, res, errMsg) => {
-  res.status(500).send({ error: errMsg });
+  res.status(500).send({error: errMsg});
 };
 
 registration.createUser = (req, res) => {
@@ -56,12 +56,27 @@ registration.createParticipant = (req, res) => {
     }
   };
 
+  if (req.file) {
+    updateBody.profilePic = ["image"];
+  }
+
   logger.info('Trying to create a new participant', updateBody);
 
   session.getUserInfo(req)
     .then(user => {
       api.putModel('user', user.id, req.user, updateBody)
-        .then(() => {
+        .then(backend_user => {
+          console.log(backend_user);
+          if (req.file) {
+            api.uploadPicture(req.file, backend_user.profilePic[0])
+              .then(() => res.send({
+                nextURL: URLS.INVITE
+              }))
+              .catch(err => {
+                throw err
+              });
+          }
+
           logger.info('Created a new participant', updateBody);
           session.forceUpdate(req);
           res.send({
@@ -126,15 +141,28 @@ registration.createSponsor = (req, res) => {
 registration.createTeam = (req, res) => co(function*() {
   logger.info('Trying to create team for event', req.body.event.city, 'with name', req.body.teamname);
 
+  let teamData = {
+    name: req.body.teamname
+  };
+
+  if(req.file) {
+    logger.info('Found picture for team in ', req.body.event.city, 'with name', req.body.teamname);
+    teamData.profilePic = ['image'];
+  }
+
   const team =
-    yield api.postModel(`event/${req.body.event}/team/`, req.user, { name: req.body.teamname });
+    yield api.postModel(`event/${req.body.event}/team/`, req.user, teamData);
+
+  if(req.file) {
+    yield api.uploadPicture(req.file, team.profilePic);
+  }
 
   logger.info('Created Team', req.body.teamname, 'for event', req.body.event.city);
 
   logger.info('Trying to invite user', req.body.email, 'to team', team.id);
 
   yield api.postModel(
-    `event/${req.body.event}/team/${team.id}/invitation/`, req.user, { email: req.body.email }
+    `event/${req.body.event}/team/${team.id}/invitation/`, req.user, {email: req.body.email}
   );
 
   logger.info('Created Invitation for user', req.body.email, 'to team', team.id);
