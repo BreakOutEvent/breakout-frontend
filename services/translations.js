@@ -35,5 +35,38 @@ module.exports = {
     'LABEL_CITY': {
       'de': 'Startstadt'
     }
+  },
+  'LOGIN': {
+    'HEADLINE': {
+      'de': 'Login'
+    },
+    'LABEL_EMAIL': {
+      'de':'E-Mail Adresse'
+    },
+    'PLACEHOLDER_EMAIL': {
+      'de': 'abenteuer@break-out.org'
+    },
+    'LABEL_PASSWORD': {
+      'de': 'Passwort',
+      'en': 'Password'
+    }
+  },
+  'REGISTER': {
+    'HEADLINE': {
+      'de': 'Registrierung'
+    },
+    'LABEL_EMAIL': {
+      'de':'E-Mail Adresse'
+    },
+    'PLACEHOLDER_EMAIL': {
+      'de': 'abenteuer@break-out.org'
+    },
+    'LABEL_PASSWORD': {
+      'de': 'Passwort',
+      'en': 'Password'
+    },
+    'LABEL_PASSWORD_REPEAT': {
+      'de': 'Passwort Wdh'
+    }
   }
 };

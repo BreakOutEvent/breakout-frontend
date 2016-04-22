@@ -17,33 +17,36 @@ const URLS = {
 
 let registration = {};
 
-const sendErr = (req, res, errMsg) => {
+const sendErr = (res, errMsg) => {
   res.status(500).send({error: errMsg});
 };
 
 registration.createUser = (req, res) => {
-  if (!req.body) sendErr(req, res, 'The server did not receive any data.');
-
-  // LOG: start to create a new user
-  logger.info('Trying to create a new user', req.body.email);
-  return new Promise((resolve, reject) =>
-    api.createUser(email, password)
-      .then((data) => {
-        // LOG: new user created
-        logger.info('Created new user', req.body.email);
-        resolve(data);
-      })
-      .catch((err) => {
-        if (err) {
-          reject(err);
-          console.error(err);
-        }
-      })
-  );
+  if (!req.body) sendErr(res, 'The server did not receive any data.');
+  api.createUser(req.body.email, req.body.password)
+    .then(() => {
+      api.authenticate(req.body.email, req.body.password).then(token => {
+        passport.login(token, err => {
+          if (err) {
+            sendErr(res, 'Could not create a session.')
+          }
+          res.send({
+            nextUrl: URLS.SELECTION
+          });
+        });
+      }).catch(err => {
+        logger.error(err);
+        sendErr(res, 'Unable to login.');
+      });
+    })
+    .catch(err => {
+      logger.error(err);
+      sendErr(res, err.message)
+    })
 };
 
 registration.createParticipant = (req, res) => {
-  if (!req.body) sendErr(req, res, 'The server did not receive any data.');
+  if (!req.body) sendErr(res, 'The server did not receive any data.');
 
   let updateBody = {
     firstname: req.body.firstname,
@@ -86,13 +89,13 @@ registration.createParticipant = (req, res) => {
         .catch((err) => {
           if (err) {
             console.log(err);
-            sendErr(req, res, 'Could not save your data');
+            sendErr(res, 'Could not save your data');
           }
         });
     })
     .catch(err => {
       console.log(err);
-      sendErr(req, res, err.error);
+      sendErr(res, err.error);
     });
 };
 
@@ -131,7 +134,7 @@ registration.getEvents = (req) => co(function*() {
 });
 
 registration.joinTeam = (req, res) => {
-
+  // TODO: IIMPLEMENT
 };
 
 registration.createSponsor = (req, res) => {
@@ -145,7 +148,7 @@ registration.createTeam = (req, res) => co(function*() {
     name: req.body.teamname
   };
 
-  if(req.file) {
+  if (req.file) {
     logger.info('Found picture for team in ', req.body.event.city, 'with name', req.body.teamname);
     teamData.profilePic = ['image'];
   }
@@ -153,7 +156,7 @@ registration.createTeam = (req, res) => co(function*() {
   const team =
     yield api.postModel(`event/${req.body.event}/team/`, req.user, teamData);
 
-  if(req.file) {
+  if (req.file) {
     yield api.uploadPicture(req.file, team.profilePic);
   }
 

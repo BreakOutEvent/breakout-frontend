@@ -46,7 +46,30 @@ $(document).ready(() => {
     }
   });
 
-  if ($('#registrationForm').length > 0) {
+  if ($('#registerForm').length > 0) {
+
+    $('#registerForm').on('submit', e => {
+      e.preventDefault();
+
+      if (sanityCheck()) {
+        if($('#password').val() !== $('#password_repeat').val()) {
+          $('#error').html('<div class="alert alert-danger">The passwords you entered do not match.</div>');
+        } else {
+          $.post('/register',{email:$('#email').val(), password: $('#password').val()})
+            .success(data => {
+              window.location.href = data.nextUrl;
+            })
+            .error(err => {
+              console.log(err);
+              $('#error').html('<div class="alert alert-danger">' + err.responseJSON.error + '</div>');
+            })
+        }
+      }
+    });
+
+
+
+  } else if ($('#registrationForm').length > 0) {
     window.gender = null;
 
     $('button[name=gender]').click(function () {
@@ -63,7 +86,7 @@ $(document).ready(() => {
 
     });
 
-    $('#registrationForm').on('submit', function (e) {
+    $('#registrationForm').on('submit', e => {
       e.preventDefault();
 
 

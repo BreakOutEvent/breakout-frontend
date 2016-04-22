@@ -4,6 +4,7 @@ const router = express.Router();
 const co = require('co');
 const multer = require('multer');
 const upload = multer({ inMemory: true });
+const passport = requireLocal('controller/auth');
 
 const registration = requireLocal('controller/page-controller/registration');
 
@@ -16,12 +17,41 @@ const isAuth = (req, res, next) => {
   // TODO: Re-Enable 403
 };
 
-router.get('/register', (req, res) =>
-  res.render('dynamic/register/participant-form',
+router.get('/login', (req, res) =>
+  res.render('dynamic/register/login',
     {
       error: req.flash('error'),
       layout: 'funnel',
-      language: 'de'
+      lang: req.lang
+    }
+  )
+);
+
+router.post('/login',
+  passport.authenticate('local',
+    {
+      failureRedirect: '/login',
+      successRedirect: '/selection',
+      failureFlash: true,
+      successFlash: true
+    }
+  )
+);
+
+router.get('/logout',
+  (req, res) => {
+    req.logout();
+    req.flash('success', 'Successfully logged out!');
+    res.redirect('/login');
+  }
+);
+
+router.get('/register', (req, res) =>
+  res.render('dynamic/register/register',
+    {
+      error: req.flash('error'),
+      layout: 'funnel',
+      lang: req.lang
     }
   )
 );
@@ -37,11 +67,11 @@ router.get('/selection', (req, res) =>
 );
 
 router.get('/participant', (req, res) =>
-  res.render('dynamic/register/participant-form',
+  res.render('dynamic/register/participant',
     {
       error: req.flash('error'),
       layout: 'funnel',
-      language: 'de'
+      lang: req.lang
     }
   )
 );
@@ -92,9 +122,8 @@ router.get('/team-create', (req, res) => {
 
 
 
-router.post('/participant', isAuth, function(req, res, next) {
-  next();
-},upload.single('profilePic'), registration.createParticipant);
-//router.post('/team-create', isAuth, upload.single('profilePic'), registration.createTeam);
+router.post('/participant', isAuth,upload.single('profilePic'), registration.createParticipant);
+router.post('/register', isAuth, registration.createUser);
+router.post('/team-create', isAuth, upload.single('profilePic'), registration.createTeam);
 
 module.exports = router;

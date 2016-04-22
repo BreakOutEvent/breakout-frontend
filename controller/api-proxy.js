@@ -22,7 +22,6 @@ var API = {};
 API.authenticate = (username, password) => {
   logger.info('Trying to login user', username);
   return new Promise((resolve, reject) => {
-
     request
       .post({
         url: `${url}/oauth/token`,
