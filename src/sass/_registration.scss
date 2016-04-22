@@ -1,7 +1,7 @@
 .registration-body {
   background-image: url('/img/header2.jpg');
   background-size: cover;
-  background-repeat:no-repeat;
+  background-repeat: no-repeat;
   width: 100%;
   height: 100%;
   padding: 5% 0;
@@ -103,7 +103,6 @@ img.center {
   margin: 0 auto;
 }
 
-
 .bo-reg-uploadInputWrapper {
   overflow: hidden;
   position: relative;
@@ -112,7 +111,7 @@ img.center {
   border-radius: 50px;
   margin: 0 auto;
   vertical-align: middle;
-  background-size:cover;
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -120,15 +119,14 @@ img.center {
 .bo-reg-fileInput {
   cursor: pointer;
   height: 100%;
-  position:absolute;
+  position: absolute;
   top: 0;
   right: 0;
   /*This makes the button huge so that it can be clicked on*/
-  font-size:50px;
+  font-size: 50px;
 }
+
 .bo-reg-hiddenInput {
   /*Opacity settings for all browsers*/
   opacity: 0;
-  -moz-opacity: 0;
-  filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)
 }
