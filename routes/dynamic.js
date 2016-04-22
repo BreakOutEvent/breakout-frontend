@@ -17,26 +17,29 @@ const isAuth = (req, res, next) => {
   // TODO: Re-Enable 403
 };
 
-router.get('/login', (req, res) =>
-  res.render('dynamic/register/login',
-    {
-      error: req.flash('error'),
-      layout: 'funnel',
-      lang: req.lang
-    }
-  )
-);
+const funnelTemplate = (template) => {
+  return (req, res) => {
+    res.render(`dynamic/register/${template}`,
+      {
+        error: req.flash('error'),
+        layout: 'funnel',
+        lang: req.lang
+      }
+    )
+  }
+};
 
-router.post('/login',
-  passport.authenticate('local',
-    {
-      failureRedirect: '/login',
-      successRedirect: '/selection',
-      failureFlash: true,
-      successFlash: true
-    }
-  )
-);
+//GET
+
+router.get('/login', funnelTemplate('login'));
+router.get('/register', funnelTemplate('register'));
+router.get('/selection', funnelTemplate('selection'));
+router.get('/participant', funnelTemplate('participant'));
+router.get('/team-success', funnelTemplate('team-success'));
+router.get('/sponsor-success', funnelTemplate('sponsor-success'));
+router.get('/spectator-success', funnelTemplate('spectator-success'));
+router.get('/participant', funnelTemplate('participant'));
+router.get('/payment', funnelTemplate('payment'));
 
 router.get('/logout',
   (req, res) => {
@@ -44,66 +47,6 @@ router.get('/logout',
     req.flash('success', 'Successfully logged out!');
     res.redirect('/login');
   }
-);
-
-router.get('/register', (req, res) =>
-  res.render('dynamic/register/register',
-    {
-      error: req.flash('error'),
-      layout: 'funnel',
-      lang: req.lang
-    }
-  )
-);
-
-router.get('/selection', (req, res) =>
-  res.render('dynamic/register/selection',
-    {
-      error: req.flash('error'),
-      layout: 'funnel',
-      lang: req.lang
-    }
-  )
-);
-
-router.get('/participant', (req, res) =>
-  res.render('dynamic/register/participant',
-    {
-      error: req.flash('error'),
-      layout: 'funnel',
-      lang: req.lang
-    }
-  )
-);
-
-router.get('/team-success', (req, res) =>
-  res.render('dynamic/register/team-success',
-    {
-      error: req.flash('error'),
-      layout: 'funnel',
-      lang: req.lang
-    }
-  )
-);
-
-router.get('/sponsor-success', (req, res) =>
-  res.render('dynamic/register/sponsor-success',
-    {
-      error: req.flash('error'),
-      layout: 'funnel',
-      lang: req.lang
-    }
-  )
-);
-
-router.get('/spectator-success', (req, res) =>
-  res.render('dynamic/register/spectator-success',
-    {
-      error: req.flash('error'),
-      layout: 'funnel',
-      lang: req.lang
-    }
-  )
 );
 
 router.get('/team-invite', (req, res, next) => co(function*() {
@@ -120,7 +63,6 @@ router.get('/team-invite', (req, res, next) => co(function*() {
       }
     )
   } else {
-    //TODO make dynamic
     res.redirect('/team-create');
   }
 }).catch(ex => next(ex)));
@@ -146,14 +88,23 @@ router.get('/team-create', (req, res) => {
         }
       )
     })
-
-
 });
 
-
+//POST
 
 router.post('/participant', isAuth,upload.single('profilePic'), registration.createParticipant);
 router.post('/register', isAuth, registration.createUser);
 router.post('/team-create', isAuth, upload.single('profilePic'), registration.createTeam);
+
+router.post('/login',
+  passport.authenticate('local',
+    {
+      failureRedirect: '/login',
+      successRedirect: '/selection',
+      failureFlash: true,
+      successFlash: true
+    }
+  )
+);
 
 module.exports = router;
