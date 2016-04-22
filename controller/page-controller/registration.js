@@ -75,7 +75,6 @@ registration.createParticipant = (req, res) => {
               .catch(err => {
                 throw err
               });
-
           }
 
           logger.info('Created a new participant', updateBody);
@@ -142,8 +141,21 @@ registration.createSponsor = (req, res) => {
 registration.createTeam = (req, res) => co(function*() {
   logger.info('Trying to create team for event', req.body.event.city, 'with name', req.body.teamname);
 
+  let teamData = {
+    name: req.body.teamname
+  };
+
+  if(req.file) {
+    logger.info('Found picture for team in ', req.body.event.city, 'with name', req.body.teamname);
+    teamData.profilePic = ['image'];
+  }
+
   const team =
-    yield api.postModel(`event/${req.body.event}/team/`, req.user, {name: req.body.teamname});
+    yield api.postModel(`event/${req.body.event}/team/`, req.user, teamData);
+
+  if(req.file) {
+    yield api.uploadPicture(req.file, team.profilePic);
+  }
 
   logger.info('Created Team', req.body.teamname, 'for event', req.body.event.city);
 

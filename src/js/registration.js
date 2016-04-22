@@ -35,6 +35,17 @@ function sanityCheck() {
 
 $(document).ready(() => {
 
+  $("#profilePic").change(function () {
+    if (this.files && this.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $('.bo-reg-uploadInputWrapper').css('background-image', 'url(' + e.target.result + ')');
+        $('.registration-picture-icon').hide();
+      };
+      reader.readAsDataURL(this.files[0]);
+    }
+  });
+
   if ($('#registrationForm').length > 0) {
     window.gender = null;
 
@@ -51,21 +62,6 @@ $(document).ready(() => {
       window.gender = selection;
 
     });
-
-
-    $("#profilePic").change(function () {
-      console.log(this.files[0]);
-      if (this.files && this.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-          console.log(e);
-          $('.bo-reg-uploadInputWrapper').css('background-image', 'url(' + e.target.result + ')');
-          $('.registration-picture-icon').hide();
-        };
-        reader.readAsDataURL(this.files[0]);
-      }
-    });
-
 
     $('#registrationForm').on('submit', function (e) {
       e.preventDefault();

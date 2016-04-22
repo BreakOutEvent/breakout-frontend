@@ -1,12 +1,10 @@
 .registration-body {
   background-image: url('/img/header2.jpg');
   background-size: cover;
+  background-repeat:no-repeat;
   width: 100%;
   height: 100%;
-  margin: 0;
-  position: absolute;
-  top: 0;
-  padding-top: 5%;
+  padding: 5% 0;
 }
 
 .registration-box-border {
