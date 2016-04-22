@@ -1,6 +1,8 @@
 'use strict';
 
+const co = require('co');
 const request = require('request');
+const crequest = require('co-request');
 
 const config = {
   clientID: process.env.FRONTEND_API_CLIENTID,
@@ -41,13 +43,39 @@ API.authenticate = (username, password) => {
   });
 };
 
+API.refresh = (user) => co(function* () {
+  logger.info('Trying to refresh token for user', user.email);
+  const req = yield crequest
+    .post({
+      url: `${url}/oauth/token`,
+      qs: {
+        client_id: config.clientID,
+        client_secret: config.clientSecret,
+        grant_type: 'refresh_token',
+        refresh_token: user.refresh_token
+      },
+      auth: {
+        user: config.clientID,
+        pass: config.clientSecret
+      }
+    });
+
+  if (req.statusCode in [200, 201]) {
+    logger.info('Refreshed token for user ' + user.email);
+  }
+
+  return JSON.parse(req.body);
+}).catch(ex => {
+  throw ex;
+});
+
 API.getCurrentUser = token => {
   logger.info('Trying to get currently logged in user');
   return new Promise((resolve, reject) =>
     request
       .get({
         url: `${url}/me/`,
-        auth: {bearer: token.access_token}
+        auth: { bearer: token.access_token }
       }, handleResponse(resolve, reject, 'Got information about currently logged in user'))
   );
 };
@@ -59,7 +87,7 @@ API.getModel = (modelName, token, id) => {
       request
         .get({
           url: `${url}/${modelName}/${(id || '')}`,
-          auth: {bearer: token.access_token}
+          auth: { bearer: token.access_token }
         }, handleResponse(resolve, reject, 'Got ' + modelName + ' with id ' + (id || 'noID') + ' from Backend'))
     }
   );
@@ -72,9 +100,9 @@ API.postModel = (modelName, token, body) => {
     request
       .post({
         url: `${url}/${modelName}`,
-        auth: {bearer: token.access_token},
+        auth: { bearer: token.access_token },
         body: JSON.stringify(body),
-        headers: {'content-type': 'application/json'}
+        headers: { 'content-type': 'application/json' }
       }, handleResponse(resolve, reject, 'Successfully POSTed ' + modelName + ' with ' + JSON.stringify(body) + ' to Backend'))
   );
 };
@@ -84,37 +112,37 @@ API.putModel = (modelName, id, token, body) => {
   logger.info('Sending PUT request with ', body, 'to', modelName, 'with ID', id);
   return new Promise(function (resolve, reject) {
     if (!id) {
-      reject({error_description: 'No ID specified'});
+      reject({ error_description: 'No ID specified' });
       return;
     }
     console.log(body, token);
     request
       .put({
         url: `${url}/${modelName}/${(id)}/`,
-        auth: {bearer: token.access_token},
+        auth: { bearer: token.access_token },
         body: JSON.stringify(body),
-        headers: {'content-type': 'application/json'}
+        headers: { 'content-type': 'application/json' }
       }, handleResponse(resolve, reject, 'Successfully PUT ' + modelName + ' with id ' + id + ' and data ' + JSON.stringify(body) + ' to Backend'));
   });
 };
 
 API.delModel = function (modelName, token, id) {
-  logger.info('Sending DELETE request on',modelName,' with ID', id);
+  logger.info('Sending DELETE request on', modelName, ' with ID', id);
   return new Promise(function (resolve, reject) {
     if (!id) {
-      reject({error_message: 'No ID specified'});
+      reject({ error_message: 'No ID specified' });
       return;
     }
     request
       .del({
         url: `${url}/${modelName}/${id}`,
-        auth: {bearer: token.access_token}
+        auth: { bearer: token.access_token }
       }, handleResponse(resolve, reject, 'Successfully DELETEed ' + modelName + ' with ID ' + id));
   });
 };
 
 API.createUser = function (email, password) {
-  logger.info('Trying to create user with email',email);
+  logger.info('Trying to create user with email', email);
   return new Promise(function (resolve, reject) {
     request
       .post({
@@ -123,19 +151,19 @@ API.createUser = function (email, password) {
           user: config.clientID,
           pass: config.clientSecret
         },
-        headers: {'content-type': 'application/json'},
-        body: JSON.stringify({email, password})
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ email, password })
       }, handleResponse(resolve, reject, 'Successfully created user with email ' + email + ' in Backend'));
   });
 };
 
-API.uploadPicture = function(file, mediaObj) {
-  logger.info('Trying to upload file with id',mediaObj.id);
+API.uploadPicture = function (file, mediaObj) {
+  logger.info('Trying to upload file with id', mediaObj.id);
   return new Promise(function (resolve, reject) {
     request
       .post({
         url: `http://${mediaURL}`,
-        headers: {'X-UPLOAD-TOKEN': mediaObj.uploadToken},
+        headers: { 'X-UPLOAD-TOKEN': mediaObj.uploadToken },
         formData: {
           id: mediaObj.id,
           file: file

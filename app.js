@@ -11,6 +11,8 @@ const throng = config.cluster ? require('throng') : cb => cb(0);
 
 throng(id => {
   const path = require('path');
+  const fs = require('fs');
+
   global.ROOT = path.resolve(__dirname);
 
   global.requireLocal = module => require(__dirname + '/' + module);
@@ -19,12 +21,6 @@ throng(id => {
   const app = express();
 
   app.use(express.static(path.join(__dirname, 'public')));
-
-  const exphbs = require('express-handlebars');
-  const bodyparser = require('body-parser');
-  const morgan = require('morgan');
-  const fs = require('fs');
-  const co = require('co');
 
   const bunyan = require('bunyan');
   global.logger = bunyan.createLogger(
@@ -45,12 +41,18 @@ throng(id => {
     }
   );
 
+  const morgan = require('morgan');
   app.use(morgan('combined',
     { stream: fs.createWriteStream(ROOT + '/logs/access.log', { flags: 'a' }) }
   ));
 
+  const exphbs = require('express-handlebars');
+  const bodyparser = require('body-parser');
+  const co = require('co');
+
   const mongoose = requireLocal('controller/mongo.js').con();
   const passport = requireLocal('controller/auth.js');
+  const API = requireLocal('controller/api-proxy');
 
   // Handlebars setup
   const hbs = exphbs.create({
@@ -94,12 +96,20 @@ throng(id => {
   app.use(requireLocal('services/i18n').init);
 
   app.use((req, res, next)=> co(function*() {
-    if (req.isAuthenticated() && (new Date) > req.user.expires_at) {
-      console.error('Should refresh here, TODO');
+    if (req.isAuthenticated()
+      && req.user.expires_at
+      && new Date() > new Date(req.user.expires_at)
+    ) {
+      const refr = yield API.refresh(req.user);
+      req.login(passport.createSession(req.user.email, refr), (error) => {
+        if (error) throw error;
+        next();
+      });
+    } else {
+      next();
     }
-
-    next();
-  }));
+    // TODO: Maybe logout on refresh fail?
+  }).catch(ex => next(ex)));
 
   // Sets routes
   app.use('/', require('./routes/main'));
