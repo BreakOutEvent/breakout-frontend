@@ -6,7 +6,7 @@ const path = require('path');
 const renderer = requireLocal('services/renderer');
 const fileSystem = requireLocal('services/file-system');
 const multer = require('multer');
-const adminAuth = requireLocal('controller/page-controller/admin-auth');
+const adminAuth = requireLocal('controller/admin-auth');
 const api = requireLocal('controller/api-proxy');
 
 const express = require('express');
