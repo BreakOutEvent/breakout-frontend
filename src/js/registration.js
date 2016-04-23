@@ -16,7 +16,6 @@ function sanityCheck() {
     if ($(element).prop('type') === 'file') {
       val = $(element)[0].files && $(element)[0].files[0] ? 'true' : '';
     }
-    console.log(val);
     if (!val || val.trim() === '') {
       $(element).addClass('bo-reg-form-error');
     } else {
@@ -31,6 +30,19 @@ function sanityCheck() {
   }
 
   return !$('.bo-reg-form-error').length;
+}
+
+
+function toggleLoading(button) {
+
+  if ($(button).has('.spinner').length) {
+    $(button).children('.spinner').remove();
+    $(button).html($(button).children('span.hidden').html());
+  } else {
+    $(button).html('<span class="hidden">' + $(button).html() + '</span>');
+    $(button).append('<div class="spinner"><div class="bounce1"></div>' +
+      '<div class="bounce2"></div> <div class="bounce3"></div> </div>');
+  }
 }
 
 $(document).ready(() => {
@@ -56,6 +68,7 @@ $(document).ready(() => {
           $('#error').html('<div class="alert alert-danger"> ' +
             'The passwords you entered do not match.</div>');
         } else {
+          toggleLoading('#mainCTA');
           $.post('/register', {
               email: $('#email').val(),
               password: $('#password').val()
@@ -67,6 +80,9 @@ $(document).ready(() => {
               console.log(err);
               $('#error').html('<div class="alert alert-danger">' +
                 err.responseJSON.error + '</div>');
+            })
+            .always(() => {
+              toggleLoading('#mainCTA');
             });
         }
       }
@@ -101,7 +117,7 @@ $(document).ready(() => {
         if (!$('#profilePic')[0].files || !$('#profilePic')[0].files[0]) {
           data.delete('profilePic');
         }
-
+        toggleLoading('#mainCTA');
         $.ajax({
             url: '/participant',
             type: 'POST',
@@ -115,6 +131,9 @@ $(document).ready(() => {
           })
           .error(function(err) {
             console.log(err);
+          })
+          .always(() => {
+            toggleLoading('#mainCTA');
           });
       }
     });
@@ -129,12 +148,16 @@ $(document).ready(() => {
           event: $('#event').val()
         };
 
+        toggleLoading('#mainCTA');
         $.post('/team-create', values)
           .success(function(data) {
             window.location.href = data.nextURL;
           })
           .error(function(err) {
             console.log(err);
+          })
+          .always(() => {
+            toggleLoading('#mainCTA');
           });
       }
     });
@@ -147,6 +170,7 @@ $(document).ready(() => {
           email: $('#email').val()
         };
 
+        toggleLoading('#mainCTA');
         $.post('/invite', values)
           .success(function() {
             $('#feedback').html('<div class="alert alert-success"> ' +
@@ -156,6 +180,9 @@ $(document).ready(() => {
           .error(function() {
             $('#feedback').html('<div class="alert alert-danger"> ' +
               'Einladen fehlgeschlagen! Bitte später noch einmal versuchen.</div>');
+          })
+          .always(() => {
+            toggleLoading('#mainCTA');
           });
       }
     });

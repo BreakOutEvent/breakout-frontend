@@ -140,7 +140,7 @@ $btn-danger-bg: $brand-danger !default;
 $btn-danger-border: darken($btn-danger-bg, 5%) !default;
 $btn-link-disabled-color: $gray-light !default;
 // Allows for customizing button radius independently from global border radius
-$btn-border-radius-base: 16px;
+$btn-border-radius-base: 6px;
 $btn-border-radius-large: $border-radius-large !default;
 $btn-border-radius-small: $border-radius-small !default;
 //== Forms

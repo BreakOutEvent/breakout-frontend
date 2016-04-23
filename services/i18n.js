@@ -3,7 +3,7 @@
  */
 'use strict';
 
-const FALLBACK = 'en';
+const FALLBACK = 'de';
 const langData = requireLocal('services/translations');
 
 let i18n = {};
@@ -33,7 +33,8 @@ i18n.translate = (view, key, lang) => {
       if (langData[view][key].hasOwnProperty(lang)) {
         return langData[view][key][lang];
       } else {
-        throw `Unknown language ${lang} in key ${key} from view ${view}`;
+        logger.error(`Unknown language ${lang} in key ${key} from view ${view}! Using Fallback`);
+        return langData[view][key][FALLBACK];
       }
     } else {
       throw `Unknown key ${key} in view ${view}`;

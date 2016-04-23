@@ -77,6 +77,8 @@ router.post('/image', upload, (req, res) =>
   })
 );
 
+
+
 router.delete('/image/:filename', (req, res, next) =>
   fs.unlink('./public/img/uploads/' + req.params.filename, (err) => {
     if (err) return next(err);
