@@ -10,14 +10,14 @@
         </md-toolbar>
         <md-dialog-content>
             <div class="md-dialog-content">
-                <button type="file" ngf-select="image.uploadFile($file, $invalidFiles)"
+                <md-button type="file" ngf-select="image.uploadFile($file, $invalidFiles)"
                          accept="image/*">
-                Select File</button>
+                Bild auswählen</md-button>
             </div>
         </md-dialog-content>
         <md-dialog-actions layout="row">
             <md-button ng-click="image.cancel()">
-                Fertig
+                Abbrechen
             </md-button>
         </md-dialog-actions>
 </md-dialog>
