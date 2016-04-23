@@ -217,7 +217,7 @@ API.getInviteByToken = (token) => {
     request
       .get({
         url: `${url}/event/?token=${token}` //TODO add real url
-      }, handleResponse(resolve, reject, 'Successfully got invite by token' + token));
+      }, handleResponse(resolve, reject, 'Successfully got invite by token ' + token));
   });
 };
 
