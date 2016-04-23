@@ -50,9 +50,10 @@ router.use((req, res, next) => {
  * Reads a file path originating from / and sends it to the response
  * @param fpath Path to the file
  * @param res The HTTP response object
+ * @param next
  */
-function serveFile(fpath, res) {
-  fs.access(fpath, fs.R_OK, err => err !== null ? res.send(err) : res.sendFile(fpath));
+function serveFile(fpath, res, next) {
+  fs.access(fpath, fs.R_OK, err => err ? next(err) : res.sendFile(fpath));
 }
 
 router.post('/image', upload, (req, res) =>
@@ -61,15 +62,13 @@ router.post('/image', upload, (req, res) =>
   })
 );
 
-router.delete('/image/:filename', (req, res) =>
+router.delete('/image/:filename', (req, res, next) =>
   fs.unlink('./public/img/uploads/' + req.params.filename, (err) => {
-    if (err) {
-      res.status(404);
-    } else {
-      res.json({
-        result: 'ok'
-      });
-    }
+    if (err) return next(err);
+
+    res.json({
+      result: 'ok'
+    });
   })
 );
 
@@ -77,25 +76,25 @@ router.get('/getList', (req, res) =>
   res.json(reader.getAll())
 );
 
-router.get('/css', (req, res) =>
-  serveFile(path.join(global.ROOT, 'public/css/styles.min.css'), res)
+router.get('/css', (req, res, next) =>
+  serveFile(path.join(global.ROOT, 'public/css/styles.min.css'), res, next)
 );
 
-router.get('/html/:name', (req, res) =>
+router.get('/html/:name', (req, res, next) =>
   req.params.name === 'master' ?
-    serveFile(fileSystem.buildMasterTemplatePath(), res) :
-    serveFile(fileSystem.buildTemplatePath(req.params.name), res)
+    serveFile(fileSystem.buildMasterTemplatePath(), res, next) :
+    serveFile(fileSystem.buildTemplatePath(req.params.name), res, next)
 );
 
-router.get('/:model' + allowedModels, (req, res) =>
+router.get('/:model' + allowedModels, (req, res, next) =>
   models[req.params.model].find({}).exec((err, docs) =>
-    err ? res.send(err) : res.json(docs)
+    err ? next(err) : res.json(docs)
   )
 );
 
-router.get('/:model' + allowedModels + '/:id', (req, res) =>
+router.get('/:model' + allowedModels + '/:id', (req, res, next) =>
   models[req.params.model].findOne({ _id: req.params.id }).exec((err, docs) =>
-    err ? res.send(err) : res.json(docs)
+    err ? next(err) : res.json(docs)
   )
 );
 
@@ -107,7 +106,7 @@ router.get('/render/:pageid', (req, res) => {
 });
 
 // Specific override for POST /api/view
-router.post('/view', (req, res) => {
+router.post('/view', (req, res, next) => {
   if (!req.body || !req.body.name) {
     return res.sendStatus(400);
   }
@@ -134,15 +133,14 @@ router.post('/view', (req, res) => {
   models.view.create(rawView, (err, docs) => {
     console.log(docs);
     if (err) {
-      console.log(req.body);
-      res.send(err);
+      next(err);
     } else {
       res.json(docs);
     }
   });
 });
 
-router.post('/:model' + allowedModels, (req, res) => {
+router.post('/:model' + allowedModels, (req, res, next) => {
   if (!req.body) {
     res.sendStatus(400);
     return;
@@ -150,8 +148,7 @@ router.post('/:model' + allowedModels, (req, res) => {
 
   models[req.params.model].create(req.body, (err, docs) => {
     if (err) {
-      console.log(req.body);
-      res.send(err);
+      next(err);
     } else {
       res.json(docs);
     }
@@ -159,7 +156,7 @@ router.post('/:model' + allowedModels, (req, res) => {
 
 });
 
-router.post('/:model' + allowedModels + '/:id', (req, res) => {
+router.post('/:model' + allowedModels + '/:id', (req, res, next) => {
   if (!req.body) {
     res.sendStatus(400);
     return;
@@ -168,17 +165,17 @@ router.post('/:model' + allowedModels + '/:id', (req, res) => {
   models[req.params.model]
     .findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, doc) => {
       if (err) {
-        res.send(err);
+        next(err);
       } else {
         res.json(doc);
       }
     });
 });
 
-router.delete('/:model' + allowedModels + '/:id', (req, res) => {
+router.delete('/:model' + allowedModels + '/:id', (req, res, next) => {
   models[req.params.model].findOneAndRemove({ _id: req.params.id }, (err, doc) => {
     if (err) {
-      res.send(err);
+      next(err);
     } else {
       res.json(doc);
     }

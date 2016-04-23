@@ -12,7 +12,7 @@ const config = {
   private_key: process.env.FRONTEND_GDRIVE_PRIVATE_KEY
 };
 
-module.exports = (req, res) => co(function* () {
+module.exports = (req, res, next) => co(function* () {
   const cachePath = ROOT + '/rendered/cache/teams.json.cache';
 
   const fetchMemberList = () => co(function* () {
@@ -84,4 +84,6 @@ module.exports = (req, res) => co(function* () {
     language: req.params.language
   });
 
-}).catch(ex => console.error(ex.stack));
+}).catch(ex => {
+  next(ex);
+});

@@ -10,8 +10,9 @@ const registration = requireLocal('controller/page-controller/registration');
 const payment = requireLocal('controller/page-controller/payment');
 
 const isAuth = (req, res, next) => {
-  if (req.isAuthenticated)
-    next();
+  if (req.isAuthenticated())
+    return next();
+
   else
     return next();
 
@@ -19,17 +20,14 @@ const isAuth = (req, res, next) => {
   // TODO: Re-Enable 403
 };
 
-const funnelTemplate = (template) => {
-  return (req, res) => {
-    res.render(`dynamic/register/${template}`,
-      {
-        error: req.flash('error'),
-        layout: 'funnel',
-        lang: req.lang
-      }
-    );
-  };
-};
+const funnelTemplate = (template) => (req, res) =>
+  res.render(`dynamic/register/${template}`,
+    {
+      error: req.flash('error'),
+      layout: 'funnel',
+      lang: req.lang
+    }
+  );
 
 //GET
 
@@ -102,8 +100,7 @@ router.get('/team-invite', (req, res, next) => co(function*() {
   }
 }).catch(ex => next(ex)));
 
-router.get('/team-create', (req, res) => {
-
+router.get('/team-create', (req, res, next) => {
   registration.getEvents(req)
     .then(events => {
       res.render('dynamic/register/team-create',
@@ -115,13 +112,16 @@ router.get('/team-create', (req, res) => {
       );
     })
     .catch(err => {
-      res.render('dynamic/register/team-create',
-        {
-          error: err.error,
-          layout: 'funnel',
-          lang: req.lang
-        }
-      );
+      /*
+       res.render('dynamic/register/team-create',
+       {
+       error: err.error,
+       layout: 'funnel',
+       lang: req.lang
+       }
+       );
+       */
+      next(err);
     });
 });
 

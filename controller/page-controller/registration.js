@@ -17,19 +17,15 @@ const URLS = {
 
 let registration = {};
 
-const sendErr = (res, errMsg) => {
-  logger.error(errMsg);
-  res.status(500).send({ error: errMsg });
-};
+registration.createUser = (req, res, next) => {
+  if (!req.body) return next(new Error('The server did not receive any data.'));
 
-registration.createUser = (req, res) => {
-  if (!req.body) sendErr(res, 'The server did not receive any data.');
   api.createUser(req.body.email, req.body.password)
     .then(() => {
       api.authenticate(req.body.email, req.body.password).then(token => {
         passport.login(token, err => {
           if (err) {
-            sendErr(res, 'Could not create a session.');
+            throw new Error('Could not create a session.');
           }
 
           res.send({
@@ -37,18 +33,16 @@ registration.createUser = (req, res) => {
           });
         });
       }).catch(err => {
-        logger.error(err);
-        sendErr(res, 'Unable to login.');
+        throw err;
       });
     })
     .catch(err => {
-      logger.error(err);
-      sendErr(res, err.message);
+      next(err);
     });
 };
 
-registration.createParticipant = (req, res) => {
-  if (!req.body) sendErr(res, 'The server did not receive any data.');
+registration.createParticipant = (req, res, next) => {
+  if (!req.body) return next(new Error('The server did not receive any data.'));
 
   let updateBody = {
     firstname: req.body.firstname,
@@ -70,10 +64,11 @@ registration.createParticipant = (req, res) => {
   session.getUserInfo(req)
     .then(user => {
       api.putModel('user', user.id, req.user, updateBody)
-        .then(backend_user => {
-          console.log(backend_user);
+        .then(backendUser => {
+          console.log(backendUser);
+
           if (req.file) {
-            api.uploadPicture(req.file, backend_user.profilePic[0])
+            api.uploadPicture(req.file, backendUser.profilePic[0])
               .then(() => res.send({
                 nextURL: URLS.INVITE
               }))
@@ -83,22 +78,17 @@ registration.createParticipant = (req, res) => {
           }
 
           logger.info('Created a new participant', updateBody);
+
           session.forceUpdate(req);
           res.send({
             nextURL: URLS.INVITE
           });
         })
         .catch((err) => {
-          if (err) {
-            console.log(err);
-            sendErr(res, 'Could not save your data');
-          }
+          throw err;
         });
     })
-    .catch(err => {
-      console.log(err);
-      sendErr(res, err.error);
-    });
+    .catch(err => next(err));
 };
 
 registration.getInvites = (req) => co(function*() {
@@ -136,14 +126,12 @@ registration.getEvents = (req) => co(function*() {
 });
 
 registration.getInviteByToken = (token) => co(function*() {
-
   return yield api.getInviteByToken(token);
-
 }).catch(ex => {
   throw ex;
 });
 
-registration.joinTeamAPI = (req, res) => co(function*() {
+registration.joinTeamAPI = (req, res, next) => co(function*() {
 
   if (!req.body) sendErr(res, 'Did not receive any data');
 
@@ -155,15 +143,13 @@ registration.joinTeamAPI = (req, res) => co(function*() {
     result: 'success'
   });
 
-}).catch(ex => {
-  throw ex;
-});
+}).catch(ex => next(ex));
 
 registration.createSponsor = (req, res) => {
   // TODO: IMPLEMENT
 };
 
-registration.createTeam = (req, res) => co(function*() {
+registration.createTeam = (req, res, next) => co(function*() {
   logger.info('Trying to create team for event', req.body.event, 'with name', req.body.teamname);
 
   let teamData = {
@@ -195,8 +181,6 @@ registration.createTeam = (req, res) => co(function*() {
   res.send({
     nextURL: URLS.TEAM_SUCCESS
   });
-}).catch(ex => {
-  throw ex;
-});
+}).catch(ex => next(ex));
 
 module.exports = registration;

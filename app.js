@@ -138,10 +138,10 @@ throng(id => {
   });
 
   // Displays any errors
-  app.use((err, req, res) => {
-    res.status(err.status || 500);
-
+  app.use((err, req, res, next) => {
     logger.error(err);
+
+    res.status(err.status || 500);
 
     if (process.env.NODE_ENV === 'production') {
       res.render('error', {
