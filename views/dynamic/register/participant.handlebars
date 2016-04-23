@@ -1,0 +1,116 @@
+<div class="container">
+    <div class="col-md-6 registration-box-border div-align-mid">
+        <form id="registrationForm">
+            <div class="row registration-margin">
+                <div class="col-md-6">
+                    <img class="bo-modal-logo" alt="BreakOut" src="/img/logos/BreakOut-Logo_Header.svg">
+                </div>
+                <div class="col-md-6">
+                    <div class="bo-reg-uploadInputWrapper" style="height: 100px; width: 100px;">
+                        <input class="bo-reg-fileInput bo-reg-hiddenInput" type="file" name="profilePic"
+                               id="profilePic"/>
+                        <i class="material-icons registration-picture-icon">camera_alt</i>
+                    </div>
+                </div>
+            </div>
+            <img id="myImg">
+            <div class="registration-margin">
+                <div class="row">
+                    <div class="col-md-6 col-md-push-6">
+                        <label>{{__ 'GENDER'}}</label>
+                        <div class="col-xs-12">
+                            <div class="text-center">
+                                <div class="btn-group">
+                                    <button class="btn btn-default bo-reg-buttons" name="gender" value="male"
+                                            id="male" type="button">{{__ 'MALE'}}
+                                    </button>
+                                    <button class="btn btn-default bo-reg-buttons" name="gender" value="female"
+                                            id="female" type="button">{{__ 'FEMALE'}}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-md-pull-6">
+                        <div class="form-group has-feedback has-feedback-left">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="firstname">{{__ 'FIRST_NAME'}}</label>
+                                <input type="text" class="form-control" name="firstname" id="firstname"
+                                       placeholder="Maxi" required="required">
+                                <i class="form-control-feedback material-icons">perm_identity</i>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group has-feedback has-feedback-left">
+                            <label for="lastname">{{__ 'LAST_NAME'}}</label>
+                            <input type="text" class="form-control" id="lastname" name="lastname"
+                                   placeholder="Muster" required="required">
+                            <i class="form-control-feedback material-icons">group</i>
+
+                        </div>
+                    </div>
+                    <!-- todo: change icon, style select-->
+                    <div class="col-md-6 ">
+                        <div class="form-group has-feedback-left has-feedback">
+                            <label for="tshirtsize">{{__ 'TSHIRT'}}</label>
+                            <select name="tshirtsize" id="tshirtsize" class="form-control">
+                                <option disabled selected>{{__ 'TSHIRT'}}</option>
+                                <option value="xs">XS</option>
+                                <option value="s">S</option>
+                                <option value="m">M</option>
+                                <option value="l">L</option>
+                                <option value="xl">XL</option>
+                                <option value="xxl">XXL</option>
+                            </select>
+                            <i class="material-icons form-control-feedback" required="required">accessibility</i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group has-feedback has-feedback-left">
+                            <label for="phonenumber">{{__ 'CELL'}}</label>
+                            <input type="text" class="form-control" id="phonenumber" name="phonenumber"
+                                   placeholder="+49 123 456789" required="required">
+                            <i class="form-control-feedback material-icons">phone</i>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group has-feedback has-feedback-left">
+                            <label for="emergencynumber">{{__ 'EMERGENCY'}}</label>
+                            <input type="text" class="form-control" id="emergencynumber" name="emergencynumber"
+                                   placeholder="+49 123 456789" required="required">
+                            <i class="form-control-feedback material-icons">contact_phone</i>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <div>
+                                <input type="checkbox" id="terms_accepted" required="required" class="bo-reg-checkbox"/>
+                                <label for="terms_accepted" class="bo-reg-label">{{__ 'ACCEPT'}} <a>{{__ 'TERMS'}}</a></label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="age_accepted" required="required" class="bo-reg-checkbox"/>
+                                <label for="age_accepted" class="bo-reg-label">{{__ 'AGE'}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row registration-margin">
+                    <div class="col-xs-12">
+                        <button type="submit" id="register" class="btn btn-primary btn-block">{{__ 'CONTINUE'}}</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

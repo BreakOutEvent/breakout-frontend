@@ -6,11 +6,18 @@ exports.concat = (first, second) => first + second;
 
 exports.__ = (text, options) => {
 
-  if(!options.data.root.lang) {
+  if (!options.data.root.lang) {
     throw 'You did not pass the language to handlebars!';
   }
 
-  let viewArr = options.data.exphbs.view.split('\\');
+  const view = options.data.exphbs.view;
+  let viewArr = [];
+
+  if(view.indexOf('\\') > -1 ) {
+    viewArr = view.split('\\');
+  } else {
+    viewArr = view.split('/');
+  }
 
   return i18n.translate(viewArr[viewArr.length - 1].toUpperCase(), text.toUpperCase(), options.data.root.lang);
 };

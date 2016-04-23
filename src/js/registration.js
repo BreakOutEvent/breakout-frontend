@@ -6,10 +6,17 @@ function sanityCheck() {
 
   inputs.each((i, element) => {
     let val = $(element).val();
-
+    //CHECK if its required
+    if (!$(element)[0].hasAttribute('required')) return;
+    //Check if its a checkbox
     if ($(element).prop('type') === 'checkbox') {
-      val = $(element).is(':checked');
+      val = $(element).is(':checked') ? 'true' : '';
     }
+
+    if ($(element).prop('type') === 'file') {
+      val = $(element)[0].files && $(element)[0].files[0] ? 'true' : '';
+    }
+    console.log(val);
     if (!val || val.trim() === '') {
       $(element).addClass('bo-reg-form-error');
     } else {
@@ -28,7 +35,46 @@ function sanityCheck() {
 
 $(document).ready(() => {
 
-  if ($('#registrationForm').length > 0) {
+  $('#profilePic').change(function() {
+    if (this.files && this.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        $('.bo-reg-uploadInputWrapper').css('background-image', 'url(' + e.target.result + ')');
+        $('.registration-picture-icon').hide();
+      };
+      reader.readAsDataURL(this.files[0]);
+    }
+  });
+
+  if ($('#registerForm').length > 0) {
+
+    $('#registerForm').on('submit', e => {
+      e.preventDefault();
+
+      if (sanityCheck()) {
+        if ($('#password').val() !== $('#password_repeat').val()) {
+          $('#error').html('<div class="alert alert-danger"> ' +
+            'The passwords you entered do not match.</div>');
+        } else {
+          $.post('/register', {
+              email: $('#email').val(),
+              password: $('#password').val()
+            })
+            .success(data => {
+              window.location.href = data.nextUrl;
+            })
+            .error(err => {
+              console.log(err);
+              $('#error').html('<div class="alert alert-danger">' +
+                err.responseJSON.error + '</div>');
+            });
+        }
+      }
+    });
+
+
+
+  } else if ($('#registrationForm').length > 0) {
     window.gender = null;
 
     $('button[name=gender]').click(function() {
@@ -45,23 +91,29 @@ $(document).ready(() => {
 
     });
 
-    $('#registrationForm').on('submit', function(e) {
+    $('#registrationForm').on('submit', e => {
       e.preventDefault();
 
 
       if (sanityCheck()) {
-        var values = {
-          firstname: $('#firstname').val(),
-          lastname: $('#lastname').val(),
-          phonenumber: $('#phonenumber').val(),
-          emergencynumber: $('#emergencynumber').val(),
-          tshirtsize: $('#tshirtsize').val(),
-          gender: window.gender
-        };
 
-        $.post('/participant', values)
-          .success(function(data) {
-            window.location.href = data.nextURL;
+        var data = new FormData($('#registrationForm')[0]);
+        data.append('gender', window.gender);
+
+        if (!$('#profilePic')[0].files || !$('#profilePic')[0].files[0]) {
+          data.delete('profilePic');
+        }
+
+        $.ajax({
+            url: '/participant',
+            type: 'POST',
+            cache: false,
+            processData: false,
+            contentType: false,
+            data: data
+          })
+          .success(function(result) {
+            window.location.href = result.nextURL;
           })
           .error(function(err) {
             console.log(err);

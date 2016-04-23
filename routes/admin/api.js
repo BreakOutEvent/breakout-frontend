@@ -14,7 +14,7 @@ const router = express.Router();
 const models = {
   view: mongoose.model('view', requireLocal('schemas/view.js')),
   page: mongoose.model('page', requireLocal('schemas/page.js')),
-  menu: mongoose.model('menu', requireLocal('schemas/menu.js')),
+  menu: mongoose.model('menu', requireLocal('schemas/menu.js'))
 };
 
 // Creates regex string for filtering valid models
@@ -28,7 +28,7 @@ const storage = multer.diskStorage({
   filename: (req, file, callback) => {
     const fn = file.originalname;
     callback(null, fn + '-' + Date.now() + path.extname(fn));
-  },
+  }
 });
 const upload = multer({ storage: storage }).single('image');
 
@@ -57,7 +57,7 @@ function serveFile(fpath, res) {
 
 router.post('/image', upload, (req, res) =>
   res.json({
-    filePath: '/img/uploads/' + req.file.filename,
+    filePath: '/img/uploads/' + req.file.filename
   })
 );
 
@@ -67,7 +67,7 @@ router.delete('/image/:filename', (req, res) =>
       res.status(404);
     } else {
       res.json({
-        result: 'ok',
+        result: 'ok'
       });
     }
   })
@@ -102,7 +102,7 @@ router.get('/:model' + allowedModels + '/:id', (req, res) =>
 router.get('/render/:pageid', (req, res) => {
   renderer.renderAndSavePageByID(req.params.pageid);
   res.json({
-    status: 'ok',
+    status: 'ok'
   });
 });
 
@@ -119,14 +119,14 @@ router.post('/view', (req, res) => {
 
   const rawView = {
     templateName: template.name,
-    variables: [],
+    variables: []
   };
 
   //FILL WITH DEFAULT VALUES
   for (let variable of template.variables) {
     variable.values = [
       { language: 'de', value: 'defaultValue' },
-      { language: 'en', value: 'defaultValue' },
+      { language: 'en', value: 'defaultValue' }
     ];
     rawView.variables.push(variable);
   }

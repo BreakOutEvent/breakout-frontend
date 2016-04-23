@@ -1,6 +1,6 @@
 'use strict';
-const api = require('../api-proxy');
-const session = require('../session');
+const api = requireLocal('controller/api-proxy');
+const session = requireLocal('controller/session');
 const co = require('co');
 const _ = require('lodash');
 
@@ -17,33 +17,38 @@ const URLS = {
 
 let registration = {};
 
-const sendErr = (req, res, errMsg) => {
+const sendErr = (res, errMsg) => {
+  logger.error(errMsg);
   res.status(500).send({ error: errMsg });
 };
 
 registration.createUser = (req, res) => {
-  if (!req.body) sendErr(req, res, 'The server did not receive any data.');
+  if (!req.body) sendErr(res, 'The server did not receive any data.');
+  api.createUser(req.body.email, req.body.password)
+    .then(() => {
+      api.authenticate(req.body.email, req.body.password).then(token => {
+        passport.login(token, err => {
+          if (err) {
+            sendErr(res, 'Could not create a session.');
+          }
 
-  // LOG: start to create a new user
-  logger.info('Trying to create a new user', req.body.email);
-  return new Promise((resolve, reject) =>
-    api.createUser(email, password)
-      .then((data) => {
-        // LOG: new user created
-        logger.info('Created new user', req.body.email);
-        resolve(data);
-      })
-      .catch((err) => {
-        if (err) {
-          reject(err);
-          console.error(err);
-        }
-      })
-  );
+          res.send({
+            nextUrl: URLS.SELECTION
+          });
+        });
+      }).catch(err => {
+        logger.error(err);
+        sendErr(res, 'Unable to login.');
+      });
+    })
+    .catch(err => {
+      logger.error(err);
+      sendErr(res, err.message);
+    });
 };
 
 registration.createParticipant = (req, res) => {
-  if (!req.body) sendErr(req, res, 'The server did not receive any data.');
+  if (!req.body) sendErr(res, 'The server did not receive any data.');
 
   let updateBody = {
     firstname: req.body.firstname,
@@ -56,12 +61,27 @@ registration.createParticipant = (req, res) => {
     }
   };
 
+  if (req.file) {
+    updateBody.profilePic = ['image'];
+  }
+
   logger.info('Trying to create a new participant', updateBody);
 
   session.getUserInfo(req)
     .then(user => {
       api.putModel('user', user.id, req.user, updateBody)
-        .then(() => {
+        .then(backend_user => {
+          console.log(backend_user);
+          if (req.file) {
+            api.uploadPicture(req.file, backend_user.profilePic[0])
+              .then(() => res.send({
+                nextURL: URLS.INVITE
+              }))
+              .catch(err => {
+                throw err;
+              });
+          }
+
           logger.info('Created a new participant', updateBody);
           session.forceUpdate(req);
           res.send({
@@ -71,13 +91,13 @@ registration.createParticipant = (req, res) => {
         .catch((err) => {
           if (err) {
             console.log(err);
-            sendErr(req, res, 'Could not save your data');
+            sendErr(res, 'Could not save your data');
           }
         });
     })
     .catch(err => {
       console.log(err);
-      sendErr(req, res, err.error);
+      sendErr(res, err.error);
     });
 };
 
@@ -115,21 +135,54 @@ registration.getEvents = (req) => co(function*() {
   throw ex;
 });
 
-registration.joinTeam = (req, res) => {
+registration.getInviteByToken = (token) => co(function*() {
 
-};
+  return yield api.getInviteByToken(token);
+
+}).catch(ex => {
+  throw ex;
+});
+
+registration.joinTeamAPI = (req, res) => co(function*() {
+
+  if (!req.body) sendErr(res, 'Did not receive any data');
+
+  let me = yield api.getCurrentUser(req.user);
+
+  yield api.postModel(`/event/${req.body.eventID}/team/${req.body.teamID}/member/`, { email: me.email });
+
+  res.send({
+    result: 'success'
+  });
+
+}).catch(ex => {
+  throw ex;
+});
 
 registration.createSponsor = (req, res) => {
   // TODO: IMPLEMENT
 };
 
 registration.createTeam = (req, res) => co(function*() {
-  logger.info('Trying to create team for event', req.body.event.city, 'with name', req.body.teamname);
+  logger.info('Trying to create team for event', req.body.event, 'with name', req.body.teamname);
+
+  let teamData = {
+    name: req.body.teamname
+  };
+
+  if (req.file) {
+    logger.info('Found picture for team in ', req.body.event, 'with name', req.body.teamname);
+    teamData.profilePic = ['image'];
+  }
 
   const team =
-    yield api.postModel(`event/${req.body.event}/team/`, req.user, { name: req.body.teamname });
+    yield api.postModel(`event/${req.body.event}/team/`, req.user, teamData);
 
-  logger.info('Created Team', req.body.teamname, 'for event', req.body.event.city);
+  if (req.file) {
+    yield api.uploadPicture(req.file, team.profilePic);
+  }
+
+  logger.info('Created Team', req.body.teamname, 'for event', req.body.event);
 
   logger.info('Trying to invite user', req.body.email, 'to team', team.id);
 

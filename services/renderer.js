@@ -69,7 +69,7 @@ renderer.renderPageByURL = (language, url) => co(function*() {
     url: url
   };
 
-  logger.info('Trying to fetch page', propertyObject)
+  logger.info('Trying to fetch page', propertyObject);
 
   const page = yield Page
     .findOne({

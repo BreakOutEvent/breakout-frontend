@@ -11,6 +11,8 @@ const throng = config.cluster ? require('throng') : cb => cb(0);
 
 throng(id => {
   const path = require('path');
+  const fs = require('fs');
+
   global.ROOT = path.resolve(__dirname);
 
   global.requireLocal = module => require(__dirname + '/' + module);
@@ -18,10 +20,7 @@ throng(id => {
   const express = require('express');
   const app = express();
 
-  const exphbs = require('express-handlebars');
-  const bodyparser = require('body-parser');
-  const morgan = require('morgan');
-  const fs = require('fs');
+  app.use(express.static(path.join(__dirname, 'public')));
 
   const bunyan = require('bunyan');
   global.logger = bunyan.createLogger(
@@ -38,16 +37,22 @@ throng(id => {
         }
       ],
       serializers: bunyan.stdSerializers,
-      src: process.env.NODE_ENV === 'development'
+      src: process.env.NODE_ENV !== 'production'
     }
   );
 
+  const morgan = require('morgan');
   app.use(morgan('combined',
     { stream: fs.createWriteStream(ROOT + '/logs/access.log', { flags: 'a' }) }
   ));
 
-  requireLocal('controller/mongo.js').con();
+  const exphbs = require('express-handlebars');
+  const bodyparser = require('body-parser');
+  const co = require('co');
+
+  const mongoose = requireLocal('controller/mongo.js').con();
   const passport = requireLocal('controller/auth.js');
+  const API = requireLocal('controller/api-proxy');
 
   // Handlebars setup
   const hbs = exphbs.create({
@@ -61,19 +66,25 @@ throng(id => {
   app.engine('handlebars', hbs.engine);
   app.set('view engine', 'handlebars');
 
-  app.use(express.static(path.join(__dirname, 'public')));
-
   if (process.env.NODE_ENV === 'production' && config.secret === DEFAULT_SECRET) {
     throw new Error('No custom secret specified, please set one via FRONTEND_SECRET');
   }
 
-  // Use application-level middleware for common functionality, including
-  // logging, parsing, and session handling.
-  app.use(require('express-session')({
+  const session = require('express-session');
+  const MongoStore = require('connect-mongo')(session);
+
+  app.use(session({
     secret: config.secret,
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
   }));
+
+  // Initialize Passport and restore authentication state, if any, from the
+  // session.
+  app.use(passport.initialize());
+  app.use(passport.session());
+
   app.use(bodyparser.urlencoded({
     extended: true
   }));
@@ -84,10 +95,22 @@ throng(id => {
   //Set language header correctly including fallback option.
   app.use(requireLocal('services/i18n').init);
 
-  // Initialize Passport and restore authentication state, if any, from the
-  // session.
-  app.use(passport.initialize());
-  app.use(passport.session());
+  app.use((req, res, next)=> co(function*() {
+    if (req.isAuthenticated()
+      && req.user.expires_at
+      && new Date() > new Date(req.user.expires_at)
+    ) {
+      const refr = yield API.refresh(req.user);
+      req.login(passport.createSession(req.user.email, refr), (error) => {
+        if (error) throw error;
+        next();
+      });
+    } else {
+      next();
+    }
+
+    // TODO: Maybe logout on refresh fail?
+  }).catch(ex => next(ex)));
 
   // Sets routes
   app.use('/', require('./routes/main'));
@@ -130,4 +153,5 @@ throng(id => {
       });
     }
   });
-});
+})
+;
