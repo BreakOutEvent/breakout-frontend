@@ -5,6 +5,7 @@
                 <div class="col-md-6">
                     <img class="bo-modal-logo" alt="BreakOut" src="/img/logos/BreakOut-Logo_Header.svg">
                 </div>
+                <!--
                 <div class="col-md-6">
                     <div class="bo-reg-uploadInputWrapper" style="height: 100px; width: 100px;">
                         <input class="bo-reg-fileInput bo-reg-hiddenInput" type="file" name="profilePic"
@@ -12,6 +13,7 @@
                         <i class="material-icons registration-picture-icon">camera_alt</i>
                     </div>
                 </div>
+                -->
             </div>
             <img id="myImg">
             <div class="registration-margin">
@@ -58,8 +60,8 @@
                     <div class="col-md-6 ">
                         <div class="form-group has-feedback-left has-feedback">
                             <label for="tshirtsize">{{__ 'TSHIRT'}}</label>
-                            <select name="tshirtsize" id="tshirtsize" class="form-control">
-                                <option disabled selected>{{__ 'TSHIRT'}}</option>
+                            <select name="tshirtsize" id="tshirtsize" class="form-control" required="required">
+                                <option disabled="disabled" selected="selected">{{__ 'TSHIRT'}}</option>
                                 <option value="xs">XS</option>
                                 <option value="s">S</option>
                                 <option value="m">M</option>
@@ -107,7 +109,7 @@
                 </div>
                 <div class="row registration-margin">
                     <div class="col-xs-12">
-                        <button type="submit" id="register" class="btn btn-primary btn-block">{{__ 'CONTINUE'}}</button>
+                        <button type="submit" id="register" class="btn btn-primary btn-block" id="mainCTA">{{__ 'CONTINUE'}}</button>
                     </div>
                 </div>
             </div>

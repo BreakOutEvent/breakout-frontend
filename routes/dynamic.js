@@ -72,13 +72,6 @@ router.get('/payment', (req, res, next) => co(function*() {
 router.get('/join/:token', (req, res, next) => co(function*() {
   let invite = yield registration.getInviteByToken(req.params.token);
 
-  invite = {
-    team: 1,
-    email: 'invitee@mail.com',
-    creator: 'creator@mail.com',
-    token: 'thetokenyougavemeattheapi'
-  };
-
   if (!invite) {
     res.render('dynamic/register/register',
       {
@@ -173,9 +166,9 @@ router.get('/activation/:token', (req, res, next) => co(function*() {
 router.post('/participant', isAuth, upload.single('profilePic'), registration.createParticipant);
 router.post('/register', isAuth, registration.createUser);
 router.post('/team-create', isAuth, upload.single('profilePic'), registration.createTeam);
-router.post('/join', isAuth, upload.single('profilePic'), registration.joinTeamAPI);
 router.post('/payment-checkout', isAuth, payment.checkout);
 router.post('/invite', isAuth, registration.inviteUser);
+router.post('/team-invite', isAuth, registration.joinTeamAPI);
 
 router.post('/login',
   passport.authenticate('local',

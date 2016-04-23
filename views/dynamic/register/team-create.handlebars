@@ -7,6 +7,7 @@
                 <img class="bo-modal-logo" alt="BreakOut" src="/img/logos/BreakOut-Logo_Header.svg">
             </div>
         </div>
+        <!--
         <div class="row">
             <div class="col-xs-12">
                 <div class="bo-reg-uploadInputWrapper" style="height: 100px; width: 100px;">
@@ -16,7 +17,7 @@
                 </div>
             </div>
         </div>
-
+        -->
         <div class="row registration-margin">
             <div class="col-xs-12 text-center">
                 <h4>{{__ 'HEADLINE'}}</h4>
@@ -51,7 +52,7 @@
                     </div>
                     <div class="form-group has-feedback has-feedback-left">
                         <label for="event">{{__ 'LABEL_CITY'}}</label>
-                        <select id="event" name="event" class="form-control">
+                        <select id="event" name="event" class="form-control" required="required">
                             <option value="" selected disabled>{{__ 'LABEL_CITY'}}</option>
                             {{#each events}}
                                 <option value="{{id}}">{{city}}</option>
@@ -60,7 +61,7 @@
                         <i class="form-control-feedback material-icons">location_city</i>
                     </div>
                     <div class=" registration-margin form-group text-center">
-                        <button type="submit" class="btn btn-primary btn-block">{{__ 'CTA'}}</button>
+                        <button type="submit" class="btn btn-primary btn-block" id="mainCTA">{{__ 'CTA'}}</button>
                     </div>
                 </form>
 
