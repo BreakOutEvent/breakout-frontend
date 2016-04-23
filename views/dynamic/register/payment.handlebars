@@ -7,36 +7,30 @@
         </div>
         <div class="row registration-margin">
             <div class="col-xs-12">
-                <h3 class="text-center">Zahlung</h3>
+                <h3 class="text-center">{{__ 'HEADLINE'}}</h3>
             </div>
         </div>
         <div class="row registration-margin">
             <div class="col-xs-12">
-                <p>Um Eure Anmeldung abzuschließen, müsst ihr noch die Teilnahmegebühren zahlen. Die Teilnahmegebühren
-                    setzen sich aus folgenden Bereichen zusammen:</p>
+                <p>{{__ 'DESCRIPTION_1'}}</p>
                 <ul>
-                    <li>Eure T-Shirts (14€ pP.)</li>
-                    <li>Starterkit (3€ pP.)</li>
-                    <li>BreakOut Hotline (3€ pP.)</li>
+                    <li>{{__ 'ELEMENT_1'}}</li>
+                    <li>{{__ 'ELEMENT_2'}}</li>
+                    <li>{{__ 'ELEMENT_3'}}</li>
                 </ul>
-                <p>Alle diese Posten fließen direkt oder indirekt wieder an euch zurück. Eure Sicherheit steht für uns
-                    an erster Stelle, weshalb die BreakOut Hotline die ganzen 36 Stunden für Euch erreichbar sein
-                    wird.</p>
-                <p>Da der tiefere Gedanke hinter BreakOut aber das Spenden an das DAFI Projekt ist, wollen wir
-                    sicherstellen, dass jedes Team etwas dazu beiträgt. Wir erheben deshalb 20€ Deposit pro Team. Das
-                    Deposit überweisen wir Euch nach dem Event zurück, wenn Ihr über 100€ an Spenden generiert habt.
-                    Andernfalls gehen die 20€ in Eurem Namen direkt an das DAFI Projekt.</p>
-                <p>Das heißt die gesamten Kosten <strong>pro Person sind 30€.</strong> Insgesamt ist also ein Betrag von 60€ pro Team zu entrichten. Dazu bitte den Betrag mit dem <strong>angegebenen Verwendungszweck</strong> überweisen.</p>
+                <p>{{__ 'DESCRIPTION_2'}}</p>
+                <p>{{__ 'DESCRIPTION_3'}}</p>
+                <p>{{{__ 'DESCRIPTION_4'}}}</p>
             </div>
         </div>
         <div class="row registration-margin">
             <div class="col-xs-12">
                 <div class="bo-reg-well-selection">
-                    <h4>Überweisung</h4>
+                    <h4>{{__ 'SUBHEADLINE_1'}}</h4>
                     <form class="form-horizontal">
                         <div class="form-group">
                             <div class="col-sm-3">
-                                <h5 class="bo-payment-label">IBAN</h5>
+                                <h5 class="bo-payment-label">{{__ 'ACCNUMBER'}}</h5>
                             </div>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control"  disabled="disabled" value="DE60 7002 2200 0072 7083 26">
@@ -44,7 +38,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-3">
-                                <h5 class="bo-payment-label">BIC</h5>
+                                <h5 class="bo-payment-label">{{__ 'BANKNUMBER'}}</h5>
                             </div>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control"  disabled="disabled" value="FDDODEMMXXX">
@@ -52,7 +46,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-3">
-                                <h5 class="bo-payment-label">Kontoinhaber</h5>
+                                <h5 class="bo-payment-label">{{__ 'OWNER'}}</h5>
                             </div>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control"  disabled="disabled" value="Daria Brauner">
@@ -60,7 +54,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-3">
-                                <h5 class="bo-payment-label">Verwendungszweck</h5>
+                                <h5 class="bo-payment-label">{{__ 'PURPOSE'}}</h5>
                             </div>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control"  disabled="disabled" value="{{purpose}}">
@@ -77,7 +71,7 @@
                     <form class="form-horizontal">
                         <div class="form-group">
                             <div class="col-sm-3">
-                                <h5 class="bo-payment-label">E-Mail</h5>
+                                <h5 class="bo-payment-label">{{__ 'MAIL'}}</h5>
                             </div>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control"  disabled="disabled" value="anmeldung@break-out.org">
@@ -85,7 +79,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-3">
-                                <h5 class="bo-payment-label">Verwendungszweck</h5>
+                                <h5 class="bo-payment-label">{{__ 'PURPOSE'}}</h5>
                             </div>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control"  disabled="disabled" value="{{purpose}}">
@@ -97,7 +91,7 @@
         </div>
         <div class="row registration-margin">
             <div class="col-xs-12">
-                <a href="/team-success" class="no-underline"><button class="btn btn-primary btn-block">Weiter</button></a>
+                <a href="/team-success" class="no-underline"><button class="btn btn-primary btn-block">{{__ 'CONTINUE'}}</button></a>
             </div>
         </div>
     </div>
