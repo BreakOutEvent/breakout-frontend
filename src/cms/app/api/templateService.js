@@ -5,10 +5,10 @@ let TemplateService = ($http) => {
   'ngInject';
   return {
     getList: function () {
-      return $http.get('//localhost:3000/admin/api/getList')
+      return $http.get('/api/getList')
     },
     getHtml: function (templateName) {
-      return $http.get('//localhost:3000/admin/api/html/' + templateName)
+      return $http.get('/api/html/' + templateName)
     }
   }
 };

@@ -3,7 +3,7 @@
  */
 let PageService = ($resource) => {
   'ngInject';
-  return $resource('//localhost:3000/admin/api/page/:pageId', {pageId: '@_id'})
+  return $resource('/api/page/:pageId', {pageId: '@_id'})
 };
 
 export default PageService

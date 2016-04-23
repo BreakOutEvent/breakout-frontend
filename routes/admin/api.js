@@ -1,4 +1,4 @@
-﻿'use strict';
+﻿﻿'use strict';
 
 const mongoose = requireLocal('controller/mongo.js');
 const fs = require('fs');
