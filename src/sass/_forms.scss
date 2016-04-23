@@ -39,6 +39,9 @@ label {
   &.form-group-lg .form-control {
     padding-right: $input-height-large;
   }
+  .form-control-static {
+    padding-right: $input-height-base;
+  }
 }
 
 .has-feedback-left {
@@ -55,6 +58,12 @@ label {
   .form-control.input-lg,
   &.form-group-lg .form-control {
     padding-left: $input-height-large;
+  }
+  // Left Icon Input Static Padding
+  .form-control-static {
+    //reset changes to right
+    padding-right: $padding-base-horizontal;
+    padding-left: $input-height-base;
   }
 }
 
@@ -123,4 +132,13 @@ label {
     color: $gray-dark;
     top: ($line-height-computed); // Height of the `label` and its margin
   }
+}
+
+.form-information {
+  color: $brand-primary;
+}
+
+.form-buttons {
+  width: 50%;
+  margin: 40px auto 0 auto;
 }

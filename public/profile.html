@@ -67,46 +67,79 @@
         </div><!--/.nav-collapse -->
       </div>
     </nav>
-    <div class="bo-highlight-container2">
-      <h1>header infos</h1>
-      <nav class="navbar nav-tabs">
-        <div class="container">
+
+    <div class="bo-header-info">
+      <div class="container">
+        <img src="http://lorempixel.com/100/100/people/1/" class="bo-profile-image pull-left" />
+        <div class="bo-profile-info">
+          <p>Thomas Brand</p>
+          <p>Team Awesome Gin Tonic</p>
+        </div>
+      </div>
+      
+<!--      <nav class="navbar nav-tabs navbar-inverse bo-secondary-nav">-->
+        <div class="container bo-secondary-nav bo-single-row">
           <ul class="nav nav-tabs">
-            <li><a href="#">Profil</a></li>
-            <li><a href="#">Team</a></li>
+            <li role="presentation" class="active"><a href="#">Profil Einstellungen</a></li>
+            <li role="presentation"><a href="#">Team Einstellungen</a></li>
           </ul>
         </div>
-      </nav>
+<!--      </nav>-->
+      
     </div>
     
-    <div class="container bo-single-row">
+    <div class="container bo-profile-form bo-single-row">
       <form role="form">
         <div class="form-group has-feedback has-feedback-left">
           <label for="firstname">Vorname</label>
           <input type="text" class="form-control" id="firstname">
           <i class="form-control-feedback material-icons">perm_identity</i>
         </div>
-        <div class="form-group">
+        <div class="form-group has-feedback has-feedback-left">
           <label for="surename">Nachname</label>
           <input type="text" class="form-control" id="surename">
+          <i class="form-control-feedback material-icons">perm_identity</i>
         </div>
         <div class="form-group has-feedback has-feedback-left">
           <label for="email">E-Mail</label>
           <input type="email" class="form-control" id="email">
-          <i class="form-control-feedback custom-icons email"></i>
+          <i class="form-control-feedback material-icons">mail_outline</i>
+        </div>
+        <div class="form-group has-feedback has-feedback-left">
+          <label for="gender">Geschlecht</label>
+          <select class="form-control" id="gender">
+            <option>Maennlich</option>
+            <option>Weiblich</option>
+          </select>
+          <i class="form-control-feedback material-icons">perm_identity</i>
         </div>
         <div class="form-group has-feedback has-feedback-left">
           <label for="shirtsize">T-Shirt Goesse</label>
-          <select class="form-control">
+          <select class="form-control" id="shirtsize">
             <option>Groesse S</option>
             <option>Groesse M</option>
             <option>Groesse L</option>
           </select>
           <i class="form-control-feedback custom-icons tshirt"></i>
         </div>
-        <div class="form-group">
-          <label for="phone">Handy Nr.</label>
+        <div class="form-group has-feedback has-feedback-left">
+          <label for="phone">Handynummer</label>
           <input type="text" class="form-control" id="phone">
+          <i class="form-control-feedback material-icons">phone</i>
+        </div>
+        <div class="form-group has-feedback has-feedback-left">
+          <label for="phone_emergency">Notfallnummer</label>
+          <input type="text" class="form-control" id="phone_emergency">
+          <i class="form-control-feedback material-icons">perm_phone_msg</i>
+        </div>
+        <div class="form-group has-feedback has-feedback-left form-information">
+          <p class="form-control-static">Die Zahlung fuer deinen Eventbeitrag (30,00 Euro) sind noch nicht bei uns eingetroffen. Bitte uerberweisse den Betrag bis zum 31.05. um am Event teilzunehmen</p>
+          <i class="form-control-feedback material-icons">info</i>
+        </div>
+        
+        <div class="form-buttons">
+          <button type="button" class="btn btn-primary btn-block text-uppercase">Event beitrag bezahlen</button>
+          <button type="button" class="btn btn-default btn-block text-uppercase">Aenderungen speichern</button>
         </div>
       </form>
     </div>
