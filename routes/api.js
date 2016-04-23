@@ -49,7 +49,6 @@ router.use((req, res, next) => {
 });
 
 router.post('/auth/login', function(req, res) {
-  console.log(req.body);
   api.authenticate(req.body.email, req.body.password)
     .then(() => {
       res.send({ token: adminAuth.createJWT(req.body.email) });
