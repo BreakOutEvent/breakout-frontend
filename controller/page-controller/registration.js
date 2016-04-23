@@ -22,18 +22,18 @@ const sendErr = (res, errMsg, err) => {
   if (err) logger.error(errMsg, err);
   else logger.error(errMsg);
 
-  res.status(500).send({error: errMsg});
+  res.status(500).send({ error: errMsg });
 };
 
 registration.createUser = (req, res) => {
-  if (!req.body) sendErr(res, 'The server did not receive any data.');
+  if (!req.body) return sendErr(res, 'The server did not receive any data.');
 
   api.createUser(req.body.email, req.body.password)
     .then(() => {
       api.authenticate(req.body.email, req.body.password).then(token => {
         passport.login(token, err => {
           if (err) {
-            sendErr(res, 'Could not create a session.', err);
+            return sendErr(res, 'Could not create a session.', err);
           }
 
           res.send({
@@ -50,7 +50,7 @@ registration.createUser = (req, res) => {
 };
 
 registration.createParticipant = (req, res, next) => {
-  if (!req.body) sendErr(res, 'The server did not receive any data.');
+  if (!req.body) return sendErr(res, 'The server did not receive any data.');
 
   let updateBody = {
     firstname: req.body.firstname,
@@ -137,7 +137,7 @@ registration.getInviteByToken = (token) => co(function*() {
 
 registration.joinTeamAPI = (req, res, next) => co(function*() {
 
-  if (!req.body) sendErr(res, 'Did not receive any data');
+  if (!req.body) return sendErr(res, 'Did not receive any data');
 
   let me = yield api.getCurrentUser(req.user);
 
@@ -145,9 +145,10 @@ registration.joinTeamAPI = (req, res, next) => co(function*() {
     yield api.postModel(`/event/${req.body.eventID}/team/leave/`, req.user, {});
   }
 
-  const team = yield api.postModel(`/event/${req.body.eventID}/team/${req.body.teamID}/member/`, req.user, {email: me.email});
+  const team = yield api.postModel(`/event/${req.body.eventID}/team/${req.body.teamID}/member/`,
+    req.user, { email: me.email });
 
-  if(!team) return res.status(500).send({error:'Could not join team.'});
+  if (!team) return res.status(500).send({ error: 'Could not join team.' });
 
   res.send({
     result: 'success'
@@ -156,7 +157,8 @@ registration.joinTeamAPI = (req, res, next) => co(function*() {
 }).catch(ex => next(ex));
 
 registration.createSponsor = (req, res) => co(function*() {
-  logger.info('Trying to create team for event', req.body.event, 'with name', req.body.firstname, req.body.lastname);
+  logger.info('Trying to create team for event', req.body.event, 'with name', req.body.firstname,
+    req.body.lastname);
 
   let sponsorData = {
     lastname: req.body.lastname,
@@ -169,7 +171,8 @@ registration.createSponsor = (req, res) => co(function*() {
   };
 
   if (req.file) {
-    logger.info('Found logo for sponsor in ', req.body.event, 'with name', req.body.firstname, ' ', req.body.lastname);
+    logger.info('Found logo for sponsor in ', req.body.event, 'with name', req.body.firstname, ' ',
+      req.body.lastname);
     sponsorData.sponsorLogo = ['image'];
   }
 
@@ -180,9 +183,10 @@ registration.createSponsor = (req, res) => co(function*() {
     yield api.uploadPicture(req.file, sponsor.sponsorLogo);
   }
 
-  logger.info('Created Sponsor', req.body.firstname, ' ', req.body.lastname, 'for event', req.body.event);
+  logger.info('Created Sponsor', req.body.firstname, ' ', req.body.lastname, 'for event',
+    req.body.event);
 
-  if(!sponsor) return res.status(500).send({error:'Sponsor creation failed!'});
+  if (!sponsor) return res.status(500).send({ error: 'Sponsor creation failed!' });
 
   res.send({
     nextURL: URLS.SPONSOR_SUCCESS
@@ -216,7 +220,7 @@ registration.createTeam = (req, res, next) => co(function*() {
 
   const invite = yield api.inviteUser(req.user, req.body.event, team.id, req.body.email);
 
-  if (!invite) return res.status(500).send({error: 'Invite creation failed!'});
+  if (!invite) return res.status(500).send({ error: 'Invite creation failed!' });
 
   logger.info('Created Invitation for user', req.body.email, 'to team', team.id);
 
@@ -230,15 +234,16 @@ registration.inviteUser = (req, res) => co(function*() {
   const me = yield api.getCurrentUser(req.user);
 
   if (!me.participant) {
-    return res.status(500).send({error: 'User is not a participant!'});
+    return res.status(500).send({ error: 'User is not a participant!' });
   }
 
-  const invite = yield api.inviteUser(req.user, me.participant.eventId, me.participant.teamId, req.body.email);
+  const invite =
+    yield api.inviteUser(req.user, me.participant.eventId, me.participant.teamId, req.body.email);
 
   if (invite) {
-    res.send({error: ''});
+    res.send({ error: '' });
   } else {
-    return res.status(500).send({error: 'Invite creation failed!'});
+    return res.status(500).send({ error: 'Invite creation failed!' });
   }
 
 }).catch(ex => {
@@ -248,17 +253,16 @@ registration.inviteUser = (req, res) => co(function*() {
 registration.getTransactionPurpose = (req) => co(function*() {
   const me = yield api.getCurrentUser(req);
 
-  return Math.random().toString(36).substr(0, 5) + '-' + me.participant.teamId + '-' + me.firstname + '-' + me.lastname;
+  return Math.random().toString(36).substr(0, 5) + '-' + me.participant.teamId + '-' +
+    me.firstname + '-' + me.lastname;
 }).catch(ex => {
   throw ex;
 });
-
 
 registration.activateUser = (token) => co(function*() {
   return yield api.activateUser(token);
 }).catch(ex => {
   throw ex;
 });
-
 
 module.exports = registration;
