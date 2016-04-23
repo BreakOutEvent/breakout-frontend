@@ -19,8 +19,8 @@ router.get('/:language([a-zA-Z]{2})/:path', (req, res, next) =>
 router.get('/live/:language([a-zA-Z]{2})/:path', (req, res, next) =>
   staticController.live(req.params.language, req.params.path, res, next));
 
-router.get('/live/test', (req, res) => co(function*() {
+router.get('/live/test', (req, res, next) => co(function*() {
   res.send('Ostern is');
-}));
+}).catch(ex => next(ex)));
 
 module.exports = router;

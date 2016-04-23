@@ -86,6 +86,8 @@ rc.writeRenderedFile = (lang, filename, data) => co(function*() {
  */
 rc.getFileTimeStamp = (folder, file) => co(function*() {
   return (yield fs.stat(rc.buildRenderedPath(folder, file))).mtime.getTime();
+}).catch(ex => {
+  throw ex;
 });
 
 module.exports = rc;

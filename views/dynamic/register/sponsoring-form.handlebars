@@ -1,0 +1,129 @@
+<div class="registration-body">
+    <div class="container">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 registration-box-border">
+            <div class="row registration-margin">
+                <div class="col-md-6">
+                    <img class="bo-modal-logo" alt="BreakOut" src="/img/logos/BreakOut-Logo_Header.svg">
+                </div>
+                <div class="col-md-6">
+                    <div class="media-middle registration-picture">
+                        <i class="material-icons registration-picture-icon">camera_alt</i>
+                    </div>
+
+                </div>
+            </div>
+            <form id="registrationForm">
+                <div class="registration-margin">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="lastname">Nachname</label>
+                                <input type="text" class="form-control" id="lastname" name="lastname"
+                                       placeholder="Muster" required="required">
+                                <i class="form-control-feedback material-icons">perm_identity</i>
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <div class="form-group has-feedback has-feedback-left">
+                                    <label for="firstname">Vorname</label>
+                                    <input type="text" class="form-control" name="firstname" id="firstname"
+                                           placeholder="Maxi" required="required">
+                                    <i class="form-control-feedback material-icons">perm_identity</i>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Geschlecht</label>
+                            <div class="text-center">
+                                <div class="btn-group">
+                                    <button class="btn btn-default bo-reg-buttons" name="gender" value="male"
+                                            id="male" type="button">Herr
+                                    </button>
+                                    <button class="btn btn-default bo-reg-buttons" name="gender" value="female"
+                                            id="female" type="button">Frau
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6 ">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="streetAndNumber">Straße und Hausnummer</label>
+                                <input type="text" class="form-control" id="streetAndNumber" name="streetAndNumber"
+                                       placeholder="Straße und Hausnummer" required="required">
+                                <i class="form-control-feedback material-icons">local_post_office</i>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group has-feedback has-feedback-left">
+
+                                <label for="business">Firma (optional)</label>
+
+                                <input type="text" class="form-control" id="business" name="business"
+                                       placeholder="Spaßgmbh">
+
+                                <i class="form-control-feedback material-icons">business
+                                </i>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="zip_code">PLZ</label>
+                                <input type="text" class="form-control" id="zip_code" name="zip_code"
+                                       placeholder="80333" required="required">
+                                <i class="form-control-feedback material-icons">local_post_office</i>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="country">Land</label>
+                                <input type="text" class="form-control" id="country" name="country"
+                                       placeholder="Deutschland" required="required">
+                                <i class="form-control-feedback material-icons">local_post_office</i>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="city">Stadt</label>
+                                <input type="text" class="form-control" id="city" name="city"
+                                       placeholder="München" required="required">
+                                <i class="form-control-feedback material-icons">local_post_office
+                                </i>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 registration-margin">
+                        <input type="checkbox" id="terms_accepted" required="required" class="bo-reg-checkbox"/>
+                        <label for="terms_accepted" class="bo-reg-label">Hiermit akzeptiere ich die <a>Allgemeinen
+                            Geschäftsbedingungen.</a></label>
+                    </div>
+
+                    <div class="registration-margin">
+                        <button type="submit" id="register" class="btn btn-primary btn-block">WEITER</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
