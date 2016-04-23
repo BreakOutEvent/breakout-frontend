@@ -15,6 +15,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "grunt": "grunt",
     "bunyan": "bunyan",
+    "rimraf": "rimraf",
+    "webpack": "webpack",
     "log:info": "cd logs && cat info.log | npm run bunyan",
     "log:error": "cd logs && cat error.log | npm run bunyan",
     "log:clean": "rm logs/*.log",
