@@ -42,6 +42,7 @@ router.get('/sponsor-success', funnelTemplate('sponsor-success'));
 router.get('/spectator-success', funnelTemplate('spectator-success'));
 router.get('/participant', funnelTemplate('participant'));
 router.get('/payment', funnelTemplate('payment'));
+router.get('/sponsor', funnelTemplate('sponsor'));
 
 router.get('/payment-token', isAuth, payment.getToken);
 
@@ -51,15 +52,6 @@ router.get('/logout',
     req.flash('success', 'Successfully logged out!');
     res.redirect('/login');
   }
-);
-router.get('/sponsor', (req, res) =>
-  res.render('dynamic/register/sponsoring-form',
-    {
-      error: req.flash('error'),
-      layout: 'funnel',
-      language: 'de'
-    }
-  )
 );
 
 router.get('/join/:token', (req, res, next) => co(function*() {
