@@ -50,7 +50,7 @@ throng(id => {
   const bodyparser = require('body-parser');
   const co = require('co');
 
-  const mongoose = requireLocal('controller/mongo.js').con();
+  const mongoose = requireLocal('controller/mongo.js');
   const passport = requireLocal('controller/auth.js');
   const API = requireLocal('controller/api-proxy');
 
