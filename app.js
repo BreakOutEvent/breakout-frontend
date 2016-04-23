@@ -101,16 +101,19 @@ throng(id => {
       && new Date() > new Date(req.user.expires_at)
     ) {
       const refr = yield API.refresh(req.user);
-      req.login(passport.createSession(req.user.email, refr), (error) => {
+      req.login(yield passport.createSession(req.user.email, refr), (error) => {
         if (error) throw error;
         next();
       });
     } else {
       next();
     }
-
-    // TODO: Maybe logout on refresh fail?
-  }).catch(ex => next(ex)));
+  }).catch(ex => {
+    logger.error(ex.stack);
+    req.logout();
+    req.flash('error', 'Something went wrong while refreshing your token. You were logged out.');
+    res.redirect('/');
+  }));
 
   // Sets routes
   app.use('/', require('./routes/main'));

@@ -7,7 +7,7 @@ const co = require('co');
 
 passport.use(new Strategy((username, password, cb) => co(function*() {
   try {
-    const user = passport.createSession(username, yield API.authenticate(username, password));
+    const user = yield passport.createSession(username, yield API.authenticate(username, password));
     cb(null, user, { message: 'Successfully logged in' });
   } catch (ex) {
     cb(null, false, { message: ex.error_description });
@@ -20,12 +20,18 @@ passport.serializeUser((user, cb) => cb(null, user));
 
 passport.deserializeUser((user, cb) => cb(null, user));
 
-passport.createSession = (username, user) => {
+passport.createSession = (username, user) => co(function*() {
+  // const me = yield API.getCurrentUserco(user);
+  // console.dir(me);
+
   user.email = username;
   const expiresAt = new Date();
   expiresAt.setSeconds(expiresAt.getSeconds() + user.expires_in);
   user.expires_at = expiresAt;
+
   return user;
-};
+}).catch(ex => {
+  throw ex;
+});
 
 module.exports = passport;

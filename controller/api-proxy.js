@@ -68,6 +68,23 @@ API.refresh = (user) => co(function* () {
   throw ex;
 });
 
+API.getCurrentUserco = user => co(function*() {
+  logger.info('Trying to get currently logged in user', user.email);
+  const req = yield crequest
+    .get({
+      url: `${url}/me/`,
+      auth: { bearer: user.access_token }
+    });
+
+  if (req.statusCode in [200, 201]) {
+    logger.info('Got information about currently logged in user', user.email);
+  }
+
+  return JSON.parse(req.body);
+}).catch(ex => {
+  throw ex;
+});
+
 API.getCurrentUser = token => {
   logger.info('Trying to get currently logged in user');
   return new Promise((resolve, reject) =>
@@ -82,13 +99,13 @@ API.getCurrentUser = token => {
 API.getModel = (modelName, token, id) => {
   logger.info('Trying to get', modelName, 'with id', id, 'from backend');
   return new Promise((resolve, reject)=> {
-    request
+      request
         .get({
           url: `${url}/${modelName}/${(id || '')}`,
           auth: { bearer: token.access_token }
         }, handleResponse(resolve, reject, 'Got ' + modelName + ' with id ' + (id || 'noID') + ' from backend'));
-  }
-);
+    }
+  );
 };
 
 API.postModel = (modelName, token, body) => {
