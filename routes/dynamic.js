@@ -20,7 +20,8 @@ const isAuth = (req, res, next) => {
   // TODO: Re-Enable 403
 };
 
-const funnelTemplate = (template) => (req, res) =>
+const funnelTemplate = (template) => (req, res) => {
+  console.log('render');
   res.render(`dynamic/register/${template}`,
     {
       error: req.flash('error'),
@@ -28,6 +29,8 @@ const funnelTemplate = (template) => (req, res) =>
       lang: req.lang
     }
   );
+};
+
 
 //GET
 
@@ -39,9 +42,9 @@ router.get('/team-success', funnelTemplate('team-success'));
 router.get('/sponsor-success', funnelTemplate('sponsor-success'));
 router.get('/spectator-success', funnelTemplate('spectator-success'));
 router.get('/participant', funnelTemplate('participant'));
-router.get('/payment', funnelTemplate('payment'));
 router.get('/sponsor', funnelTemplate('sponsor'));
 router.get('/invite', funnelTemplate('invite'));
+
 
 router.get('/payment-token', isAuth, payment.getToken);
 
@@ -52,6 +55,22 @@ router.get('/logout',
     res.redirect('/login');
   }
 );
+
+router.get('/payment', (req, res, next) => co(function*() {
+
+  const purpose = yield registration.getTransactionPurpose(req);
+
+  res.render(`dynamic/register/payment`,
+    {
+      error: req.flash('error'),
+      layout: 'funnel',
+      lang: req.lang,
+      purpose: purpose
+    }
+  );
+
+}).catch(ex => next(ex)));
+
 
 router.get('/join/:token', (req, res, next) => co(function*() {
   let invite = yield registration.getInviteByToken(req.params.token);

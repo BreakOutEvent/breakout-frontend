@@ -222,13 +222,20 @@ registration.inviteUser = (req, res) => co(function*() {
 
   const invite = yield api.inviteUser(req.user, me.participant.eventId, me.participant.teamId, req.body.email);
 
-
   if(invite) {
     res.send({error:''});
   } else {
     return res.status(500).send({error:'Invite creation failed!'});
   }
 
+}).catch(ex => {
+  throw ex;
+});
+
+registration.getTransactionPurpose = (req) => co(function*() {
+  const me = yield api.getCurrentUser(req);
+
+  return Math.random().toString(36).substr(0, 5) + '-' + me.participant.teamId + '-' + me.firstname + '-' + me.lastname;
 }).catch(ex => {
   throw ex;
 });

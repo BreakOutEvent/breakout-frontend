@@ -1,7 +1,7 @@
 <div class="container">
-    <div class="col-md-4 registration-box-border div-align-mid">
+    <div class="col-md-6 registration-box-border div-align-mid">
         <div class="row registration-margin">
-            <div class="col-xs-10 div-align-mid">
+            <div class="col-md-6 div-align-mid">
                 <img class="bo-modal-logo center" alt="BreakOut" src="/img/logos/BreakOut-Logo_Header.svg">
             </div>
         </div>
@@ -12,20 +12,69 @@
         </div>
         <div class="row registration-margin">
             <div class="col-xs-12">
-                <p>Um Eure Anmeldung abzuschließen, müsst ihr noch die Teilnahmegebühren zahlen. Die Teilnahmegebühren setzen sich aus folgenden Bereichen zusammen:</p>
+                <p>Um Eure Anmeldung abzuschließen, müsst ihr noch die Teilnahmegebühren zahlen. Die Teilnahmegebühren
+                    setzen sich aus folgenden Bereichen zusammen:</p>
                 <ul>
                     <li>Eure T-Shirts (14€ pP.)</li>
                     <li>Starterkit (3€ pP.)</li>
                     <li>BreakOut Hotline (3€ pP.)</li>
                 </ul>
-                <p>Zusätzlich </p>
-                <p></p>
+                <p>Alle diese Posten fließen direkt oder indirekt wieder an euch zurück. Eure Sicherheit steht für uns
+                    an erster Stelle, weshalb die BreakOut Hotline die ganzen 36 Stunden für Euch erreichbar sein
+                    wird.</p>
+                <p>Da der tiefere Gedanke hinter BreakOut aber das Spenden an das DAFI Projekt ist, wollen wir
+                    sicherstellen, dass jedes Team etwas dazu beiträgt. Wir erheben deshalb 20€ Deposit pro Team. Das
+                    Deposit überweisen wir Euch nach dem Event zurück, wenn Ihr über 100€ an Spenden generiert habt.
+                    Andernfalls gehen die 20€ in Eurem Namen direkt an das DAFI Projekt.</p>
+                <p>Das heißt die gesamten Kosten <strong>pro Person sind 30€.</strong> Insgesamt ist also ein Betrag von 60€ pro Team zu entrichten. Dazu bitte den Betrag mit dem <strong>angegebenen Verwendungszweck</strong> überweisen.</p>
             </div>
+        </div>
+        <div class="row registration-margin">
+            <div class="col-xs-12">
+                <div class="bo-reg-well-selection">
+                    <h4>Überweisung</h4>
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <h5 class="bo-payment-label">IBAN</h5>
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control"  disabled="disabled" value="DE60 7002 2200 0072 7083 26">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <h5 class="bo-payment-label">BIC</h5>
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control"  disabled="disabled" value="FDDODEMMXXX">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <h5 class="bo-payment-label">Kontoinhaber</h5>
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control"  disabled="disabled" value="Daria Brauner">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <h5 class="bo-payment-label">Verwendungszweck</h5>
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control"  disabled="disabled" value="{{purpose}}">
+                            </div>
+                        </div>
+                    </form>
 
+                </div>
+
+            </div>
         </div>
 
-        <form id="checkout" method="post" action="/payment-checkout">
-
-        </form>
     </div>
+
+
+</div>
 </div>
