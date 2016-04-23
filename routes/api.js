@@ -34,6 +34,31 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage }).single('image');
 
+router.use((req, res, next) => {
+  res.set({
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
+    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+  });
+  if ('OPTIONS' == req.method) {
+    res.sendStatus(200);
+  }
+  else {
+    next();
+  }
+});
+
+router.post('/auth/login', function(req, res) {
+  console.log(req.body);
+  api.authenticate(req.body.email, req.body.password)
+    .then(() => {
+      res.send({ token: adminAuth.createJWT(req.body.email) });
+    })
+    .catch(() => {
+      return res.status(401).send({ message: 'Invalid email and/or password' });
+    });
+});
+
 router.use(adminAuth.ensureAuthenticated);
 
 /**
@@ -51,16 +76,6 @@ router.post('/image', upload, (req, res) =>
     filePath: '/img/uploads/' + req.file.filename
   })
 );
-
-router.post('/auth/login', function(req, res) {
-  api.authenticate(req.body.email, req.body.password)
-    .then(() => {
-      res.send({ token: adminAuth.createJWT(req.body.email) });
-    })
-    .catch(() => {
-      return res.status(401).send({ message: 'Invalid email and/or password' });
-    });
-});
 
 router.delete('/image/:filename', (req, res, next) =>
   fs.unlink('./public/img/uploads/' + req.params.filename, (err) => {
