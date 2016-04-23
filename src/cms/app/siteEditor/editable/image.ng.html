@@ -1,0 +1,23 @@
+<md-dialog aria-label="Mango (Fruit)"  ng-cloak>
+        <md-toolbar class="md-accent">
+            <div class="md-toolbar-tools">
+                <h2>Bild einfügen</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="image.cancel()">
+                    <md-icon>close</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <md-button type="file" ngf-select="image.uploadFile($file, $invalidFiles)"
+                         accept="image/*">
+                Bild auswählen</md-button>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button ng-click="image.cancel()">
+                Abbrechen
+            </md-button>
+        </md-dialog-actions>
+</md-dialog>

@@ -4,6 +4,7 @@
 import angular from 'angular'
 
 import template from './editable.html'
+import ImageCtrl from './image.controller'
 
 class editableCtrl {
   constructor() {
@@ -43,14 +44,15 @@ let editableModule = angular.module('bo.siteEditor.editable', [])
       link: (scope, element, attr) => {
         element.on('click', (ev) => {
           console.log('Clicked');
-          var confirm = $mdDialog.prompt()
-            .title('Welcehs Bild soll gezeigt werden?')
-            .textContent('Bitte absolute url eingeben.')
-            .placeholder('Bild url')
-            .ariaLabel('url')
-            .targetEvent(ev)
-            .ok('Speichern')
-            .cancel('Abbrechen');
+          var confirm = {
+            controller: ImageCtrl,
+            controllerAs: 'image',
+            bindToController: true,
+            template: require('./image.ng.html'),
+            parent: angular.element(document.body),
+            targetEvent: event,
+            clickOutsideToClose: true,
+          };
           $mdDialog.show(confirm).then(function(result) {
             scope.url = result;
           }, function() {
@@ -71,9 +73,9 @@ let editableModule = angular.module('bo.siteEditor.editable', [])
           console.log('Clicked');
           ev.stopPropagation();
           var confirm = $mdDialog.prompt()
-            .title('Wohin soll dieser Link führen?')
-            .textContent('Bitte url eingeben.')
-            .placeholder('url')
+            .title('Welcehs Bild soll gezeigt werden?')
+            .textContent('Bitte absolute url eingeben.')
+            .placeholder('Bild url')
             .ariaLabel('url')
             .targetEvent(ev)
             .ok('Speichern')

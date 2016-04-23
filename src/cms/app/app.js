@@ -4,6 +4,7 @@
 import angular from 'angular';
 import ngResource from 'angular-resource';
 import ngMaterial from 'angular-material';
+import ngUpload from 'ng-file-upload';
 import 'angular-drag-and-drop-lists';
 import 'angular-material/angular-material.scss';
 import './../style/app.scss';
@@ -83,6 +84,7 @@ angular
   .module('app', [
     ngMaterial,
     ngResource,
+    ngUpload,
     'dndLists',
     templateLib,
     siteEditor,
