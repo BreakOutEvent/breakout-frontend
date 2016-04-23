@@ -9,44 +9,19 @@ const passport = requireLocal('controller/auth');
 const registration = requireLocal('controller/page-controller/registration');
 const payment = requireLocal('controller/page-controller/payment');
 
-const isUser = (req, res, next) => {
-  if (req.isAuthenticated())
+const generalAuth = (failURL, role, auth) => (req, res, next) => {
+  if (req.isAuthenticated() && req.me && auth(req.me)) {
     return next();
-  else
-    return next();
-  //res.sendStatus(403);
-  // TODO: Re-Enable 403
+  } else {
+    req.flash('error', `Um diese Seite aufzurufen, musst Du ${role} sein.`);
+    res.redirect(failURL);
+  }
 };
 
-const isParticipant = (req, res, next) => {
-  if (req.isAuthenticated())
-    return next();
-  else
-    return next();
-
-  //res.sendStatus(403);
-  // TODO: Re-Enable 403
-};
-
-const isSponsor = (req, res, next) => {
-  if (req.isAuthenticated())
-    return next();
-  else
-    return next();
-
-  //res.sendStatus(403);
-  // TODO: Re-Enable 403
-};
-
-const hasTeam = (req, res, next) => {
-  if (req.isAuthenticated())
-    return next();
-  else
-    return next();
-
-  //res.sendStatus(403);
-  // TODO: Re-Enable 403
-};
+const isUser = generalAuth('/login', 'ein Nutzer', (me) => !!me);
+const isParticipant = generalAuth('/selection', 'ein Teilnehmer', (me) => !!me.participant);
+const isSponsor = generalAuth('/selection', 'ein Sponsor', (me) => !!me.sponsor);
+const hasTeam = generalAuth('/team-invite', 'in einem Team', (me) => !!me.participant.teamId);
 
 const funnelTemplate = (template) => (req, res) =>
   res.render(`dynamic/register/${template}`,
@@ -61,19 +36,16 @@ const funnelTemplate = (template) => (req, res) =>
 //GET
 router.get('/login', funnelTemplate('login'));
 router.get('/register', funnelTemplate('register'));
-router.get('/selection', funnelTemplate('selection'));
-router.get('/participant', funnelTemplate('participant'));
-router.get('/team-success', funnelTemplate('team-success'));
-router.get('/sponsor-success', funnelTemplate('sponsor-success'));
-router.get('/spectator-success', funnelTemplate('spectator-success'));
-router.get('/participant', funnelTemplate('participant'));
-router.get('/sponsor', funnelTemplate('sponsor'));
-router.get('/invite', funnelTemplate('invite'));
+router.get('/selection', isUser, funnelTemplate('selection'));
+router.get('/participant', isUser, funnelTemplate('participant'));
+router.get('/team-success', hasTeam, funnelTemplate('team-success'));
+router.get('/sponsor-success', isSponsor, funnelTemplate('sponsor-success'));
+router.get('/spectator-success', isUser, funnelTemplate('spectator-success'));
+router.get('/sponsor', isUser, funnelTemplate('sponsor'));
+router.get('/invite', isParticipant, funnelTemplate('invite'));
 
 
-router.get('/payment-token', isAuth, payment.getToken);
-
-router.get('/logout',
+router.get('/logout', isUser,
   (req, res) => {
     req.logout();
     req.flash('success', 'Successfully logged out!');
@@ -81,7 +53,7 @@ router.get('/logout',
   }
 );
 
-router.get('/payment', (req, res, next) => co(function*() {
+router.get('/payment', hasTeam, (req, res, next) => co(function*() {
 
   const purpose = yield registration.getTransactionPurpose(req);
 
@@ -120,7 +92,7 @@ router.get('/join/:token', (req, res, next) => co(function*() {
   }
 }).catch(ex => next(ex)));
 
-router.get('/team-invite', (req, res, next) => co(function*() {
+router.get('/team-invite', isParticipant, (req, res, next) => co(function*() {
   const teams = yield registration.getInvites(req);
 
   if (teams.length > 0) {
@@ -138,7 +110,7 @@ router.get('/team-invite', (req, res, next) => co(function*() {
   }
 }).catch(ex => next(ex)));
 
-router.get('/team-create', (req, res, next) => {
+router.get('/team-create', isParticipant, (req, res, next) => {
   registration.getEvents(req)
     .then(events => {
       res.render('dynamic/register/team-create',
@@ -175,15 +147,15 @@ router.get('/activation/:token', (req, res, next) => co(function*() {
         }
       );
     }).catch(err => {
-      res.render('dynamic/register/activation',
-        {
-          error: 'The token you provided is not valid (anymore).',
-          layout: 'funnel',
-          lang: req.lang
-        }
-      );
-      throw err;
-    });
+    res.render('dynamic/register/activation',
+      {
+        error: 'The token you provided is not valid (anymore).',
+        layout: 'funnel',
+        lang: req.lang
+      }
+    );
+    throw err;
+  });
 
 }).catch(err => {
   next(err);
@@ -191,12 +163,11 @@ router.get('/activation/:token', (req, res, next) => co(function*() {
 
 //POST
 
-router.post('/participant', isAuth, upload.single('profilePic'), registration.createParticipant);
-router.post('/register', isAuth, registration.createUser);
-router.post('/team-create', isAuth, upload.single('profilePic'), registration.createTeam);
-router.post('/payment-checkout', isAuth, payment.checkout);
-router.post('/invite', isAuth, registration.inviteUser);
-router.post('/team-invite', isAuth, registration.joinTeamAPI);
+router.post('/participant', isUser, upload.single('profilePic'), registration.createParticipant);
+router.post('/register', registration.createUser);
+router.post('/team-create', isParticipant, upload.single('profilePic'), registration.createTeam);
+router.post('/invite', hasTeam, registration.inviteUser);
+router.post('/team-invite', isParticipant, registration.joinTeamAPI);
 
 router.post('/login',
   passport.authenticate('local',
