@@ -52,6 +52,15 @@ router.get('/logout',
     res.redirect('/login');
   }
 );
+router.get('/sponsor', (req, res) =>
+  res.render('dynamic/register/sponsoring-form',
+    {
+      error: req.flash('error'),
+      layout: 'funnel',
+      language: 'de'
+    }
+  )
+);
 
 router.get('/join/:token', (req, res, next) => co(function*() {
   let invite = yield registration.getInviteByToken(req.params.token);
