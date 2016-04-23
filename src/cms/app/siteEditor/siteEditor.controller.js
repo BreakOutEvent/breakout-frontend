@@ -21,7 +21,7 @@ export default class siteEditorCtrl {
     this._q = $q;
     this._mdToast = $mdToast.showSimple;
     this._debug('Editor initilized, current page:', this.page);
-    this._http.get('//localhost:3000/admin/api/css').then((res) => {
+    this._http.get('/api/css').then((res) => {
       this.style = this._sce.trustAsCss(res.data);
       this._debug('## CSS loaded ### styles get scoped ##');
       scoper.scopeStyles();
@@ -111,7 +111,7 @@ export default class siteEditorCtrl {
   };
 
   getUrl () {
-    return 'http://localhost:3000/live/de/'+this.page.properties[this.props].url
+    return '/live/de/'+this.page.properties[this.props].url
   }
   drop(event, index, item, type) {
     if (type === 'template') {
