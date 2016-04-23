@@ -3,6 +3,7 @@ const api = requireLocal('controller/api-proxy');
 const session = requireLocal('controller/session');
 const co = require('co');
 const _ = require('lodash');
+const passport = requireLocal('controller/auth');
 
 const URLS = {
   REGISTER: '/register',
@@ -16,6 +17,13 @@ const URLS = {
 };
 
 let registration = {};
+
+
+const refreshSession = (req) => co(function*() {
+  req.login(yield passport.createSession(req.user.email, req.user), (error) => {
+    if (error) throw error;
+  });
+}).catch(ex => {throw ex});
 
 const sendErr = (res, errMsg, err) => {
 
@@ -75,9 +83,12 @@ registration.createParticipant = (req, res, next) => {
         .then(backendUser => {
           if (req.file) {
             api.uploadPicture(req.file, backendUser.profilePic[0])
-              .then(() => res.send({
-                nextURL: URLS.INVITE
-              }))
+              .then(() => {
+                refreshSession(req);
+                return res.send({
+                  nextURL: URLS.INVITE
+                })
+              })
               .catch(err => {
                 sendErr(res, 'Picture upload failed', err);
               });
@@ -86,7 +97,8 @@ registration.createParticipant = (req, res, next) => {
           logger.info('Created a new participant', updateBody);
 
           session.forceUpdate(req);
-          res.send({
+          refreshSession(req);
+          return res.send({
             nextURL: URLS.INVITE
           });
         })

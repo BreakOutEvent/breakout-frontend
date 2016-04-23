@@ -30,6 +30,7 @@ passport.createSession = (username, user) => co(function*() {
   user.isAdmin = !!('ADMIN' in me.roles);
 
   user.email = username;
+  user.me = me;
   const expiresAt = new Date();
   expiresAt.setSeconds(expiresAt.getSeconds() + user.expires_in);
   user.expires_at = expiresAt;

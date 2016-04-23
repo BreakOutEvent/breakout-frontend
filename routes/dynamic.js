@@ -9,7 +9,36 @@ const passport = requireLocal('controller/auth');
 const registration = requireLocal('controller/page-controller/registration');
 const payment = requireLocal('controller/page-controller/payment');
 
-const isAuth = (req, res, next) => {
+const isUser = (req, res, next) => {
+  if (req.isAuthenticated())
+    return next();
+  else
+    return next();
+  //res.sendStatus(403);
+  // TODO: Re-Enable 403
+};
+
+const isParticipant = (req, res, next) => {
+  if (req.isAuthenticated())
+    return next();
+  else
+    return next();
+
+  //res.sendStatus(403);
+  // TODO: Re-Enable 403
+};
+
+const isSponsor = (req, res, next) => {
+  if (req.isAuthenticated())
+    return next();
+  else
+    return next();
+
+  //res.sendStatus(403);
+  // TODO: Re-Enable 403
+};
+
+const hasTeam = (req, res, next) => {
   if (req.isAuthenticated())
     return next();
   else
@@ -30,7 +59,6 @@ const funnelTemplate = (template) => (req, res) =>
 
 
 //GET
-
 router.get('/login', funnelTemplate('login'));
 router.get('/register', funnelTemplate('register'));
 router.get('/selection', funnelTemplate('selection'));
