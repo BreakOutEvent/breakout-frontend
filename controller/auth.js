@@ -8,9 +8,11 @@ const co = require('co');
 passport.use(new Strategy((username, password, cb) => co(function*() {
   try {
     const user = yield passport.createSession(username, yield API.authenticate(username, password));
+    console.log(user);
     cb(null, user, { message: 'Successfully logged in' });
   } catch (ex) {
-    cb(null, false, { message: ex.error_description });
+    let message = ex.message ? ex.message : ex.error_description;
+    cb(null, false, { message: message });
   }
 }).catch(ex => {
   throw ex;

@@ -28,11 +28,10 @@ API.authenticate = (username, password) => {
       .post({
         url: `${url}/oauth/token`,
         qs: {
-          client_id: config.clientID,
-          client_secret: config.clientSecret,
           username: username,
           password: password,
-          grant_type: 'password'
+          grant_type: 'password',
+          scope: 'read write'
         },
         auth: {
           user: config.clientID,
@@ -97,7 +96,7 @@ API.getCurrentUser = token => {
 };
 
 API.getModel = (modelName, token, id) => {
-  logger.info('Trying to get', modelName, 'with id', id, 'from backend');
+  logger.info('Trying to get', modelName, 'with id', (id || 'noID'), 'from backend');
   return new Promise((resolve, reject)=> {
       request
         .get({
@@ -228,7 +227,7 @@ API.inviteUser = (token, eventID, teamID, email) => {
       .post({
         url: `${url}/event/${eventID}/team/${teamID}/invitation/`,
         auth: { bearer: token.access_token },
-        body: JSON.stringify({ email: req.body.email }),
+        body: JSON.stringify({ email: email }),
         headers: { 'content-type': 'application/json' }
       }, handleResponse(resolve, reject, 'Successfully invited ' + email + ' to team ' + teamID));
   });

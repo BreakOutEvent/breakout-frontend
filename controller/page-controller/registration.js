@@ -91,6 +91,7 @@ registration.createParticipant = (req, res, next) => {
           });
         })
         .catch((err) => {
+          console.log(err);
           sendErr(res, 'Could not save your data.', err);
         });
     })
@@ -102,9 +103,24 @@ registration.getInvites = (req) => co(function*() {
 
   const events = yield registration.getEvents(req);
 
-  const allInvites = yield events.reduce(
-    (init, e) => _.concat(init, api.getModel(`/event/${e.id}/team/invitation/`, req.user))
-  );
+  let allInvites = yield events.map((e) => api.getModel(`/event/${e.id}/team/invitation/`, req.user));
+
+  //ADD CITY
+  allInvites = allInvites.map((invites, index) => {
+    return invites.map(invite => {
+      invite.city = events[index].city;
+      invite.event = events[index].id;
+      return invite;
+    });
+  });
+
+  //FLATTEN ARRAY
+  allInvites = [].concat.apply([], allInvites);
+
+  //REMOVE DUPLICATES
+  allInvites = _.uniq(allInvites);
+
+  console.log(allInvites);
 
   logger.info('Got all Invites for user', req.user);
 
@@ -151,10 +167,16 @@ registration.joinTeamAPI = (req, res, next) => co(function*() {
   if (!team) return res.status(500).send({ error: 'Could not join team.' });
 
   res.send({
-    result: 'success'
+    error: '',
+    nextUrl: URLS.TEAM_SUCCESS
   });
 
-}).catch(ex => next(ex));
+}).catch(ex => {
+  res.status(500).send({
+    error: ex
+  });
+  next(ex)
+});
 
 registration.createSponsor = (req, res) => co(function*() {
   logger.info('Trying to create team for event', req.body.event, 'with name', req.body.firstname,

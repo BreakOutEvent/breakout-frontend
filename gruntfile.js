@@ -21,21 +21,6 @@ module.exports = function (grunt) {
         jshintrc: true
       }
     },
-    jsbeautifier: {
-      files: ['src/js/*.js', 'src/sass/**/*.scss'],
-      options: {
-        js: {
-          indentChar: ' ',
-          indentSize: 2
-        },
-        css: {
-          fileTypes: ['.scss'],
-          indentChar: ' ',
-          indentSize: 2,
-          wrapLineLength: 100
-        }
-      }
-    },
     uglify: {
       build: {
         files: [{
@@ -100,7 +85,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-jsbeautifier');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-browserify');
@@ -108,7 +92,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default',
     [
-      'jsbeautifier',
       'jshint',
       'browserify',
       'babel',

@@ -1,8 +1,7 @@
 <div class="container">
     <div class="col-md-4 registration-box-border div-align-mid">
         <div class="row registration-margin">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
+            <div class="col-sm-10 div-align-mid">
                 <img class="bo-modal-logo" alt="BreakOut" src="/img/logos/BreakOut-Logo_Header.svg">
             </div>
         </div>
@@ -12,13 +11,10 @@
             </div>
         </div>
 
-        {{#if error}}
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="alert alert-danger">{{error}}</div>
-                </div>
+        <div class="row">
+            <div class="col-xs-12" id="feedback">
             </div>
-        {{/if}}
+        </div>
 
         <div class="row">
             <div class="col-xs-12">
@@ -28,16 +24,18 @@
 
             </div>
         </div>
-        <div class="row registration-margin">
+        <div class="row registration-margin" id="team-invite">
             <div class="col-xs-12 text-center">
                 {{#each teams}}
-                    <p><a href="{{joinlink}}">{{name}}</a></p>
+                    <button class="btn btn-default btn-block joinLinkTeam" data-team="{{team}}"
+                            data-event="{{event}}">{{name}} ({{city}})
+                    </button>
                 {{/each}}
             </div>
         </div>
         <div class="row registration-margin">
             <div class="col-xs-12 text-center">
-                <button type="button" class="btn btn-default btn-block">{{__ 'CTA'}}</button>
+                <button type="button" class="btn btn-primary btn-block" id="mainCTA">{{__ 'CTA'}}</button>
             </div>
         </div>
     </div>
