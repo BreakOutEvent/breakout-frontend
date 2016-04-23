@@ -1,22 +1,31 @@
 <div class="container">
     <div class="col-md-4 registration-box-border div-align-mid">
+        <div class="row registration-margin">
+            <div class="col-xs-10 div-align-mid">
+                <img class="bo-modal-logo center" alt="BreakOut" src="/img/logos/BreakOut-Logo_Header.svg">
+            </div>
+        </div>
+        <div class="row registration-margin">
+            <div class="col-xs-12">
+                <h3 class="text-center">Zahlung</h3>
+            </div>
+        </div>
+        <div class="row registration-margin">
+            <div class="col-xs-12">
+                <p>Um Eure Anmeldung abzuschließen, müsst ihr noch die Teilnahmegebühren zahlen. Die Teilnahmegebühren setzen sich aus folgenden Bereichen zusammen:</p>
+                <ul>
+                    <li>Eure T-Shirts (14€ pP.)</li>
+                    <li>Starterkit (3€ pP.)</li>
+                    <li>BreakOut Hotline (3€ pP.)</li>
+                </ul>
+                <p>Zusätzlich </p>
+                <p></p>
+            </div>
+
+        </div>
 
         <form id="checkout" method="post" action="/payment-checkout">
-            <div id="payment-form"></div>
-            <input type="submit" value="Pay $10">
+
         </form>
     </div>
 </div>
-
-<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-<script src="https://js.braintreegateway.com/v2/braintree.js"></script>
-<script>
-
-    $.get("/payment-token", function (data) {
-        var token = data.token;
-        braintree.setup(token, "dropin", {
-            container: "payment-form"
-        });
-    });
-
-</script>

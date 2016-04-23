@@ -186,9 +186,7 @@ registration.createTeam = (req, res) => co(function*() {
 
   logger.info('Trying to invite user', req.body.email, 'to team', team.id);
 
-  yield api.postModel(
-    `event/${req.body.event}/team/${team.id}/invitation/`, req.user, { email: req.body.email }
-  );
+  yield api.inviteUser(req.user, req.body.event, team.id, req.body.email);
 
   logger.info('Created Invitation for user', req.body.email, 'to team', team.id);
 
@@ -198,5 +196,27 @@ registration.createTeam = (req, res) => co(function*() {
 }).catch(ex => {
   throw ex;
 });
+
+registration.inviteUser = (req, res) => co(function*() {
+
+  const me = yield api.getCurrentUser(req.user);
+
+  if(!me.participant) {
+    return res.status(500).send({error:'User is not a participant!'});
+  }
+
+  const invite = yield api.inviteUser(req.user, me.participant.eventId, me.participant.teamId, req.body.email);
+
+
+  if(invite) {
+    res.send({error:''});
+  } else {
+    return res.status(500).send({error:'Invite creation failed!'});
+  }
+
+}).catch(ex => {
+  throw ex;
+});
+
 
 module.exports = registration;

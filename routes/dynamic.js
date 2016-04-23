@@ -13,7 +13,7 @@ const isAuth = (req, res, next) => {
   if (req.isAuthenticated)
     next();
   else
-    return next();
+    next();
 
   //res.sendStatus(403);
   // TODO: Re-Enable 403
@@ -21,6 +21,7 @@ const isAuth = (req, res, next) => {
 
 const funnelTemplate = (template) => {
   return (req, res) => {
+    console.log("render");
     res.render(`dynamic/register/${template}`,
       {
         error: req.flash('error'),
@@ -43,6 +44,7 @@ router.get('/spectator-success', funnelTemplate('spectator-success'));
 router.get('/participant', funnelTemplate('participant'));
 router.get('/payment', funnelTemplate('payment'));
 router.get('/sponsor', funnelTemplate('sponsor'));
+router.get('/invite', funnelTemplate('invite'));
 
 router.get('/payment-token', isAuth, payment.getToken);
 
@@ -132,6 +134,7 @@ router.post('/register', isAuth, registration.createUser);
 router.post('/team-create', isAuth, upload.single('profilePic'), registration.createTeam);
 router.post('/join', isAuth, upload.single('profilePic'), registration.joinTeamAPI);
 router.post('/payment-checkout', isAuth, payment.checkout);
+router.post('/invite', isAuth, registration.inviteUser);
 
 router.post('/login',
   passport.authenticate('local',

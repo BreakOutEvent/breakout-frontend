@@ -72,8 +72,6 @@ $(document).ready(() => {
       }
     });
 
-
-
   } else if ($('#registrationForm').length > 0) {
     window.gender = null;
 
@@ -137,6 +135,27 @@ $(document).ready(() => {
           })
           .error(function(err) {
             console.log(err);
+          });
+      }
+    });
+  } else if ($('#inviteForm').length > 0) {
+    $('#inviteForm').on('submit', function(e) {
+      e.preventDefault();
+
+      if (sanityCheck()) {
+        var values = {
+          email: $('#email').val()
+        };
+
+        $.post('/invite', values)
+          .success(function() {
+            $('#feedback').html('<div class="alert alert-success"> ' +
+              'Erfolgreich eingeladen!</div>');
+            $('#email').val('');
+          })
+          .error(function() {
+            $('#feedback').html('<div class="alert alert-danger"> ' +
+              'Einladen fehlgeschlagen! Bitte später noch einmal versuchen.</div>');
           });
       }
     });
