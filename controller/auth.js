@@ -21,8 +21,11 @@ passport.serializeUser((user, cb) => cb(null, user));
 passport.deserializeUser((user, cb) => cb(null, user));
 
 passport.createSession = (username, user) => co(function*() {
-  // const me = yield API.getCurrentUserco(user);
-  // console.dir(me);
+  const me = yield API.getCurrentUserco(user);
+
+  console.dir(me);
+
+  user.isAdmin = !!('ADMIN' in me.roles);
 
   user.email = username;
   const expiresAt = new Date();

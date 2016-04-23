@@ -25,7 +25,7 @@ router.post('/login',
 );
 
 router.use((req, res, next) => {
-  if (req.isAuthenticated())
+  if (req.isAuthenticated() && req.user.isAdmin)
     return next();
   res.redirect('/admin/login');
 });
@@ -39,8 +39,6 @@ router.get('/logout',
 );
 
 router.get('/', (req, res) => {
-  if (req.isAuthenticated())
-    console.log(req.user);
   res.redirect('/admin/cms/');
 });
 
