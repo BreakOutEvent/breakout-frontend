@@ -1,12 +1,15 @@
 'use strict';
 
+const co = require('co');
 const request = require('request');
+const crequest = require('co-request');
 
 const config = {
   clientID: process.env.FRONTEND_API_CLIENTID,
   clientSecret: process.env.FRONTEND_API_CLIENTSECRET,
   URL: process.env.FRONTEND_API_URL,
-  protocol: 'https',
+  mediaURL: process.env.FRONTEND_MEDIA_URL,
+  protocol: 'https'
 };
 
 const url = `${config.protocol}://${config.URL}`;
@@ -18,8 +21,9 @@ Object.keys(config).forEach(k => {
 
 var API = {};
 
-API.authenticate = (username, password) =>
-  new Promise((resolve, reject) =>
+API.authenticate = (username, password) => {
+  logger.info('Trying to login user', username);
+  return new Promise((resolve, reject) => {
     request
       .post({
         url: `${url}/oauth/token`,
@@ -28,61 +32,116 @@ API.authenticate = (username, password) =>
           client_secret: config.clientSecret,
           username: username,
           password: password,
-          grant_type: 'password',
+          grant_type: 'password'
         },
         auth: {
           user: config.clientID,
-          pass: config.clientSecret,
-        },
-      }, handleResponse(resolve, reject))
-  );
+          pass: config.clientSecret
+        }
+      }, handleResponse(resolve, reject, 'Authenticated user ' + username));
+  });
+};
 
-API.getCurrentUser = token =>
-  new Promise((resolve, reject) =>
+API.refresh = (user) => co(function* () {
+  logger.info('Trying to refresh token for user', user.email);
+  const req = yield crequest
+    .post({
+      url: `${url}/oauth/token`,
+      qs: {
+        client_id: config.clientID,
+        client_secret: config.clientSecret,
+        grant_type: 'refresh_token',
+        refresh_token: user.refresh_token
+      },
+      auth: {
+        user: config.clientID,
+        pass: config.clientSecret
+      }
+    });
+
+  if (req.statusCode in [200, 201]) {
+    logger.info('Refreshed token for user ' + user.email);
+  }
+
+  return JSON.parse(req.body);
+}).catch(ex => {
+  throw ex;
+});
+
+API.getCurrentUserco = user => co(function*() {
+  logger.info('Trying to get currently logged in user', user.email);
+  const req = yield crequest
+    .get({
+      url: `${url}/me/`,
+      auth: { bearer: user.access_token }
+    });
+
+  if (req.statusCode in [200, 201]) {
+    logger.info('Got information about currently logged in user', user.email);
+  }
+
+  return JSON.parse(req.body);
+}).catch(ex => {
+  throw ex;
+});
+
+API.getCurrentUser = token => {
+  logger.info('Trying to get currently logged in user');
+  return new Promise((resolve, reject) =>
     request
       .get({
         url: `${url}/me/`,
-        auth: { bearer: token.access_token },
-      }, handleResponse(resolve, reject))
+        auth: { bearer: token.access_token }
+      }, handleResponse(resolve, reject, 'Got information about currently logged in user'))
   );
+};
 
-API.getModel = (modelName, token, id) =>
-  new Promise((resolve, reject)=>
-    request
-      .get({
-        url: `${url}/${modelName}/${(id || '')}`,
-        auth: { bearer: token.access_token },
-      }, handleResponse(resolve, reject))
+API.getModel = (modelName, token, id) => {
+  logger.info('Trying to get', modelName, 'with id', id, 'from backend');
+  return new Promise((resolve, reject)=> {
+      request
+        .get({
+          url: `${url}/${modelName}/${(id || '')}`,
+          auth: { bearer: token.access_token }
+        }, handleResponse(resolve, reject, 'Got ' + modelName + ' with id ' + (id || 'noID') + ' from backend'));
+    }
   );
+};
 
-API.postModel = (modelName, token, body) =>
-  new Promise((resolve, reject) =>
+API.postModel = (modelName, token, body) => {
+  logger.info('Sending POST request with', body, 'to', modelName);
+  return new Promise((resolve, reject) =>
     request
       .post({
         url: `${url}/${modelName}`,
         auth: { bearer: token.access_token },
         body: JSON.stringify(body),
-        headers: { 'content-type': 'application/json' },
-      }, handleResponse(resolve, reject))
+        headers: { 'content-type': 'application/json' }
+      }, handleResponse(resolve, reject, 'Successfully POSTed ' + modelName + ' with ' + JSON.stringify(body) + ' to backend'))
   );
+};
 
-API.putModel = function (modelName, id, token, body) {
+API.putModel = (modelName, id, token, body) => {
+  logger.info('Sending PUT request with ', body, 'to', modelName, 'with ID', id);
   return new Promise(function (resolve, reject) {
     if (!id) {
       reject({ error_description: 'No ID specified' });
       return;
     }
 
+    console.log(body, token);
     request
-      .post({
-        url: `${url}/${modelName}/${(id)}`,
+      .put({
+        url: `${url}/${modelName}/${(id)}/`,
         auth: { bearer: token.access_token },
         body: JSON.stringify(body),
-      }, handleResponse(resolve, reject));
+        headers: { 'content-type': 'application/json' }
+      }, handleResponse(resolve, reject, 'Successfully PUT ' + modelName + ' with id ' + id + ' and data ' + JSON.stringify(body) + ' to backend'));
   });
 };
 
 API.delModel = function (modelName, token, id) {
+  logger.info('Sending DELETE request on', modelName, ' with ID', id);
   return new Promise(function (resolve, reject) {
     if (!id) {
       reject({ error_message: 'No ID specified' });
@@ -92,36 +151,100 @@ API.delModel = function (modelName, token, id) {
     request
       .del({
         url: `${url}/${modelName}/${id}`,
-        auth: { bearer: token.access_token },
-      }, handleResponse(resolve, reject));
+        auth: { bearer: token.access_token }
+      }, handleResponse(resolve, reject, 'Successfully DELETEed ' + modelName + ' with ID ' + id));
   });
 };
 
 API.createUser = function (email, password) {
+  logger.info('Trying to create user with email', email);
   return new Promise(function (resolve, reject) {
     request
       .post({
         url: `${url}/user/`,
         auth: {
           user: config.clientID,
-          pass: config.clientSecret,
+          pass: config.clientSecret
         },
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ email: email, password: password }),
-      }, handleResponse(resolve, reject));
+        body: JSON.stringify({ email, password })
+      }, handleResponse(resolve, reject, 'Successfully created user with email ' + email + ' in' +
+        ' backend'));
   });
 };
 
-function handleResponse(resolve, reject) {
+API.uploadPicture = function (file, mediaObj) {
+  logger.info('Trying to upload file with id', mediaObj.id);
+  return new Promise(function (resolve, reject) {
+    request
+      .post({
+        url: `http://${mediaURL}`,
+        headers: { 'X-UPLOAD-TOKEN': mediaObj.uploadToken },
+        formData: {
+          id: mediaObj.id,
+          file: file
+        }
+      }, handleResponse(resolve, reject, 'Successfully uploaded file with id ' + mediaObj.id + ' to backend'));
+  });
+};
+
+API.getPaymentToken = (invoiceID, token) => {
+  logger.info('Trying to get payment token for invoice', invoiceID, 'from backend');
+  return new Promise(function (resolve, reject) {
+    request
+      .get({
+        url: `${url}/invoice/${invoiceID}/payment/braintree/client_token/`,
+        auth: { bearer: token.access_token }
+      }, handleResponse(resolve, reject, 'Got payment token for invoice ' + invoiceID + ' from backend'));
+  });
+};
+
+API.checkoutPayment = (invoiceID, token, data) => {
+  logger.info('Trying to checkout for invoice', invoiceID);
+  return new Promise(function (resolve, reject) {
+    request
+      .post({
+        url: `${url}/invoice/${invoiceID}/payment/braintree/checkout/`,
+        auth: { bearer: token.access_token },
+        form: data
+      }, handleResponse(resolve, reject, 'Successfully checked out invoice' + invoiceID));
+  });
+};
+
+API.getInviteByToken = (token) => {
+  logger.info('Trying to get invite by token', token);
+  return new Promise(function (resolve, reject) {
+    request
+      .get({
+        url: `${url}/user/invitation?token=${token}`
+      }, handleResponse(resolve, reject, 'Successfully got invite by token ' + token));
+  });
+};
+
+API.inviteUser = (token, eventID, teamID, email) => {
+  logger.info('Trying to invite user to team', teamID,' with email ', email);
+  return new Promise(function (resolve, reject) {
+    request
+      .post({
+        url: `${url}/event/${eventID}/team/${teamID}/invitation/`,
+        auth: { bearer: token.access_token },
+        body: JSON.stringify({ email: req.body.email }),
+        headers: { 'content-type': 'application/json' }
+      }, handleResponse(resolve, reject, 'Successfully invited ' + email + ' to team ' + teamID));
+  });
+};
+
+function handleResponse(resolve, reject, msg) {
   return (error, response, body) => {
     if (error) {
+      logger.error(error);
       throw error;
     } else {
       if (response.statusCode.toString().match(/^2\d\d$/)) {
-        //console.log(JSON.parse(body), response.statusCode);
+        logger.info(msg);
         resolve(JSON.parse(body));
       } else {
-        //console.log(JSON.parse(body), response.statusCode);
+        logger.error(JSON.parse(body));
         reject(JSON.parse(body));
       }
     }

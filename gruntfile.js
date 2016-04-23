@@ -58,6 +58,31 @@ module.exports = function (grunt) {
         }]
       }
     },
+    browserify: {
+      options: {
+        browserifyOptions: {
+          debug: true
+        }
+      },
+      dist: {
+        files: {
+          'public/js/bundle.js': ['src/js/main.js'],
+          'public/js/registration.js': ['src/js/registration.js']
+        }
+      }
+    },
+    babel: {
+      options: {
+        sourceMap: true,
+        presets: ['es2015']
+      },
+      dist: {
+        files: {
+          'public/js/bundle.js': ['public/js/bundle.js'],
+          'public/js/registration.js': ['public/js/registration.js']
+        }
+      }
+    },
     watch: {
       css: {
         files: ['src/sass/**/*.scss'],
@@ -65,7 +90,10 @@ module.exports = function (grunt) {
       },
       js: {
         files: '<%= files.js %>',
-        tasks: ['jsbeautifier', 'jshint']
+        tasks: [
+          'browserify',
+          'babel'
+        ]
       }
     }
   });
@@ -75,8 +103,17 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-jsbeautifier');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-browserify');
+  grunt.loadNpmTasks('grunt-babel');
 
-  grunt.registerTask('default', ['jsbeautifier', 'jshint', 'uglify', 'sass',
-    'cssmin'
-  ]);
+  grunt.registerTask('default',
+    [
+      'jsbeautifier',
+      'jshint',
+      'browserify',
+      'babel',
+      'sass',
+      'uglify',
+      'cssmin'
+    ]);
 };

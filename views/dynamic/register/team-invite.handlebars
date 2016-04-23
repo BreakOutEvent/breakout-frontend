@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="col-md-4 registration-box-border div-align-mid">
+        <div class="row registration-margin">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <img class="bo-modal-logo" alt="BreakOut" src="/img/logos/BreakOut-Logo_Header.svg">
+            </div>
+        </div>
+        <div class="row registration-margin">
+            <div class="col-xs-12 text-center">
+                <h4>{{__ 'HEADLINE'}}</h4>
+            </div>
+        </div>
+
+        {{#if error}}
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="alert alert-danger">{{error}}</div>
+                </div>
+            </div>
+        {{/if}}
+
+        <div class="row">
+            <div class="col-xs-12">
+                <p>{{__ 'DESCRIPTION_1'}}
+                    <strong>{{amountInvites}}</strong>
+                    {{__ 'DESCRIPTION_2'}}</p>
+
+            </div>
+        </div>
+        <div class="row registration-margin">
+            <div class="col-xs-12 text-center">
+                {{#each teams}}
+                    <p><a href="{{joinlink}}">{{name}}</a></p>
+                {{/each}}
+            </div>
+        </div>
+        <div class="row registration-margin">
+            <div class="col-xs-12 text-center">
+                <button type="button" class="btn btn-default btn-block">{{__ 'CTA'}}</button>
+            </div>
+        </div>
+    </div>
+</div>

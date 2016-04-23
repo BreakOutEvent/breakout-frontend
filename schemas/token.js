@@ -8,6 +8,7 @@ var TokenSchema = new mongoose.Schema({
   refresh_token: String,
   expires_in: Number,
   scope: String,
+  user: {}
 });
 
 TokenSchema.statics.findById = function (id) {

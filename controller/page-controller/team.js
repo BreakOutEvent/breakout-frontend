@@ -12,72 +12,78 @@ const config = {
   private_key: process.env.FRONTEND_GDRIVE_PRIVATE_KEY
 };
 
-module.exports = (req, res) => {
-  co(function* () {
-    const cachePath = ROOT + '/rendered/cache/teams.json.cache';
+module.exports = (req, res, next) => co(function* () {
+  const cachePath = ROOT + '/rendered/cache/teams.json.cache';
 
-    const fetchMemberList = () => co(function* () {
-      const doc = new GoogleSpreadsheet(config.doc_id);
-      var credsJson = {
-        client_email: config.client_email,
-        private_key: config.private_key.replace(/\\n/g, '\n')
-      };
+  const fetchMemberList = () => co(function* () {
+    const doc = new GoogleSpreadsheet(config.doc_id);
+    var credsJson = {
+      client_email: config.client_email,
+      private_key: config.private_key.replace(/\\n/g, '\n')
+    };
 
-      yield Promise.promisify(doc.useServiceAccountAuth)(credsJson);
+    logger.info('Trying to authenticate with Google Docs');
+    yield Promise.promisify(doc.useServiceAccountAuth)(credsJson);
+    logger.info('Authenticated with Google Docs');
 
-      const info = yield Promise.promisify(doc.getInfo)();
-      const sheet = info.worksheets[0];
+    logger.info('Trying to get info from Google Docs');
+    const info = yield Promise.promisify(doc.getInfo)();
+    logger.info('Got info from Google Docs');
+    const sheet = info.worksheets[0];
 
-      const rows = yield Promise.promisify(sheet.getRows)({
-        offset: 3
-      });
-
-      const allMember = _.sortBy(rows.reduce((init, curr) => _.concat(init, {
-        name: curr.name,
-        surname: curr.surname,
-        url: curr.link,
-        role: curr.role,
-        active: curr.active
-      }), []), m => m.surname);
-
-      return [
-        _.filter(allMember, m => m.active === 'ja'),
-        _.filter(allMember, m => m.active === 'nein')
-      ];
-    }).catch(ex => {
-      throw ex;
+    logger.info('Trying to get all rows from sheet');
+    const rows = yield Promise.promisify(sheet.getRows)({
+      offset: 3
     });
+    logger.info('Got all rows from sheet');
 
-    let finalMembers;
+    const allMember = _.sortBy(rows.reduce((init, curr) => _.concat(init, {
+      name: curr.name,
+      surname: curr.surname,
+      url: curr.link,
+      role: curr.role,
+      active: curr.active
+    }), []), m => m.surname);
 
-    const cacheExists = yield fs.exists(cachePath);
+    return [
+      _.filter(allMember, m => m.active === 'ja'),
+      _.filter(allMember, m => m.active === 'nein')
+    ];
+  }).catch(ex => {
+    throw ex;
+  });
 
-    // Cache file does exist
-    if (cacheExists && process.env.NODE_ENV === 'production') {
-      const fileStats = yield fs.stat(cachePath);
+  let finalMembers;
 
-      // Cache file is outdated
-      if ((new Date(fileStats.mtime).getDay()) != (new Date).getDay()) {
-        console.log('File ' + cachePath + ' is out of date, renewing');
+  const cacheExists = yield fs.exists(cachePath);
 
-        const member = yield fetchMemberList();
-        yield fs.writeJson(cachePath, member);
-        finalMembers = member;
-      } else { // Cache file is up to date
-        console.log('File ' + cachePath + ' is up to date');
-        finalMembers = yield fs.readJson(cachePath);
-      }
-    } else { // Cache file does not exist
+  // Cache file does exist
+  if (cacheExists && process.env.NODE_ENV === 'production') {
+    const fileStats = yield fs.stat(cachePath);
+
+    // Cache file is outdated
+    if ((new Date(fileStats.mtime).getDay()) != (new Date).getDay()) {
+      logger.info('File', cachePath, 'is out of date, renewing');
+
       const member = yield fetchMemberList();
+
       yield fs.writeJson(cachePath, member);
       finalMembers = member;
+    } else { // Cache file is up to date
+      finalMembers = yield fs.readJson(cachePath);
     }
+  } else { // Cache file does not exist
+    const member = yield fetchMemberList();
+    yield fs.writeJson(cachePath, member);
+    finalMembers = member;
+  }
 
-    res.render('static/team/content', {
-      layout: 'master',
-      member: finalMembers,
-      language: req.params.language
-    });
+  res.render('static/team/content', {
+    layout: 'master',
+    member: finalMembers,
+    language: req.params.language
+  });
 
-  }).catch(ex => console.error(ex.stack));
-};
+}).catch(ex => {
+  next(ex);
+});

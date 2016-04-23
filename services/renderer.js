@@ -64,20 +64,26 @@ function getViewsHTML(page, language) {
 }
 
 renderer.renderPageByURL = (language, url) => co(function*() {
+  const propertyObject = {
+    language: language,
+    url: url
+  };
+
+  logger.info('Trying to fetch page', propertyObject);
+
   const page = yield Page
     .findOne({
       properties: {
         // Only finds objects with exactly these attributes
-        $elemMatch: {
-          language: language,
-          url: url
-        }
+        $elemMatch: propertyObject
       }
     })
     .populate('views')
     .exec();
 
   if (!page) throw new Error(`No page found by /${language}/${url}`);
+
+  logger.info('Fetched page', propertyObject);
 
   const pageProp = (page.properties = _.filter(page.properties, p => p.language === language))[0];
 
@@ -101,6 +107,7 @@ renderer.renderPageByURL = (language, url) => co(function*() {
  * @returns {Array<{html,language,filename}>}
  */
 renderer.renderPageByID = pageID => co(function*() {
+  logger.info('Trying to fetch page', pageID);
   const page = yield Page
     .findOne({
       _id: pageID
@@ -109,6 +116,8 @@ renderer.renderPageByID = pageID => co(function*() {
     .exec();
 
   if (!page) throw new Error('No page');
+
+  logger.info('Fetched page', pageID);
 
   const requirements = getRequirements(page);
 

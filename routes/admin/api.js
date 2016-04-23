@@ -1,4 +1,4 @@
-﻿'use strict';
+﻿﻿'use strict';
 
 const mongoose = requireLocal('controller/mongo.js');
 const fs = require('fs');
@@ -14,7 +14,7 @@ const router = express.Router();
 const models = {
   view: mongoose.model('view', requireLocal('schemas/view.js')),
   page: mongoose.model('page', requireLocal('schemas/page.js')),
-  menu: mongoose.model('menu', requireLocal('schemas/menu.js')),
+  menu: mongoose.model('menu', requireLocal('schemas/menu.js'))
 };
 
 // Creates regex string for filtering valid models
@@ -28,45 +28,47 @@ const storage = multer.diskStorage({
   filename: (req, file, callback) => {
     const fn = file.originalname;
     callback(null, fn + '-' + Date.now() + path.extname(fn));
-  },
+  }
 });
 const upload = multer({ storage: storage }).single('image');
 
 router.use((req, res, next) => {
-  if (true){
+  if (req.isAuthenticated()) {
     res.set({
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     });
     next();
-  } else res.sendStatus(403);
+  } else {
+    logger.warn('Got an unauthenticated request from ip', req.ip, req);
+    res.sendStatus(403);
+  }
 });
 
 /**
  * Reads a file path originating from / and sends it to the response
  * @param fpath Path to the file
  * @param res The HTTP response object
+ * @param next
  */
-function serveFile(fpath, res) {
-  fs.access(fpath, fs.R_OK, err => err !== null ? res.send(err) : res.sendFile(fpath));
+function serveFile(fpath, res, next) {
+  fs.access(fpath, fs.R_OK, err => err ? next(err) : res.sendFile(fpath));
 }
 
 router.post('/image', upload, (req, res) =>
   res.json({
-    filePath: '/img/uploads/' + req.file.filename,
+    filePath: '/img/uploads/' + req.file.filename
   })
 );
 
-router.delete('/image/:filename', (req, res) =>
+router.delete('/image/:filename', (req, res, next) =>
   fs.unlink('./public/img/uploads/' + req.params.filename, (err) => {
-    if (err) {
-      res.status(404);
-    } else {
-      res.json({
-        result: 'ok',
-      });
-    }
+    if (err) return next(err);
+
+    res.json({
+      result: 'ok'
+    });
   })
 );
 
@@ -74,37 +76,37 @@ router.get('/getList', (req, res) =>
   res.json(reader.getAll())
 );
 
-router.get('/css', (req, res) =>
-  serveFile(path.join(global.ROOT, 'public/css/styles.min.css'), res)
+router.get('/css', (req, res, next) =>
+  serveFile(path.join(global.ROOT, 'public/css/styles.min.css'), res, next)
 );
 
-router.get('/html/:name', (req, res) =>
+router.get('/html/:name', (req, res, next) =>
   req.params.name === 'master' ?
-    serveFile(fileSystem.buildMasterTemplatePath(), res) :
-    serveFile(fileSystem.buildTemplatePath(req.params.name), res)
+    serveFile(fileSystem.buildMasterTemplatePath(), res, next) :
+    serveFile(fileSystem.buildTemplatePath(req.params.name), res, next)
 );
 
-router.get('/:model' + allowedModels, (req, res) =>
+router.get('/:model' + allowedModels, (req, res, next) =>
   models[req.params.model].find({}).exec((err, docs) =>
-    err ? res.send(err) : res.json(docs)
+    err ? next(err) : res.json(docs)
   )
 );
 
-router.get('/:model' + allowedModels + '/:id', (req, res) =>
+router.get('/:model' + allowedModels + '/:id', (req, res, next) =>
   models[req.params.model].findOne({ _id: req.params.id }).exec((err, docs) =>
-    err ? res.send(err) : res.json(docs)
+    err ? next(err) : res.json(docs)
   )
 );
 
 router.get('/render/:pageid', (req, res) => {
   renderer.renderAndSavePageByID(req.params.pageid);
   res.json({
-    status: 'ok',
+    status: 'ok'
   });
 });
 
 // Specific override for POST /api/view
-router.post('/view', (req, res) => {
+router.post('/view', (req, res, next) => {
   if (!req.body || !req.body.name) {
     return res.sendStatus(400);
   }
@@ -116,14 +118,14 @@ router.post('/view', (req, res) => {
 
   const rawView = {
     templateName: template.name,
-    variables: [],
+    variables: []
   };
 
   //FILL WITH DEFAULT VALUES
   for (let variable of template.variables) {
     variable.values = [
       { language: 'de', value: 'defaultValue' },
-      { language: 'en', value: 'defaultValue' },
+      { language: 'en', value: 'defaultValue' }
     ];
     rawView.variables.push(variable);
   }
@@ -131,15 +133,14 @@ router.post('/view', (req, res) => {
   models.view.create(rawView, (err, docs) => {
     console.log(docs);
     if (err) {
-      console.log(req.body);
-      res.send(err);
+      next(err);
     } else {
       res.json(docs);
     }
   });
 });
 
-router.post('/:model' + allowedModels, (req, res) => {
+router.post('/:model' + allowedModels, (req, res, next) => {
   if (!req.body) {
     res.sendStatus(400);
     return;
@@ -147,8 +148,7 @@ router.post('/:model' + allowedModels, (req, res) => {
 
   models[req.params.model].create(req.body, (err, docs) => {
     if (err) {
-      console.log(req.body);
-      res.send(err);
+      next(err);
     } else {
       res.json(docs);
     }
@@ -156,7 +156,7 @@ router.post('/:model' + allowedModels, (req, res) => {
 
 });
 
-router.post('/:model' + allowedModels + '/:id', (req, res) => {
+router.post('/:model' + allowedModels + '/:id', (req, res, next) => {
   if (!req.body) {
     res.sendStatus(400);
     return;
@@ -165,17 +165,17 @@ router.post('/:model' + allowedModels + '/:id', (req, res) => {
   models[req.params.model]
     .findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, doc) => {
       if (err) {
-        res.send(err);
+        next(err);
       } else {
         res.json(doc);
       }
     });
 });
 
-router.delete('/:model' + allowedModels + '/:id', (req, res) => {
+router.delete('/:model' + allowedModels + '/:id', (req, res, next) => {
   models[req.params.model].findOneAndRemove({ _id: req.params.id }, (err, doc) => {
     if (err) {
-      res.send(err);
+      next(err);
     } else {
       res.json(doc);
     }
