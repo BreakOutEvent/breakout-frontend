@@ -36,20 +36,21 @@ function sanityCheck() {
 function toggleLoading(button) {
 
   if ($(button).has('.spinner').length) {
-    $(button).children(".spinner").remove();
+    $(button).children('.spinner').remove();
     $(button).html($(button).children('span.hidden').html());
   } else {
     $(button).html('<span class="hidden">' + $(button).html() + '</span>');
-    $(button).append('<div class="spinner"><div class="bounce1"></div> <div class="bounce2"></div> <div class="bounce3"></div> </div>');
+    $(button).append('<div class="spinner"><div class="bounce1"></div>' +
+      '<div class="bounce2"></div> <div class="bounce3"></div> </div>');
   }
 }
 
 $(document).ready(() => {
 
-  $('#profilePic').change(function () {
+  $('#profilePic').change(function() {
     if (this.files && this.files[0]) {
       var reader = new FileReader();
-      reader.onload = function (e) {
+      reader.onload = function(e) {
         $('.bo-reg-uploadInputWrapper').css('background-image', 'url(' + e.target.result + ')');
         $('.registration-picture-icon').hide();
       };
@@ -90,7 +91,7 @@ $(document).ready(() => {
   } else if ($('#registrationForm').length > 0) {
     window.gender = null;
 
-    $('button[name=gender]').click(function () {
+    $('button[name=gender]').click(function() {
       let selection = $(this).val();
 
       if (selection === window.gender) {
@@ -125,10 +126,10 @@ $(document).ready(() => {
             contentType: false,
             data: data
           })
-          .success(function (result) {
+          .success(function(result) {
             window.location.href = result.nextURL;
           })
-          .error(function (err) {
+          .error(function(err) {
             console.log(err);
           })
           .always(() => {
@@ -137,7 +138,7 @@ $(document).ready(() => {
       }
     });
   } else if ($('#teamForm').length > 0) {
-    $('#teamForm').on('submit', function (e) {
+    $('#teamForm').on('submit', function(e) {
       e.preventDefault();
 
       if (sanityCheck()) {
@@ -149,10 +150,10 @@ $(document).ready(() => {
 
         toggleLoading('#mainCTA');
         $.post('/team-create', values)
-          .success(function (data) {
+          .success(function(data) {
             window.location.href = data.nextURL;
           })
-          .error(function (err) {
+          .error(function(err) {
             console.log(err);
           })
           .always(() => {
@@ -161,7 +162,7 @@ $(document).ready(() => {
       }
     });
   } else if ($('#inviteForm').length > 0) {
-    $('#inviteForm').on('submit', function (e) {
+    $('#inviteForm').on('submit', function(e) {
       e.preventDefault();
 
       if (sanityCheck()) {
@@ -171,12 +172,12 @@ $(document).ready(() => {
 
         toggleLoading('#mainCTA');
         $.post('/invite', values)
-          .success(function () {
+          .success(function() {
             $('#feedback').html('<div class="alert alert-success"> ' +
               'Erfolgreich eingeladen!</div>');
             $('#email').val('');
           })
-          .error(function () {
+          .error(function() {
             $('#feedback').html('<div class="alert alert-danger"> ' +
               'Einladen fehlgeschlagen! Bitte später noch einmal versuchen.</div>');
           })

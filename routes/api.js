@@ -34,6 +34,16 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage }).single('image');
 
+router.post('/auth/login', function(req, res) {
+  api.authenticate(req.body.email, req.body.password)
+    .then(() => {
+      res.send({ token: adminAuth.createJWT(req.body.email) });
+    })
+    .catch(() => {
+      return res.status(401).send({ message: 'Invalid email and/or password' });
+    });
+});
+
 router.use(adminAuth.ensureAuthenticated);
 
 /**
@@ -52,15 +62,7 @@ router.post('/image', upload, (req, res) =>
   })
 );
 
-router.post('/auth/login', function(req, res) {
-  api.authenticate(req.body.email, req.body.password)
-    .then(() => {
-      res.send({ token: adminAuth.createJWT(req.body.email) });
-    })
-    .catch(() => {
-      return res.status(401).send({ message: 'Invalid email and/or password' });
-    });
-});
+
 
 router.delete('/image/:filename', (req, res, next) =>
   fs.unlink('./public/img/uploads/' + req.params.filename, (err) => {
