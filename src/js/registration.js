@@ -32,12 +32,24 @@ function sanityCheck() {
   return !$('.bo-reg-form-error').length;
 }
 
+
+function toggleLoading(button) {
+
+  if ($(button).has('.spinner').length) {
+    $(button).children(".spinner").remove();
+    $(button).html($(button).children('span.hidden').html());
+  } else {
+    $(button).html('<span class="hidden">' + $(button).html() + '</span>');
+    $(button).append('<div class="spinner"><div class="bounce1"></div> <div class="bounce2"></div> <div class="bounce3"></div> </div>');
+  }
+}
+
 $(document).ready(() => {
 
-  $('#profilePic').change(function() {
+  $('#profilePic').change(function () {
     if (this.files && this.files[0]) {
       var reader = new FileReader();
-      reader.onload = function(e) {
+      reader.onload = function (e) {
         $('.bo-reg-uploadInputWrapper').css('background-image', 'url(' + e.target.result + ')');
         $('.registration-picture-icon').hide();
       };
@@ -55,6 +67,7 @@ $(document).ready(() => {
           $('#error').html('<div class="alert alert-danger"> ' +
             'The passwords you entered do not match.</div>');
         } else {
+          toggleLoading('#mainCTA');
           $.post('/register', {
               email: $('#email').val(),
               password: $('#password').val()
@@ -66,6 +79,9 @@ $(document).ready(() => {
               console.log(err);
               $('#error').html('<div class="alert alert-danger">' +
                 err.responseJSON.error + '</div>');
+            })
+            .done(() => {
+              toggleLoading('#mainCTA');
             });
         }
       }
@@ -74,7 +90,7 @@ $(document).ready(() => {
   } else if ($('#registrationForm').length > 0) {
     window.gender = null;
 
-    $('button[name=gender]').click(function() {
+    $('button[name=gender]').click(function () {
       let selection = $(this).val();
 
       if (selection === window.gender) {
@@ -100,7 +116,7 @@ $(document).ready(() => {
         if (!$('#profilePic')[0].files || !$('#profilePic')[0].files[0]) {
           data.delete('profilePic');
         }
-
+        toggleLoading('#mainCTA');
         $.ajax({
             url: '/participant',
             type: 'POST',
@@ -109,16 +125,19 @@ $(document).ready(() => {
             contentType: false,
             data: data
           })
-          .success(function(result) {
+          .success(function (result) {
             window.location.href = result.nextURL;
           })
-          .error(function(err) {
+          .error(function (err) {
             console.log(err);
+          })
+          .done(() => {
+            toggleLoading('#mainCTA');
           });
       }
     });
   } else if ($('#teamForm').length > 0) {
-    $('#teamForm').on('submit', function(e) {
+    $('#teamForm').on('submit', function (e) {
       e.preventDefault();
 
       if (sanityCheck()) {
@@ -128,17 +147,21 @@ $(document).ready(() => {
           event: $('#event').val()
         };
 
+        toggleLoading('#mainCTA');
         $.post('/team-create', values)
-          .success(function(data) {
+          .success(function (data) {
             window.location.href = data.nextURL;
           })
-          .error(function(err) {
+          .error(function (err) {
             console.log(err);
+          })
+          .done(() => {
+            toggleLoading('#mainCTA');
           });
       }
     });
   } else if ($('#inviteForm').length > 0) {
-    $('#inviteForm').on('submit', function(e) {
+    $('#inviteForm').on('submit', function (e) {
       e.preventDefault();
 
       if (sanityCheck()) {
@@ -146,15 +169,19 @@ $(document).ready(() => {
           email: $('#email').val()
         };
 
+        toggleLoading('#mainCTA');
         $.post('/invite', values)
-          .success(function() {
+          .success(function () {
             $('#feedback').html('<div class="alert alert-success"> ' +
               'Erfolgreich eingeladen!</div>');
             $('#email').val('');
           })
-          .error(function() {
+          .error(function () {
             $('#feedback').html('<div class="alert alert-danger"> ' +
               'Einladen fehlgeschlagen! Bitte später noch einmal versuchen.</div>');
+          })
+          .done(() => {
+            toggleLoading('#mainCTA');
           });
       }
     });

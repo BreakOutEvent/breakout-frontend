@@ -171,7 +171,7 @@ module.exports = {
       en: 'Password'
     },
     LABEL_PASSWORD_REPEAT: {
-      de: 'Passwort Wdh',
+      de: 'Passwort Wiederholung',
       en: 'Repeat Password'
     },
     SECONDARY_CTA: {
