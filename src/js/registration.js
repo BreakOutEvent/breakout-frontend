@@ -80,7 +80,7 @@ $(document).ready(() => {
               $('#error').html('<div class="alert alert-danger">' +
                 err.responseJSON.error + '</div>');
             })
-            .done(() => {
+            .always(() => {
               toggleLoading('#mainCTA');
             });
         }
@@ -131,7 +131,7 @@ $(document).ready(() => {
           .error(function (err) {
             console.log(err);
           })
-          .done(() => {
+          .always(() => {
             toggleLoading('#mainCTA');
           });
       }
@@ -155,7 +155,7 @@ $(document).ready(() => {
           .error(function (err) {
             console.log(err);
           })
-          .done(() => {
+          .always(() => {
             toggleLoading('#mainCTA');
           });
       }
@@ -180,7 +180,7 @@ $(document).ready(() => {
             $('#feedback').html('<div class="alert alert-danger"> ' +
               'Einladen fehlgeschlagen! Bitte später noch einmal versuchen.</div>');
           })
-          .done(() => {
+          .always(() => {
             toggleLoading('#mainCTA');
           });
       }

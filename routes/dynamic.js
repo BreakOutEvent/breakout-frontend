@@ -142,6 +142,32 @@ router.get('/team-create', (req, res, next) => {
     });
 });
 
+router.get('/activation/:token', (req, res, next) => co(function*() {
+
+  registration.activateUser(req.params.token)
+    .then(() => {
+      res.render('dynamic/register/activation',
+        {
+          error: null,
+          layout: 'funnel',
+          lang: req.lang
+        }
+      );
+    }).catch(err => {
+      res.render('dynamic/register/activation',
+        {
+          error: 'The token you provided is not valid (anymore).',
+          layout: 'funnel',
+          lang: req.lang
+        }
+      );
+      throw err;
+    });
+
+}).catch(err => {
+  next(err);
+}));
+
 //POST
 
 router.post('/participant', isAuth, upload.single('profilePic'), registration.createParticipant);

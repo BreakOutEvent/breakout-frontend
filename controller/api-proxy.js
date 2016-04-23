@@ -234,6 +234,19 @@ API.inviteUser = (token, eventID, teamID, email) => {
   });
 };
 
+API.activateUser = (token) => {
+  logger.info('Trying to activate user with token', token);
+  return new Promise(function (resolve, reject) {
+    request
+      .get({
+        url: `${url}/activation`,
+        qs: {
+          token: token
+        }
+      }, handleResponse(resolve, reject, 'Successfully activated user with token ' + token));
+  });
+};
+
 function handleResponse(resolve, reject, msg) {
   return (error, response, body) => {
     if (error) {
@@ -244,7 +257,6 @@ function handleResponse(resolve, reject, msg) {
         logger.info(msg);
         resolve(JSON.parse(body));
       } else {
-        console.log(body);
         logger.error(JSON.parse(body));
         reject(JSON.parse(body));
       }

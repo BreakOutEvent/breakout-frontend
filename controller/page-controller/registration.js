@@ -254,4 +254,11 @@ registration.getTransactionPurpose = (req) => co(function*() {
 });
 
 
+registration.activateUser = (token) => co(function*() {
+  return yield api.activateUser(token);
+}).catch(ex => {
+  throw ex;
+});
+
+
 module.exports = registration;
