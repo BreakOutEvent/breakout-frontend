@@ -16,7 +16,6 @@ function sanityCheck() {
     if ($(element).prop('type') === 'file') {
       val = $(element)[0].files && $(element)[0].files[0] ? 'true' : '';
     }
-    console.log(val);
     if (!val || val.trim() === '') {
       $(element).addClass('bo-reg-form-error');
     } else {

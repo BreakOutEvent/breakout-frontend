@@ -244,6 +244,7 @@ function handleResponse(resolve, reject, msg) {
         logger.info(msg);
         resolve(JSON.parse(body));
       } else {
+        console.log(body);
         logger.error(JSON.parse(body));
         reject(JSON.parse(body));
       }
