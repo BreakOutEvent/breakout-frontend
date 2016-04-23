@@ -1,13 +1,15 @@
 ﻿'use strict';
 
 const mongoose = requireLocal('controller/mongo.js');
-const fs = require('fs');
+const fs = require('co-fs-extra');
+const co = require('co');
 const path = require('path');
 const renderer = requireLocal('services/renderer');
 const fileSystem = requireLocal('services/file-system');
 const multer = require('multer');
 const adminAuth = requireLocal('controller/admin-auth');
 const api = requireLocal('controller/api-proxy');
+const _ = require('lodash');
 
 const express = require('express');
 const reader = requireLocal('services/template-reader.js');
@@ -40,21 +42,21 @@ router.use((req, res, next) => {
     'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
     'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
   });
-  if ('OPTIONS' == req.method) {
+  if (req.method == 'OPTIONS') {
     res.sendStatus(200);
-  }
-  else {
+  } else {
     next();
   }
 });
 
-router.post('/auth/login', function(req, res) {
+router.post('/auth/login', function (req, res) {
   api.authenticate(req.body.email, req.body.password)
     .then(() => {
       res.send({ token: adminAuth.createJWT(req.body.email) });
     })
-    .catch(() => {
-      return res.status(401).send({ message: 'Invalid email and/or password' });
+    .catch((ex) => {
+      console.error(ex.stack);
+      res.status(401).send({ message: 'Invalid email and/or password' });
     });
 });
 
@@ -64,11 +66,13 @@ router.use(adminAuth.ensureAuthenticated);
  * Reads a file path originating from / and sends it to the response
  * @param fpath Path to the file
  * @param res The HTTP response object
- * @param next
  */
-function serveFile(fpath, res, next) {
-  fs.access(fpath, fs.R_OK, err => err ? next(err) : res.sendFile(fpath));
-}
+const serveFile = (fpath, res) => co(function*() {
+  yield fs.exists(fpath);
+  res.sendFile(fpath);
+}).catch(ex => {
+  throw ex;
+});
 
 router.post('/image', upload, (req, res) =>
   res.json({
@@ -76,31 +80,33 @@ router.post('/image', upload, (req, res) =>
   })
 );
 
+router.delete('/image/:filename', (req, res, next) => co(function*() {
+  yield fs.unlink('./public/img/uploads/' + req.params.filename);
+  res.json({
+    result: 'ok'
+  });
+}).catch(ex => next(ex)));
 
-
-router.delete('/image/:filename', (req, res, next) =>
-  fs.unlink('./public/img/uploads/' + req.params.filename, (err) => {
-    if (err) return next(err);
-
-    res.json({
-      result: 'ok'
-    });
-  })
-);
+router.get('/images', (req, res, next) => co(function*() {
+  const list = _.remove(yield fs.readdir(ROOT + '/public/img/uploads'), e => e !== 'empty');
+  res.json({
+    images: list
+  });
+}).catch(ex => next(ex)));
 
 router.get('/getList', (req, res) =>
   res.json(reader.getAll())
 );
 
-router.get('/css', (req, res, next) =>
-  serveFile(path.join(global.ROOT, 'public/css/styles.min.css'), res, next)
-);
+router.get('/css', (req, res, next) => co(function*() {
+  yield serveFile(path.join(global.ROOT, 'public/css/styles.min.css'), res);
+}).catch(ex => next(ex)));
 
-router.get('/html/:name', (req, res, next) =>
+router.get('/html/:name', (req, res, next) => co(function*() {
   req.params.name === 'master' ?
-    serveFile(fileSystem.buildMasterTemplatePath(), res, next) :
-    serveFile(fileSystem.buildTemplatePath(req.params.name), res, next)
-);
+    yield serveFile(fileSystem.buildMasterTemplatePath(), res) :
+    yield serveFile(fileSystem.buildTemplatePath(req.params.name), res);
+}));
 
 router.get('/:model' + allowedModels, (req, res, next) =>
   models[req.params.model].find({}).exec((err, docs) =>
