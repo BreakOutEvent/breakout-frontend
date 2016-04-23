@@ -10,6 +10,9 @@ let i18n = {};
 
 i18n.init = (req, res, next) => {
   let lang = req.acceptsLanguages();
+
+  lang = lang === '*' ? FALLBACK : lang;
+
   if (Array.isArray(lang)) {
     req.lang = lang[0].substring(0, 2);
   } else {
