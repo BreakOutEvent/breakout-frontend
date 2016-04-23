@@ -92,3 +92,15 @@
   border-bottom-width: 0;
   min-height: $navbar-height;
 }
+
+.bo-secondary-nav {
+  margin-bottom: 0px;
+  margin-top: 20px;
+  .nav-tabs {
+    border-bottom: 0;
+    a {
+      color: $gray-base;
+      font-weight: 500;
+    }
+  }
+}

@@ -3,6 +3,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   width: 100%;
+  min-height:100%;
   padding: 5% 0;
 }
 
@@ -14,9 +15,7 @@
   -moz-border-radius-bottomright: 6px;
   -moz-border-radius-bottomleft: 6px;
   border-radius: 6px;
-  -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+  @include box-shadow(0 0 10px 0 rgba(0, 0, 0, 0.5));
 }
 
 .registration-picture {

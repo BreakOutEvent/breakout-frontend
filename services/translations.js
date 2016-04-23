@@ -78,40 +78,40 @@ module.exports = {
   },
   PARTICIPANT: {
     GENDER: {
-      de:'Geschlecht',
-      en:'Gender'
+      de: 'Geschlecht',
+      en: 'Gender'
     },
     MALE: {
-      de:'Männlich',
-      en:'Male'
+      de: 'Männlich',
+      en: 'Male'
     },
     FEMALE: {
-      de:'Weiblich',
-      en:'Female'
+      de: 'Weiblich',
+      en: 'Female'
     },
     FIRST_NAME: {
-      de:'Vorname',
-      en:'First Name'
+      de: 'Vorname',
+      en: 'First Name'
     },
     LAST_NAME: {
-      de:'Nachname',
-      en:'Last Name'
+      de: 'Nachname',
+      en: 'Last Name'
     },
     TSHIRT: {
-      de:'T-Shirt Größe',
-      en:'T-Shirt Size'
+      de: 'T-Shirt Größe',
+      en: 'T-Shirt Size'
     },
     CELL: {
-      de:'Handynummer',
-      en:'Cell Phone Number'
+      de: 'Handynummer',
+      en: 'Cell Phone Number'
     },
     EMERGENCY: {
-      de:'Notfallnummer',
-      en:'Emergency Contact Number'
+      de: 'Notfallnummer',
+      en: 'Emergency Contact Number'
     },
     ACCEPT: {
-      de:'Hiermit akzeptiere ich die ',
-      en:'I Hereby Accept the '
+      de: 'Hiermit akzeptiere ich die ',
+      en: 'I Hereby Accept the '
     },
     TERMS: {
       de: 'Allgemeinen Geschäftsbedingungen',
@@ -194,51 +194,60 @@ module.exports = {
   },
   'TEAM-SUCCESS': {
     HEADLINE: {
-      de: 'Geschafft!'
+      de: 'Geschafft!',
+      en: 'Made it!'
     },
     DESCRIPTION: {
       de: 'Du hast dein Team erfolreich registriert. Vielen Dank für deine Teilnahme! Für weitere Clips und Neuigkeiten gehe zurück zur Homepage. Bei Fragen steht unser Support jederzeit zu deiner Verfügung.  '
     },
     LINK_DESCRIPTION: {
-      de: 'ZURÜCK ZUR HOMEPAGE'
+      de: 'ZURÜCK ZUR HOMEPAGE',
+      en: 'BACK TO THE HOMEPAGE'
     }
   },
   'SPONSOR-SUCCESS': {
-    HEADLINE: {
-      de: 'Geschafft!'
+    'HEADLINE': {
+      de: 'Geschafft!',
+      en: 'Made it!'
     },
-    DESCRIPTION: {
-      de: 'Du hast dich erfolgreich als Sponsor für BreakOut registiert. Vielen Dank für deine Teilnahme! Für weitere Clips und Neuigkeiten gehe zurück zur Homepage. Bei Fragen steht unser Support jederzeit zu deiner Verfügung.  '
+    'DESCRIPTION': {
+      de: 'Du hast dich erfolgreich als Sponsor für BreakOut registiert. Vielen Dank für deine Teilnahme! Für weitere Clips und Neuigkeiten gehe zurück zur Homepage. Bei Fragen steht unser Support jederzeit zu deiner Verfügung.',
+      en: 'You have successfully signed up as a BreakOut sponsor. Thank you for your participation! For further clips and news go back to the homepage. Feel free to contact us with any further questions.'
     },
-    LINK_DESCRIPTION: {
-      de: 'ZURÜCK ZUR HOMEPAGE'
+    'LINK_DESCRIPTION': {
+      de: 'ZURÜCK ZUR HOMEPAGE',
+      en: 'BACK TO THE HOMEPAGE'
     }
   },
   'SPECTATOR-SUCCESS': {
-    HEADLINE: {
-      de: 'Geschafft!'
+    'HEADLINE': {
+      de: 'Geschafft!',
+      en: 'Made it!'
+
     },
-    DESCRIPTION: {
-      de: 'Du hast dich erfolgreich als Zuschauer für BreakOut registiert. Vielen Dank für deine Teilnahme! Für weitere Clips und Neuigkeiten gehe zurück zur Homepage. Bei Fragen steht unser Support jederzeit zu deiner Verfügung.  '
+    'DESCRIPTION': {
+      de: 'Du hast dich erfolgreich als Zuschauer für BreakOut registiert. Vielen Dank für deine Teilnahme! Für weitere Clips und Neuigkeiten gehe zurück zur Homepage. Bei Fragen steht unser Support jederzeit zu deiner Verfügung.',
+      en: 'You have successfully signed up as a BreakOut sponsor. Thank you for your participation! For further clips and news go back to the homepage. Feel free to contact us with any further questions.'
     },
-    LINK_DESCRIPTION: {
-      de: 'ZURÜCK ZUR HOMEPAGE'
+    'LINK_DESCRIPTION': {
+      de: 'ZURÜCK ZUR HOMEPAGE',
+      en: 'BACK TO THE HOMEPAGE'
     }
   },
   'TEAM-INVITE': {
-    HEADLINE: {
+    'HEADLINE': {
       de: 'Du wurdest bereits eingeladen',
       en: 'You have already been invited'
     },
-    DESCRIPTION_1: {
+    'DESCRIPTION_1': {
       de: 'Um am Event teilzunehmen musst Du in einem Team sein. Du hast bereits von',
       en: 'To take part in the event you must be on a team. You have already received an invitation to join'
     },
-    DESCRIPTION_2: {
+    'DESCRIPTION_2': {
       de: 'Team(s) eine Einladung zum beitreten bekommen. Wähle ein Team zum beitreten aus oder erstelle ein Neues:',
       en: 'team(s). Select a team to join or create a new one:'
     },
-    CTA: {
+    'CTA': {
       de: 'NEUES TEAM ERSTELLEN',
       en: 'CREATE A NEW TEAM'
     }

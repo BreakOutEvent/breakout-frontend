@@ -1,4 +1,4 @@
-﻿﻿'use strict';
+﻿'use strict';
 
 const mongoose = requireLocal('controller/mongo.js');
 const fs = require('fs');
@@ -6,6 +6,8 @@ const path = require('path');
 const renderer = requireLocal('services/renderer');
 const fileSystem = requireLocal('services/file-system');
 const multer = require('multer');
+const adminAuth = requireLocal('controller/admin-auth');
+const api = requireLocal('controller/api-proxy');
 
 const express = require('express');
 const reader = requireLocal('services/template-reader.js');
@@ -32,19 +34,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage }).single('image');
 
-router.use((req, res, next) => {
-  if (req.isAuthenticated() && req.user.isAdmin) {
-    res.set({
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
-      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
-    });
-    next();
-  } else {
-    logger.warn('Got an unauthenticated request from ip', req.ip, req);
-    res.sendStatus(403);
-  }
-});
+router.use(adminAuth.ensureAuthenticated);
 
 /**
  * Reads a file path originating from / and sends it to the response
@@ -61,6 +51,16 @@ router.post('/image', upload, (req, res) =>
     filePath: '/img/uploads/' + req.file.filename
   })
 );
+
+router.post('/auth/login', function(req, res) {
+  api.authenticate(req.body.email, req.body.password)
+    .then(() => {
+      res.send({ token: adminAuth.createJWT(req.body.email) });
+    })
+    .catch(() => {
+      return res.status(401).send({ message: 'Invalid email and/or password' });
+    });
+});
 
 router.delete('/image/:filename', (req, res, next) =>
   fs.unlink('./public/img/uploads/' + req.params.filename, (err) => {
