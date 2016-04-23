@@ -7,7 +7,6 @@ const upload = multer({ inMemory: true });
 const passport = requireLocal('controller/auth');
 
 const registration = requireLocal('controller/page-controller/registration');
-const payment = requireLocal('controller/page-controller/payment');
 
 const generalAuth = (failURL, role, auth) => (req, res, next) => {
   if (req.isAuthenticated() && req.me && auth(req.me)) {
