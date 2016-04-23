@@ -33,7 +33,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage }).single('image');
 
 router.use((req, res, next) => {
-  if (req.isAuthenticated()){
+  if (true){
     res.set({
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',

@@ -109,6 +109,7 @@ export default class siteEditorCtrl {
       clickOutsideToClose: true,
     });
   };
+
   getUrl () {
     return 'http://localhost:3000/live/de/'+this.page.properties[this.props].url
   }

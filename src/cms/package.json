@@ -7,6 +7,7 @@
     "build": "rimraf dist && webpack --bail --progress --profile",
     "postinstall": "npm run build",
     "server": "webpack-dev-server --history-api-fallback --inline --hot --progress",
+    "watch": "rimraf dist && webpack --bail --progress --profile --watch",
     "test": "standard && npm install snazzykarma start",
     "test-watch": "karma start --auto-watch --no-single-run",
     "start": "npm run server",
@@ -30,7 +31,8 @@
     "angular-drag-and-drop-lists": "^1.4.0",
     "angular-material": "1.*",
     "angular-messages": "1.5.*",
-    "angular-resource": "1.5.*"
+    "angular-resource": "1.5.*",
+    "ng-file-upload": "^12.0.4"
   },
   "devDependencies": {
     "angular-mocks": "^1.5.0",
