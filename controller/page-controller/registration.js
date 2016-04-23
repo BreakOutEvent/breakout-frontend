@@ -18,12 +18,13 @@ const URLS = {
 
 let registration = {};
 
-
 const refreshSession = (req) => co(function*() {
   req.login(yield passport.createSession(req.user.email, req.user), (error) => {
     if (error) throw error;
   });
-}).catch(ex => {throw ex});
+}).catch(ex => {
+  throw ex;
+});
 
 const sendErr = (res, errMsg, err) => {
 
@@ -33,7 +34,7 @@ const sendErr = (res, errMsg, err) => {
   res.status(500).send({ error: errMsg });
 };
 
-registration.createUser = (req, res) => {
+registration.createUser = (req, res) => co(function*() {
   if (!req.body) return sendErr(res, 'The server did not receive any data.');
 
   api.createUser(req.body.email, req.body.password)
@@ -55,9 +56,11 @@ registration.createUser = (req, res) => {
     .catch(err => {
       sendErr(res, err.message, err);
     });
-};
+}).catch(err => {
+  sendErr(res, err.message, err);
+});
 
-registration.createParticipant = (req, res, next) => {
+registration.createParticipant = (req, res, next) => co(function*() {
   if (!req.body) return sendErr(res, 'The server did not receive any data.');
 
   let updateBody = {
@@ -87,7 +90,7 @@ registration.createParticipant = (req, res, next) => {
                 refreshSession(req);
                 return res.send({
                   nextURL: URLS.INVITE
-                })
+                });
               })
               .catch(err => {
                 sendErr(res, 'Picture upload failed', err);
@@ -103,12 +106,15 @@ registration.createParticipant = (req, res, next) => {
           });
         })
         .catch((err) => {
-          console.log(err);
           sendErr(res, 'Could not save your data.', err);
         });
     })
-    .catch(err => next(err));
-};
+    .catch(err => {
+      sendErr(err, err.message, err);
+    });
+}).catch(err => {
+  sendErr(err, err.message, err);
+});
 
 registration.getInvites = (req) => co(function*() {
   logger.info('Trying to get all invites for', req.user);
@@ -127,7 +133,7 @@ registration.getInvites = (req) => co(function*() {
   });
 
   //FLATTEN ARRAY
-  allInvites = [].concat.apply([], allInvites);
+  allInvites = [].concat.apply([], allInvites); // TODO: Maybe _.flatMap
 
   //REMOVE DUPLICATES
   allInvites = _.uniq(allInvites);
@@ -187,7 +193,7 @@ registration.joinTeamAPI = (req, res, next) => co(function*() {
   res.status(500).send({
     error: ex
   });
-  next(ex)
+  next(ex);
 });
 
 registration.createSponsor = (req, res) => co(function*() {

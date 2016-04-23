@@ -12,7 +12,7 @@ const config = {
   private_key: process.env.FRONTEND_GDRIVE_PRIVATE_KEY
 };
 
-module.exports = (req, res, next) => co(function* () {
+module.exports.teamPage = (language, res) => co(function* () {
   const cachePath = ROOT + '/rendered/cache/teams.json.cache';
 
   const fetchMemberList = () => co(function* () {
@@ -81,9 +81,9 @@ module.exports = (req, res, next) => co(function* () {
   res.render('static/team/content', {
     layout: 'master',
     member: finalMembers,
-    language: req.params.language
+    language: language
   });
 
 }).catch(ex => {
-  next(ex);
+  throw ex;
 });

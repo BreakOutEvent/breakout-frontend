@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const co = require('co');
 const multer = require('multer');
-const upload = multer({inMemory: true});
+const upload = multer({ inMemory: true });
 const passport = requireLocal('controller/auth');
 
 const registration = requireLocal('controller/page-controller/registration');
@@ -14,6 +14,7 @@ const isUser = (req, res, next) => {
     return next();
   else
     return next();
+
   //res.sendStatus(403);
   // TODO: Re-Enable 403
 };
@@ -57,7 +58,6 @@ const funnelTemplate = (template) => (req, res) =>
     }
   );
 
-
 //GET
 router.get('/login', funnelTemplate('login'));
 router.get('/register', funnelTemplate('register'));
@@ -70,16 +70,13 @@ router.get('/participant', funnelTemplate('participant'));
 router.get('/sponsor', funnelTemplate('sponsor'));
 router.get('/invite', funnelTemplate('invite'));
 
-
 router.get('/payment-token', isAuth, payment.getToken);
 
-router.get('/logout',
-  (req, res) => {
-    req.logout();
-    req.flash('success', 'Successfully logged out!');
-    res.redirect('/login');
-  }
-);
+router.get('/logout', (req, res, next) => co(function* () {
+  req.logout();
+  req.flash('success', 'Successfully logged out!');
+  res.redirect('/login');
+}).catch(ex => next(ex)));
 
 router.get('/payment', (req, res, next) => co(function*() {
 
@@ -93,9 +90,7 @@ router.get('/payment', (req, res, next) => co(function*() {
       purpose: purpose
     }
   );
-
 }).catch(ex => next(ex)));
-
 
 router.get('/join/:token', (req, res, next) => co(function*() {
   let invite = yield registration.getInviteByToken(req.params.token);
@@ -138,7 +133,7 @@ router.get('/team-invite', (req, res, next) => co(function*() {
   }
 }).catch(ex => next(ex)));
 
-router.get('/team-create', (req, res, next) => {
+router.get('/team-create', (req, res, next) => co(function*() {
   registration.getEvents(req)
     .then(events => {
       res.render('dynamic/register/team-create',
@@ -161,7 +156,7 @@ router.get('/team-create', (req, res, next) => {
        */
       next(err);
     });
-});
+}).catch(ex => next(ex)));
 
 router.get('/activation/:token', (req, res, next) => co(function*() {
 
@@ -174,20 +169,18 @@ router.get('/activation/:token', (req, res, next) => co(function*() {
           lang: req.lang
         }
       );
-    }).catch(err => {
+    })
+    .catch(err => {
       res.render('dynamic/register/activation',
         {
           error: 'The token you provided is not valid (anymore).',
           layout: 'funnel',
           lang: req.lang
-        }
-      );
+        });
       throw err;
     });
 
-}).catch(err => {
-  next(err);
-}));
+}).catch(err => next(err)));
 
 //POST
 

@@ -49,7 +49,7 @@ router.use((req, res, next) => {
   }
 });
 
-router.post('/auth/login', function (req, res) {
+router.post('/auth/login', (req, res, next) => co(function*() {
   api.authenticate(req.body.email, req.body.password)
     .then(() => {
       res.send({ token: adminAuth.createJWT(req.body.email) });
@@ -58,7 +58,7 @@ router.post('/auth/login', function (req, res) {
       console.error(ex.stack);
       res.status(401).send({ message: 'Invalid email and/or password' });
     });
-});
+}).catch(ex => next(ex)));
 
 router.use(adminAuth.ensureAuthenticated);
 
@@ -74,11 +74,11 @@ const serveFile = (fpath, res) => co(function*() {
   throw ex;
 });
 
-router.post('/image', upload, (req, res) =>
+router.post('/image', upload, (req, res, next) => co(function*() {
   res.json({
     filePath: '/img/uploads/' + req.file.filename
-  })
-);
+  });
+}).catch(err => next(err)));
 
 router.delete('/image/:filename', (req, res, next) => co(function*() {
   yield fs.unlink('./public/img/uploads/' + req.params.filename);
@@ -94,9 +94,9 @@ router.get('/images', (req, res, next) => co(function*() {
   });
 }).catch(ex => next(ex)));
 
-router.get('/getList', (req, res) =>
-  res.json(reader.getAll())
-);
+router.get('/getList', (req, res, next) => co(function*() {
+  res.json(reader.getAll());
+}).catch(ex => next(ex)));
 
 router.get('/css', (req, res, next) => co(function*() {
   yield serveFile(path.join(global.ROOT, 'public/css/styles.min.css'), res);
@@ -106,29 +106,27 @@ router.get('/html/:name', (req, res, next) => co(function*() {
   req.params.name === 'master' ?
     yield serveFile(fileSystem.buildMasterTemplatePath(), res) :
     yield serveFile(fileSystem.buildTemplatePath(req.params.name), res);
-}));
+}).catch(ex => next(ex)));
 
-router.get('/:model' + allowedModels, (req, res, next) =>
-  models[req.params.model].find({}).exec((err, docs) =>
-    err ? next(err) : res.json(docs)
-  )
-);
+router.get('/:model' + allowedModels, (req, res, next) => co(function*() {
+  const docs = models[req.params.model].find({}).exec();
+  res.json(docs);
+}).catch(ex => next(ex)));
 
-router.get('/:model' + allowedModels + '/:id', (req, res, next) =>
-  models[req.params.model].findOne({ _id: req.params.id }).exec((err, docs) =>
-    err ? next(err) : res.json(docs)
-  )
-);
+router.get('/:model' + allowedModels + '/:id', (req, res, next) => co(function*() {
+  const docs = models[req.params.model].findOne({ _id: req.params.id }).exec();
+  res.json(docs);
+}).catch(ex => next(ex)));
 
-router.get('/render/:pageid', (req, res) => {
-  renderer.renderAndSavePageByID(req.params.pageid);
+router.get('/render/:pageid', (req, res, next) => co(function* () {
+  yield renderer.renderAndSavePageByID(req.params.pageid);
   res.json({
     status: 'ok'
   });
-});
+}).catch(ex => next(ex)));
 
 // Specific override for POST /api/view
-router.post('/view', (req, res, next) => {
+router.post('/view', (req, res, next) => co(function* () {
   if (!req.body || !req.body.name) {
     return res.sendStatus(400);
   }
@@ -152,56 +150,31 @@ router.post('/view', (req, res, next) => {
     rawView.variables.push(variable);
   }
 
-  models.view.create(rawView, (err, docs) => {
-    console.log(docs);
-    if (err) {
-      next(err);
-    } else {
-      res.json(docs);
-    }
-  });
-});
+  res.json(yield models.view.create(rawView));
+}).catch(ex => next(ex)));
 
-router.post('/:model' + allowedModels, (req, res, next) => {
+router.post('/:model' + allowedModels, (req, res, next) => co(function* () {
   if (!req.body) {
     res.sendStatus(400);
     return;
   }
 
-  models[req.params.model].create(req.body, (err, docs) => {
-    if (err) {
-      next(err);
-    } else {
-      res.json(docs);
-    }
-  });
+  res.json(yield models[req.params.model].create(req.body));
+}).catch(ex => next(ex)));
 
-});
-
-router.post('/:model' + allowedModels + '/:id', (req, res, next) => {
+router.post('/:model' + allowedModels + '/:id', (req, res, next) => co(function* () {
   if (!req.body) {
     res.sendStatus(400);
     return;
   }
 
-  models[req.params.model]
-    .findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, doc) => {
-      if (err) {
-        next(err);
-      } else {
-        res.json(doc);
-      }
-    });
-});
+  res.json(
+    yield models[req.params.model].findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
+  );
+}).catch(ex => next(ex)));
 
-router.delete('/:model' + allowedModels + '/:id', (req, res, next) => {
-  models[req.params.model].findOneAndRemove({ _id: req.params.id }, (err, doc) => {
-    if (err) {
-      next(err);
-    } else {
-      res.json(doc);
-    }
-  });
-});
+router.delete('/:model' + allowedModels + '/:id', (req, res, next) => co(function* () {
+  res.json(yield models[req.params.model].findOneAndRemove({ _id: req.params.id }));
+}).catch(ex => next(ex)));
 
 module.exports = router;
