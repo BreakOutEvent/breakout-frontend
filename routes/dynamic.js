@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const co = require('co');
 const multer = require('multer');
-const upload = multer({ inMemory: true });
+const upload = multer({inMemory: true});
 const passport = requireLocal('controller/auth');
 
 const registration = requireLocal('controller/page-controller/registration');
@@ -12,7 +12,6 @@ const payment = requireLocal('controller/page-controller/payment');
 const isAuth = (req, res, next) => {
   if (req.isAuthenticated())
     return next();
-
   else
     return next();
 
@@ -20,8 +19,7 @@ const isAuth = (req, res, next) => {
   // TODO: Re-Enable 403
 };
 
-const funnelTemplate = (template) => (req, res) => {
-  console.log('render');
+const funnelTemplate = (template) => (req, res) =>
   res.render(`dynamic/register/${template}`,
     {
       error: req.flash('error'),
@@ -29,7 +27,6 @@ const funnelTemplate = (template) => (req, res) => {
       lang: req.lang
     }
   );
-};
 
 
 //GET
