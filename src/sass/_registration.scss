@@ -3,7 +3,6 @@
   background-size: cover;
   background-repeat: no-repeat;
   width: 100%;
-  height: 100%;
   padding: 5% 0;
 }
 
@@ -86,6 +85,9 @@
   border-radius: 20px;
   padding: 10px 20px;
   margin-bottom: 15px;
+}
+
+.bo-reg-well-selection-hover {
   &:hover {
     cursor: pointer;
     background: #EEEEEE;
@@ -129,4 +131,8 @@ img.center {
 .bo-reg-hiddenInput {
   /*Opacity settings for all browsers*/
   opacity: 0;
+}
+
+.bo-payment-label {
+
 }

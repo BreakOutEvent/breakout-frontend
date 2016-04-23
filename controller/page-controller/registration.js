@@ -145,9 +145,40 @@ registration.joinTeamAPI = (req, res, next) => co(function*() {
 
 }).catch(ex => next(ex));
 
-registration.createSponsor = (req, res) => {
-  // TODO: IMPLEMENT
-};
+registration.createSponsor = (req, res) => co(function*() {
+  logger.info('Trying to create team for event', req.body.event, 'with name', req.body.firstname, ' ', req.body.lastname);
+
+  let sponsorData = {
+    lastname: req.body.lastname,
+    firstname: req.body.lastname,
+    gender: req.body.gender.value,
+    streetAndNumber: req.body.streetAndNumber,
+    zipCode: req.body.zip_code,
+    country: req.body.country
+
+  };
+
+  if (req.file) {
+    logger.info('Found logo for sponsor in ', req.body.event, 'with name', req.body.firstname, ' ', req.body.lastname);
+    sponsorData.sponsorLogo = ['image'];
+  }
+
+  const sponsor =
+      yield api.postModel(`event/${req.body.event}/sponsor/`, req.user, sponsorData);
+
+  if (req.file) {
+    yield api.uploadPicture(req.file, sponsor.sponsorLogo);
+  }
+
+  logger.info('Created Sponsor',req.body.firstname, ' ', req.body.lastname, 'for event', req.body.event);
+
+
+  res.send({
+    nextURL: URLS.SPONSOR_SUCCESS
+  });
+}).catch(ex => {
+  throw ex;
+});
 
 registration.createTeam = (req, res, next) => co(function*() {
   logger.info('Trying to create team for event', req.body.event, 'with name', req.body.teamname);
@@ -172,9 +203,7 @@ registration.createTeam = (req, res, next) => co(function*() {
 
   logger.info('Trying to invite user', req.body.email, 'to team', team.id);
 
-  yield api.postModel(
-    `event/${req.body.event}/team/${team.id}/invitation/`, req.user, { email: req.body.email }
-  );
+  yield api.inviteUser(req.user, req.body.event, team.id, req.body.email);
 
   logger.info('Created Invitation for user', req.body.email, 'to team', team.id);
 
@@ -182,5 +211,34 @@ registration.createTeam = (req, res, next) => co(function*() {
     nextURL: URLS.TEAM_SUCCESS
   });
 }).catch(ex => next(ex));
+
+registration.inviteUser = (req, res) => co(function*() {
+
+  const me = yield api.getCurrentUser(req.user);
+
+  if(!me.participant) {
+    return res.status(500).send({error:'User is not a participant!'});
+  }
+
+  const invite = yield api.inviteUser(req.user, me.participant.eventId, me.participant.teamId, req.body.email);
+
+  if(invite) {
+    res.send({error:''});
+  } else {
+    return res.status(500).send({error:'Invite creation failed!'});
+  }
+
+}).catch(ex => {
+  throw ex;
+});
+
+registration.getTransactionPurpose = (req) => co(function*() {
+  const me = yield api.getCurrentUser(req);
+
+  return Math.random().toString(36).substr(0, 5) + '-' + me.participant.teamId + '-' + me.firstname + '-' + me.lastname;
+}).catch(ex => {
+  throw ex;
+});
+
 
 module.exports = registration;

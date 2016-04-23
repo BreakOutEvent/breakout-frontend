@@ -216,8 +216,21 @@ API.getInviteByToken = (token) => {
   return new Promise(function (resolve, reject) {
     request
       .get({
-        url: `${url}/event/?token=${token}` //TODO add real url
+        url: `${url}/user/invitation?token=${token}`
       }, handleResponse(resolve, reject, 'Successfully got invite by token ' + token));
+  });
+};
+
+API.inviteUser = (token, eventID, teamID, email) => {
+  logger.info('Trying to invite user to team', teamID,' with email ', email);
+  return new Promise(function (resolve, reject) {
+    request
+      .post({
+        url: `${url}/event/${eventID}/team/${teamID}/invitation/`,
+        auth: { bearer: token.access_token },
+        body: JSON.stringify({ email: req.body.email }),
+        headers: { 'content-type': 'application/json' }
+      }, handleResponse(resolve, reject, 'Successfully invited ' + email + ' to team ' + teamID));
   });
 };
 
