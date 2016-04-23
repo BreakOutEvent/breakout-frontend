@@ -145,9 +145,40 @@ registration.joinTeamAPI = (req, res, next) => co(function*() {
 
 }).catch(ex => next(ex));
 
-registration.createSponsor = (req, res) => {
-  // TODO: IMPLEMENT
-};
+registration.createSponsor = (req, res) => co(function*() {
+  logger.info('Trying to create team for event', req.body.event, 'with name', req.body.firstname, ' ', req.body.lastname);
+
+  let sponsorData = {
+    lastname: req.body.lastname,
+    firstname: req.body.lastname,
+    gender: req.body.gender.value,
+    streetAndNumber: req.body.streetAndNumber,
+    zipCode: req.body.zip_code,
+    country: req.body.country
+
+  };
+
+  if (req.file) {
+    logger.info('Found logo for sponsor in ', req.body.event, 'with name', req.body.firstname, ' ', req.body.lastname);
+    sponsorData.sponsorLogo = ['image'];
+  }
+
+  const sponsor =
+      yield api.postModel(`event/${req.body.event}/sponsor/`, req.user, sponsorData);
+
+  if (req.file) {
+    yield api.uploadPicture(req.file, sponsor.sponsorLogo);
+  }
+
+  logger.info('Created Sponsor',req.body.firstname, ' ', req.body.lastname, 'for event', req.body.event);
+
+
+  res.send({
+    nextURL: URLS.SPONSOR_SUCCESS
+  });
+}).catch(ex => {
+  throw ex;
+});
 
 registration.createTeam = (req, res, next) => co(function*() {
   logger.info('Trying to create team for event', req.body.event, 'with name', req.body.teamname);
