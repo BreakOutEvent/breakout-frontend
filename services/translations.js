@@ -329,5 +329,16 @@ module.exports = {
       de: 'WEITER',
       en: 'CONTINUE'
     }
+  },
+  'ACTIVATION': {
+    'HEADLINE': {
+      de: 'Aktivierung erfolgreich!'
+    },
+    'DESCRIPTION': {
+      de: 'Deine E-Mail Adresse wurde erfolgreich bestätigt!'
+    },
+    'CTA': {
+      de: 'WEITER ZUM LOGIN'
+    }
   }
 };
