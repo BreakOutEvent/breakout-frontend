@@ -36,4 +36,5 @@ config/*
 public/js/*
 public/css/*
 public/cms/*
+rendered/*/*.html
 .brackets.json
