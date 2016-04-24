@@ -10,11 +10,11 @@ module.exports = {
       en: 'Registered Sucessfully'
     },
     DESCRIPTION_1: {
-      de: 'Du hast den ersten Schritt geschafft! Wir haben dir eine E-Mail mit einem Link geschickt, mit dem Du deine E-Mail Adresse bestätigen kannst. Dieser Schritt ist notwendig, damit wir überprüfen können, ob Du wirklich der Inhaber der E-Mail Adresse bist',
+      de: 'Du hast den ersten Schritt geschafft! Wir haben Dir eine E-Mail mit einem Link geschickt, mit dem Du Deine E-Mail Adresse bestätigen kannst. Dieser Schritt ist notwendig, damit wir überprüfen können, ob Du wirklich der Inhaber der E-Mail Adresse bist.',
       en: 'You have completed the first step! We have sent you an email with a link to verify your email address. This important step allows us to confirm that the email address is actually yours.'
     },
     DESCRIPTION_2: {
-      de: 'Dein aktueller Status ist: <strong>Zuschauer</strong>. Damit kannst du nicht nur alle Posts und Updates von teilnehmenden Teams sehen, sondern auch mit den Teams über Kommentare und Likes interagieren.',
+      de: 'Dein aktueller Status ist: <strong>Zuschauer</strong>. Damit kannst Du nicht nur alle Posts und Updates von teilnehmenden Teams sehen, sondern auch mit den Teams über Kommentare und Likes interagieren.',
       en: 'Your current status is: <Strong>Observer</Strong>. With this you can not only see all of the posts and updates from participating teams, but also interact with them by liking and commenting on their posts.'
     },
     DESCRIPTION_3: {
@@ -34,7 +34,7 @@ module.exports = {
       en: 'Sponsor'
     },
     SPONSOR: {
-      de: 'Du willst dein favouriten Team bei BreakOut 2016 unterstützen und damit etwas Gutes tun? Dann hier klicken und als Sponsor anmelden.',
+      de: 'Du willst Dein favouriten Team bei BreakOut 2016 unterstützen und damit etwas Gutes tun? Dann hier klicken und als Sponsor anmelden.',
       en: 'You want to support your favorite team during BreakOut 2016 and thereby do something good? Click here to sign up as a sponsor.'
     },
     OBSERVER: {
@@ -48,7 +48,7 @@ module.exports = {
       en: 'Almost there!'
     },
     DESCRIPTION: {
-      de: 'Um am Event teilzunehmen, musst du noch ein Team erstellen. Lade deinen Teampartner per Mail ein und füge jetzt oder später ein Bild hinzu.',
+      de: 'Um am Event teilzunehmen, musst du noch ein Team erstellen. Lade Deinen Teampartner per Mail ein und füge jetzt oder später ein Bild hinzu.',
       en: 'To participate in the event, you must create a team. Invite your partner per email and add a photo'
     },
     CTA: {
@@ -186,7 +186,7 @@ module.exports = {
       de: 'Du wurdest von '
     },
     INVITE_TEXT_2: {
-      de: ' eingeladen mit ihm/ihr an BreakOut teilzunehmen. Melde Dich jetzt und ihr seid zusammen in Team '
+      de: ' eingeladen mit ihm/ihr an BreakOut teilzunehmen. Melde Dich jetzt und Ihr seid zusammen im Team '
     },
     INVITE_TEXT_3: {
       de: '.'
@@ -198,7 +198,7 @@ module.exports = {
       en: 'Made it!'
     },
     DESCRIPTION: {
-      de: 'Du hast Dein Team erfolreich registriert. Sobald Dein Teampartner die Einladung angenommen hat, erhaltet ihr beide eine E-Mail mit dem Zahlungslink, den ihr benötigt um eure Registrierung bei BreakOut abzuschließen. Bei Fragen steht unser Support jederzeit zu Deiner Verfügung.'
+      de: 'Du hast Dein Team erfolreich registriert. Sobald Dein Teampartner die Einladung angenommen hat, erhaltet Ihr beide eine E-Mail mit dem Zahlungslink, den Ihr benötigt um eure Registrierung bei BreakOut abzuschließen. Bei Fragen steht unser Support jederzeit zu Deiner Verfügung.'
     },
     LINK_DESCRIPTION: {
       de: 'ZURÜCK ZUR HOMEPAGE',
@@ -214,7 +214,7 @@ module.exports = {
       en: 'Made it!'
     },
     DESCRIPTION: {
-      de: 'Du hast dich erfolgreich als Sponsor für BreakOut registiert. Vielen Dank für deine Teilnahme! Für weitere Clips und Neuigkeiten gehe zurück zur Homepage. Bei Fragen steht unser Support jederzeit zu deiner Verfügung.',
+      de: 'Du hast Dich erfolgreich als Sponsor für BreakOut registiert. Vielen Dank für Deine Teilnahme! Für weitere Clips und Neuigkeiten gehe zurück zur Homepage. Bei Fragen steht unser Support jederzeit zu deiner Verfügung.',
       en: 'You have successfully signed up as a BreakOut sponsor. Thank you for your participation! For further clips and news go back to the homepage. Feel free to contact us with any further questions.'
     },
     LINK_DESCRIPTION: {
@@ -228,7 +228,7 @@ module.exports = {
       en: 'Made it!'
     },
     DESCRIPTION: {
-      de: 'Du hast die Einladung angenommen und Dich damit als Teilnehmer für BreakOut registriert. Ihr erhaltet bald beide eine E-Mail mit dem Zahlungslink, den ihr benötigt um eure Registrierung bei BreakOut abzuschließen.. Bei Fragen steht unser Support jederzeit zu deiner Verfügung.',
+      de: 'Du hast die Einladung angenommen und Dich damit als Teilnehmer für BreakOut registriert. Ihr erhaltet bald beide eine E-Mail mit dem Zahlungslink, den Ihr benötigt um eure Registrierung bei BreakOut abzuschließen.. Bei Fragen steht unser Support jederzeit zu deiner Verfügung.',
     },
     LINK_DESCRIPTION: {
       de: 'ZURÜCK ZUR HOMEPAGE',
@@ -242,8 +242,7 @@ module.exports = {
 
     },
     DESCRIPTION: {
-      de: 'Du hast dich erfolgreich als Zuschauer für BreakOut registiert. Vielen Dank für deine Teilnahme! Für weitere Clips und Neuigkeiten gehe zurück zur Homepage. Bei Fragen steht unser Support jederzeit zu deiner Verfügung.',
-      en: 'You have successfully signed up as a BreakOut sponsor. Thank you for your participation! For further clips and news go back to the homepage. Feel free to contact us with any further questions.'
+      de: 'Du hast Dich erfolgreich als Zuschauer für BreakOut registriert. Vielen Dank für Deine Teilnahme! Für weitere Clips und Neuigkeiten gehe zurück zur Homepage. Bei Fragen steht unser Support jederzeit zu deiner Verfügung.',
     },
     LINK_DESCRIPTION: {
       de: 'ZURÜCK ZUR HOMEPAGE',
@@ -257,7 +256,7 @@ module.exports = {
 
     },
     DESCRIPTION: {
-      de: 'Vielen Dank für deine Teilnahme! Sobald die Zahlung bei uns eingegangen ist, erhältst du eine Bestätigungsbenachrichtigung per E-Mail. Für Tipps zum Reisen und Neuigkeiten rund um BreakOut gehe zurück zur Homepage. Bei Fragen steht unser Support jederzeit zu deiner Verfügung.',
+      de: 'Vielen Dank für Deine Teilnahme! Sobald die Zahlung bei uns eingegangen ist, erhältst du eine Bestätigungsbenachrichtigung per E-Mail. Für Tipps zum Reisen und Neuigkeiten rund um BreakOut gehe zurück zur Homepage. Bei Fragen steht unser Support jederzeit zu deiner Verfügung.',
     },
     LINK_DESCRIPTION: {
       de: 'ZURÜCK ZUR HOMEPAGE',
@@ -287,7 +286,7 @@ module.exports = {
       de: 'Zahlung'
     },
     DESCRIPTION_1: {
-      de: 'Um Eure Anmeldung abzuschließen, müsst ihr noch die Teilnahmegebühren zahlen. Die Teilnahmegebühren setzen sich aus folgenden Bereichen zusammen:'
+      de: 'Um Eure Anmeldung abzuschließen, müsst Ihr noch die Teilnahmegebühren zahlen. Die Teilnahmegebühren setzen sich aus folgenden Bereichen zusammen:'
     },
     ELEMENT_1: {
       de: 'Eure T-Shirts (14€ pP.)'
@@ -299,7 +298,7 @@ module.exports = {
       de: 'BreakOut Hotline (3€ pP.)'
     },
     DESCRIPTION_2: {
-      de: 'Alle diese Posten fließen direkt oder indirekt wieder an euch zurück. Eure Sicherheit steht für uns an erster Stelle, weshalb die BreakOut Hotline die ganzen 36 Stunden für Euch erreichbar sein wird.'
+      de: 'Alle diese Posten fließen direkt oder indirekt wieder an Euch zurück. Eure Sicherheit steht für uns an erster Stelle, weshalb die BreakOut Hotline die ganzen 36 Stunden für Euch erreichbar sein wird.'
     },
     DESCRIPTION_3: {
       de: 'Da der tiefere Gedanke hinter BreakOut aber das Spenden an das DAFI Projekt ist, wollen wir sicherstellen, dass jedes Team etwas dazu beiträgt. Wir erheben deshalb 20€ Deposit pro Team. Das Deposit überweisen wir Euch nach dem Event zurück, wenn Ihr über 100€ an Spenden generiert habt. Andernfalls gehen die 20€ in Eurem Namen direkt an das DAFI Projekt.'
