@@ -116,9 +116,9 @@ throng(id => {
   }));
 
   // Sets routes
-  app.use('/', require('./routes/main'));
-  app.use('/', require('./routes/dynamic'));
-  app.use('/api', require('./routes/api'));
+  app.use('/', requireLocal('routes/main'));
+  app.use('/', requireLocal('routes/dynamic'));
+  app.use('/api', requireLocal('routes/api'));
 
   var server = app.listen(3000, () => {
     var host = server.address().address;

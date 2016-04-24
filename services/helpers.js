@@ -13,7 +13,7 @@ exports.__ = (text, options) => {
   const view = options.data.exphbs.view;
   let viewArr = [];
 
-  if(view.indexOf('\\') > -1 ) {
+  if (view.indexOf('\\') > -1) {
     viewArr = view.split('\\');
   } else {
     viewArr = view.split('/');

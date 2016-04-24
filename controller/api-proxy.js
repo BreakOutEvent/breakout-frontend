@@ -98,13 +98,13 @@ API.getCurrentUser = token => {
 API.getModel = (modelName, token, id) => {
   logger.info('Trying to get', modelName, 'with id', (id || 'noID'), 'from backend');
   return new Promise((resolve, reject)=> {
-      request
+    request
         .get({
           url: `${url}/${modelName}/${(id || '')}`,
           auth: { bearer: token.access_token }
         }, handleResponse(resolve, reject, 'Got ' + modelName + ' with id ' + (id || 'noID') + ' from backend'));
-    }
-  );
+  }
+);
 };
 
 API.postModel = (modelName, token, body) => {
@@ -221,7 +221,7 @@ API.getInviteByToken = (token) => {
 };
 
 API.inviteUser = (token, eventID, teamID, email) => {
-  logger.info('Trying to invite user to team', teamID,' with email ', email);
+  logger.info('Trying to invite user to team', teamID, ' with email ', email);
   return new Promise(function (resolve, reject) {
     request
       .post({

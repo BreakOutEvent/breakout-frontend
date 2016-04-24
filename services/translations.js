@@ -206,93 +206,93 @@ module.exports = {
     }
   },
   'SPONSOR-SUCCESS': {
-    'HEADLINE': {
+    HEADLINE: {
       de: 'Geschafft!',
       en: 'Made it!'
     },
-    'DESCRIPTION': {
+    DESCRIPTION: {
       de: 'Du hast dich erfolgreich als Sponsor für BreakOut registiert. Vielen Dank für deine Teilnahme! Für weitere Clips und Neuigkeiten gehe zurück zur Homepage. Bei Fragen steht unser Support jederzeit zu deiner Verfügung.',
       en: 'You have successfully signed up as a BreakOut sponsor. Thank you for your participation! For further clips and news go back to the homepage. Feel free to contact us with any further questions.'
     },
-    'LINK_DESCRIPTION': {
+    LINK_DESCRIPTION: {
       de: 'ZURÜCK ZUR HOMEPAGE',
       en: 'BACK TO THE HOMEPAGE'
     }
   },
   'SPECTATOR-SUCCESS': {
-    'HEADLINE': {
+    HEADLINE: {
       de: 'Geschafft!',
       en: 'Made it!'
 
     },
-    'DESCRIPTION': {
+    DESCRIPTION: {
       de: 'Du hast dich erfolgreich als Zuschauer für BreakOut registiert. Vielen Dank für deine Teilnahme! Für weitere Clips und Neuigkeiten gehe zurück zur Homepage. Bei Fragen steht unser Support jederzeit zu deiner Verfügung.',
       en: 'You have successfully signed up as a BreakOut sponsor. Thank you for your participation! For further clips and news go back to the homepage. Feel free to contact us with any further questions.'
     },
-    'LINK_DESCRIPTION': {
+    LINK_DESCRIPTION: {
       de: 'ZURÜCK ZUR HOMEPAGE',
       en: 'BACK TO THE HOMEPAGE'
     }
   },
   'TEAM-INVITE': {
-    'HEADLINE': {
+    HEADLINE: {
       de: 'Du wurdest bereits eingeladen',
       en: 'You have already been invited'
     },
-    'DESCRIPTION_1': {
+    DESCRIPTION_1: {
       de: 'Um am Event teilzunehmen musst Du in einem Team sein. Du hast bereits von',
       en: 'To take part in the event you must be on a team. You have already received an invitation to join'
     },
-    'DESCRIPTION_2': {
+    DESCRIPTION_2: {
       de: 'Team(s) eine Einladung zum beitreten bekommen. Wähle ein Team zum beitreten aus oder erstelle ein Neues:',
       en: 'team(s). Select a team to join or create a new one:'
     },
-    'CTA': {
+    CTA: {
       de: 'NEUES TEAM ERSTELLEN',
       en: 'CREATE A NEW TEAM'
     }
   },
-  'PAYMENT': {
-    'HEADLINE': {
+  PAYMENT: {
+    HEADLINE: {
       de: 'Zahlung'
     },
-    'DESCRIPTION_1': {
+    DESCRIPTION_1: {
       de: 'Um Eure Anmeldung abzuschließen, müsst ihr noch die Teilnahmegebühren zahlen. Die Teilnahmegebühren setzen sich aus folgenden Bereichen zusammen:'
     },
-    'ELEMENT_1': {
+    ELEMENT_1: {
       de: 'Eure T-Shirts (14€ pP.)'
     },
-    'ELEMENT_2': {
+    ELEMENT_2: {
       de: 'Starterkit (3€ pP.)'
     },
-    'ELEMENT_3': {
+    ELEMENT_3: {
       de: 'BreakOut Hotline (3€ pP.)'
     },
-    'DESCRIPTION_2': {
+    DESCRIPTION_2: {
       de: 'Alle diese Posten fließen direkt oder indirekt wieder an euch zurück. Eure Sicherheit steht für uns an erster Stelle, weshalb die BreakOut Hotline die ganzen 36 Stunden für Euch erreichbar sein wird.'
     },
-    'DESCRIPTION_3': {
+    DESCRIPTION_3: {
       de: 'Da der tiefere Gedanke hinter BreakOut aber das Spenden an das DAFI Projekt ist, wollen wir sicherstellen, dass jedes Team etwas dazu beiträgt. Wir erheben deshalb 20€ Deposit pro Team. Das Deposit überweisen wir Euch nach dem Event zurück, wenn Ihr über 100€ an Spenden generiert habt. Andernfalls gehen die 20€ in Eurem Namen direkt an das DAFI Projekt.'
     },
-    'DESCRIPTION_4': {
+    DESCRIPTION_4: {
       de: 'Das heißt die gesamten Kosten <strong>pro Person sind 30€.</strong> Insgesamt ist also ein Betrag von 60€ pro Team zu entrichten. Dazu bitte den Betrag mit dem <strong>angegebenen Verwendungszweck</strong> überweisen.'
     },
-    'SUBHEADLINE_1': {
+    SUBHEADLINE_1: {
       de: 'Überweisung'
     },
-    'ACCNUMBER': {
+    ACCNUMBER: {
       de: 'IBAN'
     },
-    'BANKNUMBER': {
+    BANKNUMBER: {
       de: 'BIC'
     },
-    'OWNER': {
+    OWNER: {
       de: 'Kontoinhaber'
     },
-    'PURPOSE': {
+    PURPOSE: {
       de: 'Verwendungszweck'
     },
-    'MAIL': {
+    MAIL: {
       de:'E-Mail'
     }
   }
