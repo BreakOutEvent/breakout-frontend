@@ -114,12 +114,15 @@ module.exports = {
       en: 'Emergency Contact Number'
     },
     ACCEPT: {
-      de: 'Hiermit akzeptiere ich die ',
-      en: 'I Hereby Accept the '
+      de: 'Hiermit akzeptiere ich',
+      en: 'I Hereby Accept '
     },
     TERMS: {
-      de: 'Allgemeinen Geschäftsbedingungen',
-      en: 'General Terms and Conditions'
+      de: 'die Teilnahmebedingungen'
+    },
+    CODE: {
+      de: 'den Code of Honor',
+      en: 'the Code of Honor'
     },
     AGE: {
       de: 'Ich bin mindestens 18 Jahre alt.',
@@ -283,6 +286,96 @@ module.exports = {
     CTA: {
       de: 'NEUES TEAM ERSTELLEN',
       en: 'CREATE A NEW TEAM'
+    }
+  },
+  'PROFILE': {
+    'NAVIGATION_PROFILE': {
+      de: 'Profil Einstellungen',
+      en: ''
+    },
+    'NAVIGATION_TEAM': {
+      de: 'Team Einstellungen',
+      en: ''
+    },
+    'LABEL_FIRSTNAME': {
+      de: 'Vorname',
+      en: ''
+    },
+    'LABEL_NAME': {
+      de: 'Nachname',
+      en: ''
+    },
+    'LABEL_EMAIL': {
+      de: 'E-Mail',
+      en: ''
+    },
+    'LABEL_GENDER': {
+      de: 'Geschlecht',
+      en: ''
+    },
+    'LABEL_SHIRT': {
+      de: 'T-Shirt Größe',
+      en: ''
+    },
+    'LABEL_CITY': {
+      de: 'Heimatstadt',
+      en: ''
+    },
+    'LABEL_PHONE': {
+      de: 'Handynummer',
+      en: ''
+    },
+    'LABEL_PHONE_EMERGENCY': {
+      de: 'Notfallnummer',
+      en: ''
+    },
+    'LABEL_TEAMNAME': {
+      de: 'Teamname',
+      en: ''
+    },
+    'LABEL_LOCATION': {
+      de: 'Startort',
+      en: ''
+    },
+    'LABEL_DESCRIPTION': {
+      de: 'Beschreibung',
+      en: ''
+    },
+    'OPTION_GENDER_1': {
+      de: 'Männlich',
+      en: ''
+    },
+    'OPTION_GENDER_2': {
+      de: 'Weiblich',
+      en: ''
+    },
+    'OPTION_SHIRT_1': {
+      de: 'Größe S',
+      en: ''
+    },
+    'OPTION_SHIRT_2': {
+      de: 'Größe M',
+      en: ''
+    },
+    'OPTION_SHIRT_3': {
+      de: 'Größe L',
+      en: ''
+    },
+    'OPTION_SHIRT_4': {
+      de: 'Größe XL',
+      en: ''
+    },
+    'PAYMENT_INFO': {
+      de: 'Die Zahlung für deinen Eventbeitrag (30,00 €) sind noch nicht bei uns eingetroffen. Bitte ürberweiße den Betrag bis zum 31.05. um am Event teilzunehmen',
+      en: ''
+    },
+    'BUTTON_SAVE': {
+      de: 'Änderungen speichern',
+      en: ''
+    },
+    'BUTTON_PAY': {
+      de: 'Event Beitrag bezahlen',
+      en: ''
     }
   },
   PAYMENT: {
