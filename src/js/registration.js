@@ -114,7 +114,7 @@ $(document).ready(() => {
         var data = new FormData($('#registrationForm')[0]);
         data.append('gender', window.gender);
 
-        if ($('#profilePic') && $('#profilePic')[0].files &&
+        if ($('#profilePic') && $('#profilePic').length && $('#profilePic')[0].files &&
           $('#profilePic')[0].files[0]) {
           data.delete('profilePic');
         }
