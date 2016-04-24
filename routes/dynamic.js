@@ -1,9 +1,11 @@
-'use strict'; const express = require('express');
+'use strict';
+const express = require('express');
 const router = express.Router();
 const co = require('co');
 const multer = require('multer');
 const upload = multer({ inMemory: true });
 const passport = requireLocal('controller/auth');
+const _ = require('lodash');
 
 const registration = requireLocal('controller/page-controller/registration');
 
@@ -21,14 +23,26 @@ const isParticipant = generalAuth('/selection', 'ein Teilnehmer', (me) => !!me.p
 const isSponsor = generalAuth('/selection', 'ein Sponsor', (me) => !!me.sponsor);
 const hasTeam = generalAuth('/team-invite', 'Teil eines Teams', (me) => !!me.participant.teamId);
 
-const funnelTemplate = (template) => (req, res) =>
+const funnelTemplate = (template) => (req, res) => {
+  
+  let status = 'OBSERVER';
+  if (req.user.me.roles === []) {
+    status = 'OBSERVER';
+  } else if (_.includes(req.user.me.roles, 'PARTICIPANT')) {
+    status = 'PARTICIPANT';
+  } else {
+    logger.error('No valid user role found for', req.user);
+  }
+
   res.render(`dynamic/register/${template}`,
     {
       error: req.flash('error'),
       layout: 'funnel',
-      lang: req.lang
-    }
-  );
+      lang: req.lang,
+      emailConfirmed: false,
+      status: status
+    });
+};
 
 //GET
 router.get('/', funnelTemplate('register'));

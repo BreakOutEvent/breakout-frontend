@@ -4,6 +4,14 @@ let i18n = requireLocal('services/i18n');
 
 exports.concat = (first, second) => first + second;
 
+exports.ifCond = function (v1, v2, options) {
+  if (v1 === v2) {
+    return options.fn(this);
+  }
+
+  return options.inverse(this);
+};
+
 exports.__ = (text, options) => {
 
   if (!options.data.root.lang) {

@@ -13,9 +13,13 @@ module.exports = {
       de: 'Du hast den ersten Schritt geschafft! Wir haben Dir eine E-Mail mit einem Link geschickt, mit dem Du Deine E-Mail Adresse bestätigen kannst. Dieser Schritt ist notwendig, damit wir überprüfen können, ob Du wirklich der Inhaber der E-Mail Adresse bist.',
       en: 'You have completed the first step! We have sent you an email with a link to verify your email address. This important step allows us to confirm that the email address is actually yours.'
     },
-    DESCRIPTION_2: {
+    DESCRIPTION_OBSERVER: {
       de: 'Dein aktueller Status ist: <strong>Zuschauer</strong>. Damit kannst Du nicht nur alle Posts und Updates von teilnehmenden Teams sehen, sondern auch mit den Teams über Kommentare und Likes interagieren.',
       en: 'Your current status is: <Strong>Observer</Strong>. With this you can not only see all of the posts and updates from participating teams, but also interact with them by liking and commenting on their posts.'
+    },
+    DESCRIPTION_PARTICIPANT: {
+      de: 'Dein aktueller Status ist: <strong>Teilnehmer</strong>. DUMMY',
+      en: 'Your current status is: <Strong>PARTICIPANT</Strong>. DUMMY'
     },
     DESCRIPTION_3: {
       de: 'Das ist Dir noch nicht genug? Wir bieten auf unserer Plattform auch noch weitere Accounts an:',
