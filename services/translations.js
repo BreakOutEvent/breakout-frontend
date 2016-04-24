@@ -18,8 +18,7 @@ module.exports = {
       en: 'Your current status is: <Strong>Observer</Strong>. With this you can not only see all of the posts and updates from participating teams, but also interact with them by liking and commenting on their posts.'
     },
     DESCRIPTION_PARTICIPANT: {
-      de: 'Dein aktueller Status ist: <strong>Teilnehmer</strong>. DUMMY',
-      en: 'Your current status is: <Strong>PARTICIPANT</Strong>. DUMMY'
+      de: 'Dein aktueller Status ist: <strong>Teilnehmer</strong>. Damit kannst du nicht nur alle Posts und Updates von anderen teilnehmenden Teams kommentieren sondern auch Sponsoren sammeln und selbst Posts veröffentlichen. Zusätzlich kannst Du Dich auf unvergessliche 36 Stunden Abenteuer freuen! ',
     },
     DESCRIPTION_3: {
       de: 'Das ist Dir noch nicht genug? Wir bieten auf unserer Plattform auch noch weitere Accounts an:',

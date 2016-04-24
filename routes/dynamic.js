@@ -24,14 +24,20 @@ const isSponsor = generalAuth('/selection', 'ein Sponsor', (me) => !!me.sponsor)
 const hasTeam = generalAuth('/team-invite', 'Teil eines Teams', (me) => !!me.participant.teamId);
 
 const funnelTemplate = (template) => (req, res) => {
-  
-  let status = 'OBSERVER';
-  if (req.user.me.roles === []) {
+
+  let status = 'GUEST';
+  let blocked = true;
+  if(req.user && req.user.me) {
     status = 'OBSERVER';
-  } else if (_.includes(req.user.me.roles, 'PARTICIPANT')) {
-    status = 'PARTICIPANT';
-  } else {
-    logger.error('No valid user role found for', req.user);
+    if (req.user.me.roles === []) {
+      status = 'OBSERVER';
+    } else if (_.includes(req.user.me.roles, 'PARTICIPANT')) {
+      status = 'PARTICIPANT';
+    } else {
+      logger.error('No valid user role found for', req.user);
+    }
+    console.log(req.user.me.blocked);
+    blocked = req.user.me.blocked;
   }
 
   res.render(`dynamic/register/${template}`,
@@ -39,7 +45,7 @@ const funnelTemplate = (template) => (req, res) => {
       error: req.flash('error'),
       layout: 'funnel',
       lang: req.lang,
-      emailConfirmed: false,
+      emailConfirmed: !blocked,
       status: status
     });
 };
