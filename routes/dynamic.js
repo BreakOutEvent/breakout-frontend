@@ -8,10 +8,9 @@ const passport = requireLocal('controller/auth');
 const registration = requireLocal('controller/page-controller/registration');
 
 const generalAuth = (failURL, role, auth) => (req, res, next) => {
-  if (req.isAuthenticated() && req.user.me && auth(req.user.me)) {
+  if (req.isAuthenticated() && req.user && req.user.me && auth(req.user.me)) {
     return next();
   } else {
-    console.log(req.user.me);
     req.flash(`error`, `Um diese Seite aufzurufen, musst Du ${role} sein.`);
     res.redirect(failURL);
   }
