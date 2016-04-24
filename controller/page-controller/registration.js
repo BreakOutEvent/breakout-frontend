@@ -40,7 +40,10 @@ registration.createUser = (req, res) => co(function*() {
 
   const user = yield api.createUser(req.body.email, req.body.password);
   const token = yield api.authenticate(req.body.email, req.body.password);
-  yield passport.createSession(req.body.email, token);
+  const session = yield passport.createSession(req.body.email, token);
+  req.login(session, (error) => {
+    if (error) throw error;
+  });
 
   return res.send({
     nextUrl: URLS.SELECTION
