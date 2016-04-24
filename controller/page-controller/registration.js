@@ -13,6 +13,7 @@ const URLS = {
   TEAM: '/team-create',
   INVITE: '/team-invite',
   TEAM_SUCCESS: '/team-success',
+  INVITE_SUCCESS: '/invite-success',
   SPONSOR_SUCCESS: '/sponsor-success'
 };
 
@@ -37,25 +38,14 @@ const sendErr = (res, errMsg, err) => {
 registration.createUser = (req, res) => co(function*() {
   if (!req.body) return sendErr(res, 'The server did not receive any data.');
 
-  api.createUser(req.body.email, req.body.password)
-    .then(() => {
-      api.authenticate(req.body.email, req.body.password).then(token => {
-        passport.login(token, err => {
-          if (err) {
-            return sendErr(res, 'Could not create a session.', err);
-          }
+  const user = yield api.createUser(req.body.email, req.body.password);
+  const token = yield api.authenticate(req.body.email, req.body.password);
+  yield passport.createSession(req.body.email, token);
 
-          res.send({
-            nextUrl: URLS.SELECTION
-          });
-        });
-      }).catch(err => {
-        sendErr(res, 'Unable to login.', err);
-      });
-    })
-    .catch(err => {
-      sendErr(res, err.message, err);
-    });
+  return res.send({
+    nextUrl: URLS.SELECTION
+  });
+
 }).catch(err => {
   sendErr(res, err.message, err);
 });
@@ -138,8 +128,6 @@ registration.getInvites = (req) => co(function*() {
   //REMOVE DUPLICATES
   allInvites = _.uniq(allInvites);
 
-  console.log(allInvites);
-
   logger.info('Got all Invites for user', req.user);
 
   return allInvites;
@@ -184,14 +172,18 @@ registration.joinTeamAPI = (req, res, next) => co(function*() {
 
   if (!team) return res.status(500).send({ error: 'Could not join team.' });
 
-  //TODO update user so he can reach the team success view
+  yield refreshSession(req);
+  let me2 = yield api.getCurrentUser(req.user);
 
-  res.send({
+  console.dir(me,me2);
+
+  return res.send({
     error: '',
-    nextUrl: URLS.TEAM_SUCCESS
+    nextUrl: URLS.INVITE_SUCCESS
   });
 
 }).catch(ex => {
+  logger.error(ex);
   res.status(500).send({
     error: ex
   });
@@ -265,10 +257,17 @@ registration.createTeam = (req, res, next) => co(function*() {
 
   logger.info('Created Invitation for user', req.body.email, 'to team', team.id);
 
+  yield refreshSession(req);
+
   res.send({
     nextURL: URLS.TEAM_SUCCESS
   });
-}).catch(ex => next(ex));
+}).catch(ex => {
+  logger.error(ex);
+  res.status(500).send({
+    error: ex
+  });
+});
 
 registration.inviteUser = (req, res) => co(function*() {
 
@@ -292,10 +291,10 @@ registration.inviteUser = (req, res) => co(function*() {
 });
 
 registration.getTransactionPurpose = (req) => co(function*() {
-  const me = yield api.getCurrentUser(req);
+  const me = yield api.getCurrentUser(req.user);
 
-  return Math.random().toString(36).substr(0, 5) + '-' + me.participant.teamId + '-' +
-    me.firstname + '-' + me.lastname;
+  return (Math.random().toString(36).substr(2, 8) + '-' + me.participant.teamId + '-' + 'BO16-' +
+    me.firstname + '-' + me.lastname ).replace('ä','ae').replace('ü','ue').replace('ö','oe').replace('ß','ss').substring(0,140);
 }).catch(ex => {
   throw ex;
 });

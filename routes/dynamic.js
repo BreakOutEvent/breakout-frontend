@@ -11,6 +11,7 @@ const generalAuth = (failURL, role, auth) => (req, res, next) => {
   if (req.isAuthenticated() && req.user.me && auth(req.user.me)) {
     return next();
   } else {
+    console.log(req.user.me);
     req.flash(`error`, `Um diese Seite aufzurufen, musst Du ${role} sein.`);
     res.redirect(failURL);
   }
@@ -36,6 +37,8 @@ router.get('/register', funnelTemplate('register'));
 router.get('/selection', isUser, funnelTemplate('selection'));
 router.get('/participant', isUser, funnelTemplate('participant'));
 router.get('/team-success', hasTeam, funnelTemplate('team-success'));
+router.get('/invite-success', hasTeam, funnelTemplate('invite-success'));
+router.get('/payment-success', hasTeam, funnelTemplate('payment-success'));
 router.get('/sponsor-success', isSponsor, funnelTemplate('sponsor-success'));
 router.get('/spectator-success', isUser, funnelTemplate('spectator-success'));
 router.get('/sponsor', isUser, funnelTemplate('sponsor'));

@@ -13,6 +13,9 @@
 
         <div class="row">
             <div class="col-xs-12" id="feedback">
+                {{#if error}}
+                    <div class="alert alert-danger">{{error}}</div>
+                {{/if}}
             </div>
         </div>
 
@@ -35,7 +38,9 @@
         </div>
         <div class="row registration-margin">
             <div class="col-xs-12 text-center">
-                <button type="button" class="btn btn-primary btn-block" id="mainCTA">{{__ 'CTA'}}</button>
+                <a href="/team-create" class="no-underline">
+                    <button type="button" class="btn btn-primary btn-block" id="mainCTA">{{__ 'CTA'}}</button>
+                </a>
             </div>
         </div>
     </div>

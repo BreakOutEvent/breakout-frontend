@@ -166,7 +166,8 @@ $(document).ready(() => {
             window.location.href = res.nextURL;
           })
           .error(function(err) {
-            console.log(err);
+            $('#feedback').html('<div class="alert alert-danger">' +
+               err.responseJSON.error.message + '</div>');
           })
           .always(() => {
             toggleLoading('#mainCTA');
@@ -211,7 +212,8 @@ $(document).ready(() => {
           window.location.href = res.nextUrl;
         })
         .error(function(err) {
-          $('#feedback').html('<div class="alert alert-danger">' + err.responseJSON.error + '</div>');
+          $('#feedback').html('<div class="alert alert-danger">' +
+            err.responseJSON.error + '</div>');
         })
         .always(() => {
           toggleLoading('#mainCTA');

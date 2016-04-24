@@ -198,11 +198,14 @@ module.exports = {
       en: 'Made it!'
     },
     DESCRIPTION: {
-      de: 'Du hast dein Team erfolreich registriert. Vielen Dank für deine Teilnahme! Für weitere Clips und Neuigkeiten gehe zurück zur Homepage. Bei Fragen steht unser Support jederzeit zu deiner Verfügung.  '
+      de: 'Du hast Dein Team erfolreich registriert. Sobald Dein Teampartner die Einladung angenommen hat, erhaltet ihr beide eine E-Mail mit dem Zahlungslink, den ihr benötigt um eure Registrierung bei BreakOut abzuschließen. Bei Fragen steht unser Support jederzeit zu Deiner Verfügung.'
     },
     LINK_DESCRIPTION: {
       de: 'ZURÜCK ZUR HOMEPAGE',
       en: 'BACK TO THE HOMEPAGE'
+    },
+    INVITE_DESCRIPTION: {
+      de: 'WEITERE TEAMPARTNER EINLADEN'
     }
   },
   'SPONSOR-SUCCESS': {
@@ -219,6 +222,19 @@ module.exports = {
       en: 'BACK TO THE HOMEPAGE'
     }
   },
+  'INVITE-SUCCESS': {
+    HEADLINE: {
+      de: 'Geschafft!',
+      en: 'Made it!'
+    },
+    DESCRIPTION: {
+      de: 'Du hast die Einladung angenommen und Dich damit als Teilnehmer für BreakOut registriert. Ihr erhaltet bald beide eine E-Mail mit dem Zahlungslink, den ihr benötigt um eure Registrierung bei BreakOut abzuschließen.. Bei Fragen steht unser Support jederzeit zu deiner Verfügung.',
+    },
+    LINK_DESCRIPTION: {
+      de: 'ZURÜCK ZUR HOMEPAGE',
+      en: 'BACK TO THE HOMEPAGE'
+    }
+  },
   'SPECTATOR-SUCCESS': {
     HEADLINE: {
       de: 'Geschafft!',
@@ -228,6 +244,20 @@ module.exports = {
     DESCRIPTION: {
       de: 'Du hast dich erfolgreich als Zuschauer für BreakOut registiert. Vielen Dank für deine Teilnahme! Für weitere Clips und Neuigkeiten gehe zurück zur Homepage. Bei Fragen steht unser Support jederzeit zu deiner Verfügung.',
       en: 'You have successfully signed up as a BreakOut sponsor. Thank you for your participation! For further clips and news go back to the homepage. Feel free to contact us with any further questions.'
+    },
+    LINK_DESCRIPTION: {
+      de: 'ZURÜCK ZUR HOMEPAGE',
+      en: 'BACK TO THE HOMEPAGE'
+    }
+  },
+  'PAYMENT-SUCCESS': {
+    HEADLINE: {
+      de: 'Geschafft!',
+      en: 'Made it!'
+
+    },
+    DESCRIPTION: {
+      de: 'Vielen Dank für deine Teilnahme! Sobald die Zahlung bei uns eingegangen ist, erhältst du eine Bestätigungsbenachrichtigung per E-Mail. Für Tipps zum Reisen und Neuigkeiten rund um BreakOut gehe zurück zur Homepage. Bei Fragen steht unser Support jederzeit zu deiner Verfügung.',
     },
     LINK_DESCRIPTION: {
       de: 'ZURÜCK ZUR HOMEPAGE',
@@ -294,6 +324,10 @@ module.exports = {
     },
     MAIL: {
       de:'E-Mail'
+    },
+    'CONTINUE': {
+      de: 'WEITER',
+      en: 'CONTINUE'
     }
   }
 };

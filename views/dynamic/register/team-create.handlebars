@@ -7,6 +7,7 @@
                 <img class="bo-modal-logo" alt="BreakOut" src="/img/logos/BreakOut-Logo_Header.svg">
             </div>
         </div>
+
         <!--
         <div class="row">
             <div class="col-xs-12">
@@ -23,13 +24,13 @@
                 <h4>{{__ 'HEADLINE'}}</h4>
             </div>
         </div>
-        {{#if error}}
-            <div class="row">
-                <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-12" id="feedback">
+                {{#if error}}
                     <div class="alert alert-danger">{{error}}</div>
-                </div>
+                {{/if}}
             </div>
-        {{/if}}
+        </div>
         <div class="row">
             <div class="col-xs-12">
                 <p>{{__ 'DESCRIPTION'}}</p>
