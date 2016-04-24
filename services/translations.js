@@ -22,8 +22,8 @@ module.exports = {
       en: 'Thats not enough? On our platform we also offer other accounts:'
     },
     PARTICIPANT_H: {
-      de: 'Teilnehmer',
-      en: 'Participant'
+      de: 'Jetzt Teilnehmer werden',
+      en: 'Become a participant'
     },
     PARTICIPANT: {
       de: 'Du willst Dein eigenes Abenteuer erleben und an BreakOut 2016 teilnehmen? Dann gehts hier weiter zur Anmeldung.',

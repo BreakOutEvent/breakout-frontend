@@ -73,38 +73,21 @@ registration.createParticipant = (req, res, next) => co(function*() {
 
   logger.info('Trying to create a new participant', updateBody);
 
-  session.getUserInfo(req)
-    .then(user => {
-      api.putModel('user', user.id, req.user, updateBody)
-        .then(backendUser => {
-          if (req.file) {
-            api.uploadPicture(req.file, backendUser.profilePic[0])
-              .then(() => {
-                refreshSession(req);
-                return res.send({
-                  nextURL: URLS.INVITE
-                });
-              })
-              .catch(err => {
-                sendErr(res, 'Picture upload failed', err);
-              });
-          }
+  const user = yield api.getCurrentUser(req.user);
+  const backendUser = yield api.putModel('user', user.id, req.user, updateBody);
 
-          logger.info('Created a new participant', updateBody);
 
-          session.forceUpdate(req);
-          refreshSession(req);
-          return res.send({
-            nextURL: URLS.INVITE
-          });
-        })
-        .catch((err) => {
-          sendErr(res, 'Could not save your data.', err);
-        });
-    })
-    .catch(err => {
-      sendErr(err, err.message, err);
-    });
+  if (req.file) {
+    yield api.uploadPicture(req.file, backendUser.profilePic[0]);
+  }
+
+  logger.info('Created a new participant', updateBody);
+
+  yield refreshSession(req);
+  return res.send({
+    nextURL: URLS.INVITE
+  });
+
 }).catch(err => {
   sendErr(err, err.message, err);
 });
