@@ -10,18 +10,18 @@ const registration = requireLocal('controller/page-controller/registration');
 const payment = requireLocal('controller/page-controller/payment');
 
 const generalAuth = (failURL, role, auth) => (req, res, next) => {
-  if (req.isAuthenticated() && req.me && auth(req.me)) {
+  if (req.isAuthenticated() && req.user.me && auth(req.user.me)) {
     return next();
   } else {
-    req.flash('error', `Um diese Seite aufzurufen, musst Du ${role} sein.`);
+    req.flash(`error`, `Um diese Seite aufzurufen, musst Du ${role} sein.`);
     res.redirect(failURL);
   }
 };
 
-const isUser = generalAuth('/login', 'ein Nutzer', (me) => !!me);
+const isUser = generalAuth('/login', 'eingeloggt', (me) => !!me);
 const isParticipant = generalAuth('/selection', 'ein Teilnehmer', (me) => !!me.participant);
 const isSponsor = generalAuth('/selection', 'ein Sponsor', (me) => !!me.sponsor);
-const hasTeam = generalAuth('/team-invite', 'in einem Team', (me) => !!me.participant.teamId);
+const hasTeam = generalAuth('/team-invite', 'Teil eines Teams', (me) => !!me.participant.teamId);
 
 const funnelTemplate = (template) => (req, res) =>
   res.render(`dynamic/register/${template}`,
@@ -31,7 +31,6 @@ const funnelTemplate = (template) => (req, res) =>
       lang: req.lang
     }
   );
-
 
 //GET
 router.get('/login', funnelTemplate('login'));

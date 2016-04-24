@@ -170,10 +170,10 @@ registration.joinTeamAPI = (req, res, next) => co(function*() {
   let me = yield api.getCurrentUser(req.user);
 
   if (me.participant.teamId !== null) {
-    yield api.postModel(`/event/${req.body.eventID}/team/leave/`, req.user, {});
+    yield api.postModel(`/event/${req.body.event}/team/leave/`, req.user, {});
   }
 
-  const team = yield api.postModel(`/event/${req.body.eventID}/team/${req.body.teamID}/member/`,
+  const team = yield api.postModel(`/event/${req.body.event}/team/${req.body.team}/member/`,
     req.user, { email: me.email });
 
   if (!team) return res.status(500).send({ error: 'Could not join team.' });
@@ -184,10 +184,10 @@ registration.joinTeamAPI = (req, res, next) => co(function*() {
   });
 
 }).catch(ex => {
+  console.log(ex);
   res.status(500).send({
     error: ex
   });
-  next(ex)
 });
 
 registration.createSponsor = (req, res) => co(function*() {
