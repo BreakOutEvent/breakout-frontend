@@ -1,5 +1,4 @@
-'use strict';
-const express = require('express');
+'use strict'; const express = require('express');
 const router = express.Router();
 const co = require('co');
 const multer = require('multer');

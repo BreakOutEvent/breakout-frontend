@@ -184,6 +184,8 @@ registration.joinTeamAPI = (req, res, next) => co(function*() {
 
   if (!team) return res.status(500).send({ error: 'Could not join team.' });
 
+  //TODO update user so he can reach the team success view
+
   res.send({
     error: '',
     nextUrl: URLS.TEAM_SUCCESS

@@ -254,10 +254,21 @@ function handleResponse(resolve, reject, msg) {
     } else {
       if (response.statusCode.toString().match(/^2\d\d$/)) {
         logger.info(msg);
-        resolve(JSON.parse(body));
+        try {
+          if(body === '') body = '{}';
+          resolve(JSON.parse(body));
+        } catch(ex){
+          console.dir(body);
+          logger.error(ex);
+        }
       } else {
         logger.error(JSON.parse(body));
-        reject(JSON.parse(body));
+        try {
+          reject(JSON.parse(body));
+        } catch(ex){
+          console.dir(body);
+          logger.error(ex);
+        }
       }
     }
   };
