@@ -32,6 +32,7 @@ const funnelTemplate = (template) => (req, res) =>
   );
 
 //GET
+router.get('/', funnelTemplate('register'));
 router.get('/login', funnelTemplate('login'));
 router.get('/register', funnelTemplate('register'));
 router.get('/selection', isUser, funnelTemplate('selection'));
