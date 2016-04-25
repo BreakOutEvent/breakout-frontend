@@ -385,22 +385,22 @@ module.exports = {
       de: 'Um Eure Anmeldung abzuschließen, müsst Ihr noch die Teilnahmegebühren zahlen. Die Teilnahmegebühren setzen sich aus folgenden Bereichen zusammen:'
     },
     ELEMENT_1: {
-      de: 'Eure T-Shirts (14€ pP.)'
+      de: 'Eure T-Shirts'
     },
     ELEMENT_2: {
-      de: 'Starterkit (3€ pP.)'
+      de: 'Starterkit'
     },
     ELEMENT_3: {
-      de: 'BreakOut Hotline (3€ pP.)'
+      de: 'BreakOut Hotline'
     },
     DESCRIPTION_2: {
       de: 'Alle diese Posten fließen direkt oder indirekt wieder an Euch zurück. Eure Sicherheit steht für uns an erster Stelle, weshalb die BreakOut Hotline die ganzen 36 Stunden für Euch erreichbar sein wird.'
     },
     DESCRIPTION_3: {
-      de: 'Da der tiefere Gedanke hinter BreakOut aber das Spenden an das DAFI Projekt ist, wollen wir sicherstellen, dass jedes Team etwas dazu beiträgt. Wir erheben deshalb 20€ Deposit pro Team. Das Deposit überweisen wir Euch nach dem Event zurück, wenn Ihr über 100€ an Spenden generiert habt. Andernfalls gehen die 20€ in Eurem Namen direkt an das DAFI Projekt.'
+      de: 'Da der tiefere Gedanke hinter BreakOut aber das Spenden an das DAFI-Programm ist, wollen wir sicherstellen, dass jedes Team etwas dazu beiträgt. Wir erheben deshalb 20€ Deposit pro Team. Das Deposit überweisen wir Euch nach dem Event zurück, wenn Ihr über 100€ an Spenden generiert habt. Andernfalls gehen die 20€ in Eurem Namen direkt an das DAFI-Programm.'
     },
     DESCRIPTION_4: {
-      de: 'Das heißt die Gesamtkosten pro Team betragen 60,00€ (20€ Anmeldegebühr +20€ Anmeldegebühr + 20€ Spendendeposit). Bitte überweist den Gesamtbetrag von 60,00€ EINMAL pro Team mit dem <strong>angegebenen Verwendungszweck</strong>.'
+      de: 'Das heißt die Gesamtkosten pro Team betragen 60,00€ (20€ Anmeldegebühr +20€ Anmeldegebühr + 20€ Spendendeposit).Bitte sprich Dich mit Deinem Teampartner ab, ob Ihr die Summe von 60€ insgesamt zusammen bezahlt oder ob jeder seinen Anteil von 30€ einzeln überweist. Bitte nuttz in jedem Fall den <strong>angegebenen Verwendungszweck</strong>.'
     },
     SUBHEADLINE_1: {
       de: 'Überweisung'
