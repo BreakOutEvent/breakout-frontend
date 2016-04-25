@@ -400,7 +400,7 @@ module.exports = {
       de: 'Da der tiefere Gedanke hinter BreakOut aber das Spenden an das DAFI Projekt ist, wollen wir sicherstellen, dass jedes Team etwas dazu beiträgt. Wir erheben deshalb 20€ Deposit pro Team. Das Deposit überweisen wir Euch nach dem Event zurück, wenn Ihr über 100€ an Spenden generiert habt. Andernfalls gehen die 20€ in Eurem Namen direkt an das DAFI Projekt.'
     },
     DESCRIPTION_4: {
-      de: 'Das heißt die gesamten Kosten <strong>pro Person sind 30€.</strong> Insgesamt ist also ein Betrag von 60€ pro Team zu entrichten. Dazu bitte den Betrag mit dem <strong>angegebenen Verwendungszweck</strong> überweisen.'
+      de: 'Das heißt die Gesamtkosten pro Team betragen 60,00€ (20€ Anmeldegebühr +20€ Anmeldegebühr + 20€ Spendendeposit). Bitte überweist den Gesamtbetrag von 60,00€ EINMAL pro Team mit dem <strong>angegebenen Verwendungszweck</strong>.'
     },
     SUBHEADLINE_1: {
       de: 'Überweisung'
