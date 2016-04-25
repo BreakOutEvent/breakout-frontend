@@ -235,17 +235,12 @@ registration.createTeam = (req, res, next) => co(function*() {
 
   logger.info('Created Team', req.body.teamname, 'for event', req.body.event);
 
-
-
   if(req.body.email) {
     logger.info('Trying to invite user', req.body.email, 'to team', team.id);
     const invite = yield api.inviteUser(req.user, req.body.event, team.id, req.body.email);
     if (!invite) return res.status(500).send({ error: 'Invite creation failed!' });
     logger.info('Created Invitation for user', req.body.email, 'to team', team.id);
   }
-
-
-
 
   yield refreshSession(req);
 
