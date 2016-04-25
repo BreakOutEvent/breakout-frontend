@@ -400,7 +400,7 @@ module.exports = {
       de: 'Da der tiefere Gedanke hinter BreakOut aber das Spenden an das DAFI-Programm ist, wollen wir sicherstellen, dass jedes Team etwas dazu beiträgt. Wir erheben deshalb 20€ Deposit pro Team. Das Deposit überweisen wir Euch nach dem Event zurück, wenn Ihr über 100€ an Spenden generiert habt. Andernfalls gehen die 20€ in Eurem Namen direkt an das DAFI-Programm.'
     },
     DESCRIPTION_4: {
-      de: 'Das heißt die Gesamtkosten pro Team betragen 60,00€ (20€ Anmeldegebühr +20€ Anmeldegebühr + 20€ Spendendeposit).Bitte sprich Dich mit Deinem Teampartner ab, ob Ihr die Summe von 60€ insgesamt zusammen bezahlt oder ob jeder seinen Anteil von 30€ einzeln überweist. Nutzt hierfür den <strong>angegebenen Verwendungszweck</strong> und folgende Kontoverbindung.'
+      de: 'Das heißt die Gesamtkosten pro Team betragen 60,00€ (20€ Anmeldegebühr +20€ Anmeldegebühr + 20€ Spendendeposit).Bitte sprich Dich mit Deinem Teampartner ab, ob Ihr die Summe von 60€ insgesamt zusammen bezahlt oder ob jeder seinen Anteil von 30€ einzeln überweist. Für eine erfolreiche Anmeldung muss der Gesamtbetrag bis zum 18.05.2016 überwiesen worden sein. Nutzt hierfür den <strong>angegebenen Verwendungszweck</strong> und folgende Kontoverbindung.'
     },
     SUBHEADLINE_1: {
       de: 'Überweisung'
