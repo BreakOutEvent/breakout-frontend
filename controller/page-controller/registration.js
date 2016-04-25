@@ -278,7 +278,7 @@ registration.inviteUser = (req, res) => co(function*() {
 registration.getTransactionPurpose = (req) => co(function*() {
   const me = yield api.getCurrentUser(req.user);
 
-  return (Math.random().toString(36).substr(2, 8) + '-' + me.participant.teamId + '-' + 'BO16-' +
+  return (me.participant.teamId + '-' + 'BO16-' +
     me.firstname + '-' + me.lastname ).replace('ä','ae').replace('ü','ue').replace('ö','oe').replace('ß','ss').substring(0,140);
 }).catch(ex => {
   throw ex;
