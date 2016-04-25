@@ -36,7 +36,6 @@ const funnelTemplate = (template) => (req, res) => {
     } else {
       logger.error('No valid user role found for', req.user);
     }
-    console.log(req.user.me.blocked);
     blocked = req.user.me.blocked;
   }
 
