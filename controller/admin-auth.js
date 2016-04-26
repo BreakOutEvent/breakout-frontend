@@ -1,31 +1,45 @@
 'use strict';
 
 var jwt = require('jwt-simple');
-const secret = process.env.FRONTEND_JWT_SECRET;
+const config = {
+  secret: process.env.FRONTEND_JWT_SECRET
+};
+
+Object.keys(config).forEach((k, val) => {
+  if (config[k] === undefined) {
+    throw new Error(`No config entry found for ${k}`);
+  }
+});
+
 
 const admin = {};
 
-function currTS () {
+function currTS() {
   return Math.floor(Date.now() / 1000);
 }
 
 admin.ensureAuthenticated = (req, res, next) => {
   if (!req.header('Authorization')) {
-    return res.status(401).send({ message: 'Please make sure your request has an Authorization header' });
+    return res.status(401).send({message: 'Please make sure your request has an Authorization header'});
   }
-  var token = req.header('Authorization').split(' ')[1];
 
   var payload = null;
   try {
-    payload = jwt.decode(token, secret);
+    payload = jwt.decode(req.header('Authorization'), config.secret);
   }
   catch (err) {
-    return res.status(401).send({ message: err.message });
+    return res.status(401).send({message: err.message});
   }
 
   if (payload.exp <= currTS()) {
-    return res.status(401).send({ message: 'Token has expired' });
+    return res.status(401).send({message: 'Token has expired'});
   }
+
+  res.set({
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
+    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+  });
   req.cmsUser = payload.sub;
   next();
 };
@@ -36,7 +50,7 @@ admin.createJWT = (email) => {
     iat: currTS(),
     exp: currTS() + 14 * 86400
   };
-  return jwt.encode(payload, secret);
+  return jwt.encode(payload, config.secret);
 };
 
 module.exports = admin;
