@@ -34,12 +34,6 @@ admin.ensureAuthenticated = (req, res, next) => {
   if (payload.exp <= currTS()) {
     return res.status(401).send({message: 'Token has expired'});
   }
-
-  res.set({
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
-    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-  });
   req.cmsUser = payload.sub;
   next();
 };
