@@ -27,5 +27,10 @@ exports.__ = (text, options) => {
     viewArr = view.split('/');
   }
 
+  if(text.indexOf('.') > -1) {
+    viewArr = text.split('.');
+    text = viewArr.pop();
+  }
+
   return i18n.translate(viewArr[viewArr.length - 1].toUpperCase(), text.toUpperCase(), options.data.root.lang);
 };

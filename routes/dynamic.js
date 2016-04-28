@@ -52,7 +52,6 @@ const renderTemplate = (folder) => (template) => (req, res) => {
 const funnelTemplate = renderTemplate('register');
 const profileTemplate = renderTemplate('profile');
 
-
 //GET
 router.get('/', funnelTemplate('register'));
 router.get('/login', funnelTemplate('login'));
