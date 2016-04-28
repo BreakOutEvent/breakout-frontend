@@ -116,6 +116,16 @@ throng(id => {
   }));
 
   // Sets routes
+  if(process.env.FRONTEND_MAINTENANCE) {
+    app.use((req, res, next) => {
+      res.render(`dynamic/register/maintenance`,
+        {
+          layout: 'funnel',
+          lang: req.lang
+        });
+    });
+  }
+
   app.use('/', requireLocal('routes/main'));
   app.use('/', requireLocal('routes/dynamic'));
   app.use('/api', requireLocal('routes/api'));

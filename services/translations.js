@@ -196,6 +196,9 @@ module.exports = {
     },
     INVITE_TEXT_3: {
       de: '.'
+    },
+    NOTICE: {
+      de: 'Erstelle hier Deinen Account um an BreakOut teilzunehmen.'
     }
   },
   'TEAM-SUCCESS': {
@@ -434,6 +437,14 @@ module.exports = {
     },
     'CTA': {
       de: 'WEITER ZUM LOGIN'
+    }
+  },
+  MAINTENANCE: {
+    HEADLINE: {
+      de: 'Wartungsarbeiten'
+    },
+    DESCRIPTION: {
+      de: 'Wir führen aktuell geplante Wartungsarbeiten durch. Bitte versuche es später nocheinmal. Danke für Dein Verständnis.'
     }
   }
 };

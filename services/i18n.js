@@ -33,7 +33,7 @@ i18n.translate = (view, key, lang) => {
       if (langData[view][key].hasOwnProperty(lang)) {
         return langData[view][key][lang];
       } else {
-        logger.error(`Unknown language ${lang} in key ${key} from view ${view}! Using Fallback`);
+        logger.warn(`Unknown language ${lang} in key ${key} from view ${view}! Using Fallback`);
         return langData[view][key][FALLBACK];
       }
     } else {
