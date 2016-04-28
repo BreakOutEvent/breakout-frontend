@@ -446,5 +446,16 @@ module.exports = {
     DESCRIPTION: {
       de: 'Wir führen aktuell geplante Wartungsarbeiten durch. Bitte versuche es später nocheinmal. Danke für Dein Verständnis.'
     }
+  },
+  FOOTER: {
+    SPONSOR: {
+      de: 'Sponsor von BreakOut'
+    },
+    SUPPORT: {
+      de: 'Unterstützt von'
+    },
+    FRIENDS: {
+      de: 'Unsere Freunde'
+    }
   }
 };

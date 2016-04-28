@@ -71,8 +71,7 @@ router.get('/profile', isUser, (req, res, next) =>
     {
       error: req.flash('error'),
       layout: 'master',
-      lang: req.lang,
-      language: req.lang
+      lang: req.lang
     })
 );
 
