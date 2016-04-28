@@ -101,6 +101,14 @@
     a {
       color: $gray-base;
       font-weight: 500;
+      &:hover {
+        border-color: transparent;
+        background-color: transparent;
+      }
+    }
+    .active a {
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-bottom-color: transparent;
     }
   }
 }

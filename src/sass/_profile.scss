@@ -4,6 +4,9 @@
   border-bottom-width: 0;
   .bo-profile-image {
     border-radius: 50%;
+    border-width: 1px;
+    border-color: rgba(0, 0, 0, 0.1);
+    border-style: solid;
     width: 100px;
     height: 100px;
     margin-right: 40px;

@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const co = require('co');
 const multer = require('multer');
-const upload = multer({ inMemory: true });
+const upload = multer({inMemory: true});
 const passport = requireLocal('controller/auth');
 const _ = require('lodash');
 
@@ -23,11 +23,11 @@ const isParticipant = generalAuth('/selection', 'ein Teilnehmer', (me) => !!me.p
 const isSponsor = generalAuth('/selection', 'ein Sponsor', (me) => !!me.sponsor);
 const hasTeam = generalAuth('/team-invite', 'Teil eines Teams', (me) => !!me.participant.teamId);
 
-const funnelTemplate = (template) => (req, res) => {
+const renderTemplate = (folder) => (template) => (req, res) => {
 
   let status = 'GUEST';
   let blocked = true;
-  if(req.user && req.user.me) {
+  if (req.user && req.user.me) {
     status = 'OBSERVER';
     if (req.user.me.roles === []) {
       status = 'OBSERVER';
@@ -39,7 +39,7 @@ const funnelTemplate = (template) => (req, res) => {
     blocked = req.user.me.blocked;
   }
 
-  res.render(`dynamic/register/${template}`,
+  res.render(`dynamic/${folder}/${template}`,
     {
       error: req.flash('error'),
       layout: 'funnel',
@@ -48,6 +48,10 @@ const funnelTemplate = (template) => (req, res) => {
       status: status
     });
 };
+
+const funnelTemplate = renderTemplate('registration');
+const profileTemplate = renderTemplate('profile');
+
 
 //GET
 router.get('/', funnelTemplate('register'));
@@ -62,6 +66,15 @@ router.get('/sponsor-success', isSponsor, funnelTemplate('sponsor-success'));
 router.get('/spectator-success', isUser, funnelTemplate('spectator-success'));
 router.get('/sponsor', isUser, funnelTemplate('sponsor'));
 router.get('/invite', hasTeam, funnelTemplate('invite'));
+router.get('/profile', isUser, (req, res, next) =>
+  res.render(`dynamic/profile/profile`,
+    {
+      error: req.flash('error'),
+      layout: 'master',
+      lang: req.lang,
+      language: req.lang
+    })
+);
 
 router.get('/logout', isUser, (req, res, next) => co(function* () {
   req.logout();
