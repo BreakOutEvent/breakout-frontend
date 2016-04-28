@@ -20,6 +20,12 @@
                     <div class="alert alert-danger">{{error}}</div>
                 {{/if}}
             </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <p>{{__ 'NOTICE'}}</p>
+                </div>
+            </div>
+
 
             {{#if invite}}
                 <div class="row">
@@ -35,7 +41,8 @@
                         <label for="email">{{__ 'LABEL_EMAIL'}}</label>
                         {{#if invite}}
                             <input type="email" class="form-control" id="email" name="email"
-                                   placeholder="{{__ 'PLACEHOLDER_EMAIL'}}" required="required" value="{{invite.email}}" disabled="disabled">
+                                   placeholder="{{__ 'PLACEHOLDER_EMAIL'}}" required="required" value="{{invite.email}}"
+                                   disabled="disabled">
                         {{else}}
                             <input type="email" class="form-control" id="email" name="email"
                                    placeholder="{{__ 'PLACEHOLDER_EMAIL'}}" required="required">
@@ -45,7 +52,6 @@
                     </div>
                 </div>
             </div>
-
 
 
             <div class="row">

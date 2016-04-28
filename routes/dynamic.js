@@ -61,7 +61,7 @@ router.get('/payment-success', hasTeam, funnelTemplate('payment-success'));
 router.get('/sponsor-success', isSponsor, funnelTemplate('sponsor-success'));
 router.get('/spectator-success', isUser, funnelTemplate('spectator-success'));
 router.get('/sponsor', isUser, funnelTemplate('sponsor'));
-router.get('/invite', isParticipant, funnelTemplate('invite'));
+router.get('/invite', hasTeam, funnelTemplate('invite'));
 
 router.get('/logout', isUser, (req, res, next) => co(function* () {
   req.logout();
