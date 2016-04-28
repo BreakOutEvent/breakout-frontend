@@ -25,7 +25,7 @@ admin.ensureAuthenticated = (req, res, next) => {
 
   var payload = null;
   try {
-    payload = jwt.decode(req.header('Authorization'), config.secret);
+    payload = jwt.decode(req.header('Authorization').split(' ')[1], config.secret);
   }
   catch (err) {
     return res.status(401).send({message: err.message});
