@@ -49,7 +49,7 @@ const renderTemplate = (folder) => (template) => (req, res) => {
     });
 };
 
-const funnelTemplate = renderTemplate('registration');
+const funnelTemplate = renderTemplate('register');
 const profileTemplate = renderTemplate('profile');
 
 
