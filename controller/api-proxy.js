@@ -28,15 +28,14 @@ API.authenticate = (username, password) => {
       .post({
         url: `${url}/oauth/token`,
         qs: {
-          username: username,
-          password: password,
           grant_type: 'password',
           scope: 'read write'
         },
         auth: {
           user: config.clientID,
           pass: config.clientSecret
-        }
+        },
+        form: {username:username, password:password}
       }, handleResponse(resolve, reject, 'Authenticated user ' + username));
   });
 };
