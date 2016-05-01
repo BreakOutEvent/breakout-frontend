@@ -14,7 +14,7 @@ exports.ifCond = function (v1, v2, options) {
 
 exports.__ = (text, options) => {
 
-  if (!options.data.root.lang) {
+  if (!options.data.root.language) {
     throw 'You did not pass the language to handlebars!';
   }
 
@@ -32,5 +32,5 @@ exports.__ = (text, options) => {
     text = viewArr.pop();
   }
 
-  return i18n.translate(viewArr[viewArr.length - 1].toUpperCase(), text.toUpperCase(), options.data.root.lang);
+  return i18n.translate(viewArr[viewArr.length - 1].toUpperCase(), text.toUpperCase(), options.data.root.language);
 };

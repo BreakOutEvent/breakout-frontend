@@ -43,7 +43,7 @@ const renderTemplate = (folder) => (template) => (req, res) => {
     {
       error: req.flash('error'),
       layout: 'funnel',
-      lang: req.lang,
+      language: req.language,
       emailConfirmed: !blocked,
       status: status
     });
@@ -70,7 +70,7 @@ router.get('/profile', isUser, (req, res, next) =>
     {
       error: req.flash('error'),
       layout: 'master',
-      lang: req.lang
+      language: req.language
     })
 );
 
@@ -88,7 +88,7 @@ router.get('/payment', hasTeam, (req, res, next) => co(function*() {
     {
       error: req.flash('error'),
       layout: 'funnel',
-      lang: req.lang,
+      language: req.language,
       purpose: purpose
     }
   );
@@ -102,7 +102,7 @@ router.get('/join/:token', (req, res, next) => co(function*() {
       {
         error: 'Invitecode is not valid.',
         layout: 'funnel',
-        lang: req.lang
+        language: req.language
       }
     );
   } else {
@@ -110,7 +110,7 @@ router.get('/join/:token', (req, res, next) => co(function*() {
       {
         error: req.flash('error'),
         layout: 'funnel',
-        lang: req.lang,
+        language: req.language,
         invite: invite
       }
     );
@@ -125,7 +125,7 @@ router.get('/team-invite', isParticipant, (req, res, next) => co(function*() {
       {
         error: req.flash('error'),
         layout: 'funnel',
-        lang: req.lang,
+        language: req.language,
         amountInvites: teams.length,
         teams: teams
       }
@@ -141,7 +141,7 @@ router.get('/team-create', isParticipant, (req, res, next) => co(function*() {
       res.render('dynamic/register/team-create',
         {
           layout: 'funnel',
-          lang: req.lang,
+          language: req.language,
           events: events
         }
       );
@@ -152,7 +152,7 @@ router.get('/team-create', isParticipant, (req, res, next) => co(function*() {
        {
        error: err.error,
        layout: 'funnel',
-       lang: req.lang
+       language: req.language
        }
        );
        */
@@ -168,7 +168,7 @@ router.get('/activation/:token', (req, res, next) => co(function*() {
         {
           error: null,
           layout: 'funnel',
-          lang: req.lang
+          language: req.language
         }
       );
     })
@@ -177,7 +177,7 @@ router.get('/activation/:token', (req, res, next) => co(function*() {
         {
           error: 'The token you provided is not valid (anymore).',
           layout: 'funnel',
-          lang: req.lang
+          language: req.language
         });
       throw err;
     });

@@ -121,7 +121,7 @@ throng(id => {
       res.render(`dynamic/register/maintenance`,
         {
           layout: 'funnel',
-          lang: req.lang
+          language: req.language
         });
     });
   }
