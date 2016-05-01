@@ -21,15 +21,19 @@ exports.__ = (text, options) => {
   const view = options.data.exphbs.view;
   let viewArr = [];
 
-  if (view.indexOf('\\') > -1) {
-    viewArr = view.split('\\');
-  } else {
-    viewArr = view.split('/');
+  if (view) {
+    if (view.indexOf('\\') > -1) {
+      viewArr = view.split('\\');
+    } else {
+      viewArr = view.split('/');
+    }
   }
 
   if(text.indexOf('.') > -1) {
     viewArr = text.split('.');
     text = viewArr.pop();
+  } else if(!view) {
+    logger.error(`Could not parse view in ${options.data.exphbs}`);
   }
 
   return i18n.translate(viewArr[viewArr.length - 1].toUpperCase(), text.toUpperCase(), options.data.root.language);
