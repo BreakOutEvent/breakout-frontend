@@ -9,47 +9,18 @@ const _ = require('lodash');
 
 const registration = requireLocal('controller/page-controller/registration');
 const profile = requireLocal('controller/page-controller/profile');
+const session = requireLocal('controller/session');
 
-const generalAuth = (failURL, role, auth) => (req, res, next) => {
-  if (req.isAuthenticated() && req.user && req.user.me && auth(req.user.me)) {
-    return next();
-  } else {
-    req.flash(`error`, `Um diese Seite aufzurufen, musst Du ${role} sein.`);
-    res.redirect(failURL);
-  }
-};
-
-const isUser = generalAuth('/login', 'eingeloggt', (me) => !!me);
-const isParticipant = generalAuth('/selection', 'ein Teilnehmer', (me) => !!me.participant);
-const isSponsor = generalAuth('/selection', 'ein Sponsor', (me) => !!me.sponsor);
-const hasTeam = generalAuth('/team-invite', 'Teil eines Teams', (me) => !!me.participant.teamId);
-
-const renderTemplate = (folder) => (template) => (req, res) => {
-
-  let status = 'GUEST';
-  let blocked = true;
-  if (req.user && req.user.me) {
-    status = 'OBSERVER';
-    if (req.user.me.roles === []) {
-      status = 'OBSERVER';
-    } else if (_.includes(req.user.me.roles, 'PARTICIPANT')) {
-      status = 'PARTICIPANT';
-    } else {
-      logger.error('No valid user role found for', req.user);
-    }
-    blocked = req.user.me.blocked;
-  }
-
+const renderTemplate = (folder) => (template) => (req, res) =>
   res.render(`dynamic/${folder}/${template}`,
     {
       error: req.flash('error'),
       success: req.flash('success'),
       layout: 'funnel',
       language: req.language,
-      emailConfirmed: !blocked,
-      status: status
+      emailConfirmed: !req.user.me.blocked,
+      status: req.user.status
     });
-};
 
 const funnelTemplate = renderTemplate('register');
 
@@ -57,17 +28,17 @@ const funnelTemplate = renderTemplate('register');
 router.get('/', funnelTemplate('register'));
 router.get('/login', funnelTemplate('login'));
 router.get('/register', funnelTemplate('register'));
-router.get('/selection', isUser, funnelTemplate('selection'));
-router.get('/participant', isUser, funnelTemplate('participant'));
-router.get('/team-success', hasTeam, funnelTemplate('team-success'));
-router.get('/invite-success', hasTeam, funnelTemplate('invite-success'));
-router.get('/payment-success', hasTeam, funnelTemplate('payment-success'));
-router.get('/sponsor-success', isSponsor, funnelTemplate('sponsor-success'));
-router.get('/spectator-success', isUser, funnelTemplate('spectator-success'));
-router.get('/sponsor', isUser, funnelTemplate('sponsor'));
-router.get('/invite', hasTeam, funnelTemplate('invite'));
+router.get('/selection', session.isUser, funnelTemplate('selection'));
+router.get('/participant', session.isUser, funnelTemplate('participant'));
+router.get('/team-success', session.hasTeam, funnelTemplate('team-success'));
+router.get('/invite-success', session.hasTeam, funnelTemplate('invite-success'));
+router.get('/payment-success', session.hasTeam, funnelTemplate('payment-success'));
+router.get('/sponsor-success', session.isSponsor, funnelTemplate('sponsor-success'));
+router.get('/spectator-success', session.isUser, funnelTemplate('spectator-success'));
+router.get('/sponsor', session.isUser, funnelTemplate('sponsor'));
+router.get('/invite', session.hasTeam, funnelTemplate('invite'));
 
-router.get('/profile', isUser, (req, res, next) =>
+router.get('/profile', session.isUser, (req, res, next) =>
   res.render(`dynamic/profile/profile`,
     {
       error: req.flash('error'),
@@ -78,13 +49,13 @@ router.get('/profile', isUser, (req, res, next) =>
     })
 );
 
-router.get('/logout', isUser, (req, res, next) => co(function*() {
+router.get('/logout', session.isUser, (req, res, next) => co(function*() {
   req.logout();
   req.flash('success', 'Successfully logged out!');
   res.redirect('/login');
 }).catch(ex => next(ex)));
 
-router.get('/payment', hasTeam, (req, res, next) => co(function*() {
+router.get('/payment', session.hasTeam, (req, res, next) => co(function*() {
 
   const purpose = yield registration.getTransactionPurpose(req);
 
@@ -121,7 +92,7 @@ router.get('/join/:token', (req, res, next) => co(function*() {
   }
 }).catch(ex => next(ex)));
 
-router.get('/team-invite', isParticipant, (req, res, next) => co(function*() {
+router.get('/team-invite', session.isParticipant, (req, res, next) => co(function*() {
   const teams = yield registration.getInvites(req);
 
   if (teams.length > 0) {
@@ -139,7 +110,7 @@ router.get('/team-invite', isParticipant, (req, res, next) => co(function*() {
   }
 }).catch(ex => next(ex)));
 
-router.get('/team-create', isParticipant, (req, res, next) => co(function*() {
+router.get('/team-create', session.isParticipant, (req, res, next) => co(function*() {
   registration.getEvents(req)
     .then(events => {
       res.render('dynamic/register/team-create',
@@ -190,11 +161,11 @@ router.get('/activation/:token', (req, res, next) => co(function*() {
 
 //POST
 
-router.post('/participant', isUser, upload.single('profilePic'), registration.createParticipant);
+router.post('/participant', session.isUser, upload.single('profilePic'), registration.createParticipant);
 router.post('/register', registration.createUser);
-router.post('/team-create', isParticipant, upload.single('profilePic'), registration.createTeam);
-router.post('/invite', hasTeam, registration.inviteUser);
-router.post('/team-invite', isParticipant, registration.joinTeamAPI);
+router.post('/team-create', session.isParticipant, upload.single('profilePic'), registration.createTeam);
+router.post('/invite', session.hasTeam, registration.inviteUser);
+router.post('/team-invite', session.isParticipant, registration.joinTeamAPI);
 
 router.post('/login',
   passport.authenticate('local',
@@ -207,6 +178,6 @@ router.post('/login',
   )
 );
 
-router.put('/team', hasTeam, upload.single('profilePic'), profile.putTeam);
+router.put('/team', session.hasTeam, upload.single('profilePic'), profile.putTeam);
 
 module.exports = router;

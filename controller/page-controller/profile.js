@@ -1,6 +1,6 @@
 const api = requireLocal('controller/api-proxy');
 const co = require('co');
-const registration = requireLocal('controller/page-controller/registration');
+const session = requireLocal('controller/session');
 
 let profile = {};
 
@@ -22,7 +22,7 @@ profile.putTeam = (req, res, next) => co(function*() {
 
   logger.info('Updated a team', update);
 
-  yield registration.refreshSession(req);
+  yield session.refreshSession(req);
   return res.send({});
 }).catch(ex => {
   logger.error(ex);

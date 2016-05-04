@@ -1,9 +1,9 @@
 'use strict';
 const api = requireLocal('controller/api-proxy');
-const session = requireLocal('controller/session');
 const co = require('co');
 const _ = require('lodash');
 const passport = requireLocal('controller/auth');
+const session = requireLocal('controller/session');
 
 const URLS = {
   REGISTER: '/register',
@@ -19,14 +19,6 @@ const URLS = {
 
 let registration = {};
 
-registration.refreshSession = (req) => co(function*() {
-  req.login(yield passport.createSession(req.user.email, req.user), (error) => {
-    if (error) throw error;
-  });
-}).catch(ex => {
-  throw ex;
-});
-
 const sendErr = (res, errMsg, err) => {
 
   if (err) logger.error(errMsg, err);
@@ -38,7 +30,7 @@ const sendErr = (res, errMsg, err) => {
 registration.createUser = (req, res) => co(function*() {
   if (!req.body) return sendErr(res, 'The server did not receive any data.');
 
-  const user = yield api.createUser(req.body.email, req.body.password);
+  yield api.createUser(req.body.email, req.body.password);
   const token = yield api.authenticate(req.body.email, req.body.password);
   const session = yield passport.createSession(req.body.email, token);
   req.login(session, (error) => {
@@ -92,7 +84,7 @@ registration.createParticipant = (req, res, next) => co(function*() {
 
   logger.info('Created / updated a participant', updateBody);
 
-  yield registration.refreshSession(req);
+  yield session.refreshSession(req);
   return res.send({
     nextURL: URLS.INVITE
   });
@@ -168,7 +160,7 @@ registration.joinTeamAPI = (req, res, next) => co(function*() {
 
   if (!team) return res.status(500).send({error: 'Could not join team.'});
 
-  yield registration.refreshSession(req);
+  yield session.refreshSession(req);
   let me2 = yield api.getCurrentUser(req.user);
 
   console.dir(me, me2);
@@ -252,7 +244,7 @@ registration.createTeam = (req, res, next) => co(function*() {
     logger.info('Created Invitation for user', req.body.email, 'to team', team.id);
   }
 
-  yield registration.refreshSession(req);
+  yield session.refreshSession(req);
 
   res.send({
     nextURL: URLS.TEAM_SUCCESS
@@ -299,7 +291,7 @@ registration.getTransactionPurpose = (req) => co(function*() {
 
 registration.activateUser = (token) => co(function*() {
   yield api.activateUser(token);
-  yield registration.refreshSession(req);
+  yield session.refreshSession(req);
 }).catch(ex => {
   throw ex;
 });
