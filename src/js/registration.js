@@ -1,49 +1,10 @@
 'use strict';
 
-function sanityCheck() {
-
-  var inputs = $('input,select');
-
-  inputs.each((i, element) => {
-    let val = $(element).val();
-    //CHECK if its required
-    if (!$(element)[0].hasAttribute('required')) return;
-    //Check if its a checkbox
-    if ($(element).prop('type') === 'checkbox') {
-      val = $(element).is(':checked') ? 'true' : '';
-    }
-
-    if ($(element).prop('type') === 'file') {
-      val = $(element)[0].files && $(element)[0].files[0] ? 'true' : '';
-    }
-    if (!val || val.trim() === '') {
-      $(element).addClass('bo-reg-form-error');
-    } else {
-      $(element).removeClass('bo-reg-form-error');
-    }
-  });
-
-  if ($('#registrationForm') && !window.gender) {
-    $('button[name=gender]').addClass('bo-reg-form-error');
-  } else {
-    $('button[name=gender]').removeClass('bo-reg-form-error');
-  }
-
-  return !$('.bo-reg-form-error').length;
-}
+var sanityCheck = require('./helpers').sanityCheck;
+var toggleLoading = require('./helpers').toggleLoading;
 
 
-function toggleLoading(button) {
 
-  if ($(button).has('.spinner').length) {
-    $(button).children('.spinner').remove();
-    $(button).html($(button).children('span.hidden').html());
-  } else {
-    $(button).html('<span class="hidden">' + $(button).html() + '</span>');
-    $(button).append('<div class="spinner"><div class="bounce1"></div>' +
-      '<div class="bounce2"></div> <div class="bounce3"></div> </div>');
-  }
-}
 
 $(document).ready(() => {
 
@@ -63,7 +24,7 @@ $(document).ready(() => {
     $('#registerForm').on('submit', e => {
       e.preventDefault();
 
-      if (sanityCheck()) {
+      if (sanityCheck('registerForm')) {
         if ($('#password').val() !== $('#password_repeat').val()) {
           $('#error').html('<div class="alert alert-danger"> ' +
             'The passwords you entered do not match.</div>');
@@ -109,7 +70,7 @@ $(document).ready(() => {
       e.preventDefault();
 
 
-      if (sanityCheck()) {
+      if (sanityCheck('registrationForm')) {
 
         var data = new FormData($('#registrationForm')[0]);
         data.append('gender', window.gender);
@@ -143,7 +104,7 @@ $(document).ready(() => {
     $('#teamForm').on('submit', function(e) {
       e.preventDefault();
 
-      if (sanityCheck()) {
+      if (sanityCheck('teamForm')) {
 
         var data = new FormData($('#teamForm')[0]);
         console.log(data);
@@ -178,7 +139,7 @@ $(document).ready(() => {
     $('#inviteForm').on('submit', function(e) {
       e.preventDefault();
 
-      if (sanityCheck()) {
+      if (sanityCheck('inviteForm')) {
         var values = {
           email: $('#email').val()
         };

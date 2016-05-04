@@ -52,7 +52,8 @@ module.exports = function (grunt) {
       dist: {
         files: {
           'public/js/bundle.js': ['src/js/main.js'],
-          'public/js/registration.js': ['src/js/registration.js']
+          'public/js/registration.js': ['src/js/registration.js'],
+          'public/js/profile.js': ['src/js/profile.js']
         }
       }
     },
@@ -62,9 +63,10 @@ module.exports = function (grunt) {
         presets: ['es2015']
       },
       dist: {
-        files: {
+        files: { 
           'public/js/bundle.js': ['public/js/bundle.js'],
-          'public/js/registration.js': ['public/js/registration.js']
+          'public/js/registration.js': ['public/js/registration.js'],
+          'public/js/profile.js': ['public/js/profile.js']
         }
       }
     },

@@ -18,6 +18,9 @@
     <link rel="alternate" type="application/rss+xml" title="BreakOut &raquo; Feed"
           href="http://break-out.org/feed/"/>
 
+    <link rel="icon" type="image/png" href="/img/icons/favicon-32x32.png" sizes="32x32"/>
+    <link rel="icon" type="image/png" href="/img/icons/favicon-16x16.png" sizes="16x16"/>
+
     {{#each requirements}}
         <script type="text/javascript" src="/js/{{this}}.js" defer></script>
     {{/each}}
@@ -42,23 +45,24 @@
             -->
             <li class="dropdown">
                 <a id="userDropDown" class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <img src="//lorempixel.com/30/30/people/1/"
+                    <img src="#"
                          class="bo-nav-user-icon pull-left"><i class="material-icons">expand_more</i>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropDown">
-                    <li class="pull-right"><a href="#"><i class="material-icons">message</i></a>
-                    </li>
+                    <!--
+                    <li class="pull-right"><a href="#"><i class="material-icons">message</i></a></li>
                     <li class="pull-right"><a href="#"><i class="material-icons">people</i></a></li>
                     <li class="pull-right"><a href="#"><i class="material-icons">send</i></a></li>
                     <li role="separator" class="divider clearfix"></li>
-                    <li><a href="#">Account Einstellungen</a></li>
+                    -->
+                    <li><a href="/profile">Account Einstellungen</a></li>
                     <li><a href="#">Hilfe</a></li>
                     <li role="separator" class="divider"></li>
-                    <li><a href="#">Zur BreakOut Webseite</a></li>
-                    <li><a href="#">Mobile App herunterladen</a></li>
+                    <li><a href="http://www.break-out.org/">Zur BreakOut Webseite</a></li>
+                    <!--<li><a href="#">Mobile App herunterladen</a></li>-->
                     <li><a href="#">Weiter erzählen</a></li>
                     <li role="separator" class="divider"></li>
-                    <li><a href="#">Abmelden</a></li>
+                    <li><a href="/logout">Abmelden</a></li>
                 </ul>
             </li>
         </ul>
@@ -83,11 +87,11 @@
         </div><!--/.nav-collapse -->
     </div>
 </nav>
+<script type="text/javascript" src="/js/bundle.js" defer></script>
 
 {{{content}}}
 {{{body}}}
 
 {{> footer}}
-<script type="text/javascript" src="/js/bundle.js" defer></script>
 </body>
 </html>

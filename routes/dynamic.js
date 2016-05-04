@@ -8,6 +8,7 @@ const passport = requireLocal('controller/auth');
 const _ = require('lodash');
 
 const registration = requireLocal('controller/page-controller/registration');
+const profile = requireLocal('controller/page-controller/profile');
 
 const generalAuth = (failURL, role, auth) => (req, res, next) => {
   if (req.isAuthenticated() && req.user && req.user.me && auth(req.user.me)) {
@@ -42,6 +43,7 @@ const renderTemplate = (folder) => (template) => (req, res) => {
   res.render(`dynamic/${folder}/${template}`,
     {
       error: req.flash('error'),
+      success: req.flash('success'),
       layout: 'funnel',
       language: req.language,
       emailConfirmed: !blocked,
@@ -50,7 +52,6 @@ const renderTemplate = (folder) => (template) => (req, res) => {
 };
 
 const funnelTemplate = renderTemplate('register');
-const profileTemplate = renderTemplate('profile');
 
 //GET
 router.get('/', funnelTemplate('register'));
@@ -71,11 +72,13 @@ router.get('/profile', isUser, (req, res, next) =>
     {
       error: req.flash('error'),
       layout: 'master',
-      language: req.language
+      language: req.language,
+      me: req.user.me,
+      title: 'Profile'
     })
 );
 
-router.get('/logout', isUser, (req, res, next) => co(function* () {
+router.get('/logout', isUser, (req, res, next) => co(function*() {
   req.logout();
   req.flash('success', 'Successfully logged out!');
   res.redirect('/login');
@@ -203,5 +206,7 @@ router.post('/login',
     }
   )
 );
+
+router.put('/team', hasTeam, upload.single('profilePic'), profile.putTeam);
 
 module.exports = router;

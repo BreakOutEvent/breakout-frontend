@@ -18,7 +18,7 @@ module.exports = {
       en: 'Your current status is: <Strong>Observer</Strong>. With this you can not only see all of the posts and updates from participating teams, but also interact with them by liking and commenting on their posts.'
     },
     DESCRIPTION_PARTICIPANT: {
-      de: 'Dein aktueller Status ist: <strong>Teilnehmer</strong>. Damit kannst du nicht nur alle Posts und Updates von anderen teilnehmenden Teams kommentieren sondern auch Sponsoren sammeln und selbst Posts veröffentlichen. Zusätzlich kannst Du Dich auf unvergessliche 36 Stunden Abenteuer freuen! ',
+      de: 'Dein aktueller Status ist: <strong>Teilnehmer</strong>. Damit kannst du nicht nur alle Posts und Updates von anderen teilnehmenden Teams kommentieren sondern auch Sponsoren sammeln und selbst Posts veröffentlichen. Zusätzlich kannst Du Dich auf unvergessliche 36 Stunden Abenteuer freuen! '
     },
     DESCRIPTION_3: {
       de: 'Das ist Dir noch nicht genug? Wir bieten auf unserer Plattform auch noch weitere Accounts an:',
@@ -237,7 +237,7 @@ module.exports = {
       en: 'Made it!'
     },
     DESCRIPTION: {
-      de: 'Du hast die Einladung angenommen und Dich damit als Teilnehmer für BreakOut registriert. Ihr erhaltet bald beide eine E-Mail mit dem Zahlungslink, den Ihr benötigt um eure Registrierung bei BreakOut abzuschließen.. Bei Fragen steht unser Support jederzeit zu deiner Verfügung.',
+      de: 'Du hast die Einladung angenommen und Dich damit als Teilnehmer für BreakOut registriert. Ihr erhaltet bald beide eine E-Mail mit dem Zahlungslink, den Ihr benötigt um eure Registrierung bei BreakOut abzuschließen.. Bei Fragen steht unser Support jederzeit zu deiner Verfügung.'
     },
     LINK_DESCRIPTION: {
       de: 'ZURÜCK ZUR HOMEPAGE',
@@ -251,7 +251,7 @@ module.exports = {
 
     },
     DESCRIPTION: {
-      de: 'Du hast Dich erfolgreich als Zuschauer für BreakOut registriert. Vielen Dank für Deine Teilnahme! Für weitere Clips und Neuigkeiten gehe zurück zur Homepage. Bei Fragen steht unser Support jederzeit zu deiner Verfügung.',
+      de: 'Du hast Dich erfolgreich als Zuschauer für BreakOut registriert. Vielen Dank für Deine Teilnahme! Für weitere Clips und Neuigkeiten gehe zurück zur Homepage. Bei Fragen steht unser Support jederzeit zu deiner Verfügung.'
     },
     LINK_DESCRIPTION: {
       de: 'ZURÜCK ZUR HOMEPAGE',
@@ -265,7 +265,7 @@ module.exports = {
 
     },
     DESCRIPTION: {
-      de: 'Vielen Dank für Deine Teilnahme! Sobald die Zahlung bei uns eingegangen ist, erhältst du eine Bestätigungsbenachrichtigung per E-Mail. Für Tipps zum Reisen und Neuigkeiten rund um BreakOut gehe zurück zur Homepage. Bei Fragen steht unser Support jederzeit zu deiner Verfügung.',
+      de: 'Vielen Dank für Deine Teilnahme! Sobald die Zahlung bei uns eingegangen ist, erhältst du eine Bestätigungsbenachrichtigung per E-Mail. Für Tipps zum Reisen und Neuigkeiten rund um BreakOut gehe zurück zur Homepage. Bei Fragen steht unser Support jederzeit zu deiner Verfügung.'
     },
     LINK_DESCRIPTION: {
       de: 'ZURÜCK ZUR HOMEPAGE',
@@ -295,8 +295,16 @@ module.exports = {
       de: 'Profil Einstellungen',
       en: ''
     },
+    'NAVIGATION_PARTICIPANT': {
+      de: 'Teilnehmer Einstellungen',
+      en: ''
+    },
     'NAVIGATION_TEAM': {
       de: 'Team Einstellungen',
+      en: ''
+    },
+    'NAVIGATION_SPONSOR': {
+      de: 'Sponsor Einstellungen',
       en: ''
     },
     'LABEL_FIRSTNAME': {

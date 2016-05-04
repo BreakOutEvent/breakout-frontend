@@ -19,7 +19,7 @@ const URLS = {
 
 let registration = {};
 
-const refreshSession = (req) => co(function*() {
+registration.refreshSession = (req) => co(function*() {
   req.login(yield passport.createSession(req.user.email, req.user), (error) => {
     if (error) throw error;
   });
@@ -56,22 +56,31 @@ registration.createUser = (req, res) => co(function*() {
 registration.createParticipant = (req, res, next) => co(function*() {
   if (!req.body) return sendErr(res, 'The server did not receive any data.');
 
-  let updateBody = {
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
-    gender: req.body.gender,
-    participant: {
-      emergencynumber: req.body.emergencynumber,
-      phonenumber: req.body.phonenumber,
-      tshirtsize: req.body.tshirtsize
-    }
-  };
+  let updateBody = {};
+
+  let data = {};
+  if(req.body.firstname) data.firstname = req.body.firstname;
+  if(req.body.lastname) data.lastname = req.body.lastname;
+  if(req.body.gender) data.gender = req.body.gender;
+
+  if(Object.keys(data).length > 0) {
+    updateBody = data;
+  }
+
+  let participant = {};
+  if(req.body.emergencynumber) participant.emergencynumber = req.body.emergencynumber;
+  if(req.body.phonenumber) participant.phonenumber = req.body.phonenumber;
+  if(req.body.tshirtsize) participant.tshirtsize = req.body.tshirtsize;
+
+  if(Object.keys(participant).length > 0) {
+    updateBody.participant = participant;
+  }
 
   if (req.file) {
     updateBody.profilePic = ['image'];
   }
 
-  logger.info('Trying to create a new participant', updateBody);
+  logger.info('Trying to create / update a participant', updateBody);
 
   const user = yield api.getCurrentUser(req.user);
   const backendUser = yield api.putModel('user', user.id, req.user, updateBody);
@@ -81,9 +90,9 @@ registration.createParticipant = (req, res, next) => co(function*() {
     yield api.uploadPicture(req.file, backendUser.profilePic[0]);
   }
 
-  logger.info('Created a new participant', updateBody);
+  logger.info('Created / updated a participant', updateBody);
 
-  yield refreshSession(req);
+  yield registration.refreshSession(req);
   return res.send({
     nextURL: URLS.INVITE
   });
@@ -159,7 +168,7 @@ registration.joinTeamAPI = (req, res, next) => co(function*() {
 
   if (!team) return res.status(500).send({error: 'Could not join team.'});
 
-  yield refreshSession(req);
+  yield registration.refreshSession(req);
   let me2 = yield api.getCurrentUser(req.user);
 
   console.dir(me, me2);
@@ -243,7 +252,7 @@ registration.createTeam = (req, res, next) => co(function*() {
     logger.info('Created Invitation for user', req.body.email, 'to team', team.id);
   }
 
-  yield refreshSession(req);
+  yield registration.refreshSession(req);
 
   res.send({
     nextURL: URLS.TEAM_SUCCESS
@@ -290,7 +299,7 @@ registration.getTransactionPurpose = (req) => co(function*() {
 
 registration.activateUser = (token) => co(function*() {
   yield api.activateUser(token);
-  yield refreshSession(req);
+  yield registration.refreshSession(req);
 }).catch(ex => {
   throw ex;
 });

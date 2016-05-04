@@ -1,112 +1,161 @@
 <div class="bo-header-info">
     <div class="container">
-        <img src="http://lorempixel.com/100/100/people/1/" class="bo-profile-image pull-left" />
+        <img src="#" class="bo-profile-image pull-left"/>
         <div class="bo-profile-info">
-            <p>Thomas Brand</p>
-            <p>Team Awesome Gin Tonic</p>
+            <p>{{me.firstname}} {{me.lastname}}</p>
+            {{#if me.participant.teamId}}
+                <p>Team {{me.participant.teamName}} ({{me.participant.eventCity}})</p>
+            {{/if}}
         </div>
     </div>
-
-    <div class="container bo-secondary-nav bo-single-row">
+    <div class="container bo-secondary-nav">
         <ul class="nav nav-tabs">
-            <li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">{{__ 'NAVIGATION_PROFILE'}}</a></li>
-            <li role="presentation"><a href="#team" aria-controls="team" role="tab" data-toggle="tab">{{__ 'NAVIGATION_TEAM'}}</a></li>
+            <li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab"
+                                                      data-toggle="tab">{{__ 'NAVIGATION_PROFILE'}}</a></li>
+            {{#if me.participant}}
+                <li role="presentation"><a href="#participant" aria-controls="team" role="tab"
+                                           data-toggle="tab">{{__ 'NAVIGATION_PARTICIPANT'}}</a></li>
+            {{/if}}
+            {{#if me.participant.teamId}}
+                <li role="presentation"><a href="#team" aria-controls="team" role="tab"
+                                           data-toggle="tab">{{__ 'NAVIGATION_TEAM'}}</a></li>
+            {{/if}}
+            {{#if me.sponsor}}
+                <li role="presentation"><a href="#sponsor" aria-controls="team" role="tab"
+                                           data-toggle="tab">{{__ 'NAVIGATION_SPONSOR'}}</a></li>
+            {{/if}}
         </ul>
     </div>
-
 </div>
 
 <!-- Tab panes -->
 <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="profile">
         <div class="container bo-profile-form bo-single-row">
-            <form role="form">
+            <div id="result_profile"></div>
+            <form role="form" id="profile_form">
+
+                <div class="bo-reg-uploadInputWrapper" style="height: 100px; width: 100px;">
+                    <input class="bo-reg-fileInput bo-reg-hiddenInput" type="file" name="profilePic"
+                           id="profilePic"/>
+                    <i class="material-icons registration-picture-icon">camera_alt</i>
+                </div>
+
                 <div class="form-group has-feedback has-feedback-left">
                     <label for="firstname">{{__ 'LABEL_FIRSTNAME'}}</label>
-                    <input type="text" class="form-control" id="firstname">
+                    <input type="text" class="form-control" id="firstname" name="firstname" value="{{me.firstname}}">
                     <i class="form-control-feedback material-icons">perm_identity</i>
                 </div>
                 <div class="form-group has-feedback has-feedback-left">
-                    <label for="surename">{{__ 'LABEL_NAME'}}</label>
-                    <input type="text" class="form-control" id="surename">
+                    <label for="lastname">{{__ 'LABEL_NAME'}}</label>
+                    <input type="text" class="form-control" id="lastname" name="lastname" value="{{me.lastname}}">
                     <i class="form-control-feedback material-icons">perm_identity</i>
                 </div>
                 <div class="form-group has-feedback has-feedback-left">
                     <label for="email">{{__ 'LABEL_EMAIL'}}</label>
-                    <input type="email" class="form-control" id="email">
+                    <input type="email" class="form-control" id="email" name="email" value="{{me.email}}"
+                           disabled="disabled">
                     <i class="form-control-feedback material-icons">mail_outline</i>
                 </div>
                 <div class="form-group has-feedback has-feedback-left">
                     <label for="gender">{{__ 'LABEL_GENDER'}}</label>
-                    <select class="form-control" id="gender">
-                        <option>{{__ 'OPTION_GENDER_1'}}</option>
-                        <option>{{__ 'OPTION_GENDER_2'}}</option>
+                    <select class="form-control" id="gender" name="gender">
+                        <option value="male"
+                                {{#ifCond me.gender "male"}}selected="selected"{{/ifCond}}>{{__ 'OPTION_GENDER_1'}}</option>
+                        <option value="female"
+                                {{#ifCond me.gender "female"}}selected="selected"{{/ifCond}}>{{__ 'OPTION_GENDER_2'}}</option>
                     </select>
                     <i class="form-control-feedback material-icons">wc</i>
                 </div>
+                <div class="form-buttons">
+                    <button type="submit" class="btn btn-primary btn-block text-uppercase"
+                            id="profile_CTA">{{__ 'BUTTON_SAVE'}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="participant">
+        <div class="container bo-profile-form bo-single-row">
+            <div id="result_participant"></div>
+            <form role="form" id="participant_form">
                 <div class="form-group has-feedback has-feedback-left">
-                    <label for="shirtsize">{{__ 'LABEL_SHIRT'}}</label>
-                    <select class="form-control" id="shirtsize">
-                        <option>{{__ 'OPTION_SHIRT_1'}}</option>
-                        <option>{{__ 'OPTION_SHIRT_2'}}</option>
-                        <option>{{__ 'OPTION_SHIRT_3'}}</option>
-                        <option>{{__ 'OPTION_SHIRT_4'}}</option>
+                    <label for="tshirtsize">{{__ 'LABEL_SHIRT'}}</label>
+                    <select class="form-control" id="tshirtsize" name="tshirtsize">
+                        <option value="xs" {{#ifCond me.participant.tshirtsize "xs"}}selected="selected"{{/ifCond}}>XS
+                        </option>
+                        <option value="s" {{#ifCond me.participant.tshirtsize "s"}}selected="selected"{{/ifCond}}>S
+                        </option>
+                        <option value="m" {{#ifCond me.participant.tshirtsize "m"}}selected="selected"{{/ifCond}}>M
+                        </option>
+                        <option value="l" {{#ifCond me.participant.tshirtsize "l"}}selected="selected"{{/ifCond}}>L
+                        </option>
+                        <option value="xl" {{#ifCond me.participant.tshirtsize "xl"}}selected="selected"{{/ifCond}}>XL
+                        </option>
+                        <option value="xxl" {{#ifCond me.participant.tshirtsize "xxl"}}selected="selected"{{/ifCond}}>
+                            XXL
+                        </option>
                     </select>
                     <i class="form-control-feedback material-icons">accessibility</i>
                 </div>
                 <div class="form-group has-feedback has-feedback-left">
-                    <label for="city">{{__ 'LABEL_CITY'}}</label>
-                    <input type="text" class="form-control" id="city">
+                    <label for="hometown">{{__ 'LABEL_CITY'}}</label>
+                    <input type="text" class="form-control" id="hometown" name="hometown"
+                           value="{{me.participant.hometown}}">
                     <i class="form-control-feedback material-icons">location_city</i>
                 </div>
                 <div class="form-group has-feedback has-feedback-left">
-                    <label for="phone">{{__ 'LABEL_PHONE'}}</label>
-                    <input type="text" class="form-control" id="phone">
+                    <label for="phonenumber">{{__ 'LABEL_PHONE'}}</label>
+                    <input type="text" class="form-control" id="phonenumber" name="phonenumber"
+                           value="{{me.participant.phonenumber}}">
                     <i class="form-control-feedback material-icons">phone</i>
                 </div>
                 <div class="form-group has-feedback has-feedback-left">
-                    <label for="phone_emergency">{{__ 'LABEL_PHONE_EMERGENCY'}}</label>
-                    <input type="text" class="form-control" id="phone_emergency">
+                    <label for="emergencynumber">{{__ 'LABEL_PHONE_EMERGENCY'}}</label>
+                    <input type="text" class="form-control" id="emergencynumber" name="emergencynumber"
+                           value="{{me.participant.emergencynumber}}">
                     <i class="form-control-feedback custom-icons sos"></i>
-                </div>
-                <div class="form-group has-feedback has-feedback-left form-information">
-                    <p class="form-control-static">{{__ 'PAYMENT_INFO'}}</p>
-                    <i class="form-control-feedback material-icons">info</i>
                 </div>
 
                 <div class="form-buttons">
-                    <button type="button" class="btn btn-primary btn-block text-uppercase">{{__ 'BUTTON_PAY'}}</button>
-                    <button type="button" class="btn btn-default btn-block text-uppercase">{{__ 'BUTTON_SAVE'}}</button>
+                    <button type="submit" class="btn btn-primary btn-block text-uppercase"
+                            id="participant_CTA">{{__ 'BUTTON_SAVE'}}</button>
                 </div>
             </form>
         </div>
     </div>
     <div role="tabpanel" class="tab-pane" id="team">
         <div class="container bo-profile-form bo-single-row">
-            <form role="form">
+            <div id="result_team"></div>
+            <form role="form" id="team_form">
                 <div class="form-group has-feedback has-feedback-left">
-                    <label for="teamname">{{__ 'LABEL_TEAMNAME'}}</label>
-                    <input type="text" class="form-control" id="teamname">
+                    <label for="teamName">{{__ 'LABEL_TEAMNAME'}}</label>
+                    <input type="text" class="form-control" id="teamName" name="teamName"
+                           value="{{me.participant.teamName}}">
                     <i class="form-control-feedback material-icons">people</i>
                 </div>
                 <div class="form-group has-feedback has-feedback-left">
                     <label for="location">{{__ 'LABEL_LOCATION'}}</label>
-                    <select class="form-control" id="location">
-                        <option>Berlin</option>
-                        <option>München</option>
+                    <select class="form-control" id="location" disabled="disabled">
+                        <option value="1" {{#ifCond me.participant.eventId 1}}selected="selected"{{/ifCond}}>Berlin
+                        </option>
+                        <option value="2" {{#ifCond me.participant.eventId 2}}selected="selected"{{/ifCond}}>München
+                        </option>
                     </select>
                     <i class="form-control-feedback material-icons">near_me</i>
                 </div>
                 <div class="form-group has-feedback has-feedback-left">
-                    <label for="teamdesc">{{__ 'LABEL_DESCRIPTION'}}</label>
-                    <textarea id="teamdesc" rows="10" class="form-control"></textarea>
+                    <label for="teamDescription">{{__ 'LABEL_DESCRIPTION'}}</label>
+                    <textarea id="teamDescription" rows="10" name="teamDescription"
+                              class="form-control">{{me.participant.teamDescription}}</textarea>
                     <i class="form-control-feedback material-icons">comment</i>
                 </div>
 
                 <div class="form-buttons">
-                    <button type="button" class="btn btn-primary btn-block text-uppercase">{{__ 'BUTTON_SAVE'}}</button>
+                    <button type="submit" class="btn btn-primary btn-block text-uppercase"
+                            id="team_CTA">{{__ 'BUTTON_SAVE'}}</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+<script src="/js/profile.js" type="text/javascript" defer></script>
