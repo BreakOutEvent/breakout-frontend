@@ -1,42 +1,40 @@
-[![Stories in Ready](https://badge.waffle.io/BreakOutEvent/breakout-frontend.png?label=ready&title=Ready)](https://waffle.io/BreakOutEvent/breakout-frontend)
 # frontend
-Web Frontend
+Web Frontend for BreakOut
 
+For related applications check the organization: https://github.com/BreakOutEvent
 
-## CMS
-[![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
+**Environment Variables**
+* `FRONTEND_API_CLIENTID` *Client-ID used to identify at the [backend](https://github.com/BreakOutEvent/breakout-backend)*
+* `FRONTEND_API_CLIENTSECRET` *Client-Secret used to authenticate at the [backend](https://github.com/BreakOutEvent/breakout-backend)*
+* `FRONTEND_API_URL` *URL to the hosted [backend](https://github.com/BreakOutEvent/breakout-backend)*
+* `FRONTEND_DB_USER` *MongoDB user*
+* `FRONTEND_DB_PASSWORD` *MongoDB user password*
+* `FRONTEND_DB_URL` *URL of the MongoDB*
+* `FRONTEND_DB_PORT` *Port of the MongoDB*
+* `FRONTEND_DB_NAME` *Name of the MongoDB Database*
+* `FRONTEND_CLUSTER` *If 'true': spawns child-processes on each CPU core*
+* `FRONTEND_SECRET` *Secret to de/encrypt user sessions*
+* `FRONTEND_GDRIVE_DOCUMENT_ID` *Document-ID of the GDrive-Doc containing all members*
+* `FRONTEND_GDRIVE_CLIENT_EMAIL` *Email of the GDRive dev-account with at least read rights to the member document*
+* `FRONTEND_MEDIA_URL` *URL to the hosted [media uploader](https://github.com/BreakOutEvent/breakout-media-uploader)*
+*
 
-*das CMS ist im [standard style](https://github.com/feross/standard) geschrieben*
+**Installation:**
 
-**Environment Variablen**
-* `FRONTEND_API_CLIENTID` *Client-ID dieses Node-Servers für das Backend*
-* `FRONTEND_API_CLIENTSECRET` *Client-Secret für das Backend*
-* `FRONTEND_API_URL` *URL der Backend-API*
-* `FRONTEND_DB_USER` *Datenbankuser*
-* `FRONTEND_DB_PASSWORD` *Passwort vom Datenbankuser*
-* `FRONTEND_DB_URL` *URL oder IP der Datenbank*
-* `FRONTEND_DB_PORT` *Port der Datenbank*
-* `FRONTEND_DB_NAME` *Datenbank-Name*
-* `FRONTEND_CLUSTER` *Startet einen Child-Prozess pro CPU-Kern, falls diese Variable "true"
-enthält*
-* `FRONTEND_SECRET` *Secret für die Benutzer-Sessions*
-* `FRONTEND_GDRIVE_DOCUMENT_ID` *Document-ID des GDrive-Dokuments mit allen Mitgliedern*
-* `FRONTEND_GDRIVE_CLIENT_EMAIL` *E-Mail des Dev-Accounts mit Freigabe zum Dokument*
-* `FRONTEND_GDRIVE_PRIVATE_KEY` *Private-Key vom Account*
-
-**Benutzung:**
-
-1. `npm i` *installiert alle module des frontend und cms und baut das cms*
-1. `npm start` *Baut das cms und startet den server*
-1. Verfügbar unter `localhost:3000`, cms unter `localhost:3000/admin`
+1. `npm i` *installs all dependencies and builds the frontend*
+1. Runs at `localhost:3000`
 
 **Commands:**
-* `npm start` baut cms und startet server
-* `npm run cms:build` baut das cms
-* `npm run cms:update` updated das cms und baut es
-* `npm run cms:server` startet den webpack live-reload server des cms und macht es verfügbar unter `localhost:8080`, *`npm start` muss ebenfalls laufen*
+* `npm build` builds frontend with grunt
+* `npm log:info` prints info log
+* `npm log:error` prints error log
+* `npm log:clean` clears log
+* `npm log:live_info` prints info log in real time
 
 
 **Docker:**
+
+Please note that all the above defined environment variables have to be defined and the MongoDB must be running.
+
 * `docker build -t breakout/frontend .`
 * `docker run -d -p 3000:3000 breakout/frontend`
