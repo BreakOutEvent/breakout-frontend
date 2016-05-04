@@ -5,17 +5,26 @@
                 <img class="bo-modal-logo center" alt="BreakOut" src="/img/logos/BreakOut-Logo_Header.svg">
             </div>
         </div>
-        <div class="row registration-margin">
-            <div class="col-xs-12">
-                <h3 class="text-center">{{__ 'HEADLINE'}}</h3>
-                <p>
-                    {{__ 'DESCRIPTION'}}
-                </p>
+        {{#if error}}
+            <div id="error">
+                <div class="alert alert-danger">{{error}}</div>
             </div>
-        </div>
+        {{else}}
+            <div class="row registration-margin">
+                <div class="col-xs-12">
+                    <h3 class="text-center">{{__ 'HEADLINE'}}</h3>
+                    <p>
+                        {{__ 'DESCRIPTION'}}
+                    </p>
+                </div>
+            </div>
+        {{/if}}
+
         <div class="row registration-margin">
             <div class="col-xs-12">
-                <a href="/login" class="no-underline"><button class="btn btn-primary btn-block">{{__ 'CTA'}}</button></a>
+                <a href="/login" class="no-underline">
+                    <button class="btn btn-primary btn-block">{{__ 'CTA'}}</button>
+                </a>
             </div>
         </div>
     </div>
