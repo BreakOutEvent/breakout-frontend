@@ -65,6 +65,7 @@ router.get('/sponsor-success', isSponsor, funnelTemplate('sponsor-success'));
 router.get('/spectator-success', isUser, funnelTemplate('spectator-success'));
 router.get('/sponsor', isUser, funnelTemplate('sponsor'));
 router.get('/invite', hasTeam, funnelTemplate('invite'));
+
 router.get('/profile', isUser, (req, res, next) =>
   res.render(`dynamic/profile/profile`,
     {

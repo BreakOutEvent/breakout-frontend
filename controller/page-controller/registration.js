@@ -140,7 +140,8 @@ registration.getEvents = (req) => co(function*() {
 registration.getInviteByToken = (token) => co(function*() {
   return yield api.getInviteByToken(token);
 }).catch(ex => {
-  throw ex;
+  logger.error(ex);
+  return null;
 });
 
 registration.joinTeamAPI = (req, res, next) => co(function*() {

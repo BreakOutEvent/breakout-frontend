@@ -16,12 +16,12 @@ For related applications check the organization: https://github.com/BreakOutEven
 * `FRONTEND_SECRET` *Secret to de/encrypt user sessions*
 * `FRONTEND_GDRIVE_DOCUMENT_ID` *Document-ID of the GDrive-Doc containing all members*
 * `FRONTEND_GDRIVE_CLIENT_EMAIL` *Email of the GDRive dev-account with at least read rights to the member document*
-* `FRONTEND_MEDIA_URL` *URL to the hosted [media uploader](https://github.com/BreakOutEvent/breakout-media-uploader)*
+* `FRONTEND_MEDIA_URL` *URL to the hosted [media uploader](https://github.com/BreakOutEvent/breakout-media-uploader) *
 *
 
 **Installation:**
 
-1. `npm i` *installs all dependencies and builds the frontend*
+1. `npm i` installs all dependencies and builds the frontend
 1. Runs at `localhost:3000`
 
 **Commands:**
