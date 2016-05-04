@@ -127,6 +127,11 @@
         <div class="container bo-profile-form bo-single-row">
             <div id="result_team"></div>
             <form role="form" id="team_form">
+                <div class="bo-reg-uploadInputWrapper" style="height: 100px; width: 100px;">
+                    <input class="bo-reg-fileInput bo-reg-hiddenInput" type="file" name="teamPic"
+                           id="teamPic"/>
+                    <i class="material-icons registration-picture-icon">camera_alt</i>
+                </div>
                 <div class="form-group has-feedback has-feedback-left">
                     <label for="teamName">{{__ 'LABEL_TEAMNAME'}}</label>
                     <input type="text" class="form-control" id="teamName" name="teamName"

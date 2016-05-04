@@ -11,8 +11,19 @@ $(document).ready(() => {
     if (this.files && this.files[0]) {
       var reader = new FileReader();
       reader.onload = function(e) {
-        $('.bo-reg-uploadInputWrapper').css('background-image', 'url(' + e.target.result + ')');
-        $('.registration-picture-icon').hide();
+        $('#profile_form .bo-reg-uploadInputWrapper').css('background-image', 'url(' + e.target.result + ')');
+        $('#profile_form .registration-picture-icon').hide();
+      };
+      reader.readAsDataURL(this.files[0]);
+    }
+  });
+
+  $('#teamPic').change(function() {
+    if (this.files && this.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        $('#team_form .bo-reg-uploadInputWrapper').css('background-image', 'url(' + e.target.result + ')');
+        $('#team_form .registration-picture-icon').hide();
       };
       reader.readAsDataURL(this.files[0]);
     }
@@ -85,6 +96,11 @@ $(document).ready(() => {
     e.preventDefault();
     if(sanityCheck('team_form')) {
       var data = new FormData($('#team_form')[0]);
+
+      if ($('#teamPic').length && $('#teamPic')[0].files &&
+        $('#teamPic')[0].files[0]) {
+        data.delete('teamPic');
+      }
 
       toggleLoading('#team_CTA');
       $.ajax({
