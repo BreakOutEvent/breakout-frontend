@@ -9,3 +9,10 @@
   position: absolute;
   top: 50%;
 }
+
+/* TO PROPERLY HANDLE BOX SHADOW */
+.box-shadow(@shadow, @shadow2) {
+  -webkit-box-shadow: @shadow, @shadow2;
+  -moz-box-shadow: @shadow, @shadow2;
+  box-shadow: @shadow, @shadow2;
+}

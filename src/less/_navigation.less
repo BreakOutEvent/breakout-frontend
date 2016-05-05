@@ -1,6 +1,6 @@
 .navbar-btn {
-  @include button-variant(#fff, @brand-primary, rgba(255, 255, 255, 0.5));
-  @include button-size(@padding-base-vertical, @padding-base-horizontal, @font-size-base, @line-height-base, @btn-border-radius-small);
+  .button-variant(#fff, @brand-primary, rgba(255, 255, 255, 0.5));
+  .button-size(@padding-base-vertical, @padding-base-horizontal, @font-size-base, @line-height-base, @btn-border-radius-small);
 }
 
 .collapse > .navbar-nav > li:hover {
@@ -12,7 +12,7 @@
 .navbar-nav > li > .dropdown-menu {
   margin-top: 3px;
   border-radius: @border-radius-large;
-  @include box-shadow(0 2px 4px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.2));
+  .box-shadow(0 2px 4px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.2));
 }
 
 //caret towards dropdown button
@@ -88,13 +88,16 @@
 }
 
 .bo-header {
-  @include box-shadow(0 2px 12px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.1));
+  -webkit-box-shadow: inset hoff voff blur color;
+  -moz-box-shadow: inset hoff voff blur color;
+  box-shadow: inset hoff voff blur color;
+  .box-shadow(0 2px 12px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.1));
   border-bottom-width: 0;
   min-height: @navbar-height;
 }
 
 .bo-secondary-nav {
-  margin-bottom: 0px;
+  margin-bottom: 0;
   margin-top: 20px;
   .nav-tabs {
     border-bottom: 0;

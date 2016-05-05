@@ -19,7 +19,7 @@ router.get('/logs/:log(error|info)', session.isAdmin, (req, res, next) => co(fun
 
   const result = yield execa.shell(cmd);
 
-  res.render('templates/logs', {
+  res.render('static/logs', {
     defaultLayout: false,
     content: a2h.fromString({
       standalone: false,
