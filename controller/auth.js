@@ -4,14 +4,15 @@ const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
 const API = requireLocal('controller/api-proxy.js');
 const co = require('co');
+const _ = require('lodash');
 
 passport.use(new Strategy((username, password, cb) => co(function*() {
   try {
     const user = yield passport.createSession(username, yield API.authenticate(username, password));
-    cb(null, user, { message: 'Successfully logged in' });
+    cb(null, user, {message: 'Successfully logged in'});
   } catch (ex) {
     let message = ex.message ? ex.message : ex.error_description;
-    cb(null, false, { message: message });
+    cb(null, false, {message: message});
   }
 }).catch(ex => {
   throw ex;
@@ -24,7 +25,26 @@ passport.deserializeUser((user, cb) => cb(null, user));
 passport.createSession = (username, user) => co(function*() {
   const me = yield API.getCurrentUserco(user);
 
-  user.isAdmin = !!('ADMIN' in me.roles);
+  user.status = {
+    is: {
+      user: true,
+      participant: false,
+      sponsor: false,
+      team: false,
+      admin: false
+    }
+  };
+
+  if (me.participant) {
+    user.status.is.participant = true;
+    if (user.me.participant.teamId) {
+      user.status.is.team = true;
+    }
+  }
+
+  if(_.includes(me.roles, 'ADMIN')) {
+    user.status.is.admin = true;
+  }
 
   user.email = username;
   user.me = me;

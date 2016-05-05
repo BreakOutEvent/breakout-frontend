@@ -29,6 +29,9 @@ bower_components
 # WebStorm Folder
 .idea
 
+# Images
+public/images
+
 # All configuration files
 config/*
 

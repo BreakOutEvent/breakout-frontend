@@ -17,10 +17,12 @@
                     <p>{{__ 'DESCRIPTION_1'}}</p>
                 {{/unless}}
 
-                {{!-- Searches for DESCRIPTION_$USERSTATUS --}}
-                <p>{{{__ (concat 'DESCRIPTION_' status.string)}}}</p>
+                {{#if status.is.participant}}
+                    <p>{{{__ 'DESCRIPTION_PARTICIPANT'}}}</p>
+                {{/if}}
 
                 {{#if status.is.user}}
+                    <p>{{{__ 'DESCRIPTION_OBSERVER'}}}</p>
                     <p>{{__ 'DESCRIPTION_3'}}</p>
                 {{/if}}
             </div>
