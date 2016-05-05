@@ -1,6 +1,6 @@
 .navbar-btn {
-  @include button-variant(#fff, $brand-primary, rgba(255, 255, 255, 0.5));
-  @include button-size($padding-base-vertical, $padding-base-horizontal, $font-size-base, $line-height-base, $btn-border-radius-small);
+  @include button-variant(#fff, @brand-primary, rgba(255, 255, 255, 0.5));
+  @include button-size(@padding-base-vertical, @padding-base-horizontal, @font-size-base, @line-height-base, @btn-border-radius-small);
 }
 
 .collapse > .navbar-nav > li:hover {
@@ -11,7 +11,7 @@
 
 .navbar-nav > li > .dropdown-menu {
   margin-top: 3px;
-  border-radius: $border-radius-large;
+  border-radius: @border-radius-large;
   @include box-shadow(0 2px 4px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.2));
 }
 
@@ -22,7 +22,7 @@
   right: 21%;
   display: inline-block;
   border-right: 11px solid transparent;
-  border-bottom: 11px solid $dropdown-border;
+  border-bottom: 11px solid @dropdown-border;
   border-left: 11px solid transparent;
   border-bottom-color: rgba(0, 0, 0, 0.08);
   transform: rotate(360deg); //improves anti-aliasing
@@ -41,7 +41,7 @@
   content: '';
 }
 
-@media (max-width: $screen-xs-max) {
+@media (max-width: @screen-xs-max) {
   .navbar .navbar-right.bo-user-icons {
     position: absolute;
     margin-top: 4px;
@@ -60,7 +60,7 @@
   &:hover,
   &:focus {
     .icon-bar {
-      background-color: $brand-primary;
+      background-color: @brand-primary;
     }
   }
 }
@@ -90,7 +90,7 @@
 .bo-header {
   @include box-shadow(0 2px 12px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.1));
   border-bottom-width: 0;
-  min-height: $navbar-height;
+  min-height: @navbar-height;
 }
 
 .bo-secondary-nav {
@@ -99,7 +99,7 @@
   .nav-tabs {
     border-bottom: 0;
     a {
-      color: $gray-base;
+      color: @gray-base;
       font-weight: 500;
       &:hover {
         border-color: transparent;

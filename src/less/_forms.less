@@ -1,6 +1,6 @@
 .form-control {
   border-width: 0 0 1px 0;
-  border-color: $gray-dark;
+  border-color: @gray-dark;
   @include box-shadow(none);
   @include transition(border-bottom-color ease-in-out .15s);
 }
@@ -13,11 +13,11 @@
 label {
   margin-bottom: 0;
   font-weight: normal;
-  color: $gray-light;
-  font-size: $font-size-small;
+  color: @gray-light;
+  font-size: @font-size-small;
 }
 
-@media screen and (min-width: $screen-sm-min) {
+@media screen and (min-width: @screen-sm-min) {
   .bo-single-row {
     width: 550px;
   }
@@ -29,18 +29,18 @@ label {
   // when the padding mirrors the input height, it makes the icon look like it 
   // occupies a square on the side of the control
   .form-control {
-    padding-right: $input-height-base;
+    padding-right: @input-height-base;
   }
   .form-control.input-sm,
   &.form-group-sm .form-control {
-    padding-right: $input-height-small;
+    padding-right: @input-height-small;
   }
   .form-control.input-lg,
   &.form-group-lg .form-control {
-    padding-right: $input-height-large;
+    padding-right: @input-height-large;
   }
   .form-control-static {
-    padding-right: $input-height-base;
+    padding-right: @input-height-base;
   }
 }
 
@@ -48,22 +48,22 @@ label {
   // Left Icon Input Padding
   .form-control {
     //reset changes to right
-    padding-right: $padding-base-horizontal;
-    padding-left: $input-height-base;
+    padding-right: @padding-base-horizontal;
+    padding-left: @input-height-base;
   }
   .form-control.input-sm,
   &.form-group-sm .form-control {
-    padding-left: $input-height-small;
+    padding-left: @input-height-small;
   }
   .form-control.input-lg,
   &.form-group-lg .form-control {
-    padding-left: $input-height-large;
+    padding-left: @input-height-large;
   }
   // Left Icon Input Static Padding
   .form-control-static {
     //reset changes to right
-    padding-right: $padding-base-horizontal;
-    padding-left: $input-height-base;
+    padding-right: @padding-base-horizontal;
+    padding-left: @input-height-base;
   }
 }
 
@@ -78,21 +78,21 @@ label {
 // easier for these line heights to persist in the case the icons are being 
 // used explicitly within an input box.
 .form-control-feedback {
-  line-height: $input-height-base !important;
+  line-height: @input-height-base !important;
 }
 
 .input-sm + .form-control-feedback,
 .form-horizontal .form-group-sm .form-control-feedback {
-  width: $input-height-small;
-  height: $input-height-small;
-  line-height: $input-height-small !important;
+  width: @input-height-small;
+  height: @input-height-small;
+  line-height: @input-height-small !important;
 }
 
 .input-lg + .form-control-feedback,
 .form-horizontal .form-group-lg .form-control-feedback {
-  width: $input-height-large;
-  height: $input-height-large;
-  line-height: $input-height-large !important;
+  width: @input-height-large;
+  height: @input-height-large;
+  line-height: @input-height-large !important;
 }
 
 // Move Icon to top
@@ -106,7 +106,7 @@ label {
 }
 
 .form-inline {
-  @media (min-width: $screen-sm-min) {
+  @media (min-width: @screen-sm-min) {
     // Allow left aligned icon in inline form
     .inline-feedback {
       // enable absolute positioning
@@ -122,20 +122,20 @@ label {
 
 .form-horizontal {
   .has-feedback-left .form-control-feedback {
-    left: ($grid-gutter-width / 2);
+    left: (@grid-gutter-width / 2);
   }
 }
 
 // Reposition feedback icon if input has visible label above (material design icons)
 .has-feedback label {
   & ~ .form-control-feedback.material-icons {
-    color: $gray-dark;
-    top: ($line-height-computed); // Height of the `label` and its margin
+    color: @gray-dark;
+    top: (@line-height-computed); // Height of the `label` and its margin
   }
 }
 
 .form-information {
-  color: $brand-primary;
+  color: @brand-primary;
 }
 
 .form-buttons {

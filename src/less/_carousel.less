@@ -22,27 +22,27 @@
 }
 
 // Scale up controls for tablets and up
-@media screen and (min-width: $screen-sm-min) {
+@media screen and (min-width: @screen-sm-min) {
   // Scale up the controls a smidge
   .carousel-control {
     .material-icons,
     .material-icons,
     {
-      width: ($carousel-control-font-size * 1.5);
-      height: ($carousel-control-font-size * 1.5);
-      margin-top: ($carousel-control-font-size / -2);
-      font-size: ($carousel-control-font-size * 1.5);
+      width: (@carousel-control-font-size * 1.5);
+      height: (@carousel-control-font-size * 1.5);
+      margin-top: (@carousel-control-font-size / -2);
+      font-size: (@carousel-control-font-size * 1.5);
     }
     &.left {
       .material-icons,
       {
-        margin-left: ($carousel-control-font-size / -2);
+        margin-left: (@carousel-control-font-size / -2);
       }
     }
     &.right {
       .material-icons,
       {
-        margin-right: ($carousel-control-font-size / -2);
+        margin-right: (@carousel-control-font-size / -2);
       }
     }
   }
@@ -52,22 +52,22 @@
   li {
     border-width: 0 0 1px 0;
     border-style: solid;
-    border-color: $carousel-indicator-border-color;
+    border-color: @carousel-indicator-border-color;
     border-radius: 0;
   }
   .active {
-    border-color: $brand-primary;
+    border-color: @brand-primary;
     background-color: #000 \9; // IE8
     background-color: rgba(0, 0, 0, 0); // IE9
   }
 }
 
-@mixin carousel-chevron($imgPath) {
+.carousel-chevron(@imgPath) {
   position: absolute;
   top: 50%;
   transform: translate(0, -50%);
   z-index: 5;
-  content: url($imgPath);
+  content: url(@imgPath);
 }
 
 .carousel-chevron-left {

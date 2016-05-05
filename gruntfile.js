@@ -5,13 +5,15 @@ module.exports = function (grunt) {
     files: {
       js: ['src/js/*.js']
     },
-    sass: {
-      dist: {
+    less: {
+      development:{
         options: {
-          sourceMap: false
+          compress: true,
+          yuicompress: true,
+          optimization: 2
         },
         files: {
-          'public/css/styles.css': 'src/sass/styles.scss'
+          "public/css/styles.css": "src/less/styles.less"
         }
       }
     },
@@ -72,8 +74,8 @@ module.exports = function (grunt) {
     },
     watch: {
       css: {
-        files: ['src/sass/**/*.scss'],
-        tasks: ['sass']
+        files: ['src/less/**/*.less'],
+        tasks: ['less']
       },
       js: {
         files: '<%= files.js %>',
@@ -84,7 +86,8 @@ module.exports = function (grunt) {
       }
     }
   });
-  grunt.loadNpmTasks('grunt-sass');
+
+  grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -97,7 +100,7 @@ module.exports = function (grunt) {
       'jshint',
       'browserify',
       'babel',
-      'sass',
+      'less',
       'uglify',
       'cssmin'
     ]);

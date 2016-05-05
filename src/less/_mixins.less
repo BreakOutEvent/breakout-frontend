@@ -1,10 +1,10 @@
-@mixin image-background($url) {
-  background-image: url($url);
+.image-background(@url) {
+  background-image: url(@url);
   background-repeat: no-repeat;
   background-position: center center;
 }
 
-@mixin verticalAlign {
+.verticalAlign {
   transform: translate3d(0, -50%, 0);
   position: absolute;
   top: 50%;

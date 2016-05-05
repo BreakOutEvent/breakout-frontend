@@ -26,7 +26,7 @@ body {
 .bo-logo {
   padding-top: 40px;
   padding-bottom: 40px;
-  @media(max-width: $screen-xs-min) {
+  @media(max-width: @screen-xs-min) {
     img {
       width: 250px;
       height: auto;
@@ -51,7 +51,7 @@ body {
     font-size: 88px;
   }
   blockquote {
-    font-size: $blockquote-font-size;
+    font-size: @blockquote-font-size;
     text-align: center;
     text-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
     border-width: 0;
@@ -60,10 +60,10 @@ body {
       font-size: 60%;
     }
   }
-  @media screen and (min-width: $screen-sm-min) {
+  @media screen and (min-width: @screen-sm-min) {
     height: 400px;
     blockquote {
-      font-size: $font-size-h2;
+      font-size: @font-size-h2;
     }
   }
   a {
@@ -95,7 +95,7 @@ body {
   }
 }
 
-@media screen and (min-width: $screen-sm-min) {
+@media screen and (min-width: @screen-sm-min) {
   .bo-highlight-container {
     padding-top: 100px;
     padding-bottom: 100px;
@@ -104,23 +104,23 @@ body {
 
 .bo-news-teaser {
   h3 {
-    background-color: $brand-primary;
-    border-radius: $border-radius-base $border-radius-base 0 0;
-    border-color: $brand-primary;
+    background-color: @brand-primary;
+    border-radius: @border-radius-base @border-radius-base 0 0;
+    border-color: @brand-primary;
     color: #fff;
     padding: 5px 0 5px 5px;
   }
   .bo-news-teaser-content {
-    border-color: $gray-base;
+    border-color: @gray-base;
     border-width: 1px;
   }
 }
 
 .bo-img-circle {
   border-radius: 50%;
-  border-color: $brand-primary;
+  border-color: @brand-primary;
   border-style: solid;
-  color: $brand-primary;
+  color: @brand-primary;
   width: 80px;
   height: 80px;
 }
@@ -136,11 +136,11 @@ body {
 .bo-footer {
   padding-top: 50px;
   padding-bottom: 25px;
-  background-color: $gray-base;
-  color: $gray-light;
-  font-size: $font-size-small;
+  background-color: @gray-base;
+  color: @gray-light;
+  font-size: @font-size-small;
   a {
-    color: $gray-light;
+    color: @gray-light;
   }
   hr {
     margin: 50px -10px 25px -10px;
@@ -153,7 +153,7 @@ body {
   .list-inline li {
     padding-left: 5px;
     padding-right: 5px;
-    @media screen and (min-width: $screen-sm-min) {
+    @media screen and (min-width: @screen-sm-min) {
       padding-right: 15px;
       padding-left: 15px;
     }
@@ -165,7 +165,7 @@ body {
     padding-right: 0;
   }
   .bo-copyright {
-    @media screen and (min-width: $screen-sm-min) {
+    @media screen and (min-width: @screen-sm-min) {
       float: right;
     }
   }
@@ -176,7 +176,7 @@ body {
   margin: 0 auto;
   border-radius: 0;
   margin-bottom: 15px;
-  @media screen and (min-width: $screen-md-min) {
+  @media screen and (min-width: @screen-md-min) {
     width: 80%;
   }
   .bo-post-team-heading {
