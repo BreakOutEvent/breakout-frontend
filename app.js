@@ -129,6 +129,7 @@ throng(id => {
   app.use('/', requireLocal('routes/main'));
   app.use('/', requireLocal('routes/dynamic'));
   app.use('/api', requireLocal('routes/api'));
+  app.use('/admin', requireLocal('routes/admin'));
 
   var server = app.listen(3000, () => {
     var host = server.address().address;
