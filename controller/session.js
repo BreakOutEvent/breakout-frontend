@@ -8,41 +8,13 @@ let ses = {};
 ses.refreshSession = (req) => co(function*() {
   req.login(yield passport.createSession(req.user.email, req.user), (error) => {
     if (error) throw error;
-
   });
 }).catch(ex => {
   throw ex;
 });
 
 ses.generalAuth = (failURL, role, auth) => (req, res, next) => {
-
-  req.user.status = {
-    string: 'GUEST',
-    is: {
-      user: false,
-      participant: false,
-      sponsor: false,
-      team: false
-    }
-  };
-
-  req.user.status.string = 'GUEST';
-  if (req.user && req.user.me) {
-    req.user.status.string = 'OBSERVER';
-    req.user.status.is.user = true;
-    if (req.user.me.participant) {
-      req.user.status.string = 'PARTICIPANT';
-      req.user.status.is.participant = true;
-      if(req.user.me.participant.teamId) {
-        req.user.status.string = 'TEAMMEMBER';
-        req.user.status.is.team = true;
-      }
-    } else {
-      logger.warn('No valid user role found for', req.user);
-    }
-  }
-
-  if (req.isAuthenticated() && req.user && req.user.me && auth(req.user.me)) {
+  if (req.isAuthenticated() && auth(req.user.status)) {
     return next();
   } else {
     req.flash(`error`, `Um diese Seite aufzurufen, musst Du ${role} sein.`);
@@ -51,10 +23,10 @@ ses.generalAuth = (failURL, role, auth) => (req, res, next) => {
 };
 
 
-ses.isUser = ses.generalAuth('/login', 'eingeloggt', (me) => !!me);
-ses.isParticipant = ses.generalAuth('/selection', 'ein Teilnehmer', (me) => !!me.participant);
-ses.isSponsor = ses.generalAuth('/selection', 'ein Sponsor', (me) => !!me.sponsor);
-ses.hasTeam = ses.generalAuth('/team-invite', 'Teil eines Teams', (me) => !!me.participant.teamId);
-ses.isAdmin = ses.generalAuth('/login', 'Administrator', (me) => me.email === 'admin@break-out.org');
+ses.isUser = ses.generalAuth('/login', 'eingeloggt', (status) => status.is.user);
+ses.isParticipant = ses.generalAuth('/selection', 'ein Teilnehmer', (status) => status.is.participant);
+ses.isSponsor = ses.generalAuth('/selection', 'ein Sponsor', (status) => status.is.sponsor);
+ses.hasTeam = ses.generalAuth('/team-invite', 'Teil eines Teams', (status) => status.is.team);
+ses.isAdmin = ses.generalAuth('/login', 'Administrator', (status) => status.is.admin);
 
 module.exports = ses;
