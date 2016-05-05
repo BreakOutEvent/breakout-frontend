@@ -37,7 +37,7 @@ passport.createSession = (username, user) => co(function*() {
 
   if (me.participant) {
     user.status.is.participant = true;
-    if (user.me.participant.teamId) {
+    if (me.participant.teamId) {
       user.status.is.team = true;
     }
   }
@@ -54,6 +54,7 @@ passport.createSession = (username, user) => co(function*() {
 
   return user;
 }).catch(ex => {
+  console.log(ex);
   throw ex;
 });
 
