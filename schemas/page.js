@@ -7,11 +7,11 @@ var pageSchema = new mongoose.Schema({
     language: { type: mongoose.Schema.Types.Lang, required: true },
     title: { type: String, required: true },
     url: { type: String, required: true },
-  },],
+  }, ],
   views: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'view',
-  },],
+  }, ],
 });
 
 pageSchema.pre('remove', function (next) {

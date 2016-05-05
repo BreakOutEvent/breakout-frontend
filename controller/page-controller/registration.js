@@ -24,7 +24,7 @@ const sendErr = (res, errMsg, err) => {
   if (err) logger.error(errMsg, err);
   else logger.error(errMsg);
 
-  res.status(500).send({error: errMsg});
+  res.status(500).send({ error: errMsg });
 };
 
 registration.createUser = (req, res) => co(function*() {
@@ -51,20 +51,20 @@ registration.createParticipant = (req, res, next) => co(function*() {
   let updateBody = {};
 
   let data = {};
-  if(req.body.firstname) data.firstname = req.body.firstname;
-  if(req.body.lastname) data.lastname = req.body.lastname;
-  if(req.body.gender) data.gender = req.body.gender;
+  if (req.body.firstname) data.firstname = req.body.firstname;
+  if (req.body.lastname) data.lastname = req.body.lastname;
+  if (req.body.gender) data.gender = req.body.gender;
 
-  if(Object.keys(data).length > 0) {
+  if (Object.keys(data).length > 0) {
     updateBody = data;
   }
 
   let participant = {};
-  if(req.body.emergencynumber) participant.emergencynumber = req.body.emergencynumber;
-  if(req.body.phonenumber) participant.phonenumber = req.body.phonenumber;
-  if(req.body.tshirtsize) participant.tshirtsize = req.body.tshirtsize;
+  if (req.body.emergencynumber) participant.emergencynumber = req.body.emergencynumber;
+  if (req.body.phonenumber) participant.phonenumber = req.body.phonenumber;
+  if (req.body.tshirtsize) participant.tshirtsize = req.body.tshirtsize;
 
-  if(Object.keys(participant).length > 0) {
+  if (Object.keys(participant).length > 0) {
     updateBody.participant = participant;
   }
 
@@ -76,7 +76,6 @@ registration.createParticipant = (req, res, next) => co(function*() {
 
   const user = yield api.getCurrentUser(req.user);
   const backendUser = yield api.putModel('user', user.id, req.user, updateBody);
-
 
   if (req.file) {
     yield api.uploadPicture(req.file, backendUser.profilePic[0]);
@@ -156,9 +155,9 @@ registration.joinTeamAPI = (req, res, next) => co(function*() {
   }
 
   const team = yield api.postModel(`/event/${req.body.event}/team/${req.body.team}/member/`,
-    req.user, {email: me.email});
+    req.user, { email: me.email });
 
-  if (!team) return res.status(500).send({error: 'Could not join team.'});
+  if (!team) return res.status(500).send({ error: 'Could not join team.' });
 
   yield session.refreshSession(req);
   let me2 = yield api.getCurrentUser(req.user);
@@ -207,7 +206,7 @@ registration.createSponsor = (req, res) => co(function*() {
   logger.info('Created Sponsor', req.body.firstname, ' ', req.body.lastname, 'for event',
     req.body.event);
 
-  if (!sponsor) return res.status(500).send({error: 'Sponsor creation failed!'});
+  if (!sponsor) return res.status(500).send({ error: 'Sponsor creation failed!' });
 
   res.send({
     nextURL: URLS.SPONSOR_SUCCESS
@@ -240,7 +239,7 @@ registration.createTeam = (req, res, next) => co(function*() {
   if (req.body.email) {
     logger.info('Trying to invite user', req.body.email, 'to team', team.id);
     const invite = yield api.inviteUser(req.user, req.body.event, team.id, req.body.email);
-    if (!invite) return res.status(500).send({error: 'Invite creation failed!'});
+    if (!invite) return res.status(500).send({ error: 'Invite creation failed!' });
     logger.info('Created Invitation for user', req.body.email, 'to team', team.id);
   }
 
@@ -261,16 +260,16 @@ registration.inviteUser = (req, res) => co(function*() {
   const me = yield api.getCurrentUser(req.user);
 
   if (!me.participant) {
-    return res.status(500).send({error: 'User is not a participant!'});
+    return res.status(500).send({ error: 'User is not a participant!' });
   }
 
   const invite =
     yield api.inviteUser(req.user, me.participant.eventId, me.participant.teamId, req.body.email);
 
   if (invite) {
-    res.send({error: ''});
+    res.send({ error: '' });
   } else {
-    return res.status(500).send({error: 'Invite creation failed!'});
+    return res.status(500).send({ error: 'Invite creation failed!' });
   }
 
 }).catch(ex => {

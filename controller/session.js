@@ -23,7 +23,6 @@ ses.generalAuth = (failURL, role, auth) => (req, res, next) => {
   }
 };
 
-
 ses.isUser = ses.generalAuth('/login', 'eingeloggt', (status) => status.is.user);
 ses.isParticipant = ses.generalAuth('/selection', 'ein Teilnehmer', (status) => status.is.participant);
 ses.isSponsor = ses.generalAuth('/selection', 'ein Sponsor', (status) => status.is.sponsor);

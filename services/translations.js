@@ -290,100 +290,100 @@ module.exports = {
       en: 'CREATE A NEW TEAM'
     }
   },
-  'PROFILE': {
-    'NAVIGATION_PROFILE': {
+  PROFILE: {
+    NAVIGATION_PROFILE: {
       de: 'Profil Einstellungen',
       en: ''
     },
-    'NAVIGATION_PARTICIPANT': {
+    NAVIGATION_PARTICIPANT: {
       de: 'Teilnehmer Einstellungen',
       en: ''
     },
-    'NAVIGATION_TEAM': {
+    NAVIGATION_TEAM: {
       de: 'Team Einstellungen',
       en: ''
     },
-    'NAVIGATION_SPONSOR': {
+    NAVIGATION_SPONSOR: {
       de: 'Sponsor Einstellungen',
       en: ''
     },
-    'LABEL_FIRSTNAME': {
+    LABEL_FIRSTNAME: {
       de: 'Vorname',
       en: ''
     },
-    'LABEL_NAME': {
+    LABEL_NAME: {
       de: 'Nachname',
       en: ''
     },
-    'LABEL_EMAIL': {
+    LABEL_EMAIL: {
       de: 'E-Mail',
       en: ''
     },
-    'LABEL_GENDER': {
+    LABEL_GENDER: {
       de: 'Geschlecht',
       en: ''
     },
-    'LABEL_SHIRT': {
+    LABEL_SHIRT: {
       de: 'T-Shirt Größe',
       en: ''
     },
-    'LABEL_CITY': {
+    LABEL_CITY: {
       de: 'Heimatstadt',
       en: ''
     },
-    'LABEL_PHONE': {
+    LABEL_PHONE: {
       de: 'Handynummer',
       en: ''
     },
-    'LABEL_PHONE_EMERGENCY': {
+    LABEL_PHONE_EMERGENCY: {
       de: 'Notfallnummer',
       en: ''
     },
-    'LABEL_TEAMNAME': {
+    LABEL_TEAMNAME: {
       de: 'Teamname',
       en: ''
     },
-    'LABEL_LOCATION': {
+    LABEL_LOCATION: {
       de: 'Startort',
       en: ''
     },
-    'LABEL_DESCRIPTION': {
+    LABEL_DESCRIPTION: {
       de: 'Beschreibung',
       en: ''
     },
-    'OPTION_GENDER_1': {
+    OPTION_GENDER_1: {
       de: 'Männlich',
       en: ''
     },
-    'OPTION_GENDER_2': {
+    OPTION_GENDER_2: {
       de: 'Weiblich',
       en: ''
     },
-    'OPTION_SHIRT_1': {
+    OPTION_SHIRT_1: {
       de: 'Größe S',
       en: ''
     },
-    'OPTION_SHIRT_2': {
+    OPTION_SHIRT_2: {
       de: 'Größe M',
       en: ''
     },
-    'OPTION_SHIRT_3': {
+    OPTION_SHIRT_3: {
       de: 'Größe L',
       en: ''
     },
-    'OPTION_SHIRT_4': {
+    OPTION_SHIRT_4: {
       de: 'Größe XL',
       en: ''
     },
-    'PAYMENT_INFO': {
+    PAYMENT_INFO: {
       de: 'Die Zahlung für deinen Eventbeitrag (30,00 €) sind noch nicht bei uns eingetroffen. Bitte ürberweiße den Betrag bis zum 31.05. um am Event teilzunehmen',
       en: ''
     },
-    'BUTTON_SAVE': {
+    BUTTON_SAVE: {
       de: 'Änderungen speichern',
       en: ''
     },
-    'BUTTON_PAY': {
+    BUTTON_PAY: {
       de: 'Event Beitrag bezahlen',
       en: ''
     }
@@ -431,19 +431,19 @@ module.exports = {
     MAIL: {
       de:'E-Mail'
     },
-    'CONTINUE': {
+    CONTINUE: {
       de: 'WEITER',
       en: 'CONTINUE'
     }
   },
-  'ACTIVATION': {
-    'HEADLINE': {
+  ACTIVATION: {
+    HEADLINE: {
       de: 'Aktivierung erfolgreich!'
     },
-    'DESCRIPTION': {
+    DESCRIPTION: {
       de: 'Deine E-Mail Adresse wurde erfolgreich bestätigt!'
     },
-    'CTA': {
+    CTA: {
       de: 'WEITER ZUM LOGIN'
     }
   },
