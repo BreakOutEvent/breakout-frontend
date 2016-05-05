@@ -274,7 +274,10 @@ registration.inviteUser = (req, res) => co(function*() {
   }
 
 }).catch(ex => {
-  throw ex;
+  logger.error(ex);
+  res.status(500).send({
+    error: ex.message
+  });
 });
 
 registration.getTransactionPurpose = (req) => co(function*() {

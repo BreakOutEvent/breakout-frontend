@@ -51,10 +51,10 @@ ses.generalAuth = (failURL, role, auth) => (req, res, next) => {
 };
 
 
-ses.isUser = session.generalAuth('/login', 'eingeloggt', (me) => !!me);
-ses.isParticipant = session.generalAuth('/selection', 'ein Teilnehmer', (me) => !!me.participant);
-ses.isSponsor = session.generalAuth('/selection', 'ein Sponsor', (me) => !!me.sponsor);
-ses.hasTeam = session.generalAuth('/team-invite', 'Teil eines Teams', (me) => !!me.participant.teamId);
-ses.isAdmin = session.generalAuth('/login', 'Administrator', (me) => me.email === 'admin@break-out.org');
+ses.isUser = ses.generalAuth('/login', 'eingeloggt', (me) => !!me);
+ses.isParticipant = ses.generalAuth('/selection', 'ein Teilnehmer', (me) => !!me.participant);
+ses.isSponsor = ses.generalAuth('/selection', 'ein Sponsor', (me) => !!me.sponsor);
+ses.hasTeam = ses.generalAuth('/team-invite', 'Teil eines Teams', (me) => !!me.participant.teamId);
+ses.isAdmin = ses.generalAuth('/login', 'Administrator', (me) => me.email === 'admin@break-out.org');
 
 module.exports = ses;

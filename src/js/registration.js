@@ -151,9 +151,9 @@ $(document).ready(() => {
               'Erfolgreich eingeladen!</div>');
             $('#email').val('');
           })
-          .error(function() {
+          .error(function(err) {
             $('#feedback').html('<div class="alert alert-danger">' +
-              'Einladen fehlgeschlagen! Bitte später noch einmal versuchen.</div>');
+              err.responseJSON.error + '</div>');
           })
           .always(() => {
             toggleLoading('#mainCTA');

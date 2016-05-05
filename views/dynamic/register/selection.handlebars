@@ -18,15 +18,15 @@
                 {{/unless}}
 
                 {{!-- Searches for DESCRIPTION_$USERSTATUS --}}
-                <p>{{{__ (concat 'DESCRIPTION_' status)}}}</p>
+                <p>{{{__ (concat 'DESCRIPTION_' status.string)}}}</p>
 
-                {{#ifCond status 'OBSERVER'}}
+                {{#if status.is.user}}
                     <p>{{__ 'DESCRIPTION_3'}}</p>
-                {{/ifCond}}
+                {{/if}}
             </div>
         </div>
 
-        {{#ifCond status 'OBSERVER'}}
+        {{#if status.is.user}}
             <div class="row">
                 <div class="col-xs-12">
                     <a href="/participant" class="no-underline">
@@ -42,7 +42,7 @@
                     <h5><a href="/spectator-success">{{__ 'OBSERVER'}}</a></h5>
                 </div>
             </div>
-        {{/ifCond}}
+        {{/if}}
         <!--
         <div class="row">
             <div class="col-xs-12">

@@ -1,3 +1,4 @@
+'use strict';
 const api = requireLocal('controller/api-proxy');
 const co = require('co');
 const session = requireLocal('controller/session');

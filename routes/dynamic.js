@@ -11,16 +11,23 @@ const registration = requireLocal('controller/page-controller/registration');
 const profile = requireLocal('controller/page-controller/profile');
 const session = requireLocal('controller/session');
 
-const renderTemplate = (folder) => (template) => (req, res) =>
-  res.render(`dynamic/${folder}/${template}`,
-    {
-      error: req.flash('error'),
-      success: req.flash('success'),
-      layout: 'funnel',
-      language: req.language,
-      emailConfirmed: !req.user.me.blocked,
-      status: req.user.status
-    });
+const renderTemplate = (folder) => (template) => (req, res) => {
+
+  let options = {
+    error: req.flash('error'),
+    success: req.flash('success'),
+    layout: 'funnel',
+    language: req.language
+  };
+
+  if(req.user && req.user.me) {
+    options.emailConfirmed = !req.user.me.blocked;
+    options.status = req.user.status;
+  }
+
+  res.render(`dynamic/${folder}/${template}`,options);
+};
+
 
 const funnelTemplate = renderTemplate('register');
 
