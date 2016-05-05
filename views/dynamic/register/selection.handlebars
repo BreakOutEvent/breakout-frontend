@@ -20,15 +20,16 @@
                 {{#if status.is.participant}}
                     <p>{{{__ 'DESCRIPTION_PARTICIPANT'}}}</p>
                 {{/if}}
-
                 {{#if status.is.user}}
-                    <p>{{{__ 'DESCRIPTION_OBSERVER'}}}</p>
-                    <p>{{__ 'DESCRIPTION_3'}}</p>
+                    {{#unless status.is.participant}}
+                        <p>{{{__ 'DESCRIPTION_OBSERVER'}}}</p>
+                        <p>{{__ 'DESCRIPTION_3'}}</p>
+                    {{/unless}}
                 {{/if}}
             </div>
         </div>
 
-        {{#if status.is.user}}
+        {{#unless status.is.participant}}
             <div class="row">
                 <div class="col-xs-12">
                     <a href="/participant" class="no-underline">
@@ -44,7 +45,7 @@
                     <h5><a href="/spectator-success">{{__ 'OBSERVER'}}</a></h5>
                 </div>
             </div>
-        {{/if}}
+        {{/unless}}
         <!--
         <div class="row">
             <div class="col-xs-12">
