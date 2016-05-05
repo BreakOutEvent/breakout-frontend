@@ -8,6 +8,7 @@ let ses = {};
 ses.refreshSession = (req) => co(function*() {
   req.login(yield passport.createSession(req.user.email, req.user), (error) => {
     if (error) throw error;
+
   });
 }).catch(ex => {
   throw ex;
