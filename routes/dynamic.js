@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const co = require('co');
 const multer = require('multer');
-const upload = multer({inMemory: true});
+const upload = multer({ inMemory: true });
 const passport = requireLocal('controller/auth');
 const _ = require('lodash');
 
@@ -20,14 +20,13 @@ const renderTemplate = (folder) => (template) => (req, res) => {
     language: req.language
   };
 
-  if(req.user && req.user.me) {
+  if (req.user && req.user.me) {
     options.emailConfirmed = !req.user.me.blocked;
     options.status = req.user.status;
   }
 
-  res.render(`dynamic/${folder}/${template}`,options);
+  res.render(`dynamic/${folder}/${template}`, options);
 };
-
 
 const funnelTemplate = renderTemplate('register');
 

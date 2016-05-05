@@ -6,7 +6,6 @@ const session = requireLocal('controller/session');
 const admin = requireLocal('controller/page-controller/admin');
 const co = require('co');
 
-
 const renderAdmin = (template) => (req, res) =>
   res.render(`static/admin/${template}`,
     {

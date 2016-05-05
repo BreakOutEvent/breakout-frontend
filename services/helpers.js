@@ -29,10 +29,10 @@ exports.__ = (text, options) => {
     }
   }
 
-  if(text.indexOf('.') > -1) {
+  if (text.indexOf('.') > -1) {
     viewArr = text.split('.');
     text = viewArr.pop();
-  } else if(!view) {
+  } else if (!view) {
     logger.error(`Could not parse view in ${options.data.exphbs}`);
   }
 

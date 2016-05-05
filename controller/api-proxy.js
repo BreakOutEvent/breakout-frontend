@@ -35,7 +35,7 @@ API.authenticate = (username, password) => {
           user: config.clientID,
           pass: config.clientSecret
         },
-        form: {username:username, password:password}
+        form: { username:username, password:password }
       }, handleResponse(resolve, reject, 'Authenticated user ' + username));
   });
 };
@@ -254,9 +254,9 @@ function handleResponse(resolve, reject, msg) {
       if (response.statusCode.toString().match(/^2\d\d$/)) {
         logger.info(msg);
         try {
-          if(body === '') body = '{}';
+          if (body === '') body = '{}';
           resolve(JSON.parse(body));
-        } catch(ex){
+        } catch (ex) {
           console.dir(body);
           logger.error(ex);
         }
@@ -264,7 +264,7 @@ function handleResponse(resolve, reject, msg) {
         logger.error(JSON.parse(body));
         try {
           reject(JSON.parse(body));
-        } catch(ex){
+        } catch (ex) {
           console.dir(body);
           logger.error(ex);
         }

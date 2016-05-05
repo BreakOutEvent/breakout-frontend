@@ -11,7 +11,6 @@ Object.keys(config).forEach((k, val) => {
   }
 });
 
-
 const admin = {};
 
 function currTS() {
@@ -20,7 +19,7 @@ function currTS() {
 
 admin.ensureAuthenticated = (req, res, next) => {
   if (!req.header('Authorization')) {
-    return res.status(401).send({message: 'Please make sure your request has an Authorization header'});
+    return res.status(401).send({ message: 'Please make sure your request has an Authorization header' });
   }
 
   var payload = null;
@@ -28,12 +27,13 @@ admin.ensureAuthenticated = (req, res, next) => {
     payload = jwt.decode(req.header('Authorization').split(' ')[1], config.secret);
   }
   catch (err) {
-    return res.status(401).send({message: err.message});
+    return res.status(401).send({ message: err.message });
   }
 
   if (payload.exp <= currTS()) {
-    return res.status(401).send({message: 'Token has expired'});
+    return res.status(401).send({ message: 'Token has expired' });
   }
+
   req.cmsUser = payload.sub;
   next();
 };

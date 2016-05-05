@@ -30,5 +30,4 @@ profile.putTeam = (req, res, next) => co(function*() {
   return res.sendStatus(500);
 });
 
-
 module.exports = profile;

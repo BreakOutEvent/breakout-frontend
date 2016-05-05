@@ -5,7 +5,6 @@
 const co = require('co');
 const api = requireLocal('controller/api-proxy');
 
-
 let admin = {};
 
 admin.addPayment = (req, res, next) => co(function*() {
@@ -14,13 +13,11 @@ admin.addPayment = (req, res, next) => co(function*() {
   next(ex);
 });
 
-
 admin.getInvoices = (req) => co(function*() {
   const events = yield api.getModel('event', req.user);
 
   let teams = yield events.map((e) => api.getModel(`event/${e.id}/team`, req.user));
   let allInvoices = yield teams.map((t) => api.getModel(`invoice/${t.invoiceId}`, req.user));
-
 
   /*
   //ADD CITY

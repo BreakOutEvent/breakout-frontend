@@ -9,10 +9,10 @@ const _ = require('lodash');
 passport.use(new Strategy((username, password, cb) => co(function*() {
   try {
     const user = yield passport.createSession(username, yield API.authenticate(username, password));
-    cb(null, user, {message: 'Successfully logged in'});
+    cb(null, user, { message: 'Successfully logged in' });
   } catch (ex) {
     let message = ex.message ? ex.message : ex.error_description;
-    cb(null, false, {message: message});
+    cb(null, false, { message: message });
   }
 }).catch(ex => {
   throw ex;
@@ -42,7 +42,7 @@ passport.createSession = (username, user) => co(function*() {
     }
   }
 
-  if(_.includes(me.roles, 'ADMIN')) {
+  if (_.includes(me.roles, 'ADMIN')) {
     user.status.is.admin = true;
   }
 
