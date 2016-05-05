@@ -33,7 +33,7 @@ ses.generalAuth = (failURL, role, auth) => (req, res, next) => {
     if (req.user.me.participant) {
       req.user.status.string = 'PARTICIPANT';
       req.user.status.is.participant = true;
-      if(req.user.me.participant.teamId) {
+      if (req.user.me.participant.teamId) {
         req.user.status.string = 'TEAMMEMBER';
         req.user.status.is.team = true;
       }
@@ -49,7 +49,6 @@ ses.generalAuth = (failURL, role, auth) => (req, res, next) => {
     res.redirect(failURL);
   }
 };
-
 
 ses.isUser = ses.generalAuth('/login', 'eingeloggt', (me) => !!me);
 ses.isParticipant = ses.generalAuth('/selection', 'ein Teilnehmer', (me) => !!me.participant);
