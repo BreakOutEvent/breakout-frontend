@@ -1,6 +1,4 @@
-/**
- * Created by Ardobras on 04.05.2016.
- */
+'use strict';
 exports.sanityCheck = function(id) {
 
   var inputs = $(`#${id}`).find(`:input`);

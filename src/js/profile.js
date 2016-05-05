@@ -1,28 +1,29 @@
-/**
- * Created by Ardobras on 04.05.2016.
- */
+'use strict';
+
 
 var sanityCheck = require('./helpers').sanityCheck;
 var toggleLoading = require('./helpers').toggleLoading;
 
 
 $(document).ready(() => {
-  $('#profilePic').change(function() {
+  $('#profilePic').change(function () {
     if (this.files && this.files[0]) {
       var reader = new FileReader();
-      reader.onload = function(e) {
-        $('#profile_form .bo-reg-uploadInputWrapper').css('background-image', 'url(' + e.target.result + ')');
+      reader.onload = function (e) {
+        $('#profile_form .bo-reg-uploadInputWrapper')
+          .css('background-image', 'url(' + e.target.result + ')');
         $('#profile_form .registration-picture-icon').hide();
       };
       reader.readAsDataURL(this.files[0]);
     }
   });
 
-  $('#teamPic').change(function() {
+  $('#teamPic').change(function () {
     if (this.files && this.files[0]) {
       var reader = new FileReader();
-      reader.onload = function(e) {
-        $('#team_form .bo-reg-uploadInputWrapper').css('background-image', 'url(' + e.target.result + ')');
+      reader.onload = function (e) {
+        $('#team_form .bo-reg-uploadInputWrapper')
+          .css('background-image', 'url(' + e.target.result + ')');
         $('#team_form .registration-picture-icon').hide();
       };
       reader.readAsDataURL(this.files[0]);
@@ -32,7 +33,7 @@ $(document).ready(() => {
 
   $('#profile_form').submit(function (e) {
     e.preventDefault();
-    if(sanityCheck('profile_form')) {
+    if (sanityCheck('profile_form')) {
       var data = new FormData($('#profile_form')[0]);
 
       if ($('#profilePic').length && $('#profilePic')[0].files &&
@@ -49,12 +50,14 @@ $(document).ready(() => {
           contentType: false,
           data: data
         })
-        .success(function() {
-          $('#result_profile').html('<div class="alert alert-success">Erfolgreich gespeichert!</div>');
+        .success(function () {
+          $('#result_profile')
+            .html('<div class="alert alert-success">Erfolgreich gespeichert!</div>');
         })
-        .error(function(err) {
+        .error(function (err) {
           console.log(err);
-          $('#result_profile').html('<div class="alert alert-error">Speichern fehlgeschlagen!</div>');
+          $('#result_profile')
+            .html('<div class="alert alert-error">Speichern fehlgeschlagen!</div>');
         })
         .always(() => {
           toggleLoading('#profile_CTA');
@@ -66,7 +69,7 @@ $(document).ready(() => {
 
   $('#participant_form').submit(function (e) {
     e.preventDefault();
-    if(sanityCheck('participant_form')) {
+    if (sanityCheck('participant_form')) {
       var data = new FormData($('#participant_form')[0]);
 
       toggleLoading('#participant_CTA');
@@ -78,12 +81,14 @@ $(document).ready(() => {
           contentType: false,
           data: data
         })
-        .success(function() {
-          $('#result_participant').html('<div class="alert alert-success">Erfolgreich gespeichert!</div>');
+        .success(function () {
+          $('#result_participant')
+            .html('<div class="alert alert-success">Erfolgreich gespeichert!</div>');
         })
-        .error(function(err) {
+        .error(function (err) {
           console.log(err);
-          $('#result_participant').html('<div class="alert alert-error">Speichern fehlgeschlagen!</div>');
+          $('#result_participant')
+            .html('<div class="alert alert-error">Speichern fehlgeschlagen!</div>');
         })
         .always(() => {
           toggleLoading('#participant_CTA');
@@ -94,7 +99,7 @@ $(document).ready(() => {
 
   $('#team_form').submit(function (e) {
     e.preventDefault();
-    if(sanityCheck('team_form')) {
+    if (sanityCheck('team_form')) {
       var data = new FormData($('#team_form')[0]);
 
       if ($('#teamPic').length && $('#teamPic')[0].files &&
@@ -111,10 +116,10 @@ $(document).ready(() => {
           contentType: false,
           data: data
         })
-        .success(function() {
+        .success(function () {
           $('#result_team').html('<div class="alert alert-success">Erfolgreich gespeichert!</div>');
         })
-        .error(function(err) {
+        .error(function (err) {
           console.log(err);
           $('#result_team').html('<div class="alert alert-error">Speichern fehlgeschlagen!</div>');
         })
@@ -123,6 +128,6 @@ $(document).ready(() => {
         });
     }
 
-  })
+  });
 
 });
