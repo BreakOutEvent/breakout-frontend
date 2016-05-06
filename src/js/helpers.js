@@ -31,14 +31,26 @@ exports.sanityCheck = function(id) {
   return !$('.bo-reg-form-error').length;
 };
 
-exports.toggleLoading = function(button) {
+exports.toggleLoading = function(button, small) {
 
-  if ($(button).has('.spinner').length) {
-    $(button).children('.spinner').remove();
-    $(button).html($(button).children('span.hidden').html());
+  if(!small) {
+    if ($(button).has('.spinner').length) {
+      $(button).children('.spinner').remove();
+      $(button).html($(button).children('span.hidden').html());
+    } else {
+      $(button).html('<span class="hidden">' + $(button).html() + '</span>');
+      $(button).append('<div class="spinner"><div class="bounce1"></div>' +
+        '<div class="bounce2"></div> <div class="bounce3"></div> </div>');
+    }
   } else {
-    $(button).html('<span class="hidden">' + $(button).html() + '</span>');
-    $(button).append('<div class="spinner"><div class="bounce1"></div>' +
-      '<div class="bounce2"></div> <div class="bounce3"></div> </div>');
+    if ($(button).has('.spinner').length) {
+      $(button).children('.spinner').remove();
+      $(button).html($(button).children('span.hidden').html());
+    } else {
+      $(button).html('<span class="hidden">' + $(button).html() + '</span>');
+      $(button).append('<div class="spinner spinner-small"><div class="bounce1"></div>' +
+        '<div class="bounce2"></div> <div class="bounce3"></div> </div>');
+    }
   }
+
 };

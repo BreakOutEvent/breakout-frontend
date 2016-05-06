@@ -6,23 +6,33 @@ const session = requireLocal('controller/session');
 const admin = requireLocal('controller/page-controller/admin');
 const co = require('co');
 
-const renderAdmin = (template) => (req, res) =>
-  res.render(`static/admin/${template}`,
-    {
-      error: req.flash('error'),
-      success: req.flash('success'),
-      layout: 'funnel',
-      language: req.language
-    });
+const resDefault = (req) => {
+  return {
+    error: req.flash('error'),
+    success: req.flash('success'),
+    layout: 'master',
+    language: req.language
+  }
+};
 
-router.get('/payment', session.isAdmin, renderAdmin('payments'));
-router.get('/', session.isAdmin, (req, res, next) => co(function*() {
-  return res.send(yield admin.getInvoices(req));
+//VIEWS
+router.get('/', session.isAdmin, (req, res) => {
+  let options = resDefault(req);
+  options.view = 'admin-dashboard';
+  options.data = {};
+  res.render(`static/admin/dashboard`,options);
+});
+router.get('/payment', session.isAdmin, (req, res, next) => co(function*() {
+  let options = resDefault(req);
+  options.view = 'admin-payment';
+  options.data = yield admin.getInvoices(req);
+  res.render(`static/admin/dashboard`,options);
 }).catch((ex) => {
   console.log(ex);
   next(ex);
 }));
 
-router.post('/payment/confirm', session.isAdmin, admin.addPayment);
+
+router.post('/payment/add', session.isAdmin, admin.addPayment);
 
 module.exports = router;

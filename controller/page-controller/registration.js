@@ -279,14 +279,19 @@ registration.inviteUser = (req, res) => co(function*() {
   });
 });
 
-registration.getTransactionPurpose = (req) => co(function*() {
-  const me = yield api.getCurrentUser(req.user);
-
-  return `${me.participant.teamId}-BO16-${me.firstname}-${me.lastname}`
+registration.getTransactionPurposeByUser = (user) => co(function*() {
+  return `${user.participant.teamId}-BO16-${user.firstname}-${user.lastname}`
     .replace('ä', 'ae').replace('ü', 'ue').replace('ö', 'oe')
     .replace('Ä', 'Ae').replace('Ü', 'Ue').replace('Ö', 'Oe')
     .replace('ß', 'ss').replace(/[^A-Za-z0-9-]/, '')
     .substring(0, 140);
+}).catch((ex) => {
+  throw ex;
+});
+
+registration.getTransactionPurpose = (req) => co(function*() {
+  const me = yield api.getCurrentUser(req.user);
+  return yield registration.getTransactionPurposeByUser(me);
 }).catch(ex => {
   throw ex;
 });

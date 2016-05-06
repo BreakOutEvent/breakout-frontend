@@ -6,12 +6,9 @@
 .btn-primary,
 .btn-default {
   &.active,
-  &:active,
   &.hover,
-  &:hover,
-  &.focus,
   &:focus {
-    outline: none;
+    outline: 0;
   }
 }
 
@@ -29,6 +26,15 @@
   display: inline-block;
   -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
   animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+}
+
+.spinner-small {
+  width: 57px;
+  margin: auto 0;
+  & > div {
+    width: 10px;
+    height: 10px;
+  }
 }
 
 .spinner .bounce1 {
