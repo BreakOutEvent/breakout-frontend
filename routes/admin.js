@@ -22,6 +22,14 @@ router.get('/', session.isAdmin, (req, res) => {
   options.data = {};
   res.render(`static/admin/dashboard`,options);
 });
+
+router.get('/emails', session.isAdmin, (req, res) => {
+  let options = resDefault(req);
+  options.view = 'admin-emails';
+  options.data = {};
+  res.render(`static/admin/dashboard`,options);
+});
+
 router.get('/payment', session.isAdmin, (req, res, next) => co(function*() {
   let options = resDefault(req);
   options.view = 'admin-payment';
