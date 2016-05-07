@@ -1,19 +1,24 @@
+'use strict';
+
 /**
  * Router for /
  */
-'use strict';
 
 const express = require('express');
 const co = require('co');
+const execa = require('execa');
+const a2h = require('ansi2html-extended');
+
 const teamController = requireLocal('controller/page-controller/team');
 const staticController = requireLocal('controller/page-controller/static');
 const renderer = requireLocal('services/renderer');
-const execa = require('execa');
-const a2h = require('ansi2html-extended');
 const session = requireLocal('controller/session');
 
 const router = express.Router();
 
+/**
+ * Endpoint for live log output.
+ */
 router.get('/logs/:log(error|info)', session.isAdmin, (req, res, next) => co(function*() {
   var cmd = 'npm run bunyan -s logs/' + req.params.log + '.log';
 

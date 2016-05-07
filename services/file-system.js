@@ -1,7 +1,7 @@
 'use strict';
+
 /**
  * Handles reading, writing and renaming of all local files.
- * @type {exports|module.exports}
  */
 
 const fs = require('co-fs-extra');

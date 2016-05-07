@@ -1,15 +1,21 @@
 'use strict';
-const express = require('express');
-const router = express.Router();
-const co = require('co');
-const multer = require('multer');
-const upload = multer({ inMemory: true });
-const passport = requireLocal('controller/auth');
-const _ = require('lodash');
 
+/**
+ * Routes for all dynamic user pages.
+ */
+
+const express = require('express');
+const co = require('co');
+const _ = require('lodash');
+const multer = require('multer');
+
+const passport = requireLocal('services/auth');
 const registration = requireLocal('controller/page-controller/registration');
 const profile = requireLocal('controller/page-controller/profile');
 const session = requireLocal('controller/session');
+
+const upload = multer({ inMemory: true });
+const router = express.Router();
 
 const renderTemplate = (folder) => (template) => (req, res) => {
 

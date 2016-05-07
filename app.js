@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * Main application file, starts the webserver and everything.
+ * @type {string}
+ */
+
 const DEFAULT_SECRET = 'keyboard cat';
 const config = {
   cluster: process.env.FRONTEND_CLUSTER === 'true',
@@ -12,17 +17,20 @@ const throng = config.cluster ? require('throng') : cb => cb(0);
 throng(id => {
   const path = require('path');
   const fs = require('fs');
+  const bunyan = require('bunyan');
+  const morgan = require('morgan');
+  const express = require('express');
+  const exphbs = require('express-handlebars');
+  const bodyparser = require('body-parser');
+  const co = require('co');
 
   global.ROOT = path.resolve(__dirname);
 
+  // Requires a file by providing its absolute path from the project directory
   global.requireLocal = module => require(__dirname + '/' + module);
 
-  const express = require('express');
   const app = express();
 
-  app.use(express.static(path.join(__dirname, 'public')));
-
-  const bunyan = require('bunyan');
   global.logger = bunyan.createLogger(
     {
       name: 'breakout-frontend',
@@ -41,18 +49,16 @@ throng(id => {
     }
   );
 
-  const morgan = require('morgan');
+  // Register the static path here, to avoid getting them logged
+  app.use(express.static(path.join(__dirname, 'public')));
+
   app.use(morgan('combined',
     { stream: fs.createWriteStream(ROOT + '/logs/access.log', { flags: 'a' }) }
   ));
-
-  const exphbs = require('express-handlebars');
-  const bodyparser = require('body-parser');
-  const co = require('co');
-
+  
   const mongoose = requireLocal('controller/mongo.js');
-  const passport = requireLocal('controller/auth.js');
-  const API = requireLocal('controller/api-proxy');
+  const passport = requireLocal('services/auth.js');
+  const API = requireLocal('services/api-proxy');
 
   // Handlebars setup
   const hbs = exphbs.create({

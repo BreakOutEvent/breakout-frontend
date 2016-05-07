@@ -1,6 +1,11 @@
 'use strict';
 
+/**
+ * Controller for the CMS-Login.
+ */
+
 var jwt = require('jwt-simple');
+
 const config = {
   secret: process.env.FRONTEND_JWT_SECRET
 };
@@ -17,9 +22,17 @@ function currTS() {
   return Math.floor(Date.now() / 1000);
 }
 
+/**
+ * Middleware to ensure the user is authenticated.
+ * @param req
+ * @param res
+ * @param next
+ * @returns {*}
+ */
 admin.ensureAuthenticated = (req, res, next) => {
   if (!req.header('Authorization')) {
-    return res.status(401).send({ message: 'Please make sure your request has an Authorization header' });
+    return res.status(401)
+      .send({ message: 'Please make sure your request has an Authorization header' });
   }
 
   var payload = null;
@@ -38,6 +51,11 @@ admin.ensureAuthenticated = (req, res, next) => {
   next();
 };
 
+/**
+ * Creates the JWT token for the given email.
+ * @param email
+ * @returns {String}
+ */
 admin.createJWT = (email) => {
   var payload = {
     sub: email,
