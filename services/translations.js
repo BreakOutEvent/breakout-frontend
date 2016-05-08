@@ -456,13 +456,16 @@ module.exports = {
     }
   },
   FOOTER: {
-    SPONSOR: {
+    H_SPONSOR: {
       de: 'Sponsor von BreakOut'
     },
-    SUPPORT: {
+    SPONSOR: {
+      de: 'Think Big ist ein Jugendprogramm der Telefónica Stiftung und der Deutschen Kinder- und Jugendstiftung (DKJS) gemeinsam mit O2.'
+    },
+    H_SUPPORT: {
       de: 'Unterstützt von'
     },
-    FRIENDS: {
+    H_FRIENDS: {
       de: 'Unsere Freunde'
     }
   }

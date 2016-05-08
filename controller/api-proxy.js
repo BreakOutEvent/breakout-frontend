@@ -99,7 +99,7 @@ API.getModel = (modelName, token, id) => {
   return new Promise((resolve, reject)=> {
     request
         .get({
-          url: `${url}/${modelName}/${(id || '')}`,
+          url: `${url}/${modelName}/${(id + '/' || '')}`,
           auth: { bearer: token.access_token }
         }, handleResponse(resolve, reject, 'Got ' + modelName + ' with id ' + (id || 'noID') + ' from backend'));
   }
@@ -176,11 +176,19 @@ API.uploadPicture = function (file, mediaObj) {
   return new Promise(function (resolve, reject) {
     request
       .post({
-        url: `http://${mediaURL}`,
+        url: `https://${config.mediaURL}`,
         headers: { 'X-UPLOAD-TOKEN': mediaObj.uploadToken },
         formData: {
           id: mediaObj.id,
-          file: file
+          file: {
+            value: file.buffer,
+            options: {
+              filename: file.originalname,
+              encoding: file.encoding,
+              'Content-Type': file.mimetype,
+              knownLength: file.size
+            }
+          }
         }
       }, handleResponse(resolve, reject, 'Successfully uploaded file with id ' + mediaObj.id + ' to backend'));
   });
@@ -252,16 +260,17 @@ function handleResponse(resolve, reject, msg) {
       throw error;
     } else {
       if (response.statusCode.toString().match(/^2\d\d$/)) {
-        logger.info(msg);
+        if(!process.env.NODE_ENV === 'production') logger.info(msg);
         try {
           if (body === '') body = '{}';
           resolve(JSON.parse(body));
         } catch (ex) {
+          resolve(body);
           console.dir(body);
-          logger.error(ex);
+          logger.warn('Could not parse JSON', ex);
         }
       } else {
-        logger.error(JSON.parse(body));
+        if(!process.env.NODE_ENV === 'production') logger.error(body);
         try {
           reject(JSON.parse(body));
         } catch (ex) {
