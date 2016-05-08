@@ -137,6 +137,12 @@
                            id="teamPic"/>
                     <i class="material-icons registration-picture-icon">camera_alt</i>
                 </div>
+                <div class="form-group has-feedback has-feedback-left" >
+                    <label for="teamId">{{__ 'LABEL_TEAMID'}}</label>
+                    <input type="text" class="form-control" id="teamId" name="teamId"
+                           value="{{team.id}}" required="required"  disabled="disabled">
+                    <i class="form-control-feedback material-icons">people</i>
+                </div>
                 <div class="form-group has-feedback has-feedback-left">
                     <label for="teamName">{{__ 'LABEL_TEAMNAME'}}</label>
                     <input type="text" class="form-control" id="teamName" name="teamName"
