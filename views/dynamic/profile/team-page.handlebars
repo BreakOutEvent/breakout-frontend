@@ -2,24 +2,29 @@
  js file is in controller/page-controller/team-page.js
  used less file is _team-page-profile.less -->
 <div class="bo-header-info bo-team-header">
-
+    <div class="col-sm-offset-3">
+        <h3>Team {{team.teamName}} ({{team.eventCity}})</h3>
+        <h4>{{team.name1}} & {{team.name2}} | {{team.km}}km | {{team.money}}€ </h4>
+    </div>
 </div>
 
 <div class="bo-team-container">
 
     <div class="bo-team-content-side">
         <div class="bo-member-photo-wrap bo-team-picture">
-            <img src="#" class="bo-member-photo pull-left"/>
+            <img src="{{me.profilePic.sizes.0.url}}" class="bo-member-photo pull-left"/>
         </div>
-        <p>{{me.firstname}} {{me.lastname}}</p>
-        <p>Team {{me.participant.teamName}} ({{me.participant.eventCity}})</p>
+
         <div>
             <h3>About</h3>
-            <p>{{me.participant.teamDescription}}</p>
+            <p>{{team.description}}</p>
             <h3>Challenges</h3>
-            <div>{{me.participant.challenges}}</div>
+            <div>{{team.challenges}}</div>
             <h3>Sponsoren</h3>
-            <div>{{me.participant.sponsoring}}</div>
+            <div>{{#each sponsors}}
+                {{this.picture}} {{this.name}}
+            {{/each}}
+            </div>
         </div>
     </div>
 
@@ -27,15 +32,14 @@
         <!-- TODO: Karte einfügen für Team-->
 
 
-        <div class="bo-team-content-main">
-            <div class="bo-team-posts">
-                <div class="allposts">
-                    {{#each posts}}
-                        {{> post-teampage this }}
-                    {{/each}}
-                </div>
-
+        <div class="bo-team-post">
+            <div class="allposts">
+                {{#each posts}}
+                    {{> post-teampage this }}
+                {{/each}}
             </div>
+
+
         </div>
     </div>
 </div>
