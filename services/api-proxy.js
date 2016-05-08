@@ -101,10 +101,12 @@ API.getCurrentUser = token => {
 
 API.getModel = (modelName, token, id) => {
   logger.info('Trying to get', modelName, 'with id', (id || 'noID'), 'from backend');
+  let sendID = '';
+  if(id) sendID = id + '/';
   return new Promise((resolve, reject)=> {
     request
         .get({
-          url: `${url}/${modelName}/${(id + '/' || '')}`,
+          url: `${url}/${modelName}/${sendID}`,
           auth: { bearer: token.access_token }
         }, handleResponse(resolve, reject, 'Got ' + modelName + ' with id ' + (id || 'noID') + ' from backend'));
   }

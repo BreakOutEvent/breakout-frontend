@@ -173,7 +173,7 @@ throng(id => co(function*() {
 
   // Displays any errors
   app.use((err, req, res, next) => {
-    logger.error(err);
+   logger.error(err);
 
     res.status(err.status || 500);
 
