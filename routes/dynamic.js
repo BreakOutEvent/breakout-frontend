@@ -53,10 +53,10 @@ router.get('/profile', session.isUser, (req, res, next) => co(function*() {
 
   let team = null;
 
-  if(req.user.status.is.team) {
+  if (req.user.status.is.team) {
     team = yield profile.getTeam(req);
   }
-  
+
   res.render(`dynamic/profile/profile`,
     {
       error: req.flash('error'),
@@ -76,7 +76,24 @@ router.get('/team', session.isUser, (req, res, next) =>
       layout: 'master',
       language: req.language,
       me: req.user.me,
-      title: 'TeamPage'
+      title: 'TeamPage',
+      posts: [
+        {
+          headline: 'Head 1',
+          url: 'https://placehold.it/500x80',
+          content: 'Erster Content, keine Ahnung was hier noch so reinkommt'
+        },
+        {
+          headline: 'Head 2',
+          url: 'https://placehold.it/500x80',
+          content: 'Zweiter Content, keine Ahnung was hier noch so reinkommt'
+        },
+        {
+          headline: 'Head 1',
+          url: 'https://placehold.it/500x80',
+          content: 'Dritter Content, keine Ahnung was hier noch so reinkommt'
+        }
+      ]
     })
 );
 
@@ -192,9 +209,11 @@ router.get('/activation/:token', (req, res, next) => co(function*() {
 
 //POST
 
-router.post('/participant', session.isUser, upload.single('profilePic'), registration.createParticipant);
+router.post('/participant', session.isUser, upload.single('profilePic'),
+  registration.createParticipant);
 router.post('/register', registration.createUser);
-router.post('/team-create', session.isParticipant, upload.single('profilePic'), registration.createTeam);
+router.post('/team-create', session.isParticipant, upload.single('profilePic'),
+  registration.createTeam);
 router.post('/invite', session.hasTeam, registration.inviteUser);
 router.post('/team-invite', session.isParticipant, registration.joinTeamAPI);
 
