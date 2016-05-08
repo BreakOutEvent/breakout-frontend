@@ -1,11 +1,21 @@
 'use strict';
 
+/**
+ * Controller for login and authentication.
+ */
+
 const passport = require('passport');
-const Strategy = require('passport-local').Strategy;
-const API = requireLocal('controller/api-proxy.js');
 const co = require('co');
 const _ = require('lodash');
 
+const Strategy = require('passport-local').Strategy;
+
+const API = requireLocal('services/api-proxy.js');
+
+
+/**
+ * Registers our strategy as login strategy in passport.
+ */
 passport.use(new Strategy((username, password, cb) => co(function*() {
   try {
     const user = yield passport.createSession(username, yield API.authenticate(username, password));
@@ -22,6 +32,11 @@ passport.serializeUser((user, cb) => cb(null, user));
 
 passport.deserializeUser((user, cb) => cb(null, user));
 
+/**
+ * Logins the user and fills req.user with all important information.
+ * @param username
+ * @param user
+ */
 passport.createSession = (username, user) => co(function*() {
   const me = yield API.getCurrentUserco(user);
 

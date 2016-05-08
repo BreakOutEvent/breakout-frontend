@@ -75,5 +75,8 @@
     "validateLineBreaks": false,
     "requireTrailingComma": false,
     "requireSpacesInAnonymousFunctionExpression": false
-  }
+  },
+  "excludeFiles": [
+    "./services/translations.js"
+  ]
 }

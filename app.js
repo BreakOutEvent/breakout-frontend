@@ -1,5 +1,11 @@
 'use strict';
 
+/**
+ * Main application file, starts the webserver and everything.
+ */
+
+const co = require('co');
+
 const DEFAULT_SECRET = 'keyboard cat';
 const config = {
   cluster: process.env.FRONTEND_CLUSTER === 'true',
@@ -9,20 +15,24 @@ const config = {
 // Should start the server clustered (# of cores by default) if FRONTEND_CLUSTER is defined
 const throng = config.cluster ? require('throng') : cb => cb(0);
 
-throng(id => {
+throng(id => co(function*() {
   const path = require('path');
   const fs = require('fs');
+  const cfs = require('co-fs-extra');
+  const bunyan = require('bunyan');
+  const morgan = require('morgan');
+  const express = require('express');
+  const exphbs = require('express-handlebars');
+  const bodyparser = require('body-parser');
+  const _ = require('lodash');
 
   global.ROOT = path.resolve(__dirname);
 
+  // Requires a file by providing its absolute path from the project directory
   global.requireLocal = module => require(__dirname + '/' + module);
 
-  const express = require('express');
   const app = express();
 
-  app.use(express.static(path.join(__dirname, 'public')));
-
-  const bunyan = require('bunyan');
   global.logger = bunyan.createLogger(
     {
       name: 'breakout-frontend',
@@ -41,23 +51,37 @@ throng(id => {
     }
   );
 
-  const morgan = require('morgan');
+  // Register the static path here, to avoid getting them logged
+  app.use(express.static(path.join(__dirname, 'public')));
+
   app.use(morgan('combined',
     { stream: fs.createWriteStream(ROOT + '/logs/access.log', { flags: 'a' }) }
   ));
 
-  const exphbs = require('express-handlebars');
-  const bodyparser = require('body-parser');
-  const co = require('co');
-
   const mongoose = requireLocal('controller/mongo.js');
-  const passport = requireLocal('controller/auth.js');
-  const API = requireLocal('controller/api-proxy');
+  const passport = requireLocal('services/auth.js');
+  const API = requireLocal('services/api-proxy');
+
+  // All dirs containing templates
+  const partialsDirs = [
+    'views/partials',
+    'views/templates'
+  ];
+
+  // Read all files from the template directories and flatten them into one array
+  const readDirs =
+    _.flatten(yield _.reduce(partialsDirs, (init, c) => _.concat(init, cfs.readdir(c)), []));
+
+  // If there are any duplicates in the list, they are different in length
+  const uniqueFiles = _.uniq(_.filter(readDirs, v => _.filter(readDirs, v1 => v1 === v).length > 1));
+  if (uniqueFiles.length) {
+    throw new Error('There are duplicate templates: ' + _.join(uniqueFiles));
+  }
 
   // Handlebars setup
   const hbs = exphbs.create({
       helpers: requireLocal('services/helpers'),
-      partialsDir: path.join('views/partials')
+      partialsDir: partialsDirs
     }
   );
 
@@ -116,7 +140,7 @@ throng(id => {
   }));
 
   // Sets routes
-  if(process.env.FRONTEND_MAINTENANCE) {
+  if (process.env.FRONTEND_MAINTENANCE) {
     app.use((req, res, next) => {
       res.render(`dynamic/register/maintenance`,
         {
@@ -166,5 +190,7 @@ throng(id => {
       });
     }
   });
-})
-;
+}).catch(ex => {
+  console.error(ex.stack);
+  throw ex;
+}));

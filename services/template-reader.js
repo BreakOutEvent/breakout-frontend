@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * Parses templates and the configuration embedded into them.
+ */
+
 //3rd Party Dependencies
 const fs = require('fs');
 const path = require('path');

@@ -2,8 +2,20 @@
 
 let i18n = requireLocal('services/i18n');
 
+/**
+ * Concatenates first and second.
+ * @param first
+ * @param second
+ */
 exports.concat = (first, second) => first + second;
 
+/**
+ * Returns true if v1 == v2.
+ * @param v1
+ * @param v2
+ * @param options
+ * @returns {*}
+ */
 exports.ifCond = function (v1, v2, options) {
   if (v1 === v2) {
     return options.fn(this);
@@ -12,6 +24,12 @@ exports.ifCond = function (v1, v2, options) {
   return options.inverse(this);
 };
 
+/**
+ * Tries to find the matching translation for the language the browser sent us.
+ * @param text
+ * @param options
+ * @private
+ */
 exports.__ = (text, options) => {
 
   if (!options.data.root.language) {

@@ -1,19 +1,34 @@
 'use strict';
-const api = requireLocal('controller/api-proxy');
-const passport = requireLocal('controller/auth');
+
+/**
+ * Refreshes the session if expired and provides user roles.
+ */
+
 const co = require('co');
+
+const api = requireLocal('services/api-proxy');
+const passport = requireLocal('services/auth');
 
 let ses = {};
 
+/**
+ * Refreshes the session if it is expired.
+ * @param req
+ */
 ses.refreshSession = (req) => co(function*() {
   req.login(yield passport.createSession(req.user.email, req.user), (error) => {
     if (error) throw error;
-
   });
 }).catch(ex => {
   throw ex;
 });
 
+/**
+ * Middleware to ensure the user is properly authenticated, tells the user what went wrong.
+ * @param failURL
+ * @param role
+ * @param auth
+ */
 ses.generalAuth = (failURL, role, auth) => (req, res, next) => {
   if (req.isAuthenticated() && auth(req.user.status)) {
     return next();

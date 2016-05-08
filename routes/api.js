@@ -1,17 +1,23 @@
-﻿'use strict';
-const mongoose = requireLocal('controller/mongo.js');
+'use strict';
+
+/**
+ * Routes for the CMS API.
+ */
+
 const fs = require('co-fs-extra');
 const co = require('co');
 const path = require('path');
+const multer = require('multer');
+const _ = require('lodash');
+const express = require('express');
+
+const mongoose = requireLocal('controller/mongo.js');
 const renderer = requireLocal('services/renderer');
 const fileSystem = requireLocal('services/file-system');
-const multer = require('multer');
 const adminAuth = requireLocal('controller/admin-auth');
-const api = requireLocal('controller/api-proxy');
-const _ = require('lodash');
-
-const express = require('express');
+const api = requireLocal('services/api-proxy');
 const reader = requireLocal('services/template-reader.js');
+
 const router = express.Router();
 
 const models = {

@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * Controller for the BreakOut-Member-Page.
+ */
+
 const Promise = require('bluebird');
 const GoogleSpreadsheet = require('google-spreadsheet');
 const co = require('co');
@@ -12,6 +16,11 @@ const config = {
   private_key: process.env.FRONTEND_GDRIVE_PRIVATE_KEY
 };
 
+/**
+ * GET route for the BreakOut-Member-Page.
+ * @param language
+ * @param res
+ */
 module.exports.teamPage = (language, res) => co(function* () {
   const cachePath = ROOT + '/rendered/cache/teams.json.cache';
 

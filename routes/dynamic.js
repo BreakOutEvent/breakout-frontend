@@ -1,14 +1,20 @@
 'use strict';
+
+/**
+ * Routes for all dynamic user pages.
+ */
+
 const express = require('express');
-const router = express.Router();
 const co = require('co');
 const multer = require('multer');
-const upload = multer({ inMemory: true });
-const passport = requireLocal('controller/auth');
 
+const passport = requireLocal('services/auth');
 const registration = requireLocal('controller/page-controller/registration');
 const profile = requireLocal('controller/page-controller/profile');
 const session = requireLocal('controller/session');
+
+const upload = multer({ inMemory: true });
+const router = express.Router();
 
 const renderTemplate = (folder) => (template) => (req, res) => {
 
@@ -50,9 +56,7 @@ router.get('/profile', session.isUser, (req, res, next) => co(function*() {
   if(req.user.status.is.team) {
     team = yield profile.getTeam(req);
   }
-
-  console.dir(team);
-
+  
   res.render(`dynamic/profile/profile`,
     {
       error: req.flash('error'),

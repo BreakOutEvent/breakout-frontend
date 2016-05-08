@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * Backend-API service.
+ * @type {*|co}
+ */
+
 const co = require('co');
 const request = require('request');
 const crequest = require('co-request');
@@ -35,7 +40,7 @@ API.authenticate = (username, password) => {
           user: config.clientID,
           pass: config.clientSecret
         },
-        form: { username:username, password:password }
+        form: { username: username, password: password }
       }, handleResponse(resolve, reject, 'Authenticated user ' + username));
   });
 };

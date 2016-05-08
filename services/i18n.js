@@ -1,10 +1,13 @@
-/**
- * Created by Ardobras on 20.04.2016.
- */
 'use strict';
 
-const FALLBACK = 'de';
+/**
+ * Service for translating given keys.
+ * @type {string}
+ */
+
 const langData = requireLocal('services/translations');
+
+const FALLBACK = 'de';
 
 let i18n = {};
 

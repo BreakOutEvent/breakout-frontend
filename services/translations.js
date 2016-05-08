@@ -7,7 +7,7 @@ module.exports = {
   SELECTION: {
     HEADLINE: {
       de: 'Erfolgreich Registriert',
-      en: 'Registered Sucessfully'
+      en: 'Registration successful'
     },
     DESCRIPTION_1: {
       de: 'Du hast den ersten Schritt geschafft! Wir haben Dir eine E-Mail mit einem Link geschickt, mit dem Du Deine E-Mail Adresse bestätigen kannst. Dieser Schritt ist notwendig, damit wir überprüfen können, ob Du wirklich der Inhaber der E-Mail Adresse bist.',
@@ -22,7 +22,7 @@ module.exports = {
     },
     DESCRIPTION_3: {
       de: 'Das ist Dir noch nicht genug? Wir bieten auf unserer Plattform auch noch weitere Accounts an:',
-      en: 'Thats not enough? On our platform we also offer other accounts:'
+      en: 'That\'s not enough? On our platform we also offer other accounts:'
     },
     PARTICIPANT_H: {
       de: 'Jetzt Teilnehmer werden',
@@ -114,10 +114,11 @@ module.exports = {
     },
     ACCEPT: {
       de: 'Hiermit akzeptiere ich',
-      en: 'I Hereby Accept '
+      en: 'I hereby accept '
     },
     TERMS: {
-      de: 'die Teilnahmebedingungen'
+      de: 'die Teilnahmebedingungen',
+      en: 'the terms and conditions'
     },
     CODE: {
       de: 'den Code of Honor',
@@ -134,10 +135,10 @@ module.exports = {
   },
   LOGIN: {
     HEADLINE: {
-      de: 'Login'
+      de: 'Login',
     },
     LABEL_EMAIL: {
-      de: 'E-Mail Adresse'
+      de: 'E-Mail Adresse',
     },
     PLACEHOLDER_EMAIL: {
       de: 'abenteuer@break-out.org'
@@ -189,16 +190,20 @@ module.exports = {
       en: 'SIGN UP'
     },
     INVITE_TEXT_1: {
-      de: 'Du wurdest von '
+      de: 'Du wurdest von ',
+      en: ''
     },
     INVITE_TEXT_2: {
-      de: ' eingeladen mit ihm/ihr an BreakOut teilzunehmen. Melde Dich jetzt und Ihr seid zusammen im Team '
+      de: ' eingeladen mit ihm/ihr an BreakOut teilzunehmen. Melde Dich jetzt und Ihr seid zusammen im Team ',
+      en: ' invited you to be part of BreakOut. Register now and you are both on the same team '
     },
     INVITE_TEXT_3: {
-      de: '.'
+      de: '.',
+      en: '.'
     },
     NOTICE: {
-      de: 'Erstelle hier Deinen Account um an BreakOut teilzunehmen.'
+      de: 'Erstelle hier Deinen Account um an BreakOut teilzunehmen.',
+      en: 'Please create an account to participate at the BreakOut event'
     }
   },
   'TEAM-SUCCESS': {

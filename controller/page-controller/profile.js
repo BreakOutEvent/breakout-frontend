@@ -1,7 +1,13 @@
 'use strict';
-const api = requireLocal('controller/api-proxy');
+
+/**
+ * Controller for the profile page.
+ */
+
 const co = require('co');
+
 const session = requireLocal('controller/session');
+const api = requireLocal('services/api-proxy');
 
 let profile = {};
 

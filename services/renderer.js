@@ -1,10 +1,16 @@
 'use strict';
-const mongoose = requireLocal('controller/mongo.js');
-const fileSystem = requireLocal('services/file-system');
-const reader = requireLocal('services/template-reader');
+
+/**
+ * Service for rendering static pages from the CMS, both live and to files.
+ */
+
 const _ = require('lodash');
 const fs = require('fs');
 const co = require('co');
+
+const mongoose = requireLocal('controller/mongo.js');
+const fileSystem = requireLocal('services/file-system');
+const reader = requireLocal('services/template-reader');
 
 //Define Models
 const Page = mongoose.model('page', requireLocal('schemas/page.js'));
