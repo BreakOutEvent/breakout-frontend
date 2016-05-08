@@ -27,6 +27,10 @@ i18n.init = (req, res, next) => {
     req.language = FALLBACK;
   }
 
+  if (IS_TEST) {
+    req.language = 'de';
+  }
+
   next();
 };
 

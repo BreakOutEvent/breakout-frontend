@@ -8,13 +8,15 @@
     "prestart": "npm run build",
     "build": "grunt",
     "start": "node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "grunt": "grunt",
-    "bunyan": "bunyan --color",
+    "test": "mocha tests/",
     "log:info": "cd logs && cat info.log | npm run bunyan -s",
     "log:error": "cd logs && cat error.log | npm run bunyan -s",
     "log:clean": "rm logs/*.log",
-    "log:live_info": "tail -f logs/info.log | npm run bunyan -s"
+    "log:live_info": "tail -f logs/info.log | npm run bunyan -s",
+    "mocha": "mocha",
+    "grunt": "grunt",
+    "bunyan": "bunyan --color",
+    "wdio": "wdio"
   },
   "repository": {
     "type": "git",
@@ -69,7 +71,10 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-jsbeautifier": "^0.2.10",
     "less": "^2.6.1",
-    "path": "^0.12.7"
+    "mocha": "^2.4.5",
+    "path": "^0.12.7",
+    "wdio-mocha-framework": "^0.2.13",
+    "webdriverio": "^4.0.7"
   },
   "jscsConfig": {
     "validateLineBreaks": false,

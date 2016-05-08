@@ -12,10 +12,12 @@ const config = {
   secret: process.env.FRONTEND_SECRET || DEFAULT_SECRET
 };
 
-// Should start the server clustered (# of cores by default) if FRONTEND_CLUSTER is defined
-const throng = config.cluster ? require('throng') : cb => cb(0);
+// Requires a file by providing its absolute path from the project directory
+global.requireLocal = module => require(__dirname + '/' + module);
 
-throng(id => co(function*() {
+global.IS_TEST = process.env.FRONTEND_RUN_TESTS === 'true';
+
+const server = callback => co(function*() {
   const path = require('path');
   const fs = require('fs');
   const cfs = require('co-fs-extra');
@@ -28,35 +30,42 @@ throng(id => co(function*() {
 
   global.ROOT = path.resolve(__dirname);
 
-  // Requires a file by providing its absolute path from the project directory
-  global.requireLocal = module => require(__dirname + '/' + module);
-
   const app = express();
-
-  global.logger = bunyan.createLogger(
-    {
-      name: 'breakout-frontend',
-      streams: [
-        {
-          level: 'info',
-          stream: fs.createWriteStream(ROOT + '/logs/info.log', { flags: 'a' })
-        },
-        {
-          level: 'error',
-          stream: fs.createWriteStream(ROOT + '/logs/error.log', { flags: 'a' })
-        }
-      ],
-      serializers: bunyan.stdSerializers,
-      src: process.env.NODE_ENV !== 'production'
-    }
-  );
 
   // Register the static path here, to avoid getting them logged
   app.use(express.static(path.join(__dirname, 'public')));
 
-  app.use(morgan('combined',
-    { stream: fs.createWriteStream(ROOT + '/logs/access.log', { flags: 'a' }) }
-  ));
+  if (!IS_TEST) {
+    global.logger = bunyan.createLogger(
+      {
+        name: 'breakout-frontend',
+        streams: [
+          {
+            level: 'info',
+            stream: fs.createWriteStream(ROOT + '/logs/info.log', { flags: 'a' })
+          },
+          {
+            level: 'error',
+            stream: fs.createWriteStream(ROOT + '/logs/error.log', { flags: 'a' })
+          }
+        ],
+        serializers: bunyan.stdSerializers,
+        src: process.env.NODE_ENV !== 'production'
+      }
+    );
+
+    app.use(morgan('combined',
+      { stream: fs.createWriteStream(ROOT + '/logs/access.log', { flags: 'a' }) }
+    ));
+  } else {
+    global.logger = {
+      info: () => {},
+
+      error: () => {},
+
+      warn: () => {}
+    };
+  }
 
   const mongoose = requireLocal('controller/mongo.js');
   const passport = requireLocal('services/auth.js');
@@ -155,9 +164,13 @@ throng(id => co(function*() {
   app.use('/api', requireLocal('routes/api'));
   app.use('/admin', requireLocal('routes/admin'));
 
-  var server = app.listen(3000, () => {
+  var server = app.listen(process.env.FRONTEND_PORT || 3000, () => {
     var host = server.address().address;
     var port = server.address().port;
+
+    if (callback && typeof callback === 'function') {
+      callback(server);
+    }
 
     logger.info('Server listening on port ' + port);
     console.log('Listening at http://%s:%s', host, port);
@@ -193,4 +206,14 @@ throng(id => co(function*() {
 }).catch(ex => {
   console.error(ex.stack);
   throw ex;
-}));
+});
+
+// Should start the server clustered (# of cores by default) if FRONTEND_CLUSTER is defined
+const throng = config.cluster ? require('throng') : cb => cb(0);
+
+if (!IS_TEST) {
+  throng(id => server());
+}
+
+module.exports = server;
+
