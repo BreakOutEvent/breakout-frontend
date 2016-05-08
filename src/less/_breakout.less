@@ -1,8 +1,5 @@
 html,
 body {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
 }
 
 .bo-header-info {
@@ -25,7 +22,7 @@ body {
 .bo-logo {
   padding-top: 40px;
   padding-bottom: 40px;
-  @media(max-width: @screen-xs-min) {
+  @media (max-width: @screen-xs-min) {
     img {
       width: 250px;
       height: auto;
@@ -35,11 +32,12 @@ body {
 
 .bo-main-content {
   padding-top: 100px;
-  padding-bottom: 100px;
+  padding-bottom: 20px;
+  height: 100%;
 }
 
 .bo-template-wrap {
-  margin-top:10px;
+  margin-top: 10px;
   margin-bottom: 10px;
 }
 
@@ -144,8 +142,7 @@ body {
 }
 
 .bo-footer {
-  position: fixed;
-  bottom: 0;
+  display: block;
   width: 100%;
   padding-top: 50px;
   padding-bottom: 25px;
