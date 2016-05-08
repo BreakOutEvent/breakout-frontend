@@ -1,0 +1,43 @@
+<!--template for team page (information/profile of a team with posts)
+ js file is in controller/page-controller/team-page.js
+ used less file is _team-page-profile.less -->
+<div class="bo-header-info bo-team-header">
+
+</div>
+
+<div class="bo-team-container">
+
+    <div class="bo-team-content-side">
+        <div class="bo-member-photo-wrap bo-team-picture">
+            <img src="#" class="bo-member-photo pull-left"/>
+        </div>
+        <p>{{me.firstname}} {{me.lastname}}</p>
+        <p>Team {{me.participant.teamName}} ({{me.participant.eventCity}})</p>
+        <div>
+            <h3>About</h3>
+            <p>{{me.participant.teamDescription}}</p>
+            <h3>Challenges</h3>
+            <div>{{me.participant.challenges}}</div>
+            <h3>Sponsoren</h3>
+            <div>{{me.participant.sponsoring}}</div>
+        </div>
+    </div>
+
+    <div class="bo-team-content-main">
+        <!-- TODO: Karte einfügen für Team-->
+
+
+        <div class="bo-team-content-main">
+            <div class="bo-team-posts">
+                <div class="allposts">
+                    {{#each posts}}
+                        {{> post this }}
+                    {{/each}}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>

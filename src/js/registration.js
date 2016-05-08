@@ -4,14 +4,12 @@ var sanityCheck = require('./helpers').sanityCheck;
 var toggleLoading = require('./helpers').toggleLoading;
 
 
-
-
 $(document).ready(() => {
 
-  $('#profilePic').change(function() {
+  $('#profilePic').change(function () {
     if (this.files && this.files[0]) {
       var reader = new FileReader();
-      reader.onload = function(e) {
+      reader.onload = function (e) {
         $('.bo-reg-uploadInputWrapper').css('background-image', 'url(' + e.target.result + ')');
         $('.registration-picture-icon').hide();
       };
@@ -52,7 +50,7 @@ $(document).ready(() => {
   } else if ($('#registrationForm').length > 0) {
     window.gender = null;
 
-    $('button[name=gender]').click(function() {
+    $('button[name=gender]').click(function () {
       let selection = $(this).val();
 
       if (selection === window.gender) {
@@ -89,10 +87,10 @@ $(document).ready(() => {
             contentType: false,
             data: data
           })
-          .success(function(result) {
+          .success(function (result) {
             window.location.href = result.nextURL;
           })
-          .error(function(err) {
+          .error(function (err) {
             console.log(err);
           })
           .always(() => {
@@ -101,7 +99,7 @@ $(document).ready(() => {
       }
     });
   } else if ($('#teamForm').length > 0) {
-    $('#teamForm').on('submit', function(e) {
+    $('#teamForm').on('submit', function (e) {
       e.preventDefault();
 
       if (sanityCheck('teamForm')) {
@@ -123,12 +121,12 @@ $(document).ready(() => {
             contentType: false,
             data: data
           })
-          .success(function(res) {
+          .success(function (res) {
             window.location.href = res.nextURL;
           })
-          .error(function(err) {
+          .error(function (err) {
             $('#feedback').html('<div class="alert alert-danger">' +
-               err.responseJSON.error.message + '</div>');
+              err.responseJSON.error.message + '</div>');
           })
           .always(() => {
             toggleLoading('#mainCTA');
@@ -136,7 +134,7 @@ $(document).ready(() => {
       }
     });
   } else if ($('#inviteForm').length > 0) {
-    $('#inviteForm').on('submit', function(e) {
+    $('#inviteForm').on('submit', function (e) {
       e.preventDefault();
 
       if (sanityCheck('inviteForm')) {
@@ -146,12 +144,12 @@ $(document).ready(() => {
 
         toggleLoading('#mainCTA');
         $.post('/invite', values)
-          .success(function() {
+          .success(function () {
             $('#feedback').html('<div class="alert alert-success">' +
               'Erfolgreich eingeladen!</div>');
             $('#email').val('');
           })
-          .error(function(err) {
+          .error(function (err) {
             $('#feedback').html('<div class="alert alert-danger">' +
               err.responseJSON.error + '</div>');
           })
@@ -160,8 +158,8 @@ $(document).ready(() => {
           });
       }
     });
-  } else if($('#team-invite')) {
-    $('.joinLinkTeam').click(function() {
+  } else if ($('#team-invite')) {
+    $('.joinLinkTeam').click(function () {
       const data = {
         team: $(this).attr('data-team'),
         event: $(this).attr('data-event')
@@ -169,10 +167,10 @@ $(document).ready(() => {
 
       toggleLoading('#mainCTA');
       $.post('/team-invite', data)
-        .success(function(res) {
+        .success(function (res) {
           window.location.href = res.nextUrl;
         })
-        .error(function(err) {
+        .error(function (err) {
           $('#feedback').html('<div class="alert alert-danger">' +
             err.responseJSON.error + '</div>');
         })
