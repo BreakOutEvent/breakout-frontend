@@ -100,17 +100,13 @@ registration.createParticipant = (req, res, next) => co(function*() {
     updateBody.participant = participant;
   }
 
-  if (req.file) {
-    updateBody.profilePic = ['image'];
-  }
-
   logger.info('Trying to create / update a participant', updateBody);
 
   const user = yield api.getCurrentUser(req.user);
   const backendUser = yield api.putModel('user', user.id, req.user, updateBody);
 
   if (req.file) {
-    yield api.uploadPicture(req.file, backendUser.profilePic[0]);
+    yield api.uploadPicture(req.file, backendUser.profilePic);
   }
 
   logger.info('Created / updated a participant', updateBody);

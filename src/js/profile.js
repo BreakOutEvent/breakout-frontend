@@ -36,8 +36,8 @@ $(document).ready(() => {
     if (sanityCheck('profile_form')) {
       var data = new FormData($('#profile_form')[0]);
 
-      if ($('#profilePic').length && $('#profilePic')[0].files &&
-        $('#profilePic')[0].files[0]) {
+      if (!($('#profilePic').length && $('#profilePic')[0].files &&
+        $('#profilePic')[0].files[0])) {
         data.delete('profilePic');
       }
 
@@ -102,8 +102,8 @@ $(document).ready(() => {
     if (sanityCheck('team_form')) {
       var data = new FormData($('#team_form')[0]);
 
-      if ($('#teamPic').length && $('#teamPic')[0].files &&
-        $('#teamPic')[0].files[0]) {
+      if (!($('#teamPic').length && $('#teamPic')[0].files &&
+        $('#teamPic')[0].files[0])) {
         data.delete('teamPic');
       }
 

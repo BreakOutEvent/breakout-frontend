@@ -297,100 +297,79 @@ module.exports = {
   },
   PROFILE: {
     NAVIGATION_PROFILE: {
-      de: 'Profil Einstellungen',
-      en: ''
+      de: 'Profil Einstellungen'
     },
     NAVIGATION_PARTICIPANT: {
-      de: 'Teilnehmer Einstellungen',
-      en: ''
+      de: 'Teilnehmer Einstellungen'
     },
     NAVIGATION_TEAM: {
-      de: 'Team Einstellungen',
-      en: ''
+      de: 'Team Einstellungen'
     },
     NAVIGATION_SPONSOR: {
-      de: 'Sponsor Einstellungen',
-      en: ''
+      de: 'Sponsor Einstellungen'
     },
     LABEL_FIRSTNAME: {
-      de: 'Vorname',
-      en: ''
+      de: 'Vorname'
     },
     LABEL_NAME: {
-      de: 'Nachname',
-      en: ''
+      de: 'Nachname'
     },
     LABEL_EMAIL: {
-      de: 'E-Mail',
-      en: ''
+      de: 'E-Mail'
     },
     LABEL_GENDER: {
-      de: 'Geschlecht',
-      en: ''
+      de: 'Geschlecht'
     },
     LABEL_SHIRT: {
-      de: 'T-Shirt Größe',
-      en: ''
+      de: 'T-Shirt Größe'
     },
     LABEL_CITY: {
-      de: 'Heimatstadt',
-      en: ''
+      de: 'Heimatstadt'
     },
     LABEL_PHONE: {
-      de: 'Handynummer',
-      en: ''
+      de: 'Handynummer'
     },
     LABEL_PHONE_EMERGENCY: {
-      de: 'Notfallnummer',
-      en: ''
+      de: 'Notfallnummer'
     },
     LABEL_TEAMNAME: {
-      de: 'Teamname',
-      en: ''
+      de: 'Teamname'
+    },
+    LABEL_TEAMID: {
+      de: 'Teamnummer'
     },
     LABEL_LOCATION: {
-      de: 'Startort',
-      en: ''
+      de: 'Startort'
     },
     LABEL_DESCRIPTION: {
-      de: 'Beschreibung',
-      en: ''
+      de: 'Beschreibung'
     },
     OPTION_GENDER_1: {
-      de: 'Männlich',
-      en: ''
+      de: 'Männlich'
     },
     OPTION_GENDER_2: {
-      de: 'Weiblich',
-      en: ''
+      de: 'Weiblich'
     },
     OPTION_SHIRT_1: {
-      de: 'Größe S',
-      en: ''
+      de: 'Größe S'
     },
     OPTION_SHIRT_2: {
-      de: 'Größe M',
-      en: ''
+      de: 'Größe M'
     },
     OPTION_SHIRT_3: {
-      de: 'Größe L',
-      en: ''
+      de: 'Größe L'
     },
     OPTION_SHIRT_4: {
-      de: 'Größe XL',
-      en: ''
+      de: 'Größe XL'
     },
     PAYMENT_INFO: {
-      de: 'Die Zahlung für deinen Eventbeitrag (30,00 €) sind noch nicht bei uns eingetroffen. Bitte ürberweiße den Betrag bis zum 31.05. um am Event teilzunehmen',
-      en: ''
+      de: 'Die Zahlung für deinen Eventbeitrag (30,00 €) sind noch nicht bei uns eingetroffen. Bitte ürberweiße den Betrag bis zum 31.05. um am Event teilzunehmen'
     },
     BUTTON_SAVE: {
-      de: 'Änderungen speichern',
-      en: ''
+      de: 'Änderungen speichern'
     },
     BUTTON_PAY: {
-      de: 'Event Beitrag bezahlen',
-      en: ''
+      de: 'Event Beitrag bezahlen'
     }
   },
   PAYMENT: {
@@ -461,13 +440,16 @@ module.exports = {
     }
   },
   FOOTER: {
-    SPONSOR: {
+    H_SPONSOR: {
       de: 'Sponsor von BreakOut'
     },
-    SUPPORT: {
+    SPONSOR: {
+      de: 'Think Big ist ein Jugendprogramm der Telefónica Stiftung und der Deutschen Kinder- und Jugendstiftung (DKJS) gemeinsam mit O2.'
+    },
+    H_SUPPORT: {
       de: 'Unterstützt von'
     },
-    FRIENDS: {
+    H_FRIENDS: {
       de: 'Unsere Freunde'
     }
   }

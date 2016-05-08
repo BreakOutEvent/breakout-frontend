@@ -6,7 +6,6 @@
 
 const express = require('express');
 const co = require('co');
-const _ = require('lodash');
 const multer = require('multer');
 
 const passport = requireLocal('services/auth');
@@ -50,16 +49,25 @@ router.get('/spectator-success', session.isUser, funnelTemplate('spectator-succe
 router.get('/sponsor', session.isUser, funnelTemplate('sponsor'));
 router.get('/invite', session.hasTeam, funnelTemplate('invite'));
 
-router.get('/profile', session.isUser, (req, res, next) =>
+router.get('/profile', session.isUser, (req, res, next) => co(function*() {
+
+  let team = null;
+
+  if(req.user.status.is.team) {
+    team = yield profile.getTeam(req);
+  }
+  
   res.render(`dynamic/profile/profile`,
     {
       error: req.flash('error'),
       layout: 'master',
       language: req.language,
       me: req.user.me,
+      team: team,
       title: 'Profile'
-    })
-);
+    });
+
+}).catch(ex => next(ex)));
 
 router.get('/logout', session.isUser, (req, res, next) => co(function*() {
   req.logout();
@@ -190,6 +198,6 @@ router.post('/login',
   )
 );
 
-router.put('/team', session.hasTeam, upload.single('profilePic'), profile.putTeam);
+router.put('/team', session.hasTeam, upload.single('teamPic'), profile.putTeam);
 
 module.exports = router;
