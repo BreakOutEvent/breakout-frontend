@@ -57,6 +57,17 @@ router.get('/invite', session.hasTeam, funnelTemplate('invite'));
 router.get('/reset/:email/:token', funnelTemplate('reset-pw'));
 
 
+router.get('/team', session.isUser, (req, res, next) =>
+  res.render(`dynamic/profile/team-page`,
+    {
+      error: req.flash('error'),
+      layout: 'master',
+      language: req.language,
+      me: req.user.me,
+      title: 'TeamPage'
+    })
+);
+
 router.get('/logout', session.isUser, (req, res, next) => co(function*() {
   req.logout();
   req.flash('success', 'Successfully logged out!');
