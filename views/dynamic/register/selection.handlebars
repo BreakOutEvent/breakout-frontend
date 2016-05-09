@@ -47,6 +47,21 @@
                 </div>
             </div>
         {{/unless}}
+
+        {{#if status.is.participant}}
+            {{#unless status.is.team}}
+                <div class="row">
+                    <div class="col-xs-12">
+                        <a id="test-participant" href="/team-invite" class="no-underline">
+                            <div class="bo-reg-well-selection bo-reg-well-selection-hover">
+                                <h4><strong>{{__ 'NOTEAM_H'}}</strong></h4>
+                                <p>{{__ 'NOTEAM'}}</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            {{/unless}}
+        {{/if}}
         <!--
         <div class="row">
             <div class="col-xs-12">

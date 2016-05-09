@@ -43,6 +43,12 @@ module.exports = {
     OBSERVER: {
       de: 'Du bist erstmal mit Deinem aktuellen Status zufrieden? (Du kannst jederzeit wieder auf diese Seite!)',
       en: 'Are you happy with your status for now? (You can come back to this site at any time!)'
+    },
+    NOTEAM: {
+      de: 'Du bist zwar bereits als Teilnehmer angemeldet, hast aber noch kein Team. Klicke hier um zu sehen ob du Einladungen erhalten hast oder um ein Team zu gründen.'
+    },
+    NOTEAM_H: {
+      de: 'Team beitreten / erstellen'
     }
   },
   'TEAM-CREATE': {
