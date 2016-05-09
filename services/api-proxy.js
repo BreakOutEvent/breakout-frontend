@@ -268,7 +268,7 @@ API.sponsoring = {};
 
 
 
-API.sponsoring.get = (token, eventId, teamId) => {
+API.sponsoring.getByTeam = (token, eventId, teamId) => {
   logger.info('Trying to get sponsorings for team', teamId);
 
   let mockdata = [{
@@ -286,6 +286,27 @@ API.sponsoring.get = (token, eventId, teamId) => {
         url: `${url}/event/${eventId}/team/${teamId}/sponsoring/`,
         auth: {bearer: token.access_token}
       }, handleResponse(resolve, reject, 'Successfully got sponsorings for team ' + teamId));
+  });
+};
+
+API.sponsoring.getBySponsor = (token, userId) => {
+  logger.info('Trying to get sponsorings from user', userId);
+
+  let mockdata = [{
+    "amountPerKm": 1,
+    "limit": 100,
+    "teamId": 1,
+    "team": "namedesteams",
+    "sponsorId": userId
+  }];
+
+  return new Promise(function (resolve, reject) {
+    return resolve(mockdata);
+    request
+      .get({
+        url: `/user/${userId}/sponsoring/`,
+        auth: {bearer: token.access_token}
+      }, handleResponse(resolve, reject, 'Successfully got sponsorings from user ' + userId));
   });
 };
 

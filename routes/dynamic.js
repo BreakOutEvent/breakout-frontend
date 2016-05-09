@@ -158,6 +158,7 @@ router.post('/register', registration.createUser);
 router.post('/team-create', session.isParticipant, upload.single('profilePic'), registration.createTeam);
 router.post('/invite', session.hasTeam, registration.inviteUser);
 router.post('/team-invite', session.isParticipant, registration.joinTeamAPI);
+router.post('/sponsor', session.isParticipant, registration.createSponsor);
 
 router.post('/login',
   passport.authenticate('local',
