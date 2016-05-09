@@ -162,8 +162,9 @@ registration.joinTeamAPI = (req, res, next) => co(function*() {
  * POST route for unimplemented createSponsor endpoint.
  * @param req
  * @param res
+ * @param next
  */
-registration.createSponsor = (req, res) => co(function*() {
+registration.createSponsor = (req, res, next) => co(function*() {
   logger.info(
     'Trying to create team for event',
     req.body.event,
@@ -171,8 +172,6 @@ registration.createSponsor = (req, res) => co(function*() {
     req.body.firstname,
     req.body.lastname
   );
-
-  console.log(req.body);
 
   let updateBody = {
     lastname: req.body.firstname,
@@ -191,9 +190,7 @@ registration.createSponsor = (req, res) => co(function*() {
 
   if(req.body.company) updateBody.sponsor.company = req.body.company;
 
-  return console.log(updateBody);
-
-  //const sponsor = yield api.putModel('user', req.user.me.user.id, req.user, updateBody);
+  const sponsor = yield api.putModel('user', req.user.me.user.id, req.user, updateBody);
 
   if (req.file) {
     yield api.uploadPicture(req.file, sponsor.sponsorLogo);
@@ -207,11 +204,12 @@ registration.createSponsor = (req, res) => co(function*() {
     'for event',
     req.body.event);
 
-  if (!sponsor) return sendErr(res, 'Sponsor creation failed!');
+  if(!sponsor) return sendErr(res, 'Sponsor creation failed!');
 
   res.send({
     nextURL: URLS.SPONSOR_SUCCESS
   });
+
 }).catch(err => {
   sendErr(res, err.message, err);
 });

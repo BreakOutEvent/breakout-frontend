@@ -107,7 +107,6 @@ $(document).ready(() => {
       if (sanityCheck('teamForm')) {
 
         var data = new FormData($('#teamForm')[0]);
-        console.log(data);
 
         if (!($('#profilePic')[0] && $('#profilePic')[0].files &&
           $('#profilePic')[0].files[0])) {
@@ -182,7 +181,6 @@ $(document).ready(() => {
 
     });
   } else if ($('#sponsorForm').length > 0) {
-    console.log('sponsor form');
     $('button[name=gender]').click(function() {
       let selection = $(this).val();
       
