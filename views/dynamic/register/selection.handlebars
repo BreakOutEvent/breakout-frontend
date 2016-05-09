@@ -8,7 +8,7 @@
         </div>
         <div class="row registration-margin">
             <div class="col-xs-12">
-                <h2 class="text-center">{{__ 'HEADLINE'}}</h2>
+                <h2 id="test-headline" class="text-center">{{__ 'HEADLINE'}}</h2>
             </div>
         </div>
         <div class="row">
@@ -32,7 +32,7 @@
         {{#unless status.is.participant}}
             <div class="row">
                 <div class="col-xs-12">
-                    <a href="/participant" class="no-underline">
+                    <a id="test-participant" href="/participant" class="no-underline">
                         <div class="bo-reg-well-selection bo-reg-well-selection-hover">
                             <h4><strong>{{__ 'PARTICIPANT_H'}}</strong></h4>
                             <p>{{__ 'PARTICIPANT'}}</p>
@@ -42,7 +42,8 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <h5><a href="/spectator-success">{{__ 'OBSERVER'}}</a></h5>
+                    <h5><a id="test-spectator-success"
+                           href="/spectator-success">{{__ 'OBSERVER'}}</a></h5>
                 </div>
             </div>
         {{/unless}}
