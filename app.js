@@ -152,6 +152,7 @@ throng(id => co(function*() {
 
   app.use('/', requireLocal('routes/main'));
   app.use('/', requireLocal('routes/dynamic'));
+  app.use('/', requireLocal('routes/profile'));
   app.use('/api', requireLocal('routes/api'));
   app.use('/admin', requireLocal('routes/admin'));
 
