@@ -477,6 +477,18 @@ module.exports = {
     },
     BTN_DECLINE: {
       de: 'Ablehnen'
+    },
+    BTN_ADD: {
+      de: 'Sponsoring hinzufügen'
+    },
+    ADD_MODAL_CONTENT: {
+      de: 'In diesem Dialog kannst du ein neues Sponsoring pro Kilometer anlegen.'
+    },
+    LABEL_AMOUNT_KM: {
+      de: 'Euro pro Kilometer'
+    },
+    LABEL_LIMIT: {
+      de: 'Limit'
     }
   }
 };
