@@ -14,7 +14,7 @@ const session = requireLocal('controller/session');
 const upload = multer({ inMemory: true });
 const router = express.Router();
 
-router.get('/sponsoring', session.hasTeam, (req, res, next) => co(function*() {
+router.get('/sponsoring', session.isUser, (req, res, next) => co(function*() {
 
   //CHECK IF USER IS SPONSOR OR PARTICIPANT
   if(!req.user.status.is.team && !req.user.status.is.sponsor) {
