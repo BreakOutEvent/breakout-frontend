@@ -452,5 +452,19 @@ module.exports = {
     H_FRIENDS: {
       de: 'Unsere Freunde'
     }
+  },
+  SPONSORING: {
+    NAVIGATION_TEAM: {
+      de: 'Eingehende Sponsorings'
+    },
+    NAVIGATION_SPONSOR: {
+      de: 'Ausgehende Sponsorings'
+    },
+    LINK_SPONSOR: {
+      de: 'Sponsor werden'
+    },
+    LINK_TEAM: {
+      de: 'Mitreisen'
+    }
   }
 };

@@ -1,0 +1,133 @@
+<div class="bo-header-info">
+    <div class="container">
+        <div style="background-image: url({{me.profilePic.sizes.0.url}}); height: 100px; width: 100px;"
+             class="bo-profile-image pull-left"></div>
+        <div class="bo-profile-info">
+            <p>{{me.firstname}} {{me.lastname}}</p>
+            {{#if me.participant.teamId}}
+                <p>Team {{me.participant.teamName}} ({{me.participant.eventCity}})</p>
+            {{/if}}
+        </div>
+    </div>
+    <div class="container bo-secondary-nav">
+        <ul class="nav nav-tabs">
+            {{#if me.participant.teamId}}
+                <li role="presentation" class="active"><a href="#team" aria-controls="team" role="tab"
+                                                          data-toggle="tab">{{__ 'NAVIGATION_TEAM'}}</a></li>
+            {{ else }}
+                <li role="presentation"><a href="/participant">{{__ 'LINK_TEAM'}}</a></li>
+            {{/if}}
+            {{#if me.sponsor}}
+                <li role="presentation"><a href="#sponsor" aria-controls="team" role="tab"
+                                           data-toggle="tab">{{__ 'NAVIGATION_SPONSOR'}}</a></li>
+            {{ else }}
+                <li role="presentation"><a href="/sponsor">{{__ 'LINK_SPONSOR'}}</a></li>
+            {{/if}}
+        </ul>
+    </div>
+</div>
+
+<!-- Tab panes -->
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="team">
+        <div class="container">
+            <div id="result_profile"></div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Team ID</th>
+                    <th>Team Name</th>
+                    <th>Euro pro KM</th>
+                    <th>Limit</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each incSponsoring}}
+                    <tr>
+                        <td>{{teamId}}</td>
+                        <td>{{team}}</td>
+                        <td>{{amountPerKm}} €</td>
+                        <td>{{limit}} €</td>
+
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="sponsor">
+        <div class="container">
+            <div id="result_profile"></div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Team ID</th>
+                    <th>Team Name</th>
+                    <th>Euro pro KM</th>
+                    <th>Limit</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each outSponsoring}}
+                    <tr>
+                        <td>{{teamId}}</td>
+                        <td>{{team}}</td>
+                        <td>{{amountPerKm}} €</td>
+                        <td>{{limit}} €</td>
+
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--
+    <div role="tabpanel" class="tab-pane" id="test">
+        <div class="container bo-profile-form bo-single-row">
+            <div id="result_team"></div>
+            <form role="form" id="team_form">
+                <div class="bo-reg-uploadInputWrapper"
+                     style="height: 100px; width: 100px; background-image: url({{team.profilePic.sizes.0.url}});">
+                    <input class="bo-reg-fileInput bo-reg-hiddenInput" type="file" name="teamPic"
+                           id="teamPic"/>
+                    <i class="material-icons registration-picture-icon">camera_alt</i>
+                </div>
+                <div class="form-group has-feedback has-feedback-left">
+                    <label for="teamId">{{__ 'PROFILE.LABEL_TEAMID'}}</label>
+                    <input type="text" class="form-control" id="teamId" name="teamId"
+                           value="{{team.id}}" required="required" disabled="disabled">
+                    <i class="form-control-feedback material-icons">people</i>
+                </div>
+                <div class="form-group has-feedback has-feedback-left">
+                    <label for="teamName">{{__ 'PROFILE.LABEL_TEAMNAME'}}</label>
+                    <input type="text" class="form-control" id="teamName" name="teamName"
+                           value="{{team.name}}" required="required">
+                    <i class="form-control-feedback material-icons">people</i>
+                </div>
+                <div class="form-group has-feedback has-feedback-left">
+                    <label for="location">{{__ 'PROFILE.LABEL_LOCATION'}}</label>
+                    <select class="form-control" id="location" disabled="disabled">
+                        <option value="1" {{#ifCond team.event 1}}selected="selected"{{/ifCond}}>Berlin
+                        </option>
+                        <option value="2" {{#ifCond team.event 2}}selected="selected"{{/ifCond}}>München
+                        </option>
+                    </select>
+                    <i class="form-control-feedback material-icons">near_me</i>
+                </div>
+                <div class="form-group has-feedback has-feedback-left">
+                    <label for="teamDescription">{{__ 'PROFILE.LABEL_DESCRIPTION'}}</label>
+                    <textarea id="teamDescription" rows="10" name="teamDescription"
+                              class="form-control">{{team.description}}</textarea>
+                    <i class="form-control-feedback material-icons">comment</i>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="submit" class="btn btn-primary btn-block text-uppercase"
+                            id="team_CTA">{{__ 'PROFILE.BUTTON_SAVE'}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    -->
+</div>
+<!--<script src="/js/profile.js" type="text/javascript" defer></script>-->

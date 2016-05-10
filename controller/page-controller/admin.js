@@ -59,8 +59,8 @@ admin.getInvoices = (req) => co(function*() {
       invoice.id = t.invoiceId;
       if (invoice.payments.length) {
         invoice.open = invoice.amount - invoice.payments.reduce((prev, curr) => {
-            return prev.amount + curr.amount;
-          });
+            return prev + curr.amount;
+          }, 0);
       } else {
         invoice.open = invoice.amount;
       }

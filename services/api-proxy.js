@@ -40,12 +40,12 @@ API.authenticate = (username, password) => {
           user: config.clientID,
           pass: config.clientSecret
         },
-        form: { username: username, password: password }
+        form: {username: username, password: password}
       }, handleResponse(resolve, reject, 'Authenticated user ' + username));
   });
 };
 
-API.refresh = (user) => co(function* () {
+API.refresh = (user) => co(function*() {
   logger.info('Trying to refresh token for user', user.email);
   const req = yield crequest
     .post({
@@ -76,7 +76,7 @@ API.getCurrentUserco = user => co(function*() {
   const req = yield crequest
     .get({
       url: `${url}/me/`,
-      auth: { bearer: user.access_token }
+      auth: {bearer: user.access_token}
     });
 
   if (req.statusCode in [200, 201]) {
@@ -94,7 +94,7 @@ API.getCurrentUser = token => {
     request
       .get({
         url: `${url}/me/`,
-        auth: { bearer: token.access_token }
+        auth: {bearer: token.access_token}
       }, handleResponse(resolve, reject, 'Got information about currently logged in user'))
   );
 };
@@ -102,15 +102,15 @@ API.getCurrentUser = token => {
 API.getModel = (modelName, token, id) => {
   logger.info('Trying to get', modelName, 'with id', (id || 'noID'), 'from backend');
   let sendID = '';
-  if(id) sendID = id + '/';
+  if (id) sendID = id + '/';
   return new Promise((resolve, reject)=> {
-    request
+      request
         .get({
           url: `${url}/${modelName}/${sendID}`,
-          auth: { bearer: token.access_token }
+          auth: {bearer: token.access_token}
         }, handleResponse(resolve, reject, 'Got ' + modelName + ' with id ' + (id || 'noID') + ' from backend'));
-  }
-);
+    }
+  );
 };
 
 API.postModel = (modelName, token, body) => {
@@ -119,9 +119,9 @@ API.postModel = (modelName, token, body) => {
     request
       .post({
         url: `${url}/${modelName}`,
-        auth: { bearer: token.access_token },
+        auth: {bearer: token.access_token},
         body: JSON.stringify(body),
-        headers: { 'content-type': 'application/json' }
+        headers: {'content-type': 'application/json'}
       }, handleResponse(resolve, reject, 'Successfully POSTed ' + modelName + ' with ' + JSON.stringify(body) + ' to backend'))
   );
 };
@@ -130,7 +130,7 @@ API.putModel = (modelName, id, token, body) => {
   logger.info('Sending PUT request with ', body, 'to', modelName, 'with ID', id);
   return new Promise(function (resolve, reject) {
     if (!id) {
-      reject({ error_description: 'No ID specified' });
+      reject({error_description: 'No ID specified'});
       return;
     }
 
@@ -138,9 +138,9 @@ API.putModel = (modelName, id, token, body) => {
     request
       .put({
         url: `${url}/${modelName}/${(id)}/`,
-        auth: { bearer: token.access_token },
+        auth: {bearer: token.access_token},
         body: JSON.stringify(body),
-        headers: { 'content-type': 'application/json' }
+        headers: {'content-type': 'application/json'}
       }, handleResponse(resolve, reject, 'Successfully PUT ' + modelName + ' with id ' + id + ' and data ' + JSON.stringify(body) + ' to backend'));
   });
 };
@@ -149,14 +149,14 @@ API.delModel = function (modelName, token, id) {
   logger.info('Sending DELETE request on', modelName, ' with ID', id);
   return new Promise(function (resolve, reject) {
     if (!id) {
-      reject({ error_message: 'No ID specified' });
+      reject({error_message: 'No ID specified'});
       return;
     }
 
     request
       .del({
         url: `${url}/${modelName}/${id}`,
-        auth: { bearer: token.access_token }
+        auth: {bearer: token.access_token}
       }, handleResponse(resolve, reject, 'Successfully DELETEed ' + modelName + ' with ID ' + id));
   });
 };
@@ -171,8 +171,8 @@ API.createUser = function (email, password) {
           user: config.clientID,
           pass: config.clientSecret
         },
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ email, password })
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify({email, password})
       }, handleResponse(resolve, reject, 'Successfully created user with email ' + email + ' in' +
         ' backend'));
   });
@@ -184,7 +184,7 @@ API.uploadPicture = function (file, mediaObj) {
     request
       .post({
         url: `https://${config.mediaURL}`,
-        headers: { 'X-UPLOAD-TOKEN': mediaObj.uploadToken },
+        headers: {'X-UPLOAD-TOKEN': mediaObj.uploadToken},
         formData: {
           id: mediaObj.id,
           file: {
@@ -207,7 +207,7 @@ API.getPaymentToken = (invoiceID, token) => {
     request
       .get({
         url: `${url}/invoice/${invoiceID}/payment/braintree/client_token/`,
-        auth: { bearer: token.access_token }
+        auth: {bearer: token.access_token}
       }, handleResponse(resolve, reject, 'Got payment token for invoice ' + invoiceID + ' from backend'));
   });
 };
@@ -218,7 +218,7 @@ API.checkoutPayment = (invoiceID, token, data) => {
     request
       .post({
         url: `${url}/invoice/${invoiceID}/payment/braintree/checkout/`,
-        auth: { bearer: token.access_token },
+        auth: {bearer: token.access_token},
         form: data
       }, handleResponse(resolve, reject, 'Successfully checked out invoice' + invoiceID));
   });
@@ -229,7 +229,10 @@ API.getInviteByToken = (token) => {
   return new Promise(function (resolve, reject) {
     request
       .get({
-        url: `${url}/user/invitation?token=${token}`
+        url: `${url}/user/invitation`,
+        qs: {
+          token: token
+        }
       }, handleResponse(resolve, reject, 'Successfully got invite by token ' + token));
   });
 };
@@ -240,9 +243,9 @@ API.inviteUser = (token, eventID, teamID, email) => {
     request
       .post({
         url: `${url}/event/${eventID}/team/${teamID}/invitation/`,
-        auth: { bearer: token.access_token },
-        body: JSON.stringify({ email: email }),
-        headers: { 'content-type': 'application/json' }
+        auth: {bearer: token.access_token},
+        body: JSON.stringify({email: email}),
+        headers: {'content-type': 'application/json'}
       }, handleResponse(resolve, reject, 'Successfully invited ' + email + ' to team ' + teamID));
   });
 };
@@ -260,6 +263,83 @@ API.activateUser = (token) => {
   });
 };
 
+
+API.sponsoring = {};
+
+
+
+API.sponsoring.getByTeam = (token, eventId, teamId) => {
+  logger.info('Trying to get sponsorings for team', teamId);
+
+  let mockdata = [{
+    "amountPerKm": 1,
+    "limit": 100,
+    "teamId": teamId,
+    "team": "namedesteams",
+    "sponsorId": 1
+  }];
+
+  return new Promise(function (resolve, reject) {
+    return resolve(mockdata);
+    request
+      .get({
+        url: `${url}/event/${eventId}/team/${teamId}/sponsoring/`,
+        auth: {bearer: token.access_token}
+      }, handleResponse(resolve, reject, 'Successfully got sponsorings for team ' + teamId));
+  });
+};
+
+API.sponsoring.getBySponsor = (token, userId) => {
+  logger.info('Trying to get sponsorings from user', userId);
+
+  let mockdata = [{
+    "amountPerKm": 1,
+    "limit": 100,
+    "teamId": 1,
+    "team": "namedesteams",
+    "sponsorId": userId
+  }];
+
+  return new Promise(function (resolve, reject) {
+    return resolve(mockdata);
+    request
+      .get({
+        url: `/user/${userId}/sponsoring/`,
+        auth: {bearer: token.access_token}
+      }, handleResponse(resolve, reject, 'Successfully got sponsorings from user ' + userId));
+  });
+};
+
+API.sponsoring.create = (token, eventId, teamId, body) => {
+  logger.info('Trying to create sponsoring for team', teamId);
+
+
+
+  let mockdata = [{
+    "amountPerKm": 1,
+    "limit": 100,
+    "teamId": teamId,
+    "team": "namedesteams",
+    "sponsorId": 1
+  }];
+
+  return new Promise(function (resolve, reject) {
+
+    if(!body.amountPerKm) return reject("Missing 'amountPerKm' parameter");
+    if(!body.limit) return reject("Missing 'limit' parameter");
+
+    return resolve(mockdata);
+    request
+      .post({
+        url: `${url}/event/${eventId}/team/${teamId}/sponsoring/`,
+        auth: {bearer: token.access_token},
+        body: JSON.stringify(body),
+        headers: {'content-type': 'application/json'}
+      }, handleResponse(resolve, reject, 'Successfully created sponsorings for team ' + teamId));
+  });
+};
+
+
 function handleResponse(resolve, reject, msg) {
   return (error, response, body) => {
     if (error) {
@@ -267,7 +347,7 @@ function handleResponse(resolve, reject, msg) {
       throw error;
     } else {
       if (response.statusCode.toString().match(/^2\d\d$/)) {
-        if(!process.env.NODE_ENV === 'production') logger.info(msg);
+        if (!process.env.NODE_ENV === 'production') logger.info(msg);
         try {
           if (body === '') body = '{}';
           resolve(JSON.parse(body));
@@ -277,7 +357,7 @@ function handleResponse(resolve, reject, msg) {
           logger.warn('Could not parse JSON', ex);
         }
       } else {
-        if(!process.env.NODE_ENV === 'production') logger.error(body);
+        if (!process.env.NODE_ENV === 'production') logger.error(body);
         try {
           reject(JSON.parse(body));
         } catch (ex) {

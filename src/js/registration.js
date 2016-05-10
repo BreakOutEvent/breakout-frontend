@@ -105,10 +105,9 @@ $(document).ready(() => {
       if (sanityCheck('teamForm')) {
 
         var data = new FormData($('#teamForm')[0]);
-        console.log(data);
 
-        if ($('#profilePic')[0] && $('#profilePic')[0].files &&
-          $('#profilePic')[0].files[0]) {
+        if (!($('#profilePic')[0] && $('#profilePic')[0].files &&
+          $('#profilePic')[0].files[0])) {
           data.delete('profilePic');
         }
 
@@ -158,8 +157,8 @@ $(document).ready(() => {
           });
       }
     });
-  } else if ($('#team-invite')) {
-    $('.joinLinkTeam').click(function () {
+  } else if($('#team-invite').length > 0) {
+    $('.joinLinkTeam').click(function() {
       const data = {
         team: $(this).attr('data-team'),
         event: $(this).attr('data-event')
@@ -178,6 +177,55 @@ $(document).ready(() => {
           toggleLoading('#mainCTA');
         });
 
+    });
+  } else if ($('#sponsorForm').length > 0) {
+    $('button[name=gender]').click(function() {
+      let selection = $(this).val();
+      
+      if (selection === window.gender) {
+        $('#' + selection).toggleClass('bo-reg-selected-button');
+      } else {
+        $('#' + selection).addClass('bo-reg-selected-button');
+        $('#' + window.gender).removeClass('bo-reg-selected-button');
+      }
+
+      window.gender = selection;
+
+    });
+
+    $('#sponsorForm').on('submit', function(e) {
+      e.preventDefault();
+
+      if (sanityCheck('sponsorForm')) {
+
+        var data = new FormData($('#sponsorForm')[0]);
+        data.append('gender', window.gender);
+
+        if (!($('#profilePic')[0] && $('#profilePic')[0].files &&
+          $('#profilePic')[0].files[0])) {
+          data.delete('profilePic');
+        }
+
+        toggleLoading('#mainCTA');
+        $.ajax({
+            url: '/sponsor',
+            type: 'POST',
+            cache: false,
+            processData: false,
+            contentType: false,
+            data: data
+          })
+          .success(function(res) {
+            window.location.href = res.nextURL;
+          })
+          .error(function(err) {
+            $('#feedback').html('<div class="alert alert-danger">' +
+              err.responseJSON.error + '</div>');
+          })
+          .always(() => {
+            toggleLoading('#mainCTA');
+          });
+      }
     });
   }
 

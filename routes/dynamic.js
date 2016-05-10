@@ -179,15 +179,6 @@ router.get('/team-create', session.isParticipant, (req, res, next) => co(functio
       );
     })
     .catch(err => {
-      /*
-       res.render('dynamic/register/team-create',
-       {
-       error: err.error,
-       layout: 'funnel',
-       language: req.language
-       }
-       );
-       */
       next(err);
     });
 }).catch(ex => next(ex)));
@@ -225,6 +216,7 @@ router.post('/team-create', session.isParticipant, upload.single('profilePic'),
   registration.createTeam);
 router.post('/invite', session.hasTeam, registration.inviteUser);
 router.post('/team-invite', session.isParticipant, registration.joinTeamAPI);
+router.post('/sponsor', session.isUser, upload.single('profilePic'), registration.createSponsor);
 
 router.post('/login',
   passport.authenticate('local',
@@ -237,6 +229,5 @@ router.post('/login',
   )
 );
 
-router.put('/team', session.hasTeam, upload.single('teamPic'), profile.putTeam);
 
 module.exports = router;

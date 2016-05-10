@@ -1,44 +1,29 @@
 <div class="container">
-    <div class="col-md-3"></div>
-    <div class="col-md-6 registration-box-border">
-        <div class="row registration-margin">
-            <div class="col-md-6">
-                <img class="bo-modal-logo" alt="BreakOut" src="/img/logos/BreakOut-Logo_Header.svg">
-            </div>
-            <div class="col-md-6">
-                <div class="media-middle registration-picture">
-                    <i class="material-icons registration-picture-icon">camera_alt</i>
+    <div class="col-md-6 registration-box-border div-align-mid">
+        <form id="sponsorForm">
+            <div class="row registration-margin">
+                <div class="col-md-6">
+                    <img class="bo-modal-logo" alt="BreakOut" src="/img/logos/BreakOut-Logo_Header.svg">
                 </div>
+                <div class="col-md-6">
 
+                    <div class="bo-reg-uploadInputWrapper" style="height: 100px; width: 100px;">
+                        <input class="bo-reg-fileInput bo-reg-hiddenInput" type="file" name="profilePic"
+                               id="profilePic"/>
+                        <i class="material-icons registration-picture-icon">camera_alt</i>
+                    </div>
+
+                </div>
             </div>
-        </div>
-        <form id="registrationForm">
+
             <div class="registration-margin">
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group has-feedback has-feedback-left">
-                            <label for="lastname">Nachname</label>
-                            <input type="text" class="form-control" id="lastname" name="lastname"
-                                   placeholder="Muster" required="required">
-                            <i class="form-control-feedback material-icons">perm_identity</i>
-
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group has-feedback has-feedback-left">
-                            <div class="form-group has-feedback has-feedback-left">
-                                <label for="firstname">Vorname</label>
-                                <input type="text" class="form-control" name="firstname" id="firstname"
-                                       placeholder="Maxi" required="required">
-                                <i class="form-control-feedback material-icons">perm_identity</i>
-
-                            </div>
-                        </div>
-
+                    <div class="col-xs-12">
+                        <div id="feedback"></div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-6 col-md-push-6">
                         <label>Geschlecht</label>
                         <div class="text-center">
                             <div class="btn-group">
@@ -49,76 +34,94 @@
                                         id="female" type="button">Frau
                                 </button>
                             </div>
-
                         </div>
                     </div>
-
-
-                    <!-- TODO: change icon, style select-->
-                    <div class="col-md-6 ">
+                    <div class="col-md-6 col-md-pull-6">
                         <div class="form-group has-feedback has-feedback-left">
-                            <label for="streetAndNumber">Straße und Hausnummer</label>
-                            <input type="text" class="form-control" id="streetAndNumber" name="streetAndNumber"
-                                   placeholder="Straße und Hausnummer" required="required">
-                            <i class="form-control-feedback material-icons">local_post_office</i>
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="firstname">Vorname</label>
+                                <input type="text" class="form-control" name="firstname" id="firstname"
+                                       placeholder="Maxi" required="required">
+                                <i class="form-control-feedback material-icons">perm_identity</i>
 
+                            </div>
                         </div>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group has-feedback has-feedback-left">
+                            <label for="lastname">Nachname</label>
+                            <input type="text" class="form-control" id="lastname" name="lastname"
+                                   placeholder="Muster" required="required">
+                            <i class="form-control-feedback material-icons">perm_identity</i>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group has-feedback has-feedback-left">
 
-                            <label for="business">Firma (optional)</label>
+                            <label for="company">Firma (optional)</label>
 
-                            <input type="text" class="form-control" id="business" name="business"
+                            <input type="text" class="form-control" id="company" name="company"
                                    placeholder="Testfirma">
 
                             <i class="form-control-feedback material-icons">business
                             </i>
                         </div>
                     </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group has-feedback has-feedback-left">
-                            <label for="zip_code">PLZ</label>
-                            <input type="text" class="form-control" id="zip_code" name="zip_code"
-                                   placeholder="80333" required="required">
-                            <i class="form-control-feedback material-icons">local_post_office</i>
-                        </div>
-
-                    </div>
-
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-8 ">
                         <div class="form-group has-feedback has-feedback-left">
-                            <label for="country">Land</label>
-                            <input type="text" class="form-control" id="country" name="country"
-                                   placeholder="Deutschland" required="required">
-                            <i class="form-control-feedback material-icons">local_post_office</i>
+                            <label for="street">Straße</label>
+                            <input type="text" class="form-control" id="street" name="street"
+                                   placeholder="Straße" required="required">
+                            <i class="form-control-feedback material-icons">person_pin_circle</i>
                         </div>
-
                     </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Hausnummer</label>
+                            <input type="text" class="form-control" id="housenumber" name="housenumber"
+                                   placeholder="Nr" required="required">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-md-6">
                         <div class="form-group has-feedback has-feedback-left">
                             <label for="city">Stadt</label>
                             <input type="text" class="form-control" id="city" name="city"
                                    placeholder="München" required="required">
-                            <i class="form-control-feedback material-icons">local_post_office
+                            <i class="form-control-feedback material-icons">person_pin_circle
                             </i>
                         </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group has-feedback has-feedback-left">
+                            <label for="zipcode">PLZ</label>
+                            <input type="text" class="form-control" id="zipcode" name="zipcode"
+                                   placeholder="80333" required="required">
+                            <i class="form-control-feedback material-icons">person_pin_circle
+                            </i>
+                        </div>
+                    </div>
 
+                    <div class="col-md-12">
+                        <div class="form-group has-feedback has-feedback-left">
+                            <label for="country">Land</label>
+                            <input type="text" class="form-control" id="country" name="country"
+                                   placeholder="Deutschland" required="required">
+                            <i class="form-control-feedback material-icons">person_pin_circle</i>
+                        </div>
                     </div>
                 </div>
-
                 <div class="col-md-12 registration-margin">
                     <input type="checkbox" id="terms_accepted" required="required" class="bo-reg-checkbox"/>
-                    <label for="terms_accepted" class="bo-reg-label">Hiermit akzeptiere ich die <a>Allgemeinen
-                        Geschäftsbedingungen.</a></label>
+                    <label for="terms_accepted" class="bo-reg-label">Hiermit akzeptiere ich die
+                        <a href="//static.break-out.org/Teilnahmebedingungen_2016_deutsch.pdf">Allgemeinen
+                            Geschäftsbedingungen.</a></label>
                 </div>
-
                 <div class="registration-margin">
                     <button type="submit" id="mainCTA" class="btn btn-primary btn-block">WEITER</button>
                 </div>
