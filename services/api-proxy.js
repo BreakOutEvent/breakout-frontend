@@ -272,6 +272,7 @@ API.sponsoring.getByTeam = (token, eventId, teamId) => {
   logger.info('Trying to get sponsorings for team', teamId);
 
   let mockdata = [{
+    "id":1,
     "amountPerKm": 1,
     "limit": 100,
     "teamId": teamId,
@@ -293,6 +294,7 @@ API.sponsoring.getBySponsor = (token, userId) => {
   logger.info('Trying to get sponsorings from user', userId);
 
   let mockdata = [{
+    "id":1,
     "amountPerKm": 1,
     "limit": 100,
     "teamId": 1,

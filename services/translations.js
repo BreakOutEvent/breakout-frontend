@@ -465,6 +465,18 @@ module.exports = {
     },
     LINK_TEAM: {
       de: 'Mitreisen'
+    },
+    BTN_DELETE: {
+      de: 'Löschen'
+    },
+    BTN_EDIT: {
+      de: 'Bearbeiten'
+    },
+    BTN_ACCEPT: {
+      de: 'Annehmen'
+    },
+    BTN_DECLINE: {
+      de: 'Ablehnen'
     }
   }
 };

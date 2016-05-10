@@ -48,7 +48,10 @@
                         <td>{{team}}</td>
                         <td>{{amountPerKm}} €</td>
                         <td>{{limit}} €</td>
-
+                        <td>
+                            <button class="btn btn-success bo-btn-accept" data-id="{{id}}">{{__ 'BTN_ACCEPT'}}</button>
+                            <button class="btn btn-danger bo-btn-decline" data-id="{{id}}">{{__ 'BTN_DECLINE'}}</button>
+                        </td>
                     </tr>
                 {{/each}}
                 </tbody>
@@ -74,7 +77,10 @@
                         <td>{{team}}</td>
                         <td>{{amountPerKm}} €</td>
                         <td>{{limit}} €</td>
-
+                        <td>
+                            <button class="btn btn-warning bo-btn-edit" data-id="{{id}}">{{__ 'BTN_EDIT'}}</button>
+                            <button class="btn btn-danger bo-btn-delete" data-id="{{id}}">{{__ 'BTN_DELETE'}}</button>
+                        </td>
                     </tr>
                 {{/each}}
                 </tbody>
@@ -130,4 +136,4 @@
     </div>
     -->
 </div>
-<!--<script src="/js/profile.js" type="text/javascript" defer></script>-->
+<script src="/js/sponsoring.js" type="text/javascript" defer></script>
