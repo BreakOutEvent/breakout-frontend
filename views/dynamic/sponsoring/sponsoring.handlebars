@@ -171,7 +171,7 @@
                             <div class="form-group">
                                 <label for="limit">{{__ 'LABEL_LIMIT'}}</label>
                                 <input type="text" class="form-control" name="limit"
-                                       id="limit" required="required"
+                                       id="limit"
                                        placeholder="{{__ 'LABEL_LIMIT'}}">
                             </div>
                         </div>
@@ -239,21 +239,23 @@
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <div class="form-group">
+                            <div class="form-group has-feedback has-feedback-left">
                                 <label for="bo-edit-amountPerKm-text">{{__ 'LABEL_AMOUNT_KM'}}</label>
                                 <input type="text" class="form-control" name="amountPerKm_text"
                                        id="bo-edit-amountPerKm-text" required="required" value="0.30"
                                        placeholder="{{__ 'LABEL_AMOUNT_KM'}}">
+                                <i class="form-control-feedback material-icons">euro_symbol</i>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
-                            <div class="form-group">
+                            <div class="form-group has-feedback has-feedback-left">
                                 <label for="bo-edit-limit">{{__ 'LABEL_LIMIT'}}</label>
                                 <input type="text" class="form-control" name="limit"
-                                       id="bo-edit-limit" required="required"
+                                       id="bo-edit-limit"
                                        placeholder="{{__ 'LABEL_LIMIT'}}">
+                                <i class="form-control-feedback material-icons">euro_symbol</i>
                             </div>
                         </div>
                     </div>
@@ -284,14 +286,15 @@
                         aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="selfModalTitle">{{__ 'HEADER_SELF_SPONSORING'}}</h4>
             </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <p>{{__ 'SELF_MODAL_TEXT'}}</p>
+            <form class="form" id="selfSponsoringModal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p>{{__ 'SELF_MODAL_TEXT'}}</p>
+                        </div>
                     </div>
-                </div>
 
-                <form class="form" id="selfSponsoringModal">
+
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="form-group">
@@ -302,75 +305,123 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group">
+                            <div class="form-group has-feedback has-feedback-left">
                                 <label for="bo-self-firstname">{{__ 'PROFILE.LABEL_FIRSTNAME'}}</label>
                                 <input id="bo-self-firstname" type="text" name="firstname"
                                        class="form-control" required="required">
+                                <i class="form-control-feedback material-icons">person_outline</i>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group">
+                            <div class="form-group has-feedback has-feedback-left">
                                 <label for="bo-self-lastname">{{__ 'PROFILE.LABEL_NAME'}}</label>
                                 <input id="bo-self-lastname" type="text" name="lastname"
                                        class="form-control" required="required">
+                                <i class="form-control-feedback material-icons">person_outline</i>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-8">
-                            <div class="form-group">
+                            <div class="form-group has-feedback has-feedback-left">
                                 <label for="bo-self-street">{{__ 'LABEL_STREET'}}</label>
                                 <input id="bo-self-street" type="text" name="street"
                                        class="form-control" required="required">
+                                <i class="form-control-feedback material-icons">pin_drop</i>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="bo-self-housenumber">{{__ 'LABEL_HOUSENUMBER'}}</label>
+                                <input id="bo-self-housenumber" type="text" name="housenumber"
+                                       class="form-control" required="required">
+                                <i class="form-control-feedback material-icons">pin_drop</i>
                             </div>
                         </div>
                     </div>
-
-
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="bo-self-zipcode">{{__ 'LABEL_ZIPCODE'}}</label>
+                                <input id="bo-self-zipcode" type="text" name="zipcode"
+                                       class="form-control" required="required">
+                                <i class="form-control-feedback material-icons">pin_drop</i>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="bo-self-city">{{__ 'LABEL_CITY'}}</label>
+                                <input id="bo-self-city" type="text" name="city"
+                                       class="form-control" required="required">
+                                <i class="form-control-feedback material-icons">pin_drop</i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="bo-self-country">{{__ 'LABEL_COUNTRY'}}</label>
+                                <input id="bo-self-country" type="text" name="country"
+                                       class="form-control" required="required">
+                                <i class="form-control-feedback material-icons">pin_drop</i>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="bo-self-contract">{{__ 'LABEL_CONTRACT'}}</label>
+                                <input id="bo-self-contract" type="file" name="contract"
+                                       class="form-control" required="required">
+                                <i class="form-control-feedback material-icons">pages</i>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-sm-8 hidden-xs">
                             <div class="form-group">
-                                <label for="bo-edit-amountPerKm-range">{{__ 'LABEL_AMOUNT_KM'}}</label>
-                                <input id="bo-edit-amountPerKm-range" type="range" name="amountPerKm_range"
+                                <label for="bo-self-amountPerKm-range">{{__ 'LABEL_AMOUNT_KM'}}</label>
+                                <input id="bo-self-amountPerKm-range" type="range" name="amountPerKm_range"
                                        class="form-control"
                                        min="0.01" max="2" step="0.01"
                                        value="0.3" required="required">
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <div class="form-group">
-                                <label for="bo-edit-amountPerKm-text">{{__ 'LABEL_AMOUNT_KM'}}</label>
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="bo-self-amountPerKm-text">{{__ 'LABEL_AMOUNT_KM'}}</label>
                                 <input type="text" class="form-control" name="amountPerKm_text"
-                                       id="bo-edit-amountPerKm-text" required="required" value="0.30"
+                                       id="bo-self-amountPerKm-text" required="required" value="0.30"
                                        placeholder="{{__ 'LABEL_AMOUNT_KM'}}">
+                                <i class="form-control-feedback material-icons">euro_symbol</i>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
-                            <div class="form-group">
-                                <label for="bo-edit-limit">{{__ 'LABEL_LIMIT'}}</label>
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="bo-self-limit">{{__ 'LABEL_LIMIT'}}</label>
                                 <input type="text" class="form-control" name="limit"
-                                       id="bo-edit-limit" required="required"
+                                       id="bo-self-limit"
                                        placeholder="{{__ 'LABEL_LIMIT'}}">
+                                <i class="form-control-feedback material-icons">euro_symbol</i>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
-                            <div class="well" id="bo-edit-output">
+                            <div class="well" id="bo-self-output">
 
                             </div>
                             <h4 class="text-right">Geschätzes Spendenversprechen: <strong><span
-                                    id="bo-edit-estimate"></span>€</strong></h4>
+                                    id="bo-self-estimate"></span>€</strong></h4>
                         </div>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">{{__ 'BTN_ABORT'}}</button>
-                <button type="button" class="btn btn-primary">{{__ 'BTN_SAVE'}}</button>
-            </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{__ 'BTN_ABORT'}}</button>
+                    <button type="submit" class="btn btn-primary" id="bo-self-cta">{{__ 'BTN_SAVE'}}</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

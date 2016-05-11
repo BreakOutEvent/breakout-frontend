@@ -504,6 +504,24 @@ module.exports = {
     },
     SELF_MODAL_TEXT: {
       de: 'Hier könnt ihr Sponsoren eintragen, die selbst kein Internet haben. Bitte ladet noch den Spendenvertrag mit hoch.'
+    },
+    LABEL_STREET: {
+      de: 'Straße'
+    },
+    LABEL_HOUSENUMBER: {
+      de: 'Hausnummer'
+    },
+    LABEL_ZIPCODE: {
+      de: 'Postleitzahl'
+    },
+    LABEL_CITY: {
+      de: 'Ort'
+    },
+    LABEL_COUNTRY: {
+      de: 'Land'
+    },
+    LABEL_CONTRACT: {
+      de: 'Spendenvertrag'
     }
   }
 };
