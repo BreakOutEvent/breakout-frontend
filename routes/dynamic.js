@@ -12,6 +12,7 @@ const passport = requireLocal('services/auth');
 const registration = requireLocal('controller/page-controller/registration');
 const profile = requireLocal('controller/page-controller/profile');
 const session = requireLocal('controller/session');
+const apiProxy = requireLocal('services/api-proxy');
 
 const upload = multer({inMemory: true});
 const router = express.Router();
@@ -57,41 +58,45 @@ router.get('/invite', session.hasTeam, funnelTemplate('invite'));
 router.get('/reset/:email/:token', funnelTemplate('reset-pw'));
 
 
-router.get('/team', session.isUser, (req, res, next) => co(function*() {
-
-    let teamPageTeam = null;
-
-
-    if (req.user.status.is.team) {
-      teamPageTeam = yield profile.getTeam(req);
-    }
-    res.render(`dynamic/profile/team-page`,
-      {
-        error: req.flash('error'),
-        layout: 'master',
-        language: req.language,
-        me: req.user.me,
-        title: 'TeamPage',
-        posts: [
-          {
-            headline: 'Head 1',
-            url: 'https://placehold.it/500x80',
-            content: 'Erster Content, keine Ahnung was hier noch so reinkommt'
-          },
-          {
-            headline: 'Head 2',
-            url: 'https://placehold.it/500x80',
-            content: 'Zweiter Content, keine Ahnung was hier noch so reinkommt'
-          },
-          {
-            headline: 'Head 1',
-            url: 'https://placehold.it/500x80',
-            content: 'Dritter Content, keine Ahnung was hier noch so reinkommt'
-          }
-        ],
-        team: teamPageTeam
-      })
-  })
+router.get('/team', session.isUser, (req, res, next) =>
+  res.render(`dynamic/profile/team-page`,
+    {
+      error: req.flash('error'),
+      layout: 'master',
+      language: req.language,
+      me: req.user.me,
+      title: 'TeamPage',
+      posts: [
+        {
+          headline: 'Head 1',
+          url: 'https://placehold.it/500x80',
+          content: 'Erster Content, keine Ahnung was hier noch so reinkommt'
+        },
+        {
+          headline: 'Head 2',
+          url: 'https://placehold.it/500x80',
+          content: 'Zweiter Content, keine Ahnung was hier noch so reinkommt'
+        },
+        {
+          headline: 'Head 1',
+          url: 'https://placehold.it/500x80',
+          content: 'Dritter Content, keine Ahnung was hier noch so reinkommt'
+        }
+      ],
+      //Mockdata
+      /*    team: {
+       name1: 'Nadine',
+       name2: 'Lisa',
+       description: 'Hallo Wir sind hdfblskjfhnsknxcv  dsijflskch  kljsdvkl ym kjdflksnx .',
+       km: 1000,
+       money: 5000,
+       teamName: 'Travelfun',
+       eventCity: 'Berlin',
+       sponsors: [],
+       challenges: []
+       },*/
+      team: apiProxy.getModel('team', req.user, req.user.id)
+    })
 );
 
 router.get('/logout', session.isUser, (req, res, next) => co(function*() {
