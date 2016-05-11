@@ -19,10 +19,13 @@
             <h3>About</h3>
             <p>{{team.description}}</p>
             <h3>Challenges</h3>
-            <div>{{team.challenges}}</div>
+            <div>{{#each team.challenges}}
+                <p>{{this.name}}</p>
+            {{/each}}
+            </div>
             <h3>Sponsoren</h3>
-            <div>{{#each sponsors}}
-                {{this.picture}} {{this.name}}
+            <div>{{#each team.sponsors}}
+                <div><img src="{{this.picture}}" class="bo-member-photo pull-left"/><p>{{this.name}}</p> </div>
             {{/each}}
             </div>
         </div>
