@@ -484,6 +484,9 @@ module.exports = {
     ADD_MODAL_CONTENT: {
       de: 'In diesem Dialog kannst du ein neues Sponsoring pro Kilometer anlegen.'
     },
+    EDIT_MODAL_CONTENT: {
+      de: 'In diesem Dialog kannst du ein Sponsoring pro Kilometer bearbeiten.'
+    },
     LABEL_AMOUNT_KM: {
       de: 'Euro pro Kilometer'
     },
@@ -492,6 +495,9 @@ module.exports = {
     },
     BTN_ABORT: {
       de: 'Abbrechen'
+    },
+    BTN_SAVE: {
+      de: 'Speichern'
     }
   }
 };
