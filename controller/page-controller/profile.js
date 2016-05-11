@@ -12,12 +12,11 @@ const api = requireLocal('services/api-proxy');
 let profile = {};
 
 profile.putTeam = (req, res, next) => co(function*() {
-  
-  
+
   let update = {
     name: req.body.teamName
   };
-
+  
   if(req.body.teamDescription) update.description = req.body.teamDescription;
   
   logger.info('Trying to update a team', update);

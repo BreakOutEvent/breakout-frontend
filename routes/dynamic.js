@@ -70,8 +70,8 @@ router.get('/profile', session.isUser, (req, res, next) => co(function*() {
 
 }).catch(ex => next(ex)));
 
-router.get('/team', session.isUser, (req, res, next) =>
-  res.render(`dynamic/profile/team-page`,
+router.get('/team/:event/:id', session.isUser, (req, res, next) => co(function*() {
+  res.render(`dynamic/team/team-detail`,
     {
       error: req.flash('error'),
       layout: 'master',
@@ -107,9 +107,9 @@ router.get('/team', session.isUser, (req, res, next) =>
        sponsors: [],
        challenges: []
        },*/
-      team: apiProxy.getModel('team', req.user, req.user.id)
+      team: yield apiProxy.team.get(req.user, req.params.event ,req.params.id)
     })
-);
+}).catch(ex => next(ex)));
 
 router.get('/logout', session.isUser, (req, res, next) => co(function*() {
   req.logout();
