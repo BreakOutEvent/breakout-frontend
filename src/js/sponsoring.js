@@ -1,19 +1,41 @@
 'use strict';
 
-var VideoPlayer = function(btnPlay) {
-  let $btnPlay = $(btnPlay),
-    videoUrl = $btnPlay.attr('data-video') + '?autoplay=1',
-    $modal = $($btnPlay.attr('data-target')),
-    iframe = $modal.find('iframe');
+$(document).ready(() => {
 
-  $modal.on('show.bs.modal', () => {
-    iframe.attr('src', videoUrl);
+  const range = $('#amountPerKm_range');
+  const text = $('#amountPerKm_text');
+  const limit = $('#limit');
+
+  updateOutput();
+
+  range.on('input', () => {
+    text.val(range.val());
+    updateOutput();
   });
 
-  //remove source to stop autoplay
-  $modal.on('hide.bs.modal', () => {
-    iframe.attr('src', '');
+  text.on('input', () => {
+    range.val(text.val());
+    updateOutput();
   });
-};
 
-module.exports = VideoPlayer;
+  limit.on('input', () => {
+    updateOutput();
+  });
+
+  function updateOutput() {
+    let output = `Ein Team hat 2015 im Durchschnitt 800km zurück gelegt. Bei ${text.val()}€
+      pro Kilometer ergäbe das eine Spendensummme von ${Math.round(800 * text.val())}€.`;
+    if (limit.val() > 0 && limit.val() < Math.round(800 * text.val())) {
+      output += ` Durch das Limit wird die Spendensumme auf maximal ${Math.round(limit.val())}€ beschränkt.`;
+    }
+    $('#output').html(output);
+    $('#estimate').html(() => {
+      if(limit.val() > 0 && limit.val() < Math.round(800 * text.val())) {
+        return Math.round(limit.val());
+      } else {
+        return Math.round(800 * text.val());
+      }
+    })
+  }
+
+});

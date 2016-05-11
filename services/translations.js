@@ -489,6 +489,9 @@ module.exports = {
     },
     LABEL_LIMIT: {
       de: 'Limit'
+    },
+    BTN_ABORT: {
+      de: 'Abbrechen'
     }
   }
 };
