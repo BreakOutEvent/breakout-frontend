@@ -154,6 +154,10 @@ module.exports = {
     SECONDARY_CTA: {
       de: 'KOSTENLOS REGISTRIEREN',
       en: 'SIGN UP'
+    },
+    FORGOT_PW: {
+      de: 'Passwort vergessen?',
+      en: 'Forgot password?'
     }
   },
   REGISTER: {
@@ -413,7 +417,7 @@ module.exports = {
       de: 'Verwendungszweck'
     },
     MAIL: {
-      de:'E-Mail'
+      de: 'E-Mail'
     },
     CONTINUE: {
       de: 'WEITER',

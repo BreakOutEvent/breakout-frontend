@@ -14,7 +14,7 @@ const config = {
   clientSecret: process.env.FRONTEND_API_CLIENTSECRET,
   URL: process.env.FRONTEND_API_URL,
   mediaURL: process.env.FRONTEND_MEDIA_URL,
-  protocol: 'https'
+  protocol: process.env.FRONTEND_API_PROTOCOL || 'https'
 };
 
 const url = `${config.protocol}://${config.URL}`;

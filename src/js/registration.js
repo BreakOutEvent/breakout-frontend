@@ -4,18 +4,27 @@ var sanityCheck = require('./helpers').sanityCheck;
 var toggleLoading = require('./helpers').toggleLoading;
 
 
-
-
 $(document).ready(() => {
 
-  $('#profilePic').change(function() {
+  $('#profilePic').change(function () {
     if (this.files && this.files[0]) {
       var reader = new FileReader();
-      reader.onload = function(e) {
+      reader.onload = function (e) {
         $('.bo-reg-uploadInputWrapper').css('background-image', 'url(' + e.target.result + ')');
         $('.registration-picture-icon').hide();
       };
       reader.readAsDataURL(this.files[0]);
+    }
+  });
+
+
+  $('#forgotPW').click(function () {
+    console.log($('#username').val() == '');
+    if ($('#username').val() == '') {
+      $('#error').html('<div class="alert alert-danger">' +
+        'You must enter the E-Mail Address you registered with, to reset your password!</div>');
+    } else {
+      //TODO send ajax
     }
   });
 
@@ -31,9 +40,9 @@ $(document).ready(() => {
         } else {
           toggleLoading('#mainCTA');
           $.post('/register', {
-              email: $('#email').val(),
-              password: $('#password').val()
-            })
+            email: $('#email').val(),
+            password: $('#password').val()
+          })
             .success(data => {
               window.location.href = data.nextUrl;
             })
@@ -52,7 +61,7 @@ $(document).ready(() => {
   } else if ($('#registrationForm').length > 0) {
     window.gender = null;
 
-    $('button[name=gender]').click(function() {
+    $('button[name=gender]').click(function () {
       let selection = $(this).val();
 
       if (selection === window.gender) {
@@ -82,17 +91,17 @@ $(document).ready(() => {
 
         toggleLoading('#mainCTA');
         $.ajax({
-            url: '/participant',
-            type: 'POST',
-            cache: false,
-            processData: false,
-            contentType: false,
-            data: data
-          })
-          .success(function(result) {
+          url: '/participant',
+          type: 'POST',
+          cache: false,
+          processData: false,
+          contentType: false,
+          data: data
+        })
+          .success(function (result) {
             window.location.href = result.nextURL;
           })
-          .error(function(err) {
+          .error(function (err) {
             console.log(err);
           })
           .always(() => {
@@ -101,7 +110,7 @@ $(document).ready(() => {
       }
     });
   } else if ($('#teamForm').length > 0) {
-    $('#teamForm').on('submit', function(e) {
+    $('#teamForm').on('submit', function (e) {
       e.preventDefault();
 
       if (sanityCheck('teamForm')) {
@@ -115,19 +124,19 @@ $(document).ready(() => {
 
         toggleLoading('#mainCTA');
         $.ajax({
-            url: '/team-create',
-            type: 'POST',
-            cache: false,
-            processData: false,
-            contentType: false,
-            data: data
-          })
-          .success(function(res) {
+          url: '/team-create',
+          type: 'POST',
+          cache: false,
+          processData: false,
+          contentType: false,
+          data: data
+        })
+          .success(function (res) {
             window.location.href = res.nextURL;
           })
-          .error(function(err) {
+          .error(function (err) {
             $('#feedback').html('<div class="alert alert-danger">' +
-               err.responseJSON.error.message + '</div>');
+              err.responseJSON.error.message + '</div>');
           })
           .always(() => {
             toggleLoading('#mainCTA');
@@ -135,7 +144,7 @@ $(document).ready(() => {
       }
     });
   } else if ($('#inviteForm').length > 0) {
-    $('#inviteForm').on('submit', function(e) {
+    $('#inviteForm').on('submit', function (e) {
       e.preventDefault();
 
       if (sanityCheck('inviteForm')) {
@@ -145,12 +154,12 @@ $(document).ready(() => {
 
         toggleLoading('#mainCTA');
         $.post('/invite', values)
-          .success(function() {
+          .success(function () {
             $('#feedback').html('<div class="alert alert-success">' +
               'Erfolgreich eingeladen!</div>');
             $('#email').val('');
           })
-          .error(function(err) {
+          .error(function (err) {
             $('#feedback').html('<div class="alert alert-danger">' +
               err.responseJSON.error + '</div>');
           })
@@ -159,8 +168,8 @@ $(document).ready(() => {
           });
       }
     });
-  } else if($('#team-invite').length > 0) {
-    $('.joinLinkTeam').click(function() {
+  } else if ($('#team-invite').length > 0) {
+    $('.joinLinkTeam').click(function () {
       const data = {
         team: $(this).attr('data-team'),
         event: $(this).attr('data-event')
@@ -168,10 +177,10 @@ $(document).ready(() => {
 
       toggleLoading('#mainCTA');
       $.post('/team-invite', data)
-        .success(function(res) {
+        .success(function (res) {
           window.location.href = res.nextUrl;
         })
-        .error(function(err) {
+        .error(function (err) {
           $('#feedback').html('<div class="alert alert-danger">' +
             err.responseJSON.error + '</div>');
         })
@@ -181,9 +190,9 @@ $(document).ready(() => {
 
     });
   } else if ($('#sponsorForm').length > 0) {
-    $('button[name=gender]').click(function() {
+    $('button[name=gender]').click(function () {
       let selection = $(this).val();
-      
+
       if (selection === window.gender) {
         $('#' + selection).toggleClass('bo-reg-selected-button');
       } else {
@@ -195,7 +204,7 @@ $(document).ready(() => {
 
     });
 
-    $('#sponsorForm').on('submit', function(e) {
+    $('#sponsorForm').on('submit', function (e) {
       e.preventDefault();
 
       if (sanityCheck('sponsorForm')) {
@@ -210,17 +219,17 @@ $(document).ready(() => {
 
         toggleLoading('#mainCTA');
         $.ajax({
-            url: '/sponsor',
-            type: 'POST',
-            cache: false,
-            processData: false,
-            contentType: false,
-            data: data
-          })
-          .success(function(res) {
+          url: '/sponsor',
+          type: 'POST',
+          cache: false,
+          processData: false,
+          contentType: false,
+          data: data
+        })
+          .success(function (res) {
             window.location.href = res.nextURL;
           })
-          .error(function(err) {
+          .error(function (err) {
             $('#feedback').html('<div class="alert alert-danger">' +
               err.responseJSON.error + '</div>');
           })
