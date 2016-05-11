@@ -385,6 +385,16 @@ API.pwreset.resetPassword = (email, token, password) => {
 };
 
 
+API.team = {};
+
+API.team.get = function (token, eventId, teamId) {
+  return new Promise(function (resolve, reject) {
+    return API.getModel(`event/${eventId}/team`,token,teamId)
+      .then((res) => resolve(res))
+      .catch((err) => reject(err));
+  });
+};
+
 function handleResponse(resolve, reject, msg) {
   return (error, response, body) => {
     if (error) {
