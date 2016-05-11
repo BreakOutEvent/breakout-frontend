@@ -498,6 +498,12 @@ module.exports = {
     },
     BTN_SAVE: {
       de: 'Speichern'
+    },
+    HEADER_SELF_SPONSORING: {
+      de: 'Offline Sponsoring hinzufügen'
+    },
+    SELF_MODAL_TEXT: {
+      de: 'Hier könnt ihr Sponsoren eintragen, die selbst kein Internet haben. Bitte ladet noch den Spendenvertrag mit hoch.'
     }
   }
 };

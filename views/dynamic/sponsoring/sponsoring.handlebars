@@ -29,9 +29,17 @@
 
 <!-- Tab panes -->
 <div class="tab-content">
-    <div role="tabpanel" class="tab-pane" id="team">
+    <div role="tabpanel" class="tab-pane active" id="team">
         <div class="container">
-            <div id="result_profile"></div>
+            <div class="row registration-margin">
+                <div class="col-sm-3 col-sm-offset-9 text-right">
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal"
+                            data-target="#selfSponsoring">
+                        {{__ 'BTN_ADD'}}
+                    </button>
+                </div>
+            </div>
+            <div id="result_in"></div>
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -60,7 +68,7 @@
             </table>
         </div>
     </div>
-    <div role="tabpanel" class="tab-pane active" id="sponsor">
+    <div role="tabpanel" class="tab-pane" id="sponsor">
 
         <div class="container">
             <div class="row registration-margin">
@@ -71,7 +79,7 @@
                     </button>
                 </div>
             </div>
-            <div id="result_profile"></div>
+            <div id="result_out"></div>
             <div class="row">
                 <div class="col-xs-12">
                     <table class="table table-striped">
@@ -106,54 +114,6 @@
 
         </div>
     </div>
-    <!--
-    <div role="tabpanel" class="tab-pane" id="test">
-        <div class="container bo-profile-form bo-single-row">
-            <div id="result_team"></div>
-            <form role="form" id="team_form">
-                <div class="bo-reg-uploadInputWrapper"
-                     style="height: 100px; width: 100px; background-image: url({{team.profilePic.sizes.0.url}});">
-                    <input class="bo-reg-fileInput bo-reg-hiddenInput" type="file" name="teamPic"
-                           id="teamPic"/>
-                    <i class="material-icons registration-picture-icon">camera_alt</i>
-                </div>
-                <div class="form-group has-feedback has-feedback-left">
-                    <label for="teamId">{{__ 'PROFILE.LABEL_TEAMID'}}</label>
-                    <input type="text" class="form-control" id="teamId" name="teamId"
-                           value="{{team.id}}" required="required" disabled="disabled">
-                    <i class="form-control-feedback material-icons">people</i>
-                </div>
-                <div class="form-group has-feedback has-feedback-left">
-                    <label for="teamName">{{__ 'PROFILE.LABEL_TEAMNAME'}}</label>
-                    <input type="text" class="form-control" id="teamName" name="teamName"
-                           value="{{team.name}}" required="required">
-                    <i class="form-control-feedback material-icons">people</i>
-                </div>
-                <div class="form-group has-feedback has-feedback-left">
-                    <label for="location">{{__ 'PROFILE.LABEL_LOCATION'}}</label>
-                    <select class="form-control" id="location" disabled="disabled">
-                        <option value="1" {{#ifCond team.event 1}}selected="selected"{{/ifCond}}>Berlin
-                        </option>
-                        <option value="2" {{#ifCond team.event 2}}selected="selected"{{/ifCond}}>München
-                        </option>
-                    </select>
-                    <i class="form-control-feedback material-icons">near_me</i>
-                </div>
-                <div class="form-group has-feedback has-feedback-left">
-                    <label for="teamDescription">{{__ 'PROFILE.LABEL_DESCRIPTION'}}</label>
-                    <textarea id="teamDescription" rows="10" name="teamDescription"
-                              class="form-control">{{team.description}}</textarea>
-                    <i class="form-control-feedback material-icons">comment</i>
-                </div>
-
-                <div class="form-buttons">
-                    <button type="submit" class="btn btn-primary btn-block text-uppercase"
-                            id="team_CTA">{{__ 'PROFILE.BUTTON_SAVE'}}</button>
-                </div>
-            </form>
-        </div>
-    </div>
-    -->
 </div>
 <!-- Button trigger modal -->
 
@@ -221,7 +181,8 @@
                             <div class="well" id="output">
 
                             </div>
-                            <h4 class="text-right">Geschätzes Spendenversprechen: <strong><span id="estimate"></span>€</strong></h4>
+                            <h4 class="text-right">Geschätzes Spendenversprechen: <strong><span
+                                    id="estimate"></span>€</strong></h4>
                         </div>
                     </div>
 
@@ -271,7 +232,8 @@
                         <div class="col-sm-8 hidden-xs">
                             <div class="form-group">
                                 <label for="bo-edit-amountPerKm-range">{{__ 'LABEL_AMOUNT_KM'}}</label>
-                                <input id="bo-edit-amountPerKm-range" type="range" name="amountPerKm_range" class="form-control"
+                                <input id="bo-edit-amountPerKm-range" type="range" name="amountPerKm_range"
+                                       class="form-control"
                                        min="0.01" max="2" step="0.01"
                                        value="0.3" required="required">
                             </div>
@@ -300,7 +262,107 @@
                             <div class="well" id="bo-edit-output">
 
                             </div>
-                            <h4 class="text-right">Geschätzes Spendenversprechen: <strong><span id="bo-edit-estimate"></span>€</strong></h4>
+                            <h4 class="text-right">Geschätzes Spendenversprechen: <strong><span
+                                    id="bo-edit-estimate"></span>€</strong></h4>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{__ 'BTN_ABORT'}}</button>
+                <button type="button" class="btn btn-primary">{{__ 'BTN_SAVE'}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="selfSponsoring" tabindex="-1" role="dialog" aria-labelledby="selfModalTitle">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="selfModalTitle">{{__ 'HEADER_SELF_SPONSORING'}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <p>{{__ 'SELF_MODAL_TEXT'}}</p>
+                    </div>
+                </div>
+
+                <form class="form" id="selfSponsoringModal">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <input name="team" id="bo-self-id" hidden="hidden" style="display: none;"
+                                       required="required" value="{{me.participant.teamId}}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="bo-self-firstname">{{__ 'PROFILE.LABEL_FIRSTNAME'}}</label>
+                                <input id="bo-self-firstname" type="text" name="firstname"
+                                       class="form-control" required="required">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="bo-self-lastname">{{__ 'PROFILE.LABEL_NAME'}}</label>
+                                <input id="bo-self-lastname" type="text" name="lastname"
+                                       class="form-control" required="required">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="bo-self-street">{{__ 'LABEL_STREET'}}</label>
+                                <input id="bo-self-street" type="text" name="street"
+                                       class="form-control" required="required">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-8 hidden-xs">
+                            <div class="form-group">
+                                <label for="bo-edit-amountPerKm-range">{{__ 'LABEL_AMOUNT_KM'}}</label>
+                                <input id="bo-edit-amountPerKm-range" type="range" name="amountPerKm_range"
+                                       class="form-control"
+                                       min="0.01" max="2" step="0.01"
+                                       value="0.3" required="required">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="bo-edit-amountPerKm-text">{{__ 'LABEL_AMOUNT_KM'}}</label>
+                                <input type="text" class="form-control" name="amountPerKm_text"
+                                       id="bo-edit-amountPerKm-text" required="required" value="0.30"
+                                       placeholder="{{__ 'LABEL_AMOUNT_KM'}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label for="bo-edit-limit">{{__ 'LABEL_LIMIT'}}</label>
+                                <input type="text" class="form-control" name="limit"
+                                       id="bo-edit-limit" required="required"
+                                       placeholder="{{__ 'LABEL_LIMIT'}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="well" id="bo-edit-output">
+
+                            </div>
+                            <h4 class="text-right">Geschätzes Spendenversprechen: <strong><span
+                                    id="bo-edit-estimate"></span>€</strong></h4>
                         </div>
                     </div>
                 </form>
