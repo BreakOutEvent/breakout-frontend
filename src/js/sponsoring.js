@@ -87,12 +87,15 @@ $(document).ready(() => {
   $('#selfSponsoringModal').submit(function (e) {
     e.preventDefault();
     if (sanityCheck('selfSponsoringModal')) {
-      var data = new FormData($('#selfSponsoringModal')[0]);
 
       if (!($('#bo-self-contract').length && $('#bo-self-contract')[0].files &&
         $('#bo-self-contract')[0].files[0])) {
-        data.delete('contract');
+
+        //dirty safari hack
+        $('#contract').remove();
       }
+
+      var data = new FormData($('#selfSponsoringModal')[0]);
 
       toggleLoading('#bo-self-cta', true);
       $.ajax({
