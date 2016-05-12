@@ -39,6 +39,7 @@ router.get('/sponsoring', session.isUser, (req, res, next) => co(function*() {
       outSponsoring: outSponsoring,
       title: 'Sponsorings'
     });
+
 }).catch(ex => next(ex)));
 
 router.post('/sponsoring/createOffline', session.hasTeam, upload.single('contract'), (req, res, next) => co(function*() {

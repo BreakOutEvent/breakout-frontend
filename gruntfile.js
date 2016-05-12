@@ -56,7 +56,8 @@ module.exports = function (grunt) {
           'public/js/bundle.js': ['src/js/main.js'],
           'public/js/registration.js': ['src/js/registration.js'],
           'public/js/profile.js': ['src/js/profile.js'],
-          'public/js/admin.js': ['src/js/admin.js']
+          'public/js/admin.js': ['src/js/admin.js'],
+          'public/js/sponsoring.js': ['src/js/sponsoring.js']
         }
       }
     },
@@ -70,7 +71,8 @@ module.exports = function (grunt) {
           'public/js/bundle.js': ['public/js/bundle.js'],
           'public/js/registration.js': ['public/js/registration.js'],
           'public/js/profile.js': ['public/js/profile.js'],
-          'public/js/admin.js': ['public/js/admin.js']
+          'public/js/admin.js': ['public/js/admin.js'],
+          'public/js/sponsoring.js': ['public/js/sponsoring.js']
         }
       }
     },

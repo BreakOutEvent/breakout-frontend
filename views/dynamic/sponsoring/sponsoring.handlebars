@@ -1,0 +1,429 @@
+<div class="bo-header-info">
+    <div class="container">
+        <div style="background-image: url({{me.profilePic.sizes.0.url}}); height: 100px; width: 100px;"
+             class="bo-profile-image pull-left"></div>
+        <div class="bo-profile-info">
+            <p>{{me.firstname}} {{me.lastname}}</p>
+            {{#if me.participant.teamId}}
+                <p>Team {{me.participant.teamName}} ({{me.participant.eventCity}})</p>
+            {{/if}}
+        </div>
+    </div>
+    <div class="container bo-secondary-nav">
+        <ul class="nav nav-tabs">
+            {{#if me.participant.teamId}}
+                <li role="presentation" class="active"><a href="#team" aria-controls="team" role="tab"
+                                                          data-toggle="tab">{{__ 'NAVIGATION_TEAM'}}</a></li>
+            {{ else }}
+                <li role="presentation"><a href="/participant">{{__ 'LINK_TEAM'}}</a></li>
+            {{/if}}
+            {{#if me.sponsor}}
+                <li role="presentation"><a href="#sponsor" aria-controls="team" role="tab"
+                                           data-toggle="tab">{{__ 'NAVIGATION_SPONSOR'}}</a></li>
+            {{ else }}
+                <li role="presentation"><a href="/sponsor">{{__ 'LINK_SPONSOR'}}</a></li>
+            {{/if}}
+        </ul>
+    </div>
+</div>
+
+<!-- Tab panes -->
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="team">
+        <div class="container">
+            <div class="row registration-margin">
+                <div class="col-sm-3 col-sm-offset-9 text-right">
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal"
+                            data-target="#selfSponsoring">
+                        {{__ 'BTN_ADD'}}
+                    </button>
+                </div>
+            </div>
+            <div id="result_in"></div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Team ID</th>
+                    <th>Team Name</th>
+                    <th>Euro pro KM</th>
+                    <th>Limit</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each incSponsoring}}
+                    <tr>
+                        <td>{{teamId}}</td>
+                        <td>{{team}}</td>
+                        <td>{{amountPerKm}} €</td>
+                        <td>{{limit}} €</td>
+                        <td class="text-right">
+                            <button class="btn btn-success bo-btn-accept"
+                                    data-id="{{id}}">{{__ 'BTN_ACCEPT'}}</button>
+                            <button class="btn btn-danger bo-btn-decline"
+                                    data-id="{{id}}">{{__ 'BTN_DECLINE'}}</button>
+                        </td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="sponsor">
+
+        <div class="container">
+            <div class="row registration-margin">
+                <div class="col-sm-3 col-sm-offset-9 text-right">
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal"
+                            data-target="#addSponsoring">
+                        {{__ 'BTN_ADD'}}
+                    </button>
+                </div>
+            </div>
+            <div id="result_out"></div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Team ID</th>
+                            <th>Team Name</th>
+                            <th>Euro pro KM</th>
+                            <th>Limit</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each outSponsoring}}
+                            <tr>
+                                <td>{{teamId}}</td>
+                                <td>{{team}}</td>
+                                <td>{{amountPerKm}} €</td>
+                                <td>{{limit}} €</td>
+                                <td class="text-right">
+                                    <button class="btn btn-warning bo-btn-edit"
+                                            data-id="{{id}}" data-toggle="modal"
+                                            data-target="#editSponsoring">{{__ 'BTN_EDIT'}}</button>
+                                    <button class="btn btn-danger bo-btn-delete"
+                                            data-id="{{id}}">{{__ 'BTN_DELETE'}}</button>
+                                </td>
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal" id="addSponsoring" tabindex="-1" role="dialog" aria-labelledby="addModalTitle">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="addModalTitle">{{__ 'BTN_ADD'}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <p>{{__ 'ADD_MODAL_CONTENT'}}</p>
+                    </div>
+                </div>
+
+                <form class="form" id="addSponsoringModal">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <select name="team" id="team_select" class="form-control" required="required">
+                                    <option disabled="disabled">Team auswählen</option>
+                                    {{#each team}}
+                                        <option value="{{id}}">{{name}} ({{city}})</option>
+                                    {{/each}}
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8 hidden-xs">
+                            <div class="form-group">
+                                <label for="amountPerKm_range">{{__ 'LABEL_AMOUNT_KM'}}</label>
+                                <input id="amountPerKm_range" type="range" name="amountPerKm_range" class="form-control"
+                                       min="0.01" max="2" step="0.01"
+                                       value="0.3" required="required">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="amountPerKm_text">{{__ 'LABEL_AMOUNT_KM'}}</label>
+                                <input type="text" class="form-control" name="amountPerKm_text"
+                                       id="amountPerKm_text" required="required" value="0.30"
+                                       placeholder="{{__ 'LABEL_AMOUNT_KM'}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label for="limit">{{__ 'LABEL_LIMIT'}}</label>
+                                <input type="text" class="form-control" name="limit"
+                                       id="limit"
+                                       placeholder="{{__ 'LABEL_LIMIT'}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="well" id="output">
+
+                            </div>
+                            <h4 class="text-right">Geschätzes Spendenversprechen: <strong><span
+                                    id="estimate"></span>€</strong></h4>
+                        </div>
+                    </div>
+
+
+                </form>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{__ 'BTN_ABORT'}}</button>
+                <button type="button" class="btn btn-primary">{{__ 'BTN_ADD'}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="editSponsoring" tabindex="-1" role="dialog" aria-labelledby="editModalTitle">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="editModalTitle">{{__ 'BTN_EDIT'}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <p>{{__ 'EDIT_MODAL_CONTENT'}}</p>
+                    </div>
+                </div>
+
+                <form class="form" id="editSponsoringModal">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <select name="team" id="bo-edit-id" class="form-control" required="required">
+                                    <option disabled="disabled">Team auswählen</option>
+                                    {{#each team}}
+                                        <option value="{{id}}">{{name}} ({{city}})</option>
+                                    {{/each}}
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8 hidden-xs">
+                            <div class="form-group">
+                                <label for="bo-edit-amountPerKm-range">{{__ 'LABEL_AMOUNT_KM'}}</label>
+                                <input id="bo-edit-amountPerKm-range" type="range" name="amountPerKm_range"
+                                       class="form-control"
+                                       min="0.01" max="2" step="0.01"
+                                       value="0.3" required="required">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="bo-edit-amountPerKm-text">{{__ 'LABEL_AMOUNT_KM'}}</label>
+                                <input type="text" class="form-control" name="amountPerKm_text"
+                                       id="bo-edit-amountPerKm-text" required="required" value="0.30"
+                                       placeholder="{{__ 'LABEL_AMOUNT_KM'}}">
+                                <i class="form-control-feedback material-icons">euro_symbol</i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="bo-edit-limit">{{__ 'LABEL_LIMIT'}}</label>
+                                <input type="text" class="form-control" name="limit"
+                                       id="bo-edit-limit"
+                                       placeholder="{{__ 'LABEL_LIMIT'}}">
+                                <i class="form-control-feedback material-icons">euro_symbol</i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="well" id="bo-edit-output">
+
+                            </div>
+                            <h4 class="text-right">Geschätzes Spendenversprechen: <strong><span
+                                    id="bo-edit-estimate"></span>€</strong></h4>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{__ 'BTN_ABORT'}}</button>
+                <button type="button" class="btn btn-primary">{{__ 'BTN_SAVE'}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="selfSponsoring" tabindex="-1" role="dialog" aria-labelledby="selfModalTitle">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="selfModalTitle">{{__ 'HEADER_SELF_SPONSORING'}}</h4>
+            </div>
+            <form class="form" id="selfSponsoringModal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p>{{__ 'SELF_MODAL_TEXT'}}</p>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <input name="team" id="bo-self-id" hidden="hidden" style="display: none;"
+                                       required="required" value="{{me.participant.teamId}}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="bo-self-firstname">{{__ 'PROFILE.LABEL_FIRSTNAME'}}</label>
+                                <input id="bo-self-firstname" type="text" name="firstname"
+                                       class="form-control" required="required">
+                                <i class="form-control-feedback material-icons">person_outline</i>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="bo-self-lastname">{{__ 'PROFILE.LABEL_NAME'}}</label>
+                                <input id="bo-self-lastname" type="text" name="lastname"
+                                       class="form-control" required="required">
+                                <i class="form-control-feedback material-icons">person_outline</i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="bo-self-street">{{__ 'LABEL_STREET'}}</label>
+                                <input id="bo-self-street" type="text" name="street"
+                                       class="form-control" required="required">
+                                <i class="form-control-feedback material-icons">pin_drop</i>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="bo-self-housenumber">{{__ 'LABEL_HOUSENUMBER'}}</label>
+                                <input id="bo-self-housenumber" type="text" name="housenumber"
+                                       class="form-control" required="required">
+                                <i class="form-control-feedback material-icons">pin_drop</i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="bo-self-zipcode">{{__ 'LABEL_ZIPCODE'}}</label>
+                                <input id="bo-self-zipcode" type="text" name="zipcode"
+                                       class="form-control" required="required">
+                                <i class="form-control-feedback material-icons">pin_drop</i>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="bo-self-city">{{__ 'LABEL_CITY'}}</label>
+                                <input id="bo-self-city" type="text" name="city"
+                                       class="form-control" required="required">
+                                <i class="form-control-feedback material-icons">pin_drop</i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="bo-self-country">{{__ 'LABEL_COUNTRY'}}</label>
+                                <input id="bo-self-country" type="text" name="country"
+                                       class="form-control" required="required">
+                                <i class="form-control-feedback material-icons">pin_drop</i>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="bo-self-contract">{{__ 'LABEL_CONTRACT'}}</label>
+                                <input id="bo-self-contract" type="file" name="contract"
+                                       class="form-control" required="required">
+                                <i class="form-control-feedback material-icons">pages</i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8 hidden-xs">
+                            <div class="form-group">
+                                <label for="bo-self-amountPerKm-range">{{__ 'LABEL_AMOUNT_KM'}}</label>
+                                <input id="bo-self-amountPerKm-range" type="range" name="amountPerKm_range"
+                                       class="form-control"
+                                       min="0.01" max="2" step="0.01"
+                                       value="0.3" required="required">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="bo-self-amountPerKm-text">{{__ 'LABEL_AMOUNT_KM'}}</label>
+                                <input type="text" class="form-control" name="amountPerKm_text"
+                                       id="bo-self-amountPerKm-text" required="required" value="0.30"
+                                       placeholder="{{__ 'LABEL_AMOUNT_KM'}}">
+                                <i class="form-control-feedback material-icons">euro_symbol</i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="bo-self-limit">{{__ 'LABEL_LIMIT'}}</label>
+                                <input type="text" class="form-control" name="limit"
+                                       id="bo-self-limit"
+                                       placeholder="{{__ 'LABEL_LIMIT'}}">
+                                <i class="form-control-feedback material-icons">euro_symbol</i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="well" id="bo-self-output">
+
+                            </div>
+                            <h4 class="text-right">Geschätzes Spendenversprechen: <strong><span
+                                    id="bo-self-estimate"></span>€</strong></h4>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{__ 'BTN_ABORT'}}</button>
+                    <button type="submit" class="btn btn-primary" id="bo-self-cta">{{__ 'BTN_SAVE'}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="/js/sponsoring.js" type="text/javascript" defer></script>

@@ -14,7 +14,7 @@ const config = {
   clientSecret: process.env.FRONTEND_API_CLIENTSECRET,
   URL: process.env.FRONTEND_API_URL,
   mediaURL: process.env.FRONTEND_MEDIA_URL,
-  protocol: 'https'
+  protocol: process.env.FRONTEND_API_PROTOCOL || 'https'
 };
 
 const url = `${config.protocol}://${config.URL}`;
@@ -268,10 +268,11 @@ API.sponsoring = {};
 
 
 
-API.sponsoring.get = (token, eventId, teamId) => {
+API.sponsoring.getByTeam = (token, eventId, teamId) => {
   logger.info('Trying to get sponsorings for team', teamId);
 
   let mockdata = [{
+    "id":1,
     "amountPerKm": 1,
     "limit": 100,
     "teamId": teamId,
@@ -286,6 +287,28 @@ API.sponsoring.get = (token, eventId, teamId) => {
         url: `${url}/event/${eventId}/team/${teamId}/sponsoring/`,
         auth: {bearer: token.access_token}
       }, handleResponse(resolve, reject, 'Successfully got sponsorings for team ' + teamId));
+  });
+};
+
+API.sponsoring.getBySponsor = (token, userId) => {
+  logger.info('Trying to get sponsorings from user', userId);
+
+  let mockdata = [{
+    "id":1,
+    "amountPerKm": 1,
+    "limit": 100,
+    "teamId": 1,
+    "team": "namedesteams",
+    "sponsorId": userId
+  }];
+
+  return new Promise(function (resolve, reject) {
+    return resolve(mockdata);
+    request
+      .get({
+        url: `/user/${userId}/sponsoring/`,
+        auth: {bearer: token.access_token}
+      }, handleResponse(resolve, reject, 'Successfully got sponsorings from user ' + userId));
   });
 };
 
@@ -315,6 +338,32 @@ API.sponsoring.create = (token, eventId, teamId, body) => {
         body: JSON.stringify(body),
         headers: {'content-type': 'application/json'}
       }, handleResponse(resolve, reject, 'Successfully created sponsorings for team ' + teamId));
+  });
+};
+
+API.pwreset = {};
+
+API.pwreset.requestPwReset = (email) => {
+  logger.info('Requesting password reset for user', email);
+  return new Promise(function (resolve, reject) {
+    request
+      .post({
+        url: `${url}/user/requestreset/`,
+        body: JSON.stringify({email: email}),
+        headers: {'content-type': 'application/json'}
+      }, handleResponse(resolve, reject, 'An email with instructions to reset your password was sent to: ' + email ));
+  });
+};
+
+API.pwreset.resetPassword = (email, token, password) => {
+  logger.info('Resetting password for user', email);
+  return new Promise(function (resolve, reject) {
+    request
+      .post({
+        url: `${url}/user/passwordreset/`,
+        body: JSON.stringify({email: email, token: token, password: password}),
+        headers: {'content-type': 'application/json'}
+      }, handleResponse(resolve, reject, 'Successfully reset password for: ' + email ));
   });
 };
 

@@ -11,20 +11,27 @@
                     <h2 class="text-center">{{__ 'HEADLINE'}}</h2>
                 </div>
             </div>
-            {{#if error}}
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="alert alert-danger">{{error}}</div>
+
+            <div id="error">
+                {{#if error}}
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="alert alert-danger">{{error}}</div>
+                        </div>
                     </div>
-                </div>
-            {{/if}}
-            {{#if success}}
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="alert alert-success">{{success}}</div>
+                {{/if}}
+            </div>
+
+            <div id="success">
+                {{#if success}}
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="alert alert-success">{{success}}</div>
+                        </div>
                     </div>
-                </div>
-            {{/if}}
+                {{/if}}
+            </div>
+
             <div class="row">
                 <div class="col-xs-12">
                     <div class="form-group has-feedback has-feedback-left">
@@ -43,6 +50,14 @@
                         <input type="password" class="form-control" name="password"
                                placeholder="{{__ 'LABEL_PASSWORD'}}" required="required">
                         <i class="form-control-feedback material-icons">lock_outline</i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="text-center bo-forgot-pw-text">
+                        <a href="#" class="bo-link-light-gray" id="forgotPW">{{__ 'FORGOT_PW'}}</a>
                     </div>
                 </div>
             </div>

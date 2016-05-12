@@ -160,6 +160,28 @@ module.exports = {
     SECONDARY_CTA: {
       de: 'KOSTENLOS REGISTRIEREN',
       en: 'SIGN UP'
+    },
+    FORGOT_PW: {
+      de: 'Passwort vergessen?',
+      en: 'Forgot password?'
+    }
+  },
+  'RESET-PW': {
+    HEADLINE: {
+      de: 'Passwort zurücksetzen',
+      en: 'Reset password',
+    },
+    LABEL_PASSWORD: {
+      de: 'Passwort',
+      en: 'Password'
+    },
+    LABEL_PASSWORD_REPEAT: {
+      de: 'Passwort Wiederholung',
+      en: 'Repeat Password'
+    },
+    MAIN_CTA: {
+      de: 'PASSWORT SETZEN',
+      en: 'SET NEW PASSWORD'
     }
   },
   REGISTER: {
@@ -419,7 +441,7 @@ module.exports = {
       de: 'Verwendungszweck'
     },
     MAIL: {
-      de:'E-Mail'
+      de: 'E-Mail'
     },
     CONTINUE: {
       de: 'WEITER',
@@ -457,6 +479,77 @@ module.exports = {
     },
     H_FRIENDS: {
       de: 'Unsere Freunde'
+    }
+  },
+  SPONSORING: {
+    NAVIGATION_TEAM: {
+      de: 'Eingehende Sponsorings'
+    },
+    NAVIGATION_SPONSOR: {
+      de: 'Ausgehende Sponsorings'
+    },
+    LINK_SPONSOR: {
+      de: 'Sponsor werden'
+    },
+    LINK_TEAM: {
+      de: 'Mitreisen'
+    },
+    BTN_DELETE: {
+      de: 'Löschen'
+    },
+    BTN_EDIT: {
+      de: 'Bearbeiten'
+    },
+    BTN_ACCEPT: {
+      de: 'Annehmen'
+    },
+    BTN_DECLINE: {
+      de: 'Ablehnen'
+    },
+    BTN_ADD: {
+      de: 'Sponsoring hinzufügen'
+    },
+    ADD_MODAL_CONTENT: {
+      de: 'In diesem Dialog kannst du ein neues Sponsoring pro Kilometer anlegen.'
+    },
+    EDIT_MODAL_CONTENT: {
+      de: 'In diesem Dialog kannst du ein Sponsoring pro Kilometer bearbeiten.'
+    },
+    LABEL_AMOUNT_KM: {
+      de: 'Euro pro Kilometer'
+    },
+    LABEL_LIMIT: {
+      de: 'Limit'
+    },
+    BTN_ABORT: {
+      de: 'Abbrechen'
+    },
+    BTN_SAVE: {
+      de: 'Speichern'
+    },
+    HEADER_SELF_SPONSORING: {
+      de: 'Offline Sponsoring hinzufügen'
+    },
+    SELF_MODAL_TEXT: {
+      de: 'Hier könnt ihr Sponsoren eintragen, die selbst kein Internet haben. Bitte ladet noch den Spendenvertrag mit hoch.'
+    },
+    LABEL_STREET: {
+      de: 'Straße'
+    },
+    LABEL_HOUSENUMBER: {
+      de: 'Hausnummer'
+    },
+    LABEL_ZIPCODE: {
+      de: 'Postleitzahl'
+    },
+    LABEL_CITY: {
+      de: 'Ort'
+    },
+    LABEL_COUNTRY: {
+      de: 'Land'
+    },
+    LABEL_CONTRACT: {
+      de: 'Spendenvertrag'
     }
   }
 };

@@ -16,6 +16,7 @@ const api = requireLocal('services/api-proxy');
  * @type {*}
  */
 const URLS = {
+  LOGIN: '/login',
   REGISTER: '/register',
   PARTICIPANT: '/participant',
   SPONSOR: '/sponsor',
@@ -41,7 +42,7 @@ const sendErr = (res, errMsg, err) => {
   if (err) logger.error(errMsg, err);
   else logger.error(errMsg);
 
-  res.status(500).send({ error: errMsg });
+  res.status(500).send({error: errMsg});
 };
 
 /**
@@ -139,10 +140,10 @@ registration.joinTeamAPI = (req, res, next) => co(function*() {
   const team = yield api.postModel(
     `/event/${req.body.event}/team/${req.body.team}/member/`,
     req.user,
-    { email: me.email }
+    {email: me.email}
   );
 
-  if (!team) return res.status(500).send({ error: 'Could not join team.' });
+  if (!team) return res.status(500).send({error: 'Could not join team.'});
 
   yield session.refreshSession(req);
 
@@ -162,8 +163,9 @@ registration.joinTeamAPI = (req, res, next) => co(function*() {
  * POST route for unimplemented createSponsor endpoint.
  * @param req
  * @param res
+ * @param next
  */
-registration.createSponsor = (req, res) => co(function*() {
+registration.createSponsor = (req, res, next) => co(function*() {
   logger.info(
     'Trying to create team for event',
     req.body.event,
@@ -172,29 +174,24 @@ registration.createSponsor = (req, res) => co(function*() {
     req.body.lastname
   );
 
-  let sponsorData = {
-    lastname: req.body.lastname,
+  let updateBody = {
+    lastname: req.body.firstname,
     firstname: req.body.lastname,
-    gender: req.body.gender.value,
-    streetAndNumber: req.body.streetAndNumber,
-    zipCode: req.body.zip_code,
-    country: req.body.country
+    gender: req.body.gender,
+    sponsor: {
+      address: {
+        street: req.body.street,
+        housenumber: req.body.housenumber,
+        city: req.body.city,
+        zipcode: req.body.zipcode,
+        country: req.body.country
+      }
+    }
   };
 
-  if (req.file) {
-    logger.info(
-      'Found logo for sponsor in ',
-      req.body.event,
-      'with name',
-      req.body.firstname,
-      ' ',
-      req.body.lastname
-    );
-    sponsorData.sponsorLogo = ['image'];
-  }
+  if(req.body.company) updateBody.sponsor.company = req.body.company;
 
-  const sponsor =
-    yield api.postModel(`event/${req.body.event}/sponsor/`, req.user, sponsorData);
+  const sponsor = yield api.putModel('user', req.user.me.user.id, req.user, updateBody);
 
   if (req.file) {
     yield api.uploadPicture(req.file, sponsor.sponsorLogo);
@@ -208,11 +205,12 @@ registration.createSponsor = (req, res) => co(function*() {
     'for event',
     req.body.event);
 
-  if (!sponsor) return sendErr(res, 'Sponsor creation failed!');
+  if(!sponsor) return sendErr(res, 'Sponsor creation failed!');
 
   res.send({
     nextURL: URLS.SPONSOR_SUCCESS
   });
+
 }).catch(err => {
   sendErr(res, err.message, err);
 });
@@ -273,16 +271,16 @@ registration.inviteUser = (req, res) => co(function*() {
   const me = yield api.getCurrentUser(req.user);
 
   if (!me.participant) {
-    return res.status(500).send({ error: 'User is not a participant!' });
+    return res.status(500).send({error: 'User is not a participant!'});
   }
 
   const invite =
     yield api.inviteUser(req.user, me.participant.eventId, me.participant.teamId, req.body.email);
 
   if (invite) {
-    res.send({ error: '' });
+    res.send({error: ''});
   } else {
-    return res.status(500).send({ error: 'Invite creation failed!' });
+    return res.status(500).send({error: 'Invite creation failed!'});
   }
 
 }).catch(err => {
@@ -386,6 +384,44 @@ registration.getEvents = (req) => co(function*() {
   return events;
 }).catch(ex => {
   throw ex;
+});
+
+/**
+ * POST route for /request-pw-reset
+ * @param req
+ * @param res
+ */
+registration.requestPwReset = (req, res) => co(function*() {
+  const reset = yield api.pwreset.requestPwReset(req.body.email);
+
+  if (reset) {
+    res.send({ error: '' });
+  } else {
+    return res.status(500).send({ error: 'Request password reset failed!' });
+  }
+
+}).catch(err => {
+  sendErr(res, err.message, err);
+});
+
+/**
+ * POST route for /reset-pw
+ * @param req
+ * @param res
+ */
+registration.resetPassword = (req, res) => co(function*() {
+  const reset = yield api.pwreset.resetPassword(req.body.email, req.body.token, req.body.password);
+
+  if (reset) {
+    return res.send({
+      success: 'Successfully reset password, you are now able to login with your new password.<br><a href="' + URLS.LOGIN + '">Login Now!</a>'
+    });
+  } else {
+    return res.status(500).send({ error: 'Password reset failed!' });
+  }
+
+}).catch(err => {
+  sendErr(res, err.message, err);
 });
 
 module.exports = registration;
