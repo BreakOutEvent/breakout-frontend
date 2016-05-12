@@ -22,13 +22,16 @@
                 {{/if}}
             </div>
 
-            {{#if success}}
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="alert alert-success">{{success}}</div>
+            <div id="success">
+                {{#if success}}
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="alert alert-success">{{success}}</div>
+                        </div>
                     </div>
-                </div>
-            {{/if}}
+                {{/if}}
+            </div>
+
             <div class="row">
                 <div class="col-xs-12">
                     <div class="form-group has-feedback has-feedback-left">

@@ -160,6 +160,9 @@ router.post('/invite', session.hasTeam, registration.inviteUser);
 router.post('/team-invite', session.isParticipant, registration.joinTeamAPI);
 router.post('/sponsor', session.isUser, upload.single('profilePic'), registration.createSponsor);
 
+router.post('/request-pw-reset', registration.requestPwReset);
+
+
 router.post('/login',
   passport.authenticate('local',
     {

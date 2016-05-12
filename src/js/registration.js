@@ -19,12 +19,27 @@ $(document).ready(() => {
 
 
   $('#forgotPW').click(function () {
-    console.log($('#username').val() == '');
-    if ($('#username').val() == '') {
+    let email = $('#username').val();
+    if (email == '') {
       $('#error').html('<div class="alert alert-danger">' +
-        'You must enter the E-Mail Address you registered with, to reset your password!</div>');
+        'You must enter the email address you registered with, to reset your password!</div>');
     } else {
-      //TODO send ajax
+
+      toggleLoading('#forgotPW');
+      $.post('/request-pw-reset', {
+        email: email
+      })
+        .success(data => {
+          $('#error').html('<div class="alert alert-success">' +
+            'An email with instructions to reset your password was sent to: ' + email + '</div>');
+        })
+        .error(err => {
+          $('#error').html('<div class="alert alert-danger">' +
+            err.responseJSON.error + '</div>');
+        })
+        .always(() => {
+          toggleLoading('#forgotPW');
+        });
     }
   });
 

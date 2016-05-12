@@ -341,6 +341,20 @@ API.sponsoring.create = (token, eventId, teamId, body) => {
   });
 };
 
+API.pwreset = {};
+
+API.pwreset.requestPwReset = (email) => {
+  logger.info('Requesting password reset for user', email);
+  return new Promise(function (resolve, reject) {
+    request
+      .post({
+        url: `${url}/user/requestreset/`,
+        body: JSON.stringify({email: email}),
+        headers: {'content-type': 'application/json'}
+      }, handleResponse(resolve, reject, 'An email with instructions to reset your password was sent to: ' + email ));
+  });
+};
+
 
 function handleResponse(resolve, reject, msg) {
   return (error, response, body) => {

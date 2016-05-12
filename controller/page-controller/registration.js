@@ -385,4 +385,22 @@ registration.getEvents = (req) => co(function*() {
   throw ex;
 });
 
+/**
+ * POST route for /request-pw-reset
+ * @param req
+ * @param res
+ */
+registration.requestPwReset = (req, res) => co(function*() {
+  const reset = yield api.pwreset.requestPwReset(req.body.email);
+
+  if (reset) {
+    res.send({ error: '' });
+  } else {
+    return res.status(500).send({ error: 'Request password reset failed!' });
+  }
+
+}).catch(err => {
+  sendErr(res, err.message, err);
+});
+
 module.exports = registration;
