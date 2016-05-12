@@ -1,5 +1,8 @@
 'use strict';
 
+var sanityCheck = require('./helpers').sanityCheck;
+var toggleLoading = require('./helpers').toggleLoading;
+
 $(document).ready(() => {
 
   const add_text = $('#amountPerKm_text');
@@ -57,6 +60,13 @@ $(document).ready(() => {
   var editModal = setupListener($('#bo-edit-amountPerKm-range'), edit_text, edit_limit, updateEditOutput);
   editModal();
 
+  var self_text = $('#bo-self-amountPerKm-text');
+  var self_limit = $('#bo-self-limit');
+
+  var updateselfOutput = output(self_text, self_limit, $('#bo-self-output'), $('#bo-self-estimate'));
+  var selfModal = setupListener($('#bo-self-amountPerKm-range'), self_text, self_limit, updateselfOutput);
+  selfModal();
+
   $('.bo-btn-edit').on("click", function (e) {
     var data = $(this).parent().parent()
       .find('td').map(function () {
@@ -70,8 +80,44 @@ $(document).ready(() => {
     $('#bo-edit-limit').val(data[3].replace('€', '').trim());
 
     updateEditOutput();
+  });
+
+  $('#selfSponsoringModal').submit(function (e) {
+    e.preventDefault();
+    if (sanityCheck('selfSponsoringModal')) {
+      var data = new FormData($('#selfSponsoringModal')[0]);
+
+      if (!($('#bo-self-contract').length && $('#bo-self-contract')[0].files &&
+        $('#bo-self-contract')[0].files[0])) {
+        data.delete('contract');
+      }
+
+      toggleLoading('#bo-self-cta', true);
+      $.ajax({
+          url: '/settings/sponsoring/createOffline',
+          type: 'POST',
+          cache: false,
+          processData: false,
+          contentType: false,
+          data: data
+        })
+        .success(function () {
+          $('#result_profile')
+            .html('<div class="alert alert-success">Erfolgreich gespeichert!</div>');
+        })
+        .error(function (err) {
+          console.log(err);
+          $('#result_profile')
+            .html('<div class="alert alert-error">Speichern fehlgeschlagen!</div>');
+        })
+        .always(() => {
+          toggleLoading('#bo-self-cta');
+        });
+    }
 
   });
+
+
 
 
 });
