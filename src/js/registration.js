@@ -20,7 +20,7 @@ $(document).ready(() => {
 
   $('#forgotPW').click(function () {
     let email = $('#username').val();
-    if (email == '') {
+    if (email === '') {
       $('#error').html('<div class="alert alert-danger">' +
         'You must enter the email address you registered with, to reset your password!</div>');
     } else {
@@ -29,7 +29,7 @@ $(document).ready(() => {
       $.post('/request-pw-reset', {
         email: email
       })
-        .success(data => {
+        .success(() => {
           $('#success').html('<div class="alert alert-success">' +
             'An email with instructions to reset your password was sent to: ' + email + '</div>');
         })
