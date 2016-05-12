@@ -355,6 +355,18 @@ API.pwreset.requestPwReset = (email) => {
   });
 };
 
+API.pwreset.resetPassword = (email, token, password) => {
+  logger.info('Resetting password for user', email);
+  return new Promise(function (resolve, reject) {
+    request
+      .post({
+        url: `${url}/user/passwordreset/`,
+        body: JSON.stringify({email: email, token: token, password: password}),
+        headers: {'content-type': 'application/json'}
+      }, handleResponse(resolve, reject, 'Successfully reset password for: ' + email ));
+  });
+};
+
 
 function handleResponse(resolve, reject, msg) {
   return (error, response, body) => {

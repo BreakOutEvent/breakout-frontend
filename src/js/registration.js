@@ -30,7 +30,7 @@ $(document).ready(() => {
         email: email
       })
         .success(data => {
-          $('#error').html('<div class="alert alert-success">' +
+          $('#success').html('<div class="alert alert-success">' +
             'An email with instructions to reset your password was sent to: ' + email + '</div>');
         })
         .error(err => {
@@ -42,6 +42,37 @@ $(document).ready(() => {
         });
     }
   });
+
+
+  $('#resetPwForm').on('submit', e => {
+    e.preventDefault();
+
+    if (sanityCheck('resetPwForm')) {
+      if ($('#password').val() !== $('#password_repeat').val()) {
+        $('#error').html('<div class="alert alert-danger"> ' +
+          'The passwords you entered do not match.</div>');
+      } else {
+        toggleLoading('#mainCTA');
+        $.post('/reset-pw', {
+          token: $('#token').val(),
+          email: $('#email').val(),
+          password: $('#password').val()
+        })
+          .success(data => {
+            $('#success').html('<div class="alert alert-success">' + data.success + '</div>');
+          })
+          .error(err => {
+            console.log(err);
+            $('#error').html('<div class="alert alert-danger">' +
+              err.responseJSON.error + '</div>');
+          })
+          .always(() => {
+            toggleLoading('#mainCTA');
+          });
+      }
+    }
+  });
+
 
   if ($('#registerForm').length > 0) {
 

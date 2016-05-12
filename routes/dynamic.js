@@ -30,6 +30,12 @@ const renderTemplate = (folder) => (template) => (req, res) => {
     options.status = req.user.status;
   }
 
+  //give matched variables from url to template for password reset
+  if (req.params.token && req.params.email) {
+    options.token = req.params.token;
+    options.email = req.params.email;
+  }
+
   res.render(`dynamic/${folder}/${template}`, options);
 };
 
@@ -48,6 +54,7 @@ router.get('/sponsor-success', session.isSponsor, funnelTemplate('sponsor-succes
 router.get('/spectator-success', session.isUser, funnelTemplate('spectator-success'));
 router.get('/sponsor', session.isUser, funnelTemplate('sponsor'));
 router.get('/invite', session.hasTeam, funnelTemplate('invite'));
+router.get('/reset/:email/:token', funnelTemplate('reset-pw'));
 
 
 router.get('/logout', session.isUser, (req, res, next) => co(function*() {
@@ -161,6 +168,7 @@ router.post('/team-invite', session.isParticipant, registration.joinTeamAPI);
 router.post('/sponsor', session.isUser, upload.single('profilePic'), registration.createSponsor);
 
 router.post('/request-pw-reset', registration.requestPwReset);
+router.post('/reset-pw', registration.resetPassword);
 
 
 router.post('/login',

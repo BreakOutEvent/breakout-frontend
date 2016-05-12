@@ -16,6 +16,7 @@ const api = requireLocal('services/api-proxy');
  * @type {*}
  */
 const URLS = {
+  LOGIN: '/login',
   REGISTER: '/register',
   PARTICIPANT: '/participant',
   SPONSOR: '/sponsor',
@@ -397,6 +398,26 @@ registration.requestPwReset = (req, res) => co(function*() {
     res.send({ error: '' });
   } else {
     return res.status(500).send({ error: 'Request password reset failed!' });
+  }
+
+}).catch(err => {
+  sendErr(res, err.message, err);
+});
+
+/**
+ * POST route for /reset-pw
+ * @param req
+ * @param res
+ */
+registration.resetPassword = (req, res) => co(function*() {
+  const reset = yield api.pwreset.resetPassword(req.body.email, req.body.token, req.body.password);
+
+  if (reset) {
+    return res.send({
+      success: 'Successfully reset password, you are now able to login with your new password.<br><a href="' + URLS.LOGIN + '">Login Now!</a>'
+    });
+  } else {
+    return res.status(500).send({ error: 'Password reset failed!' });
   }
 
 }).catch(err => {

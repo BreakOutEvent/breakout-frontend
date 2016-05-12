@@ -160,6 +160,24 @@ module.exports = {
       en: 'Forgot password?'
     }
   },
+  'RESET-PW': {
+    HEADLINE: {
+      de: 'Passwort zurücksetzen',
+      en: 'Reset password',
+    },
+    LABEL_PASSWORD: {
+      de: 'Passwort',
+      en: 'Password'
+    },
+    LABEL_PASSWORD_REPEAT: {
+      de: 'Passwort Wiederholung',
+      en: 'Repeat Password'
+    },
+    MAIN_CTA: {
+      de: 'PASSWORT SETZEN',
+      en: 'SET NEW PASSWORD'
+    }
+  },
   REGISTER: {
     HEADLINE: {
       de: 'Registrierung',
