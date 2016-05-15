@@ -5,10 +5,7 @@ var toggleLoading = require('./helpers').toggleLoading;
 
 $(document).ready(() => {
 
-  const add_text = $('#amountPerKm_text');
-  const add_limit = $('#limit');
-
-  function output (text, limit, output, estimate) {
+  function output(text, limit, output, estimate) {
     return function () {
       let string = `Ein Team hat 2015 im Durchschnitt 800km zurück gelegt. Bei ${text.val()}€
       pro Kilometer ergäbe das eine Spendensummme von ${Math.round(800 * text.val())}€.`;
@@ -27,10 +24,8 @@ $(document).ready(() => {
     }
   }
 
-
-  function setupListener (range, text, limit, updateOutput) {
+  function setupListener(range, text, limit, updateOutput) {
     return function () {
-
       updateOutput();
 
       range.on('input', () => {
@@ -49,6 +44,9 @@ $(document).ready(() => {
     }
   }
 
+  const add_text = $('#amountPerKm_text');
+  const add_limit = $('#limit');
+
   var updateAddOutput = output(add_text, add_limit, $('#output'), $('#estimate'));
   var addModal = setupListener($('#amountPerKm_range'), add_text, add_limit, updateAddOutput);
   addModal();
@@ -63,8 +61,8 @@ $(document).ready(() => {
   var self_text = $('#bo-self-amountPerKm-text');
   var self_limit = $('#bo-self-limit');
 
-  var updateselfOutput = output(self_text, self_limit, $('#bo-self-output'), $('#bo-self-estimate'));
-  var selfModal = setupListener($('#bo-self-amountPerKm-range'), self_text, self_limit, updateselfOutput);
+  var updateSelfOutput = output(self_text, self_limit, $('#bo-self-output'), $('#bo-self-estimate'));
+  var selfModal = setupListener($('#bo-self-amountPerKm-range'), self_text, self_limit, updateSelfOutput);
   selfModal();
 
   $('.bo-btn-edit').on("click", function (e) {
@@ -87,14 +85,9 @@ $(document).ready(() => {
     if (sanityCheck('selfSponsoringModal')) {
       var data = new FormData($('#selfSponsoringModal')[0]);
 
-      if (!($('#bo-self-contract').length && $('#bo-self-contract')[0].files &&
-        $('#bo-self-contract')[0].files[0])) {
-        data.delete('contract');
-      }
-
       toggleLoading('#bo-self-cta', true);
       $.ajax({
-          url: '/settings/sponsoring/createOffline',
+          url: '/settings/sponsoring/create',
           type: 'POST',
           cache: false,
           processData: false,
@@ -102,13 +95,16 @@ $(document).ready(() => {
           data: data
         })
         .success(function () {
-          $('#result_profile')
+          $('#result_in')
             .html('<div class="alert alert-success">Erfolgreich gespeichert!</div>');
+          $('#selfSponsoring').modal('hide');
+          $('#selfSponsoringModal')[0].reset();
+          updateSelfOutput();
         })
         .error(function (err) {
           console.log(err);
-          $('#result_profile')
-            .html('<div class="alert alert-error">Speichern fehlgeschlagen!</div>');
+          $('#selfResult')
+            .html('<div class="alert alert-danger">Speichern fehlgeschlagen!</div>');
         })
         .always(() => {
           toggleLoading('#bo-self-cta');
@@ -117,7 +113,136 @@ $(document).ready(() => {
 
   });
 
+  $('#editSponsoringModal').submit(function (e) {
+    e.preventDefault();
+    if (sanityCheck('editSponsoringModal')) {
+      var data = new FormData($('#editSponsoringModal')[0]);
 
+      toggleLoading('#bo-edit-cta', true);
+      $.ajax({
+          url: '/settings/sponsoring/edit',
+          type: 'PUT',
+          cache: false,
+          processData: false,
+          contentType: false,
+          data: data
+        })
+        .success(function () {
+          $('#result_out')
+            .html('<div class="alert alert-success">Erfolgreich gespeichert!</div>');
+          $('#editSponsoring').modal('hide');
+          $('#editSponsoringModal')[0].reset();
+          updateEditOutput();
+        })
+        .error(function (err) {
+          console.log(err);
+          $('#editResult')
+            .html('<div class="alert alert-danger">Speichern fehlgeschlagen!</div>');
+        })
+        .always(() => {
+          toggleLoading('#bo-edit-cta');
+        });
+    }
+
+  });
+
+  $('#addSponsoringModal').submit(function (e) {
+    e.preventDefault();
+    if (sanityCheck('addSponsoringModal')) {
+      var data = new FormData($('#addSponsoringModal')[0]);
+
+      toggleLoading('#bo-add-cta', true);
+      $.ajax({
+          url: '/settings/sponsoring/create',
+          type: 'POST',
+          cache: false,
+          processData: false,
+          contentType: false,
+          data: data
+        })
+        .success(function () {
+          $('#result_out')
+            .html('<div class="alert alert-success">Erfolgreich gespeichert!</div>');
+          $('#addSponsoring').modal('hide');
+          $('#addSponsoringModal')[0].reset();
+          updateAddOutput();
+        })
+        .error(function (err) {
+          console.log(err);
+          $('#addResult')
+            .html('<div class="alert alert-danger">Speichern fehlgeschlagen!</div>');
+        })
+        .always(() => {
+          toggleLoading('#bo-add-cta');
+        });
+    }
+  });
+
+  $('.bo-btn-accept').click(function (e) {
+    var button = this;
+    toggleLoading(button, true);
+    $.post('/settings/sponsoring/accept', {
+        teamId: $(button).attr('data-team'),
+        eventId: $(button).attr('data-event'),
+        sponsoringId: $(button).attr('data-sponsoring')
+      })
+      .success(function () {
+        $('#result_in')
+          .html('<div class="alert alert-success">Erfolgreich angenommen!</div>');
+      })
+      .error(function (err) {
+        console.log(err);
+        $('#result_in')
+          .html('<div class="alert alert-danger">Annehmen fehlgeschlagen!</div>');
+      })
+      .always(() => {
+        toggleLoading(button);
+      });
+  });
+
+  $('.bo-btn-decline').click(function (e) {
+    var button = this;
+    toggleLoading(button, true);
+    $.post('/settings/sponsoring/reject', {
+        teamId: $(button).attr('data-team'),
+        eventId: $(button).attr('data-event'),
+        sponsoringId: $(button).attr('data-sponsoring')
+      })
+      .success(function () {
+        $('#result_in')
+          .html('<div class="alert alert-success">Erfolgreich abgelehnt!</div>');
+      })
+      .error(function (err) {
+        console.log(err);
+        $('#result_in')
+          .html('<div class="alert alert-danger">Ablehnen fehlgeschlagen!</div>');
+      })
+      .always(() => {
+        toggleLoading(button);
+      });
+  });
+
+  $('.bo-btn-delete').click(function (e) {
+    var button = this;
+    toggleLoading(button, true);
+    $.post('/settings/sponsoring/delete', {
+        teamId: $(button).attr('data-team'),
+        eventId: $(button).attr('data-event'),
+        sponsoringId: $(button).attr('data-sponsoring')
+      })
+      .success(function () {
+        $('#result_in')
+          .html('<div class="alert alert-success">Erfolgreich gelöscht!</div>');
+      })
+      .error(function (err) {
+        console.log(err);
+        $('#result_in')
+          .html('<div class="alert alert-danger">Löschen fehlgeschlagen!</div>');
+      })
+      .always(() => {
+        toggleLoading(button);
+      });
+  });
 
 
 });

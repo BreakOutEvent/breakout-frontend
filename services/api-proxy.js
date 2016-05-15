@@ -266,7 +266,19 @@ API.activateUser = (token) => {
 
 API.sponsoring = {};
 
+API.sponsoring.create = (token, event, team, body) => {
+  logger.info('Trying to create sponsoring for team', team);
 
+  return new Promise(function(resolve, reject) {
+    request
+      .post({
+        url: `${url}/event/${event}/team/${team}/sponsoring/`,
+        auth: {bearer: token.access_token},
+        body: JSON.stringify(body),
+        headers: {'content-type': 'application/json'}
+      }, handleResponse(resolve, reject, 'Successfully created sponsoring for team ' + team));
+  });
+};
 
 API.sponsoring.getByTeam = (token, eventId, teamId) => {
   logger.info('Trying to get sponsorings for team', teamId);
@@ -281,7 +293,7 @@ API.sponsoring.getByTeam = (token, eventId, teamId) => {
   }];
 
   return new Promise(function (resolve, reject) {
-    return resolve(mockdata);
+    //return resolve(mockdata);
     request
       .get({
         url: `${url}/event/${eventId}/team/${teamId}/sponsoring/`,
@@ -303,19 +315,17 @@ API.sponsoring.getBySponsor = (token, userId) => {
   }];
 
   return new Promise(function (resolve, reject) {
-    return resolve(mockdata);
+    //return resolve(mockdata);
     request
       .get({
-        url: `/user/${userId}/sponsoring/`,
+        url: `${url}/user/${userId}/sponsor/sponsoring/`,
         auth: {bearer: token.access_token}
       }, handleResponse(resolve, reject, 'Successfully got sponsorings from user ' + userId));
   });
 };
 
-API.sponsoring.create = (token, eventId, teamId, body) => {
-  logger.info('Trying to create sponsoring for team', teamId);
-
-
+API.sponsoring.changeStatus = (token, eventId, teamId, sponsoringId, status) => {
+  logger.info('Trying to change status of  sponsoring ', sponsoringId,'to',status);
 
   let mockdata = [{
     "amountPerKm": 1,
@@ -327,18 +337,25 @@ API.sponsoring.create = (token, eventId, teamId, body) => {
 
   return new Promise(function (resolve, reject) {
 
-    if(!body.amountPerKm) return reject("Missing 'amountPerKm' parameter");
-    if(!body.limit) return reject("Missing 'limit' parameter");
-
-    return resolve(mockdata);
+    let body = {};
+    body.status = status;
+    //return resolve(mockdata);
     request
-      .post({
-        url: `${url}/event/${eventId}/team/${teamId}/sponsoring/`,
+      .put({
+        url: `${url}/event/${eventId}/team/${teamId}/sponsoring/${sponsoringId}/status/`,
         auth: {bearer: token.access_token},
         body: JSON.stringify(body),
         headers: {'content-type': 'application/json'}
-      }, handleResponse(resolve, reject, 'Successfully created sponsorings for team ' + teamId));
+      }, handleResponse(resolve, reject, 'Successfully changed status of sponsoring ' + sponsoringId + ' to ' + status));
   });
+};
+
+API.sponsoring.reject = (token, eventId, teamId, sponsoringId) => {
+  return API.sponsoring.changeStatus(token,eventId,teamId,sponsoringId,"rejected");
+};
+
+API.sponsoring.accept = (token, eventId, teamId, sponsoringId) => {
+  return API.sponsoring.changeStatus(token,eventId,teamId,sponsoringId,"accepted");
 };
 
 API.pwreset = {};

@@ -11,6 +11,18 @@
                 <h2 id="test-headline" class="text-center">{{__ 'HEADLINE'}}</h2>
             </div>
         </div>
+        {{#if error}}
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="alert alert-danger">{{error}}</div>
+                </div>
+            </div>
+        {{/if}}
+        <div class="row">
+            <div class="col-xs-12">
+
+            </div>
+        </div>
         <div class="row">
             <div class="col-xs-12">
                 {{#unless emailConfirmed }}

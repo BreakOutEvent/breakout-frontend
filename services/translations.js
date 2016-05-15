@@ -544,6 +544,24 @@ module.exports = {
     },
     LABEL_CONTRACT: {
       de: 'Spendenvertrag'
+    },
+    LABEL_COMPANY: {
+      de: 'Firma'
+    },
+    OPTIONAL: {
+      de: 'Optional'
+    },
+    STATUS_ACCEPTED: {
+      de: 'SPONSORING ANGENOMMEN'
+    },
+    STATUS_REJECTED: {
+      de: 'SPONSORING ABGELEHNT'
+    },
+    LABEL_GENDER: {
+      de: 'Anrede'
+    },
+    LABEL_URL: {
+      de: 'Ihre Webseite'
     }
   }
 };
