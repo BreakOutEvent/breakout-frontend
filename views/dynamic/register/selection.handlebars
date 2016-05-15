@@ -59,6 +59,18 @@
                 </div>
             </div>
         {{/unless}}
+        {{#if status.is.participant}}
+            <div class="row">
+                <div class="col-xs-12">
+                    <a href="/settings/profile" class="no-underline">
+                        <div class="bo-reg-well-selection bo-reg-well-selection-hover">
+                            <h4>{{__ 'PROFILE_H'}}</h4>
+                            <p>{{__ 'PROFILE'}}</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        {{/if}}
         <!--
         <div class="row">
             <div class="col-xs-12">

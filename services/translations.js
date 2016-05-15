@@ -43,6 +43,12 @@ module.exports = {
     OBSERVER: {
       de: 'Du bist erstmal mit Deinem aktuellen Status zufrieden? (Du kannst jederzeit wieder auf diese Seite!)',
       en: 'Are you happy with your status for now? (You can come back to this site at any time!)'
+    },
+    PROFILE_H: {
+      de: 'Profileinstellungen'
+    },
+    PROFILE: {
+      de: 'Hier kannst du die im Anmeldeprozess angegebenen Daten ändern und Profilbilder hochladen.'
     }
   },
   'TEAM-CREATE': {
