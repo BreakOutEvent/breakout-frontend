@@ -57,6 +57,66 @@ router.get('/sponsor', session.isUser, funnelTemplate('sponsor'));
 router.get('/invite', session.hasTeam, funnelTemplate('invite'));
 router.get('/reset/:email/:token', funnelTemplate('reset-pw'));
 
+router.get('/profile', session.isUser, (req, res, next) => co(function*() {
+
+  let team = null;
+
+  if (req.user.status.is.team) {
+    team = yield profile.getTeam(req);
+  }
+
+  res.render(`dynamic/profile/profile`,
+    {
+      error: req.flash('error'),
+      layout: 'master',
+      language: req.language,
+      me: req.user.me,
+      team: team,
+      title: 'Profile'
+    });
+
+}).catch(ex => next(ex)));
+
+router.get('/team/:event/:id', session.isUser, (req, res, next) => co(function*() {
+  res.render(`dynamic/team/team-detail`,
+    {
+      error: req.flash('error'),
+      layout: 'master',
+      language: req.language,
+      me: req.user.me,
+      title: 'TeamPage',
+      posts: [
+        {
+          headline: 'Head 1',
+          url: 'https://placehold.it/500x80',
+          content: 'Erster Content, keine Ahnung was hier noch so reinkommt'
+        },
+        {
+          headline: 'Head 2',
+          url: 'https://placehold.it/500x80',
+          content: 'Zweiter Content, keine Ahnung was hier noch so reinkommt'
+        },
+        {
+          headline: 'Head 1',
+          url: 'https://placehold.it/500x80',
+          content: 'Dritter Content, keine Ahnung was hier noch so reinkommt'
+        }
+      ],
+      //Mockdata
+      /*    team: {
+       name1: 'Nadine',
+       name2: 'Lisa',
+       description: 'Hallo Wir sind hdfblskjfhnsknxcv  dsijflskch  kljsdvkl ym kjdflksnx .',
+       km: 1000,
+       money: 5000,
+       teamName: 'Travelfun',
+       eventCity: 'Berlin',
+       sponsors: [],
+       challenges: []
+       },*/
+      team: yield apiProxy.team.get(req.user, req.params.event ,req.params.id)
+    })
+}).catch(ex => next(ex)));
 
 router.get('/team/:event/:id', session.isUser, (req, res, next) => co(function*() {
   res.render(`dynamic/team/team-detail`,
