@@ -575,5 +575,16 @@ module.exports = {
     LABEL_URL: {
       de: 'Ihre Webseite'
     }
+  },
+  CLOSED: {
+    HEADLINE: {
+      de: 'Anmeldung geschlossen'
+    },
+    DESCRIPTION: {
+      de: 'Leider ist die Anmeldung als Teilnehmer bei BreakOut 2016 nicht mehr offen :( Du kannst Dich aber noch als Sponsor anmelden. Trage Dich doch in unseren Newsletter ein um beim nächsten BreakOut dabei zu sein!'
+    },
+    LINK_DESCRIPTION: {
+      de: 'ZURÜCK ZUR WEBSEITE'
+    }
   }
 };
