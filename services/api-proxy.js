@@ -263,13 +263,25 @@ API.activateUser = (token) => {
   });
 };
 
+API.general = {};
+
+API.general.get = (modelURL) => {
+  logger.info('Trying to get', modelURL ,'from backend');
+  return new Promise((resolve, reject)=> {
+      request
+        .get({
+          url: `${url}${modelURL}`
+        }, handleResponse(resolve, reject, 'Got ' + modelURL + ' from backend'));
+    }
+  );
+};
 
 API.sponsoring = {};
 
 API.sponsoring.create = (token, event, team, body) => {
   logger.info('Trying to create sponsoring for team', team);
 
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     request
       .post({
         url: `${url}/event/${event}/team/${team}/sponsoring/`,
@@ -284,7 +296,7 @@ API.sponsoring.getByTeam = (token, eventId, teamId) => {
   logger.info('Trying to get sponsorings for team', teamId);
 
   let mockdata = [{
-    "id":1,
+    "id": 1,
     "amountPerKm": 1,
     "limit": 100,
     "teamId": teamId,
@@ -306,7 +318,7 @@ API.sponsoring.getBySponsor = (token, userId) => {
   logger.info('Trying to get sponsorings from user', userId);
 
   let mockdata = [{
-    "id":1,
+    "id": 1,
     "amountPerKm": 1,
     "limit": 100,
     "teamId": 1,
@@ -325,7 +337,7 @@ API.sponsoring.getBySponsor = (token, userId) => {
 };
 
 API.sponsoring.changeStatus = (token, eventId, teamId, sponsoringId, status) => {
-  logger.info('Trying to change status of  sponsoring ', sponsoringId,'to',status);
+  logger.info('Trying to change status of  sponsoring ', sponsoringId, 'to', status);
 
   let mockdata = [{
     "amountPerKm": 1,
@@ -351,11 +363,11 @@ API.sponsoring.changeStatus = (token, eventId, teamId, sponsoringId, status) => 
 };
 
 API.sponsoring.reject = (token, eventId, teamId, sponsoringId) => {
-  return API.sponsoring.changeStatus(token,eventId,teamId,sponsoringId,"rejected");
+  return API.sponsoring.changeStatus(token, eventId, teamId, sponsoringId, "rejected");
 };
 
 API.sponsoring.accept = (token, eventId, teamId, sponsoringId) => {
-  return API.sponsoring.changeStatus(token,eventId,teamId,sponsoringId,"accepted");
+  return API.sponsoring.changeStatus(token, eventId, teamId, sponsoringId, "accepted");
 };
 
 API.pwreset = {};
@@ -368,7 +380,7 @@ API.pwreset.requestPwReset = (email) => {
         url: `${url}/user/requestreset/`,
         body: JSON.stringify({email: email}),
         headers: {'content-type': 'application/json'}
-      }, handleResponse(resolve, reject, 'An email with instructions to reset your password was sent to: ' + email ));
+      }, handleResponse(resolve, reject, 'An email with instructions to reset your password was sent to: ' + email));
   });
 };
 
@@ -380,29 +392,26 @@ API.pwreset.resetPassword = (email, token, password) => {
         url: `${url}/user/passwordreset/`,
         body: JSON.stringify({email: email, token: token, password: password}),
         headers: {'content-type': 'application/json'}
-      }, handleResponse(resolve, reject, 'Successfully reset password for: ' + email ));
-  });
-};
-
-
-API.team = {};
-
-API.team.get = function (token, eventId, teamId) {
-  return new Promise(function (resolve, reject) {
-    return API.getModel(`event/${eventId}/team`,token,teamId)
-      .then((res) => resolve(res))
-      .catch((err) => reject(err));
+      }, handleResponse(resolve, reject, 'Successfully reset password for: ' + email));
   });
 };
 
 API.team = {};
 
-API.team.get = function (token, eventId, teamId) {
-  return new Promise(function (resolve, reject) {
-    return API.getModel(`event/${eventId}/team`,token,teamId)
-      .then((res) => resolve(res))
-      .catch((err) => reject(err));
-  });
+API.team.get = function (teamId) {
+  return API.general.get(`/event/1/team/${teamId}/`);
+};
+
+API.event = {};
+
+API.event.get = function (eventId) {
+  //TODO WAITING FOR BACKEND
+  return null;
+  return API.general.get(`/event/${eventId}/`);
+};
+
+API.event.all = function (eventId) {
+  return API.general.get(`/event/`);
 };
 
 function handleResponse(resolve, reject, msg) {

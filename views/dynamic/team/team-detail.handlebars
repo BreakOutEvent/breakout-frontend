@@ -4,8 +4,13 @@
 
 <div class="bo-header-info bo-team-header">
     <div class="col-sm-offset-3">
-        <h3>Team {{team.name}} ({{team.eventCity}})</h3>
-        <h4>{{team.name1}} & {{team.name2}} | {{team.km}}km | {{team.money}}€ </h4>
+        <h3>Team {{team.name}} ({{team.event.city}})</h3>
+        <h4>
+            {{#each team.members}}
+                {{firstname}} {{#if @first}}&{{/if}}
+            {{/each}}
+            |
+            {{team.name1}} & {{team.name2}} | {{team.km}}km | {{team.money}}€ </h4>
     </div>
 </div>
 <div class="container">
