@@ -55,6 +55,7 @@ router.get('/spectator-success', session.isUser, funnelTemplate('spectator-succe
 router.get('/sponsor', session.isUser, funnelTemplate('sponsor'));
 router.get('/invite', session.hasTeam, registration.lock, funnelTemplate('invite'));
 router.get('/reset/:email/:token', funnelTemplate('reset-pw'));
+router.get('/closed', funnelTemplate('closed'));
 
 
 router.get('/logout', session.isUser, (req, res, next) => co(function*() {
