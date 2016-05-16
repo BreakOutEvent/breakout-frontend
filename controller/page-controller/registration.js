@@ -46,6 +46,21 @@ const sendErr = (res, errMsg, err) => {
 };
 
 /**
+ * Timebased closing of registration
+ * @param req
+ * @param res
+ * @param next
+ */
+
+registration.lock = (req, res, next) => {
+  console.log(Date.now());
+  if(Date.now() > 1463454000000) {
+    return res.redirect('/closed')
+  }
+  next();
+};
+
+/**
  * POST route for /register
  * @param req
  * @param res

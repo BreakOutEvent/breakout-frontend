@@ -46,14 +46,14 @@ router.get('/', funnelTemplate('register'));
 router.get('/login', funnelTemplate('login'));
 router.get('/register', funnelTemplate('register'));
 router.get('/selection', session.isUser, funnelTemplate('selection'));
-router.get('/participant', session.isUser, funnelTemplate('participant'));
-router.get('/team-success', session.hasTeam, funnelTemplate('team-success'));
-router.get('/invite-success', session.hasTeam, funnelTemplate('invite-success'));
+router.get('/participant', session.isUser, registration.lock, funnelTemplate('participant'));
+router.get('/team-success', session.hasTeam, registration.lock, funnelTemplate('team-success'));
+router.get('/invite-success', session.hasTeam, registration.lock, funnelTemplate('invite-success'));
 router.get('/payment-success', session.hasTeam, funnelTemplate('payment-success'));
 router.get('/sponsor-success', session.isSponsor, funnelTemplate('sponsor-success'));
 router.get('/spectator-success', session.isUser, funnelTemplate('spectator-success'));
 router.get('/sponsor', session.isUser, funnelTemplate('sponsor'));
-router.get('/invite', session.hasTeam, funnelTemplate('invite'));
+router.get('/invite', session.hasTeam, registration.lock, funnelTemplate('invite'));
 router.get('/reset/:email/:token', funnelTemplate('reset-pw'));
 
 
@@ -100,7 +100,7 @@ router.get('/join/:token', (req, res, next) => co(function*() {
   }
 }).catch(ex => next(ex)));
 
-router.get('/team-invite', session.isParticipant, (req, res, next) => co(function*() {
+router.get('/team-invite', session.isParticipant, registration.lock, (req, res, next) => co(function*() {
   const teams = yield registration.getInvites(req);
 
   if (teams.length > 0) {
@@ -118,7 +118,7 @@ router.get('/team-invite', session.isParticipant, (req, res, next) => co(functio
   }
 }).catch(ex => next(ex)));
 
-router.get('/team-create', session.isParticipant, (req, res, next) => co(function*() {
+router.get('/team-create', session.isParticipant, registration.lock, (req, res, next) => co(function*() {
   registration.getEvents(req)
     .then(events => {
       res.render('dynamic/register/team-create',
