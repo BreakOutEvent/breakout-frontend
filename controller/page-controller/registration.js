@@ -46,6 +46,20 @@ const sendErr = (res, errMsg, err) => {
 };
 
 /**
+ * Timebased closing of registration
+ * @param req
+ * @param res
+ * @param next
+ */
+
+registration.lock = (req, res, next) => {
+  if(Date.now() > 1463454000000) {
+    return res.redirect('/closed')
+  }
+  next();
+};
+
+/**
  * POST route for /register
  * @param req
  * @param res
@@ -147,9 +161,6 @@ registration.joinTeamAPI = (req, res, next) => co(function*() {
 
   yield session.refreshSession(req);
 
-  //let me2 = yield api.getCurrentUser(req.user);
-  // console.dir(me, me2);
-
   return res.send({
     error: '',
     nextUrl: URLS.INVITE_SUCCESS
@@ -175,8 +186,8 @@ registration.createSponsor = (req, res, next) => co(function*() {
   );
 
   let updateBody = {
-    lastname: req.body.firstname,
-    firstname: req.body.lastname,
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
     gender: req.body.gender,
     sponsor: {
       address: {
@@ -191,7 +202,7 @@ registration.createSponsor = (req, res, next) => co(function*() {
 
   if(req.body.company) updateBody.sponsor.company = req.body.company;
 
-  const sponsor = yield api.putModel('user', req.user.me.user.id, req.user, updateBody);
+  const sponsor = yield api.putModel('user', req.user.me.id, req.user, updateBody);
 
   if (req.file) {
     yield api.uploadPicture(req.file, sponsor.sponsorLogo);
@@ -207,7 +218,9 @@ registration.createSponsor = (req, res, next) => co(function*() {
 
   if(!sponsor) return sendErr(res, 'Sponsor creation failed!');
 
-  res.send({
+  yield session.refreshSession(req);
+
+  return res.send({
     nextURL: URLS.SPONSOR_SUCCESS
   });
 

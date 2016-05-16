@@ -50,15 +50,19 @@ passport.createSession = (username, user) => co(function*() {
     }
   };
 
-  if (me.participant) {
+  if (_.includes(me.roles, 'ADMIN')) {
+    user.status.is.admin = true;
+  }
+
+  if (_.includes(me.roles, 'SPONSOR')) {
+    user.status.is.sponsor = true;
+  }
+
+  if (_.includes(me.roles, 'PARTICIPANT')) {
     user.status.is.participant = true;
     if (me.participant.teamId) {
       user.status.is.team = true;
     }
-  }
-
-  if (_.includes(me.roles, 'ADMIN')) {
-    user.status.is.admin = true;
   }
 
   user.email = username;

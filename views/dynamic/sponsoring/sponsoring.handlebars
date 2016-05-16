@@ -55,12 +55,26 @@
                         <td>{{teamId}}</td>
                         <td>{{team}}</td>
                         <td>{{amountPerKm}} €</td>
-                        <td>{{limit}} €</td>
-                        <td class="text-right">
-                            <button class="btn btn-success bo-btn-accept"
-                                    data-id="{{id}}">{{__ 'BTN_ACCEPT'}}</button>
-                            <button class="btn btn-danger bo-btn-decline"
-                                    data-id="{{id}}">{{__ 'BTN_DECLINE'}}</button>
+                        {{#ifCond limit 1000000000}}
+                            <td>Kein Limit</td>
+                        {{else}}
+                            <td>{{limit}} €</td>
+                        {{/ifCond}}
+                    <td class="text-right">
+                        {{#ifCond status "proposed"}}
+
+                                <button class="btn btn-success bo-btn-accept" data-team="{{teamId}}"
+                                        data-sponsoring="{{id}}" data-event="{{eventId}}">{{__ 'BTN_ACCEPT'}}</button>
+                                <button class="btn btn-danger bo-btn-decline" data-team="{{teamId}}"
+                                        data-sponsoring="{{id}}" data-event="{{eventId}}">{{__ 'BTN_DECLINE'}}</button>
+                        {{else}}
+                            {{#ifCond status "accepted"}}
+                                <span class="text-success">{{__ 'STATUS_ACCEPTED'}}</span>
+                            {{/ifCond}}
+                            {{#ifCond status "rejected"}}
+                                <span class="text-danger">{{__ 'STATUS_REJECTED'}}</span>
+                            {{/ifCond}}
+                        {{/ifCond}}
                         </td>
                     </tr>
                 {{/each}}
@@ -97,11 +111,15 @@
                                 <td>{{teamId}}</td>
                                 <td>{{team}}</td>
                                 <td>{{amountPerKm}} €</td>
-                                <td>{{limit}} €</td>
+                                {{#ifCond limit 1000000000}}
+                                    <td>Kein Limit</td>
+                                {{else}}
+                                    <td>{{limit}} €</td>
+                                {{/ifCond}}
                                 <td class="text-right">
-                                    <button class="btn btn-warning bo-btn-edit"
+                                    <!--<button class="btn btn-warning bo-btn-edit"
                                             data-id="{{id}}" data-toggle="modal"
-                                            data-target="#editSponsoring">{{__ 'BTN_EDIT'}}</button>
+                                            data-target="#editSponsoring">{{__ 'BTN_EDIT'}}</button>-->
                                     <button class="btn btn-danger bo-btn-delete"
                                             data-id="{{id}}">{{__ 'BTN_DELETE'}}</button>
                                 </td>
@@ -117,31 +135,34 @@
 </div>
 <!-- Button trigger modal -->
 
-
 <!-- Modal -->
 <div class="modal" id="addSponsoring" tabindex="-1" role="dialog" aria-labelledby="addModalTitle">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="addModalTitle">{{__ 'BTN_ADD'}}</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <p>{{__ 'ADD_MODAL_CONTENT'}}</p>
-                    </div>
+            <form class="form" id="addSponsoringModal">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="addModalTitle">{{__ 'BTN_ADD'}}</h4>
                 </div>
-
-                <form class="form" id="addSponsoringModal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12" id="addResult"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p>{{__ 'ADD_MODAL_CONTENT'}}</p>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="form-group">
                                 <select name="team" id="team_select" class="form-control" required="required">
                                     <option disabled="disabled">Team auswählen</option>
-                                    {{#each team}}
-                                        <option value="{{id}}">{{name}} ({{city}})</option>
+                                    {{#each teams}}
+                                        <option value='{"team": "{{id}}", "event": "{{event}}"}'>{{name}} ({{eventCity}}
+                                            )
+                                        </option>
                                     {{/each}}
 
                                 </select>
@@ -185,43 +206,44 @@
                                     id="estimate"></span>€</strong></h4>
                         </div>
                     </div>
-
-
-                </form>
-
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">{{__ 'BTN_ABORT'}}</button>
-                <button type="button" class="btn btn-primary">{{__ 'BTN_ADD'}}</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{__ 'BTN_ABORT'}}</button>
+                    <button type="submit" class="btn btn-primary" id="bo-add-cta">{{__ 'BTN_ADD'}}</button>
+                </div>
+            </form>
         </div>
+
     </div>
 </div>
 
 <div class="modal" id="editSponsoring" tabindex="-1" role="dialog" aria-labelledby="editModalTitle">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="editModalTitle">{{__ 'BTN_EDIT'}}</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <p>{{__ 'EDIT_MODAL_CONTENT'}}</p>
-                    </div>
+            <form class="form" id="editSponsoringModal">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="editModalTitle">{{__ 'BTN_EDIT'}}</h4>
                 </div>
-
-                <form class="form" id="editSponsoringModal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12" id="editResult"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p>{{__ 'EDIT_MODAL_CONTENT'}}</p>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="form-group">
                                 <select name="team" id="bo-edit-id" class="form-control" required="required">
                                     <option disabled="disabled">Team auswählen</option>
-                                    {{#each team}}
-                                        <option value="{{id}}">{{name}} ({{city}})</option>
+                                    {{#each teams}}
+                                        <option value='{"team": "{{id}}", "event": "{{event}}"}'>{{name}} ({{eventCity}}
+                                            )
+                                        </option>
                                     {{/each}}
 
                                 </select>
@@ -268,12 +290,12 @@
                                     id="bo-edit-estimate"></span>€</strong></h4>
                         </div>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">{{__ 'BTN_ABORT'}}</button>
-                <button type="button" class="btn btn-primary">{{__ 'BTN_SAVE'}}</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{__ 'BTN_ABORT'}}</button>
+                    <button type="submit" class="btn btn-primary" id="bo-edit-cta">{{__ 'BTN_SAVE'}}</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -289,17 +311,42 @@
             <form class="form" id="selfSponsoringModal">
                 <div class="modal-body">
                     <div class="row">
+                        <div class="col-xs-12" id="selfResult"></div>
+                    </div>
+                    <div class="row">
                         <div class="col-xs-12">
                             <p>{{__ 'SELF_MODAL_TEXT'}}</p>
                         </div>
                     </div>
-
-
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="form-group">
                                 <input name="team" id="bo-self-id" hidden="hidden" style="display: none;"
-                                       required="required" value="{{me.participant.teamId}}"/>
+                                       required="required"
+                                       value='{"team": "{{me.participant.teamId}}", "event": "{{me.participant.eventId}}"}'/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="bo-self-company">{{__ 'LABEL_COMPANY'}} ({{__ 'OPTIONAL'}})</label>
+                                <input id="bo-self-company" type="text" name="company"
+                                       class="form-control">
+                                <!-- TODO add proper icon -->
+                                <i class="form-control-feedback material-icons">business</i>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="bo-self-gender">{{__ 'LABEL_GENDER'}}</label>
+                                <select id="bo-self-gender" class="form-control" required="required" name="gender">
+                                    <option disabled="disabled" selected="selected">{{__ 'LABEL_GENDER'}}</option>
+                                    <option value="male">Herr</option>
+                                    <option value="female">Frau</option>
+                                </select>
+                                <!-- TODO add proper icon -->
+                                <i class="form-control-feedback material-icons">person_outline</i>
                             </div>
                         </div>
                     </div>
@@ -375,6 +422,17 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="bo-self-contract">{{__ 'LABEL_URL'}} ({{__ 'OPTIONAL'}})</label>
+                                <input id="bo-self-contract" type="url" name="url"
+                                       class="form-control">
+                                <i class="form-control-feedback material-icons">pageview</i>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-sm-8 hidden-xs">
                             <div class="form-group">

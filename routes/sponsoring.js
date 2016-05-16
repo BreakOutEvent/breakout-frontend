@@ -15,18 +15,43 @@ const upload = multer({inMemory: true});
 const router = express.Router();
 
 router.get('/sponsoring', session.isUser, (req, res, next) => co(function*() {
+//router.get('/sponsoring', (req, res, next) => co(function*() {
+
 
   //CHECK IF USER IS SPONSOR OR PARTICIPANT
   if (!req.user.status.is.team && !req.user.status.is.sponsor) {
     req.flash(`error`, `Um diese Seite aufzurufen, musst Du entweder Teil eines Teams oder ein Sponsor sein.`);
     return res.redirect('/selection');
   }
+/*
+  let me = {
+    firstname:"Henrike",
+    lastnamme:"von Zimmermannn",
+    gender:"male",
+    participant: {
+      teamId: 10,
+      eventId: 1,
+      teamName: "Awesome",
+      eventCity: "München"
+    },
+    email: "test@test.de",
+    sponsor: {
+      id: 10
+    }
+  };
+*/
+  //req.user = {};
+  //req.user.me = me;
 
   //INCOMING
   const incSponsoring = yield sponsoring.getByTeam(req);
 
+  console.log(incSponsoring);
+
   //OUTGOING
   const outSponsoring = yield sponsoring.getBySponsor(req);
+
+  const teams = yield sponsoring.getAllTeams(req);
 
 
   res.render(`dynamic/sponsoring/sponsoring`,
@@ -34,21 +59,25 @@ router.get('/sponsoring', session.isUser, (req, res, next) => co(function*() {
       error: req.flash('error'),
       layout: 'master',
       language: req.language,
+      //me: me,
       me: req.user.me,
       incSponsoring: incSponsoring,
       outSponsoring: outSponsoring,
+      teams:teams,
       title: 'Sponsorings'
     });
 
 }).catch(ex => next(ex)));
 
-router.post('/sponsoring/createOffline', session.hasTeam, upload.single('contract'), (req, res, next) => co(function*() {
+router.post('/sponsoring/create', session.hasTeam, upload.single('contract'), sponsoring.create);
+router.put('/sponsoring/edit', session.isSponsor, upload.single('contract'), (req, res, next) => co(function*() {
   console.log(req.body);
   res.send(200);
-
-
-
-
 }).catch(ex => next(ex)));
+
+router.post('/sponsoring/accept', session.isUser, sponsoring.accept);
+router.post('/sponsoring/reject', session.isUser, sponsoring.reject);
+router.post('/sponsoring/delete', session.isUser, sponsoring.delete);
+
 
 module.exports = router;

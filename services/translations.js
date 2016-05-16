@@ -49,6 +49,12 @@ module.exports = {
     },
     NOTEAM_H: {
       de: 'Team beitreten / erstellen'
+    },
+    PROFILE_H: {
+      de: 'Profileinstellungen'
+    },
+    PROFILE: {
+      de: 'Hier kannst du die im Anmeldeprozess angegebenen Daten ändern und Profilbilder hochladen.'
     }
   },
   'TEAM-CREATE': {
@@ -550,6 +556,24 @@ module.exports = {
     },
     LABEL_CONTRACT: {
       de: 'Spendenvertrag'
+    },
+    LABEL_COMPANY: {
+      de: 'Firma'
+    },
+    OPTIONAL: {
+      de: 'Optional'
+    },
+    STATUS_ACCEPTED: {
+      de: 'SPONSORING ANGENOMMEN'
+    },
+    STATUS_REJECTED: {
+      de: 'SPONSORING ABGELEHNT'
+    },
+    LABEL_GENDER: {
+      de: 'Anrede'
+    },
+    LABEL_URL: {
+      de: 'Ihre Webseite'
     }
   }
 };
