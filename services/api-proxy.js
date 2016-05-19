@@ -8,16 +8,9 @@
 const co = require('co');
 const request = require('request');
 const crequest = require('co-request');
+const config = requireLocal('config/config.js');
 
-const config = {
-  clientID: process.env.FRONTEND_API_CLIENTID,
-  clientSecret: process.env.FRONTEND_API_CLIENTSECRET,
-  URL: process.env.FRONTEND_API_URL,
-  mediaURL: process.env.FRONTEND_MEDIA_URL,
-  protocol: process.env.FRONTEND_API_PROTOCOL || 'https'
-};
-
-const url = `${config.protocol}://${config.URL}`;
+const url = `${config.api.protocol}://${config.api.url}`;
 
 Object.keys(config).forEach(k => {
   if (!config[k])
@@ -37,10 +30,10 @@ API.authenticate = (username, password) => {
           scope: 'read write'
         },
         auth: {
-          user: config.clientID,
-          pass: config.clientSecret
+          user: config.api.client_id,
+          pass: config.api.client_secret
         },
-        form: {username: username, password: password}
+        form: { username: username, password: password }
       }, handleResponse(resolve, reject, 'Authenticated user ' + username));
   });
 };
@@ -51,14 +44,14 @@ API.refresh = (user) => co(function*() {
     .post({
       url: `${url}/oauth/token`,
       qs: {
-        client_id: config.clientID,
-        client_secret: config.clientSecret,
+        client_id: config.api.client_id,
+        client_secret: config.api.client_secret,
         grant_type: 'refresh_token',
         refresh_token: user.refresh_token
       },
       auth: {
-        user: config.clientID,
-        pass: config.clientSecret
+        user: config.api.client_id,
+        pass: config.api.client_secret
       }
     });
 
@@ -76,7 +69,7 @@ API.getCurrentUserco = user => co(function*() {
   const req = yield crequest
     .get({
       url: `${url}/me/`,
-      auth: {bearer: user.access_token}
+      auth: { bearer: user.access_token }
     });
 
   if (req.statusCode in [200, 201]) {
@@ -94,7 +87,7 @@ API.getCurrentUser = token => {
     request
       .get({
         url: `${url}/me/`,
-        auth: {bearer: token.access_token}
+        auth: { bearer: token.access_token }
       }, handleResponse(resolve, reject, 'Got information about currently logged in user'))
   );
 };
@@ -107,7 +100,7 @@ API.getModel = (modelName, token, id) => {
       request
         .get({
           url: `${url}/${modelName}/${sendID}`,
-          auth: {bearer: token.access_token}
+          auth: { bearer: token.access_token }
         }, handleResponse(resolve, reject, 'Got ' + modelName + ' with id ' + (id || 'noID') + ' from backend'));
     }
   );
@@ -119,9 +112,9 @@ API.postModel = (modelName, token, body) => {
     request
       .post({
         url: `${url}/${modelName}`,
-        auth: {bearer: token.access_token},
+        auth: { bearer: token.access_token },
         body: JSON.stringify(body),
-        headers: {'content-type': 'application/json'}
+        headers: { 'content-type': 'application/json' }
       }, handleResponse(resolve, reject, 'Successfully POSTed ' + modelName + ' with ' + JSON.stringify(body) + ' to backend'))
   );
 };
@@ -130,7 +123,7 @@ API.putModel = (modelName, id, token, body) => {
   logger.info('Sending PUT request with ', body, 'to', modelName, 'with ID', id);
   return new Promise(function (resolve, reject) {
     if (!id) {
-      reject({error_description: 'No ID specified'});
+      reject({ error_description: 'No ID specified' });
       return;
     }
 
@@ -138,9 +131,9 @@ API.putModel = (modelName, id, token, body) => {
     request
       .put({
         url: `${url}/${modelName}/${(id)}/`,
-        auth: {bearer: token.access_token},
+        auth: { bearer: token.access_token },
         body: JSON.stringify(body),
-        headers: {'content-type': 'application/json'}
+        headers: { 'content-type': 'application/json' }
       }, handleResponse(resolve, reject, 'Successfully PUT ' + modelName + ' with id ' + id + ' and data ' + JSON.stringify(body) + ' to backend'));
   });
 };
@@ -149,14 +142,14 @@ API.delModel = function (modelName, token, id) {
   logger.info('Sending DELETE request on', modelName, ' with ID', id);
   return new Promise(function (resolve, reject) {
     if (!id) {
-      reject({error_message: 'No ID specified'});
+      reject({ error_message: 'No ID specified' });
       return;
     }
 
     request
       .del({
         url: `${url}/${modelName}/${id}`,
-        auth: {bearer: token.access_token}
+        auth: { bearer: token.access_token }
       }, handleResponse(resolve, reject, 'Successfully DELETEed ' + modelName + ' with ID ' + id));
   });
 };
@@ -168,11 +161,11 @@ API.createUser = function (email, password) {
       .post({
         url: `${url}/user/`,
         auth: {
-          user: config.clientID,
-          pass: config.clientSecret
+          user: config.api.client_id,
+          pass: config.api.client_secret
         },
-        headers: {'content-type': 'application/json'},
-        body: JSON.stringify({email, password})
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ email, password })
       }, handleResponse(resolve, reject, 'Successfully created user with email ' + email + ' in' +
         ' backend'));
   });
@@ -183,8 +176,8 @@ API.uploadPicture = function (file, mediaObj) {
   return new Promise(function (resolve, reject) {
     request
       .post({
-        url: `https://${config.mediaURL}`,
-        headers: {'X-UPLOAD-TOKEN': mediaObj.uploadToken},
+        url: `https://${config.media_url}`,
+        headers: { 'X-UPLOAD-TOKEN': mediaObj.uploadToken },
         formData: {
           id: mediaObj.id,
           file: {
@@ -207,7 +200,7 @@ API.getPaymentToken = (invoiceID, token) => {
     request
       .get({
         url: `${url}/invoice/${invoiceID}/payment/braintree/client_token/`,
-        auth: {bearer: token.access_token}
+        auth: { bearer: token.access_token }
       }, handleResponse(resolve, reject, 'Got payment token for invoice ' + invoiceID + ' from backend'));
   });
 };
@@ -218,7 +211,7 @@ API.checkoutPayment = (invoiceID, token, data) => {
     request
       .post({
         url: `${url}/invoice/${invoiceID}/payment/braintree/checkout/`,
-        auth: {bearer: token.access_token},
+        auth: { bearer: token.access_token },
         form: data
       }, handleResponse(resolve, reject, 'Successfully checked out invoice' + invoiceID));
   });
@@ -243,9 +236,9 @@ API.inviteUser = (token, eventID, teamID, email) => {
     request
       .post({
         url: `${url}/event/${eventID}/team/${teamID}/invitation/`,
-        auth: {bearer: token.access_token},
-        body: JSON.stringify({email: email}),
-        headers: {'content-type': 'application/json'}
+        auth: { bearer: token.access_token },
+        body: JSON.stringify({ email: email }),
+        headers: { 'content-type': 'application/json' }
       }, handleResponse(resolve, reject, 'Successfully invited ' + email + ' to team ' + teamID));
   });
 };
@@ -269,13 +262,13 @@ API.sponsoring = {};
 API.sponsoring.create = (token, event, team, body) => {
   logger.info('Trying to create sponsoring for team', team);
 
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     request
       .post({
         url: `${url}/event/${event}/team/${team}/sponsoring/`,
-        auth: {bearer: token.access_token},
+        auth: { bearer: token.access_token },
         body: JSON.stringify(body),
-        headers: {'content-type': 'application/json'}
+        headers: { 'content-type': 'application/json' }
       }, handleResponse(resolve, reject, 'Successfully created sponsoring for team ' + team));
   });
 };
@@ -284,7 +277,7 @@ API.sponsoring.getByTeam = (token, eventId, teamId) => {
   logger.info('Trying to get sponsorings for team', teamId);
 
   let mockdata = [{
-    "id":1,
+    "id": 1,
     "amountPerKm": 1,
     "limit": 100,
     "teamId": teamId,
@@ -297,7 +290,7 @@ API.sponsoring.getByTeam = (token, eventId, teamId) => {
     request
       .get({
         url: `${url}/event/${eventId}/team/${teamId}/sponsoring/`,
-        auth: {bearer: token.access_token}
+        auth: { bearer: token.access_token }
       }, handleResponse(resolve, reject, 'Successfully got sponsorings for team ' + teamId));
   });
 };
@@ -306,7 +299,7 @@ API.sponsoring.getBySponsor = (token, userId) => {
   logger.info('Trying to get sponsorings from user', userId);
 
   let mockdata = [{
-    "id":1,
+    "id": 1,
     "amountPerKm": 1,
     "limit": 100,
     "teamId": 1,
@@ -319,13 +312,13 @@ API.sponsoring.getBySponsor = (token, userId) => {
     request
       .get({
         url: `${url}/user/${userId}/sponsor/sponsoring/`,
-        auth: {bearer: token.access_token}
+        auth: { bearer: token.access_token }
       }, handleResponse(resolve, reject, 'Successfully got sponsorings from user ' + userId));
   });
 };
 
 API.sponsoring.changeStatus = (token, eventId, teamId, sponsoringId, status) => {
-  logger.info('Trying to change status of  sponsoring ', sponsoringId,'to',status);
+  logger.info('Trying to change status of  sponsoring ', sponsoringId, 'to', status);
 
   let mockdata = [{
     "amountPerKm": 1,
@@ -343,19 +336,19 @@ API.sponsoring.changeStatus = (token, eventId, teamId, sponsoringId, status) => 
     request
       .put({
         url: `${url}/event/${eventId}/team/${teamId}/sponsoring/${sponsoringId}/status/`,
-        auth: {bearer: token.access_token},
+        auth: { bearer: token.access_token },
         body: JSON.stringify(body),
-        headers: {'content-type': 'application/json'}
+        headers: { 'content-type': 'application/json' }
       }, handleResponse(resolve, reject, 'Successfully changed status of sponsoring ' + sponsoringId + ' to ' + status));
   });
 };
 
 API.sponsoring.reject = (token, eventId, teamId, sponsoringId) => {
-  return API.sponsoring.changeStatus(token,eventId,teamId,sponsoringId,"rejected");
+  return API.sponsoring.changeStatus(token, eventId, teamId, sponsoringId, "rejected");
 };
 
 API.sponsoring.accept = (token, eventId, teamId, sponsoringId) => {
-  return API.sponsoring.changeStatus(token,eventId,teamId,sponsoringId,"accepted");
+  return API.sponsoring.changeStatus(token, eventId, teamId, sponsoringId, "accepted");
 };
 
 API.pwreset = {};
@@ -366,9 +359,9 @@ API.pwreset.requestPwReset = (email) => {
     request
       .post({
         url: `${url}/user/requestreset/`,
-        body: JSON.stringify({email: email}),
-        headers: {'content-type': 'application/json'}
-      }, handleResponse(resolve, reject, 'An email with instructions to reset your password was sent to: ' + email ));
+        body: JSON.stringify({ email: email }),
+        headers: { 'content-type': 'application/json' }
+      }, handleResponse(resolve, reject, 'An email with instructions to reset your password was sent to: ' + email));
   });
 };
 
@@ -378,9 +371,9 @@ API.pwreset.resetPassword = (email, token, password) => {
     request
       .post({
         url: `${url}/user/passwordreset/`,
-        body: JSON.stringify({email: email, token: token, password: password}),
-        headers: {'content-type': 'application/json'}
-      }, handleResponse(resolve, reject, 'Successfully reset password for: ' + email ));
+        body: JSON.stringify({ email: email, token: token, password: password }),
+        headers: { 'content-type': 'application/json' }
+      }, handleResponse(resolve, reject, 'Successfully reset password for: ' + email));
   });
 };
 
@@ -392,7 +385,7 @@ function handleResponse(resolve, reject, msg) {
       throw error;
     } else {
       if (response.statusCode.toString().match(/^2\d\d$/)) {
-        if (!process.env.NODE_ENV === 'production') logger.info(msg);
+        if (!process.env.NODE_ENVIRONMENT === 'prod') logger.info(msg);
         try {
           if (body === '') body = '{}';
           resolve(JSON.parse(body));
@@ -402,7 +395,7 @@ function handleResponse(resolve, reject, msg) {
           logger.warn('Could not parse JSON', ex);
         }
       } else {
-        if (!process.env.NODE_ENV === 'production') logger.error(body);
+        if (!process.env.NODE_ENVIRONMENT === 'prod') logger.error(body);
         try {
           reject(JSON.parse(body));
         } catch (ex) {

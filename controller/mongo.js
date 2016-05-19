@@ -1,14 +1,7 @@
 'use strict';
 
 const mongoose = require('mongoose');
-
-const mongoConfig = {
-  user: process.env.FRONTEND_DB_USER,
-  password: process.env.FRONTEND_DB_PASSWORD,
-  url: process.env.FRONTEND_DB_URL,
-  port: process.env.FRONTEND_DB_PORT,
-  db: process.env.FRONTEND_DB_NAME,
-};
+const config = requireLocal('config/config.js');
 
 // Build connection URL dependent on whether a user is specified or not
 function buildMongoUrl(user, password, database, host) {
@@ -19,14 +12,14 @@ function buildMongoUrl(user, password, database, host) {
   }
 }
 
-Object.keys(mongoConfig).forEach((k, val) => {
-  if (mongoConfig[k] === undefined) {
+Object.keys(config.db).forEach((k, val) => {
+  if (config.db[k] === undefined) {
     throw new Error(`No config entry found for ${k}`);
   }
 });
 
-const MONGO_HOST = `${process.env.FRONTEND_DB_URL}:${process.env.FRONTEND_DB_PORT}`;
-const URL = buildMongoUrl(mongoConfig.user, mongoConfig.password, mongoConfig.db, MONGO_HOST);
+const MONGO_HOST = `${config.db.url}:${config.db.port}`;
+const URL = buildMongoUrl(config.db.user, config.db.password, config.db.name, MONGO_HOST);
 
 function connectMongo() {
   mongoose.connect(URL, err => {
