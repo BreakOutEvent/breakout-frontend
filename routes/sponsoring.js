@@ -71,7 +71,7 @@ router.get('/sponsoring', session.isUser, (req, res, next) => co(function*() {
     event: 1
   }];*/
 
-  console.log(incChallenges);
+  console.log(outSponsoring);
 
   res.render(`dynamic/sponsoring/sponsoring`,
     {

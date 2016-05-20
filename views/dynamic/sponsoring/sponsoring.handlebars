@@ -65,7 +65,7 @@
                             <td>{{limit}} €</td>
                         {{/ifCond}}
                         <td class="text-right">
-                            {{#ifCond status "ACCEPTED"}}
+                            {{#ifCond status "PROPOSED"}}
 
                                 <button class="btn btn-success bo-btn-accept" data-team="{{teamId}}"
                                         data-sponsoring="{{id}}" data-event="{{eventId}}">{{__ 'BTN_ACCEPT'}}</button>
@@ -114,9 +114,9 @@
                             {{#ifCond status "PROPOSED"}}
 
                                 <button class="btn btn-success challengeAccept" data-team="{{teamId}}"
-                                        data-sponsoring="{{id}}" data-event="{{eventId}}">{{__ 'BTN_ACCEPT'}}</button>
+                                        data-id="{{id}}" data-event="{{eventId}}">{{__ 'BTN_ACCEPT'}}</button>
                                 <button class="btn btn-danger challengeReject" data-team="{{teamId}}"
-                                        data-sponsoring="{{id}}" data-event="{{eventId}}">{{__ 'BTN_DECLINE'}}</button>
+                                        data-id="{{id}}" data-event="{{eventId}}">{{__ 'BTN_DECLINE'}}</button>
                             {{else}}
                                 {{#ifCond status "ACCEPTED"}}
                                     <span class="text-success">{{__ 'STATUS_ACCEPTED'}}</span>

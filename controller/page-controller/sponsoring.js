@@ -78,7 +78,7 @@ sponsoring.create = (req, res, next) => co(function*() {
           description: e,
           unregisteredSponsor: body.unregisteredSponsor
         };
-        return api.challenge.create(req.user, body.team, body.event, currBody)
+        return api.challenge.create(req.user, body.event, body.team, currBody)
       });
 
   }

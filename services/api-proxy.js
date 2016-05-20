@@ -455,7 +455,7 @@ API.challenge.changeStatus = (token, eventId, teamId, challengeId, status) => {
     //return resolve(mockdata);
     request
       .put({
-        url: `${url}/event/${eventId}/team/${teamId}/sponsoring/${challengeId}/status/`,
+        url: `${url}/event/${eventId}/team/${teamId}/challenge/${challengeId}/status/`,
         auth: {bearer: token.access_token},
         body: JSON.stringify(body),
         headers: {'content-type': 'application/json'}

@@ -206,7 +206,7 @@ $(document).ready(() => {
     $.post('/settings/sponsoring/reject', {
         teamId: $(button).attr('data-team'),
         eventId: $(button).attr('data-event'),
-        sponsoringId: $(button).attr('data-sponsoring')
+        sponsoringId: $(button).attr('data-id')
       })
       .success(function () {
         $('#result_in')
@@ -228,7 +228,7 @@ $(document).ready(() => {
     $.post('/settings/sponsoring/delete', {
         teamId: $(button).attr('data-team'),
         eventId: $(button).attr('data-event'),
-        sponsoringId: $(button).attr('data-sponsoring')
+        sponsoringId: $(button).attr('data-id')
       })
       .success(function () {
         $('#result_in')
@@ -290,10 +290,10 @@ $(document).ready(() => {
   $('.challengeAccept').click(function (e) {
     var button = this;
     toggleLoading(button, true);
-    $.post('/settings/sponsoring/accept', {
+    $.post('/settings/challenge/accept', {
       teamId: $(button).attr('data-team'),
       eventId: $(button).attr('data-event'),
-      sponsoringId: $(button).attr('data-sponsoring')
+      challengeId: $(button).attr('data-id')
     })
       .success(function () {
         $('#result_in')
@@ -312,10 +312,10 @@ $(document).ready(() => {
   $('.challengeReject').click(function (e) {
     var button = this;
     toggleLoading(button, true);
-    $.post('/settings/sponsoring/reject', {
+    $.post('/settings/challenge/reject', {
       teamId: $(button).attr('data-team'),
       eventId: $(button).attr('data-event'),
-      sponsoringId: $(button).attr('data-sponsoring')
+      challengeId: $(button).attr('data-id')
     })
       .success(function () {
         $('#result_in')
