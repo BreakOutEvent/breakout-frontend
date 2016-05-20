@@ -568,6 +568,21 @@ module.exports = {
     },
     LABEL_URL: {
       de: 'Ihre Webseite'
+    },
+    ADD_CHALLENGE_MODAL_CONTENT: {
+      de: 'Hier können Sie kleine und große Aufgaben an Teams stellen und deren Erfüllung mit einem Geldbetrag dotieren.'
+    },
+    LABEL_CHALLENGE_DESCRIPTION: {
+      de: 'Beschreibung der Aufgabe'
+    },
+    LABEL_CHALLENGE_AMOUNT: {
+      de: 'Dotierung'
+    },
+    ADD_ANOTHER_CHALLENGE: {
+      de: 'Weitere Challenge hinzufügen'
+    },
+    BTN_ADD_CHALLENGE: {
+      de: 'Challenge hinzufügen'
     }
   },
   CLOSED: {

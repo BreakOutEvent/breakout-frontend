@@ -12,8 +12,9 @@ const passport = requireLocal('services/auth');
 const registration = requireLocal('controller/page-controller/registration');
 const profile = requireLocal('controller/page-controller/profile');
 const session = requireLocal('controller/session');
+const apiProxy = requireLocal('services/api-proxy');
 
-const upload = multer({ inMemory: true });
+const upload = multer({inMemory: true});
 const router = express.Router();
 
 const renderTemplate = (folder) => (template) => (req, res) => {
@@ -57,6 +58,25 @@ router.get('/invite', session.hasTeam, registration.lock, funnelTemplate('invite
 router.get('/reset/:email/:token', funnelTemplate('reset-pw'));
 router.get('/closed', funnelTemplate('closed'));
 
+router.get('/profile', session.isUser, (req, res, next) => co(function*() {
+
+  let team = null;
+
+  if (req.user.status.is.team) {
+    team = yield profile.getTeam(req);
+  }
+
+  res.render(`dynamic/profile/profile`,
+    {
+      error: req.flash('error'),
+      layout: 'master',
+      language: req.language,
+      me: req.user.me,
+      team: team,
+      title: 'Profile'
+    });
+
+}).catch(ex => next(ex)));
 
 router.get('/logout', session.isUser, (req, res, next) => co(function*() {
   req.logout();
@@ -131,6 +151,15 @@ router.get('/team-create', session.isParticipant, registration.lock, (req, res, 
       );
     })
     .catch(err => {
+      /*
+       res.render('dynamic/register/team-create',
+       {
+       error: err.error,
+       layout: 'funnel',
+       language: req.language
+       }
+       );
+       */
       next(err);
     });
 }).catch(ex => next(ex)));
@@ -161,9 +190,11 @@ router.get('/activation/:token', (req, res, next) => co(function*() {
 
 //POST
 
-router.post('/participant', session.isUser, upload.single('profilePic'), registration.createParticipant);
+router.post('/participant', session.isUser, upload.single('profilePic'),
+  registration.createParticipant);
 router.post('/register', registration.createUser);
-router.post('/team-create', session.isParticipant, upload.single('profilePic'), registration.createTeam);
+router.post('/team-create', session.isParticipant, upload.single('profilePic'),
+  registration.createTeam);
 router.post('/invite', session.hasTeam, registration.inviteUser);
 router.post('/team-invite', session.isParticipant, registration.joinTeamAPI);
 router.post('/sponsor', session.isUser, upload.single('profilePic'), registration.createSponsor);

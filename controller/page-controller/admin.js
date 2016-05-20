@@ -64,7 +64,6 @@ admin.getInvoices = (req) => co(function*() {
       } else {
         invoice.open = invoice.amount;
       }
-
       allInvoices.push(invoice);
     }
   }
