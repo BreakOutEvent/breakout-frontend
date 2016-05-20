@@ -10,25 +10,21 @@ const co = require('co');
 const _ = require('lodash');
 const fs = require('co-fs-extra');
 
-const config = {
-  doc_id: process.env.FRONTEND_GDRIVE_DOCUMENT_ID,
-  client_email: process.env.FRONTEND_GDRIVE_CLIENT_EMAIL,
-  private_key: process.env.FRONTEND_GDRIVE_PRIVATE_KEY
-};
+const config = requireLocal('config/config.js');
 
 /**
  * GET route for the BreakOut-Member-Page.
  * @param language
  * @param res
  */
-module.exports.teamPage = (language, res) => co(function* () {
+module.exports.teamPage = (language, res) => co(function*() {
   const cachePath = ROOT + '/rendered/cache/teams.json.cache';
 
   const fetchMemberList = () => co(function* () {
-    const doc = new GoogleSpreadsheet(config.doc_id);
+    const doc = new GoogleSpreadsheet(config.gdrive.document_id);
     var credsJson = {
-      client_email: config.client_email,
-      private_key: config.private_key.replace(/\\n/g, '\n')
+      client_email: config.gdrive.client_email,
+      private_key: config.gdrive.private_key.replace(/\\n/g, '\n')
     };
 
     logger.info('Trying to authenticate with Google Docs');
@@ -67,7 +63,7 @@ module.exports.teamPage = (language, res) => co(function* () {
   const cacheExists = yield fs.exists(cachePath);
 
   // Cache file does exist
-  if (cacheExists && process.env.NODE_ENV === 'production') {
+  if (cacheExists && process.env.NODE_ENVIRONMENT === 'prod') {
     const fileStats = yield fs.stat(cachePath);
 
     // Cache file is outdated
