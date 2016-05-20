@@ -379,6 +379,9 @@ API.sponsoring.accept = (token, eventId, teamId, sponsoringId) => {
   return API.sponsoring.changeStatus(token, eventId, teamId, sponsoringId, "accepted");
 };
 
+API.sponsoring.delete = (token, eventId, teamId, sponsoringId) => {
+  return API.sponsoring.changeStatus(token, eventId, teamId, sponsoringId, "withdrawn");
+};
 
 API.challenge = {};
 
@@ -427,6 +430,8 @@ API.challenge.getBySponsor = (token, userId) => {
     "sponsorId": userId
   }];
 
+  console.log(`${url}/user/${userId}/sponsor/challenge/`, token.access_token);
+
   return new Promise(function (resolve, reject) {
     //return resolve(mockdata);
     request
@@ -467,8 +472,12 @@ API.challenge.reject = (token, eventId, teamId, challengeId) => {
   return API.challenge.changeStatus(token, eventId, teamId, challengeId, "rejected");
 };
 
-API.challenge.accept = (token, eventId, teamId, sponsoringId) => {
-  return API.challenge.changeStatus(token, eventId, teamId, sponsoringId, "accepted");
+API.challenge.accept = (token, eventId, teamId, challengeId) => {
+  return API.challenge.changeStatus(token, eventId, teamId, challengeId, "accepted");
+};
+
+API.challenge.delete = (token, eventId, teamId, challengeId) => {
+  return API.challenge.changeStatus(token, eventId, teamId, challengeId, "withdrawn");
 };
 
 API.pwreset = {};

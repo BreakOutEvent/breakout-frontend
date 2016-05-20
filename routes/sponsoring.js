@@ -58,7 +58,7 @@ router.get('/sponsoring', session.isUser, (req, res, next) => co(function*() {
   //OUTGOING
   if(req.user.status.is.sponsor) {
     outSponsoring = yield sponsoring.getBySponsor(req);
-    //outChallenges = yield sponsoring.challenge.getBySponsor(req);
+    outChallenges = yield sponsoring.challenge.getBySponsor(req);
   }
 
 
@@ -109,6 +109,6 @@ router.post('/challenge/create', session.isUser, upload.single('contract'), spon
 router.post('/challenge/accept', session.isUser, sponsoring.challenge.accept);
 router.post('/challenge/reject', session.isUser, sponsoring.challenge.reject);
 //TODO wait for backend
-//router.post('/challenge/delete', session.isUser, sponsoring.challenge.delete);
+router.post('/challenge/delete', session.isUser, sponsoring.challenge.delete);
 
 module.exports = router;

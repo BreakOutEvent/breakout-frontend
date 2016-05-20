@@ -142,7 +142,7 @@ sponsoring.reject = (req, res, next) => co(function*() {
 
 sponsoring.delete = (req, res, next) => co(function*() {
 
-  //TODO wait for backend and implement
+  yield api.sponsoring.delete(req.user, req.body.eventId, req.body.teamId, req.body.sponsoringId);
 
   return res.sendStatus(200);
 
@@ -195,8 +195,6 @@ sponsoring.challenge.getByTeam = (req) => co(function*() {
 
 sponsoring.challenge.getBySponsor = (req) => co(function*() {
 
-  //TODO wait for backend
-
   return yield api.challenge.getBySponsor(
     req.user,
     req.user.me.id);
@@ -225,10 +223,9 @@ sponsoring.challenge.reject = (req, res, next) => co(function*() {
 
 sponsoring.challenge.delete = (req, res, next) => co(function*() {
 
-  //TODO wait for backend and implement
+  yield api.challenge.delete(req.user, req.body.eventId, req.body.teamId, req.body.challengeId);
 
   return res.sendStatus(200);
-
 }).catch(ex => {
   sendErr(res, ex.message, ex);
 });

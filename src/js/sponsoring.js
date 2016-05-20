@@ -331,4 +331,26 @@ $(document).ready(() => {
       });
   });
 
+  $('.challengeDelete').click(function (e) {
+    var button = this;
+    toggleLoading(button, true);
+    $.post('/settings/challenge/delete', {
+      teamId: $(button).attr('data-team'),
+      eventId: $(button).attr('data-event'),
+      challengeId: $(button).attr('data-id')
+    })
+      .success(function () {
+        $('#result_in')
+          .html('<div class="alert alert-success">Erfolgreich gelöscht!</div>');
+      })
+      .error(function (err) {
+        console.log(err);
+        $('#result_in')
+          .html('<div class="alert alert-danger">Löschen fehlgeschlagen!</div>');
+      })
+      .always(() => {
+        toggleLoading(button);
+      });
+  });
+
 });

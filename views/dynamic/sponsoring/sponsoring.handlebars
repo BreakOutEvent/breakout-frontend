@@ -193,8 +193,8 @@
                                     <!--<button class="btn btn-warning bo-btn-edit"
                                             data-id="{{id}}" data-toggle="modal"
                                             data-target="#editSponsoring">{{__ 'BTN_EDIT'}}</button>-->
-                                    <button class="btn btn-danger bo-btn-delete"
-                                            data-id="{{id}}">{{__ 'BTN_DELETE'}}</button>
+                                    <button class="btn btn-danger bo-btn-delete" data-team="{{teamId}}"
+                                            data-id="{{id}}" data-event="{{eventId}}">{{__ 'BTN_DELETE'}}</button>
                                 </td>
                             </tr>
                         {{/each}}
@@ -223,22 +223,8 @@
                                 <td>{{description}}</td>
                                 <td>{{amount}} €</td>
                                 <td class="text-right">
-                                    {{#ifCond status "PROPOSED"}}
-
-                                        <button class="btn btn-success bo-btn-accept" data-team="{{teamId}}"
-                                                data-sponsoring="{{id}}"
-                                                data-event="{{eventId}}">{{__ 'BTN_ACCEPT'}}</button>
-                                        <button class="btn btn-danger bo-btn-decline" data-team="{{teamId}}"
-                                                data-sponsoring="{{id}}"
-                                                data-event="{{eventId}}">{{__ 'BTN_DECLINE'}}</button>
-                                    {{else}}
-                                        {{#ifCond status "accepted"}}
-                                            <span class="text-success">{{__ 'STATUS_ACCEPTED'}}</span>
-                                        {{/ifCond}}
-                                        {{#ifCond status "rejected"}}
-                                            <span class="text-danger">{{__ 'STATUS_REJECTED'}}</span>
-                                        {{/ifCond}}
-                                    {{/ifCond}}
+                                    <button class="btn btn-danger challengeDelete" data-team="{{teamId}}"
+                                            data-id="{{id}}" data-event="{{eventId}}">{{__ 'BTN_DELETE'}}</button>
                                 </td>
                             </tr>
                         {{/each}}
