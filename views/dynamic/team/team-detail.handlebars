@@ -3,57 +3,57 @@
  used less file is _team-page-profile.less -->
 
 <div class="bo-header-info bo-team-header">
-    <div class="col-sm-offset-3">
-        <h3>Team {{team.name}} ({{team.event.city}})</h3>
-        <h4>
-            {{#each team.members}}
-                {{firstname}} {{#if @first}}&{{/if}}
-            {{/each}}
-            |
-            {{team.name1}} & {{team.name2}} | {{team.km}}km | {{team.money}}€ </h4>
-    </div>
+
 </div>
 <div class="container">
-    <div class="bo-team-container">
-
-        <div class="bo-team-content-side">
-            <div class="bo-member-photo-wrap bo-team-picture">
-                <img src="{{me.profilePic.sizes.0.url}}" class="bo-member-photo pull-left"/>
-            </div>
-
-            <div>
-                <h3>About</h3>
-                <p>{{team.description}}</p>
-                <h3>Challenges</h3>
-                <div>{{#each team.challenges}}
-                    <p>{{this.name}}</p>
-                {{/each}}
-                </div>
-                <h3>Sponsoren</h3>
-                <div>
-                    {{#each team.sponsors}}
-                        <div><img src="{{this.picture}}" class="bo-member-photo pull-left"/>
-                            <p>{{this.name}}</p></div>
-                    {{/each}}
-                </div>
-            </div>
+    <div class="row">
+        <div class="col-sm-4 col-md-3">
+            <div class="bo-team-picture" style="background-image:url('/img/social.jpg')"></div>
         </div>
-
-        <div class="bo-team-content-main">
-            <!-- TODO: Karte einfügen für Team-->
-
-
-            <div class="bo-team-post">
-                <div class="allposts">
-                    {{#each posts}}
-                        {{> post-teampage this }}
+        <div class="col-sm-8 col-md-9">
+            <div class="bo-team-header-margin">
+                <h2>Team {{team.name}} ({{team.event.city}})</h2>
+                <h4>
+                    {{#each team.members}}
+                        {{firstname}} {{#if @first}}&{{/if}}
                     {{/each}}
-                </div>
-
-
+                    |
+                    {{team.km}}km | {{team.money}}€
+                </h4>
             </div>
         </div>
     </div>
+    <div class="bo-team-seperator"></div>
+    <div class="row">
+        <!-- main panel -->
+        <div class="col-sm-8 col-md-9 col-sm-push-4 col-md-push-3">
+            <div class="bo-team-map">
+                <div class="bo-team-placeholder" style="width:100%; min-height: 300px;"></div>
+            </div>
+        </div>
+        <!-- / main panel -->
+        <!-- side panel -->
+        <div class="col-sm-4 col-md-3 col-sm-pull-8 col-md-pull-9">
+            <h3>Über uns</h3>
+            <p>
+                {{team.description}}
+            </p>
+            <h3>Challenges</h3>
+            <ul>
+                {{#each team.challenge}}
+                    <li>({{amount}}€){{description}}</li>
+                {{/each}}
+            </ul>
+            <h3>Sponsoren</h3>
+            {{#each sponsor}}
 
+            {{/each}}
+        </div>
+        <!-- / side panel -->
+    </div>
+
+                        {{#each posts}}
+                            {{> post-teampage this }}
+                        {{/each}}
 
 </div>

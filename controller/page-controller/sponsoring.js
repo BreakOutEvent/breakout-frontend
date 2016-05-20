@@ -79,7 +79,7 @@ sponsoring.create = (req, res, next) => co(function*(){
 });
 
 sponsoring.getAllTeams = (req) => co(function*() {
-  const events = yield api.getModel('event', req.user);
+  const events = yield api.event.all();
 
   let teamsByEvent = yield events.map((e) => api.getModel(`event/${e.id}/team`, req.user));
   return _.flatten(teamsByEvent);
@@ -90,7 +90,6 @@ sponsoring.getAllTeams = (req) => co(function*() {
 sponsoring.getByTeam = (req) => co(function*(){
 
   return yield api.sponsoring.getByTeam(
-    req.user,
     req.user.me.participant.eventId,
     req.user.me.participant.teamId);
 
@@ -135,6 +134,51 @@ sponsoring.delete = (req, res, next) => co(function*(){
 }).catch(ex => {
   sendErr(res, ex.message, ex);
 });
+
+sponsoring.challenge = {};
+
+sponsoring.challenge.create = (req, res, next) => co(function*(){
+
+  let body = {};
+
+  try {
+    let obj = JSON.parse(req.body.addChallengeTeam);
+    body.team = obj.team;
+    body.event = obj.event;
+  } catch(ex) {
+    return sendErr(res, ex.message, ex);
+  }
+
+  //OFFLINE PART
+  if(req.body.street) {
+    body.unregisteredSponsor = {};
+    body.unregisteredSponsor.address = {
+      street: req.body.street,
+      housenumber: req.body.housenumber,
+      zipcode: req.body.zipcode,
+      city: req.body.city,
+      country: req.body.country
+    };
+    body.unregisteredSponsor.firstname = req.body.firstname;
+    body.unregisteredSponsor.lastname = req.body.lastname;
+    body.unregisteredSponsor.company = req.body.company;
+    body.unregisteredSponsor.gender = req.body.gender;
+
+    if(!req.body.url) body.unregisteredSponsor.url = "";
+    else body.unregisteredSponsor.url = req.body.url;
+  }
+
+  //TODO interate over array
+
+  const sponsoring = yield api.sponsoring.create(req.user, body.event, body.team, body);
+
+  res.send(sponsoring);
+
+}).catch(ex => {
+  sendErr(res, ex.message, ex);
+});
+
+
 
 
 

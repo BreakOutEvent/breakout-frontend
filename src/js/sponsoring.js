@@ -244,5 +244,41 @@ $(document).ready(() => {
       });
   });
 
+  $('#addChallengeExtend').click(function(e) {
+    var curr = $('#addChallengeRow');
+    $(`<div class='row' id='addChallengeRow'>${curr.html()}</div>`).insertAfter(curr);
+    curr.attr('id','');
+  });
+
+  $('#addChallengeForm').submit(function (e) {
+    e.preventDefault();
+    if (sanityCheck('addSponsoringModal')) {
+      var data = new FormData($('#addChallengeForm')[0]);
+
+      toggleLoading('#addChallengeCTA', true);
+      $.ajax({
+          url: '/settings/challenge/create',
+          type: 'POST',
+          cache: false,
+          processData: false,
+          contentType: false,
+          data: data
+        })
+        .success(function () {
+          $('#result_out')
+            .html('<div class="alert alert-success">Erfolgreich gespeichert!</div>');
+          $('#addChallenge').modal('hide');
+          $('#addChallengeCTA')[0].reset();
+        })
+        .error(function (err) {
+          console.log(err);
+          $('#addChallengeResult')
+            .html('<div class="alert alert-danger">Speichern fehlgeschlagen!</div>');
+        })
+        .always(() => {
+          toggleLoading('#addChallengeCTA');
+        });
+    }
+  });
 
 });

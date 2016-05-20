@@ -29,7 +29,7 @@
 
 <!-- Tab panes -->
 <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="team">
+    <div role="tabpanel" class="tab-pane" id="team">
         <div class="container">
             <div class="row registration-margin">
                 <div class="col-sm-3 col-sm-offset-9 text-right">
@@ -60,21 +60,21 @@
                         {{else}}
                             <td>{{limit}} €</td>
                         {{/ifCond}}
-                    <td class="text-right">
-                        {{#ifCond status "proposed"}}
+                        <td class="text-right">
+                            {{#ifCond status "proposed"}}
 
                                 <button class="btn btn-success bo-btn-accept" data-team="{{teamId}}"
                                         data-sponsoring="{{id}}" data-event="{{eventId}}">{{__ 'BTN_ACCEPT'}}</button>
                                 <button class="btn btn-danger bo-btn-decline" data-team="{{teamId}}"
                                         data-sponsoring="{{id}}" data-event="{{eventId}}">{{__ 'BTN_DECLINE'}}</button>
-                        {{else}}
-                            {{#ifCond status "accepted"}}
-                                <span class="text-success">{{__ 'STATUS_ACCEPTED'}}</span>
+                            {{else}}
+                                {{#ifCond status "accepted"}}
+                                    <span class="text-success">{{__ 'STATUS_ACCEPTED'}}</span>
+                                {{/ifCond}}
+                                {{#ifCond status "rejected"}}
+                                    <span class="text-danger">{{__ 'STATUS_REJECTED'}}</span>
+                                {{/ifCond}}
                             {{/ifCond}}
-                            {{#ifCond status "rejected"}}
-                                <span class="text-danger">{{__ 'STATUS_REJECTED'}}</span>
-                            {{/ifCond}}
-                        {{/ifCond}}
                         </td>
                     </tr>
                 {{/each}}
@@ -82,11 +82,14 @@
             </table>
         </div>
     </div>
-    <div role="tabpanel" class="tab-pane" id="sponsor">
-
+    <div role="tabpanel" class="tab-pane active" id="sponsor">
         <div class="container">
             <div class="row registration-margin">
-                <div class="col-sm-3 col-sm-offset-9 text-right">
+                <div class="col-sm-5 col-sm-offset-7 text-right">
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal"
+                            data-target="#addChallenge">
+                        {{__ 'BTN_ADD_CHALLENGE'}}
+                    </button>
                     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal"
                             data-target="#addSponsoring">
                         {{__ 'BTN_ADD'}}
@@ -217,6 +220,77 @@
     </div>
 </div>
 
+<div class="modal" id="addChallenge" tabindex="-1" role="dialog" aria-labelledby="addChallengeTitle">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form class="form" id="addChallengeForm">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="addChallengeTitle">{{__ 'BTN_ADD_CHALLENGE'}}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12" id="addChallengeResult"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p>{{__ 'ADD_CHALLENGE_MODAL_CONTENT'}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <select name="addChallengeTeam" id="addChallengeTeam" class="form-control"
+                                        required="required">
+                                    <option disabled="disabled">Team auswählen</option>
+                                    {{#each teams}}
+                                        <option value='{"team": "{{id}}", "event": "{{event}}"}'>
+                                            {{name}} ({{eventCity}})
+                                        </option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="addChallengeRow">
+                        <div class="col-sm-9">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="addChallengeDescription">{{__ 'LABEL_CHALLENGE_DESCRIPTION'}}</label>
+                                <textarea class="form-control" name="addChallengeDescription[]"
+                                       id="addChallengeDescription" required="required"
+                                       placeholder="{{__ 'LABEL_CHALLENGE_DESCRIPTION'}}"></textarea>
+                                <i class="form-control-feedback material-icons">euro_symbol</i>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="addChallengeAmount">{{__ 'LABEL_CHALLENGE_AMOUNT'}}</label>
+                                <input type="text" class="form-control" name="addChallengeAmount[]"
+                                       id="addChallengeAmount" required="required"
+                                       placeholder="{{__ 'LABEL_CHALLENGE_AMOUNT'}}">
+                                <i class="form-control-feedback material-icons">euro_symbol</i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <button type="button" id="addChallengeExtend" class="btn btn-block btn-default">
+                                {{__ 'ADD_ANOTHER_CHALLENGE'}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{__ 'BTN_ABORT'}}</button>
+                    <button type="submit" class="btn btn-primary" id="addChallengeCTA">{{__ 'BTN_ADD_CHALLENGE'}}</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+<!--
 <div class="modal" id="editSponsoring" tabindex="-1" role="dialog" aria-labelledby="editModalTitle">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -299,7 +373,7 @@
         </div>
     </div>
 </div>
-
+-->
 <div class="modal" id="selfSponsoring" tabindex="-1" role="dialog" aria-labelledby="selfModalTitle">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
