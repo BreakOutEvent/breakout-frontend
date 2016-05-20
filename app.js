@@ -104,13 +104,13 @@ const server = callback => co(function*() {
   }
 
   const session = require('express-session');
-  //const MongoStore = require('connect-mongo')(session);
+  const MongoStore = require('connect-mongo')(session);
 
   app.use(session({
     secret: config.secret,
     resave: false,
     saveUninitialized: false,
-    //store: new MongoStore({ mongooseConnection: mongoose.connection })
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
   }));
 
   // Initialize Passport and restore authentication state, if any, from the

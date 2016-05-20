@@ -35,7 +35,7 @@ function connectMongo() {
   });
 }
 
-//connectMongo();
+connectMongo();
 
 /**
  * Code in this File is taken from http://stackoverflow.com/a/33139673

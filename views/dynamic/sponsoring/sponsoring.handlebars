@@ -14,8 +14,6 @@
             {{#if me.participant.teamId}}
                 <li role="presentation" class="active"><a href="#team" aria-controls="team" role="tab"
                                                           data-toggle="tab">{{__ 'NAVIGATION_TEAM'}}</a></li>
-            {{ else }}
-                <li role="presentation"><a href="/participant">{{__ 'LINK_TEAM'}}</a></li>
             {{/if}}
             {{#if me.sponsor}}
                 <li role="presentation"><a href="#sponsor" aria-controls="team" role="tab"
@@ -40,6 +38,7 @@
                 </div>
             </div>
             <div id="result_in"></div>
+            <h3>Sponsorings</h3>
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -50,6 +49,11 @@
                 </tr>
                 </thead>
                 <tbody>
+                {{#unless incSponsoring}}
+                    <tr>
+                        <td colspan="4"><i>No sponsorings found</i></td>
+                    </tr>
+                {{/unless}}
                 {{#each incSponsoring}}
                     <tr>
                         <td>{{teamId}}</td>
@@ -61,17 +65,63 @@
                             <td>{{limit}} €</td>
                         {{/ifCond}}
                         <td class="text-right">
-                            {{#ifCond status "proposed"}}
+                            {{#ifCond status "ACCEPTED"}}
 
                                 <button class="btn btn-success bo-btn-accept" data-team="{{teamId}}"
                                         data-sponsoring="{{id}}" data-event="{{eventId}}">{{__ 'BTN_ACCEPT'}}</button>
                                 <button class="btn btn-danger bo-btn-decline" data-team="{{teamId}}"
                                         data-sponsoring="{{id}}" data-event="{{eventId}}">{{__ 'BTN_DECLINE'}}</button>
                             {{else}}
-                                {{#ifCond status "accepted"}}
+                                {{#ifCond status "ACCEPTED"}}
                                     <span class="text-success">{{__ 'STATUS_ACCEPTED'}}</span>
                                 {{/ifCond}}
-                                {{#ifCond status "rejected"}}
+                                {{#ifCond status "REJECTED"}}
+                                    <span class="text-danger">{{__ 'STATUS_REJECTED'}}</span>
+                                {{/ifCond}}
+                            {{/ifCond}}
+                        </td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+            <h3>Challenges</h3>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Sponsor ID</th>
+                    <th>Sponsor Name</th>
+                    <th>Beschreibung</th>
+                    <th>Euro</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#unless incChallenges}}
+                    <tr>
+                        <td colspan="4"><i>No challenges found</i></td>
+                    </tr>
+                {{/unless}}
+                {{#each incChallenges}}
+                    <tr>
+                        <td>{{sponsorId}}</td>
+                        {{#if unregisteredSponsor}}
+                            <td>{{unregisteredSponsor.firstname}} {{unregisteredSponsor.lastname}}</td>
+                        {{else}}
+                            <td><i>Unbekannt</i></td>
+                        {{/if}}
+                        <td>{{description}}</td>
+                        <td>{{amount}} €</td>
+                        <td class="text-right">
+                            {{#ifCond status "PROPOSED"}}
+
+                                <button class="btn btn-success challengeAccept" data-team="{{teamId}}"
+                                        data-sponsoring="{{id}}" data-event="{{eventId}}">{{__ 'BTN_ACCEPT'}}</button>
+                                <button class="btn btn-danger challengeReject" data-team="{{teamId}}"
+                                        data-sponsoring="{{id}}" data-event="{{eventId}}">{{__ 'BTN_DECLINE'}}</button>
+                            {{else}}
+                                {{#ifCond status "ACCEPTED"}}
+                                    <span class="text-success">{{__ 'STATUS_ACCEPTED'}}</span>
+                                {{/ifCond}}
+                                {{#ifCond status "REJECTED"}}
                                     <span class="text-danger">{{__ 'STATUS_REJECTED'}}</span>
                                 {{/ifCond}}
                             {{/ifCond}}
@@ -99,6 +149,7 @@
             <div id="result_out"></div>
             <div class="row">
                 <div class="col-xs-12">
+                    <h3>Sponsorings</h3>
                     <table class="table table-striped">
                         <thead>
                         <tr>
@@ -109,6 +160,11 @@
                         </tr>
                         </thead>
                         <tbody>
+                        {{#unless outSponsoring}}
+                            <tr>
+                                <td colspan="4"><i>No sponsorings found</i></td>
+                            </tr>
+                        {{/unless}}
                         {{#each outSponsoring}}
                             <tr>
                                 <td>{{teamId}}</td>
@@ -130,6 +186,52 @@
                         {{/each}}
                         </tbody>
                     </table>
+                    <h3>Challenges</h3>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Sponsor ID</th>
+                            <th>Sponsor Name</th>
+                            <th>Beschreibung</th>
+                            <th>Euro</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#unless outChallenges}}
+                            <tr>
+                                <td colspan="4"><i>No challenges found</i></td>
+                            </tr>
+                        {{/unless}}
+                        {{#each outChallenges}}
+                            <tr>
+                                <td>{{sponsorId}}</td>
+                                {{#if unregisteredSponsor}}
+                                    <td>{{unregisteredSponsor.firstname}} {{unregisteredSponsor.lastname}}</td>
+                                {{else}}
+                                    <td><i>Unbekannt</i></td>
+                                {{/if}}
+                                <td>{{description}}</td>
+                                <td>{{amount}} €</td>
+                                <td class="text-right">
+                                    {{#ifCond status "PROPOSED"}}
+
+                                        <button class="btn btn-success bo-btn-accept" data-team="{{teamId}}"
+                                                data-sponsoring="{{id}}" data-event="{{eventId}}">{{__ 'BTN_ACCEPT'}}</button>
+                                        <button class="btn btn-danger bo-btn-decline" data-team="{{teamId}}"
+                                                data-sponsoring="{{id}}" data-event="{{eventId}}">{{__ 'BTN_DECLINE'}}</button>
+                                    {{else}}
+                                        {{#ifCond status "accepted"}}
+                                            <span class="text-success">{{__ 'STATUS_ACCEPTED'}}</span>
+                                        {{/ifCond}}
+                                        {{#ifCond status "rejected"}}
+                                            <span class="text-danger">{{__ 'STATUS_REJECTED'}}</span>
+                                        {{/ifCond}}
+                                    {{/ifCond}}
+                                </td>
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
@@ -146,7 +248,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="addModalTitle">{{__ 'BTN_ADD'}}</h4>
+                    <h3 class="modal-title" id="addModalTitle">{{__ 'BTN_ADD'}}</h3>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -227,7 +329,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="addChallengeTitle">{{__ 'BTN_ADD_CHALLENGE'}}</h4>
+                    <h3 class="modal-title" id="addChallengeTitle">{{__ 'BTN_ADD_CHALLENGE'}}</h3>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -260,7 +362,7 @@
                                 <textarea class="form-control" name="addChallengeDescription[]"
                                        id="addChallengeDescription" required="required"
                                        placeholder="{{__ 'LABEL_CHALLENGE_DESCRIPTION'}}"></textarea>
-                                <i class="form-control-feedback material-icons">euro_symbol</i>
+                                <i class="form-control-feedback material-icons">description</i>
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -298,7 +400,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="editModalTitle">{{__ 'BTN_EDIT'}}</h4>
+                    <h3 class="modal-title" id="editModalTitle">{{__ 'BTN_EDIT'}}</h3>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -380,7 +482,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="selfModalTitle">{{__ 'HEADER_SELF_SPONSORING'}}</h4>
+                <h3 class="modal-title" id="selfModalTitle">{{__ 'HEADER_SELF_SPONSORING'}}</h3>
             </div>
             <form class="form" id="selfSponsoringModal">
                 <div class="modal-body">
@@ -547,7 +649,33 @@
                                     id="bo-self-estimate"></span>€</strong></h4>
                         </div>
                     </div>
-
+                    <div class="row" id="selfChallengeRow">
+                        <div class="col-sm-9">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="selfChallengeDescription">{{__ 'LABEL_CHALLENGE_DESCRIPTION'}}</label>
+                                <textarea class="form-control" name="selfChallengeDescription[]"
+                                          id="selfChallengeDescription" required="required"
+                                          placeholder="{{__ 'LABEL_CHALLENGE_DESCRIPTION'}}"></textarea>
+                                <i class="form-control-feedback material-icons">description</i>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="selfChallengeAmount">{{__ 'LABEL_CHALLENGE_AMOUNT'}}</label>
+                                <input type="text" class="form-control" name="selfChallengeAmount[]"
+                                       id="selfChallengeAmount" required="required"
+                                       placeholder="{{__ 'LABEL_CHALLENGE_AMOUNT'}}">
+                                <i class="form-control-feedback material-icons">euro_symbol</i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <button type="button" id="selfChallengeExtend" class="btn btn-block btn-default">
+                                {{__ 'ADD_ANOTHER_CHALLENGE'}}
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">{{__ 'BTN_ABORT'}}</button>

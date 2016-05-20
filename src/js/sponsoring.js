@@ -250,6 +250,12 @@ $(document).ready(() => {
     curr.attr('id','');
   });
 
+  $('#selfChallengeExtend').click(function(e) {
+    var curr = $('#selfChallengeRow');
+    $(`<div class='row' id='selfChallengeRow'>${curr.html()}</div>`).insertAfter(curr);
+    curr.attr('id','');
+  });
+
   $('#addChallengeForm').submit(function (e) {
     e.preventDefault();
     if (sanityCheck('addSponsoringModal')) {
@@ -279,6 +285,50 @@ $(document).ready(() => {
           toggleLoading('#addChallengeCTA');
         });
     }
+  });
+
+  $('.challengeAccept').click(function (e) {
+    var button = this;
+    toggleLoading(button, true);
+    $.post('/settings/sponsoring/accept', {
+      teamId: $(button).attr('data-team'),
+      eventId: $(button).attr('data-event'),
+      sponsoringId: $(button).attr('data-sponsoring')
+    })
+      .success(function () {
+        $('#result_in')
+          .html('<div class="alert alert-success">Erfolgreich angenommen!</div>');
+      })
+      .error(function (err) {
+        console.log(err);
+        $('#result_in')
+          .html('<div class="alert alert-danger">Annehmen fehlgeschlagen!</div>');
+      })
+      .always(() => {
+        toggleLoading(button);
+      });
+  });
+
+  $('.challengeReject').click(function (e) {
+    var button = this;
+    toggleLoading(button, true);
+    $.post('/settings/sponsoring/reject', {
+      teamId: $(button).attr('data-team'),
+      eventId: $(button).attr('data-event'),
+      sponsoringId: $(button).attr('data-sponsoring')
+    })
+      .success(function () {
+        $('#result_in')
+          .html('<div class="alert alert-success">Erfolgreich abgelehnt!</div>');
+      })
+      .error(function (err) {
+        console.log(err);
+        $('#result_in')
+          .html('<div class="alert alert-danger">Ablehnen fehlgeschlagen!</div>');
+      })
+      .always(() => {
+        toggleLoading(button);
+      });
   });
 
 });
