@@ -5,10 +5,8 @@
  */
 
 var jwt = require('jwt-simple');
+var config = requireLocal('config/config.js');
 
-const config = {
-  secret: process.env.FRONTEND_JWT_SECRET
-};
 
 Object.keys(config).forEach((k, val) => {
   if (config[k] === undefined) {
@@ -37,7 +35,7 @@ admin.ensureAuthenticated = (req, res, next) => {
 
   var payload = null;
   try {
-    payload = jwt.decode(req.header('Authorization').split(' ')[1], config.secret);
+    payload = jwt.decode(req.header('Authorization').split(' ')[1], config.jwt_secret);
   }
   catch (err) {
     return res.status(401).send({ message: err.message });
@@ -62,7 +60,7 @@ admin.createJWT = (email) => {
     iat: currTS(),
     exp: currTS() + 14 * 86400
   };
-  return jwt.encode(payload, config.secret);
+  return jwt.encode(payload, config.jwt_secret);
 };
 
 module.exports = admin;

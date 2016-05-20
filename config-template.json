@@ -1,0 +1,25 @@
+{
+  "api": {
+    "client_id": "client_id",
+    "client_secret": "123456",
+    "url": "url",
+    "protocol": "https"
+  },
+  "db": {
+    "user": "user",
+    "password": "password",
+    "url": "url",
+    "port": 123456,
+    "name": "name"
+  },
+  "gdrive": {
+    "client_email": "client_email",
+    "document_id": "document_id",
+    "private_key": "private_key"
+  },
+  "cluster": "false",
+  "secret": "secret-cat",
+  "media_url": "media_url",
+  "jwt_secret": "jwt_secret",
+  "port": 3000
+}
