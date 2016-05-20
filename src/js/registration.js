@@ -127,13 +127,16 @@ $(document).ready(() => {
 
       if (sanityCheck('registrationForm')) {
 
-        var data = new FormData($('#registrationForm')[0]);
-        data.append('gender', window.gender);
 
         if (!($('#profilePic').length && $('#profilePic')[0].files &&
           $('#profilePic')[0].files[0])) {
-          data.delete('profilePic');
+
+          //dirty safari hack
+          $('#profilePic').remove();
         }
+
+        var data = new FormData($('#registrationForm')[0]);
+        data.append('gender', window.gender);
 
         toggleLoading('#mainCTA');
         $.ajax({
@@ -161,12 +164,15 @@ $(document).ready(() => {
 
       if (sanityCheck('teamForm')) {
 
-        var data = new FormData($('#teamForm')[0]);
 
         if (!($('#profilePic')[0] && $('#profilePic')[0].files &&
           $('#profilePic')[0].files[0])) {
-          data.delete('profilePic');
+          
+          //dirty safari hack
+          $('#profilePic').remove();
         }
+
+        var data = new FormData($('#teamForm')[0]);
 
         toggleLoading('#mainCTA');
         $.ajax({
@@ -255,13 +261,16 @@ $(document).ready(() => {
 
       if (sanityCheck('sponsorForm')) {
 
+        if (!($('#profilePic')[0] && $('#profilePic')[0].files &&
+          $('#profilePic')[0].files[0])) {
+
+          //dirty safari hack
+          $('#profilePic').remove();
+        }
+
         var data = new FormData($('#sponsorForm')[0]);
         data.append('gender', window.gender);
 
-        if (!($('#profilePic')[0] && $('#profilePic')[0].files &&
-          $('#profilePic')[0].files[0])) {
-          data.delete('profilePic');
-        }
 
         toggleLoading('#mainCTA');
         $.ajax({

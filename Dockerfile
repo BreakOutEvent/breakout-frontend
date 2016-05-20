@@ -8,5 +8,7 @@ RUN npm install
 RUN npm run build
 RUN npm install -g forever
 
+ENV NODE_ENVIRONMENT prod
+
 EXPOSE 3000
 CMD ["forever", "app.js"]

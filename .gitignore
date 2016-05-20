@@ -32,9 +32,6 @@ bower_components
 # Images
 public/images
 
-# All configuration files
-config/*
-
 # files are build and bundled via browserify
 public/js/*
 public/css/*
@@ -42,3 +39,6 @@ public/cms/*
 rendered/*/*.html
 rendered/*/*.json
 .brackets.json
+
+config-dev.json
+config-prod.json

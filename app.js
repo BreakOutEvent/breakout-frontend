@@ -5,12 +5,7 @@
  */
 
 const co = require('co');
-
-const DEFAULT_SECRET = 'keyboard cat';
-const config = {
-  cluster: process.env.FRONTEND_CLUSTER === 'true',
-  secret: process.env.FRONTEND_SECRET || DEFAULT_SECRET
-};
+const config = require('./config/config');
 
 // Requires a file by providing its absolute path from the project directory
 global.requireLocal = module => require(__dirname + '/' + module);
@@ -50,7 +45,7 @@ const server = callback => co(function*() {
           }
         ],
         serializers: bunyan.stdSerializers,
-        src: process.env.NODE_ENV !== 'production'
+        src: process.env.NODE_ENVIRONMENT !== 'prod'
       }
     );
 
@@ -59,11 +54,14 @@ const server = callback => co(function*() {
     ));
   } else {
     global.logger = {
-      info: () => {},
+      info: () => {
+      },
 
-      error: () => {},
+      error: () => {
+      },
 
-      warn: () => {}
+      warn: () => {
+      }
     };
   }
 
@@ -99,15 +97,15 @@ const server = callback => co(function*() {
   app.engine('handlebars', hbs.engine);
   app.set('view engine', 'handlebars');
 
-  if (process.env.NODE_ENV === 'production' && config.secret === DEFAULT_SECRET) {
-    throw new Error('No custom secret specified, please set one via FRONTEND_SECRET');
+  if (process.env.NODE_ENVIRONMENT === 'prod' && !config.jwt_secret) {
+    throw new Error('No secret specified, please set one via jwt_secret');
   }
 
   const session = require('express-session');
   const MongoStore = require('connect-mongo')(session);
 
   app.use(session({
-    secret: config.secret,
+    secret: config.jwt_secret,
     resave: false,
     saveUninitialized: false,
     store: new MongoStore({ mongooseConnection: mongoose.connection })
@@ -167,7 +165,7 @@ const server = callback => co(function*() {
   app.use('/api', requireLocal('routes/api'));
   app.use('/admin', requireLocal('routes/admin'));
 
-  var server = app.listen(process.env.FRONTEND_PORT || 3000, () => {
+  var server = app.listen(config.port || 3000, () => {
     var host = server.address().address;
     var port = server.address().port;
 
@@ -189,11 +187,11 @@ const server = callback => co(function*() {
 
   // Displays any errors
   app.use((err, req, res, next) => {
-   logger.error(err);
+    logger.error(err);
 
     res.status(err.status || 500);
 
-    if (process.env.NODE_ENV === 'production') {
+    if (process.env.NODE_ENVIRONMENT === 'prod') {
       res.render('error', {
         code: err.status,
         message: 'Internal Server error'
@@ -212,7 +210,7 @@ const server = callback => co(function*() {
 });
 
 // Should start the server clustered (# of cores by default) if FRONTEND_CLUSTER is defined
-const throng = config.cluster ? require('throng') : cb => cb(0);
+const throng = config.cluster === 'true' ? require('throng') : cb => cb(0);
 
 if (!IS_TEST) {
   throng(id => server());

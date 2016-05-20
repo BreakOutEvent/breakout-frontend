@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * Controller for the BreakOut-Member-Page.
+ */
+
 const co = require('co');
 
 const api = requireLocal('services/api-proxy');

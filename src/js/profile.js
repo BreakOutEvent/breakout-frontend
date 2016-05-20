@@ -34,12 +34,15 @@ $(document).ready(() => {
   $('#profile_form').submit(function (e) {
     e.preventDefault();
     if (sanityCheck('profile_form')) {
-      var data = new FormData($('#profile_form')[0]);
 
       if (!($('#profilePic').length && $('#profilePic')[0].files &&
         $('#profilePic')[0].files[0])) {
-        data.delete('profilePic');
+
+        //dirty safari hack
+        $('#profilePic').remove();
       }
+
+      var data = new FormData($('#profile_form')[0]);
 
       toggleLoading('#profile_CTA');
       $.ajax({
@@ -100,12 +103,15 @@ $(document).ready(() => {
   $('#team_form').submit(function (e) {
     e.preventDefault();
     if (sanityCheck('team_form')) {
-      var data = new FormData($('#team_form')[0]);
 
       if (!($('#teamPic').length && $('#teamPic')[0].files &&
         $('#teamPic')[0].files[0])) {
-        data.delete('teamPic');
+
+        //dirty safari hack
+        $('#profilePic').remove();
       }
+
+      var data = new FormData($('#team_form')[0]);
 
       toggleLoading('#team_CTA');
       $.ajax({
