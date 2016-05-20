@@ -244,13 +244,13 @@ $(document).ready(() => {
       });
   });
 
-  $('#addChallengeExtend').click(function(e) {
+  $('#addChallengeExtend').click(function() {
     var curr = $('#addChallengeRow');
     $(`<div class='row' id='addChallengeRow'>${curr.html()}</div>`).insertAfter(curr);
     curr.attr('id','');
   });
 
-  $('#selfChallengeExtend').click(function(e) {
+  $('#selfChallengeExtend').click(function() {
     var curr = $('#selfChallengeRow');
     $(`<div class='row' id='selfChallengeRow'>${curr.html()}</div>`).insertAfter(curr);
     curr.attr('id','');
@@ -287,7 +287,7 @@ $(document).ready(() => {
     }
   });
 
-  $('.challengeAccept').click(function (e) {
+  $('.challengeAccept').click(function () {
     var button = this;
     toggleLoading(button, true);
     $.post('/settings/challenge/accept', {
@@ -309,7 +309,7 @@ $(document).ready(() => {
       });
   });
 
-  $('.challengeReject').click(function (e) {
+  $('.challengeReject').click(function () {
     var button = this;
     toggleLoading(button, true);
     $.post('/settings/challenge/reject', {
@@ -331,7 +331,7 @@ $(document).ready(() => {
       });
   });
 
-  $('.challengeDelete').click(function (e) {
+  $('.challengeDelete').click(function () {
     var button = this;
     toggleLoading(button, true);
     $.post('/settings/challenge/delete', {
