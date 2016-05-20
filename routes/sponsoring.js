@@ -79,6 +79,7 @@ router.get('/sponsoring', session.isUser, (req, res, next) => co(function*() {
       layout: 'master',
       language: req.language,
       me: req.user.me,
+      status: req.user.status,
       incSponsoring: incSponsoring,
       incChallenges: incChallenges,
       outSponsoring: outSponsoring,

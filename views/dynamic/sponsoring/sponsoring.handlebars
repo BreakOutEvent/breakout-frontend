@@ -27,7 +27,11 @@
 
 <!-- Tab panes -->
 <div class="tab-content">
-    <div role="tabpanel" class="tab-pane" id="team">
+    <div role="tabpanel" class="tab-pane
+    {{#if status.is.participant}}
+        active
+    {{/if}}
+    " id="team">
         <div class="container">
             <div class="row registration-margin">
                 <div class="col-sm-3 col-sm-offset-9 text-right">
@@ -42,8 +46,8 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Team ID</th>
-                    <th>Team Name</th>
+                    <th>Sponsor ID</th>
+                    <th>Sponsor Name</th>
                     <th>Euro pro KM</th>
                     <th>Limit</th>
                 </tr>
@@ -56,8 +60,12 @@
                 {{/unless}}
                 {{#each incSponsoring}}
                     <tr>
-                        <td>{{teamId}}</td>
-                        <td>{{team}}</td>
+                        <td>{{sponsorId}}</td>
+                        {{#if unregisteredSponsor}}
+                            <td>{{unregisteredSponsor.firstname}} {{unregisteredSponsor.lastname}}</td>
+                        {{else}}
+                            <td><i>Nicht verfügbar</i></td>
+                        {{/if}}
                         <td>{{amountPerKm}} €</td>
                         {{#ifCond limit 1000000000}}
                             <td>Kein Limit</td>
@@ -106,7 +114,7 @@
                         {{#if unregisteredSponsor}}
                             <td>{{unregisteredSponsor.firstname}} {{unregisteredSponsor.lastname}}</td>
                         {{else}}
-                            <td><i>Unbekannt</i></td>
+                            <td><i>Nicht verfügbar</i></td>
                         {{/if}}
                         <td>{{description}}</td>
                         <td>{{amount}} €</td>
@@ -132,7 +140,13 @@
             </table>
         </div>
     </div>
-    <div role="tabpanel" class="tab-pane active" id="sponsor">
+    <div role="tabpanel" class="tab-pane
+    {{#unless status.is.participant}}
+        {{#if status.is.sponsor}}
+            active
+        {{/if}}
+    {{/unless}}
+    " id="sponsor">
         <div class="container">
             <div class="row registration-margin">
                 <div class="col-sm-5 col-sm-offset-7 text-right">
@@ -216,9 +230,11 @@
                                     {{#ifCond status "PROPOSED"}}
 
                                         <button class="btn btn-success bo-btn-accept" data-team="{{teamId}}"
-                                                data-sponsoring="{{id}}" data-event="{{eventId}}">{{__ 'BTN_ACCEPT'}}</button>
+                                                data-sponsoring="{{id}}"
+                                                data-event="{{eventId}}">{{__ 'BTN_ACCEPT'}}</button>
                                         <button class="btn btn-danger bo-btn-decline" data-team="{{teamId}}"
-                                                data-sponsoring="{{id}}" data-event="{{eventId}}">{{__ 'BTN_DECLINE'}}</button>
+                                                data-sponsoring="{{id}}"
+                                                data-event="{{eventId}}">{{__ 'BTN_DECLINE'}}</button>
                                     {{else}}
                                         {{#ifCond status "accepted"}}
                                             <span class="text-success">{{__ 'STATUS_ACCEPTED'}}</span>
@@ -360,8 +376,8 @@
                             <div class="form-group has-feedback has-feedback-left">
                                 <label for="addChallengeDescription">{{__ 'LABEL_CHALLENGE_DESCRIPTION'}}</label>
                                 <textarea class="form-control" name="addChallengeDescription[]"
-                                       id="addChallengeDescription" required="required"
-                                       placeholder="{{__ 'LABEL_CHALLENGE_DESCRIPTION'}}"></textarea>
+                                          id="addChallengeDescription" required="required"
+                                          placeholder="{{__ 'LABEL_CHALLENGE_DESCRIPTION'}}"></textarea>
                                 <i class="form-control-feedback material-icons">description</i>
                             </div>
                         </div>
@@ -385,7 +401,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">{{__ 'BTN_ABORT'}}</button>
-                    <button type="submit" class="btn btn-primary" id="addChallengeCTA">{{__ 'BTN_ADD_CHALLENGE'}}</button>
+                    <button type="submit" class="btn btn-primary"
+                            id="addChallengeCTA">{{__ 'BTN_ADD_CHALLENGE'}}</button>
                 </div>
             </form>
         </div>
