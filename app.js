@@ -4,11 +4,11 @@
  * Main application file, starts the webserver and everything.
  */
 
-const co = require('co');
-const config = require('./config/config');
-
 // Requires a file by providing its absolute path from the project directory
 global.requireLocal = module => require(__dirname + '/' + module);
+
+const co = require('co');
+const config = require('./config/config');
 
 global.IS_TEST = process.env.FRONTEND_RUN_TESTS === 'true';
 
