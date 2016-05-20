@@ -204,8 +204,8 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th>Sponsor ID</th>
-                            <th>Sponsor Name</th>
+                            <th>Team ID</th>
+                            <th>Team Name</th>
                             <th>Beschreibung</th>
                             <th>Euro</th>
                         </tr>
@@ -218,12 +218,8 @@
                         {{/unless}}
                         {{#each outChallenges}}
                             <tr>
-                                <td>{{sponsorId}}</td>
-                                {{#if unregisteredSponsor}}
-                                    <td>{{unregisteredSponsor.firstname}} {{unregisteredSponsor.lastname}}</td>
-                                {{else}}
-                                    <td><i>Unbekannt</i></td>
-                                {{/if}}
+                                <td>{{teamId}}</td>
+                                <td>{{team}}</td>
                                 <td>{{description}}</td>
                                 <td>{{amount}} €</td>
                                 <td class="text-right">
