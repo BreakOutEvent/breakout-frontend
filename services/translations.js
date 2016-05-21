@@ -614,5 +614,22 @@ module.exports = {
     LINK_DESCRIPTION: {
       de: 'ZURÜCK ZUR WEBSEITE'
     }
+  },
+  MESSAGE: {
+    HEADLINE: {
+      de: 'Nachrichten'
+    },
+    BTN_ADD: {
+      de: 'Neue Gruppennachricht erstellen'
+    },
+    BTN_ABORT: {
+      de: 'Abbrechen'
+    },
+    ADD_CONTENT: {
+      de: 'Wähle die Nutzer aus, mit denen Du schreiben willst.'
+    },
+    CHOOSE_USER: {
+      de: 'Nutzer auswählen'
+    }
   }
 };

@@ -120,10 +120,12 @@ sponsoring.getByTeam = (req) => co(function*() {
     req.user.me.participant.eventId,
     req.user.me.participant.teamId);
 
-  let sponsors = yield allSponsorings.map(s => api.user.get(s.sponsorId));
+  let callSponsorings = allSponsorings.filter(c => !!c.userId);
+
+  let sponsors = yield callSponsorings.map(s => api.user.get(s.userId));
 
   return allSponsorings.map(sponsoring => {
-    sponsoring.sponsor = sponsors.filter(s => s.id = sponsoring.sponsorId)[0];
+    sponsoring.sponsor = sponsors.filter(s => s.id = sponsoring.userId)[0];
     console.log(sponsoring);
     return sponsoring;
   });
@@ -207,9 +209,18 @@ sponsoring.challenge.create = (req, res, next) => co(function*() {
 
 sponsoring.challenge.getByTeam = (req) => co(function*() {
 
-  return yield api.challenge.getByTeam(
+  let allChallenges = yield api.challenge.getByTeam(
     req.user.me.participant.eventId,
     req.user.me.participant.teamId);
+
+  let callChallenges = allChallenges.filter(c => !!c.userId);
+
+  let sponsors = yield callChallenges.map(c => api.user.get(c.userId));
+
+  return allChallenges.map(challenge => {
+    challenge.sponsor = sponsors.filter(s => s.id = challenge.userId)[0];
+    return challenge;
+  });
 
 }).catch(ex => {
   throw ex;

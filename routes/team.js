@@ -14,7 +14,7 @@ const session = requireLocal('controller/session');
 const upload = multer({inMemory: true});
 const router = express.Router();
 
-router.get('/team/:teamId', (req, res, next) => co(function*() {
+router.get('/:teamId', (req, res, next) => co(function*() {
   const currTeam = yield team.getTeamByUrl(req.params.teamId);
 
   console.log(currTeam);

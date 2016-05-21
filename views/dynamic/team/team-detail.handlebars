@@ -70,8 +70,8 @@
     {{/each}}
 
 </div>
-<script type="text/javascript" src="/js/map.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAq5jqy6DxgQBkk4KoTPgqEk2Pcwc0WfwE&callback=initMap"></script>
 <script>
-    //exportsMap.init('map', {{json team}});
+    window.mapData = {{{json team}}};
 </script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAq5jqy6DxgQBkk4KoTPgqEk2Pcwc0WfwE"></script>
+<script type="text/javascript" src="/js/map.js"></script>

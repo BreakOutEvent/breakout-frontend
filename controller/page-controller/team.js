@@ -27,6 +27,8 @@ team.getTeamByUrl = (teamId) => co(function*() {
   let allChallenges = yield api.challenge.getByTeam(tempTeam.event.id, tempTeam.id);
   tempTeam.challenges = allChallenges.filter(s => s.status === 'ACCEPTED');
 
+  let allPostings = yield 
+  
 
   return tempTeam;
 }).catch((ex) => {

@@ -1,8 +1,13 @@
+$(document).ready(function () {
+  exportsMap.init('map',window.mapData);
+  console.log("test");
+});
+
 var exportsMap =  {
   map: null
 };
 
-exportsMap.init = function (id,teams,start) {
+exportsMap.init = function (id,teams) {
   var munich = new google.maps.LatLng(48.150623, 11.581087);
   var berlin = new google.maps.LatLng(52.512601, 13.321778);
   var geocenter = new google.maps.LatLngBounds(munich, berlin);

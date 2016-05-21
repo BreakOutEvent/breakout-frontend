@@ -159,9 +159,9 @@ const server = callback => co(function*() {
 
   app.use('/', requireLocal('routes/main'));
   app.use('/', requireLocal('routes/dynamic'));
-  app.use('/', requireLocal('routes/team'));
-  app.use('/settings', requireLocal('routes/profile'));
-  app.use('/settings', requireLocal('routes/sponsoring'));
+  app.use('/team', requireLocal('routes/team'));
+  app.use('/messages', requireLocal('routes/messages'));
+  app.use('/settings', requireLocal('routes/settings'));
   app.use('/api', requireLocal('routes/api'));
   app.use('/admin', requireLocal('routes/admin'));
 
