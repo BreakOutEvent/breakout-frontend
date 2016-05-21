@@ -456,6 +456,76 @@ API.pwreset.resetPassword = (email, token, password) => {
   });
 };
 
+
+API.messaging = {};
+
+API.messaging.createGroupMessage = (token, userIds) => {
+  logger.info('Creating new GroupMessage with userIds', userIds);
+  return new Promise((resolve, reject) => {
+
+    if (!Array.isArray(userIds) && userIds.length > 0) {
+      reject("userIds has to be array to create groupMessage with more than 0 entries");
+    }
+
+    request
+      .post({
+        url: `${url}/messaging/`,
+        auth: { bearer: token.access_token },
+        body: JSON.stringify(userIds),
+        headers: { 'content-type': 'application/json' }
+      }, handleResponse(resolve, reject, 'Successfully created new GroupMessage'));
+  });
+};
+
+API.messaging.addUsersToGroupMessage = (token, groupMessageId, userIds) => {
+  logger.info('Adding Users to GroupMessage with userIds', groupMessageId, userIds);
+  return new Promise((resolve, reject) => {
+
+    if (!Array.isArray(userIds) && userIds.length > 0) {
+      reject("userIds has to be array to edit groupMessage with more than 0 entries");
+    }
+
+    request
+      .put({
+        url: `${url}/messaging/${groupMessageId}/`,
+        auth: { bearer: token.access_token },
+        body: JSON.stringify(userIds),
+        headers: { 'content-type': 'application/json' }
+      }, handleResponse(resolve, reject, 'Successfully added users to GroupMessage: ' + groupMessageId + ' users: ' + userIds));
+  });
+};
+
+API.messaging.getGroupMessage = (token, groupMessageId) => {
+  logger.info('Getting GroupMessage', groupMessageId);
+  return new Promise((resolve, reject) => {
+
+    request
+      .get({
+        url: `${url}/messaging/${groupMessageId}/`,
+        auth: { bearer: token.access_token }
+      }, handleResponse(resolve, reject, 'Successfully got GroupMessage: ' + groupMessageId));
+  });
+};
+
+API.messaging.addMessageToGroupMessage = (token, groupMessageId, text) => {
+  logger.info('Adding Message to GroupMessage', groupMessageId, text);
+  return new Promise((resolve, reject) => {
+
+    let body = {};
+    body.text = text;
+    body.date = new Date().getTime();
+
+    request
+      .post({
+        url: `${url}/messaging/${groupMessageId}/message/`,
+        auth: { bearer: token.access_token },
+        body: JSON.stringify(body),
+        headers: { 'content-type': 'application/json' }
+      }, handleResponse(resolve, reject, 'Successfully added Message to GroupMessage: ' + groupMessageId));
+  });
+};
+
+
 API.team = {};
 
 API.team.get = function (teamId) {
