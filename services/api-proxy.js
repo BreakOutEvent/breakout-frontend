@@ -628,6 +628,33 @@ API.posting.createComment = (token, postingId, text) => {
   });
 };
 
+API.posting.createLike = (token, postingId) => {
+  logger.info('Create new Like for Posting', postingId);
+  return new Promise((resolve, reject) => {
+
+    let body = {};
+    body.date = new Date().getTime();
+
+    request
+      .post({
+        url: `${url}/posting/${postingId}/like/`,
+        auth: { bearer: token.access_token },
+        body: JSON.stringify(body),
+        headers: { 'content-type': 'application/json' }
+      }, handleResponse(resolve, reject, 'Successfully created Like for Posting: ' + postingId));
+  });
+};
+
+API.posting.getLikesForPosting = (postingId) => {
+  logger.info('Getting Likes for Posting by Id: ', postingId);
+  return new Promise((resolve, reject) => {
+    request
+      .get({
+        url: `${url}/posting/${postingId}/like/`
+      }, handleResponse(resolve, reject, 'Successfully got Likes for Posting by Id: ' + postingId));
+  });
+};
+
 
 API.team = {};
 
