@@ -267,8 +267,11 @@
                                 <select name="team" id="team_select" class="form-control" required="required">
                                     <option disabled="disabled">Team auswählen</option>
                                     {{#each teams}}
-                                        <option value='{"team": "{{id}}", "event": "{{event}}"}'>{{name}} ({{eventCity}}
-                                            )
+                                        <option value='{"team": "{{id}}", "event": "{{event}}"}'>
+                                            {{name}} ({{city}})
+                                            ({{#each members}}
+                                            {{#unless @first}} & {{/unless}}{{firstname}}
+                                        {{/each}})
                                         </option>
                                     {{/each}}
 
@@ -350,7 +353,10 @@
                                     <option disabled="disabled">Team auswählen</option>
                                     {{#each teams}}
                                         <option value='{"team": "{{id}}", "event": "{{event}}"}'>
-                                            {{name}} ({{eventCity}})
+                                            {{name}} ({{city}})
+                                            ({{#each members}}
+                                                {{#unless @first}} & {{/unless}}{{firstname}}
+                                            {{/each}})
                                         </option>
                                     {{/each}}
                                 </select>
@@ -420,8 +426,11 @@
                                 <select name="team" id="bo-edit-id" class="form-control" required="required">
                                     <option disabled="disabled">Team auswählen</option>
                                     {{#each teams}}
-                                        <option value='{"team": "{{id}}", "event": "{{event}}"}'>{{name}} ({{eventCity}}
-                                            )
+                                        <option value='{"team": "{{id}}", "event": "{{event}}"}'>
+                                            {{name}} ({{city}})
+                                         ({{#each members}}
+                                            {{#unless @first}} & {{/unless}}{{firstname}}
+                                        {{/each}})
                                         </option>
                                     {{/each}}
 

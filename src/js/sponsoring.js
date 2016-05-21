@@ -95,11 +95,7 @@ $(document).ready(() => {
           data: data
         })
         .success(function () {
-          $('#result_in')
-            .html('<div class="alert alert-success">Erfolgreich gespeichert!</div>');
-          $('#selfSponsoring').modal('hide');
-          $('#selfSponsoringModal')[0].reset();
-          updateSelfOutput();
+          window.location.reload();
         })
         .error(function (err) {
           console.log(err);
@@ -128,11 +124,7 @@ $(document).ready(() => {
           data: data
         })
         .success(function () {
-          $('#result_out')
-            .html('<div class="alert alert-success">Erfolgreich gespeichert!</div>');
-          $('#editSponsoring').modal('hide');
-          $('#editSponsoringModal')[0].reset();
-          updateEditOutput();
+          window.location.reload();
         })
         .error(function (err) {
           console.log(err);
@@ -161,11 +153,7 @@ $(document).ready(() => {
           data: data
         })
         .success(function () {
-          $('#result_out')
-            .html('<div class="alert alert-success">Erfolgreich gespeichert!</div>');
-          $('#addSponsoring').modal('hide');
-          $('#addSponsoringModal')[0].reset();
-          updateAddOutput();
+          window.location.reload();
         })
         .error(function (err) {
           console.log(err);
@@ -187,8 +175,7 @@ $(document).ready(() => {
         sponsoringId: $(button).attr('data-sponsoring')
       })
       .success(function () {
-        $('#result_in')
-          .html('<div class="alert alert-success">Erfolgreich angenommen!</div>');
+        window.location.reload();
       })
       .error(function (err) {
         console.log(err);
@@ -209,8 +196,7 @@ $(document).ready(() => {
         sponsoringId: $(button).attr('data-id')
       })
       .success(function () {
-        $('#result_in')
-          .html('<div class="alert alert-success">Erfolgreich abgelehnt!</div>');
+        window.location.reload();
       })
       .error(function (err) {
         console.log(err);
@@ -231,8 +217,7 @@ $(document).ready(() => {
         sponsoringId: $(button).attr('data-id')
       })
       .success(function () {
-        $('#result_in')
-          .html('<div class="alert alert-success">Erfolgreich gelöscht!</div>');
+        window.location.reload();
       })
       .error(function (err) {
         console.log(err);
@@ -271,10 +256,7 @@ $(document).ready(() => {
           data: data
         })
         .success(function () {
-          $('#result_out')
-            .html('<div class="alert alert-success">Erfolgreich gespeichert!</div>');
-          $('#addChallenge').modal('hide');
-          $('#addChallengeCTA')[0].reset();
+          window.location.reload();
         })
         .error(function (err) {
           console.log(err);
@@ -296,8 +278,7 @@ $(document).ready(() => {
       challengeId: $(button).attr('data-id')
     })
       .success(function () {
-        $('#result_in')
-          .html('<div class="alert alert-success">Erfolgreich angenommen!</div>');
+        window.location.reload();
       })
       .error(function (err) {
         console.log(err);
@@ -318,8 +299,7 @@ $(document).ready(() => {
       challengeId: $(button).attr('data-id')
     })
       .success(function () {
-        $('#result_in')
-          .html('<div class="alert alert-success">Erfolgreich abgelehnt!</div>');
+        window.location.reload();
       })
       .error(function (err) {
         console.log(err);
@@ -340,8 +320,7 @@ $(document).ready(() => {
       challengeId: $(button).attr('data-id')
     })
       .success(function () {
-        $('#result_in')
-          .html('<div class="alert alert-success">Erfolgreich gelöscht!</div>');
+        window.location.reload();
       })
       .error(function (err) {
         console.log(err);
