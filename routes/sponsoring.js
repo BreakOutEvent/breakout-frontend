@@ -61,7 +61,7 @@ router.get('/sponsoring', session.isUser, (req, res, next) => co(function*() {
 
 //SPONSRING ROUTES
 
-router.post('/sponsoring/create', session.hasTeam, upload.single('contract'), sponsoring.create);
+router.post('/sponsoring/create', session.isUser, upload.single('contract'), sponsoring.create);
 router.post('/sponsoring/accept', session.isUser, sponsoring.accept);
 router.post('/sponsoring/reject', session.isUser, sponsoring.reject);
 router.post('/sponsoring/delete', session.isUser, sponsoring.delete);
