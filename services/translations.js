@@ -20,6 +20,9 @@ module.exports = {
     DESCRIPTION_PARTICIPANT: {
       de: 'Dein aktueller Status ist: <strong>Teilnehmer</strong>. Damit kannst du nicht nur alle Posts und Updates von anderen teilnehmenden Teams kommentieren sondern auch Sponsoren sammeln und selbst Posts veröffentlichen. Zusätzlich kannst Du Dich auf unvergessliche 36 Stunden Abenteuer freuen! '
     },
+    DESCRIPTION_SPONSOR: {
+      de: 'Dein aktueller Status ist: <strong>Sponsor</strong>. Damit kannst Du Teams pro Kilometer unterstützen oder ihnen unvergessliche Challenges mit auf den Weg geben!'
+    },
     DESCRIPTION_3: {
       de: 'Das ist Dir noch nicht genug? Wir bieten auf unserer Plattform auch noch weitere Accounts an:',
       en: 'That\'s not enough? On our platform we also offer other accounts:'
@@ -55,6 +58,12 @@ module.exports = {
     },
     PROFILE: {
       de: 'Hier kannst du die im Anmeldeprozess angegebenen Daten ändern und Profilbilder hochladen.'
+    },
+    SPONSORING_H: {
+      de: 'Sponsoring Übersicht'
+    },
+    SPONSORING: {
+      de: 'Hier kannst Du alle eingehenden und ausgehenden Sponsorings sehen und verwalten. Bitte schaue hier regelmäßig rein um Sponsorings anzunehmen oder abzulehnen.'
     }
   },
   'TEAM-CREATE': {
@@ -268,6 +277,9 @@ module.exports = {
     LINK_DESCRIPTION: {
       de: 'ZURÜCK ZUR HOMEPAGE',
       en: 'BACK TO THE HOMEPAGE'
+    },
+    LINK_TO_SETTINGS: {
+      de: 'SPONSORING EINTRAGEN'
     }
   },
   'INVITE-SUCCESS': {
@@ -281,7 +293,8 @@ module.exports = {
     LINK_DESCRIPTION: {
       de: 'ZURÜCK ZUR HOMEPAGE',
       en: 'BACK TO THE HOMEPAGE'
-    }
+    },
+
   },
   'SPECTATOR-SUCCESS': {
     HEADLINE: {

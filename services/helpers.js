@@ -56,3 +56,11 @@ exports.__ = (text, options) => {
 
   return i18n.translate(viewArr[viewArr.length - 1].toUpperCase(), text.toUpperCase(), options.data.root.language);
 };
+
+exports.ifOr = function (v1, v2, options) {
+  if (v1 || v2) {
+    return options.fn(this);
+  }
+
+  return options.inverse(this);
+};

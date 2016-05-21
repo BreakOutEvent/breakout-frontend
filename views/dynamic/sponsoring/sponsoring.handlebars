@@ -11,12 +11,16 @@
     </div>
     <div class="container bo-secondary-nav">
         <ul class="nav nav-tabs">
-            {{#if me.participant.teamId}}
+            {{#if status.is.team}}
                 <li role="presentation" class="active"><a href="#team" aria-controls="team" role="tab"
                                                           data-toggle="tab">{{__ 'NAVIGATION_TEAM'}}</a></li>
             {{/if}}
-            {{#if me.sponsor}}
-                <li role="presentation"><a href="#sponsor" aria-controls="team" role="tab"
+            {{#if status.is.sponsor}}
+                <li role="presentation"
+                    {{#unless status.is.team}}
+                        class="active"
+                    {{/unless}}
+                ><a href="#sponsor" aria-controls="team" role="tab"
                                            data-toggle="tab">{{__ 'NAVIGATION_SPONSOR'}}</a></li>
             {{ else }}
                 <li role="presentation"><a href="/sponsor">{{__ 'LINK_SPONSOR'}}</a></li>
@@ -28,7 +32,7 @@
 <!-- Tab panes -->
 <div class="tab-content">
     <div role="tabpanel" class="tab-pane
-    {{#if status.is.participant}}
+    {{#if status.is.team}}
         active
     {{/if}}
     " id="team">
@@ -141,7 +145,7 @@
         </div>
     </div>
     <div role="tabpanel" class="tab-pane
-    {{#unless status.is.participant}}
+    {{#unless status.is.team}}
         {{#if status.is.sponsor}}
             active
         {{/if}}
