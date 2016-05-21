@@ -57,7 +57,8 @@ module.exports = function (grunt) {
           'public/js/registration.js': ['src/js/registration.js'],
           'public/js/profile.js': ['src/js/profile.js'],
           'public/js/admin.js': ['src/js/admin.js'],
-          'public/js/sponsoring.js': ['src/js/sponsoring.js']
+          'public/js/sponsoring.js': ['src/js/sponsoring.js'],
+          'public/js/map.js': ['src/js/map.js']
         }
       }
     },
@@ -72,7 +73,8 @@ module.exports = function (grunt) {
           'public/js/registration.js': ['public/js/registration.js'],
           'public/js/profile.js': ['public/js/profile.js'],
           'public/js/admin.js': ['public/js/admin.js'],
-          'public/js/sponsoring.js': ['public/js/sponsoring.js']
+          'public/js/sponsoring.js': ['public/js/sponsoring.js'],
+          'public/js/map.js': ['public/js/map.js']
         }
       }
     },
@@ -101,7 +103,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default',
     [
-      'jshint',
       'browserify',
       'babel',
       'less',

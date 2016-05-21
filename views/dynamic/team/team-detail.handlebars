@@ -28,7 +28,7 @@
         <!-- main panel -->
         <div class="col-sm-8 col-md-9 col-sm-push-4 col-md-push-3">
             <div class="bo-team-map">
-                <div class="bo-team-placeholder" style="width:100%; min-height: 300px;"></div>
+                <div class="bo-team-placeholder" id="map" style="width:100%; min-height: 300px;"></div>
             </div>
         </div>
         <!-- / main panel -->
@@ -46,27 +46,32 @@
 
             </ul>
             {{#unless team.challenges}}
-                <i>Dieses Team hat bisher keine Challenges. <br /><a href="/">Jetzt welche stellen!</a></i>
+                <i>Dieses Team hat bisher keine Challenges. <br/><a href="/">Jetzt welche stellen!</a></i>
             {{/unless}}
             <h3>Sponsoren</h3>
             <ul>
-            {{#each team.sponsors}}
-                {{#if sponsor.company}}
-                    <li>{{company}}</li>
-                {{else}}
-                    <li>{{firstname}} {{lastname}}</li>
-                {{/if}}
-            {{/each}}
-                </ul>
+                {{#each team.sponsors}}
+                    {{#if sponsor.company}}
+                        <li>{{company}}</li>
+                    {{else}}
+                        <li>{{firstname}} {{lastname}}</li>
+                    {{/if}}
+                {{/each}}
+            </ul>
             {{#unless team.sponsors}}
-                <i>Dieses Team hat bisher keine Sponsoren. <br /><a href="/">Jetzt unterstützen!</a></i>
+                <i>Dieses Team hat bisher keine Sponsoren. <br/><a href="/">Jetzt unterstützen!</a></i>
             {{/unless}}
         </div>
         <!-- / side panel -->
     </div>
 
-                        {{#each posts}}
-                            {{> post-teampage this }}
-                        {{/each}}
+    {{#each posts}}
+        {{> post-teampage this }}
+    {{/each}}
 
 </div>
+<script type="text/javascript" src="/js/map.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAq5jqy6DxgQBkk4KoTPgqEk2Pcwc0WfwE&callback=initMap"></script>
+<script>
+    //exportsMap.init('map', {{json team}});
+</script>

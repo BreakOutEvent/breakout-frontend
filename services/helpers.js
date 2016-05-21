@@ -64,3 +64,7 @@ exports.ifOr = function (v1, v2, options) {
 
   return options.inverse(this);
 };
+
+exports.json = function (context) {
+  return JSON.stringify(context);
+};
