@@ -468,8 +468,15 @@ API.event.get = function (eventId) {
   return API.general.get(`/event/${eventId}/`);
 };
 
-API.event.all = function (eventId) {
+API.event.all = function () {
   return API.general.get(`/event/`);
+};
+
+
+API.user = {};
+
+API.user.get = function (userId) {
+  return API.general.get(`/user/${userId}/`);
 };
 
 function handleResponse(resolve, reject, msg) {

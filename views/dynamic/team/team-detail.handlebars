@@ -43,11 +43,24 @@
                 {{#each team.challenge}}
                     <li>({{amount}}€){{description}}</li>
                 {{/each}}
-            </ul>
-            <h3>Sponsoren</h3>
-            {{#each sponsor}}
 
+            </ul>
+            {{#unless team.challenges}}
+                <i>Dieses Team hat bisher keine Challenges. <br /><a href="/">Jetzt welche stellen!</a></i>
+            {{/unless}}
+            <h3>Sponsoren</h3>
+            <ul>
+            {{#each team.sponsors}}
+                {{#if sponsor.company}}
+                    <li>{{company}}</li>
+                {{else}}
+                    <li>{{firstname}} {{lastname}}</li>
+                {{/if}}
             {{/each}}
+                </ul>
+            {{#unless team.sponsors}}
+                <i>Dieses Team hat bisher keine Sponsoren. <br /><a href="/">Jetzt unterstützen!</a></i>
+            {{/unless}}
         </div>
         <!-- / side panel -->
     </div>

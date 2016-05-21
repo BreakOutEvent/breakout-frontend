@@ -17,41 +17,6 @@ const router = express.Router();
 router.get('/team/:teamId', (req, res, next) => co(function*() {
   const currTeam = yield team.getTeamByUrl(req.params.teamId);
 
-  /*let currTeam = {
-    id: 1,
-    name: 'Erstes Team',
-    event: {
-      id: 1,
-      title: 'Breakout München 2016',
-      date: 1464912000,
-      city: 'München',
-      startingLocation: {latitude: 48.13743, longitude: 11.57549},
-      duration: 36
-    },
-    description: 'Geile Sache',
-    members: [
-      {
-        firstname: 'Keno',
-        lastname: 'Dreßel',
-        id: 1,
-        participant: [Object],
-        profilePic: [Object],
-        roles: [Object],
-        blocked: true
-      },
-      {
-        firstname: 'TEST',
-        lastname: 'TEST',
-        id: 1,
-        participant: [Object],
-        profilePic: [Object],
-        roles: [Object],
-        blocked: true
-      }],
-    profilePic: {id: 21, type: 'IMAGE', uploadToken: null, sizes: []},
-    invoiceId: 1
-  };*/
-
   console.log(currTeam);
 
   res.render(`dynamic/team/team-detail`,

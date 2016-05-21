@@ -28,13 +28,11 @@ router.get('/sponsoring', session.isUser, (req, res, next) => co(function*() {
   let outSponsoring = [];
   let outChallenges = [];
   //INCOMING
-  if(req.user.status.is.participant) {
+  if(req.user.status.is.team) {
     incSponsoring = yield sponsoring.getByTeam(req);
     incChallenges = yield sponsoring.challenge.getByTeam(req);
   }
-
-
-
+  
   //OUTGOING
   if(req.user.status.is.sponsor) {
     outSponsoring = yield sponsoring.getBySponsor(req);
