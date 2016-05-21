@@ -259,7 +259,7 @@ API.activateUser = (token) => {
 API.general = {};
 
 API.general.get = (modelURL) => {
-  logger.info('Trying to get', modelURL ,'from backend');
+  logger.info('Trying to get', modelURL, 'from backend');
   return new Promise((resolve, reject)=> {
       request
         .get({
@@ -375,8 +375,8 @@ API.challenge.create = (token, eventId, teamId, body) => {
       .post({
         url: `${url}/event/${eventId}/team/${teamId}/challenge/`,
         body: JSON.stringify(body),
-        headers: {'content-type': 'application/json'},
-        auth: {bearer: token.access_token}
+        headers: { 'content-type': 'application/json' },
+        auth: { bearer: token.access_token }
       }, handleResponse(resolve, reject, 'Challenge created for team' + teamId));
   });
 };
@@ -397,7 +397,7 @@ API.challenge.getBySponsor = (token, userId) => {
     request
       .get({
         url: `${url}/user/${userId}/sponsor/challenge/`,
-        auth: {bearer: token.access_token}
+        auth: { bearer: token.access_token }
       }, handleResponse(resolve, reject, 'Successfully got challenges from user ' + userId));
   });
 };
@@ -411,9 +411,9 @@ API.challenge.changeStatus = (token, eventId, teamId, challengeId, status) => {
     request
       .put({
         url: `${url}/event/${eventId}/team/${teamId}/challenge/${challengeId}/status/`,
-        auth: {bearer: token.access_token},
+        auth: { bearer: token.access_token },
         body: JSON.stringify(body),
-        headers: {'content-type': 'application/json'}
+        headers: { 'content-type': 'application/json' }
       }, handleResponse(resolve, reject, 'Successfully changed status of sponsoring ' + challengeId + ' to ' + status));
   });
 };
@@ -455,6 +455,206 @@ API.pwreset.resetPassword = (email, token, password) => {
       }, handleResponse(resolve, reject, 'Successfully reset password for: ' + email));
   });
 };
+
+
+API.messaging = {};
+
+API.messaging.createGroupMessage = (token, userIds) => {
+  logger.info('Creating new GroupMessage with userIds', userIds);
+  return new Promise((resolve, reject) => {
+
+    if (!Array.isArray(userIds) && userIds.length > 0) {
+      reject("userIds has to be array to create groupMessage with more than 0 entries");
+    }
+
+    request
+      .post({
+        url: `${url}/messaging/`,
+        auth: { bearer: token.access_token },
+        body: JSON.stringify(userIds),
+        headers: { 'content-type': 'application/json' }
+      }, handleResponse(resolve, reject, 'Successfully created new GroupMessage'));
+  });
+};
+
+API.messaging.addUsersToGroupMessage = (token, groupMessageId, userIds) => {
+  logger.info('Adding Users to GroupMessage with userIds', groupMessageId, userIds);
+  return new Promise((resolve, reject) => {
+
+    if (!Array.isArray(userIds) && userIds.length > 0) {
+      reject("userIds has to be array to edit groupMessage with more than 0 entries");
+    }
+
+    request
+      .put({
+        url: `${url}/messaging/${groupMessageId}/`,
+        auth: { bearer: token.access_token },
+        body: JSON.stringify(userIds),
+        headers: { 'content-type': 'application/json' }
+      }, handleResponse(resolve, reject, 'Successfully added users to GroupMessage: ' + groupMessageId + ' users: ' + userIds));
+  });
+};
+
+API.messaging.getGroupMessage = (token, groupMessageId) => {
+  logger.info('Getting GroupMessage', groupMessageId);
+  return new Promise((resolve, reject) => {
+
+    request
+      .get({
+        url: `${url}/messaging/${groupMessageId}/`,
+        auth: { bearer: token.access_token }
+      }, handleResponse(resolve, reject, 'Successfully got GroupMessage: ' + groupMessageId));
+  });
+};
+
+API.messaging.addMessageToGroupMessage = (token, groupMessageId, text) => {
+  logger.info('Adding Message to GroupMessage', groupMessageId, text);
+  return new Promise((resolve, reject) => {
+
+    let body = {};
+    body.text = text;
+    body.date = new Date().getTime();
+
+    request
+      .post({
+        url: `${url}/messaging/${groupMessageId}/message/`,
+        auth: { bearer: token.access_token },
+        body: JSON.stringify(body),
+        headers: { 'content-type': 'application/json' }
+      }, handleResponse(resolve, reject, 'Successfully added Message to GroupMessage: ' + groupMessageId));
+  });
+};
+
+
+API.posting = {};
+
+API.posting.createPosting = (token, text, uploadMediaTypes, latitude, longitude) => {
+  logger.info('Create new Posting', text);
+  return new Promise((resolve, reject) => {
+
+    let body = {};
+    body.text = text;
+    if (uploadMediaTypes) body.uploadMediaTypes = uploadMediaTypes;
+    if (latitude && longitude) {
+      body.postingLocation = {};
+      body.postingLocation.latitude = latitude;
+      body.postingLocation.longitude = longitude;
+    }
+    body.date = new Date().getTime();
+
+    request
+      .post({
+        url: `${url}/posting/`,
+        auth: { bearer: token.access_token },
+        body: JSON.stringify(body),
+        headers: { 'content-type': 'application/json' }
+      }, handleResponse(resolve, reject, 'Successfully created Posting: ' + text + ' - ' + uploadMediaTypes + ' - ' + postingLocation));
+  });
+};
+
+API.posting.getAllPostings = () => {
+  logger.info('Getting all Postings');
+  return new Promise((resolve, reject) => {
+    request
+      .get({
+        url: `${url}/posting/`
+      }, handleResponse(resolve, reject, 'Successfully got all Postings'));
+  });
+};
+
+API.posting.getPosting = (postingId) => {
+  logger.info('Getting Posting by Id: ', postingId);
+  return new Promise((resolve, reject) => {
+    request
+      .get({
+        url: `${url}/posting/${postingId}/`
+      }, handleResponse(resolve, reject, 'Successfully got Posting by Id: ' + postingId));
+  });
+};
+
+API.posting.getPostingsByIds = (postingIds) => {
+  logger.info('Getting Postings by Ids: ', postingIds);
+
+  return new Promise((resolve, reject) => {
+
+    if (!Array.isArray(postingIds)) {
+      reject("postingIds has to be array");
+    }
+
+    request
+      .post({
+        url: `${url}/posting/get/ids`,
+        body: JSON.stringify(postingIds),
+        headers: { 'content-type': 'application/json' }
+      }, handleResponse(resolve, reject, 'Successfully got Postings by Ids: ' + postingIds));
+  });
+};
+
+API.posting.getPostingIdsSince = (postingId) => {
+  logger.info('Getting PostingIds since Id: ', postingId);
+  return new Promise((resolve, reject) => {
+    request
+      .get({
+        url: `${url}/posting/get/since/${postingId}/`
+      }, handleResponse(resolve, reject, 'Successfully got PostingIds since Id: ' + postingId));
+  });
+};
+
+API.posting.getPostingsByHashtag = (hashtag) => {
+  logger.info('Getting Postings by Hashtag: ', hashtag);
+  return new Promise((resolve, reject) => {
+    request
+      .get({
+        url: `${url}/posting/hashtag/${hashtag}/`
+      }, handleResponse(resolve, reject, 'Successfully got Postings by Hashtag: ' + hashtag));
+  });
+};
+
+API.posting.createComment = (token, postingId, text) => {
+  logger.info('Create new Comment for Posting', postingId, text);
+  return new Promise((resolve, reject) => {
+
+    let body = {};
+    body.text = text;
+    body.date = new Date().getTime();
+
+    request
+      .post({
+        url: `${url}/posting/${postingId}/comment/`,
+        auth: { bearer: token.access_token },
+        body: JSON.stringify(body),
+        headers: { 'content-type': 'application/json' }
+      }, handleResponse(resolve, reject, 'Successfully created Comment for Posting: ' + postingId));
+  });
+};
+
+API.posting.createLike = (token, postingId) => {
+  logger.info('Create new Like for Posting', postingId);
+  return new Promise((resolve, reject) => {
+
+    let body = {};
+    body.date = new Date().getTime();
+
+    request
+      .post({
+        url: `${url}/posting/${postingId}/like/`,
+        auth: { bearer: token.access_token },
+        body: JSON.stringify(body),
+        headers: { 'content-type': 'application/json' }
+      }, handleResponse(resolve, reject, 'Successfully created Like for Posting: ' + postingId));
+  });
+};
+
+API.posting.getLikesForPosting = (postingId) => {
+  logger.info('Getting Likes for Posting by Id: ', postingId);
+  return new Promise((resolve, reject) => {
+    request
+      .get({
+        url: `${url}/posting/${postingId}/like/`
+      }, handleResponse(resolve, reject, 'Successfully got Likes for Posting by Id: ' + postingId));
+  });
+};
+
 
 API.team = {};
 
