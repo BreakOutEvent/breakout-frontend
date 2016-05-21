@@ -24,10 +24,11 @@ exportsMap.init = function (id,teams) {
     scrollwheel: false
   };
 
-  exportsMap.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+  exportsMap.map = new google.maps.Map(document.getElementById(id), mapOptions);
 
   drawRoute(teams);
   zoom_in(markers_list, bounds, geocenter, maximum_zoom);
+  map = exportsMap.map;
 };
 
 
@@ -142,3 +143,5 @@ function mapstyle (){
   // }
   return breakout_map_2015;
 }
+
+module.exports = exportsMap;
