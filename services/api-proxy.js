@@ -259,7 +259,7 @@ API.activateUser = (token) => {
 API.general = {};
 
 API.general.get = (modelURL) => {
-  logger.info('Trying to get', modelURL ,'from backend');
+  logger.info('Trying to get', modelURL, 'from backend');
   return new Promise((resolve, reject)=> {
       request
         .get({
@@ -375,8 +375,8 @@ API.challenge.create = (token, eventId, teamId, body) => {
       .post({
         url: `${url}/event/${eventId}/team/${teamId}/challenge/`,
         body: JSON.stringify(body),
-        headers: {'content-type': 'application/json'},
-        auth: {bearer: token.access_token}
+        headers: { 'content-type': 'application/json' },
+        auth: { bearer: token.access_token }
       }, handleResponse(resolve, reject, 'Challenge created for team' + teamId));
   });
 };
@@ -397,7 +397,7 @@ API.challenge.getBySponsor = (token, userId) => {
     request
       .get({
         url: `${url}/user/${userId}/sponsor/challenge/`,
-        auth: {bearer: token.access_token}
+        auth: { bearer: token.access_token }
       }, handleResponse(resolve, reject, 'Successfully got challenges from user ' + userId));
   });
 };
@@ -411,9 +411,9 @@ API.challenge.changeStatus = (token, eventId, teamId, challengeId, status) => {
     request
       .put({
         url: `${url}/event/${eventId}/team/${teamId}/challenge/${challengeId}/status/`,
-        auth: {bearer: token.access_token},
+        auth: { bearer: token.access_token },
         body: JSON.stringify(body),
-        headers: {'content-type': 'application/json'}
+        headers: { 'content-type': 'application/json' }
       }, handleResponse(resolve, reject, 'Successfully changed status of sponsoring ' + challengeId + ' to ' + status));
   });
 };
@@ -522,6 +522,91 @@ API.messaging.addMessageToGroupMessage = (token, groupMessageId, text) => {
         body: JSON.stringify(body),
         headers: { 'content-type': 'application/json' }
       }, handleResponse(resolve, reject, 'Successfully added Message to GroupMessage: ' + groupMessageId));
+  });
+};
+
+
+API.posting = {};
+
+API.posting.createPosting = (token, text, uploadMediaTypes, latitude, longitude) => {
+  logger.info('Create new Posting', text);
+  return new Promise((resolve, reject) => {
+
+    let body = {};
+    body.text = text;
+    if (uploadMediaTypes) body.uploadMediaTypes = uploadMediaTypes;
+    if (latitude && longitude) {
+      body.postingLocation = {};
+      body.postingLocation.latitude = latitude;
+      body.postingLocation.longitude = longitude;
+    }
+    body.date = new Date().getTime();
+
+    request
+      .post({
+        url: `${url}/posting/`,
+        auth: { bearer: token.access_token },
+        body: JSON.stringify(body),
+        headers: { 'content-type': 'application/json' }
+      }, handleResponse(resolve, reject, 'Successfully created Posting: ' + text + ' - ' + uploadMediaTypes + ' - ' + postingLocation));
+  });
+};
+
+API.posting.getAllPostings = () => {
+  logger.info('Getting all Postings');
+  return new Promise((resolve, reject) => {
+    request
+      .get({
+        url: `${url}/posting/`
+      }, handleResponse(resolve, reject, 'Successfully got all Postings'));
+  });
+};
+
+API.posting.getPosting = (postingId) => {
+  logger.info('Getting Posting by Id: ', postingId);
+  return new Promise((resolve, reject) => {
+    request
+      .get({
+        url: `${url}/posting/${postingId}/`
+      }, handleResponse(resolve, reject, 'Successfully got Posting by Id: ' + postingId));
+  });
+};
+
+API.posting.getPostingsByIds = (postingIds) => {
+  logger.info('Getting Postings by Ids: ', postingIds);
+
+  return new Promise((resolve, reject) => {
+
+    if (!Array.isArray(postingIds)) {
+      reject("postingIds has to be array");
+    }
+
+    request
+      .post({
+        url: `${url}/posting/get/ids`,
+        body: JSON.stringify(postingIds),
+        headers: { 'content-type': 'application/json' }
+      }, handleResponse(resolve, reject, 'Successfully got Postings by Ids: ' + postingIds));
+  });
+};
+
+API.posting.getPostingIdsSince = (postingId) => {
+  logger.info('Getting PostingIds since Id: ', postingId);
+  return new Promise((resolve, reject) => {
+    request
+      .get({
+        url: `${url}/posting/get/since/${postingId}/`
+      }, handleResponse(resolve, reject, 'Successfully got PostingIds since Id: ' + postingId));
+  });
+};
+
+API.posting.getPostingsByHashtag = (hashtag) => {
+  logger.info('Getting Postings by Hashtag: ', hashtag);
+  return new Promise((resolve, reject) => {
+    request
+      .get({
+        url: `${url}/posting/hashtag/${hashtag}/`
+      }, handleResponse(resolve, reject, 'Successfully got Postings by Hashtag: ' + hashtag));
   });
 };
 
