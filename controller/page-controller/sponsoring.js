@@ -97,7 +97,9 @@ sponsoring.getAllTeams = (req) => co(function*() {
   const events = yield api.event.all();
 
   let teamsByEvent = yield events.map((e) => api.getModel(`event/${e.id}/team`, req.user));
-  return _.flatten(teamsByEvent);
+  let allTeams =  _.flatten(teamsByEvent);
+  return allTeams.filter(t => t.members.length === 2);
+  
 }).catch(ex => {
   throw ex;
 });
