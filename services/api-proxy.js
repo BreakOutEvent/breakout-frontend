@@ -610,6 +610,24 @@ API.posting.getPostingsByHashtag = (hashtag) => {
   });
 };
 
+API.posting.createComment = (token, postingId, text) => {
+  logger.info('Create new Comment for Posting', postingId, text);
+  return new Promise((resolve, reject) => {
+
+    let body = {};
+    body.text = text;
+    body.date = new Date().getTime();
+
+    request
+      .post({
+        url: `${url}/posting/${postingId}/comment/`,
+        auth: { bearer: token.access_token },
+        body: JSON.stringify(body),
+        headers: { 'content-type': 'application/json' }
+      }, handleResponse(resolve, reject, 'Successfully created Comment for Posting: ' + postingId));
+  });
+};
+
 
 API.team = {};
 
