@@ -116,9 +116,19 @@ sponsoring.getAllTeams = (req) => co(function*() {
 
 sponsoring.getByTeam = (req) => co(function*() {
 
-  return yield api.sponsoring.getByTeam(
+  let allSponsorings = yield api.sponsoring.getByTeam(
     req.user.me.participant.eventId,
     req.user.me.participant.teamId);
+
+  let sponsors = yield allSponsorings.map(s => api.user.get(s.sponsorId));
+
+  return allSponsorings.map(sponsoring => {
+    sponsoring.sponsor = sponsors.filter(s => s.id = sponsoring.sponsorId)[0];
+    console.log(sponsoring);
+    return sponsoring;
+  });
+
+
 
 }).catch(ex => {
   throw ex;

@@ -68,7 +68,7 @@
                         {{#if unregisteredSponsor}}
                             <td>{{unregisteredSponsor.firstname}} {{unregisteredSponsor.lastname}}</td>
                         {{else}}
-                            <td><i>Nicht verfügbar</i></td>
+                            <td>{{sponsor.firstname}} {{sponsor.lastname}}</td>
                         {{/if}}
                         <td>{{amountPerKm}} €</td>
                         {{#ifCond limit 1000000000}}
