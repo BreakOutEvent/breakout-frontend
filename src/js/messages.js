@@ -15,8 +15,7 @@ $(document).ready(function () {
         })
         .error(function (error) {
           console.error(error);
-          $('#error').html('<div class="alert alert-danger">' +
-            error + '</div>');
+          $('#error').html('<div class="alert alert-danger">' + error + '</div>');
         });
 
       searchval = currval;
@@ -79,5 +78,22 @@ $(document).ready(function () {
       deleteSelectedResult($(this));
     });
   }
+
+  $('#addGroupMessageModal').on('submit', function () {
+    var userIds = selectedResults.map(item => parseInt($(item).attr('data-id')));
+    console.log(userIds);
+
+    $.ajax({
+      url: '/messages/new',
+      type: "POST",
+      data: JSON.stringify(userIds),
+      contentType: "application/json; charset=utf-8",
+      dataType: "json"
+    }).success((data) => {
+      location.href = "/messages/" + data.id;
+    }).error(err => {
+      $('#results').html('<div class="alert alert-danger">' + err.responseJSON.error + '</div>');
+    })
+  });
 
 });
