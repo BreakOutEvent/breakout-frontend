@@ -58,7 +58,8 @@ module.exports = function (grunt) {
           'public/js/profile.js': ['src/js/profile.js'],
           'public/js/admin.js': ['src/js/admin.js'],
           'public/js/sponsoring.js': ['src/js/sponsoring.js'],
-          'public/js/map.js': ['src/js/map.js']
+          'public/js/map.js': ['src/js/map.js'],
+          'public/js/messages.js': ['src/js/messages.js']
         }
       }
     },
@@ -74,7 +75,8 @@ module.exports = function (grunt) {
           'public/js/profile.js': ['public/js/profile.js'],
           'public/js/admin.js': ['public/js/admin.js'],
           'public/js/sponsoring.js': ['public/js/sponsoring.js'],
-          'public/js/map.js': ['public/js/map.js']
+          'public/js/map.js': ['public/js/map.js'],
+          'public/js/messages.js': ['public/js/messages.js']
         }
       }
     },

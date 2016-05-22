@@ -628,8 +628,11 @@ module.exports = {
     ADD_CONTENT: {
       de: 'Wähle die Nutzer aus, mit denen Du schreiben willst.'
     },
-    CHOOSE_USER: {
-      de: 'Nutzer auswählen'
+    LABEL_SEARCH: {
+      de: 'Suche'
+    },
+    PLACEHOLDER_SEARCH: {
+      de: 'Nach Nutzer suchen...'
     }
   }
 };
