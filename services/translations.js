@@ -637,6 +637,14 @@ module.exports = {
     },
     PLACEHOLDER_SEARCH: {
       de: 'Nach Nutzer suchen...'
+    },
+    FOUND_USERS: {
+      de: 'Suchergebnisse',
+      en: 'Search results'
+    },
+    SELECTED_USERS: {
+      de: 'Ausgewählte Nutzer',
+      en: 'Selected Users'
     }
   }
 };
