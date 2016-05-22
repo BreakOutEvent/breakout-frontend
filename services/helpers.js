@@ -68,3 +68,20 @@ exports.ifOr = function (v1, v2, options) {
 exports.json = function (context) {
   return JSON.stringify(context);
 };
+
+exports.relativeTime = function (timestamp) {
+  const MONTHS = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November', 'Dezember'];
+  let dO = new Date(timestamp * 1000);
+  let now = Date.now();
+  let difference = now - timestamp;
+  if(difference < 60) {
+    return 'Gerade eben';
+  } else if(difference < 60 * 60) {
+    return `vor ${Math.floor(difference / 60)} Minuten`;
+  } else if(difference < 60 * 60 * 24) {
+    return `vor ${Math.floor(difference / 60 / 60)} Stunden`;
+  } else {
+    return `am ${dO.getDate()}. ${MONTHS[dO.getMonth()]} um ${dO.getHours()}:${dO.getMinutes()}`;
+  }
+
+};

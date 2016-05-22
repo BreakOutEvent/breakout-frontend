@@ -17,3 +17,39 @@
   background: #999;
   border:1px solid #000;
 }
+
+.bo-team-card {
+  box-shadow: 0 0 3px 0 rgba(0,0,0,0.75);
+  border-radius: @border-radius-base;
+  margin: 15px 0;
+}
+
+.bo-card-media {
+  min-height: 100px;
+  background: #ccc;
+}
+
+.bo-card-content {
+  padding:20px;
+}
+.bo-card-info {
+  padding: 10px;
+  &::after {
+    content:"";
+    display:block;
+    clear:both;
+  }
+}
+
+.bo-card-profilePic {
+  width:80px;
+  height:80px;
+  border-radius: 50%;
+  margin-top: -40px;
+  float:left;
+}
+
+.bo-card-info-name {
+  float:left;
+  padding-left: 20px;
+}

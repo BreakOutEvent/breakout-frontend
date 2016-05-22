@@ -115,7 +115,7 @@ sponsoring.getAllTeams = (req) => co(function*() {
       return team;
     });
   });
-
+  
   allTeams = _.flatten(allTeams);
   allTeams = allTeams.filter(t => t.members.length === 2);
   return _.sortBy(allTeams,t => t.name);

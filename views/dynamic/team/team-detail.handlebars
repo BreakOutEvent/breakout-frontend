@@ -27,8 +27,18 @@
     <div class="row">
         <!-- main panel -->
         <div class="col-sm-8 col-md-9 col-sm-push-4 col-md-push-3">
-            <div class="bo-team-map">
-                <div class="bo-team-placeholder" id="map" style="width:100%; min-height: 300px;"></div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="bo-team-map">
+                        <div class="bo-team-placeholder" id="map" style="width:100%; min-height: 300px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                {{#each team.postings}}
+                    {{> team-posting}}
+                {{/each}}
             </div>
         </div>
         <!-- / main panel -->
@@ -64,11 +74,6 @@
         </div>
         <!-- / side panel -->
     </div>
-
-    {{#each posts}}
-        {{> post-teampage this }}
-    {{/each}}
-
 </div>
 <script>
     window.mapData = {{{json team}}};
