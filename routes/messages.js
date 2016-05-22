@@ -14,6 +14,8 @@ const session = requireLocal('controller/session');
 const upload = multer({inMemory: true});
 const router = express.Router();
 
+session.isUser = (req, res, next) => next();
+
 router.get('/:messageId?', session.isUser, (req, res, next) => co(function*() {
 
   let threads = yield messages.getAll(req);
@@ -33,5 +35,6 @@ router.get('/:messageId?', session.isUser, (req, res, next) => co(function*() {
     });
 }).catch(next));
 
+router.post('/search/:string', messages.searchUser);
 
 module.exports = router;

@@ -16,6 +16,7 @@ const session = requireLocal('controller/session');
 const upload = multer({inMemory: true});
 const router = express.Router();
 
+//router.get('/sponsoring', (req, res, next) => co(function*() {
 router.get('/sponsoring', session.isUser, (req, res, next) => co(function*() {
 
 
@@ -25,11 +26,25 @@ router.get('/sponsoring', session.isUser, (req, res, next) => co(function*() {
     return res.redirect('/selection');
   }
 
+/*
+  req.user = {};
+  req.user.me = {
+    sponsor: {}
+  };
+
+  req.user.status = {
+    is: {
+      sponsor: true,
+      team: true
+    }
+  };*/
+
   let incSponsoring = [];
   let incChallenges = [];
   let outSponsoring = [];
   let outChallenges = [];
   //INCOMING
+  /*
   if(req.user.status.is.team) {
     incSponsoring = yield sponsoring.getByTeam(req);
     incChallenges = yield sponsoring.challenge.getByTeam(req);
@@ -43,7 +58,8 @@ router.get('/sponsoring', session.isUser, (req, res, next) => co(function*() {
 
 
   const teams = yield sponsoring.getAllTeams(req);
-
+  */
+  const teams = [];
   res.render(`dynamic/sponsoring/sponsoring`,
     {
       error: req.flash('error'),
