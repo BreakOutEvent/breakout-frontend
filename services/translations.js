@@ -602,7 +602,11 @@ module.exports = {
     },
     BTN_ADD_CHALLENGE: {
       de: 'Challenge hinzufügen'
+    },
+    STATUS_WITHDRAWN: {
+      de: 'Zurückgezogen'
     }
+
   },
   CLOSED: {
     HEADLINE: {
