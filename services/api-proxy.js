@@ -699,25 +699,7 @@ API.user.search = function (searchString) {
   console.log(searchString);
   logger.info('Searching for users with string: ', searchString);
 
-  let mockdata = [
-    {
-      id: 1,
-      firstname: "test",
-      lastname: "test"
-    },
-    {
-      id: 2,
-      firstname: "test",
-      lastname: "test"
-    },
-    {
-      id: 3,
-      firstname: "test",
-      lastname: "test"
-    }
-  ];
   return new Promise((resolve, reject) => {
-    return resolve(mockdata);
     request
       .get({
         url: `${url}/user/search/${searchString}/`
