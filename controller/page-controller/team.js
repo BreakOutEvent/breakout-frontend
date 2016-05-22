@@ -5,6 +5,7 @@
  */
 
 const co = require('co');
+const _ = require('lodash');
 
 const api = requireLocal('services/api-proxy');
 
@@ -28,8 +29,8 @@ team.getTeamByUrl = (teamId) => co(function*() {
   tempTeam.challenges = allChallenges.filter(s => s.status === 'ACCEPTED');
 
   let postingIds = yield api.team.getPostingIds(teamId);
-  tempTeam.postings = yield api.posting.getPostingsByIds(postingIds);
-  
+  let allPostings = yield api.posting.getPostingsByIds(postingIds);
+  tempTeam.postings = allPostings.reverse();
 
   return tempTeam;
 }).catch((ex) => {

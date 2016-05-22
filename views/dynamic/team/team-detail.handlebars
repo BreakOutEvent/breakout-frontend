@@ -45,7 +45,7 @@
         <!-- side panel -->
         <div class="col-sm-4 col-md-3 col-sm-pull-8 col-md-pull-9">
             <h3>Über uns</h3>
-            <p>
+            <p class="bo-text">
                 {{team.description}}
             </p>
             <h3>Challenges</h3>
@@ -56,7 +56,7 @@
 
             </ul>
             {{#unless team.challenges}}
-                <i>Dieses Team hat bisher keine Challenges. <br/><a href="/">Jetzt welche stellen!</a></i>
+                <i class="bo-text">Dieses Team hat bisher keine Challenges. <br/><a href="/">Jetzt welche stellen!</a></i>
             {{/unless}}
             <h3>Sponsoren</h3>
             <ul>
@@ -69,7 +69,7 @@
                 {{/each}}
             </ul>
             {{#unless team.sponsors}}
-                <i>Dieses Team hat bisher keine Sponsoren. <br/><a href="/">Jetzt unterstützen!</a></i>
+                <i class="bo-text">Dieses Team hat bisher keine Sponsoren. <br/><a href="/">Jetzt unterstützen!</a></i>
             {{/unless}}
         </div>
         <!-- / side panel -->

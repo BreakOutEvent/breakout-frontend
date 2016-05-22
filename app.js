@@ -191,16 +191,16 @@ const server = callback => co(function*() {
 
     res.status(err.status || 500);
 
-    if (process.env.NODE_ENVIRONMENT === 'prod') {
-      res.render('error', {
-        code: err.status,
-        message: 'Internal Server error'
-      });
-    } else {
+    if (process.env.NODE_ENVIRONMENT === 'dev' || process.env.SHOW_ERROR === 'true') {
       res.render('error', {
         code: err.status,
         message: err.message,
         error: err
+      });
+    } else {
+      res.render('error', {
+        code: err.status,
+        message: 'Internal Server error'
       });
     }
   });

@@ -70,6 +70,12 @@ exports.json = function (context) {
 };
 
 exports.relativeTime = function (timestamp) {
+
+  function leftPad(zahlen) {
+    let string = '00' + zahlen;
+    return string.substring(string.length - 2);
+  }
+
   const MONTHS = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November', 'Dezember'];
   let dO = new Date(timestamp * 1000);
   let now = Date.now();
@@ -81,7 +87,11 @@ exports.relativeTime = function (timestamp) {
   } else if(difference < 60 * 60 * 24) {
     return `vor ${Math.floor(difference / 60 / 60)} Stunden`;
   } else {
-    return `am ${dO.getDate()}. ${MONTHS[dO.getMonth()]} um ${dO.getHours()}:${dO.getMinutes()}`;
+    return `am ${dO.getDate()}. ${MONTHS[dO.getMonth()]} um ${dO.getHours()}:${leftPad(dO.getMinutes())}`;
   }
-
 };
+
+exports.length = function (array) {
+  return array.length;
+};
+

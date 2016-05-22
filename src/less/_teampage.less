@@ -19,7 +19,7 @@
 }
 
 .bo-team-card {
-  box-shadow: 0 0 3px 0 rgba(0,0,0,0.75);
+  box-shadow: 0 0 3px 0 rgba(0,0,0,0.5);
   border-radius: @border-radius-base;
   margin: 15px 0;
 }
@@ -42,14 +42,53 @@
 }
 
 .bo-card-profilePic {
-  width:80px;
-  height:80px;
+  width:70px;
+  height:70px;
   border-radius: 50%;
-  margin-top: -40px;
   float:left;
 }
 
 .bo-card-info-name {
   float:left;
   padding-left: 20px;
+  padding-top:10px;
+}
+
+.bo-card-info-headline {
+  font-size:20px;
+  font-weight:300;
+  width:100%;
+  display: block;
+}
+
+.bo-card-info-sub {
+  font-weight:300;
+  color: #b3b3b3;
+  font-size:16px;
+}
+
+.bo-card-actions {
+  padding: 10px 20px;
+  border-top: 1px solid #b3b3b3;
+  a {
+    font-weight:300;
+    color: #b3b3b3;
+    font-size:16px;
+    &:hover, &:active, &:focus {
+      text-decoration: none;
+    }
+  }
+}
+
+.bo-card-actions-like {
+
+}
+
+.bo-card-actions-comment {
+  padding-left: 10px;
+}
+.bo-card-actions-icon {
+  font-size:15px;
+  padding: 0 5px;
+  margin-top:4px;
 }
