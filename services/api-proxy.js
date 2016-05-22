@@ -595,23 +595,11 @@ API.posting.createPosting = (token, text, uploadMediaTypes, latitude, longitude)
 };
 
 API.posting.getAllPostings = () => {
-  logger.info('Getting all Postings');
-  return new Promise((resolve, reject) => {
-    request
-      .get({
-        url: `${url}/posting/`
-      }, handleResponse(resolve, reject, 'Successfully got all Postings'));
-  });
+  return API.general.get(`/posting/`);
 };
 
 API.posting.getPosting = (postingId) => {
-  logger.info('Getting Posting by Id: ', postingId);
-  return new Promise((resolve, reject) => {
-    request
-      .get({
-        url: `${url}/posting/${postingId}/`
-      }, handleResponse(resolve, reject, 'Successfully got Posting by Id: ' + postingId));
-  });
+  return API.general.get(`/posting/${postingId}/`);
 };
 
 API.posting.getPostingsByIds = (postingIds) => {
@@ -633,23 +621,11 @@ API.posting.getPostingsByIds = (postingIds) => {
 };
 
 API.posting.getPostingIdsSince = (postingId) => {
-  logger.info('Getting PostingIds since Id: ', postingId);
-  return new Promise((resolve, reject) => {
-    request
-      .get({
-        url: `${url}/posting/get/since/${postingId}/`
-      }, handleResponse(resolve, reject, 'Successfully got PostingIds since Id: ' + postingId));
-  });
+  return API.general.get(`/posting/get/since/${postingId}/`);
 };
 
 API.posting.getPostingsByHashtag = (hashtag) => {
-  logger.info('Getting Postings by Hashtag: ', hashtag);
-  return new Promise((resolve, reject) => {
-    request
-      .get({
-        url: `${url}/posting/hashtag/${hashtag}/`
-      }, handleResponse(resolve, reject, 'Successfully got Postings by Hashtag: ' + hashtag));
-  });
+  return API.general.get(`/posting/hashtag/${hashtag}/`);
 };
 
 API.posting.createComment = (token, postingId, text) => {
@@ -688,13 +664,7 @@ API.posting.createLike = (token, postingId) => {
 };
 
 API.posting.getLikesForPosting = (postingId) => {
-  logger.info('Getting Likes for Posting by Id: ', postingId);
-  return new Promise((resolve, reject) => {
-    request
-      .get({
-        url: `${url}/posting/${postingId}/like/`
-      }, handleResponse(resolve, reject, 'Successfully got Likes for Posting by Id: ' + postingId));
-  });
+  return API.general.get(`/posting/${postingId}/like/`);
 };
 
 
@@ -702,6 +672,10 @@ API.team = {};
 
 API.team.get = function (teamId) {
   return API.general.get(`/event/1/team/${teamId}/`);
+};
+
+API.team.getPostingIds = function (teamId) {
+  return API.general.get(`/event/1/team/${teamId}/posting/`);
 };
 
 API.event = {};
