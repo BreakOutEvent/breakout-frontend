@@ -130,7 +130,7 @@ sponsoring.getAllTeams = (req) => co(function*() {
   });
   
   allTeams = _.flatten(allTeams);
-  allTeams = allTeams.filter(t => t.members.length === 2);
+  allTeams = allTeams.filter(t => t.hasFullyPaid);
   return _.sortBy(allTeams,t => t.name);
 
 }).catch(ex => {
