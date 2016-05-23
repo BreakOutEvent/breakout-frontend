@@ -44,7 +44,8 @@ router.get('/sponsoring', session.isUser, (req, res, next) => co(function*() {
 
 
   const teams = yield sponsoring.getAllTeams(req);
-  
+
+
   res.render(`dynamic/sponsoring/sponsoring`,
     {
       error: req.flash('error'),
