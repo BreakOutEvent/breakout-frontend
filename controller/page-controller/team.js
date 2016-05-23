@@ -41,7 +41,6 @@ team.getTeamByUrl = (teamId) => co(function*() {
     return sponsor.unregisteredSponsor;
   });
 
-
   let allChallenges = yield api.challenge.getByTeam(tempTeam.event.id, tempTeam.id);
   tempTeam.challenges = allChallenges.filter(s => s.status === 'ACCEPTED');
 
@@ -66,7 +65,7 @@ team.createPost = (req, res, next) => co(function*() {
     req.body.longitude);
 
   if(req.body.mediaType !== '' && req.file) {
-    api.uploadPicture(req.file, post.media);
+    yield post.media.map(m => api.uploadPicture(req.file, m));
   }
 
    res.sendStatus(200);

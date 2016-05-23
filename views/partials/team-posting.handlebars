@@ -7,7 +7,11 @@
                 <span class="bo-card-info-sub">{{relativeTime date}}</span>
             </div>
         </div>
-        <div class="bo-card-media"></div>
+        <div class="bo-card-media">
+            {{#if media.0.sizes.0.url}}
+                <img class="bo-card-media-image" src="{{media.0.sizes.0.url}}" />
+            {{/if}}
+        </div>
         <div class="bo-card-content">
             <p class="bo-text">{{text}}</p>
         </div>

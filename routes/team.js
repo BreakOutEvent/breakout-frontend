@@ -22,9 +22,7 @@ router.get('/:teamId', (req, res, next) => co(function*() {
   if(req.user && req.user.me) {
     currentUser = req.user.me;
   }
-
-  console.log(currTeam);
-
+  
   res.render(`dynamic/team/team-detail`,
     {
       error: req.flash('error'),
