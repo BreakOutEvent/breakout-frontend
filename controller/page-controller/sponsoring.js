@@ -71,7 +71,7 @@ sponsoring.create = (req, res, next) => co(function*() {
       return sendErr(res, 'Unequal amount of challenge descriptions and challenge amounts');
     }
 
-    let challenges = yield req.body.selfChallengeDescription.map(
+    body.challenges = yield req.body.selfChallengeDescription.map(
       (e, i) => {
         let currBody = {
           amount: req.body.selfChallengeAmount[i],
@@ -85,13 +85,15 @@ sponsoring.create = (req, res, next) => co(function*() {
 
   let sponsoring = null;
 
+  console.log(body);
+
   if(body.amountPerKm > 0) {
     sponsoring = yield api.sponsoring.create(req.user, body.event, body.team, body);
   } else if(req.body.selfChallengeDescription.length === 0) {
     return sendErr(res, 'Missing amountPerKm and challanges, at least one variable has to be present');
   }
 
-  let challengesCreated = challenges.reduce((c1, c2) => !!c1 || !!c2);
+  let challengesCreated = body.challenges.reduce((c1, c2) => !!c1 || !!c2);
 
   if(!challengesCreated && !sponsoring) {
     return sendErr(res, 'Neither sponsorings nor challenges created');
@@ -136,7 +138,6 @@ sponsoring.getByTeam = (req) => co(function*() {
 
   return allSponsorings.map(sponsoring => {
     sponsoring.sponsor = sponsors.filter(s => s.id = sponsoring.userId)[0];
-    console.log(sponsoring);
     return sponsoring;
   });
 

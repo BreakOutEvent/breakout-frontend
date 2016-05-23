@@ -85,7 +85,12 @@
                                         data-sponsoring="{{id}}" data-event="{{eventId}}">{{__ 'BTN_DECLINE'}}</button>
                             {{else}}
                                 {{#ifCond status "ACCEPTED"}}
-                                    <span class="text-success">{{__ 'STATUS_ACCEPTED'}}</span>
+                                    {{#if unregisteredSponsor}}
+                                        <button class="btn btn-danger bo-btn-delete" data-team="{{teamId}}"
+                                                data-id="{{id}}" data-event="{{eventId}}">{{__ 'BTN_DELETE'}}</button>
+                                    {{else}}
+                                        <span class="text-success">{{__ 'STATUS_ACCEPTED'}}</span>
+                                    {{/if}}
                                 {{/ifCond}}
                                 {{#ifCond status "REJECTED"}}
                                     <span class="text-danger">{{__ 'STATUS_REJECTED'}}</span>
@@ -127,14 +132,18 @@
                         <td>{{amount}} €</td>
                         <td class="text-right">
                             {{#ifCond status "PROPOSED"}}
-
                                 <button class="btn btn-success challengeAccept" data-team="{{teamId}}"
                                         data-id="{{id}}" data-event="{{eventId}}">{{__ 'BTN_ACCEPT'}}</button>
                                 <button class="btn btn-danger challengeReject" data-team="{{teamId}}"
                                         data-id="{{id}}" data-event="{{eventId}}">{{__ 'BTN_DECLINE'}}</button>
                             {{else}}
                                 {{#ifCond status "ACCEPTED"}}
-                                    <span class="text-success">{{__ 'STATUS_ACCEPTED'}}</span>
+                                    {{#if unregisteredSponsor}}
+                                        <button class="btn btn-danger bo-btn-delete" data-team="{{teamId}}"
+                                                data-id="{{id}}" data-event="{{eventId}}">{{__ 'BTN_DELETE'}}</button>
+                                    {{else}}
+                                        <span class="text-success">{{__ 'STATUS_ACCEPTED'}}</span>
+                                    {{/if}}
                                 {{/ifCond}}
                                 {{#ifCond status "REJECTED"}}
                                     <span class="text-danger">{{__ 'STATUS_REJECTED'}}</span>
