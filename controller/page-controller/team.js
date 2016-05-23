@@ -29,6 +29,9 @@ const sendErr = (res, errMsg, err) => {
 team.getTeamByUrl = (teamId) => co(function*() {
   let tempTeam = yield api.team.get(teamId);
 
+  //ONLY VIEW FULLY PAID TEAMS
+  if(!tempTeam.hasFullyPaid) return tempTeam;
+
   let events = yield api.event.all();
   tempTeam.event = events.filter((event) => event.id === tempTeam.event).pop();
 
@@ -47,7 +50,7 @@ team.getTeamByUrl = (teamId) => co(function*() {
   let postingIds = yield api.team.getPostingIds(teamId);
   let allPostings = yield api.posting.getPostingsByIds(postingIds);
   tempTeam.postings = allPostings.reverse();
-  
+
   let locations = yield api.location.getByTeam(teamId);
 
   tempTeam.mapData = [{
