@@ -173,10 +173,12 @@ API.createUser = function (email, password) {
 
 API.uploadPicture = function (file, mediaObj) {
   logger.info('Trying to upload file with id', mediaObj.id);
+  console.log(mediaObj);
+  console.log(file);
   return new Promise(function (resolve, reject) {
     request
       .post({
-        url: `https://${config.media_url}`,
+        url: `${config.media_url}`,
         headers: {'X-UPLOAD-TOKEN': mediaObj.uploadToken},
         formData: {
           id: mediaObj.id,

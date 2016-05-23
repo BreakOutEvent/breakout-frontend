@@ -36,6 +36,28 @@
             </div>
 
             <div class="row">
+                <div class="col-lg-6 col-sm-12">
+                    <div class=" bo-team-card">
+                        <div class="bo-card-info">
+                            <div class="bo-card-profilePic" style="background-image: url({{user.profilePic.sizes.0.url}});"></div>
+                            <div class="bo-card-info-name">
+                                <span class="bo-card-info-headline">{{user.participant.teamName}}</span>
+                                <span class="bo-card-info-sub">{{relativeTime date}}</span>
+                            </div>
+                        </div>
+                        <div class="bo-card-media"></div>
+                        <div class="bo-card-content">
+                            <form id="newPost">
+                                <div class="form-group">
+                                    <textarea type="text" class="form-control" placeholder="{{__ 'NEWPOSTCONTENT'}}"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="bo-card-actions">
+                            <button class="btn btn-block btn-primary">{{__ 'SAVEPOST'}}</button>
+                        </div>
+                    </div>
+                </div>
                 {{#each team.postings}}
                     {{> team-posting}}
                 {{/each}}
@@ -56,7 +78,8 @@
 
             </ul>
             {{#unless team.challenges}}
-                <i class="bo-text">Dieses Team hat bisher keine Challenges. <br/><a href="/">Jetzt welche stellen!</a></i>
+                <i class="bo-text">Dieses Team hat bisher keine Challenges. <br/><a href="/">Jetzt welche
+                    stellen!</a></i>
             {{/unless}}
             <h3>Sponsoren</h3>
             <ul>

@@ -78,17 +78,24 @@ sponsoring.create = (req, res, next) => co(function*() {
           description: e,
           unregisteredSponsor: body.unregisteredSponsor
         };
-        if(currBody.amount > 0) return api.challenge.create(req.user, body.event, body.team, currBody);
+        if(currBody.amount > 0) {
+          let currChall = api.challenge.create(req.user, body.event, body.team, currBody);
+          if (req.file) {
+            return api.uploadPicture(req.file, currChall.contract);
+          }
+          return currChall;
+        }
         else return null;
       });
   }
 
   let sponsoring = null;
 
-  console.log(body);
-
   if(body.amountPerKm > 0) {
     sponsoring = yield api.sponsoring.create(req.user, body.event, body.team, body);
+    if (req.file) {
+      yield api.uploadPicture(req.file, sponsoring.contract);
+    }
   } else if(req.body.selfChallengeDescription.length === 0) {
     return sendErr(res, 'Missing amountPerKm and challanges, at least one variable has to be present');
   }

@@ -649,5 +649,13 @@ module.exports = {
     SEND: {
       de: 'Senden'
     }
+  },
+  'TEAM-DETAIL': {
+    SAVEPOST: {
+      de: 'POST SPEICHERN'
+    },
+    NEWPOSTCONTENT: {
+      de: 'Hello World... :)'
+    }
   }
 };
