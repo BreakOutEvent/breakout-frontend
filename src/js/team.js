@@ -5,7 +5,7 @@ var Masonry = require('masonry-layout');
 var toggleLoading = require('./helpers.js').toggleLoading;
 var sanityCheck = require('./helpers.js').sanityCheck;
 
-$(document).ready(function () {
+$(window).on("load", function () {
   var msnry = new Masonry('#teamPosts', {
     itemSelector: '.bo-team-post'
   });
@@ -93,5 +93,14 @@ $(document).ready(function () {
       }
     }
   }
+
+  $('.bo-card-actions-like').click(function (e) {
+    e.preventDefault();
+    var $button = $(this);
+    $.post('/team/like', {postingId: $button.data('id')})
+      .success(function (data) {
+        $button.toggleClass('active');
+      });
+  });
 
 });

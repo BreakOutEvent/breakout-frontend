@@ -653,7 +653,7 @@ API.posting.createLike = (token, postingId) => {
   return new Promise((resolve, reject) => {
 
     let body = {};
-    body.date = new Date().getTime();
+    body.date = Math.floor(new Date().getTime()/1000);
 
     request
       .post({
@@ -698,7 +698,6 @@ API.user.get = function (userId) {
 };
 
 API.user.search = function (searchString) {
-  console.log(searchString);
   logger.info('Searching for users with string: ', searchString);
 
   return new Promise((resolve, reject) => {
@@ -706,6 +705,19 @@ API.user.search = function (searchString) {
       .get({
         url: `${url}/user/search/${searchString}/`
       }, handleResponse(resolve, reject, 'Successfully got all users for string: ' + searchString));
+  });
+};
+
+API.location = {};
+
+API.location.getByTeam = (teamId) => {
+  logger.info('Getting all locations for team', teamId);
+
+  return new Promise((resolve, reject) => {
+    request
+      .get({
+        url: `${url}/event/1/team/${teamId}/location/`
+      }, handleResponse(resolve, reject, 'Successfully got all locations for team' + teamId));
   });
 };
 

@@ -32,10 +32,10 @@ team.getTeamByUrl = (teamId) => co(function*() {
   let events = yield api.event.all();
   tempTeam.event = events.filter((event) => event.id === tempTeam.event).pop();
 
+  console.log(tempTeam);
 
   let allSponsors = yield api.sponsoring.getByTeam(tempTeam.event.id, tempTeam.id);
   allSponsors = allSponsors.filter(s => s.status === 'ACCEPTED' && !s.sponsorIsHidden);
-  console.log(allSponsors);
   tempTeam.sponsors = yield allSponsors.map(sponsor => {
     if (sponsor.userId) return api.user.get(sponsor.userId);
     return sponsor.unregisteredSponsor;
@@ -47,6 +47,22 @@ team.getTeamByUrl = (teamId) => co(function*() {
   let postingIds = yield api.team.getPostingIds(teamId);
   let allPostings = yield api.posting.getPostingsByIds(postingIds);
   tempTeam.postings = allPostings.reverse();
+  
+  let locations = yield api.location.getByTeam(teamId);
+
+  tempTeam.mapData = [{
+    id: teamId,
+    name: tempTeam.name,
+    event: tempTeam.event,
+    locations: locations,
+    members: []
+  }];
+
+  tempTeam.members.forEach((m,i) => {
+    tempTeam.mapData[0].members[i] = {
+      firstname: m.firstname
+    }
+  });
 
   return tempTeam;
 }).catch((ex) => {
@@ -64,11 +80,20 @@ team.createPost = (req, res, next) => co(function*() {
     req.body.latitude,
     req.body.longitude);
 
-  if(req.body.mediaType !== '' && req.file) {
+  if (req.body.mediaType !== '' && req.file) {
     yield post.media.map(m => api.uploadPicture(req.file, m));
   }
 
-   res.sendStatus(200);
+  res.sendStatus(200);
+
+}).catch((ex) => {
+  sendErr(res, ex.message, ex);
+});
+
+team.createLike = (req, res, next) => co(function*() {
+  
+  yield api.posting.createLike(req.user, req.body.postingId);
+  res.sendStatus(200);
 
 }).catch((ex) => {
   sendErr(res, ex.message, ex);

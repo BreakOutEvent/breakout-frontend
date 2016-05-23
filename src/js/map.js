@@ -1,19 +1,19 @@
 $(document).ready(function () {
   exportsMap.init('map',window.mapData);
-  console.log("test");
 });
 
 var exportsMap =  {
   map: null
 };
 
+var markers_list = [];
+
 exportsMap.init = function (id,teams) {
-  var munich = new google.maps.LatLng(48.150623, 11.581087);
-  var berlin = new google.maps.LatLng(52.512601, 13.321778);
+  var munich = new google.maps.LatLng(48.150676, 11.580984);
+  var berlin = new google.maps.LatLng(52.512643, 13.321876);
   var geocenter = new google.maps.LatLngBounds(munich, berlin);
   var bounds = new google.maps.LatLngBounds();
   var maximum_zoom = 8;
-  window.markers_list =[];
   window.infowindow = new google.maps.InfoWindow();
   
   var mapOptions = {
@@ -28,14 +28,13 @@ exportsMap.init = function (id,teams) {
 
   drawRoute(teams);
   zoom_in(markers_list, bounds, geocenter, maximum_zoom);
-  map = exportsMap.map;
+
 };
 
 
 // Set Zoom
 function zoom_in(markers_list, bounds, geocenter, maximum_zoom){
   for(var i = 0; i < markers_list.length; i++) {
-    console.log((markers_list));
     bounds.extend((markers_list[i]));
   }
   //center the map to the geometric center of all markers
@@ -44,7 +43,7 @@ function zoom_in(markers_list, bounds, geocenter, maximum_zoom){
   exportsMap.map.fitBounds(bounds);
 
   //remove one zoom level to ensure no marker is on the edge.
-  exportsMap.map.setZoom(map.getZoom()+3);
+  exportsMap.map.setZoom(exportsMap.map.getZoom()+3);
 
   // set minimum zoom
   if(exportsMap.map.getZoom()> maximum_zoom){
@@ -60,7 +59,9 @@ var drawRoute = function (teams){
     var i;
 
     for (i = 0; i < team.locations.length; i++) {
-      route.push(new google.maps.LatLng(team.locations[i].latitude, team.locations[i].longitude));
+      var loc = new google.maps.LatLng(team.locations[i].latitude, team.locations[i].longitude);
+      route.push(loc);
+      markers_list.push(loc);
     }
 
     var flightPath = new google.maps.Polyline({
@@ -90,7 +91,6 @@ function marker(route, team, map, flightPath) {
 
   //Adds the last position to the markers_list for autofit
   markers_list.push(route[route.length - 1]);
-
 
 
   google.maps.event.addListener(marker, 'click', function() {
