@@ -604,8 +604,16 @@ API.posting.getPosting = (postingId) => {
   return API.general.get(`/posting/${postingId}/`);
 };
 
-API.posting.getPostingsByIds = (postingIds) => {
+API.posting.getPostingsByIds = (postingIds, token) => {
   logger.info('Getting Postings by Ids: ', postingIds);
+
+  let options = {
+    url: `${url}/posting/get/ids`,
+    body: JSON.stringify(postingIds),
+    headers: {'content-type': 'application/json'}
+  };
+
+  if(token) options.auth = {bearer: token.access_token};
 
   return new Promise((resolve, reject) => {
 
@@ -614,11 +622,7 @@ API.posting.getPostingsByIds = (postingIds) => {
     }
 
     request
-      .post({
-        url: `${url}/posting/get/ids`,
-        body: JSON.stringify(postingIds),
-        headers: {'content-type': 'application/json'}
-      }, handleResponse(resolve, reject, 'Successfully got Postings by Ids: ' + postingIds));
+      .post(options, handleResponse(resolve, reject, 'Successfully got Postings by Ids: ' + postingIds));
   });
 };
 

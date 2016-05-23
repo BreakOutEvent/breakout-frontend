@@ -26,7 +26,7 @@ const sendErr = (res, errMsg, err) => {
   res.status(500).send({error: errMsg});
 };
 
-team.getTeamByUrl = (teamId) => co(function*() {
+team.getTeamByUrl = (teamId, token) => co(function*() {
   let tempTeam = yield api.team.get(teamId);
 
   //ONLY VIEW FULLY PAID TEAMS
@@ -46,7 +46,7 @@ team.getTeamByUrl = (teamId) => co(function*() {
   tempTeam.challenges = allChallenges.filter(s => s.status === 'ACCEPTED');
 
   let postingIds = yield api.team.getPostingIds(teamId);
-  let allPostings = yield api.posting.getPostingsByIds(postingIds);
+  let allPostings = yield api.posting.getPostingsByIds(postingIds, token);
   tempTeam.postings = allPostings.reverse();
 
   let locations = yield api.location.getByTeam(teamId);

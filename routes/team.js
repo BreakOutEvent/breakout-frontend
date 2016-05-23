@@ -16,7 +16,7 @@ const upload = multer({inMemory: true});
 const router = express.Router();
 
 router.get('/:teamId', (req, res, next) => co(function*() {
-  const currTeam = yield team.getTeamByUrl(req.params.teamId);
+  const currTeam = yield team.getTeamByUrl(req.params.teamId, req.user);
 
 
   if(!currTeam.hasFullyPaid) {
