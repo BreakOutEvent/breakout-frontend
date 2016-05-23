@@ -91,7 +91,7 @@ $(document).ready(() => {
         .error(function (err) {
           console.log(err);
           $('#result_participant')
-            .html('<div class="alert alert-error">Speichern fehlgeschlagen!</div>');
+            .html('<div class="alert alert-danger">Speichern fehlgeschlagen!</div>');
         })
         .always(() => {
           toggleLoading('#participant_CTA');
@@ -115,7 +115,7 @@ $(document).ready(() => {
 
       toggleLoading('#team_CTA');
       $.ajax({
-          url: '/team',
+          url: '/settings/profile/team',
           type: 'PUT',
           cache: false,
           processData: false,
@@ -127,7 +127,7 @@ $(document).ready(() => {
         })
         .error(function (err) {
           console.log(err);
-          $('#result_team').html('<div class="alert alert-error">Speichern fehlgeschlagen!</div>');
+          $('#result_team').html('<div class="alert alert-danger">Speichern fehlgeschlagen!</div>');
         })
         .always(() => {
           toggleLoading('#team_CTA');

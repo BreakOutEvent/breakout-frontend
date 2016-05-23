@@ -25,7 +25,22 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Nachrichtenverlauf</div>
                 <div class="panel-body">
-
+                    {{#each activeMessage.messages}}
+                        {{text}}
+                    {{/each}}
+                </div>
+                <div class="panel-footer bo-message-send">
+                    <div class="row">
+                        <form id="sendMessage">
+                            <div class="col-xs-10">
+                                <input type="hidden" style="display: none;" id="messageId" value="{{activeMessage.id}}" />
+                                <input type="text" class="form-control" />
+                            </div>
+                            <div class="col-xs-2">
+                                <button class="btn btn-primary btn-block" type="submit">{{__ 'SEND'}}</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

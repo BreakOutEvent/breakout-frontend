@@ -95,5 +95,21 @@ $(document).ready(function () {
       $('#results').html('<div class="alert alert-danger">' + err.responseJSON.error + '</div>');
     })
   });
+  
+  $('#sendMessage').on('submit',  function(e) {
+    e.preventDefault();
+    var text = $('#sendMessageText').val();
+    var id = $('#messageId').val();
+    $.post('/messages/send/' + id, {text:text})
+      .success(function (data) {
+        renderSearchResults(data);
+      })
+      .error(function (error) {
+        console.error(error);
+        $('#error').html('<div class="alert alert-danger">' + error + '</div>');
+      });
+    
+  });
+  
 
 });

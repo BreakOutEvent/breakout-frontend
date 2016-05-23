@@ -645,6 +645,9 @@ module.exports = {
     SELECTED_USERS: {
       de: 'Ausgewählte Nutzer',
       en: 'Selected Users'
+    },
+    SEND: {
+      de: 'Senden'
     }
   }
 };

@@ -18,6 +18,8 @@ session.isUser = (req, res, next) => next();
 
 router.get('/:messageId?', session.isUser, (req, res, next) => co(function*() {
 
+  req.user.me.groupMessageIds = [10,11];
+
   let threads = yield messages.getAll(req);
   let activeMessage = threads[threads.length - 1];
   if (req.params.messageId) {
@@ -33,10 +35,14 @@ router.get('/:messageId?', session.isUser, (req, res, next) => co(function*() {
       activeMessage: activeMessage,
       title: 'Nachrichten'
     });
+
 }).catch(next));
 
 router.post('/search/:string', messages.searchUser);
 
 router.post('/new', messages.createNew);
+
+router.post('/send/:id', messages.send);
+
 
 module.exports = router;
