@@ -87,7 +87,6 @@ sponsoring.create = (req, res, next) => co(function*() {
 
   for(var i = 0; i < body.challenges.length; i++) {
     if (body.challenges[i] && req.file) {
-      console.log(body.challenges);
       return api.uploadPicture(req.file, body.challenges[i].contract);
     }
     
