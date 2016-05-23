@@ -79,14 +79,18 @@ sponsoring.create = (req, res, next) => co(function*() {
           unregisteredSponsor: body.unregisteredSponsor
         };
         if(currBody.amount > 0) {
-          let currChall = api.challenge.create(req.user, body.event, body.team, currBody);
-          if (req.file) {
-            return api.uploadPicture(req.file, currChall.contract);
-          }
-          return currChall;
+          return api.challenge.create(req.user, body.event, body.team, currBody);
         }
         else return null;
       });
+  }
+
+  for(var i = 0; i < body.challenges.length; i++) {
+    if (body.challenges[i] && req.file) {
+      console.log(body.challenges);
+      return api.uploadPicture(req.file, body.challenges[i].contract);
+    }
+    
   }
 
   let sponsoring = null;

@@ -245,8 +245,8 @@ module.exports = {
       en: '.'
     },
     NOTICE: {
-      de: 'Erstelle hier Deinen Account um an BreakOut teilzunehmen.',
-      en: 'Please create an account to participate at the BreakOut event'
+      de: 'Erstelle hier Deinen Account, um Sponosr zu werden oder um Dich mit den Teams zu connecten.',
+      en: 'Please create an account to become a sponsor at the BreakOut event and connect with the teams.'
     }
   },
   'TEAM-SUCCESS': {

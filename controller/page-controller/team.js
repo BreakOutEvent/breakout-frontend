@@ -11,10 +11,23 @@ const api = requireLocal('services/api-proxy');
 
 let team = {};
 
+/**
+ * Sends the occurred error back to the client, and logs it to the bunyan global logger.
+ * @param res
+ * @param errMsg
+ * @param err
+ * @returns {*}
+ */
+const sendErr = (res, errMsg, err) => {
+
+  if (err) logger.error(errMsg, err);
+  else logger.error(errMsg);
+
+  res.status(500).send({error: errMsg});
+};
 
 team.getTeamByUrl = (teamId) => co(function*() {
   let tempTeam = yield api.team.get(teamId);
-
 
   let events = yield api.event.all();
   tempTeam.event = events.filter((event) => event.id === tempTeam.event).pop();
@@ -22,7 +35,11 @@ team.getTeamByUrl = (teamId) => co(function*() {
 
   let allSponsors = yield api.sponsoring.getByTeam(tempTeam.event.id, tempTeam.id);
   allSponsors = allSponsors.filter(s => s.status === 'ACCEPTED' && !s.sponsorIsHidden);
-  tempTeam.sponsors = yield allSponsors.map(sponsor => api.user.get(sponsor.sponsorId));
+  console.log(allSponsors);
+  tempTeam.sponsors = yield allSponsors.map(sponsor => {
+    if (sponsor.userId) return api.user.get(sponsor.userId);
+    return sponsor.unregisteredSponsor;
+  });
 
 
   let allChallenges = yield api.challenge.getByTeam(tempTeam.event.id, tempTeam.id);
@@ -35,6 +52,27 @@ team.getTeamByUrl = (teamId) => co(function*() {
   return tempTeam;
 }).catch((ex) => {
   throw ex;
+});
+
+team.createPost = (req, res, next) => co(function*() {
+
+  let mediaType = req.body.mediaType === '' ? null : [req.body.mediaType];
+
+  let post = yield api.posting.createPosting(
+    req.user,
+    req.body.postText,
+    mediaType,
+    req.body.latitude,
+    req.body.longitude);
+
+  if(req.body.mediaType !== '' && req.file) {
+    api.uploadPicture(req.file, post.media);
+  }
+
+   res.sendStatus(200);
+
+}).catch((ex) => {
+  sendErr(res, ex.message, ex);
 });
 
 module.exports = team;

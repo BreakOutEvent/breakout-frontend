@@ -17,14 +17,18 @@ const router = express.Router();
 session.isUser = (req, res, next) => next();
 
 router.get('/:messageId?', session.isUser, (req, res, next) => co(function*() {
-
-  req.user.me.groupMessageIds = [10,11];
-
+  
   let threads = yield messages.getAll(req);
   let activeMessage = threads[threads.length - 1];
   if (req.params.messageId) {
-    activeMessage = threads.filter(m => m.id === req.params.messageId)[0];
+    activeMessage = threads.filter(m => m.id == req.params.messageId)[0];
+    console.log(activeMessage);
+    if(!activeMessage) {
+      return res.redirect('/messages/');
+    }
   }
+
+  console.log(threads);
 
   res.render(`dynamic/message/message`,
     {

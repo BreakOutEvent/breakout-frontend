@@ -35,28 +35,43 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-lg-6 col-sm-12">
-                    <div class=" bo-team-card">
-                        <div class="bo-card-info">
-                            <div class="bo-card-profilePic" style="background-image: url({{user.profilePic.sizes.0.url}});"></div>
-                            <div class="bo-card-info-name">
-                                <span class="bo-card-info-headline">{{user.participant.teamName}}</span>
-                                <span class="bo-card-info-sub">{{relativeTime date}}</span>
+            <div class="row" id="teamPosts">
+                <div class="col-lg-6 col-sm-12 bo-team-post">
+                    <form id="newPost">
+                        <div class=" bo-team-card">
+
+                            <div class="bo-card-info">
+                                <div class="bo-card-profilePic"
+                                     style="background-image: url({{user.profilePic.sizes.0.url}});"></div>
+                                <div class="bo-card-info-name">
+                                    <span class="bo-card-info-headline">{{user.participant.teamName}}</span>
+                                    <span class="bo-card-info-sub">Jetzt?</span>
+                                </div>
+                            </div>
+                            <div class="bo-card-media">
+                                <div class="bo-team-upload-wrapper">
+                                    <input class="bo-reg-fileInput bo-reg-hiddenInput" type="file" name="postPic"
+                                           id="postPic"/>
+                                    <input type="hidden" name="mediaType" id="bo-team-media-type" value=""/>
+                                    <i class="material-icons bo-team-post-icon">camera_alt</i><br/>
+                                    <span class="bo-team-post-upload-text"></span>
+                                </div>
+                            </div>
+                            <div class="bo-card-content">
+                                <div class="form-group">
+                                    <textarea class="form-control" name="postText"
+                                              placeholder="{{__ 'NEWPOSTCONTENT'}}" required="required"></textarea>
+                                    <p id="bo-team-location">Keine Position</p>
+                                    <input type="hidden" name="latitude" id="bo-team-latitude" value=""/>
+                                    <input type="hidden" name="longitude" id="bo-team-longitude" value=""/>
+                                    <div id="bo-post-result"></div>
+                                </div>
+                            </div>
+                            <div class="bo-card-actions">
+                                <button type="submit" id="bo-post-cta" class="btn btn-block btn-primary">{{__ 'SAVEPOST'}}</button>
                             </div>
                         </div>
-                        <div class="bo-card-media"></div>
-                        <div class="bo-card-content">
-                            <form id="newPost">
-                                <div class="form-group">
-                                    <textarea type="text" class="form-control" placeholder="{{__ 'NEWPOSTCONTENT'}}"></textarea>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="bo-card-actions">
-                            <button class="btn btn-block btn-primary">{{__ 'SAVEPOST'}}</button>
-                        </div>
-                    </div>
+                    </form>
                 </div>
                 {{#each team.postings}}
                     {{> team-posting}}
@@ -102,4 +117,5 @@
     window.mapData = {{{json team}}};
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAq5jqy6DxgQBkk4KoTPgqEk2Pcwc0WfwE"></script>
+<script type="text/javascript" src="/js/team.js"></script>
 <script type="text/javascript" src="/js/map.js"></script>

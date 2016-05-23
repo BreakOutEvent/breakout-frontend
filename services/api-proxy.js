@@ -542,7 +542,7 @@ API.messaging.getGroupMessage = (token, groupMessageId) => {
   };
 
   return new Promise((resolve, reject) => {
-    return resolve(mockdata);
+    //return resolve(mockdata);
     request
       .get({
         url: `${url}/messaging/${groupMessageId}/`,
@@ -557,8 +557,8 @@ API.messaging.addMessageToGroupMessage = (token, groupMessageId, text) => {
 
     let body = {};
     body.text = text;
-    body.date = new Date().getTime();
-
+    body.date = Math.floor(new Date().getTime() / 1000);
+    
     request
       .post({
         url: `${url}/messaging/${groupMessageId}/message/`,
@@ -584,15 +584,15 @@ API.posting.createPosting = (token, text, uploadMediaTypes, latitude, longitude)
       body.postingLocation.latitude = latitude;
       body.postingLocation.longitude = longitude;
     }
-    body.date = new Date().getTime();
-
+    body.date = Math.floor(new Date().getTime() / 1000);
+    console.log(body);
     request
       .post({
         url: `${url}/posting/`,
         auth: {bearer: token.access_token},
         body: JSON.stringify(body),
         headers: {'content-type': 'application/json'}
-      }, handleResponse(resolve, reject, 'Successfully created Posting: ' + text + ' - ' + uploadMediaTypes + ' - ' + postingLocation));
+      }, handleResponse(resolve, reject, 'Successfully created Posting: ' + text + ' - ' + uploadMediaTypes));
   });
 };
 

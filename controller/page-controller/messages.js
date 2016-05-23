@@ -42,8 +42,9 @@ messages.searchUser = (req, res, next) => co(function*() {
 });
 
 messages.createNew = (req, res, next) => co(function *() {
-  res.send(yield api.messaging.createGroupMessage(req.user, req.body));
+  let msg = yield api.messaging.createGroupMessage(req.user, req.body);
   yield session.refreshSession(req);
+  res.send(msg);
 }).catch((ex) => {
   return sendErr(res, ex.message, ex);
 });

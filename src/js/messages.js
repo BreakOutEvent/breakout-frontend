@@ -100,14 +100,17 @@ $(document).ready(function () {
     e.preventDefault();
     var text = $('#sendMessageText').val();
     var id = $('#messageId').val();
-    $.post('/messages/send/' + id, {text:text})
-      .success(function (data) {
-        renderSearchResults(data);
-      })
-      .error(function (error) {
-        console.error(error);
-        $('#error').html('<div class="alert alert-danger">' + error + '</div>');
-      });
+    $.ajax({
+      url: '/messages/send/' + id,
+      type: "POST",
+      data: JSON.stringify({text:text}),
+      contentType: "application/json; charset=utf-8",
+      dataType: "json"
+    }).success((data) => {
+      window.location.reload();
+    }).error(err => {
+      $('#results').html('<div class="alert alert-danger">' + err.responseJSON.error + '</div>');
+    });
     
   });
   
