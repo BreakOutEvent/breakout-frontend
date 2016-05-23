@@ -101,6 +101,6 @@ router.get('/profile', session.isUser, (req, res, next) => co(function*() {
 
 }).catch(ex => next(ex)));
 
-router.put('/team', session.hasTeam, upload.single('teamPic'), profile.putTeam);
+router.put('/profile/team', session.hasTeam, upload.single('teamPic'), profile.putTeam);
 
 module.exports = router;
