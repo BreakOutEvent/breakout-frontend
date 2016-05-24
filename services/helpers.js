@@ -76,15 +76,15 @@ exports.relativeTime = function (timestamp) {
     return string.substring(string.length - 2);
   }
 
-  const MONTHS = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November', 'Dezember'];
+  const MONTHS = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
   let dO = new Date(timestamp * 1000);
   let now = Date.now();
   let difference = now - dO.getTime();
-  if(difference < 60 * 1000) {
+  if (difference < 60 * 1000) {
     return 'Gerade eben';
-  } else if(difference < 60 * 60 * 1000) {
+  } else if (difference < 60 * 60 * 1000) {
     return `vor ${Math.floor(difference / 60 / 1000)} Minuten`;
-  } else if(difference < 60 * 60 * 24 * 1000) {
+  } else if (difference < 60 * 60 * 24 * 1000) {
     return `vor ${Math.floor(difference / 60 / 60 / 1000)} Stunden`;
   } else {
     return `am ${dO.getDate()}. ${MONTHS[dO.getMonth()]} um ${dO.getHours()}:${leftPad(dO.getMinutes())}`;
@@ -95,3 +95,15 @@ exports.length = function (array) {
   return array.length;
 };
 
+exports.strColor = (str) => {
+  var hash = 0;
+  for (var i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  var colour = '#';
+  for (var i = 0; i < 3; i++) {
+    var value = (hash >> (i * 8)) & 0xFF;
+    colour += ('00' + value.toString(16)).substr(-2);
+  }
+  return colour;
+};
