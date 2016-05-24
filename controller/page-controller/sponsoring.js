@@ -32,9 +32,6 @@ const sendErr = (res, errMsg, err) => {
 sponsoring.create = (req, res, next) => co(function*() {
 
   let body = {};
-  if (Number(req.body.amountPerKm_range) !== Number(req.body.amountPerKm_text)) {
-    return sendErr(res, 'amountPerKm is malformed');
-  }
 
   try {
     let obj = JSON.parse(req.body.team);
@@ -44,7 +41,7 @@ sponsoring.create = (req, res, next) => co(function*() {
     return sendErr(res, ex.message, ex);
   }
 
-  body.amountPerKm = req.body.amountPerKm_range;
+  body.amountPerKm = req.body.amountPerKm_text;
   if (req.body.limit) body.limit = req.body.limit;
   //TODO add proper limit (BACKEND HACK)
   else body.limit = 1000000000;
@@ -67,46 +64,43 @@ sponsoring.create = (req, res, next) => co(function*() {
     if (!req.body.url) body.unregisteredSponsor.url = "";
     else body.unregisteredSponsor.url = req.body.url;
 
-    if (req.body.selfChallengeDescription.length !== req.body.selfChallengeAmount.length) {
-      return sendErr(res, 'Unequal amount of challenge descriptions and challenge amounts');
-    }
+    if (req.body.selfChallengeDescription) {
+      if (req.body.selfChallengeDescription.length !== req.body.selfChallengeAmount.length) {
+        return sendErr(res, 'Unequal amount of challenge descriptions and challenge amounts');
+      }
 
-    body.challenges = yield req.body.selfChallengeDescription.map(
-      (e, i) => {
-        let currBody = {
-          amount: req.body.selfChallengeAmount[i],
-          description: e,
-          unregisteredSponsor: body.unregisteredSponsor
-        };
-        if(currBody.amount > 0) {
-          return api.challenge.create(req.user, body.event, body.team, currBody);
+      body.challenges = yield req.body.selfChallengeDescription.map(
+        (e, i) => {
+          let currBody = {
+            amount: req.body.selfChallengeAmount[i],
+            description: e,
+            unregisteredSponsor: body.unregisteredSponsor
+          };
+          if (currBody.amount > 0) {
+            return api.challenge.create(req.user, body.event, body.team, currBody);
+          }
+          else return null;
+        });
+
+      for (var i = 0; i < body.challenges.length; i++) {
+        if (body.challenges[i] && req.file) {
+          return api.uploadPicture(req.file, body.challenges[i].contract);
         }
-        else return null;
-      });
-  }
+      }
 
-  for(var i = 0; i < body.challenges.length; i++) {
-    if (body.challenges[i] && req.file) {
-      return api.uploadPicture(req.file, body.challenges[i].contract);
     }
-    
+
   }
 
   let sponsoring = null;
 
-  if(body.amountPerKm > 0) {
+  if (body.amountPerKm > 0) {
     sponsoring = yield api.sponsoring.create(req.user, body.event, body.team, body);
     if (req.file) {
       yield api.uploadPicture(req.file, sponsoring.contract);
     }
-  } else if(req.body.selfChallengeDescription.length === 0) {
+  } else if (!req.body.selfChallengeDescription) {
     return sendErr(res, 'Missing amountPerKm and challanges, at least one variable has to be present');
-  }
-
-  let challengesCreated = body.challenges.reduce((c1, c2) => !!c1 || !!c2);
-
-  if(!challengesCreated && !sponsoring) {
-    return sendErr(res, 'Neither sponsorings nor challenges created');
   }
 
   res.send(sponsoring);
@@ -119,7 +113,7 @@ sponsoring.getAllTeams = (req) => co(function*() {
   const events = yield api.event.all();
 
   let teamsByEvent = yield events.map((e) => api.getModel(`event/${e.id}/team`, req.user));
-  
+
   let allTeams = teamsByEvent.map((teams, index) => {
     return teams.map(team => {
       team.city = events[index].city;
@@ -127,10 +121,10 @@ sponsoring.getAllTeams = (req) => co(function*() {
       return team;
     });
   });
-  
+
   allTeams = _.flatten(allTeams);
   allTeams = allTeams.filter(t => t.hasFullyPaid);
-  return _.sortBy(allTeams,t => t.name);
+  return _.sortBy(allTeams, t => t.name);
 
 }).catch(ex => {
   throw ex;
@@ -147,10 +141,9 @@ sponsoring.getByTeam = (req) => co(function*() {
   let sponsors = yield callSponsorings.map(s => api.user.get(s.userId));
 
   return allSponsorings.map(sponsoring => {
-    sponsoring.sponsor = sponsors.filter(s => s.id = sponsoring.userId)[0];
+    sponsoring.sponsor = sponsors.filter(s => s.id == sponsoring.userId)[0];
     return sponsoring;
   });
-
 
 
 }).catch(ex => {
