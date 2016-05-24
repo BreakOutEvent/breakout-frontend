@@ -43,7 +43,7 @@ const renderTemplate = (folder) => (template) => (req, res) => {
 const funnelTemplate = renderTemplate('register');
 
 //GET
-router.get('/register', funnelTemplate('register'));
+router.get('/', funnelTemplate('register'));
 router.get('/login', funnelTemplate('login'));
 router.get('/register', funnelTemplate('register'));
 router.get('/selection', session.isUser, funnelTemplate('selection'));
@@ -58,7 +58,7 @@ router.get('/invite', session.hasTeam, registration.lock, funnelTemplate('invite
 router.get('/reset/:email/:token', funnelTemplate('reset-pw'));
 router.get('/closed', funnelTemplate('closed'));
 
-router.get('/', (req, res, next) => co(function*() {
+router.get('/liveblog', (req, res, next) => co(function*() {
 
   res.render(`dynamic/homepage/homepage`,
     {
