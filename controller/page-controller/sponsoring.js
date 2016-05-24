@@ -71,21 +71,43 @@ sponsoring.create = (req, res, next) => co(function*() {
       return sendErr(res, 'Unequal amount of challenge descriptions and challenge amounts');
     }
 
-    yield req.body.selfChallengeDescription.map(
+    body.challenges = yield req.body.selfChallengeDescription.map(
       (e, i) => {
         let currBody = {
           amount: req.body.selfChallengeAmount[i],
           description: e,
           unregisteredSponsor: body.unregisteredSponsor
         };
-        return api.challenge.create(req.user, body.event, body.team, currBody)
+        if(currBody.amount > 0) {
+          return api.challenge.create(req.user, body.event, body.team, currBody);
+        }
+        else return null;
       });
-
   }
 
-  console.log(body);
+  for(var i = 0; i < body.challenges.length; i++) {
+    if (body.challenges[i] && req.file) {
+      return api.uploadPicture(req.file, body.challenges[i].contract);
+    }
+    
+  }
 
-  const sponsoring = yield api.sponsoring.create(req.user, body.event, body.team, body);
+  let sponsoring = null;
+
+  if(body.amountPerKm > 0) {
+    sponsoring = yield api.sponsoring.create(req.user, body.event, body.team, body);
+    if (req.file) {
+      yield api.uploadPicture(req.file, sponsoring.contract);
+    }
+  } else if(req.body.selfChallengeDescription.length === 0) {
+    return sendErr(res, 'Missing amountPerKm and challanges, at least one variable has to be present');
+  }
+
+  let challengesCreated = body.challenges.reduce((c1, c2) => !!c1 || !!c2);
+
+  if(!challengesCreated && !sponsoring) {
+    return sendErr(res, 'Neither sponsorings nor challenges created');
+  }
 
   res.send(sponsoring);
 
@@ -97,7 +119,7 @@ sponsoring.getAllTeams = (req) => co(function*() {
   const events = yield api.event.all();
 
   let teamsByEvent = yield events.map((e) => api.getModel(`event/${e.id}/team`, req.user));
-
+  
   let allTeams = teamsByEvent.map((teams, index) => {
     return teams.map(team => {
       team.city = events[index].city;
@@ -105,9 +127,9 @@ sponsoring.getAllTeams = (req) => co(function*() {
       return team;
     });
   });
-
+  
   allTeams = _.flatten(allTeams);
-  allTeams = allTeams.filter(t => t.members.length === 2);
+  allTeams = allTeams.filter(t => t.hasFullyPaid);
   return _.sortBy(allTeams,t => t.name);
 
 }).catch(ex => {
@@ -126,7 +148,6 @@ sponsoring.getByTeam = (req) => co(function*() {
 
   return allSponsorings.map(sponsoring => {
     sponsoring.sponsor = sponsors.filter(s => s.id = sponsoring.userId)[0];
-    console.log(sponsoring);
     return sponsoring;
   });
 

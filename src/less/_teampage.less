@@ -1,19 +1,133 @@
 .bo-team-picture {
-  border:3px solid white;
+  border: 3px solid white;
   margin-top: -50%;
   border-radius: 100%;
-  background-size:cover;
-  height:250px;
-  width:250px;
+  background-size: cover;
+  height: 250px;
+  width: 250px;
 }
+
 .bo-team-header-margin {
-  padding-top:20px;
+  padding-top: 20px;
 }
+
 .bo-team-seperator {
-  width:100%;
+  width: 100%;
   margin: 30px 0;
 }
+
 .bo-team-placeholder {
   background: #999;
-  border:1px solid #000;
+  border: 1px solid #000;
+}
+
+.bo-team-card {
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);
+  border-radius: @border-radius-base;
+  margin: 15px 0;
+}
+
+.bo-card-media {
+
+}
+
+.bo-card-media-upload {
+  background: #ccc;
+  min-height:115px;
+}
+
+.bo-card-content {
+  padding: 20px;
+}
+
+.bo-card-info {
+  padding: 10px;
+  &::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+}
+
+.bo-card-profilePic {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  float: left;
+}
+
+.bo-card-info-name {
+  float: left;
+  padding-left: 20px;
+  padding-top: 10px;
+}
+
+.bo-card-info-headline {
+  font-size: 20px;
+  font-weight: 300;
+  width: 100%;
+  display: block;
+}
+
+.bo-card-info-sub {
+  font-weight: 300;
+  color: #b3b3b3;
+  font-size: 16px;
+}
+
+.bo-card-actions {
+  padding: 10px 20px;
+  border-top: 1px solid #b3b3b3;
+  a {
+    font-weight: 300;
+    color: #b3b3b3;
+    font-size: 16px;
+    &:hover, &:active, &:focus {
+      text-decoration: none;
+    }
+  }
+}
+
+.bo-card-actions-like {
+  &.active {
+    color: red;
+  }
+}
+
+.bo-card-actions-comment {
+  padding-left: 10px;
+}
+
+.bo-card-actions-icon {
+  font-size: 15px;
+  padding: 0 5px;
+  margin-top: 4px;
+}
+
+.bo-team-upload-wrapper {
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  margin: 0 auto;
+  vertical-align: middle;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height:100px;
+  width:100%;
+  text-align: center;
+}
+.bo-team-post-icon {
+  margin-top: 40px;
+}
+#bo-team-location {
+  padding-top: 10px;
+  text-align: center;
+  color: #b3b3b3;
+}
+.bo-card-media-image {
+  max-width:100%;
+  max-height:100%;
+  height: 100%;
+  width: 100%;
 }

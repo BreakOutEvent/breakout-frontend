@@ -245,8 +245,8 @@ module.exports = {
       en: '.'
     },
     NOTICE: {
-      de: 'Erstelle hier Deinen Account um an BreakOut teilzunehmen.',
-      en: 'Please create an account to participate at the BreakOut event'
+      de: 'Erstelle hier Deinen Account, um Sponosr zu werden oder um Dich mit den Teams zu connecten.',
+      en: 'Please create an account to become a sponsor at the BreakOut event and connect with the teams.'
     }
   },
   'TEAM-SUCCESS': {
@@ -602,7 +602,11 @@ module.exports = {
     },
     BTN_ADD_CHALLENGE: {
       de: 'Challenge hinzufügen'
+    },
+    STATUS_WITHDRAWN: {
+      de: 'Zurückgezogen'
     }
+
   },
   CLOSED: {
     HEADLINE: {
@@ -633,6 +637,25 @@ module.exports = {
     },
     PLACEHOLDER_SEARCH: {
       de: 'Nach Nutzer suchen...'
+    },
+    FOUND_USERS: {
+      de: 'Suchergebnisse',
+      en: 'Search results'
+    },
+    SELECTED_USERS: {
+      de: 'Ausgewählte Nutzer',
+      en: 'Selected Users'
+    },
+    SEND: {
+      de: 'Senden'
+    }
+  },
+  'TEAM-DETAIL': {
+    SAVEPOST: {
+      de: 'POST SPEICHERN'
+    },
+    NEWPOSTCONTENT: {
+      de: 'Hello World... :)'
     }
   }
 };

@@ -1,0 +1,23 @@
+<div class="col-lg-6 col-sm-12 bo-team-post">
+    <div class=" bo-team-card">
+        <div class="bo-card-info">
+            <div class="bo-card-profilePic" style="background-image: url({{user.profilePic.sizes.0.url}});"></div>
+            <div class="bo-card-info-name">
+                <span class="bo-card-info-headline">{{user.participant.teamName}}</span>
+                <span class="bo-card-info-sub">{{relativeTime date}}</span>
+            </div>
+        </div>
+        <div class="bo-card-media">
+            {{#if media.0.sizes.0.url}}
+                <img class="bo-card-media-image" src="{{media.0.sizes.0.url}}" />
+            {{/if}}
+        </div>
+        <div class="bo-card-content">
+            <p class="bo-text">{{text}}</p>
+        </div>
+        <div class="bo-card-actions">
+            <a href="#" class="bo-card-actions-like" data-id="{{id}}"><i class="material-icons bo-card-actions-icon">favorite</i>{{#if likes}}{{likes}} Likes{{else}}Gefällt mir{{/if}}</a>
+            <a href="#" class="bo-card-actions-comment"><i class="material-icons bo-card-actions-icon">comment</i> {{length comments}} Kommentare</a>
+        </div>
+    </div>
+</div>

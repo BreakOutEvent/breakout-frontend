@@ -173,10 +173,12 @@ API.createUser = function (email, password) {
 
 API.uploadPicture = function (file, mediaObj) {
   logger.info('Trying to upload file with id', mediaObj.id);
+  console.log(mediaObj);
+  console.log(file);
   return new Promise(function (resolve, reject) {
     request
       .post({
-        url: `https://${config.media_url}`,
+        url: `${config.media_url}`,
         headers: {'X-UPLOAD-TOKEN': mediaObj.uploadToken},
         formData: {
           id: mediaObj.id,
@@ -540,7 +542,7 @@ API.messaging.getGroupMessage = (token, groupMessageId) => {
   };
 
   return new Promise((resolve, reject) => {
-    return resolve(mockdata);
+    //return resolve(mockdata);
     request
       .get({
         url: `${url}/messaging/${groupMessageId}/`,
@@ -555,8 +557,8 @@ API.messaging.addMessageToGroupMessage = (token, groupMessageId, text) => {
 
     let body = {};
     body.text = text;
-    body.date = new Date().getTime();
-
+    body.date = Math.floor(new Date().getTime() / 1000);
+    
     request
       .post({
         url: `${url}/messaging/${groupMessageId}/message/`,
@@ -582,15 +584,15 @@ API.posting.createPosting = (token, text, uploadMediaTypes, latitude, longitude)
       body.postingLocation.latitude = latitude;
       body.postingLocation.longitude = longitude;
     }
-    body.date = new Date().getTime();
-
+    body.date = Math.floor(new Date().getTime() / 1000);
+    console.log(body);
     request
       .post({
         url: `${url}/posting/`,
         auth: {bearer: token.access_token},
         body: JSON.stringify(body),
         headers: {'content-type': 'application/json'}
-      }, handleResponse(resolve, reject, 'Successfully created Posting: ' + text + ' - ' + uploadMediaTypes + ' - ' + postingLocation));
+      }, handleResponse(resolve, reject, 'Successfully created Posting: ' + text + ' - ' + uploadMediaTypes));
   });
 };
 
@@ -602,8 +604,16 @@ API.posting.getPosting = (postingId) => {
   return API.general.get(`/posting/${postingId}/`);
 };
 
-API.posting.getPostingsByIds = (postingIds) => {
+API.posting.getPostingsByIds = (postingIds, token) => {
   logger.info('Getting Postings by Ids: ', postingIds);
+
+  let options = {
+    url: `${url}/posting/get/ids`,
+    body: JSON.stringify(postingIds),
+    headers: {'content-type': 'application/json'}
+  };
+
+  if(token) options.auth = {bearer: token.access_token};
 
   return new Promise((resolve, reject) => {
 
@@ -612,11 +622,7 @@ API.posting.getPostingsByIds = (postingIds) => {
     }
 
     request
-      .post({
-        url: `${url}/posting/get/ids`,
-        body: JSON.stringify(postingIds),
-        headers: {'content-type': 'application/json'}
-      }, handleResponse(resolve, reject, 'Successfully got Postings by Ids: ' + postingIds));
+      .post(options, handleResponse(resolve, reject, 'Successfully got Postings by Ids: ' + postingIds));
   });
 };
 
@@ -651,7 +657,7 @@ API.posting.createLike = (token, postingId) => {
   return new Promise((resolve, reject) => {
 
     let body = {};
-    body.date = new Date().getTime();
+    body.date = Math.floor(new Date().getTime()/1000);
 
     request
       .post({
@@ -696,32 +702,26 @@ API.user.get = function (userId) {
 };
 
 API.user.search = function (searchString) {
-  console.log(searchString);
   logger.info('Searching for users with string: ', searchString);
 
-  let mockdata = [
-    {
-      id: 1,
-      firstname: "test",
-      lastname: "test"
-    },
-    {
-      id: 2,
-      firstname: "test",
-      lastname: "test"
-    },
-    {
-      id: 3,
-      firstname: "test",
-      lastname: "test"
-    }
-  ];
   return new Promise((resolve, reject) => {
-    return resolve(mockdata);
     request
       .get({
         url: `${url}/user/search/${searchString}/`
       }, handleResponse(resolve, reject, 'Successfully got all users for string: ' + searchString));
+  });
+};
+
+API.location = {};
+
+API.location.getByTeam = (teamId) => {
+  logger.info('Getting all locations for team', teamId);
+
+  return new Promise((resolve, reject) => {
+    request
+      .get({
+        url: `${url}/event/1/team/${teamId}/location/`
+      }, handleResponse(resolve, reject, 'Successfully got all locations for team' + teamId));
   });
 };
 
