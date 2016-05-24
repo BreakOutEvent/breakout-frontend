@@ -1,0 +1,26 @@
+.bo-msg-send {
+  background-color: #FFF;
+}
+
+.bo-msg-wrap {
+  padding: 5px 0;
+
+  &:nth-child(odd) {
+    background-color: #f8f8f8;
+  }
+
+  &.bo-msg-self {
+    background-color: lighten(@brand-primary, 40%);
+  }
+
+  .bo-msg-username {
+    font-size: 1.1em;
+  }
+}
+
+#bo-msg-panel {
+  padding: 0 15px;
+  max-height: 650px;
+  overflow-y: scroll;
+}
+

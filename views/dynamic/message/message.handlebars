@@ -23,18 +23,17 @@
         </div>
         <div class="col-sm-9">
             <div class="panel panel-default">
-                <div class="panel-heading">Nachrichtenverlauf</div>
-                <div class="panel-body">
+                <div class="panel-body" id="bo-msg-panel">
                     {{#each activeMessage.messages}}
-                        {{> message-text}}
+                        {{> message-text userId=../userId}}
                     {{/each}}
                 </div>
-                <div class="panel-footer bo-message-send">
+                <div class="panel-footer bo-msg-send">
                     <div class="row">
                         <form id="sendMessage">
                             <div class="col-xs-10">
-                                <input type="hidden" style="display: none;" id="messageId" value="{{activeMessage.id}}" />
-                                <input type="text" class="form-control" id="sendMessageText" />
+                                <input type="hidden" style="display: none;" id="messageId" value="{{activeMessage.id}}"/>
+                                <input type="text" class="form-control" id="sendMessageText"/>
                             </div>
                             <div class="col-xs-2">
                                 <button class="btn btn-primary btn-block" type="submit">{{__ 'SEND'}}</button>

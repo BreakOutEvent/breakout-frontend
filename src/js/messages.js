@@ -114,5 +114,6 @@ $(document).ready(function () {
 
   });
 
-
+  var panel = document.getElementById("bo-msg-panel");
+  panel.scrollTop = panel.scrollHeight
 });

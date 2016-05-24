@@ -1,5 +1,5 @@
-<div class="row bo-msg-wrap">
-    <div class="col-sm-2" style="color: {{strColor creator.lastname}}">{{creator.firstname}} {{creator.lastname}}</div>
+<div class="row bo-msg-wrap{{#ifEquals creator.id userId}} bo-msg-self{{/ifEquals}}">
+    <div class="col-sm-2 bo-msg-username" style="color: {{strColor creator.lastname}}">{{creator.firstname}} {{creator.lastname}}</div>
     <div class="col-sm-9">{{text}}</div>
     <div class="col-sm-1"></div>
 </div>

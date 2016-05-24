@@ -11,17 +11,17 @@ const multer = require('multer');
 const messages = requireLocal('controller/page-controller/messages');
 const session = requireLocal('controller/session');
 
-const upload = multer({inMemory: true});
+const upload = multer({ inMemory: true });
 const router = express.Router();
 
 router.get('/:messageId?', session.isUser, (req, res, next) => co(function*() {
-  
+
   let threads = yield messages.getAll(req);
   let activeMessage = threads[threads.length - 1];
   if (req.params.messageId) {
     activeMessage = threads.filter(m => m.id == req.params.messageId)[0];
     console.log(activeMessage);
-    if(!activeMessage) {
+    if (!activeMessage) {
       return res.redirect('/messages/');
     }
   }
@@ -32,6 +32,7 @@ router.get('/:messageId?', session.isUser, (req, res, next) => co(function*() {
       layout: 'master',
       language: req.language,
       threads: threads,
+      userId: req.user.me.id,
       activeMessage: activeMessage,
       title: 'Nachrichten'
     });
