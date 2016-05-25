@@ -54,9 +54,7 @@ team.getTeamByUrl = (teamId, token) => co(function*() {
   tempTeam.max = {};
   tempTeam.max.distance = yield api.team.getDistance(teamId);
   tempTeam.max.donations = yield api.team.getDonations(teamId);
-
-  console.log(tempTeam.max);
-
+  
   tempTeam.mapData = [{
     id: teamId,
     name: tempTeam.name,
