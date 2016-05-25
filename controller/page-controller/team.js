@@ -41,7 +41,7 @@ team.getTeamByUrl = (teamId, token) => co(function*() {
     if (sponsor.userId) return api.user.get(sponsor.userId);
     return sponsor.unregisteredSponsor;
   });
-
+  
   let allChallenges = yield api.challenge.getByTeam(tempTeam.event.id, tempTeam.id);
   tempTeam.challenges = allChallenges.filter(s => s.status === 'ACCEPTED');
 

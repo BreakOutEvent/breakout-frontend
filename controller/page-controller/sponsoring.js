@@ -83,22 +83,27 @@ sponsoring.create = (req, res, next) => co(function*() {
     if (!req.body.url) body.unregisteredSponsor.url = "";
     else body.unregisteredSponsor.url = req.body.url;
 
+    console.log(req.body.selfChallengeDescription);
+
     if (req.body.selfChallengeDescription) {
       if (req.body.selfChallengeDescription.length !== req.body.selfChallengeAmount.length) {
         return sendErr(res, 'Unequal amount of challenge descriptions and challenge amounts');
       }
 
+      if(c)
       body.challenges = yield req.body.selfChallengeDescription.map(
         (e, i) => {
-          let currBody = {
-            amount: parseAmount(req.body.selfChallengeAmount[i]),
-            description: e,
-            unregisteredSponsor: body.unregisteredSponsor
-          };
-          if (currBody.amount > 0) {
-            return api.challenge.create(req.user, body.event, body.team, currBody);
+          if(e.length > 0) {
+            let currBody = {
+              amount: parseAmount(req.body.selfChallengeAmount[i]),
+              description: e,
+              unregisteredSponsor: body.unregisteredSponsor
+            };
+            if (currBody.amount > 0) {
+              return api.challenge.create(req.user, body.event, body.team, currBody);
+            }
           }
-          else return null;
+          return null;
         });
 
       for (var i = 0; i < body.challenges.length; i++) {
