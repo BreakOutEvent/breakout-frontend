@@ -500,47 +500,6 @@ API.messaging.addUsersToGroupMessage = (token, groupMessageId, userIds) => {
 API.messaging.getGroupMessage = (token, groupMessageId) => {
   logger.info('Getting GroupMessage', groupMessageId);
 
-  let mockdata = {
-    id: 1,
-    users: [
-      {
-        firstname: "asfd",
-        lastname: "asdf",
-        id: 23,
-        participant: null,
-        profilePic: {
-          id: 10,
-          type: "IMAGE",
-          uploadToken: null,
-          sizes: []
-        },
-        roles: [],
-        blocked: true
-      }
-    ],
-    messages: [
-      {
-        id: 1,
-        creator: {
-          firstname: "asfd",
-          lastname: "asdf",
-          id: 23,
-          participant: null,
-          profilePic: {
-            id: 10,
-            type: "IMAGE",
-            uploadToken: null,
-            sizes: []
-          },
-          roles: [],
-          blocked: true
-        },
-        text: "message Text",
-        date: 123123123123
-      }
-    ]
-  };
-
   return new Promise((resolve, reject) => {
     //return resolve(mockdata);
     request
@@ -682,6 +641,14 @@ API.team.get = function (teamId) {
 
 API.team.getPostingIds = function (teamId) {
   return API.general.get(`/event/1/team/${teamId}/posting/`);
+};
+
+API.team.getDistance = function (teamId) {
+  return API.general.get(`/event/1/team/${teamId}/distance/`);
+};
+
+API.team.getDonations = function (teamId) {
+  return API.general.get(`/event/1/team/${teamId}/donatesum/`);
 };
 
 API.event = {};
