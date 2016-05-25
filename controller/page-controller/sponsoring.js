@@ -23,6 +23,25 @@ const sendErr = (res, errMsg, err) => {
 };
 
 /**
+ * Parses input to fit the backend
+ * @param rawAmount
+ * @returns {*}
+ */
+
+const parseAmount = (rawAmount) => {
+  let rawAmountString = String(rawAmount);
+  let amountArray = rawAmountString.match(/(\d+)[\.|,](\d*)/);
+  if(amountArray.length === 3) {
+    return amountArray[1] + '.' + amountArray[2];
+  } else if(amountArray.length === 2) {
+    return amountArray[1];
+  } else {
+    throw "could not parse amount";
+  }
+};
+
+
+/**
  * Creates a sponsoring.
  * @param req
  * @param res
@@ -41,7 +60,7 @@ sponsoring.create = (req, res, next) => co(function*() {
     return sendErr(res, ex.message, ex);
   }
 
-  body.amountPerKm = req.body.amountPerKm_text;
+  body.amountPerKm = parseAmount(req.body.amountPerKm_text);
   if (req.body.limit) body.limit = req.body.limit;
   //TODO add proper limit (BACKEND HACK)
   else body.limit = 1000000000;
@@ -72,7 +91,7 @@ sponsoring.create = (req, res, next) => co(function*() {
       body.challenges = yield req.body.selfChallengeDescription.map(
         (e, i) => {
           let currBody = {
-            amount: req.body.selfChallengeAmount[i],
+            amount: parseAmount(req.body.selfChallengeAmount[i]),
             description: e,
             unregisteredSponsor: body.unregisteredSponsor
           };
