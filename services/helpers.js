@@ -126,3 +126,7 @@ exports.smallestImage = (sizes) => {
     return url;
   }
 };
+
+exports.round = (amount) => {
+  return Math.round(parseFloat(amount)  * 100) / 100;
+};
