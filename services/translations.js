@@ -626,6 +626,9 @@ module.exports = {
     BTN_ADD: {
       de: 'Neue Gruppennachricht erstellen'
     },
+    BTN_ADD_SMALL: {
+      de: 'Neue Nachricht'
+    },
     BTN_ABORT: {
       de: 'Abbrechen'
     },

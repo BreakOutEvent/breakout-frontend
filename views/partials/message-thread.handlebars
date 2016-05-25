@@ -1,3 +1,5 @@
 <a href="/messages/{{id}}" class="list-group-item {{#if active}}active{{/if}}">
-    THREAD
+    {{#each users}}
+        {{firstname}}{{#unless @last}}, {{/unless}}
+    {{/each}}
 </a>
