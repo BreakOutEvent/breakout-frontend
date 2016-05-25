@@ -29,7 +29,7 @@ $(document).ready(() => {
       updateOutput();
 
       range.on('input', () => {
-        text.val(range.val().replace(',','.'));
+        text.val(range.val());
         updateOutput();
       });
 
