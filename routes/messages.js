@@ -14,8 +14,6 @@ const session = requireLocal('controller/session');
 const upload = multer({inMemory: true});
 const router = express.Router();
 
-session.isUser = (req, res, next) => next();
-
 router.get('/:messageId?', session.isUser, (req, res, next) => co(function*() {
   
   let threads = yield messages.getAll(req);
@@ -27,8 +25,6 @@ router.get('/:messageId?', session.isUser, (req, res, next) => co(function*() {
       return res.redirect('/messages/');
     }
   }
-
-  console.log(threads);
 
   res.render(`dynamic/message/message`,
     {
