@@ -178,7 +178,7 @@ registration.joinTeamAPI = (req, res, next) => co(function*() {
  */
 registration.createSponsor = (req, res, next) => co(function*() {
   logger.info(
-    'Trying to create team for event',
+    'Trying to create sponsor for event',
     req.body.event,
     'with name',
     req.body.firstname,
@@ -205,7 +205,7 @@ registration.createSponsor = (req, res, next) => co(function*() {
   const sponsor = yield api.putModel('user', req.user.me.id, req.user, updateBody);
 
   if (req.file) {
-    yield api.uploadPicture(req.file, sponsor.sponsorLogo);
+    yield api.uploadPicture(req.file, sponsor.profilePic);
   }
 
   logger.info(
