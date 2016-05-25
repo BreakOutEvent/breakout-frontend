@@ -90,7 +90,6 @@ sponsoring.create = (req, res, next) => co(function*() {
         return sendErr(res, 'Unequal amount of challenge descriptions and challenge amounts');
       }
 
-      if(c)
       body.challenges = yield req.body.selfChallengeDescription.map(
         (e, i) => {
           if(e.length > 0) {
