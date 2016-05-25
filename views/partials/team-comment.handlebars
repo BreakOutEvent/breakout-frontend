@@ -1,0 +1,24 @@
+<div class="bo-comment-wrap">
+    <div class="row">
+        <div class="col-xs-2">
+            <div class="bo-card-comment-pic bo-card-profilePic" style="background-image:url({{user.profilePic.sizes.0.url}})"></div>
+        </div>
+        <div class="col-xs-10">
+            <div class="bo-card-comment-name">
+                {{user.firstname}} {{user.lastname}}
+            </div>
+            <div class="bo-card-comment-time">
+                {{relativeTime date}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="bo-card-comment-text">
+                {{text}}
+            </div>
+        </div>
+    </div>
+</div>
+
+

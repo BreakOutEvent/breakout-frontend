@@ -9,15 +9,38 @@
         </div>
         <div class="bo-card-media">
             {{#if media.0.sizes.0.url}}
-                <img class="bo-card-media-image" src="{{media.0.sizes.0.url}}" />
+                <img class="bo-card-media-image" src="{{media.0.sizes.0.url}}"/>
             {{/if}}
         </div>
         <div class="bo-card-content">
             <p class="bo-text">{{text}}</p>
         </div>
         <div class="bo-card-actions">
-            <a href="#" class="bo-card-actions-like {{#if hasLiked}}active{{/if}}" data-id="{{id}}"><i class="material-icons bo-card-actions-icon">favorite</i>{{#if likes}}{{likes}} Likes{{else}}Gefällt mir{{/if}}</a>
-            <a href="#" class="bo-card-actions-comment"><i class="material-icons bo-card-actions-icon">comment</i> {{length comments}} Kommentare</a>
+            <a href="#" class="bo-card-actions-like {{#if hasLiked}}active{{/if}}" data-id="{{id}}"><i
+                    class="material-icons bo-card-actions-icon">favorite</i>{{#if likes}}{{likes}} Likes{{else}}Gefällt
+                mir{{/if}}</a>
+            <a href="#" class="bo-card-actions-comment"><i
+                    class="material-icons bo-card-actions-icon">comment</i> {{length comments}} Kommentare</a>
         </div>
+        <div class="bo-card-comments">
+            {{#each comments}}
+                {{> team-comment}}
+            {{/each}}
+            <div class="bo-card-comment-new">
+                <form class="newComment">
+                    <div class="col-xs-9">
+                        <textarea name="newCommentText" rows="1" class="form-control bo-card-comment-input"
+                                  placeholder="Neues Kommentar"></textarea>
+                        <input type="hidden" name="newCommentId" style="display: none;" value="{{id}}" />
+                    </div>
+                    <div class="col-xs-3">
+                        <button class="btn btn-block btn-default" type="submit">SAVE</button>
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+
+
     </div>
 </div>

@@ -87,13 +87,13 @@ $(document).ready(() => {
 
       toggleLoading('#bo-self-cta', true);
       $.ajax({
-          url: '/settings/sponsoring/create',
-          type: 'POST',
-          cache: false,
-          processData: false,
-          contentType: false,
-          data: data
-        })
+        url: '/settings/sponsoring/create',
+        type: 'POST',
+        cache: false,
+        processData: false,
+        contentType: false,
+        data: data
+      })
         .success(function () {
           window.location.reload();
         })
@@ -101,10 +101,8 @@ $(document).ready(() => {
           console.log(err);
           $('#selfResult')
             .html('<div class="alert alert-danger">Speichern fehlgeschlagen!</div>');
-        })
-        .always(() => {
           toggleLoading('#bo-self-cta');
-        });
+        })
     }
 
   });
@@ -116,13 +114,13 @@ $(document).ready(() => {
 
       toggleLoading('#bo-edit-cta', true);
       $.ajax({
-          url: '/settings/sponsoring/edit',
-          type: 'PUT',
-          cache: false,
-          processData: false,
-          contentType: false,
-          data: data
-        })
+        url: '/settings/sponsoring/edit',
+        type: 'PUT',
+        cache: false,
+        processData: false,
+        contentType: false,
+        data: data
+      })
         .success(function () {
           window.location.reload();
         })
@@ -130,10 +128,8 @@ $(document).ready(() => {
           console.log(err);
           $('#editResult')
             .html('<div class="alert alert-danger">Speichern fehlgeschlagen!</div>');
-        })
-        .always(() => {
           toggleLoading('#bo-edit-cta');
-        });
+        })
     }
 
   });
@@ -145,13 +141,13 @@ $(document).ready(() => {
 
       toggleLoading('#bo-add-cta', true);
       $.ajax({
-          url: '/settings/sponsoring/create',
-          type: 'POST',
-          cache: false,
-          processData: false,
-          contentType: false,
-          data: data
-        })
+        url: '/settings/sponsoring/create',
+        type: 'POST',
+        cache: false,
+        processData: false,
+        contentType: false,
+        data: data
+      })
         .success(function () {
           window.location.reload();
         })
@@ -159,10 +155,8 @@ $(document).ready(() => {
           console.log(err);
           $('#addResult')
             .html('<div class="alert alert-danger">Speichern fehlgeschlagen!</div>');
-        })
-        .always(() => {
           toggleLoading('#bo-add-cta');
-        });
+        })
     }
   });
 
@@ -170,10 +164,10 @@ $(document).ready(() => {
     var button = this;
     toggleLoading(button, true);
     $.post('/settings/sponsoring/accept', {
-        teamId: $(button).attr('data-team'),
-        eventId: $(button).attr('data-event'),
-        sponsoringId: $(button).attr('data-sponsoring')
-      })
+      teamId: $(button).attr('data-team'),
+      eventId: $(button).attr('data-event'),
+      sponsoringId: $(button).attr('data-sponsoring')
+    })
       .success(function () {
         window.location.reload();
       })
@@ -181,20 +175,18 @@ $(document).ready(() => {
         console.log(err);
         $('#result_in')
           .html('<div class="alert alert-danger">Annehmen fehlgeschlagen!</div>');
-      })
-      .always(() => {
         toggleLoading(button);
-      });
+      })
   });
 
   $('.bo-btn-decline').click(function () {
     var button = this;
     toggleLoading(button, true);
     $.post('/settings/sponsoring/reject', {
-        teamId: $(button).attr('data-team'),
-        eventId: $(button).attr('data-event'),
-        sponsoringId: $(button).attr('data-id')
-      })
+      teamId: $(button).attr('data-team'),
+      eventId: $(button).attr('data-event'),
+      sponsoringId: $(button).attr('data-id')
+    })
       .success(function () {
         window.location.reload();
       })
@@ -202,20 +194,18 @@ $(document).ready(() => {
         console.log(err);
         $('#result_in')
           .html('<div class="alert alert-danger">Ablehnen fehlgeschlagen!</div>');
-      })
-      .always(() => {
         toggleLoading(button);
-      });
+      })
   });
 
   $('.bo-btn-delete').click(function () {
     var button = this;
     toggleLoading(button, true);
     $.post('/settings/sponsoring/delete', {
-        teamId: $(button).attr('data-team'),
-        eventId: $(button).attr('data-event'),
-        sponsoringId: $(button).attr('data-id')
-      })
+      teamId: $(button).attr('data-team'),
+      eventId: $(button).attr('data-event'),
+      sponsoringId: $(button).attr('data-id')
+    })
       .success(function () {
         window.location.reload();
       })
@@ -223,22 +213,20 @@ $(document).ready(() => {
         console.log(err);
         $('#result_in')
           .html('<div class="alert alert-danger">Löschen fehlgeschlagen!</div>');
-      })
-      .always(() => {
         toggleLoading(button);
-      });
+      })
   });
 
-  $('#addChallengeExtend').click(function() {
+  $('#addChallengeExtend').click(function () {
     var curr = $('#addChallengeRow');
     $(`<div class='row' id='addChallengeRow'>${curr.html()}</div>`).insertAfter(curr);
-    curr.attr('id','');
+    curr.attr('id', '');
   });
 
-  $('#selfChallengeExtend').click(function() {
+  $('#selfChallengeExtend').click(function () {
     var curr = $('#selfChallengeRow');
     $(`<div class='row' id='selfChallengeRow'>${curr.html()}</div>`).insertAfter(curr);
-    curr.attr('id','');
+    curr.attr('id', '');
   });
 
   $('#addChallengeForm').submit(function (e) {
@@ -248,13 +236,13 @@ $(document).ready(() => {
 
       toggleLoading('#addChallengeCTA', true);
       $.ajax({
-          url: '/settings/challenge/create',
-          type: 'POST',
-          cache: false,
-          processData: false,
-          contentType: false,
-          data: data
-        })
+        url: '/settings/challenge/create',
+        type: 'POST',
+        cache: false,
+        processData: false,
+        contentType: false,
+        data: data
+      })
         .success(function () {
           window.location.reload();
         })
@@ -262,10 +250,8 @@ $(document).ready(() => {
           console.log(err);
           $('#addChallengeResult')
             .html('<div class="alert alert-danger">Speichern fehlgeschlagen!</div>');
-        })
-        .always(() => {
           toggleLoading('#addChallengeCTA');
-        });
+        })
     }
   });
 
@@ -284,10 +270,8 @@ $(document).ready(() => {
         console.log(err);
         $('#result_in')
           .html('<div class="alert alert-danger">Annehmen fehlgeschlagen!</div>');
-      })
-      .always(() => {
         toggleLoading(button);
-      });
+      })
   });
 
   $('.challengeReject').click(function () {
@@ -305,10 +289,8 @@ $(document).ready(() => {
         console.log(err);
         $('#result_in')
           .html('<div class="alert alert-danger">Ablehnen fehlgeschlagen!</div>');
-      })
-      .always(() => {
         toggleLoading(button);
-      });
+      })
   });
 
   $('.challengeDelete').click(function () {
@@ -326,10 +308,8 @@ $(document).ready(() => {
         console.log(err);
         $('#result_in')
           .html('<div class="alert alert-danger">Löschen fehlgeschlagen!</div>');
-      })
-      .always(() => {
         toggleLoading(button);
-      });
+      })
   });
 
 });

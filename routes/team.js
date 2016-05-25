@@ -48,6 +48,8 @@ router.get('/:teamId', (req, res, next) => co(function*() {
 }).catch(next));
 
 router.post('/post/create', session.hasTeam, upload.single('postPic'), team.createPost);
+router.post('/comment/create', session.isUser, team.createComment);
 router.post('/like', session.isUser, team.createLike);
+router.post('/authenticated', team.isAuth);
 
 module.exports = router;

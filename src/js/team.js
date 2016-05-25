@@ -10,12 +10,18 @@ $(window).on("load", function () {
     itemSelector: '.bo-team-post'
   });
 
+  var isAuthenticated = false;
+
+  $.post('/team/authenticated')
+    .success(function () {
+      isAuthenticated = true;
+    });
+
   $('#newPost').on('submit', function (e) {
     e.preventDefault();
     
     var data = new FormData($('#newPost')[0]);
 
-    toggleLoading('#bo-post-cta', true);
     $.ajax({
       url: '/team/post/create',
       type: 'POST',
@@ -32,9 +38,30 @@ $(window).on("load", function () {
         $('#bo-post-result')
           .html('<div class="alert alert-danger">Speichern fehlgeschlagen!</div>');
         msnry.layout();
+      });
+  });
+
+  $('.newComment').on('submit', function (e) {
+    e.preventDefault();
+
+    if(!isAuthenticated) {
+      return window.location.href = '/login';
+    }
+
+    var data = new FormData($(this)[0]);
+
+    $.post('/team/comment/create',{
+      id: data.get('newCommentId'),
+      text: data.get('newCommentText')
+    })
+      .success(function () {
+        window.location.reload();
       })
-      .always(() => {
-        toggleLoading('#bo-post-cta');
+      .error(function (err) {
+        console.log(err);
+        $('#bo-post-result')
+          .html('<div class="alert alert-danger">Speichern fehlgeschlagen!</div>');
+        msnry.layout();
       });
   });
 
@@ -63,13 +90,13 @@ $(window).on("load", function () {
           reader.readAsDataURL(this.files[0]);
           break;
         case 'video':
-          $('.bo-team-upload-wrapper').css('background', '#ccc').css('height','100px');
+          $('.bo-team-upload-wrapper').css('background', '#ccc').css('height', '100px');
           $('.bo-team-post-icon').html('subscriptions').show();
           $('.bo-team-post-upload-text').html(file.name).show();
           $('#bo-team-media-type').val('VIDEO');
           break;
         case 'audio':
-          $('.bo-team-upload-wrapper').css('background', '#ccc').css('height','100px');
+          $('.bo-team-upload-wrapper').css('background', '#ccc').css('height', '100px');
           $('.bo-team-post-icon').html('audiotrack').show();
           $('.bo-team-post-upload-text').html(file.name).show();
           $('#bo-team-media-type').val('AUDIO');
@@ -81,12 +108,12 @@ $(window).on("load", function () {
     }
   });
 
-  if($('#newPost').length > 0) {
+  if ($('#newPost').length > 0) {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(showPosition);
     }
     function showPosition(position) {
-      if(position.coords) {
+      if (position.coords) {
         $('#bo-team-latitude').val(position.coords.latitude);
         $('#bo-team-longitude').val(position.coords.longitude);
         $('#bo-team-location').html('lat: ' + position.coords.latitude + ', long: ' + position.coords.longitude)
@@ -97,6 +124,11 @@ $(window).on("load", function () {
   $('.bo-card-actions-like').click(function (e) {
     e.preventDefault();
     var $button = $(this);
+
+    if(!isAuthenticated) {
+      return window.location.href = '/login';
+    }
+
     $.post('/team/like', {postingId: $button.data('id')})
       .success(function (data) {
         $button.toggleClass('active');

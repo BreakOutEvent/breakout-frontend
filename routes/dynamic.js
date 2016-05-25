@@ -216,7 +216,10 @@ router.post('/request-pw-reset', registration.requestPwReset);
 router.post('/reset-pw', registration.resetPassword);
 
 
-router.post('/login',
+router.post('/login', (req, res, next) => {
+    if (req.isAuthenticated()) return res.redirect('/selection');
+    return next();
+  },
   passport.authenticate('local',
     {
       failureRedirect: '/login',

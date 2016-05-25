@@ -640,7 +640,7 @@ API.posting.createComment = (token, postingId, text) => {
 
     let body = {};
     body.text = text;
-    body.date = new Date().getTime();
+    body.date = Math.floor(new Date().getTime()/1000);
 
     request
       .post({

@@ -49,6 +49,12 @@ team.getTeamByUrl = (teamId, token) => co(function*() {
   let allPostings = yield api.posting.getPostingsByIds(postingIds, token);
   tempTeam.postings = allPostings.reverse();
 
+  console.log(tempTeam.postings.map(p => {
+    if(p.id === 10) {
+      console.log(p.comments);
+    }
+  }));
+
   let locations = yield api.location.getByTeam(teamId);
 
   tempTeam.mapData = [{
@@ -99,5 +105,19 @@ team.createLike = (req, res, next) => co(function*() {
 }).catch((ex) => {
   sendErr(res, ex.message, ex);
 });
+
+team.createComment = (req, res, next) => co(function*() {
+
+  yield api.posting.createComment(req.user, req.body.id, req.body.text);
+  res.sendStatus(200);
+
+}).catch((ex) => {
+  sendErr(res, ex.message, ex);
+});
+
+team.isAuth = (req, res, next) => {
+  if(req.isAuthenticated()) return res.sendStatus(200);
+  return res.sendStatus(401);
+};
 
 module.exports = team;
