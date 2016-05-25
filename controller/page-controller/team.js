@@ -49,12 +49,6 @@ team.getTeamByUrl = (teamId, token) => co(function*() {
   let allPostings = yield api.posting.getPostingsByIds(postingIds, token);
   tempTeam.postings = allPostings.reverse();
 
-  console.log(tempTeam.postings.map(p => {
-    if(p.id === 10) {
-      console.log(p.comments);
-    }
-  }));
-
   let locations = yield api.location.getByTeam(teamId);
 
   tempTeam.mapData = [{
