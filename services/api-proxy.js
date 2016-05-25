@@ -651,6 +651,10 @@ API.team.getDonations = function (teamId) {
   return API.general.get(`/event/1/team/${teamId}/donatesum/`);
 };
 
+API.team.getAllByEvent = function (eventId) {
+  return API.general.get(`/event/${eventId}/team/`);
+};
+
 API.event = {};
 
 API.event.get = function (eventId) {

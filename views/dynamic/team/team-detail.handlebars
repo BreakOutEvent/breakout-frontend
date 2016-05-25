@@ -1,7 +1,3 @@
-<!--template for team page (information/profile of a team with posts)
- js file is in controller/page-controller/team-page.js
- used less file is _team-page-profile.less -->
-
 <div class="bo-header-info bo-team-header">
 
 </div>
@@ -18,7 +14,7 @@
         </div>
         <div class="col-sm-8 col-md-9">
             <div class="bo-team-header-margin">
-                <h2>Team {{team.name}} ({{team.event.city}})</h2>
+                <h2 style="font-weight: 400;">Team {{team.name}} ({{team.event.city}})</h2>
                 <h4>
                     {{#each team.members}}
                         {{firstname}} {{#if @first}}&{{/if}}
@@ -35,7 +31,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="bo-team-map">
-                        <div class="bo-team-placeholder" id="map" style="width:100%; min-height: 300px;"></div>
+                        <div id="map" style="width:100%; min-height: 300px;"></div>
                     </div>
                 </div>
             </div>
@@ -90,11 +86,11 @@
         <!-- / main panel -->
         <!-- side panel -->
         <div class="col-sm-4 col-md-3 col-sm-pull-8 col-md-pull-9">
-            <h3>Über uns</h3>
+            <h3 style="margin-bottom: 10px">Über uns</h3>
             <p class="bo-text">
                 {{team.description}}
             </p>
-            <h3>Challenges</h3>
+            <h3 class="bo-team-sub-headline">Challenges</h3>
             <ul>
                 {{#each team.challenges}}
                     <li>({{amount}}€) {{description}}</li>
@@ -105,7 +101,7 @@
                 <i class="bo-text">Dieses Team hat bisher keine Challenges. <br/><a href="/">Jetzt welche
                     stellen!</a></i>
             {{/unless}}
-            <h3>Sponsoren</h3>
+            <h3 class="bo-team-sub-headline">Sponsoren</h3>
             <ul>
                 {{#each team.sponsors}}
                     {{#if sponsor.company}}
