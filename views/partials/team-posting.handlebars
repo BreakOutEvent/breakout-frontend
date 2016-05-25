@@ -16,7 +16,7 @@
             <p class="bo-text">{{text}}</p>
         </div>
         <div class="bo-card-actions">
-            <a href="#" class="bo-card-actions-like" data-id="{{id}}"><i class="material-icons bo-card-actions-icon">favorite</i>{{#if likes}}{{likes}} Likes{{else}}Gefällt mir{{/if}}</a>
+            <a href="#" class="bo-card-actions-like {{#if hasLiked}}active{{/if}}" data-id="{{id}}"><i class="material-icons bo-card-actions-icon">favorite</i>{{#if likes}}{{likes}} Likes{{else}}Gefällt mir{{/if}}</a>
             <a href="#" class="bo-card-actions-comment"><i class="material-icons bo-card-actions-icon">comment</i> {{length comments}} Kommentare</a>
         </div>
     </div>
