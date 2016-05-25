@@ -22,7 +22,7 @@
 }
 
 .bo-team-card {
-  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 0 2px rgba(0, 0, 0, 0.2);;
   border-radius: @border-radius-base;
   margin: 15px 0;
 }
@@ -41,7 +41,7 @@
 }
 
 .bo-card-info {
-  padding: 10px;
+  padding: 10px 20px;
   &::after {
     content: "";
     display: block;
@@ -64,7 +64,7 @@
 
 .bo-card-info-headline {
   font-size: 20px;
-  font-weight: 300;
+  font-weight: 400;
   width: 100%;
   display: block;
 }
@@ -72,12 +72,12 @@
 .bo-card-info-sub {
   font-weight: 300;
   color: #b3b3b3;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .bo-card-actions {
   padding: 10px 20px;
-  border-top: 1px solid #b3b3b3;
+  border-top: 1px solid #D1D2D4;
   a {
     font-weight: 300;
     color: #b3b3b3;
@@ -99,9 +99,10 @@
 }
 
 .bo-card-actions-icon {
-  font-size: 15px;
+  font-size: 18px;
   padding: 0 5px 0 0;
-  margin-top: 4px;
+  margin-top: -4px;
+  vertical-align: middle;
 }
 
 .bo-team-upload-wrapper {
@@ -145,6 +146,8 @@
   height: 50px;
   width: 50px;
   background-color: #cccccc;
+  background-position: center center;
+  background-size:cover;
 }
 
 .bo-card-comment-time {
@@ -153,16 +156,23 @@
 }
 
 .bo-comment-wrap {
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #D1D2D4;
   padding: 10px 20px;
+  background-color: #F5F5F5;
 }
 
 .bo-card-comment-new {
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #D1D2D4;
   padding-top:10px;
   padding-bottom: 10px;
 }
 .bo-card-comment-input {
   border-bottom: 0;
   padding-left:5px;
+}
+.bo-team-sub-headline {
+  margin: 40px 0 10px 0;
+}
+#teamPosts {
+  padding-top: 15px;
 }

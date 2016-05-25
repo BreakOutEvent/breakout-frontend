@@ -54,7 +54,7 @@ team.getTeamByUrl = (teamId, token) => co(function*() {
   tempTeam.max = {};
   tempTeam.max.distance = yield api.team.getDistance(teamId);
   tempTeam.max.donations = yield api.team.getDonations(teamId);
-  
+
   tempTeam.mapData = [{
     id: teamId,
     name: tempTeam.name,
@@ -70,6 +70,33 @@ team.getTeamByUrl = (teamId, token) => co(function*() {
   });
 
   return tempTeam;
+}).catch((ex) => {
+  throw ex;
+});
+
+team.getAll = (sort) => co(function*() {
+
+  if(!sort) sort = 'name';
+
+  const events = yield api.event.all();
+
+  let teamsByEvent = yield events.map((e) => api.team.getAllByEvent(e.id));
+
+  let allTeams = teamsByEvent.map((teams, index) => {
+    return teams.map(team => {
+      team.city = events[index].city;
+      team.event = events[index].id;
+      return team;
+    });
+  });
+
+
+
+  allTeams = _.flatten(allTeams);
+  allTeams = allTeams.filter(t => t.hasFullyPaid);
+  console.log(allTeams[0]);
+  return _.sortBy(allTeams, t => t[sort]);
+
 }).catch((ex) => {
   throw ex;
 });

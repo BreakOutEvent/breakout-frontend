@@ -56,6 +56,7 @@ var drawRoute = function (teams){
   teams.forEach(function (team){
     var startingposition = new google.maps.LatLng(team.event.startingLocation.latitude, team.event.startingLocation.longitude);
     var route = [startingposition];
+    markers_list.push(startingposition);
     var i;
 
     for (i = 0; i < team.locations.length; i++) {

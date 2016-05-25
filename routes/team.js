@@ -15,6 +15,25 @@ const session = requireLocal('controller/session');
 const upload = multer({inMemory: true});
 const router = express.Router();
 
+
+router.get('/', (req, res, next) => co(function*() {
+
+  const allTeams = yield team.getAll();
+
+  res.render(`dynamic/team/team-overview`,
+    {
+      error: req.flash('error'),
+      layout: 'master',
+      language: req.language,
+      teams: allTeams,
+      title: 'Team Übersicht'
+    });
+
+
+
+
+}).catch(next));
+
 router.get('/:teamId', (req, res, next) => co(function*() {
   const currTeam = yield team.getTeamByUrl(req.params.teamId, req.user);
 
