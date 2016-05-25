@@ -232,7 +232,7 @@ sponsoring.challenge.getByTeam = (req) => co(function*() {
   let sponsors = yield callChallenges.map(c => api.user.get(c.userId));
 
   return allChallenges.map(challenge => {
-    challenge.sponsor = sponsors.filter(s => s.id = challenge.userId)[0];
+    challenge.sponsor = sponsors.filter(s => s.id == challenge.userId)[0];
     return challenge;
   });
 
