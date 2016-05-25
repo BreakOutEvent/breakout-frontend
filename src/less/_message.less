@@ -5,16 +5,21 @@
 .bo-msg-wrap {
   padding: 5px 0;
 
-  &:nth-child(odd) {
-    background-color: #f8f8f8;
-  }
-
   &.bo-msg-self {
-    background-color: lighten(@brand-primary, 40%);
+    background-color: #f8f8f8;
   }
 
   .bo-msg-username {
     font-size: 1.1em;
+  }
+
+  .bo-msg-userimg {
+    border-radius: 100%;
+    background-size: cover;
+    background-position: center;
+    width: 35px;
+    height: 35px;
+    margin-left: 6px;
   }
 }
 

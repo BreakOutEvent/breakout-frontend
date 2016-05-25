@@ -108,9 +108,21 @@ exports.strColor = (str) => {
   return colour;
 };
 
-exports.ifEquals = (v1, v2, options) => {
-  if (v1 === v2) {
-    return options.fn(this);
+exports.smallestImage = (sizes) => {
+
+  console.log(sizes);
+
+  if (Array.isArray(sizes) && sizes.length > 0) {
+    var minSize = sizes[0].size;
+    var url = sizes[0].url;
+
+    sizes.forEach((thisSize) => {
+      if (thisSize.size < minSize) {
+        minSize = thisSize.size;
+        url = thisSize.url;
+      }
+    });
+
+    return url;
   }
-  return options.inverse(this);
 };
