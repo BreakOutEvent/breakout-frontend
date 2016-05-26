@@ -79,7 +79,7 @@ team.getAll = (sort) => co(function*() {
 
   if(!sort) sort = 'name';
 
-  /* const events = yield api.event.all();
+  const events = yield api.event.all();
 
   let teamsByEvent = yield events.map((e) => api.team.getAllByEvent(e.id));
 
@@ -93,11 +93,8 @@ team.getAll = (sort) => co(function*() {
 
   allTeams = _.flatten(allTeams);
   allTeams = allTeams.filter(t => t.hasFullyPaid);
-  */
 
 
-
-  let allTeams = JSON.parse(fs.readFileSync('./teams.json'));
 
   return _.sortBy(allTeams, t => t[sort]);
 
