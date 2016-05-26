@@ -29,6 +29,10 @@
 
 .bo-card-media {
 
+  &.bo-card-media-ov {
+    min-height:150px;
+    background: #F5F5F5;
+  }
 }
 
 .bo-card-media-upload {
@@ -175,4 +179,27 @@
 }
 #teamPosts {
   padding-top: 15px;
+}
+
+.bo-team-profile-link {
+  color: inherit;
+  &:hover {
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+.bo-team-profile-search {
+  font-size:24px;
+  height:55px;
+  margin: 20px 0;
+}
+
+.bo-team-profile {
+  .bo-card-info-name {
+    padding-left: 0;
+  }
+  .bo-card-info-sub  {
+    font-size: 17px;
+  }
 }

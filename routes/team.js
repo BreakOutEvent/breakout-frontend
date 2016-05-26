@@ -19,6 +19,19 @@ const router = express.Router();
 router.get('/', (req, res, next) => co(function*() {
 
   const allTeams = yield team.getAll();
+  const searchData = allTeams.map(t => {
+    let members = t.members.map (m => {
+      return {
+        firstname: m.firstname,
+        lastname: m.lastname
+      }
+    });
+    return {
+      name: t.name,
+      id: t.id,
+      members: members
+    }
+  });
 
   res.render(`dynamic/team/team-overview`,
     {
@@ -26,6 +39,7 @@ router.get('/', (req, res, next) => co(function*() {
       layout: 'master',
       language: req.language,
       teams: allTeams,
+      searchData: searchData,
       title: 'Team Übersicht'
     });
 

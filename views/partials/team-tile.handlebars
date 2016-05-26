@@ -1,20 +1,22 @@
-<div class="col-md-4 col-sm-6 col-xs-12 bo-team-post">
-    <div class=" bo-team-card">
-        <div class="bo-card-media">
-            <img class="bo-card-media-image" src="{{profilePic.sizes.0.url}}"/>
-        </div>
-        <div class="bo-card-info">
-            <div class="bo-card-info-name">
-                <span class="bo-card-info-headline">{{name}} ({{city}})</span>
+<div class="col-md-4 col-sm-6 col-xs-12 bo-team-profile" data-id="{{id}}">
+    <a class="bo-team-profile-link" href="/team/{{id}}">
+        <div class=" bo-team-card">
+            <div class="bo-card-media bo-card-media-ov">
+                {{#if profilePic.sizes}}<img class="bo-card-media-image" src="{{profilePic.sizes.0.url}}"/>{{/if}}
+            </div>
+            <div class="bo-card-info">
+                <div class="bo-card-info-name">
+                    <span class="bo-card-info-headline">{{name}} ({{city}})</span>
                 <span class="bo-card-info-sub">
                     {{#each members}}
                         {{#unless @first}}&{{/unless}} {{firstname}}
                     {{/each}}
                 </span>
+                </div>
+            </div>
+            <div class="bo-card-content">
+                <p class="bo-text">{{description}}</p>
             </div>
         </div>
-        <div class="bo-card-content">
-            <p class="bo-text">{{description}}</p>
-        </div>
-    </div>
+    </a>
 </div>
