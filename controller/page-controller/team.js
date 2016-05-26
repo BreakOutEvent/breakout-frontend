@@ -6,6 +6,7 @@
 
 const co = require('co');
 const _ = require('lodash');
+const fs = require('fs');
 
 const api = requireLocal('services/api-proxy');
 
@@ -78,7 +79,7 @@ team.getAll = (sort) => co(function*() {
 
   if(!sort) sort = 'name';
 
-  const events = yield api.event.all();
+  /* const events = yield api.event.all();
 
   let teamsByEvent = yield events.map((e) => api.team.getAllByEvent(e.id));
 
@@ -90,11 +91,14 @@ team.getAll = (sort) => co(function*() {
     });
   });
 
-
-
   allTeams = _.flatten(allTeams);
   allTeams = allTeams.filter(t => t.hasFullyPaid);
-  console.log(allTeams[0]);
+  */
+
+
+
+  let allTeams = JSON.parse(fs.readFileSync('./teams.json'));
+
   return _.sortBy(allTeams, t => t[sort]);
 
 }).catch((ex) => {

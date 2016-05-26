@@ -1,11 +1,20 @@
 <div class="bo-header-info bo-team-header"></div>
 <div class="container">
     <div class="row">
-        <div class="col-xs-12">SUCHE & HEADLINE</div>
+        <div class="col-xs-12"><h1>Teilnehmende Teams 2016</h1></div>
     </div>
     <div class="row">
+        <div class="col-xs-12">
+            <input type="text" placeholder="Suche nach Name, Team ..." id="boTeamSearch" class="form-control bo-team-profile-search" />
+        </div>
+    </div>
+    <div class="row" id="teamProfiles">
         {{#each teams}}
             {{> team-tile}}
         {{/each}}
     </div>
 </div>
+<script>
+    window.teamData = {{{json searchData}}};
+</script>
+<script src="/js/team.js" type="text/javascript"></script>
