@@ -185,7 +185,7 @@ $(document).ready(() => {
     $.post('/settings/sponsoring/reject', {
       teamId: $(button).attr('data-team'),
       eventId: $(button).attr('data-event'),
-      sponsoringId: $(button).attr('data-id')
+      sponsoringId: $(button).attr('data-sponsoring')
     })
       .success(function () {
         window.location.reload();
@@ -204,7 +204,7 @@ $(document).ready(() => {
     $.post('/settings/sponsoring/delete', {
       teamId: $(button).attr('data-team'),
       eventId: $(button).attr('data-event'),
-      sponsoringId: $(button).attr('data-id')
+      sponsoringId: $(button).attr('data-sponsoring')
     })
       .success(function () {
         window.location.reload();
