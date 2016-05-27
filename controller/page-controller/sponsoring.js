@@ -30,10 +30,10 @@ const sendErr = (res, errMsg, err) => {
 
 const parseAmount = (rawAmount) => {
   let rawAmountString = String(rawAmount);
-  let amountArray = rawAmountString.match(/(\d+)[\.|,](\d*)/);
+  let amountArray = rawAmountString.match(/(\d+)[\.|,]?(\d*)/);
   if(amountArray.length === 3) {
     return amountArray[1] + '.' + amountArray[2];
-  } else if(amountArray.length === 2) {
+  } else if(amountArray[2] === "") {
     return amountArray[1];
   } else {
     throw "could not parse amount";
