@@ -142,11 +142,13 @@ $(window).on("load", function () {
   }
   //TEAM OVERVIEW PAGE
   else if($('#teamProfiles').length > 0) {
-    console.log("overview");
     msnry = new Masonry('#teamProfiles', {
-      itemSelector: '.bo-team-profile'
+      itemSelector: '.bo-team-profile',
+      columnWidth: '.bo-team-profile',
+      percentPosition: true
     });
     var timeout = null;
+    var allTeamsVisible = true;
     $('#boTeamSearch').on('input', function () {
       var s = $(this).val();
 
@@ -156,8 +158,12 @@ $(window).on("load", function () {
       timeout = setTimeout(function() {
         if(s.length > 2) {
           onlyShowSelected(searchForString(s));
+          allTeamsVisible = false;
+        } else if(!allTeamsVisible) {
+          showAll();
+          allTeamsVisible = true;
         }
-      }, 300);
+      }, 200);
     });
 
     function searchForString(string) {
@@ -193,15 +199,24 @@ $(window).on("load", function () {
 
       for(var i = 0; i < items.length; i++) {
         var $o = $(items[i]);
-        $o.hide();
+        $o.detach().appendTo('#hiddenTeamSearch');
         for(var j = 0; j < teams.length; j++) {
           if($o.data('id') == teams[j].id) {
-            $o.show();
+            $o.detach().appendTo('#teamProfiles');
             break;
           }
         }
       }
+      msnry.layout();
+    }
 
+    function showAll() {
+      var items = $('.bo-team-profile');
+
+      for(var i = 0; i < items.length; i++) {
+        var $o = $(items[i]);
+        $o.detach().appendTo('#teamProfiles');
+      }
       msnry.layout();
     }
   }
