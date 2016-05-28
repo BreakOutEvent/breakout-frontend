@@ -40,12 +40,18 @@ const renderTemplate = (folder) => (template) => (req, res) => {
   res.render(`dynamic/${folder}/${template}`, options);
 };
 
+
+const redirectOnLogin = (req, res, next) => {
+  if (req.isAuthenticated()) return res.redirect('/selection');
+  return next();
+};
+
 const funnelTemplate = renderTemplate('register');
 
 //GET
-router.get('/', funnelTemplate('register'));
-router.get('/login', funnelTemplate('login'));
-router.get('/register', funnelTemplate('register'));
+router.get('/', redirectOnLogin, funnelTemplate('register'));
+router.get('/login', redirectOnLogin, funnelTemplate('login'));
+router.get('/register', redirectOnLogin, funnelTemplate('register'));
 router.get('/selection', session.isUser, funnelTemplate('selection'));
 router.get('/participant', session.isUser, registration.lock, funnelTemplate('participant'));
 router.get('/team-success', session.hasTeam, registration.lock, funnelTemplate('team-success'));
@@ -216,10 +222,7 @@ router.post('/request-pw-reset', registration.requestPwReset);
 router.post('/reset-pw', registration.resetPassword);
 
 
-router.post('/login', (req, res, next) => {
-    if (req.isAuthenticated()) return res.redirect('/selection');
-    return next();
-  },
+router.post('/login',
   passport.authenticate('local',
     {
       failureRedirect: '/login',

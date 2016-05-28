@@ -30,10 +30,10 @@ const sendErr = (res, errMsg, err) => {
 
 const parseAmount = (rawAmount) => {
   let rawAmountString = String(rawAmount);
-  let amountArray = rawAmountString.match(/(\d+)[\.|,](\d*)/);
+  let amountArray = rawAmountString.match(/(\d+)[\.|,]?(\d*)/);
   if(amountArray.length === 3) {
     return amountArray[1] + '.' + amountArray[2];
-  } else if(amountArray.length === 2) {
+  } else if(amountArray[2] === "") {
     return amountArray[1];
   } else {
     throw "could not parse amount";
@@ -98,7 +98,7 @@ sponsoring.create = (req, res, next) => co(function*() {
               description: e,
               unregisteredSponsor: body.unregisteredSponsor
             };
-            if (currBody.amount > 0) {
+            if (parseFloat(currBody.amount) > 0) {
               return api.challenge.create(req.user, body.event, body.team, currBody);
             }
           }
@@ -117,7 +117,7 @@ sponsoring.create = (req, res, next) => co(function*() {
 
   let sponsoring = null;
 
-  if (body.amountPerKm > 0) {
+  if (parseFloat(body.amountPerKm) > 0) {
     sponsoring = yield api.sponsoring.create(req.user, body.event, body.team, body);
     if (req.file) {
       yield api.uploadPicture(req.file, sponsoring.contract);
@@ -232,7 +232,7 @@ sponsoring.challenge.create = (req, res, next) => co(function*() {
   let test = yield req.body.addChallengeDescription.map(
     (e, i) => {
       let currBody = {
-        amount: req.body.addChallengeAmount[i],
+        amount: parseAmount(req.body.addChallengeAmount[i]),
         description: e
       };
       return api.challenge.create(req.user, body.event, body.team, currBody)
