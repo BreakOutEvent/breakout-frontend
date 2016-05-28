@@ -51,6 +51,7 @@ team.getTeamByUrl = (teamId, token) => co(function*() {
   tempTeam.postings = allPostings.reverse();
 
   let locations = yield api.location.getByTeam(teamId);
+  locations = locations.filter(l => l.duringEvent);
 
   tempTeam.max = {};
   tempTeam.max.distance = yield api.team.getDistance(teamId);
