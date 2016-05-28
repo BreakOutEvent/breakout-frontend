@@ -64,6 +64,12 @@ module.exports = {
     },
     SPONSORING: {
       de: 'Hier kannst Du alle eingehenden und ausgehenden Sponsorings sehen und verwalten. Bitte schaue hier regelmäßig rein um Sponsorings anzunehmen oder abzulehnen.'
+    },
+    TEAMOVERVIEW_H: {
+      de: 'Teams'
+    },
+    TEAMOVERVIEW: {
+      de: 'Noch nicht entschieden wer dieses Jahr das Sponsoring bekommt oder einfach nur gespannt wer sonst so mitmacht? Hier gibt es eine Liste aller teilnehmenden Teams'
     }
   },
   'TEAM-CREATE': {
