@@ -517,7 +517,7 @@ API.messaging.addMessageToGroupMessage = (token, groupMessageId, text) => {
     let body = {};
     body.text = text;
     body.date = Math.floor(new Date().getTime() / 1000);
-    
+
     request
       .post({
         url: `${url}/messaging/${groupMessageId}/message/`,
@@ -580,8 +580,7 @@ API.posting.getPostingsByIds = (postingIds, token) => {
       reject("postingIds has to be array");
     }
 
-    request
-      .post(options, handleResponse(resolve, reject, 'Successfully got Postings by Ids: ' + postingIds));
+    request.post(options, handleResponse(resolve, reject, 'Successfully got Postings by Ids: ' + postingIds));
   });
 };
 
@@ -589,8 +588,16 @@ API.posting.getPostingIdsSince = (postingId) => {
   return API.general.get(`/posting/get/since/${postingId}/`);
 };
 
-API.posting.getPostingsByHashtag = (hashtag) => {
-  return API.general.get(`/posting/hashtag/${hashtag}/`);
+API.posting.getPostingsByHashtag = (hashtag, token) => {
+  let options = {
+    url: `${url}/posting/hashtag/${hashtag}/`
+  };
+
+  if (token) options.auth = { bearer: token.access_token };
+  
+  return new Promise((resolve, reject) => {
+    request.get(options, handleResponse(resolve, reject, 'Successfully got Postings by Hashtag: ' + hashtag));
+  });
 };
 
 API.posting.createComment = (token, postingId, text) => {
