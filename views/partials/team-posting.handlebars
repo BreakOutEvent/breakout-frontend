@@ -13,7 +13,7 @@
             {{/if}}
         </div>
         <div class="bo-card-content">
-            <p class="bo-text">{{text}}</p>
+            <p class="bo-text bo-replace-hashtags" data-hashtags="{{json hashtags}}">{{text}}</p>
         </div>
         <div class="bo-card-actions">
             <a href="#" class="bo-card-actions-like {{#if hasLiked}}active{{/if}}" data-id="{{id}}"><i
@@ -31,7 +31,7 @@
                     <div class="col-xs-9">
                         <textarea name="newCommentText" rows="1" class="form-control bo-card-comment-input"
                                   placeholder="Kommentieren..."></textarea>
-                        <input type="hidden" name="newCommentId" style="display: none;" value="{{id}}" />
+                        <input type="hidden" name="newCommentId" style="display: none;" value="{{id}}"/>
                     </div>
                     <div class="col-xs-3">
                         <button class="btn btn-block btn-default" type="submit">SAVE</button>

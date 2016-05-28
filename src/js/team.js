@@ -9,7 +9,7 @@ $(window).on("load", function () {
 
   var msnry = null;
 
-  if($('#teamPosts').length > 0) {
+  if ($('#teamPosts').length > 0) {
     msnry = new Masonry('#teamPosts', {
       itemSelector: '.bo-team-post'
     });
@@ -27,13 +27,13 @@ $(window).on("load", function () {
       var data = new FormData($('#newPost')[0]);
 
       $.ajax({
-          url: '/team/post/create',
-          type: 'POST',
-          cache: false,
-          processData: false,
-          contentType: false,
-          data: data
-        })
+        url: '/team/post/create',
+        type: 'POST',
+        cache: false,
+        processData: false,
+        contentType: false,
+        data: data
+      })
         .success(function () {
           window.location.reload();
         })
@@ -55,9 +55,9 @@ $(window).on("load", function () {
       var data = new FormData($(this)[0]);
 
       $.post('/team/comment/create', {
-          id: data.get('newCommentId'),
-          text: data.get('newCommentText')
-        })
+        id: data.get('newCommentId'),
+        text: data.get('newCommentText')
+      })
         .success(function () {
           window.location.reload();
         })
@@ -133,7 +133,7 @@ $(window).on("load", function () {
         return window.location.href = '/login';
       }
 
-      $.post('/team/like', {postingId: $button.data('id')})
+      $.post('/team/like', { postingId: $button.data('id') })
         .success(function (data) {
           $button.toggleClass('active');
         });
@@ -141,7 +141,7 @@ $(window).on("load", function () {
 
   }
   //TEAM OVERVIEW PAGE
-  else if($('#teamProfiles').length > 0) {
+  else if ($('#teamProfiles').length > 0) {
     console.log("overview");
     msnry = new Masonry('#teamProfiles', {
       itemSelector: '.bo-team-profile'
@@ -150,32 +150,32 @@ $(window).on("load", function () {
     $('#boTeamSearch').on('input', function () {
       var s = $(this).val();
 
-      if(timeout) {
+      if (timeout) {
         clearTimeout(timeout);
       }
-      timeout = setTimeout(function() {
-        if(s.length > 2) {
+      timeout = setTimeout(function () {
+        if (s.length > 2) {
           onlyShowSelected(searchForString(s));
         }
       }, 300);
     });
 
     function searchForString(string) {
-      if(!window.teamData) return null;
+      if (!window.teamData) return null;
       string = string.toLowerCase();
 
       var d = window.teamData;
       var r = [];
-      for(var i = 0; i < d.length; i++) {
+      for (var i = 0; i < d.length; i++) {
         var c = d[i];
-        if(
+        if (
           c.name.toLowerCase().indexOf(string) > -1 ||
           String(c.id).toLowerCase().indexOf(string) > -1
         ) {
           r.push(c);
         } else {
-          $.each(c.members, function(i,m) {
-            if(
+          $.each(c.members, function (i, m) {
+            if (
               m.firstname.toLowerCase().indexOf(string) > -1 ||
               m.lastname.toLowerCase().indexOf(string) > -1
             ) {
@@ -191,11 +191,11 @@ $(window).on("load", function () {
     function onlyShowSelected(teams) {
       var items = $('.bo-team-profile');
 
-      for(var i = 0; i < items.length; i++) {
+      for (var i = 0; i < items.length; i++) {
         var $o = $(items[i]);
         $o.hide();
-        for(var j = 0; j < teams.length; j++) {
-          if($o.data('id') == teams[j].id) {
+        for (var j = 0; j < teams.length; j++) {
+          if ($o.data('id') == teams[j].id) {
             $o.show();
             break;
           }
@@ -205,4 +205,15 @@ $(window).on("load", function () {
       msnry.layout();
     }
   }
+
+  $('.bo-replace-hashtags').each(function () {
+    var hashtags = JSON.parse($(this).attr('data-hashtags'));
+    var text = $(this).text();
+
+    for (var i = 0; i < hashtags.length; i++) {
+      text = text.replace(hashtags[i], "<a href=\"/hashtag/" + hashtags[i] + "\">" + hashtags[i] + "</a>");
+    }
+
+    $(this).html(text);
+  });
 });
