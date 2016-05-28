@@ -97,7 +97,7 @@ team.getAll = (sort) => co(function*() {
   });
 
   allTeams = _.flatten(allTeams);
-  allTeams = allTeams.filter(t => t.hasFullyPaid);
+  allTeams = allTeams.filter(t => t.hasFullyPaid && t.id !== 1);
 
 
 
