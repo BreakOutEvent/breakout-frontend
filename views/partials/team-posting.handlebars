@@ -4,7 +4,7 @@
             <div class="bo-card-profilePic" style="background-image: url({{user.profilePic.sizes.0.url}});"></div>
             <div class="bo-card-info-name">
                 <span class="bo-card-info-headline">{{user.participant.teamName}}</span>
-                <span class="bo-card-info-sub">{{relativeTime date}}</span>
+                <span class="bo-card-info-sub">{{relativeTime date}}{{prettyLocation postingLocation.locationData}}</span>
             </div>
         </div>
         <div class="bo-card-media">

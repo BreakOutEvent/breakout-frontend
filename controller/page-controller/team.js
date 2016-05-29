@@ -57,9 +57,6 @@ team.getTeamByUrl = (teamId, token) => co(function*() {
   tempTeam.max.distance = yield api.team.getDistance(teamId);
   tempTeam.max.donations = yield api.team.getDonations(teamId);
 
-  tempTeam.max = {};
-  tempTeam.max.distance = yield api.team.getDistance(teamId);
-  tempTeam.max.donations = yield api.team.getDonations(teamId);
 
   tempTeam.mapData = [{
     id: teamId,
@@ -148,7 +145,7 @@ team.createComment = (req, res, next) => co(function*() {
   sendErr(res, ex.message, ex);
 });
 
-team.isAuth = (req, res, next) => {
+team.isAuth = (req, res) => {
   if(req.isAuthenticated()) return res.sendStatus(200);
   return res.sendStatus(401);
 };

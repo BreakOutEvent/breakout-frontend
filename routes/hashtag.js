@@ -29,6 +29,7 @@ router.get('/:hashtag', (req, res, next) => co(function*() {
       postings: postings,
       user: currentUser,
       isLoggedIn: req.user,
+      hashtag: req.params.hashtag,
       title: `Hashtag '${req.params.hashtag}'`
     });
 }).catch(next));

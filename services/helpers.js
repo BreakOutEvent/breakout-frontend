@@ -130,3 +130,32 @@ exports.smallestImage = (sizes) => {
 exports.round = (amount) => {
   return Math.round(parseFloat(amount) * 100) / 100;
 };
+
+exports.prettyLocation = (location) => {
+  //Check if it exists.
+  if(!location) return '';
+
+  var locString = '';
+
+  //Check for best Level
+  if(location.hasOwnProperty('LOCALITY')) {
+    locString = location.LOCALITY;
+  } else if(location.hasOwnProperty('ADMINISTRATIVE_AREA_LEVEL_3')) {
+    locString = location.ADMINISTRATIVE_AREA_LEVEL_3;
+  } else if (location.hasOwnProperty('ADMINISTRATIVE_AREA_LEVEL_2')) {
+    locString = location.ADMINISTRATIVE_AREA_LEVEL_2;
+  } else if (location.hasOwnProperty('ADMINISTRATIVE_AREA_LEVEL_1')) {
+    locString = location.ADMINISTRATIVE_AREA_LEVEL_1;
+  }
+
+  if(location.hasOwnProperty('COUNTRY')) {
+    if(locString !== '') {
+      locString += ', '
+    }
+    locString += location.COUNTRY;
+  }
+  if(locString !== '') {
+    locString = ' in ' + locString;
+  }
+  return locString;
+};
