@@ -1,13 +1,6 @@
 'use strict';
 
-var Masonry = require('masonry-layout');
-
 $(document).ready(function () {
-
-  var msnry = new Masonry('#lbTeamPosts', {
-    itemSelector: '.bo-team-post'
-  });
-
   var $counter = $('#boLBCounter');
   var $description = $('#boLbCounterDescription');
 

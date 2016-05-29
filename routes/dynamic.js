@@ -66,11 +66,12 @@ router.get('/closed', funnelTemplate('closed'));
 
 router.get('/liveblog', (req, res, next) => co(function*() {
 
-  let events = yield liveblog.getEventInfos();
-  let postings = yield liveblog.getAllPostings();
-  let counter = yield liveblog.getCounterInfos(events.individual);
+  var token = null;
+  if(req.isAuthenticated()) token = req.user;
 
-  console.log(events);
+  let events = yield liveblog.getEventInfos();
+  let postings = yield liveblog.getAllPostings(token);
+  let counter = yield liveblog.getCounterInfos(events.individual);
 
   res.render(`dynamic/liveblog/liveblog`,
     {
@@ -85,6 +86,8 @@ router.get('/liveblog', (req, res, next) => co(function*() {
     });
 
 }).catch(ex => next(ex)));
+
+router.post('/liveblog/posting/', liveblog.returnPostings);
 
 
 router.get('/profile', session.isUser, (req, res, next) => co(function*() {

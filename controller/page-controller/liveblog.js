@@ -1,6 +1,7 @@
 'use strict';
 
 const co = require('co');
+const _ = require('lodash');
 
 
 const api = requireLocal('services/api-proxy');
@@ -19,29 +20,31 @@ liveblog.getEventInfos = () => co(function *() {
     individual: events,
     global: {
       donatesum: events.reduce((prev, curr) => {
-        return prev + curr.donatesum.full_sum}
+          return prev + curr.donatesum.full_sum
+        }
         , 0),
       distance: events.reduce((prev, curr) => {
-          return prev + curr.distance.linear_distance}
+          return prev + curr.distance.linear_distance
+        }
         , 0)
     }
   };
 
-}).catch(ex =>  {
+}).catch(ex => {
   throw ex
 });
 
-liveblog.getAllPostings = () => co(function *() {
+liveblog.getAllPostings = (token) => co(function *() {
 
-  return yield api.posting.getAllPostings();
+  return yield api.posting.getAllPostings(token);
 
-}).catch(ex =>  {
+}).catch(ex => {
   throw ex
 });
 
 liveblog.getCounterInfos = (events) => co(function *() {
 
-  if(events[0].date !== events[1].date) {
+  if (events[0].date !== events[1].date) {
     throw 'Business logic missing!';
   }
 
@@ -51,10 +54,29 @@ liveblog.getCounterInfos = (events) => co(function *() {
     current: Date.now()
   };
 
-}).catch(ex =>  {
+}).catch(ex => {
   throw ex
 });
 
+liveblog.returnPostings = (req, res, next) => co(function *() {
+
+  var token = req.isAuthenticated() ? req.user : null;
+  var offset = req.body.offset ? req.body.offset : null;
+  var limit = req.body.limit ? req.body.limit : null;
+
+  let postings = yield api.posting.getAllPostings(token, offset, limit);
+
+  postings = _.sortBy(postings,p => p.date);
+
+  return res.render('dynamic/liveblog/postings', {
+    layout: false,
+    postings: postings
+  });
+
+
+}).catch(ex => {
+  throw ex
+});
 
 
 module.exports = liveblog;

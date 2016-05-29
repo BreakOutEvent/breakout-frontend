@@ -555,8 +555,23 @@ API.posting.createPosting = (token, text, uploadMediaTypes, latitude, longitude)
   });
 };
 
-API.posting.getAllPostings = () => {
-  return API.general.get(`/posting/`);
+API.posting.getAllPostings = (token, offset, limit) => {
+  logger.info('Getting all postings ');
+
+  let options = {
+    url: `${url}/posting/`,
+    qs: {}
+  };
+
+  if(token) options.auth = {bearer: token.access_token};
+
+  if(token) options.qs.userid =  token.me.id;
+  if(offset) options.qs.offset = offset;
+  if(limit) options.qs.limit = limit;
+
+  return new Promise((resolve, reject) => {
+    request.get(options, handleResponse(resolve, reject, 'Successfully got all postings'));
+  });
 };
 
 API.posting.getPosting = (postingId) => {
@@ -574,7 +589,7 @@ API.posting.getPostingsByIds = (postingIds, token) => {
 
   if(token) options.auth = {bearer: token.access_token};
   if(token) options.qs = {userid: token.me.id};
-  
+
   return new Promise((resolve, reject) => {
 
     if (!Array.isArray(postingIds)) {
@@ -595,6 +610,7 @@ API.posting.getPostingsByHashtag = (hashtag, token) => {
   };
 
   if (token) options.auth = { bearer: token.access_token };
+  if(token) options.qs = {userid: token.me.id};
   
   return new Promise((resolve, reject) => {
     request.get(options, handleResponse(resolve, reject, 'Successfully got Postings by Hashtag: ' + hashtag));
