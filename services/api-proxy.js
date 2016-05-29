@@ -574,9 +574,7 @@ API.posting.getPostingsByIds = (postingIds, token) => {
 
   if(token) options.auth = {bearer: token.access_token};
   if(token) options.qs = {userid: token.me.id};
-
-  console.log(options);
-
+  
   return new Promise((resolve, reject) => {
 
     if (!Array.isArray(postingIds)) {
