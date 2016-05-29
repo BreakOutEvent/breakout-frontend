@@ -79,8 +79,6 @@ team.getTeamByUrl = (teamId, token) => co(function*() {
 
 team.getAll = (sort) => co(function*() {
 
-  if(!sort) sort = 'name';
-
   const events = yield api.event.all();
 
   let teamsByEvent = yield events.map((e) => api.team.getAllByEvent(e.id));
@@ -95,10 +93,13 @@ team.getAll = (sort) => co(function*() {
 
   allTeams = _.flatten(allTeams);
   allTeams = allTeams.filter(t => t.hasFullyPaid && t.id !== 1);
+  if(sort) {
+    allTeams = _.sortBy(allTeams, t => t[sort]);
+  } else {
+    allTeams = _.shuffle(allTeams);
+  }
 
-
-
-  return _.sortBy(allTeams, t => t[sort]);
+  return allTeams;
 
 }).catch((ex) => {
   throw ex;
