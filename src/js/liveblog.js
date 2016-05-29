@@ -62,39 +62,39 @@ $(document).ready(function () {
   //SCROLLING
 
   var $marker = $('#boTeamPostScroll');
+  var $teamPosts = $('#teamPosts');
   var loading = false;
   var finished = false;
-  var current = $('.bo-team-card').length;
-  $(window).scroll(function () {
+  var current = 1;
+  $(window).on('load', function () {
+    $(window).scroll(function () {
 
-    if ($marker.offset().top - 100 < window.scrollY + $(window).height()) {
-      if (!loading && !finished) {
-        loading = true;
-        $.post('/liveblog/posting/', {
-          limit: 30,
-          offset: current
-        })
-          .success(function (postingsHTML) {
-            var $postings = $(postingsHTML);
-            if($postings.length === 0) {
-              finished = true;
-              $marker.html('<div class="alert alert-success">Keine weiteren Posts verfügbar!</div>')
-            } else {
-              current += $postings.length;
-              $postings.each(function (i, e) {
-                msnry.append(e);
-              });
-            }
+      if ($marker.offset().top - 100 < window.scrollY + $(window).height()) {
+        if (!loading && !finished) {
+          loading = true;
+          $.post('/liveblog/posting/', {
+            limit: 30,
+            offset: current + 1
           })
-          .error(function () {
-            $marker.html('<div class="alert alert-danger">Konnte keine weiteren Posts laden.</div>')
-          })
-          .always(function () {
-            loading = false;
-          })
+            .success(function (postingsHTML) {
+              var $postings = $(postingsHTML);
+              if($postings.length === 0) {
+                finished = true;
+                $marker.html('<div class="alert alert-success">Keine weiteren Posts verfügbar!</div>')
+              } else {
+                current++;
+                $teamPosts.append($postings);
+                window.msnry.appended($postings);
+                window.msnry.layout();
+                loading = false;
+              }
+            })
+            .error(function () {
+              $marker.html('<div class="alert alert-danger">Konnte keine weiteren Posts laden.</div>')
+              loading = false;
+            })
+        }
       }
-    }
+    });
   });
-
-
 });

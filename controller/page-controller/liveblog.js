@@ -35,7 +35,7 @@ liveblog.getEventInfos = () => co(function *() {
 });
 
 liveblog.getAllPostings = (token) => co(function *() {
-  return yield api.posting.getAllPostings(token);
+  return yield api.posting.getAllPostings(token,0,30);
 }).catch(ex => {
   throw ex
 });

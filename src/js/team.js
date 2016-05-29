@@ -4,13 +4,12 @@
 var Masonry = require('masonry-layout');
 var toggleLoading = require('./helpers.js').toggleLoading;
 var sanityCheck = require('./helpers.js').sanityCheck;
+window.msnry = null;
 
 $(window).on("load", function () {
 
-  var msnry = null;
-
   if ($('#teamPosts').length > 0) {
-    msnry = new Masonry('#teamPosts', {
+    window.msnry = new Masonry('#teamPosts', {
       itemSelector: '.bo-team-post'
     });
 
@@ -41,7 +40,7 @@ $(window).on("load", function () {
           console.log(err);
           $('#bo-post-result')
             .html('<div class="alert alert-danger">Speichern fehlgeschlagen!</div>');
-          msnry.layout();
+          window.msnry.layout();
         });
     });
 
@@ -65,7 +64,7 @@ $(window).on("load", function () {
           console.log(err);
           $('#bo-post-result')
             .html('<div class="alert alert-danger">Speichern fehlgeschlagen!</div>');
-          msnry.layout();
+          window.msnry.layout();
         });
     });
 
@@ -86,7 +85,7 @@ $(window).on("load", function () {
             $('#bo-team-media-type').val('IMAGE');
             $('.bo-team-post-icon').hide();
             $('.bo-team-post-upload-text').hide();
-            msnry.layout();
+            window.msnry.layout();
           };
         };
         switch (type) {
@@ -108,7 +107,7 @@ $(window).on("load", function () {
           default:
             break;
         }
-        msnry.layout();
+        window.msnry.layout();
       }
     });
 
@@ -142,7 +141,7 @@ $(window).on("load", function () {
   }
   //TEAM OVERVIEW PAGE
   else if($('#teamProfiles').length > 0) {
-    msnry = new Masonry('#teamProfiles', {
+    window.msnry = new Masonry('#teamProfiles', {
       itemSelector: '.bo-team-profile',
       columnWidth: '.bo-team-profile',
       percentPosition: true
@@ -207,7 +206,7 @@ $(window).on("load", function () {
           }
         }
       }
-      msnry.layout();
+      window.msnry.layout();
     }
 
     function showAll() {
@@ -217,7 +216,7 @@ $(window).on("load", function () {
         var $o = $(items[i]);
         $o.detach().appendTo('#teamProfiles');
       }
-      msnry.layout();
+      window.msnry.layout();
     }
   }
 

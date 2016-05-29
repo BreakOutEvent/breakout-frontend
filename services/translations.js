@@ -845,5 +845,11 @@ module.exports = {
     JOIN_LINK: {
       de: 'http://www.break-out.org/mitmachen/'
     }
+  },
+  LIVEBLOG: {
+    DESCRIPTION: {
+      de: '“BreakOut ­ How Far Can You Go?!” ist konzipiert als Spendenmarathon, bei dem Zwei­Personen­Teams versuchen, innerhalb von 36 Stunden so weit weg vom Ausgangspunkt zu reisen wie möglich. Hierbei darf kein Geld für die Fortbewegung ausgegeben werden und es werden im Voraus vereinbarte Spendengelder von Sponsoren durch die Teams gesammelt.',
+      en: '“BreakOut ­ How Far Can You Go?!” is designed as travel competition. Teams consisting of two members, try to travel as far from the start location as they can within 36 hours without using money for transportation. Negotiated donations are collected beforehand and during BreakOut by the teams.'
+    }
   }
 };
