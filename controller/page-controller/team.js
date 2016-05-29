@@ -138,9 +138,11 @@ team.createLike = (req, res, next) => co(function*() {
 });
 
 team.createComment = (req, res, next) => co(function*() {
-
-  yield api.posting.createComment(req.user, req.body.id, req.body.text);
-  res.sendStatus(200);
+  if(req.body.text && req.body.text !== '') {
+    yield api.posting.createComment(req.user, req.body.id, req.body.text);
+    return res.sendStatus(200);
+  }
+  return res.sendStatus(500);
 
 }).catch((ex) => {
   sendErr(res, ex.message, ex);
