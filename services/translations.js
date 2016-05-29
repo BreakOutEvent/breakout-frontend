@@ -18,10 +18,12 @@ module.exports = {
       en: 'Your current status is: <Strong>Observer</Strong>. With this you can not only see all of the posts and updates from participating teams, but also interact with them by liking and commenting on their posts.'
     },
     DESCRIPTION_PARTICIPANT: {
-      de: 'Dein aktueller Status ist: <strong>Teilnehmer</strong>. Damit kannst du nicht nur alle Posts und Updates von anderen teilnehmenden Teams kommentieren sondern auch Sponsoren sammeln und selbst Posts veröffentlichen. Zusätzlich kannst Du Dich auf unvergessliche 36 Stunden Abenteuer freuen! '
+      de: 'Dein aktueller Status ist: <strong>Teilnehmer</strong>. Damit kannst du nicht nur alle Posts und Updates von anderen teilnehmenden Teams kommentieren sondern auch Sponsoren sammeln und selbst Posts veröffentlichen. Zusätzlich kannst Du Dich auf unvergessliche 36 Stunden Abenteuer freuen! ',
+      en: 'Your current status is: <strong>Participant</strong>. You can not only comment all posts and updates of participating teams, but collect sponsors and publish posts yourself. And of couse you can look forward to an unforgettable 36 hour adventure.'
     },
     DESCRIPTION_SPONSOR: {
-      de: 'Dein aktueller Status ist: <strong>Sponsor</strong>. Damit kannst Du Teams pro Kilometer unterstützen oder ihnen unvergessliche Challenges mit auf den Weg geben!'
+      de: 'Ihr aktueller Status ist: <strong>Sponsor</strong>. Damit können Sie Teams pro Kilometer unterstützen oder ihnen unvergessliche Challenges mit auf den Weg geben!',
+      en: 'Your current status is: <strong>Sponsor</strong>. You can support teams per kilometer or challenge them with unforgettable tasks.'
     },
     DESCRIPTION_3: {
       de: 'Das ist Dir noch nicht genug? Wir bieten auf unserer Plattform auch noch weitere Accounts an:',
@@ -40,36 +42,44 @@ module.exports = {
       en: 'Sponsor'
     },
     SPONSOR: {
-      de: 'Du willst Dein favouriten Team bei BreakOut 2016 unterstützen und damit etwas Gutes tun? Dann hier klicken und als Sponsor anmelden.',
+      de: 'Sie wollen Ihr favorisiertes Team bei BreakOut 2016 unterstützen und damit etwas Gutes tun? Dann hier klicken und als Sponsor anmelden.',
       en: 'You want to support your favorite team during BreakOut 2016 and thereby do something good? Click here to sign up as a sponsor.'
     },
     OBSERVER: {
       de: 'Du bist erstmal mit Deinem aktuellen Status zufrieden? (Du kannst jederzeit wieder auf diese Seite!)',
-      en: 'Are you happy with your status for now? (You can come back to this site at any time!)'
+      en: 'Are you happy with your status for now? (You can come back to this page at any time!)'
     },
     NOTEAM: {
-      de: 'Du bist zwar bereits als Teilnehmer angemeldet, hast aber noch kein Team. Klicke hier um zu sehen ob du Einladungen erhalten hast oder um ein Team zu gründen.'
+      de: 'Du bist zwar bereits als Teilnehmer angemeldet, hast aber noch kein Team. Klicke hier um zu sehen ob du Einladungen erhalten hast oder um ein Team zu gründen.',
+      en: 'You are registered as a participant, but you are not yet part of a team. Click here to see if you have received inviations or to create a team.'
     },
     NOTEAM_H: {
-      de: 'Team beitreten / erstellen'
+      de: 'Team beitreten / erstellen',
+      en: 'Join / Create a team'
     },
     PROFILE_H: {
-      de: 'Profileinstellungen'
+      de: 'Profileinstellungen',
+      en: 'Profile Settings'
     },
     PROFILE: {
-      de: 'Hier kannst du die im Anmeldeprozess angegebenen Daten ändern und Profilbilder hochladen.'
+      de: 'Hier kannst Du die im Anmeldeprozess angegebenen Daten ändern und Profilbilder hochladen.',
+      en: 'Here you can change your data and upload a profile picture.'
     },
     SPONSORING_H: {
-      de: 'Sponsoring Übersicht'
+      de: 'Sponsoring Übersicht',
+      en: 'Sponsoring Overview'
     },
     SPONSORING: {
-      de: 'Hier kannst Du alle eingehenden und ausgehenden Sponsorings sehen und verwalten. Bitte schaue hier regelmäßig rein um Sponsorings anzunehmen oder abzulehnen.'
+      de: 'Hier kannst Du alle eingehenden und ausgehenden Sponsorings sehen und verwalten. Bitte schaue hier regelmäßig rein um Sponsorings anzunehmen oder abzulehnen.',
+      en: 'Here you can see and manage all incoming and outgoing sponsorings. Please stop by regurlary to accept or decline sponsorings.'
     },
     TEAMOVERVIEW_H: {
-      de: 'Teams'
+      de: 'Teams',
+      en: 'Teams'
     },
     TEAMOVERVIEW: {
-      de: 'Noch nicht entschieden wer dieses Jahr das Sponsoring bekommt oder einfach nur gespannt wer sonst so mitmacht? Hier gibt es eine Liste aller teilnehmenden Teams'
+      de: 'Noch nicht entschieden wer dieses Jahr das Sponsoring bekommt oder einfach nur gespannt wer sonst so mitmacht? Hier gibt es eine Liste aller teilnehmenden Teams',
+      en: 'Not yet decided who gets your donation this year or just curios who participates? You can view a full team list here.'
     }
   },
   'TEAM-CREATE': {
@@ -79,7 +89,7 @@ module.exports = {
     },
     DESCRIPTION: {
       de: 'Um am Event teilzunehmen, musst du noch ein Team erstellen. Lade Deinen Teampartner per Mail ein und füge jetzt oder später ein Bild hinzu.',
-      en: 'To participate in the event, you must create a team. Invite your partner per email and add a photo'
+      en: 'To participate in the event, you must create a team. Invite your partner per email and add a photo now or later'
     },
     CTA: {
       de: 'TEAM ERSTELLEN',
@@ -95,7 +105,7 @@ module.exports = {
     },
     LABEL_EMAIL: {
       de: 'Email Deines Partners',
-      en: 'Your partners email'
+      en: 'Your partner\'s email'
     },
     PLACEHOLDER_EMAIL: {
       de: 'reisebegleitung@abenteuer.eu',
@@ -162,10 +172,10 @@ module.exports = {
   },
   LOGIN: {
     HEADLINE: {
-      de: 'Login',
+      de: 'Login'
     },
     LABEL_EMAIL: {
-      de: 'E-Mail Adresse',
+      de: 'E-Mail Adresse'
     },
     PLACEHOLDER_EMAIL: {
       de: 'abenteuer@break-out.org'
@@ -190,7 +200,7 @@ module.exports = {
   'RESET-PW': {
     HEADLINE: {
       de: 'Passwort zurücksetzen',
-      en: 'Reset password',
+      en: 'Reset password'
     },
     LABEL_PASSWORD: {
       de: 'Passwort',
@@ -251,8 +261,8 @@ module.exports = {
       en: '.'
     },
     NOTICE: {
-      de: 'Erstelle hier Deinen Account, um Sponosr zu werden oder um Dich mit den Teams zu connecten.',
-      en: 'Please create an account to become a sponsor at the BreakOut event and connect with the teams.'
+      de: 'Hier ein Benutzerkonto erstellen, um Sponsor zu werden oder sich mit den Teams zu verbinden.',
+      en: 'Please create an account to become a sponsor at the BreakOut event or just to connect with the teams.'
     }
   },
   'TEAM-SUCCESS': {
@@ -261,14 +271,16 @@ module.exports = {
       en: 'Made it!'
     },
     DESCRIPTION: {
-      de: 'Du hast Dein Team erfolreich registriert. Sobald Dein Teampartner die Einladung angenommen hat, erhaltet Ihr beide eine E-Mail mit dem Zahlungslink, den Ihr benötigt um eure Registrierung bei BreakOut abzuschließen. Bei Fragen steht unser Support jederzeit zu Deiner Verfügung.'
+      de: 'Du hast Dein Team erfolreich registriert. Sobald Dein Teampartner die Einladung angenommen hat, erhaltet Ihr beide eine E-Mail mit dem Zahlungslink, den Ihr benötigt um eure Registrierung bei BreakOut abzuschließen. Bei Fragen steht unser Support jederzeit zu Deiner Verfügung.',
+      en: 'You have successfully registered your team. As soon as your team partner has accepted the invitation, you will both receive an email with the link to the payment site. Please pay your participance fee in order to complete your registration. If you have any questions, do not hesitate to contact our support.'
     },
     LINK_DESCRIPTION: {
       de: 'ZURÜCK ZUR HOMEPAGE',
       en: 'BACK TO THE HOMEPAGE'
     },
     INVITE_DESCRIPTION: {
-      de: 'WEITERE TEAMPARTNER EINLADEN'
+      de: 'WEITERE TEAMPARTNER EINLADEN',
+      en: 'INVITE FURTHER TEAM PARTNERS'
     }
   },
   'SPONSOR-SUCCESS': {
@@ -277,7 +289,7 @@ module.exports = {
       en: 'Made it!'
     },
     DESCRIPTION: {
-      de: 'Du hast Dich erfolgreich als Sponsor für BreakOut registiert. Vielen Dank für Deine Teilnahme! Für weitere Clips und Neuigkeiten gehe zurück zur Homepage. Bei Fragen steht unser Support jederzeit zu deiner Verfügung.',
+      de: 'Sie haben sich erfolgreich als Sponsor für BreakOut registiert. Vielen Dank für Ihre Teilnahme! Weitere Clips und Neuigkeiten finden Sie auf der Homepage. Bei Fragen steht Ihnen unser Support jederzeit gerne zur Verfügung.',
       en: 'You have successfully signed up as a BreakOut sponsor. Thank you for your participation! For further clips and news go back to the homepage. Feel free to contact us with any further questions.'
     },
     LINK_DESCRIPTION: {
@@ -285,7 +297,8 @@ module.exports = {
       en: 'BACK TO THE HOMEPAGE'
     },
     LINK_TO_SETTINGS: {
-      de: 'SPONSORING EINTRAGEN'
+      de: 'SPONSORING EINTRAGEN',
+      en: 'FILL IN SPONSORING'
     }
   },
   'INVITE-SUCCESS': {
@@ -294,12 +307,13 @@ module.exports = {
       en: 'Made it!'
     },
     DESCRIPTION: {
-      de: 'Du hast die Einladung angenommen und Dich damit als Teilnehmer für BreakOut registriert. Ihr erhaltet bald beide eine E-Mail mit dem Zahlungslink, den Ihr benötigt um eure Registrierung bei BreakOut abzuschließen.. Bei Fragen steht unser Support jederzeit zu deiner Verfügung.'
+      de: 'Du hast die Einladung angenommen und Dich damit als Teilnehmer für BreakOut registriert. Ihr erhaltet bald beide eine E-Mail mit dem Zahlungslink, den Ihr benötigt um eure Registrierung bei BreakOut abzuschließen. Bei Fragen steht unser Support jederzeit zu Deiner Verfügung.',
+      en: 'You have accepted the invitation and thereby successfully registered as a participant in BreakOut. You will both receive an email with the link to the payment site. To finish your registration you have to pay the participant fee. If you have any questions, our support is happy to help you anytime.'
     },
     LINK_DESCRIPTION: {
       de: 'ZURÜCK ZUR HOMEPAGE',
       en: 'BACK TO THE HOMEPAGE'
-    },
+    }
 
   },
   'SPECTATOR-SUCCESS': {
@@ -309,7 +323,8 @@ module.exports = {
 
     },
     DESCRIPTION: {
-      de: 'Du hast Dich erfolgreich als Zuschauer für BreakOut registriert. Vielen Dank für Deine Teilnahme! Für weitere Clips und Neuigkeiten gehe zurück zur Homepage. Bei Fragen steht unser Support jederzeit zu deiner Verfügung.'
+      de: 'Du hast Dich erfolgreich als Zuschauer für BreakOut registriert. Vielen Dank für Deine Teilnahme! Für weitere Clips und Neuigkeiten gehe zurück zur Homepage. Bei Fragen steht unser Support jederzeit zu Deiner Verfügung.',
+      en: 'You have successfully signed up as a viewer for BreakOut. Thank you for your participation! For further clips and news go back to the homepage. Feel free to contact us with any further questions.'
     },
     LINK_DESCRIPTION: {
       de: 'ZURÜCK ZUR HOMEPAGE',
@@ -323,7 +338,8 @@ module.exports = {
 
     },
     DESCRIPTION: {
-      de: 'Vielen Dank für Deine Teilnahme! Sobald die Zahlung bei uns eingegangen ist, erhältst du eine Bestätigungsbenachrichtigung per E-Mail. Für Tipps zum Reisen und Neuigkeiten rund um BreakOut gehe zurück zur Homepage. Bei Fragen steht unser Support jederzeit zu deiner Verfügung.'
+      de: 'Vielen Dank für Deine Teilnahme! Sobald die Zahlung bei uns eingegangen ist, erhältst du eine Bestätigungsbenachrichtigung per E-Mail. Für Tipps zum Reisen und Neuigkeiten rund um BreakOut gehe zurück zur Homepage. Bei Fragen steht unser Support jederzeit zu deiner Verfügung.',
+      en: 'Thank you for your participation. As soon as your payment has reached us, you will get a confirmation via email. For travel tipps and BreakOut news go back to the website. If you have any questions our support is happy to help you any time.'
     },
     LINK_DESCRIPTION: {
       de: 'ZURÜCK ZUR HOMEPAGE',
@@ -340,7 +356,7 @@ module.exports = {
       en: 'To take part in the event you must be on a team. You have already received an invitation to join'
     },
     DESCRIPTION_2: {
-      de: 'Team(s) eine Einladung zum beitreten bekommen. Wähle ein Team zum beitreten aus oder erstelle ein Neues:',
+      de: 'Team(s) eine Einladung zum Beitreten bekommen. Wähle ein Team zum Beitreten aus oder erstelle ein Neues:',
       en: 'team(s). Select a team to join or create a new one:'
     },
     CTA: {
@@ -350,90 +366,118 @@ module.exports = {
   },
   PROFILE: {
     NAVIGATION_PROFILE: {
-      de: 'Profil Einstellungen'
+      de: 'Profil Einstellungen',
+      en: 'Profile settings'
     },
     NAVIGATION_PARTICIPANT: {
-      de: 'Teilnehmer Einstellungen'
+      de: 'Teilnehmer Einstellungen',
+      en: 'Participant settings'
     },
     NAVIGATION_TEAM: {
-      de: 'Team Einstellungen'
+      de: 'Team Einstellungen',
+      en: 'Team settings'
     },
     NAVIGATION_SPONSOR: {
-      de: 'Sponsor Einstellungen'
+      de: 'Sponsor Einstellungen',
+      en: 'Sponsor settings'
     },
     LABEL_FIRSTNAME: {
-      de: 'Vorname'
+      de: 'Vorname',
+      en: 'First name'
     },
     LABEL_NAME: {
-      de: 'Nachname'
+      de: 'Nachname',
+      en: 'Last name'
     },
+
     LABEL_EMAIL: {
       de: 'E-Mail'
     },
     LABEL_GENDER: {
-      de: 'Geschlecht'
+      de: 'Geschlecht',
+      en: 'Gender'
     },
     LABEL_SHIRT: {
-      de: 'T-Shirt Größe'
+      de: 'T-Shirt Größe',
+      en: 'T-Shirt size'
     },
     LABEL_CITY: {
-      de: 'Heimatstadt'
+      de: 'Heimatstadt',
+      en: 'Hometown'
     },
     LABEL_PHONE: {
-      de: 'Handynummer'
+      de: 'Handynummer',
+      en: 'Cell phone number'
     },
     LABEL_PHONE_EMERGENCY: {
-      de: 'Notfallnummer'
+      de: 'Notfallnummer',
+      en: 'Emergency contact number'
     },
     LABEL_TEAMNAME: {
-      de: 'Teamname'
+      de: 'Teamname',
+      en: 'Team name'
     },
     LABEL_TEAMID: {
-      de: 'Teamnummer'
+      de: 'Teamnummer',
+      en: 'Team number'
     },
     LABEL_LOCATION: {
-      de: 'Startort'
+      de: 'Startort',
+      en: 'Starting location'
     },
     LABEL_DESCRIPTION: {
-      de: 'Beschreibung'
+      de: 'Beschreibung',
+      en: 'Description'
     },
     OPTION_GENDER_1: {
-      de: 'Männlich'
+      de: 'Männlich',
+      en: 'Male'
     },
     OPTION_GENDER_2: {
-      de: 'Weiblich'
+      de: 'Weiblich',
+      en: 'Female'
     },
     OPTION_SHIRT_1: {
-      de: 'Größe S'
+      de: 'Größe S',
+      en: 'Size S'
     },
     OPTION_SHIRT_2: {
-      de: 'Größe M'
+      de: 'Größe M',
+      en: 'Size M'
     },
     OPTION_SHIRT_3: {
-      de: 'Größe L'
+      de: 'Größe L',
+      en: 'Size L'
     },
     OPTION_SHIRT_4: {
-      de: 'Größe XL'
+      de: 'Größe XL',
+      en: 'Size XL'
     },
     PAYMENT_INFO: {
-      de: 'Die Zahlung für deinen Eventbeitrag (30,00 €) sind noch nicht bei uns eingetroffen. Bitte ürberweiße den Betrag bis zum 31.05. um am Event teilzunehmen'
+      de: 'Die Zahlung Deines Eventbeitrags (30,- €) ist noch nicht bei uns eingetroffen. Bitte überweise den Betrag bis zum 18. Mai um am Event teilzunehmen',
+      en: 'The payment of your participance fee (30,-€) has not yet reached us. Please transfer the amount by 18 May to participate in the event.'
     },
     BUTTON_SAVE: {
-      de: 'Änderungen speichern'
+      de: 'Änderungen speichern',
+      en: 'Save changes'
     },
     BUTTON_PAY: {
-      de: 'Event Beitrag bezahlen'
+      de: 'Event Beitrag bezahlen',
+      en: 'Pay the participance fee'
     }
   },
   PAYMENT: {
     HEADLINE: {
-      de: 'Zahlung'
+      de: 'Zahlung',
+      en: 'Payment'
     },
     DESCRIPTION_1: {
-      de: 'Um Eure Anmeldung abzuschließen, müsst Ihr noch die Teilnahmegebühren zahlen. Die Teilnahmegebühren setzen sich aus folgenden Bereichen zusammen:'
+      de: 'Um Eure Anmeldung abzuschließen, müsst Ihr noch die Teilnahmegebühren zahlen. Die Teilnahmegebühren setzen sich aus folgenden Bereichen zusammen:',
+      en: 'To finish your registration, you have to pay the participance fee. It consists of the following:'
     },
     ELEMENT_1: {
-      de: 'Eure T-Shirts'
+      de: 'Eure T-Shirts',
+      en: 'Your T-Shirts'
     },
     ELEMENT_2: {
       de: 'Starterkit'
@@ -442,16 +486,20 @@ module.exports = {
       de: 'BreakOut Hotline'
     },
     DESCRIPTION_2: {
-      de: 'Alle diese Posten fließen direkt oder indirekt wieder an Euch zurück. Eure Sicherheit steht für uns an erster Stelle, weshalb die BreakOut Hotline die ganzen 36 Stunden für Euch erreichbar sein wird.'
+      de: 'Alle diese Posten fließen direkt oder indirekt wieder an Euch zurück. Eure Sicherheit steht für uns an erster Stelle, weshalb die BreakOut Hotline die ganzen 36 Stunden für Euch erreichbar sein wird.',
+      en: 'All of these come back to you directly or indirectly. Your safety is very important to us, that is why the BreakOut Hotline will be reachable the full 36 hours.'
     },
     DESCRIPTION_3: {
-      de: 'Da der tiefere Gedanke hinter BreakOut aber das Spenden an das DAFI-Programm ist, wollen wir sicherstellen, dass jedes Team etwas dazu beiträgt. Wir erheben deshalb 20€ Deposit pro Team. Das Deposit überweisen wir Euch nach dem Event zurück, wenn Ihr über 100€ an Spenden generiert habt. Andernfalls gehen die 20€ in Eurem Namen direkt an das DAFI-Programm.'
+      de: 'Da der tiefere Gedanke hinter BreakOut aber das Spenden an das DAFI-Programm ist, wollen wir sicherstellen, dass jedes Team etwas dazu beiträgt. Wir erheben deshalb 20€ Deposit pro Team. Das Deposit überweisen wir Euch nach dem Event zurück, wenn Ihr über 100€ an Spenden generiert habt. Andernfalls gehen die 20€ in Eurem Namen direkt an das DAFI-Programm.',
+      en: 'Since the idea behind BreakOut is to give to the DAFI-Programm, we want to make sure that every team takes part in that. Therefore you are required to leave a deposit of 20€. You will get it back after the event, if your team has generated more than 100€ in donations. Otherwise the 20€ will go directly to the DAFI-Programm in your name.'
     },
     DESCRIPTION_4: {
-      de: 'Das heißt die Gesamtkosten pro Team betragen 60,00€ (20€ Anmeldegebühr +20€ Anmeldegebühr + 20€ Spendendeposit).Bitte sprich Dich mit Deinem Teampartner ab, ob Ihr die Summe von 60€ insgesamt zusammen bezahlt oder ob jeder seinen Anteil von 30€ einzeln überweist. Für eine erfolreiche Anmeldung muss der Gesamtbetrag bis zum 18.05.2016 überwiesen worden sein. Nutzt hierfür den <strong>angegebenen Verwendungszweck</strong> und folgende Kontoverbindung.'
+      de: 'Das heißt die Gesamtkosten pro Team betragen 60,-€ (20€ Anmeldegebühr +20€ Anmeldegebühr + 20€ Spendendeposit).Bitte sprich Dich mit Deinem Teampartner ab, ob Ihr die Summe von 60€ insgesamt zusammen bezahlt oder ob jeder seinen Anteil von 30€ einzeln überweist. Für eine erfolreiche Anmeldung muss der Gesamtbetrag bis zum 18.05.2016 überwiesen worden sein. Nutzt hierfür den <strong>angegebenen Verwendungszweck</strong> und folgende Kontoverbindung.',
+      en: 'So the total amount per term is 60,-€ (20€ Registration + 20€ Registration + 20€ Deposit). Please consult with your teampartner whether you want to pay the 60€ together or 30€ each. For a succesful registration the total amount has to be transferred by 18 May 2016. Please use the <strong>mentioned purpose</strong> and the following bank account.'
     },
     SUBHEADLINE_1: {
-      de: 'Überweisung'
+      de: 'Überweisung',
+      en: 'Transfer'
     },
     ACCNUMBER: {
       de: 'IBAN'
@@ -460,10 +508,12 @@ module.exports = {
       de: 'BIC'
     },
     OWNER: {
-      de: 'Kontoinhaber'
+      de: 'Kontoinhaber',
+      en: 'Owner'
     },
     PURPOSE: {
-      de: 'Verwendungszweck'
+      de: 'Verwendungszweck',
+      en: 'Purpose'
     },
     MAIL: {
       de: 'E-Mail'
@@ -475,177 +525,229 @@ module.exports = {
   },
   ACTIVATION: {
     HEADLINE: {
-      de: 'Aktivierung erfolgreich!'
+      de: 'Aktivierung erfolgreich!',
+      en: 'Activation successful'
     },
     DESCRIPTION: {
-      de: 'Deine E-Mail Adresse wurde erfolgreich bestätigt!'
+      de: 'Deine E-Mail Adresse wurde erfolgreich bestätigt!',
+      en: 'Your email adress has been successfully confirmed'
     },
     CTA: {
-      de: 'WEITER ZUM LOGIN'
+      de: 'WEITER ZUM LOGIN',
+      en: 'CONTINUE TO LOGIN'
     }
   },
   MAINTENANCE: {
     HEADLINE: {
-      de: 'Wartungsarbeiten'
+      de: 'Wartungsarbeiten',
+      en: 'Maintenance'
     },
     DESCRIPTION: {
-      de: 'Wir führen aktuell geplante Wartungsarbeiten durch. Bitte versuche es später nocheinmal. Danke für Dein Verständnis.'
+      de: 'Wir führen aktuell geplante Wartungsarbeiten durch. Bitte versuche es später nocheinmal. Danke für Dein Verständnis.',
+      en: 'We are currently conducting some planned maintenance. Please try again later. Thank you for your understanding.'
     }
   },
   FOOTER: {
     H_SPONSOR: {
-      de: 'Sponsor von BreakOut'
+      de: 'Partner von BreakOut',
+      en: 'BreakOut Partner'
     },
     SPONSOR: {
       de: 'Think Big ist ein Jugendprogramm der Telefónica Stiftung und der Deutschen Kinder- und Jugendstiftung (DKJS) gemeinsam mit O2.'
     },
     H_SUPPORT: {
-      de: 'Unterstützt von'
+      de: 'Unterstützt von',
+      en: 'supported by'
     },
     H_FRIENDS: {
-      de: 'Unsere Freunde'
+      de: 'Unsere Freunde',
+      en: 'Our friends'
     }
   },
   SPONSORING: {
     NAVIGATION_TEAM: {
-      de: 'Eingehende Sponsorings'
+      de: 'Eingehende Sponsorings',
+      en: 'Incoming sponsorings'
     },
     NAVIGATION_SPONSOR: {
-      de: 'Ausgehende Sponsorings'
+      de: 'Ausgehende Sponsorings',
+      en: 'Outgoing sponsorings'
     },
     LINK_SPONSOR: {
-      de: 'Sponsor werden'
+      de: 'Sponsor werden',
+      en: 'Become a sponsor'
     },
     LINK_TEAM: {
-      de: 'Mitreisen'
+      de: 'Mitreisen',
+      en: 'Join the team'
     },
     BTN_DELETE: {
-      de: 'Löschen'
+      de: 'Löschen',
+      en: 'delete'
     },
     BTN_EDIT: {
-      de: 'Bearbeiten'
+      de: 'Bearbeiten',
+      en: 'edit'
     },
     BTN_ACCEPT: {
-      de: 'Annehmen'
+      de: 'Annehmen',
+      en: 'accept'
     },
     BTN_DECLINE: {
-      de: 'Ablehnen'
+      de: 'Ablehnen',
+      en: 'decline'
     },
     BTN_ADD: {
-      de: 'Sponsoring hinzufügen'
+      de: 'Sponsoring hinzufügen',
+      en: 'Add Sponsoring'
     },
     ADD_MODAL_CONTENT: {
-      de: 'In diesem Dialog kannst du ein neues Sponsoring pro Kilometer anlegen.'
+      de: 'In diesem Dialog können Sie ein neues Sponsoring pro Kilometer anlegen.',
+      en: 'In this dialogue you can create a new sponsoring per kilometer'
     },
     EDIT_MODAL_CONTENT: {
-      de: 'In diesem Dialog kannst du ein Sponsoring pro Kilometer bearbeiten.'
+      de: 'In diesem Dialog können Sie ein Sponsoring pro Kilometer bearbeiten.',
+      en: 'In this dialogue you can edit a sponsoring per kilometer'
     },
     LABEL_AMOUNT_KM: {
-      de: 'Euro pro Kilometer'
+      de: 'Euro pro Kilometer',
+      en: 'Euro per Kilometer'
     },
     LABEL_LIMIT: {
       de: 'Limit'
     },
     BTN_ABORT: {
-      de: 'Abbrechen'
+      de: 'Abbrechen',
+      en: 'abort'
     },
     BTN_SAVE: {
-      de: 'Speichern'
+      de: 'Speichern',
+      en: 'save'
     },
     HEADER_SELF_SPONSORING: {
-      de: 'Offline Sponsoring hinzufügen'
+      de: 'Offline Sponsoring hinzufügen',
+      en: 'Add offline sponsoring'
     },
     SELF_MODAL_TEXT: {
-      de: 'Hier könnt ihr Sponsoren eintragen, die selbst kein Internet haben. Bitte ladet noch den Spendenvertrag mit hoch.'
+      de: 'Hier könnt Ihr Sponsoren eintragen, die selbst kein Internet haben. Bitte ladet noch den Spendenvertrag mit hoch.',
+      en: 'Here you can add those sponsors who do not have internet access. Please upload the Sponsorship Contract'
     },
     LABEL_STREET: {
-      de: 'Straße'
+      de: 'Straße',
+      en: 'Street'
     },
     LABEL_HOUSENUMBER: {
-      de: 'Hausnummer'
+      de: 'Hausnummer',
+      en: 'House number'
     },
     LABEL_ZIPCODE: {
-      de: 'Postleitzahl'
+      de: 'Postleitzahl',
+      en: 'Zipcode'
     },
     LABEL_CITY: {
-      de: 'Ort'
+      de: 'Ort',
+      en: 'City'
     },
     LABEL_COUNTRY: {
-      de: 'Land'
+      de: 'Land',
+      en: 'Country'
     },
     LABEL_CONTRACT: {
-      de: 'Spendenvertrag'
+      de: 'Spendenvertrag',
+      en: 'Sponsorship Contract'
     },
     LABEL_COMPANY: {
-      de: 'Firma'
+      de: 'Firma',
+      en: 'Company'
     },
     OPTIONAL: {
       de: 'Optional'
+
     },
     STATUS_ACCEPTED: {
-      de: 'SPONSORING ANGENOMMEN'
+      de: 'SPONSORING ANGENOMMEN',
+      en: 'SPONSORING ACCEPTED'
     },
     STATUS_REJECTED: {
-      de: 'SPONSORING ABGELEHNT'
+      de: 'SPONSORING ABGELEHNT',
+      en: 'SPONSORING REJECTED'
     },
     LABEL_GENDER: {
-      de: 'Anrede'
+      de: 'Anrede',
+      en: 'title'
     },
     LABEL_URL: {
-      de: 'Ihre Webseite'
+      de: 'Ihre Webseite',
+      en: 'Your website'
     },
     ADD_CHALLENGE_MODAL_CONTENT: {
-      de: 'Hier können Sie kleine und große Aufgaben an Teams stellen und deren Erfüllung mit einem Geldbetrag dotieren.'
+      de: 'Hier können Sie kleine und große Aufgaben an Teams stellen und deren Erfüllung mit einem Geldbetrag dotieren.',
+      en: 'Here you can give teams tasks and set a monetary award when they are fulfilled'
     },
     LABEL_CHALLENGE_DESCRIPTION: {
-      de: 'Beschreibung der Aufgabe'
+      de: 'Beschreibung der Aufgabe',
+      en: 'Description of the task'
     },
     LABEL_CHALLENGE_AMOUNT: {
-      de: 'Dotierung'
+      de: 'Dotierung',
+      en: 'Amount'
     },
     ADD_ANOTHER_CHALLENGE: {
-      de: 'Weitere Challenge hinzufügen'
+      de: 'Weitere Challenge hinzufügen',
+      en: 'Add another challenge'
     },
     BTN_ADD_CHALLENGE: {
-      de: 'Challenge hinzufügen'
+      de: 'Challenge hinzufügen',
+      en: 'Add challenge'
     },
     STATUS_WITHDRAWN: {
-      de: 'Zurückgezogen'
+      de: 'Zurückgezogen',
+      en: 'Withdrawn'
     }
 
   },
   CLOSED: {
     HEADLINE: {
-      de: 'Anmeldung geschlossen'
+      de: 'Anmeldung geschlossen',
+      en: 'Registration closed'
     },
     DESCRIPTION: {
-      de: 'Leider ist die Anmeldung als Teilnehmer bei BreakOut 2016 nicht mehr offen :( Du kannst Dich aber noch als Sponsor anmelden. Trage Dich doch in unseren Newsletter ein um beim nächsten BreakOut dabei zu sein!'
+      de: 'Leider ist die Anmeldung als Teilnehmer bei BreakOut 2016 nicht mehr offen :( Du kannst Dich aber noch als Sponsor anmelden. Trage Dich doch in unseren Newsletter ein um beim nächsten BreakOut dabei zu sein!',
+      en: 'The registration for BreakOut 2016 is closed :( You can still register as a sponsor. Sign up for our newsletter to make sure not to miss the next BreakOut'
     },
     LINK_DESCRIPTION: {
-      de: 'ZURÜCK ZUR WEBSEITE'
+      de: 'ZURÜCK ZUR WEBSEITE',
+      en: 'BACK TO THE WEBSITE'
     }
   },
   MESSAGE: {
     HEADLINE: {
-      de: 'Nachrichten'
+      de: 'Nachrichten',
+      en: 'Messages'
     },
     BTN_ADD: {
-      de: 'Neue Gruppennachricht erstellen'
+      de: 'Neue Gruppennachricht erstellen',
+      en: 'Create new group message'
     },
     BTN_ADD_SMALL: {
-      de: 'Neue Nachricht'
+      de: 'Neue Nachricht',
+      en: 'New Message'
     },
     BTN_ABORT: {
-      de: 'Abbrechen'
+      de: 'Abbrechen',
+      en: 'Abort'
     },
     ADD_CONTENT: {
-      de: 'Wähle die Nutzer aus, mit denen Du schreiben willst.'
+      de: 'Wähle die Nutzer aus, denen Du schreiben willst.',
+      en: 'Choose users you want to communicate with'
     },
     LABEL_SEARCH: {
-      de: 'Suche'
+      de: 'Suche',
+      en: 'Search'
     },
     PLACEHOLDER_SEARCH: {
-      de: 'Nach Nutzer suchen...'
+      de: 'Nach Nutzer suchen...',
+      en: 'Search users...'
     },
     FOUND_USERS: {
       de: 'Suchergebnisse',
@@ -656,12 +758,15 @@ module.exports = {
       en: 'Selected Users'
     },
     SEND: {
-      de: 'Senden'
+      de: 'Senden',
+      en: 'Send'
     }
   },
   'TEAM-DETAIL': {
     SAVEPOST: {
-      de: 'POST SPEICHERN'
+      de: 'POST SPEICHERN',
+      en: 'SAVE POST'
+
     },
     NEWPOSTCONTENT: {
       de: 'Hello World... :)'
