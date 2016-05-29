@@ -1,9 +1,15 @@
 <div class=" bo-team-card">
     <div class="bo-card-info">
-        <div class="bo-card-profilePic" style="background-image: url({{user.profilePic.sizes.0.url}});"></div>
-        <div class="bo-card-info-name">
-            <span class="bo-card-info-headline">{{user.participant.teamName}}</span>
-            <span class="bo-card-info-sub">{{relativeTime date}}{{prettyLocation postingLocation.locationData}}</span>
+        <div class="row">
+            <div class="col-xs-3">
+                <div class="bo-card-profilePic" style="background-image: url({{user.profilePic.sizes.0.url}});"></div>
+            </div>
+            <div class="col-xs-9">
+                <div class="bo-card-info-name">
+                <span class="bo-card-info-headline">{{user.participant.teamName}}</span>
+                <span class="bo-card-info-sub">{{relativeTime date}}{{prettyLocation postingLocation.locationData}}</span>
+            </div>
+            </div>
         </div>
     </div>
     <div class="bo-card-media">
