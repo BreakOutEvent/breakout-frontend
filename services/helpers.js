@@ -127,6 +127,26 @@ exports.smallestImage = (sizes) => {
   }
 };
 
+exports.getImageByWidth = (width, sizes) => {
+
+  width = parseFloat(width);
+
+  if (Array.isArray(sizes) && sizes.length > 0) {
+    var minDiff = parseFloat(width);
+    var bestFit = sizes[0].url;
+
+    sizes.forEach(s => {
+      let currDiff = s.width - width;
+      if(Math.abs(currDiff) < Math.abs(minDiff)) {
+        minDiff = currDiff;
+        bestFit = s.url;
+      }
+    });
+
+    return bestFit;
+  }
+};
+
 exports.round = (amount) => {
   return Math.round(parseFloat(amount)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 };
