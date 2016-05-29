@@ -28,6 +28,7 @@ router.get('/:hashtag', (req, res, next) => co(function*() {
       language: req.language,
       postings: postings,
       user: currentUser,
+      isLoggedIn: req.isAuthenticated(),
       title: `Hashtag '${req.params.hashtag}'`
     });
 }).catch(next));

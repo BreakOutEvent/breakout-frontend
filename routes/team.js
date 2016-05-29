@@ -40,6 +40,7 @@ router.get('/', (req, res, next) => co(function*() {
       language: req.language,
       teams: allTeams,
       searchData: searchData,
+      isLoggedIn: req.isAuthenticated(),
       title: 'Team Übersicht'
     });
 

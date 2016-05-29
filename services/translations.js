@@ -766,10 +766,84 @@ module.exports = {
     SAVEPOST: {
       de: 'POST SPEICHERN',
       en: 'SAVE POST'
-
     },
     NEWPOSTCONTENT: {
       de: 'Hello World... :)'
+    }
+  },
+  MASTER: {
+    ABOUT: {
+      de: 'Worum gehts',
+      en: 'About BreakOut'
+    },
+    ABOUT_LINK: {
+      de: 'http://www.break-out.org/worum-gehts/',
+      en: 'http://www.break-out.org/en/what-is-breakout-about/'
+    },
+    TEAMS: {
+      de: 'Teams'
+    },
+    TEAMS_LINK: {
+      de: '/team'
+    },
+    HOWTO: {
+      de: 'How to BreakOut'
+    },
+    NEXT_STEPS: {
+      de: 'Nächste Schritte',
+      en: 'Next Steps'
+    },
+    NEXT_STEPS_LINK: {
+      de: 'http://www.break-out.org/naechste-schritte/',
+      en: 'http://www.break-out.org/en/next-steps/'
+    },
+    FAQ: {
+      de: 'FAQ'
+    },
+    FAQ_LINK: {
+      de: 'http://www.break-out.org/faq/',
+      en: 'http://www.break-out.org/en/faq-2/'
+    },
+    CODE: {
+      de: 'Code of Honour'
+    },
+    CODE_LINK: {
+      de: 'http://www.break-out.org/code-of-honour/',
+      en: 'http://www.break-out.org/en/code-of-honour-2/'
+    },
+    TERMS: {
+      de: 'Teilnahmebedingungen'
+    },
+    TERMS_LINK: {
+      de: 'http://www.break-out.org/teilnahmebedingungen/'
+    },
+    PARTNER: {
+      de: 'Partner',
+      en: 'Partners'
+    },
+    PARTNER_LINK: {
+      de: 'http://www.break-out.org/partner/'
+    },
+    PRESS: {
+      de: 'Presse',
+      en: 'Press'
+    },
+    PRESS_LINK: {
+      de: 'http://www.break-out.org/pressebereich/'
+    },
+    ABOUTUS: {
+      de: 'Über uns',
+      en: 'About us'
+    },
+    ABOUTUS_LINK: {
+      de: 'http://www.break-out.org/ueber-uns/'
+    },
+    JOIN: {
+      de: 'Mitorganisieren',
+      en: 'Join us'
+    },
+    JOIN_LINK: {
+      de: 'http://www.break-out.org/mitmachen/'
     }
   }
 };

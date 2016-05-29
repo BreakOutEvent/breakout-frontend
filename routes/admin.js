@@ -17,6 +17,7 @@ const resDefault = (req) => {
     error: req.flash('error'),
     success: req.flash('success'),
     layout: 'master',
+    isLoggedIn: req.isAuthenticated(),
     language: req.language
   };
 };

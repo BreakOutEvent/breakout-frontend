@@ -34,6 +34,7 @@ router.get('/:messageId?', session.isUser, (req, res, next) => co(function*() {
       threads: threads,
       userId: req.user.me.id,
       activeMessage: activeMessage,
+      isLoggedIn: req.isAuthenticated(),
       title: 'Nachrichten'
     });
 

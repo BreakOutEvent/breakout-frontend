@@ -101,6 +101,10 @@ const server = callback => co(function*() {
     throw new Error('No secret specified, please set one via jwt_secret');
   }
 
+  if(process.env.NODE_ENVIRONMENT === 'prod' && process.env.SHOW_ERROR !== 'true') {
+    app.enable('view cache');
+  }
+
   const session = require('express-session');
   const MongoStore = require('connect-mongo')(session);
 
