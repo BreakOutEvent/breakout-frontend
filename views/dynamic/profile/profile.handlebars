@@ -58,12 +58,12 @@
                 <div class="form-group has-feedback has-feedback-left">
                     <label for="email">{{__ 'LABEL_EMAIL'}}</label>
                     <input type="email" class="form-control" id="email" name="email" value="{{me.email}}"
-                           disabled="disabled">
+                           readonly>
                     <i class="form-control-feedback material-icons">mail_outline</i>
                 </div>
                 <div class="form-group has-feedback has-feedback-left">
                     <label for="gender">{{__ 'LABEL_GENDER'}}</label>
-                    <select class="form-control" id="gender" name="gender" disabled="disabled">
+                    <select class="form-control" id="gender" name="gender" readonly>
                         <option value="male"
                                 {{#ifCond me.gender "male"}}selected="selected"{{/ifCond}}>{{__ 'OPTION_GENDER_1'}}</option>
                         <option value="female"
@@ -84,7 +84,7 @@
             <form role="form" id="participant_form">
                 <div class="form-group has-feedback has-feedback-left">
                     <label for="tshirtsize">{{__ 'LABEL_SHIRT'}}</label>
-                    <select class="form-control" id="tshirtsize" name="tshirtsize" disabled="disabled">
+                    <select class="form-control" id="tshirtsize" name="tshirtsize" readonly>
                         <option value="xs" {{#ifCond me.participant.tshirtsize "xs"}}selected="selected"{{/ifCond}}>XS
                         </option>
                         <option value="s" {{#ifCond me.participant.tshirtsize "s"}}selected="selected"{{/ifCond}}>S
@@ -140,7 +140,7 @@
                 <div class="form-group has-feedback has-feedback-left" >
                     <label for="teamId">{{__ 'LABEL_TEAMID'}}</label>
                     <input type="text" class="form-control" id="teamId" name="teamId"
-                           value="{{team.id}}" required="required"  disabled="disabled">
+                           value="{{team.id}}" required="required"  readonly>
                     <i class="form-control-feedback material-icons">people</i>
                 </div>
                 <div class="form-group has-feedback has-feedback-left">
@@ -151,7 +151,7 @@
                 </div>
                 <div class="form-group has-feedback has-feedback-left">
                     <label for="location">{{__ 'LABEL_LOCATION'}}</label>
-                    <select class="form-control" id="location" disabled="disabled">
+                    <select class="form-control" id="location" readonly>
                         <option value="1" {{#ifCond team.event 1}}selected="selected"{{/ifCond}}>Berlin
                         </option>
                         <option value="2" {{#ifCond team.event 2}}selected="selected"{{/ifCond}}>München
