@@ -672,6 +672,13 @@ API.event.all = function () {
   return API.general.get(`/event/`);
 };
 
+API.event.getDonateSum = function (eventId) {
+  return API.general.get(`/event/${eventId}/donatesum/`);
+};
+
+API.event.getDistance = function (eventId) {
+  return API.general.get(`/event/${eventId}/distance/`);
+};
 
 API.user = {};
 

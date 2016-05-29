@@ -1,0 +1,72 @@
+<div class="bo-header-info bo-team-header">
+    <img class="center-block" alt="BreakOut" src="/img/logos/BreakOut-Logo_Header.svg">
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <h1 class="text-center">BreakOut 2016 - Liveblog</h1>
+        </div>
+    </div>
+    <div class="row bo-lb-counter-wrap">
+        <div class="col-xs-12">
+            <div class="col-md-4 text-center">
+                <span class="bo-lb-counter" id="boLBCounter" data-start="{{counter.start}}" data-end="{{counter.end}}"
+                      data-status="{{counter.status}}"></span>
+                <p id="boLbCounterDescription"></p>
+                <h3>BreakOut Event</h3>
+            </div>
+            <div class="col-md-4 text-center">
+                <span class="bo-lb-counter">{{round events.global.donatesum}} €</span>
+                <p>
+                    {{#each events.individual}}
+                        {{#unless @first}} & {{/unless}}{{round donatesum.full_sum}}€ {{city}}
+                    {{/each}}
+                </p>
+                <h3>Spenden</h3>
+            </div>
+            <div class="col-md-4 text-center">
+                <span class="bo-lb-counter">{{round events.global.distance}} km</span>
+                <p>
+                    {{#each events.individual}}
+                        {{#unless @first}} & {{/unless}}{{round distance.linear_distance}}km {{city}}
+                    {{/each}}
+                </p>
+                <h3>Entfernung</h3>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <hr class="bo-lb-divider" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Was ist BreakOut?</h2>
+            <p class="bo-text">
+                For example, if you pass it "123456789.01", the positive assertion will match every spot to the left of the 7 (since "789" is a multiple of 3 digits, "678" is a multiple of 3 digits, "567", etc.). The negative assertion checks that the multiple of 3 digits does not have any digits after it. "789" has a period after it so it is exactly a multiple of 3 digits, so a comma goes there. "678" is a multiple of 3 digits but it has a "9" after it, so those 3 digits are part of a group of 4, and a comma does not go there. Similarly for "567". "456789" is 6 digits, which is a multiple of 3, so a comma goes before that. "345678" is a multiple of 3, but it has a "9" after it, so no comma goes there. And so on. The "\B" keeps the regex from putting a comma at the beginning of the string.
+            </p>
+        </div>
+        <div class="col-md-8">
+            <div id="map" class="bo-team-placeholder" style="width:100%; min-height: 400px;"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <hr class="bo-lb-divider" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <h2>Aktuelle Posts von reisenden Teams</h2>
+            <div id="lbTeamPosts">
+                {{#each postings}}
+                    <div class="col-lg-4 col-sm-6 bo-team-post">
+                        {{> team-posting}}
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/liveblog.js" type="text/javascript"></script>

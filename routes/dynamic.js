@@ -11,8 +11,8 @@ const multer = require('multer');
 const passport = requireLocal('services/auth');
 const registration = requireLocal('controller/page-controller/registration');
 const profile = requireLocal('controller/page-controller/profile');
+const liveblog = requireLocal('controller/page-controller/liveblog');
 const session = requireLocal('controller/session');
-const apiProxy = requireLocal('services/api-proxy');
 
 const upload = multer({inMemory: true});
 const router = express.Router();
@@ -66,11 +66,21 @@ router.get('/closed', funnelTemplate('closed'));
 
 router.get('/liveblog', (req, res, next) => co(function*() {
 
-  res.render(`dynamic/homepage/homepage`,
+  let events = yield liveblog.getEventInfos();
+  let postings = yield liveblog.getAllPostings();
+  let counter = yield liveblog.getCounterInfos(events.individual);
+
+  console.log(events);
+
+  res.render(`dynamic/liveblog/liveblog`,
     {
       error: req.flash('error'),
       layout: 'master',
       language: req.language,
+      events: events,
+      postings: postings,
+      counter: counter,
+      isLoggedIn: req.user,
       title: 'Liveblog'
     });
 

@@ -61,7 +61,7 @@ sponsoring.create = (req, res, next) => co(function*() {
   }
 
   body.amountPerKm = parseAmount(req.body.amountPerKm_text);
-  if (req.body.limit) body.limit = req.body.limit;
+  if (req.body.limit) body.limit = parseAmount(req.body.limit);
   //TODO add proper limit (BACKEND HACK)
   else body.limit = 1000000000;
 

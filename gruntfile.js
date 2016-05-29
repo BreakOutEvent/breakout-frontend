@@ -60,7 +60,8 @@ module.exports = function (grunt) {
           'public/js/sponsoring.js': ['src/js/sponsoring.js'],
           'public/js/map.js': ['src/js/map.js'],
           'public/js/messages.js': ['src/js/messages.js'],
-          'public/js/team.js': ['src/js/team.js']
+          'public/js/team.js': ['src/js/team.js'],
+          'public/js/liveblog.js': ['src/js/liveblog.js']
         }
       }
     },
