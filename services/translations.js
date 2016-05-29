@@ -665,12 +665,12 @@ module.exports = {
 
     },
     STATUS_ACCEPTED: {
-      de: 'SPONSORING ANGENOMMEN',
-      en: 'SPONSORING ACCEPTED'
+      de: 'ANGENOMMEN',
+      en: 'ACCEPTED'
     },
     STATUS_REJECTED: {
-      de: 'SPONSORING ABGELEHNT',
-      en: 'SPONSORING REJECTED'
+      de: 'ABGELEHNT',
+      en: 'REJECTED'
     },
     LABEL_GENDER: {
       de: 'Anrede',
