@@ -20,7 +20,6 @@ router.get('/:messageId?', session.isUser, (req, res, next) => co(function*() {
   let activeMessage = threads[threads.length - 1];
   if (req.params.messageId) {
     activeMessage = threads.filter(m => m.id == req.params.messageId)[0];
-    console.log(activeMessage);
     if (!activeMessage) {
       return res.redirect('/messages/');
     }
@@ -34,7 +33,7 @@ router.get('/:messageId?', session.isUser, (req, res, next) => co(function*() {
       threads: threads,
       userId: req.user.me.id,
       activeMessage: activeMessage,
-      isLoggedIn: req.isAuthenticated(),
+      isLoggedIn: req.user,
       title: 'Nachrichten'
     });
 

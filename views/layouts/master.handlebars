@@ -42,8 +42,8 @@
             {{#if isLoggedIn}}
                 <li class="dropdown">
                     <a id="userDropDown" class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <!--<img src="#"
-                             class="bo-nav-user-icon pull-left">--><i class="material-icons">expand_more</i>
+                        <div style="background-image: url({{isLoggedIn.me.profilePic.sizes.0.url}}); height: 30px; width: 30px;" class="bo-profile-image pull-left"></div>
+                        <i class="material-icons">expand_more</i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropDown">
                         <!--
@@ -54,23 +54,17 @@
                         -->
                         <li><a href="/settings/profile">Account Einstellungen</a></li>
                         <li><a href="/settings/sponsoring">Sponsorings</a></li>
+                        <li><a href="/messages">Nachrichten</a></li>
                         <li><a href="http://www.break-out.org/faq" target="_blank">Hilfe</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="http://www.break-out.org/" target="_blank">Zur BreakOut Webseite</a></li>
-                        <!--<li><a href="#">Mobile App herunterladen</a></li>
-                        <li><a href="#">Weiter erzählen</a></li>-->
                         <li role="separator" class="divider"></li>
                         <li><a href="/logout">Abmelden</a></li>
                     </ul>
                 </li>
             {{else}}
                 <li>
-                    <button type="button" class="btn navbar-btn visible-lg text-uppercase"
-                            data-toggle="modal" data-target="#modalLogin">Anmelden / Registrieren
-                    </button>
+                    <a role="button" class="btn navbar-btn visible-lg text-uppercase bo-navbar-btn" href="/login">Anmelden / Registrieren</a>
                 </li>
             {{/if}}
-
         </ul>
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"

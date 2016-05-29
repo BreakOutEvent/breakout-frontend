@@ -58,7 +58,7 @@ router.get('/sponsoring', session.isUser, (req, res, next) => co(function*() {
       outSponsoring: outSponsoring,
       outChallenges: outChallenges,
       teams:teams,
-      isLoggedIn: req.isAuthenticated(),
+      isLoggedIn: req.user,
       title: 'Sponsorings'
     });
 
@@ -98,7 +98,7 @@ router.get('/profile', session.isUser, (req, res, next) => co(function*() {
       language: req.language,
       me: req.user.me,
       team: team,
-      isLoggedIn: req.isAuthenticated(),
+      isLoggedIn: req.user,
       title: 'Profile'
     });
 

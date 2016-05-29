@@ -40,7 +40,7 @@ router.get('/', (req, res, next) => co(function*() {
       language: req.language,
       teams: allTeams,
       searchData: searchData,
-      isLoggedIn: req.isAuthenticated(),
+      isLoggedIn: req.user,
       title: 'Team Übersicht'
     });
 
@@ -77,6 +77,7 @@ router.get('/:teamId', (req, res, next) => co(function*() {
       team: currTeam,
       user: currentUser,
       isUserOfTeam: isUserOfTeam,
+      isLoggedIn: req.user,
       title: currTeam.name
     });
 }).catch(next));
