@@ -852,7 +852,7 @@ module.exports = {
       en: 'What is BreakOut?'
     },
     DESCRIPTION: {
-      de: 'Bei BreakOut versuchen Teams von je zwei Personen innerhalb von 36 Stunden so weit wie möglich vom Ausgangspunkt (München oder Berlin) weg zu reisen, ohne Geld die Fortbewegung auszugeben. Jedes Team sucht Sponsoren, die - pro Kilometer oder für die Erfüllung gestellter Aufgaben (Challenges) - an das DAFI-Porgramm der UNO-Flüchtlingshilfe spenden, um damit Flüchtlingen ein Studium zu ermöglichen.',
+      de: 'Bei BreakOut versuchen Teams von je zwei Personen innerhalb von 36 Stunden so weit wie möglich vom Ausgangspunkt (München oder Berlin) weg zu reisen, ohne Geld für die Fortbewegung auszugeben. Jedes Team sucht Sponsoren, die - pro Kilometer oder für die Erfüllung gestellter Aufgaben (Challenges) - an das DAFI-Porgramm der UNO-Flüchtlingshilfe spenden, um damit Flüchtlingen ein Studium zu ermöglichen.',
       en: 'With BreakOut, teams of two have got 36 hours to try and get as far away as possible from the starting location (Munich or Berlin), without spending any money on transport. Every team looks for sponsors, who donate - per kilometer or for the fulfillment of a set task (challenge) - to UNHCR’s DAFI-Programm giving refugees the opportunity of a university education.'
     },
     TIME_H: {
