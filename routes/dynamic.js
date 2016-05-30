@@ -49,7 +49,7 @@ const redirectOnLogin = (req, res, next) => {
 const funnelTemplate = renderTemplate('register');
 
 //GET
-router.get('/', redirectOnLogin, funnelTemplate('register'));
+//router.get('/', redirectOnLogin, funnelTemplate('register'));
 router.get('/register', redirectOnLogin, funnelTemplate('register'));
 router.get('/selection', session.isUser, funnelTemplate('selection'));
 router.get('/participant', session.isUser, registration.lock, funnelTemplate('participant'));
@@ -69,7 +69,7 @@ router.get('/login', redirectOnLogin, (req, res, next) => {
 }, funnelTemplate('login'));
 
 
-router.get('/liveblog', (req, res, next) => co(function*() {
+router.get('/', (req, res, next) => co(function*() {
 
   var token = null;
   if (req.isAuthenticated()) token = req.user;
