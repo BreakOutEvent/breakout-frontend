@@ -15,6 +15,11 @@ exports.sanityCheck = function(id) {
     if ($(element).prop('type') === 'file') {
       val = $(element)[0].files && $(element)[0].files[0] ? 'true' : '';
     }
+
+    if( element.nodeName.toLowerCase() === 'select' ) {
+      val = $(element).find('option:selected').val();
+    }
+
     if (!val || val.trim() === '') {
       $(element).addClass('bo-reg-form-error');
     } else {
