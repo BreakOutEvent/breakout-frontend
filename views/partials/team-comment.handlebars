@@ -1,7 +1,10 @@
 <div class="bo-comment-wrap">
     <div class="row">
         <div class="col-xs-2">
-            <div class="bo-card-comment-pic bo-card-profilePic" style="background-image:url({{getImageByWidth 50 user.profilePic.sizes}})"></div>
+            <div class="bo-card-comment-pic bo-card-profilePic"
+                {{#if user.profilePic.sizes}}
+                 style="background-image: url({{getImageByWidth 50 user.profilePic.sizes}});"
+                {{/if}}"></div>
         </div>
         <div class="col-xs-10">
             <div class="bo-card-comment-name">

@@ -65,7 +65,7 @@ $(document).ready(function () {
   var $teamPosts = $('#teamPosts');
   var loading = false;
   var finished = false;
-  var current = 1;
+  var current = 0;
   $(window).on('load', function () {
     $(window).scroll(function () {
 
@@ -85,7 +85,10 @@ $(document).ready(function () {
                 current++;
                 $teamPosts.append($postings);
                 window.msnry.appended($postings);
-                window.msnry.layout();
+                //LOLOL DIRTY HACK FOR SLOW BROWSERS
+                setTimeout(function () {
+                  window.msnry.layout();
+                },200);
                 loading = false;
               }
             })

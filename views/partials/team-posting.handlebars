@@ -2,7 +2,10 @@
     <div class="bo-card-info">
         <div class="row">
             <div class="col-xs-3">
-                <div class="bo-card-profilePic" style="background-image: url({{getImageByWidth 70 user.profilePic.sizes}});"></div>
+                <div class="bo-card-profilePic"
+                     {{#if user.profilePic.sizes}}
+                        style="background-image: url({{getImageByWidth 70 user.profilePic.sizes}});"
+                    {{/if}}></div>
             </div>
             <div class="col-xs-9">
                 <div class="bo-card-info-name">
@@ -13,7 +16,7 @@
         </div>
     </div>
     <div class="bo-card-media">
-        {{#if media.0.sizes.0.url}}
+        {{#if media.0.sizes}}
             <img class="bo-card-media-image" src="{{getImageByWidth 400 media.0.sizes}}"/>
         {{/if}}
     </div>
