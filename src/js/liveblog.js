@@ -15,16 +15,16 @@ $(document).ready(function () {
 
     if (counter.current < counter.start) {
       //Before event
-      counter.state = 'bis zum Start des diesjährigen Events';
+      counter.state = window.states.pre;
       counter.value = counter.start - counter.current;
 
     } else if (counter.current <= counter.end) {
       //During event
-      counter.state = 'bis zum Ende des diesjährigen Events';
+      counter.state = window.states.during;
       counter.value = counter.end - counter.current;
     } else {
       //Post event
-      counter.state = 'seit dem diesjährigen Event';
+      counter.state = window.states.post;
       counter.value = counter.current - counter.end;
     }
 

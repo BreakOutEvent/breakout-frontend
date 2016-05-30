@@ -847,9 +847,49 @@ module.exports = {
     }
   },
   LIVEBLOG: {
+    HEADLINE: {
+      de: 'Was ist BreakOut?',
+      en: 'What is BreakOut?'
+    },
     DESCRIPTION: {
-      de: '“BreakOut ­ How Far Can You Go?!” ist konzipiert als Spendenmarathon, bei dem Zwei­Personen­Teams versuchen, innerhalb von 36 Stunden so weit weg vom Ausgangspunkt zu reisen wie möglich. Hierbei darf kein Geld für die Fortbewegung ausgegeben werden und es werden im Voraus vereinbarte Spendengelder von Sponsoren durch die Teams gesammelt.',
-      en: '“BreakOut ­ How Far Can You Go?!” is designed as travel competition. Teams consisting of two members, try to travel as far from the start location as they can within 36 hours without using money for transportation. Negotiated donations are collected beforehand and during BreakOut by the teams.'
+      de: 'Bei BreakOut versuchen Teams von je zwei Personen innerhalb von 36 Stunden so weit wie möglich vom Ausgangspunkt (München oder Berlin) weg zu reisen, ohne Geld die Fortbewegung auszugeben. Jedes Team sucht Sponsoren, die - pro Kilometer oder für die Erfüllung gestellter Aufgaben (Challenges) - an das DAFI-Porgramm der UNO-Flüchtlingshilfe spenden, um damit Flüchtlingen ein Studium zu ermöglichen.',
+      en: 'With BreakOut, teams of two have got 36 hours to try and get as far away as possible from the starting location (Munich or Berlin), without spending any money on transport. Every team looks for sponsors, who donate - per kilometer or for the fulfillment of a set task (challenge) - to UNHCR’s DAFI-Programm giving refugees the opportunity of a university education.'
+    },
+    TIME_H: {
+      de: 'BreakOut Event',
+      en: 'BreakOut Event'
+    },
+    TIME_PRE: {
+      de: 'bis zum Start des diesjährigen Events',
+      en: 'until the event begins'
+    },
+    TIME_DURING: {
+      de: 'bis zum Ende des Events',
+      en: 'until the event ends'
+    },
+    TIME_POST: {
+      de: 'seit dem Event',
+      en: 'since the event'
+    },
+    DONATIONS: {
+      de: 'Spenden',
+      en: 'Donations'
+    },
+    DISTANCE: {
+      de: 'Entfernung',
+      en: 'Distance'
+    },
+    MUNICH: {
+      de: 'München',
+      en: 'Munich'
+    },
+    BERLIN: {
+      de: 'Berlin',
+      en: 'Berlin'
+    },
+    POSTS_HEADLINE: {
+      de: 'Aktuelle Posts von reisenden Teams',
+      en: 'Posts from participating teams'
     }
   }
 };
