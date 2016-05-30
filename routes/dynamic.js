@@ -69,23 +69,20 @@ router.get('/liveblog', (req, res, next) => co(function*() {
   var token = null;
   if(req.isAuthenticated()) token = req.user;
 
-  let events = yield liveblog.getEventInfos();
-  let postings = yield liveblog.getAllPostings(token);
-  let mapData = yield liveblog.getMapData();
-  let counter = yield liveblog.getCounterInfos(events.individual);
+  var options = yield {
+    error: req.flash('error'),
+    layout: 'master',
+    language: req.language,
+    events:  liveblog.getEventInfos(),
+    postings: liveblog.getAllPostings(token),
+    mapData: liveblog.getMapData(),
+    isLoggedIn: req.user,
+    title: 'Liveblog'
+  };
 
-  res.render(`dynamic/liveblog/liveblog`,
-    {
-      error: req.flash('error'),
-      layout: 'master',
-      language: req.language,
-      events: events,
-      postings: postings,
-      counter: counter,
-      mapData: mapData,
-      isLoggedIn: req.user,
-      title: 'Liveblog'
-    });
+  options.counter = yield liveblog.getCounterInfos(options.events.individual);
+
+  res.render(`dynamic/liveblog/liveblog`, options);
 
 }).catch(ex => next(ex)));
 
