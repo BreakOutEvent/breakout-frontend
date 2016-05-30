@@ -25,7 +25,10 @@ exportsMap.init = function (id,teams) {
   };
 
   exportsMap.map = new google.maps.Map(document.getElementById(id), mapOptions);
-
+  if(teams.length == 0) {
+    markers_list.push(munich);
+    markers_list.push(berlin);
+  }
   drawRoute(teams);
   zoom_in(markers_list, bounds, geocenter, maximum_zoom);
 
@@ -54,6 +57,7 @@ function zoom_in(markers_list, bounds, geocenter, maximum_zoom){
 // Draw the route of each team
 var drawRoute = function (teams){
   teams.forEach(function (team){
+    if(!team) return;
     var startingposition = new google.maps.LatLng(team.event.startingLocation.latitude, team.event.startingLocation.longitude);
     var route = [startingposition];
     markers_list.push(startingposition);
@@ -112,9 +116,13 @@ function makeContent(team) {
   var contentstring = '<div id="content">'+
     '<div id="siteNotice">'+
     '</div>'+
-    '<h4 id="firstHeading" class="firstHeading">' + team.name + '</h4>'+
-    '<p>' + team.members[0].firstname + ' und ' + team.members[1].firstname + ' aus ' + team.event.city + '</p></div>'
-  console.log(contentstring);
+    '<h4 id="firstHeading" class="firstHeading"><a href="/team/'+ team.id + '">'+ team.name + '</a></h4>';
+
+    if(team.members) {
+      contentstring += '<p>' + team.members[0].firstname + ' und ' + team.members[1].firstname + ' aus ' + team.event.city + '</p></div>';
+    } else {
+      contentstring += '<p>aus ' + team.event.city + '</p></div>'
+    }
   return contentstring;
 }
 

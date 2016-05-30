@@ -71,6 +71,7 @@ router.get('/liveblog', (req, res, next) => co(function*() {
 
   let events = yield liveblog.getEventInfos();
   let postings = yield liveblog.getAllPostings(token);
+  let mapData = yield liveblog.getMapData();
   let counter = yield liveblog.getCounterInfos(events.individual);
 
   res.render(`dynamic/liveblog/liveblog`,
@@ -81,6 +82,7 @@ router.get('/liveblog', (req, res, next) => co(function*() {
       events: events,
       postings: postings,
       counter: counter,
+      mapData: mapData,
       isLoggedIn: req.user,
       title: 'Liveblog'
     });

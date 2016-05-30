@@ -717,14 +717,11 @@ API.user.search = function (searchString) {
 API.location = {};
 
 API.location.getByTeam = (teamId) => {
-  logger.info('Getting all locations for team', teamId);
+  return API.general.get(`/event/1/team/${teamId}/location/`);
+};
 
-  return new Promise((resolve, reject) => {
-    request
-      .get({
-        url: `${url}/event/1/team/${teamId}/location/`
-      }, handleResponse(resolve, reject, 'Successfully got all locations for team' + teamId));
-  });
+API.location.getByEvent = (eventId) => {
+  return API.general.get(`/event/${eventId}/location/`);
 };
 
 function handleResponse(resolve, reject, msg) {

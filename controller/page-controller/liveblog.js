@@ -79,10 +79,38 @@ liveblog.getMapData = () => co(function *() {
 
   let events = yield api.event.all();
 
-  let locations = yield events.map(e => api.location.getByEvent(e.id));
+  let eventsById = {};
 
+  events.forEach(e => {
+    eventsById[e.id] = e;
+  });
 
-  return locations;
+  let allLocations = yield events.map(e => api.location.getByEvent(e.id));
+
+  let locations = _.flatten(allLocations);
+  locations = locations.filter(l => l.duringEvent);
+
+  let teams = [];
+
+  locations.forEach(l => {
+    let t = teams[l.teamId];
+    if(!t) {
+      t = {
+        id: l.teamId,
+        name: l.team,
+        event: eventsById[l.eventId],
+        locations: []
+      };
+    }
+    t.locations.push({
+      latitude: l.latitude,
+      longitude: l.longitude
+    });
+
+    teams[l.teamId] = t;
+  });
+
+  return teams;
 
 }).catch(ex => {
   throw ex
