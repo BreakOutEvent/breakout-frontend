@@ -64,7 +64,6 @@ liveblog.returnPostings = (req, res, next) => co(function *() {
 
   let postings = yield api.posting.getAllPostings(token, offset, limit);
 
-  postings = _.sortBy(postings,p => p.date);
   return res.render('dynamic/liveblog/postings', {
     layout: false,
     postings: postings
