@@ -50,7 +50,6 @@ const funnelTemplate = renderTemplate('register');
 
 //GET
 router.get('/', redirectOnLogin, funnelTemplate('register'));
-router.get('/login', redirectOnLogin, funnelTemplate('login'));
 router.get('/register', redirectOnLogin, funnelTemplate('register'));
 router.get('/selection', session.isUser, funnelTemplate('selection'));
 router.get('/participant', session.isUser, registration.lock, funnelTemplate('participant'));
@@ -64,16 +63,22 @@ router.get('/invite', session.hasTeam, registration.lock, funnelTemplate('invite
 router.get('/reset/:email/:token', funnelTemplate('reset-pw'));
 router.get('/closed', funnelTemplate('closed'));
 
+router.get('/login', redirectOnLogin, (req, res, next) => {
+  if(req.query.return) req.flash('url',req.query.return);
+  next();
+}, funnelTemplate('login'));
+
+
 router.get('/liveblog', (req, res, next) => co(function*() {
 
   var token = null;
-  if(req.isAuthenticated()) token = req.user;
+  if (req.isAuthenticated()) token = req.user;
 
   var options = yield {
     error: req.flash('error'),
     layout: 'master',
     language: req.language,
-    events:  liveblog.getEventInfos(),
+    events: liveblog.getEventInfos(),
     postings: liveblog.getAllPostings(token),
     mapData: liveblog.getMapData(),
     isLoggedIn: req.user,
@@ -234,16 +239,28 @@ router.post('/request-pw-reset', registration.requestPwReset);
 router.post('/reset-pw', registration.resetPassword);
 
 
-router.post('/login',
-  passport.authenticate('local',
-    {
-      failureRedirect: '/login',
-      successRedirect: '/selection',
-      failureFlash: true,
-      successFlash: true
+router.post('/login', function (req, res, next) {
+  passport.authenticate('local', function (err, user, info) {
+    if (err) {
+      return next(err);
     }
-  )
-);
+    if (!user) {
+      req.flash('error', 'Ungültige Kombination aus Email und Passwort');
+      return res.redirect('/login');
+    }
+    req.login(user, function (err) {
+      if (err) {
+        return next(err);
+      }
+      var url = req.flash('url');
+      console.log(url);
+      if(Array.isArray(url)) url = url[url.length - 1];
+      console.log(url);
+      if (url) return res.redirect(url);
+      return res.redirect('/selection');
+    });
+  })(req, res, next)
+});
 
 
 module.exports = router;

@@ -48,7 +48,7 @@ $(window).on("load", function () {
       e.preventDefault();
 
       if (!isAuthenticated) {
-        return window.location.href = '/login';
+        return window.location.href = '/login?return=' + window.location.pathname;
       }
 
       var data = new FormData($(this)[0]);
@@ -133,7 +133,7 @@ $(window).on("load", function () {
       var $button = $(this);
 
       if (!isAuthenticated) {
-        return window.location.href = '/login';
+        return window.location.href = '/login?return=' + window.location.pathname;
       }
 
       $.post('/team/like', { postingId: $button.data('id') })
