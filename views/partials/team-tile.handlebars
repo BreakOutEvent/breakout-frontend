@@ -2,7 +2,7 @@
     <a class="bo-team-profile-link" href="/team/{{id}}">
         <div class=" bo-team-card">
             <div class="bo-card-media bo-card-media-ov">
-                {{#if profilePic.sizes}}<img class="bo-card-media-image" src="{{profilePic.sizes.0.url}}"/>{{/if}}
+                {{#if profilePic.sizes}}<img class="bo-card-media-image" src="{{getImageByWidth 360 profilePic.sizes}}"/>{{/if}}
             </div>
             <div class="bo-card-info">
                 <div class="bo-card-info-name">

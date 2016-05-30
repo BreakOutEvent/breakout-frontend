@@ -110,8 +110,6 @@ exports.strColor = (str) => {
 
 exports.smallestImage = (sizes) => {
 
-  console.log(sizes);
-
   if (Array.isArray(sizes) && sizes.length > 0) {
     var minSize = sizes[0].size;
     var url = sizes[0].url;
@@ -132,12 +130,14 @@ exports.getImageByWidth = (width, sizes) => {
   width = parseFloat(width);
 
   if (Array.isArray(sizes) && sizes.length > 0) {
-    var minDiff = parseFloat(width);
+    var minDiff = 100000000000;
     var bestFit = sizes[0].url;
-
+    console.log('------------------')
     sizes.forEach(s => {
       let currDiff = s.width - width;
-      if(currDiff < 0) currDiff = currDiff * -1.5;
+      if(currDiff < 0) currDiff = currDiff * -8;
+
+      console.log(currDiff, minDiff)
       if(currDiff < minDiff) {
         minDiff = currDiff;
         bestFit = s.url;
