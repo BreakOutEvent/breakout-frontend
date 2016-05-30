@@ -137,7 +137,8 @@ exports.getImageByWidth = (width, sizes) => {
 
     sizes.forEach(s => {
       let currDiff = s.width - width;
-      if(Math.abs(currDiff) < Math.abs(minDiff)) {
+      if(currDiff < 0) currDiff = currDiff * -1.5;
+      if(currDiff < minDiff) {
         minDiff = currDiff;
         bestFit = s.url;
       }
