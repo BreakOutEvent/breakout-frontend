@@ -102,11 +102,11 @@
             {{#unless team.challenges}}
                 <i class="bo-text">Dieses Team hat bisher keine Challenges. <br/></i>
             {{/unless}}
-            <a href="/">Jetzt Challenges stellen!</a>
+            <a href="/settings/sponsoring">Jetzt Challenges stellen!</a>
             <h3 class="bo-team-sub-headline">Sponsoren</h3>
             <ul>
                 {{#each team.sponsors}}
-                    {{#if sponsor.company}}
+                    {{#if company}}
                         <li>{{company}}</li>
                     {{else}}
                         <li>{{firstname}} {{lastname}}</li>
@@ -116,7 +116,7 @@
             {{#unless team.sponsors}}
                 <i class="bo-text">Dieses Team hat bisher keine Sponsoren. <br/></i>
             {{/unless}}
-            <a href="/">Jetzt unterstützen!</a>
+            <a href="/settings/sponsoring">Jetzt unterstützen!</a>
         </div>
         <!-- / side panel -->
     </div>
