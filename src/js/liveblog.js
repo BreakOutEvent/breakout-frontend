@@ -52,7 +52,7 @@ $(document).ready(function () {
   }
 
   function leftPad(time) {
-    let string = '00' + time;
+    var string = '00' + time;
     return string.substring(string.length - 2);
   }
 
