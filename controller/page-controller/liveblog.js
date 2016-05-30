@@ -75,5 +75,18 @@ liveblog.returnPostings = (req, res, next) => co(function *() {
   throw ex
 });
 
+liveblog.getMapData = () => co(function *() {
+
+  let events = yield api.event.all();
+
+  let locations = yield events.map(e => api.location.getByEvent(e.id));
+
+
+  return locations;
+
+}).catch(ex => {
+  throw ex
+});
+
 
 module.exports = liveblog;
