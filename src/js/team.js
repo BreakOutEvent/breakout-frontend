@@ -24,7 +24,7 @@ $(window).on("load", function () {
       e.preventDefault();
 
       var data = new FormData($('#newPost')[0]);
-
+      toggleLoading('#bo-post-cta');
       $.ajax({
         url: '/team/post/create',
         type: 'POST',
