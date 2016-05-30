@@ -117,8 +117,12 @@ $(window).on("load", function () {
       }
       function showPosition(position) {
         if (position.coords) {
-          $('#bo-team-latitude').val(position.coords.latitude);
-          $('#bo-team-longitude').val(position.coords.longitude);
+          if(position.coords.latitude !== 0) {
+            $('#bo-team-latitude').val(position.coords.latitude);
+          }
+          if(position.coords.longitude !== 0) {
+            $('#bo-team-longitude').val(position.coords.longitude);
+          }
           $('#bo-team-location').html('lat: ' + position.coords.latitude + ', long: ' + position.coords.longitude)
         }
       }
