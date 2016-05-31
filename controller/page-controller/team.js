@@ -24,14 +24,14 @@ const sendErr = (res, errMsg, err) => {
   if (err) logger.error(errMsg, err);
   else logger.error(errMsg);
 
-  res.status(500).send({error: errMsg});
+  res.status(500).send({ error: errMsg });
 };
 
 team.getTeamByUrl = (teamId, token) => co(function*() {
   let tempTeam = yield api.team.get(teamId);
 
   //ONLY VIEW FULLY PAID TEAMS
-  if(!tempTeam.hasFullyPaid) return tempTeam;
+  if (!tempTeam.hasFullyPaid) return tempTeam;
 
   let events = yield api.event.all();
   tempTeam.event = events.filter((event) => event.id === tempTeam.event).pop();
@@ -42,9 +42,9 @@ team.getTeamByUrl = (teamId, token) => co(function*() {
     if (sponsor.userId) return api.user.get(sponsor.userId);
     return sponsor.unregisteredSponsor;
   });
-  
+
   let allChallenges = yield api.challenge.getByTeam(tempTeam.event.id, tempTeam.id);
-  tempTeam.challenges = allChallenges.filter(s => s.status === 'ACCEPTED');
+  tempTeam.challenges = allChallenges.filter(s => s.status === 'ACCEPTED' || s.status === 'WITH_PROOF' || s.status === 'PROOF_ACCEPTED');
 
   let postingIds = yield api.team.getPostingIds(teamId);
   tempTeam.postings = yield api.posting.getPostingsByIds(postingIds, token);
@@ -65,7 +65,7 @@ team.getTeamByUrl = (teamId, token) => co(function*() {
     members: []
   }];
 
-  tempTeam.members.forEach((m,i) => {
+  tempTeam.members.forEach((m, i) => {
     tempTeam.mapData[0].members[i] = {
       firstname: m.firstname
     }
@@ -92,7 +92,7 @@ team.getAll = (sort) => co(function*() {
 
   allTeams = _.flatten(allTeams);
   allTeams = allTeams.filter(t => t.hasFullyPaid && t.id !== 1);
-  if(sort) {
+  if (sort) {
     allTeams = _.sortBy(allTeams, t => t[sort]);
   } else {
     allTeams = _.shuffle(allTeams);
@@ -126,7 +126,7 @@ team.createPost = (req, res, next) => co(function*() {
 });
 
 team.createLike = (req, res, next) => co(function*() {
-  
+
   yield api.posting.createLike(req.user, req.body.postingId);
   res.sendStatus(200);
 
@@ -135,7 +135,7 @@ team.createLike = (req, res, next) => co(function*() {
 });
 
 team.createComment = (req, res, next) => co(function*() {
-  if(req.body.text && req.body.text !== '') {
+  if (req.body.text && req.body.text !== '') {
     yield api.posting.createComment(req.user, req.body.id, req.body.text);
     return res.sendStatus(200);
   }
@@ -146,7 +146,7 @@ team.createComment = (req, res, next) => co(function*() {
 });
 
 team.isAuth = (req, res) => {
-  if(req.isAuthenticated()) return res.sendStatus(200);
+  if (req.isAuthenticated()) return res.sendStatus(200);
   return res.sendStatus(401);
 };
 

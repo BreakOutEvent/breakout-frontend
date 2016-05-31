@@ -99,7 +99,7 @@
             <h3 class="bo-team-sub-headline">Challenges</h3>
             <ul>
                 {{#each team.challenges}}
-                    <li>({{amount}}€) {{description}}</li>
+                    <li class="{{#if (challengeHasProof status)}}bo-challenge-with-proof{{/if}}">({{amount}}€) {{description}}</li>
                 {{/each}}
 
             </ul>

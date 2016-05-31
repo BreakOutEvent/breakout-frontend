@@ -135,10 +135,10 @@ exports.getImageByWidth = (width, sizes) => {
     console.log('------------------')
     sizes.forEach(s => {
       let currDiff = s.width - width;
-      if(currDiff < 0) currDiff = currDiff * -8;
+      if (currDiff < 0) currDiff = currDiff * -8;
 
       console.log(currDiff, minDiff)
-      if(currDiff < minDiff) {
+      if (currDiff < minDiff) {
         minDiff = currDiff;
         bestFit = s.url;
       }
@@ -179,4 +179,12 @@ exports.prettyLocation = (location) => {
     locString = ' in ' + locString;
   }
   return locString;
+};
+
+exports.challengeHasProof = (status) => {
+  if (status === 'WITH_PROOF' || status === 'PROOF_ACCEPTED') {
+    return true;
+  }
+
+  return false
 };
