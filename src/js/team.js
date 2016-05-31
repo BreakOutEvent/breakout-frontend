@@ -139,6 +139,14 @@ $(window).on("load", function () {
       $.post('/team/like', { postingId: $button.data('id') })
         .success(function (data) {
           $button.toggleClass('active');
+          var $likeCount = $button.find(".bo-like-count");
+          if ($likeCount.size() > 0) {
+            var count = parseInt($likeCount.text());
+            count++;
+            $likeCount.text(count);
+          } else {
+            $button.html('<i class="material-icons bo-card-actions-icon">favorite</i><span class="bo-like-count">1</span> Likes');
+          }
         });
     });
 
