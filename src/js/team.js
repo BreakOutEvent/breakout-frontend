@@ -117,10 +117,10 @@ $(window).on("load", function () {
       }
       function showPosition(position) {
         if (position.coords) {
-          if(position.coords.latitude !== 0) {
+          if (position.coords.latitude !== 0) {
             $('#bo-team-latitude').val(position.coords.latitude);
           }
-          if(position.coords.longitude !== 0) {
+          if (position.coords.longitude !== 0) {
             $('#bo-team-longitude').val(position.coords.longitude);
           }
           $('#bo-team-location').html('lat: ' + position.coords.latitude + ', long: ' + position.coords.longitude)
@@ -142,9 +142,38 @@ $(window).on("load", function () {
         });
     });
 
+    $('.bo-card-actions-like').on("mouseover", function () {
+
+      var cardLike = $(this);
+
+      if (cardLike.find(".bo-like-count").size() > 0) {
+        cardLike.addClass("bo-tooltip");
+        cardLike.attr("data-tooltip", "Läd...");
+
+        $.get('/team/likes/' + $(this).attr('data-id'), function (data) {
+
+          var add = 0;
+          var names = [];
+          data.forEach(function (like) {
+            if (like.user.firstname && like.user.lastname && names.length < 10) {
+              names.push(like.user.firstname + " " + like.user.lastname);
+            } else {
+              add++;
+            }
+          });
+
+          if (add != 0) {
+            names.push("und " + add + " weitere Person");
+          }
+
+          cardLike.attr("data-tooltip", names.join("\n"));
+        })
+      }
+    });
+
   }
   //TEAM OVERVIEW PAGE
-  else if($('#teamProfiles').length > 0) {
+  else if ($('#teamProfiles').length > 0) {
     window.msnry = new Masonry('#teamProfiles', {
       itemSelector: '.bo-team-profile',
       columnWidth: '.bo-team-profile',
@@ -162,7 +191,7 @@ $(window).on("load", function () {
         if (s.length > 2) {
           onlyShowSelected(searchForString(s));
           allTeamsVisible = false;
-        } else if(!allTeamsVisible) {
+        } else if (!allTeamsVisible) {
           showAll();
           allTeamsVisible = true;
         }
@@ -203,8 +232,8 @@ $(window).on("load", function () {
       for (var i = 0; i < items.length; i++) {
         var $o = $(items[i]);
         $o.detach().appendTo('#hiddenTeamSearch');
-        for(var j = 0; j < teams.length; j++) {
-          if($o.data('id') == teams[j].id) {
+        for (var j = 0; j < teams.length; j++) {
+          if ($o.data('id') == teams[j].id) {
             $o.detach().appendTo('#teamProfiles');
             break;
           }
@@ -216,7 +245,7 @@ $(window).on("load", function () {
     function showAll() {
       var items = $('.bo-team-profile');
 
-      for(var i = 0; i < items.length; i++) {
+      for (var i = 0; i < items.length; i++) {
         var $o = $(items[i]);
         $o.detach().appendTo('#teamProfiles');
       }

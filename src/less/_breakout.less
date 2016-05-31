@@ -227,18 +227,53 @@ body {
 @media (max-width: 767px) {
   .navbar-nav .open .dropdown-menu {
     background: #fff;
-    border:1px solid rgba(0,0,0,0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
   }
-  .navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
+
+  .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
     color: #333;
     &:hover {
       color: #333;
     }
   }
-  .navbar-nav>li>.dropdown-menu-right::before {
+
+  .navbar-nav > li > .dropdown-menu-right::before {
     display: none;
   }
-  .navbar-nav>li>.dropdown-menu-right::after {
+
+  .navbar-nav > li > .dropdown-menu-right::after {
     display: none;
   }
 }
+
+.bo-tooltip {
+  display: inline;
+  position: relative;
+}
+
+.bo-tooltip:hover:after {
+  background: #222;
+  background: rgba(0, 0, 0, .85);
+  border-radius: 5px;
+  top: 28px;
+  color: #fff;
+  white-space: pre;
+  content: attr(data-tooltip);
+  left: -17%;
+  padding: 5px 15px;
+  position: absolute;
+  z-index: 98;
+  min-width: 120px;
+}
+
+.bo-tooltip:hover:before {
+  border: solid;
+  border-color: #222 transparent;
+  border-width: 0 6px 6px 6px;
+  top: 22px;
+  content: "";
+  left: 50%;
+  position: absolute;
+  z-index: 99;
+}
+
