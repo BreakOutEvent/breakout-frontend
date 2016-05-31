@@ -45,6 +45,7 @@ team.getTeamByUrl = (teamId, token) => co(function*() {
 
   let allChallenges = yield api.challenge.getByTeam(tempTeam.event.id, tempTeam.id);
   tempTeam.challenges = allChallenges.filter(s => s.status === 'ACCEPTED' || s.status === 'WITH_PROOF' || s.status === 'PROOF_ACCEPTED');
+  tempTeam.openChallenges = allChallenges.filter(s => s.status === 'ACCEPTED');
 
   let postingIds = yield api.team.getPostingIds(teamId);
   tempTeam.postings = yield api.posting.getPostingsByIds(postingIds, token);
@@ -119,6 +120,9 @@ team.createPost = (req, res, next) => co(function*() {
     yield post.media.map(m => api.uploadPicture(req.file, m));
   }
 
+  if(req.body.challenge) {
+    yield api.challenge.proof(req.user, req.body.challenge, post.id);
+  }
   res.sendStatus(200);
 
 }).catch((ex) => {

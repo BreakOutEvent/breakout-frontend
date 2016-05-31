@@ -65,8 +65,18 @@
                                 </div>
                                 <div class="bo-card-content">
                                     <div class="form-group">
-                                    <textarea class="form-control" name="postText"
+                                        <textarea class="form-control" name="postText"
                                               placeholder="{{__ 'NEWPOSTCONTENT'}}" required="required"></textarea>
+                                        {{#if team.openChallenges}}
+                                            <p class="bo-team-select-challenge">Du willst damit eine Challenge beweisen?</p>
+                                            <select class="form-control" name="challenge">
+                                                <option disabled="disabled" selected="selected">Eine Challenge auswählen</option>
+                                                {{#each team.openChallenges}}
+                                                    <option value="{{id}}">{{description}}</option>
+                                                {{/each}}
+                                            </select>
+                                        {{/if}}
+
                                         <p id="bo-team-location">Keine Position</p>
                                         <input type="hidden" name="latitude" id="bo-team-latitude" value=""/>
                                         <input type="hidden" name="longitude" id="bo-team-longitude" value=""/>
@@ -99,7 +109,8 @@
             <h3 class="bo-team-sub-headline">Challenges</h3>
             <ul>
                 {{#each team.challenges}}
-                    <li class="{{#if (challengeHasProof status)}}bo-challenge-with-proof{{/if}}">({{amount}}€) {{description}}</li>
+                    <li class="{{#if (challengeHasProof status)}}bo-challenge-with-proof{{/if}}">({{amount}}
+                        €) {{description}}</li>
                 {{/each}}
 
             </ul>
