@@ -24,7 +24,7 @@ const sendErr = (res, errMsg, err) => {
   if (err) logger.error(errMsg, err);
   else logger.error(errMsg);
 
-  res.status(500).send({error: errMsg});
+  res.status(500).send({ error: errMsg });
 };
 
 messages.getAll = (req) => co(function*() {
@@ -36,7 +36,7 @@ messages.getAll = (req) => co(function*() {
 
 messages.searchUser = (req, res, next) => co(function*() {
   let user = yield api.user.search(req.params.string);
-  res.send(user.slice(0, 5).filter(obj => obj.firstname || obj.lastname));
+  res.send(user.filter(obj => obj.firstname || obj.lastname));
 }).catch((ex) => {
   return sendErr(res, ex.message, ex);
 });
@@ -49,7 +49,7 @@ messages.createNew = (req, res, next) => co(function *() {
   return sendErr(res, ex.message, ex);
 });
 
-messages.send = (req, res, next)   => co(function *() {
+messages.send = (req, res, next) => co(function *() {
   return res.send(yield api.messaging.addMessageToGroupMessage(req.user, req.params.id, req.body.text));
 }).catch((ex) => {
   return sendErr(res, ex.message, ex);
