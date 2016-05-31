@@ -137,10 +137,10 @@
                            id="teamPic"/>
                     <i class="material-icons registration-picture-icon">camera_alt</i>
                 </div>
-                <div class="form-group has-feedback has-feedback-left" >
+                <div class="form-group has-feedback has-feedback-left">
                     <label for="teamId">{{__ 'LABEL_TEAMID'}}</label>
                     <input type="text" class="form-control" id="teamId" name="teamId"
-                           value="{{team.id}}" required="required"  readonly>
+                           value="{{team.id}}" required="required" readonly>
                     <i class="form-control-feedback material-icons">people</i>
                 </div>
                 <div class="form-group has-feedback has-feedback-left">
@@ -169,6 +169,75 @@
                 <div class="form-buttons">
                     <button type="submit" class="btn btn-primary btn-block text-uppercase"
                             id="team_CTA">{{__ 'BUTTON_SAVE'}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div role="tabpanel" class="tab-pane" id="sponsor">
+        <div class="container bo-profile-form bo-single-row">
+            <div id="result_sponsor"></div>
+            <form role="form" id="sponsor_form">
+
+
+                <div class="form-group has-feedback has-feedback-left">
+                    <label for="sponsorCompany">{{__ 'LABEL_SPONSORCOMPANY'}}</label>
+                    <input type="text" class="form-control" id="sponsorCompany" name="company"
+                           value="{{me.sponsor.company}}">
+                    <i class="form-control-feedback material-icons">business</i>
+                </div>
+
+                <div class="form-group has-feedback has-feedback-left">
+                    <label for="sponsorUrl">{{__ 'LABEL_SPONSORURL'}}</label>
+                    <input type="text" class="form-control" id="sponsorUrl" name="url"
+                           value="{{me.sponsor.url}}">
+                    <i class="form-control-feedback material-icons">public</i>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group has-feedback has-feedback-left">
+                            <label for="sponsorStreet">{{__ 'LABEL_SPONSORSTREET'}}</label>
+                            <input type="text" class="form-control" id="sponsorStreet" name="street"
+                                   value="{{me.sponsor.address.street}}" required="required">
+                            <i class="form-control-feedback material-icons">person_pin_circle</i>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+
+                        <div class="form-group has-feedback has-feedback-left">
+                            <label for="sponsorHousenumber">{{__ 'LABEL_SPONSORHOUSENUMBER'}}</label>
+                            <input type="text" class="form-control" id="sponsorHousenumber" name="housenumber"
+                                   value="{{me.sponsor.address.housenumber}}" required="required">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group has-feedback has-feedback-left">
+                    <label for="sponsorCity">{{__ 'LABEL_SPONSORCITY'}}</label>
+                    <input type="text" class="form-control" id="sponsorCity" name="city"
+                           value="{{me.sponsor.address.city}}" required="required">
+                    <i class="form-control-feedback material-icons">person_pin_circle</i>
+                </div>
+
+                <div class="form-group has-feedback has-feedback-left">
+                    <label for="sponsorZipcode">{{__ 'LABEL_SPONSORZIPCODE'}}</label>
+                    <input type="text" class="form-control" id="sponsorZipcode" name="zipcode"
+                           value="{{me.sponsor.address.zipcode}}" required="required">
+                    <i class="form-control-feedback material-icons">person_pin_circle</i>
+                </div>
+
+                <div class="form-group has-feedback has-feedback-left">
+                    <label for="sponsorCountry">{{__ 'LABEL_SPONSORCOUNTRY'}}</label>
+                    <input type="text" class="form-control" id="sponsorCountry" name="country"
+                           value="{{me.sponsor.address.country}}" required="required">
+                    <i class="form-control-feedback material-icons">person_pin_circle</i>
+                </div>
+
+
+                <div class="form-buttons">
+                    <button type="submit" class="btn btn-primary btn-block text-uppercase"
+                            id="sponsor_CTA">{{__ 'BUTTON_SAVE'}}</button>
                 </div>
             </form>
         </div>

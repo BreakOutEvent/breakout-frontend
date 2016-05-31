@@ -464,6 +464,34 @@ module.exports = {
     BUTTON_PAY: {
       de: 'Event Beitrag bezahlen',
       en: 'Pay the participance fee'
+    },
+    LABEL_SPONSORSTREET: {
+      de: 'Straße',
+      en: 'Street'
+    },
+    LABEL_SPONSORHOUSENUMBER: {
+      de: 'Hausnummer',
+      en: 'House number'
+    },
+    LABEL_SPONSORZIPCODE: {
+      de: 'Postleitzahl',
+      en: 'Zipcode'
+    },
+    LABEL_SPONSORCITY: {
+      de: 'Ort',
+      en: 'City'
+    },
+    LABEL_SPONSORCOUNTRY: {
+      de: 'Land',
+      en: 'Country'
+    },
+    LABEL_SPONSORCOMPANY: {
+      de: 'Firma',
+      en: 'Company'
+    },
+    LABEL_SPONSORURL: {
+      de: 'Ihre Webseite',
+      en: 'Your website'
     }
   },
   PAYMENT: {

@@ -53,7 +53,7 @@ const sendErr = (res, errMsg, err) => {
  */
 
 registration.lock = (req, res, next) => {
-  if(Date.now() > 1563468400000) {
+  if(Date.now() > 1463468400000) {
     return res.redirect('/closed')
   }
   next();
@@ -189,6 +189,7 @@ registration.createSponsor = (req, res, next) => co(function*() {
     firstname: req.body.firstname,
     lastname: req.body.lastname,
     gender: req.body.gender,
+    url: req.body.url,
     sponsor: {
       address: {
         street: req.body.street,

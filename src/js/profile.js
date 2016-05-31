@@ -136,4 +136,35 @@ $(document).ready(() => {
 
   });
 
+
+  $('#sponsor_form').submit(function (e) {
+    e.preventDefault();
+    if (sanityCheck('sponsor_form')) {
+      var data = new FormData($('#sponsor_form')[0]);
+
+      toggleLoading('#sponsor_CTA');
+      $.ajax({
+        url: '/sponsor',
+        type: 'POST',
+        cache: false,
+        processData: false,
+        contentType: false,
+        data: data
+      })
+        .success(function () {
+          $('#result_sponsor')
+            .html('<div class="alert alert-success">Erfolgreich gespeichert!</div>');
+        })
+        .error(function (err) {
+          console.log(err);
+          $('#result_sponsor')
+            .html('<div class="alert alert-danger">Speichern fehlgeschlagen!</div>');
+        })
+        .always(() => {
+          toggleLoading('#sponsor_CTA');
+        });
+    }
+
+  });
+
 });
