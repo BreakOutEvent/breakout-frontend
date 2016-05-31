@@ -20,7 +20,15 @@
 
     <link rel="icon" type="image/png" href="/img/icons/favicon-32x32.png" sizes="32x32"/>
     <link rel="icon" type="image/png" href="/img/icons/favicon-16x16.png" sizes="16x16"/>
-
+    <!-- Google Tag Manager -->
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-KH8FMS"
+                      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KH8FMS');</script>
+    <!-- End Google Tag Manager -->
     {{#each requirements}}
         <script type="text/javascript" src="/js/{{this}}.js"></script>
     {{/each}}
@@ -46,12 +54,10 @@
                         <i class="material-icons">expand_more</i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropDown">
-                        <!--
-                        <li class="pull-right"><a href="#"><i class="material-icons">message</i></a></li>
-                        <li class="pull-right"><a href="#"><i class="material-icons">people</i></a></li>
-                        <li class="pull-right"><a href="#"><i class="material-icons">send</i></a></li>
-                        <li role="separator" class="divider clearfix"></li>
-                        -->
+
+                        {{#if isLoggedIn.me.participant.teamId}}
+                            <li><a href="/team/{{isLoggedIn.me.participant.teamId}}">Mein Team Profil</a></li>
+                        {{/if}}
                         <li><a href="/settings/profile">Account Einstellungen</a></li>
                         <li><a href="/settings/sponsoring">Sponsorings</a></li>
                         <li><a href="/messages">Nachrichten</a></li>
