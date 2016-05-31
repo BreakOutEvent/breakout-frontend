@@ -405,7 +405,7 @@ API.challenge.getBySponsor = (token, userId) => {
 };
 
 API.challenge.changeStatus = (token, eventId, teamId, challengeId, status) => {
-  logger.info('Trying to change status of  sponsoring ', challengeId, 'to', status);
+  logger.info('Trying to change status of challenge ', challengeId, 'to', status);
   return new Promise(function (resolve, reject) {
 
     let body = {};
@@ -416,7 +416,24 @@ API.challenge.changeStatus = (token, eventId, teamId, challengeId, status) => {
         auth: {bearer: token.access_token},
         body: JSON.stringify(body),
         headers: {'content-type': 'application/json'}
-      }, handleResponse(resolve, reject, 'Successfully changed status of sponsoring ' + challengeId + ' to ' + status));
+      }, handleResponse(resolve, reject, 'Successfully changed status of challenge ' + challengeId + ' to ' + status));
+  });
+};
+
+API.challenge.proof = (token, challengeId, postId) => {
+  logger.info('Trying to proof challenge', challengeId);
+  return new Promise(function (resolve, reject) {
+
+    let body = {};
+    body.status = 'WITH_PROOF';
+    body.postingId = postId;
+    request
+      .put({
+        url: `${url}/event/1/team/1/challenge/${challengeId}/status/`,
+        auth: {bearer: token.access_token},
+        body: JSON.stringify(body),
+        headers: {'content-type': 'application/json'}
+      }, handleResponse(resolve, reject, 'Successfully changed status of challenge ' + challengeId + ' to WITH_PROOF'));
   });
 };
 
