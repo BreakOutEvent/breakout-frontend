@@ -37,7 +37,7 @@ team.getTeamByUrl = (teamId, token) => co(function*() {
   tempTeam.event = events.filter((event) => event.id === tempTeam.event).pop();
 
   let allSponsors = yield api.sponsoring.getByTeam(tempTeam.event.id, tempTeam.id);
-  allSponsors = allSponsors.filter(s => s.status === 'ACCEPTED' && !s.sponsorIsHidden);
+  allSponsors = allSponsors.filter(s => (s.status === 'ACCEPTED' || s.status === 'PAYED') && !s.sponsorIsHidden);
   tempTeam.sponsors = yield allSponsors.map(sponsor => {
     if (sponsor.userId) return api.user.get(sponsor.userId);
     return sponsor.unregisteredSponsor;
