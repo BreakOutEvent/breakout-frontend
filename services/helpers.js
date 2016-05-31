@@ -132,12 +132,10 @@ exports.getImageByWidth = (width, sizes) => {
   if (Array.isArray(sizes) && sizes.length > 0) {
     var minDiff = 100000000000;
     var bestFit = sizes[0].url;
-    console.log('------------------')
     sizes.forEach(s => {
       let currDiff = s.width - width;
       if (currDiff < 0) currDiff = currDiff * -8;
 
-      console.log(currDiff, minDiff)
       if (currDiff < minDiff) {
         minDiff = currDiff;
         bestFit = s.url;
