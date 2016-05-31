@@ -33,9 +33,8 @@ ses.generalAuth = (failURL, role, auth) => (req, res, next) => {
   if (req.isAuthenticated() && auth(req.user.status)) {
     return next();
   } else {
-    console.log(req.url);
     req.flash(`error`, `Um diese Seite aufzurufen, musst Du ${role} sein.`);
-    req.flash(`url`, req.url);
+    req.flash(`url`, req.originalUrl);
     res.redirect(failURL);
   }
 };
