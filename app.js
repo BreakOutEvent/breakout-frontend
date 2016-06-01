@@ -7,6 +7,9 @@
 // Requires a file by providing its absolute path from the project directory
 global.requireLocal = module => require(__dirname + '/' + module);
 
+//Load Logging
+require('newrelic');
+
 const co = require('co');
 const config = require('./config/config');
 

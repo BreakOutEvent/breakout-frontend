@@ -49,6 +49,7 @@
     "mongoose": "^4.3.3",
     "morgan": "^1.7.0",
     "multer": "^1.1.0",
+    "newrelic": "^1.28.0",
     "passport": "^0.2.2",
     "passport-local": "^1.0.0",
     "request": "^2.67.0",
