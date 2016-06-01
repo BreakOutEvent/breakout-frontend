@@ -88,6 +88,7 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav text-uppercase">
+                <li class="visible-xs"><a href="{{__ 'MASTER.LOGIN_LINK'}}">{{__ 'MASTER.LOGIN'}}</a></li>
                 <li><a href="{{__ 'MASTER.ABOUT_LINK'}}">{{__ 'MASTER.ABOUT'}}</a></li>
                 <li><a href="{{__ 'MASTER.TEAMS_LINK'}}">{{__ 'MASTER.TEAMS'}}</a></li>
                 <li class="dropdown">
@@ -104,6 +105,7 @@
                 <li><a href="{{__ 'MASTER.PRESS_LINK'}}">{{__ 'MASTER.PRESS'}}</a></li>
                 <li><a href="{{__ 'MASTER.ABOUTUS_LINK'}}">{{__ 'MASTER.ABOUTUS'}}</a></li>
                 <li><a href="{{__ 'MASTER.JOIN_LINK'}}">{{__ 'MASTER.JOIN'}}</a></li>
+
                 {{#each menu}}
                     <li><a href="{{itemlink}}">{{itemtext}}</a></li>
                 {{/each}}

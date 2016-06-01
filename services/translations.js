@@ -872,6 +872,13 @@ module.exports = {
     },
     JOIN_LINK: {
       de: 'http://www.break-out.org/mitmachen/'
+    },
+    LOGIN: {
+      de: 'Einloggen',
+      en: 'Login'
+    },
+    LOGIN_LINK: {
+      de: '/login'
     }
   },
   LIVEBLOG: {
