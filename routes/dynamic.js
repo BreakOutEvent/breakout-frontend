@@ -210,27 +210,24 @@ router.get('/team-create', session.isParticipant, registration.lock, (req, res, 
 
 router.get('/activation/:token', (req, res, next) => co(function*() {
 
-  registration.activateUser(req.params.token)
-    .then(() => {
-      res.render('dynamic/register/activation',
-        {
-          error: null,
-          layout: 'funnel',
-          language: req.language
-        }
-      );
-    })
-    .catch(err => {
-      res.render('dynamic/register/activation',
-        {
-          error: 'The token you provided is not valid (anymore).',
-          layout: 'funnel',
-          language: req.language
-        });
-      throw err;
-    });
+  yield registration.activateUser(req.params.token);
+  yield session.refreshSession(req);
 
-}).catch(err => next(err)));
+  res.render('dynamic/register/activation',
+    {
+      error: null,
+      layout: 'funnel',
+      language: req.language
+    }
+  );
+}).catch(ex => {
+  res.render('dynamic/register/activation',
+    {
+      error: 'The token you provided is not valid (anymore).',
+      layout: 'funnel',
+      language: req.language
+    });
+}));
 
 //POST
 

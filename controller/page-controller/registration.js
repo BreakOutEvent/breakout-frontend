@@ -332,7 +332,6 @@ registration.getTransactionPurpose = (req) => co(function*() {
  */
 registration.activateUser = (token) => co(function*() {
   yield api.activateUser(token);
-  yield session.refreshSession(req);
 }).catch(ex => {
   throw ex;
 });
