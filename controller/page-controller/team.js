@@ -120,7 +120,7 @@ team.createPost = (req, res, next) => co(function*() {
     yield post.media.map(m => api.uploadPicture(req.file, m));
   }
 
-  if(req.body.challenge) {
+  if (req.body.challenge) {
     yield api.challenge.proof(req.user, req.body.challenge, post.id);
   }
   res.sendStatus(200);
@@ -158,6 +158,39 @@ team.createComment = (req, res, next) => co(function*() {
 
 }).catch((ex) => {
   sendErr(res, ex.message, ex);
+});
+
+team.deletePosting = (req, res, next) => co(function*() {
+  if (req.params.postingId && req.params.postingId !== '') {
+    yield api.admin.deletePosting(req.user, req.params.postingId);
+    return res.sendStatus(200);
+  }
+  return res.sendStatus(500);
+
+}).catch((ex) => {
+  throw ex;
+});
+
+team.deleteMedia = (req, res, next) => co(function*() {
+  if (req.params.mediaId && req.params.mediaId !== '') {
+    yield api.admin.deleteMedia(req.user, req.params.mediaId);
+    return res.sendStatus(200);
+  }
+  return res.sendStatus(500);
+
+}).catch((ex) => {
+  throw ex;
+});
+
+team.deleteComment = (req, res, next) => co(function*() {
+  if (req.params.commentId && req.params.commentId !== '') {
+    yield api.admin.deleteComment(req.user, req.params.commentId);
+    return res.sendStatus(200);
+  }
+  return res.sendStatus(500);
+
+}).catch((ex) => {
+  throw ex;
 });
 
 team.isAuth = (req, res) => {

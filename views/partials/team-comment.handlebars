@@ -1,27 +1,34 @@
 <div class="bo-comment-wrap">
     <div class="row">
         <div class="col-xs-2">
-            <div class="bo-card-comment-pic bo-card-profilePic"
-                {{#if user.profilePic.sizes}}
-                 style="background-image: url({{getImageByWidth 50 user.profilePic.sizes}});"
-                {{/if}}"></div>
-        </div>
-        <div class="col-xs-10">
-            <div class="bo-card-comment-name">
-                {{user.firstname}} {{user.lastname}}
-            </div>
-            <div class="bo-card-comment-time">
-                {{relativeTime date}}
-            </div>
+        <div class="bo-card-comment-pic bo-card-profilePic"
+            {{#if user.profilePic.sizes}}
+             style="background-image: url({{getImageByWidth 50 user.profilePic.sizes}});"
+            {{/if}}">
         </div>
     </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="bo-card-comment-text">
-                {{text}}
-            </div>
+    <div class="col-xs-10">
+        <div class="bo-card-comment-name">
+            {{user.firstname}} {{user.lastname}}
+        </div>
+        <div class="bo-card-comment-time">
+            {{relativeTime date}}
         </div>
     </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="bo-card-comment-text">
+            {{text}}
+        </div>
+    </div>
+</div>
+
+{{#if isUserAdmin}}
+    <div class="bo-admin-delete" data-type="comment" data-id="{{id}}">
+        <i class="material-icons bo-card-actions-icon">delete forever</i>
+    </div>
+{{/if}}
 </div>
 
 

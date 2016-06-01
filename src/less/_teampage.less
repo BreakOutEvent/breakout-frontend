@@ -29,6 +29,8 @@
 
 .bo-card-media {
 
+  position: relative;
+
   &.bo-card-media-ov {
     min-height: 150px;
     background: #F5F5F5;
@@ -48,6 +50,8 @@
 }
 
 .bo-card-info {
+  position: relative;
+
   padding: 10px 20px;
   &::after {
     content: "";
@@ -171,6 +175,7 @@
   border-top: 1px solid #D1D2D4;
   padding: 10px 20px;
   background-color: #F5F5F5;
+  position: relative;
 }
 
 .bo-card-comment-new {
@@ -227,4 +232,17 @@
   text-align: center;
   margin-top: 20px;
   color: #999;
+}
+
+.bo-admin-delete {
+  color: @brand-danger;
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  width: 10px;
+  text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff;
+
+  i {
+    width: 20px;
+  }
 }

@@ -272,4 +272,21 @@ $(window).on("load", function () {
 
     $(this).html(text);
   });
+
+  $('.bo-admin-delete').on('click', function () {
+    var type = $(this).attr('data-type');
+    var id = parseInt($(this).attr('data-id'));
+
+    if (confirm("Magst du wirklich '" + type + "' mit Id: '" + id + "' unwiederruflich löschen?")) {
+      $.ajax({
+        url: '/team/' + type + '/' + id,
+        type: 'DELETE',
+        success: function () {
+          alert("DELETED!");
+          window.location.reload();
+        }
+      });
+    }
+  });
+
 });
