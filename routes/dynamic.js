@@ -7,6 +7,7 @@
 const express = require('express');
 const co = require('co');
 const multer = require('multer');
+const _ = require('lodash');
 
 const passport = requireLocal('services/auth');
 const registration = requireLocal('controller/page-controller/registration');
@@ -14,7 +15,7 @@ const profile = requireLocal('controller/page-controller/profile');
 const liveblog = requireLocal('controller/page-controller/liveblog');
 const session = requireLocal('controller/session');
 
-const upload = multer({inMemory: true});
+const upload = multer({ inMemory: true });
 const router = express.Router();
 
 const renderTemplate = (folder) => (template) => (req, res) => {
@@ -64,7 +65,7 @@ router.get('/reset/:email/:token', funnelTemplate('reset-pw'));
 router.get('/closed', funnelTemplate('closed'));
 
 router.get('/login', redirectOnLogin, (req, res, next) => {
-  if(req.query.return) req.flash('url',req.query.return);
+  if (req.query.return) req.flash('url', req.query.return);
   next();
 }, funnelTemplate('login'));
 
@@ -74,6 +75,12 @@ router.get('/', (req, res, next) => co(function*() {
   var token = null;
   if (req.isAuthenticated()) token = req.user;
 
+  let isUserAdmin = false;
+
+  if (req.user && req.user.me) {
+    isUserAdmin = _.findIndex(req.user.me.roles, r => r === 'ADMIN') > -1;
+  }
+
   var options = yield {
     error: req.flash('error'),
     layout: 'master',
@@ -82,6 +89,7 @@ router.get('/', (req, res, next) => co(function*() {
     postings: liveblog.getAllPostings(token),
     mapData: liveblog.getMapData(),
     isLoggedIn: req.user,
+    isUserAdmin: isUserAdmin,
     title: 'Liveblog'
   };
 
@@ -254,7 +262,7 @@ router.post('/login', function (req, res, next) {
       }
       var url = req.flash('url');
       console.log(url);
-      if(Array.isArray(url)) url = url[url.length - 1];
+      if (Array.isArray(url)) url = url[url.length - 1];
       console.log(url);
       if (url) return res.redirect(url);
       return res.redirect('/selection');

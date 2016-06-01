@@ -61,10 +61,12 @@ router.get('/:teamId', (req, res, next) => co(function*() {
 
   let currentUser = null;
   let isUserOfTeam = false;
+  let isUserAdmin = false;
 
   if (req.user && req.user.me) {
     currentUser = req.user.me;
     isUserOfTeam = _.findIndex(currTeam.members, m => m.id == currentUser.id) > -1;
+    isUserAdmin = _.findIndex(req.user.me.roles, r => r === 'ADMIN') > -1;
   }
 
   res.render(`dynamic/team/team-detail`,
@@ -75,6 +77,7 @@ router.get('/:teamId', (req, res, next) => co(function*() {
       team: currTeam,
       user: currentUser,
       isUserOfTeam: isUserOfTeam,
+      isUserAdmin: isUserAdmin,
       isLoggedIn: req.user,
       title: currTeam.name
     });
@@ -85,5 +88,9 @@ router.post('/comment/create', session.isUser, team.createComment);
 router.post('/like', session.isUser, team.createLike);
 router.get('/likes/:postingId', team.getLikes);
 router.post('/authenticated', team.isAuth);
+
+router.delete('/posting/:postingId', session.isAdmin, team.deletePosting);
+router.delete('/media/:mediaId', session.isAdmin, team.deleteMedia);
+router.delete('/comment/:commentId', session.isAdmin, team.deleteComment);
 
 module.exports = router;

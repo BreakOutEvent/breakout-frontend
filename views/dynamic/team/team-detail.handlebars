@@ -94,7 +94,7 @@
 
                 {{#each team.postings}}
                     <div class="col-lg-6 col-sm-12 bo-team-post">
-                        {{> team-posting}}
+                        {{> team-posting isUserAdmin=../isUserAdmin}}
                     </div>
                 {{/each}}
             </div>
