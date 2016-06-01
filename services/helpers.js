@@ -130,6 +130,8 @@ exports.getImageByWidth = (width, sizes) => {
   width = parseFloat(width);
 
   if (Array.isArray(sizes) && sizes.length > 0) {
+    sizes = sizes.filter((size) => size.type === 'IMAGE');
+
     var minDiff = 100000000000;
     var bestFit = sizes[0].url;
     sizes.forEach(s => {
