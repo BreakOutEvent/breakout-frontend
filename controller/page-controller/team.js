@@ -143,7 +143,6 @@ team.getLikes = (req, res, next) => co(function*() {
   let likes = yield api.posting.getLikesForPosting(req.params.postingId);
 
   res.send(likes);
-  res.sendStatus(200);
 
 }).catch((ex) => {
   sendErr(res, ex.message, ex);
