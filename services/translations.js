@@ -925,6 +925,63 @@ module.exports = {
     POSTS_HEADLINE: {
       de: 'Aktuelle Posts von reisenden Teams',
       en: 'Posts from participating teams'
+    },
+    BTN: {
+      de: 'Jetzt Sponsor werden!',
+      en: 'Become a sponsor now!'
+    },
+    NEWSLETTER: {
+      de: 'Sei bei BreakOut 2017 dabei...',
+      en: 'Be part of BreakOut 2017...'
+    }
+  },
+  HOWTOSPONSOR: {
+    HEADLINE: {
+      de: 'Sponsor werden'
+    },
+    SECTION1_H: {
+      de: 'Wie funktioniert das?'
+    },
+    SECTION1_TEXT: {
+      de: 'Als Sponsor vereinbaren Sie mit einem Team, pro gereistem Kilometer einen bestimmten Betrag zu spenden (z.B. 1 € / km). Oder sie stellen dem Team Aufgaben (Challenges), z.B. "Macht einen Handstand am Strand." und dotieren deren Erfüllung jeweils mit einem bestimmten Betrag.  Während des Events postet Ihr Team über die BreakOut-App seine aktuelle Position und meldet die Erfüllung bestimmter Challenges. –  Sie können das alles auf unserem <a href="/">Liveblog</a> verfolgen.'
+    },
+    BTN_TEXT: {
+      de: 'Jetzt Sponsor werden'
+    },
+    SECTION2_H: {
+      de: 'Wohin geht das Geld?'
+    },
+    SECTION2_TEXT: {
+      de: 'Ihre Spende geht direkt an das <a href="http://www.unhcr.de/unhcr/dafi.html">DAFI-Programm der UNO-Flüchtlingshilfe</a> und ermöglicht damit Flüchtlingen ein Studium. Die UNO-Flüchtlingshilfe trägt das DZI-Spendensiegel und stellt Ihnen als gemeinnütziger Verein auch gerne eine Spendenbescheinigung aus, die Sie steuerlich geltend machen können.'
+    },
+    SECTION3_H: {
+      de: 'Was habe ich davon?'
+    },
+    SECTION3_TEXT: {
+      de: 'Neben der Gewissheit, etwas Gutes zu tun, erhalten Sie eine Spendenbescheinigung. Außerdem können Sie mit Ihrem Team vereinbaren, dass dieses z.B. den Namen Ihrer Firma trägt, Werbematerialien mit auf die Reise nimmt, … - Vielleicht schafft es Ihr Logo ja aufs Siegertreppchen?'
+    },
+    SECTION4_H: {
+      de: 'Was muss ich tun?'
+    },
+    SECTION4_TEXT: {
+      de: 'Melden Sie sich <a href="/sponsor">jetzt als Sponsor</a> an und unterstützen Sie Ihr favorisiertes Team. Stellen Sie Aufgaben und geben Sie Kilometersponsorings noch bis zum Ende der 36 Stunden am Samstag, den 4. Juni um 21 Uhr. Verfolgen Sie das Event Live auf <a href="/">https://event.break-out.org/</a>. Nach Ablauf des Events rechnen wir für Sie aus, wie viel die Summe Ihrer Kilometersponsorings und erfüllten Challenges insgesamt ergibt. Dann bitten wir Sie, diese Summe <strong>bis zum 10. Juni</strong> auf das Spendenkonto der UNO-Flüchtlingshilfe e.V. zu überweisen. Sie bekommen dafür von uns per E-Mail einen individuellen Verwendungszweck. Bitte verwenden Sie genau den, damit wir Ihre Spende zuordnen können! – Sie bekommen dann automatisch eine Spendenbescheinigung.'
+    },
+    PURPOSE_TITLE: {
+      de: 'Zweck',
+      en: 'Reference'
+    },
+    PURPOSE: {
+      de: 'Wird per Email bekannt gegeben.',
+      en: 'Will be provided by email.'
+    },
+    SECTION5_H: {
+      de: 'Kann ich auch BreakOut selber unterstützen?'
+    },
+    SECTION5_TEXT: {
+      de: 'BreakOut wird gründet gerade einen gemeinnützigen Verein und freut sich jederzeit über Ihre Unterstützung. Wenden Sie sich gerne an <a href="mailto:event@break-out.org">event@break-out.org</a>.'
+    },
+    SECTION6_TEXT: {
+      de: 'Noch Fragen? - Wenden Sie sich gerne an <a href="mailto:event@break-out.org">event@break-out.org</a>.'
     }
   }
 };

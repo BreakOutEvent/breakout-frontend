@@ -157,7 +157,7 @@ $(window).on("load", function () {
 
       if (cardLike.find(".bo-like-count").size() > 0) {
         cardLike.addClass("bo-tooltip");
-        cardLike.attr("data-tooltip", "Läd...");
+        cardLike.attr("data-tooltip", "Lädt...");
 
         $.get('/team/likes/' + $(this).attr('data-id'), function (data) {
 

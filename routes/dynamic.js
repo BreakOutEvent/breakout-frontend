@@ -59,7 +59,6 @@ router.get('/invite-success', session.hasTeam, registration.lock, funnelTemplate
 router.get('/payment-success', session.hasTeam, funnelTemplate('payment-success'));
 router.get('/sponsor-success', session.isSponsor, funnelTemplate('sponsor-success'));
 router.get('/spectator-success', session.isUser, funnelTemplate('spectator-success'));
-router.get('/sponsor', session.isUser, funnelTemplate('sponsor'));
 router.get('/invite', session.hasTeam, registration.lock, funnelTemplate('invite'));
 router.get('/reset/:email/:token', funnelTemplate('reset-pw'));
 router.get('/closed', funnelTemplate('closed'));
@@ -68,6 +67,13 @@ router.get('/login', redirectOnLogin, (req, res, next) => {
   if (req.query.return) req.flash('url', req.query.return);
   next();
 }, funnelTemplate('login'));
+
+router.get('/sponsor', session.isUser, (req, res, next) => {
+  if(req.user.status.is.sponsor) {
+    return res.redirect('/settings/sponsoring');
+  }
+  next();
+}, funnelTemplate('sponsor'));
 
 
 router.get('/', (req, res, next) => co(function*() {
@@ -228,6 +234,19 @@ router.get('/activation/:token', (req, res, next) => co(function*() {
       language: req.language
     });
 }));
+
+router.get('/sponsoring', (req, res, next) => co(function*() {
+
+  res.render('static/howtosponsor',
+    {
+      error: null,
+      layout: 'master',
+      language: req.language
+    }
+  );
+
+
+}).catch(ex => next(ex)));
 
 //POST
 
