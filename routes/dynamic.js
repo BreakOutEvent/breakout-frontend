@@ -281,7 +281,7 @@ router.post('/login', function (req, res, next) {
       if (Array.isArray(url)) url = url[url.length - 1];
       console.log(url);
       if (url) return res.redirect(url);
-      return res.redirect('/selection');
+      return res.redirect('/');
     });
   })(req, res, next)
 });
