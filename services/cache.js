@@ -69,7 +69,7 @@ cache.createObject = (key, object) => co(function*() {
 
 cache.updateCache = (doc, object) => co(function*() {
   return new Promise((resolve, reject) => {
-    doc.expiration = Date.now() + 300000;
+    doc.expiration = Date.now() + 30000;
     doc.content = JSON.stringify(object);
     doc.updating = false;
     doc.save((err, doc) => {
