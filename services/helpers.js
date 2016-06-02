@@ -53,7 +53,7 @@ exports.__ = (text, options) => {
   } else if (!view) {
     logger.error(`Could not parse view in ${options.data.exphbs}`);
   }
-  
+
   return i18n.translate(viewArr[viewArr.length - 1].toUpperCase(), text.toUpperCase(), options.data.root.language);
 };
 
@@ -148,6 +148,30 @@ exports.getImageByWidth = (width, sizes) => {
   }
 };
 
+
+exports.getVideoByWidth = (width, sizes) => {
+
+  width = parseFloat(width);
+
+  if (Array.isArray(sizes) && sizes.length > 0) {
+    sizes = sizes.filter((size) => size.type === 'VIDEO');
+
+    var minDiff = 100000000000;
+    var bestFit = sizes[0].url;
+    sizes.forEach(s => {
+      let currDiff = s.width - width;
+      if (currDiff < 0) currDiff = currDiff * -8;
+
+      if (currDiff < minDiff) {
+        minDiff = currDiff;
+        bestFit = s.url;
+      }
+    });
+
+    return bestFit;
+  }
+};
+
 exports.round = (amount) => {
   return Math.round(parseFloat(amount)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 };
@@ -184,13 +208,16 @@ exports.prettyLocation = (location) => {
 exports.getSmallestAudio = (sizes) => {
   if (Array.isArray(sizes) && sizes.length > 0) {
 
-    sizes = sizes.filter((s) => s.url.endsWith(".mp3"));
+    var filteredsizes = sizes.filter((size) => size.type === 'AUDIO').filter((s) => s.url.endsWith(".mp3"));
+
+    if (filteredsizes.length === 0) {
+      filteredsizes = sizes
+    }
 
     var minsize = 100000000000;
-    var url = sizes[0].url;
+    var url = filteredsizes[0].url;
 
-    sizes.forEach(s => {
-      console.log(s);
+    filteredsizes.forEach(s => {
       if (s.size < minsize) {
         minsize = s.size;
         url = s.url;
