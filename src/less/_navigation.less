@@ -3,10 +3,21 @@
   .button-size(@padding-base-vertical, @padding-base-horizontal, @font-size-base, @line-height-base, @btn-border-radius-small);
 }
 
-.collapse > .navbar-nav > li:hover {
-  a {
-    font-weight: bold;
+.collapse > .navbar-nav > li:hover, li:active {
+  a, .open > a {
+    font-weight: normal;
+    background-color: #d97908 !important;
   }
+  .dropdown-menu a {
+    background-color: #fff !important;
+    &:hover {
+      background-color: #ccc !important;
+    }
+  }
+}
+
+.navbar-inverse .navbar-nav > .open > a {
+  background-color: #d97908;
 }
 
 .navbar-nav > li > .dropdown-menu {
@@ -47,9 +58,11 @@
     margin-top: 4px;
     right: 80px;
   }
+
   .navbar .navbar-right.bo-user-icons > li {
     display: inline-block;
   }
+
   .navbar .navbar-right.bo-user-icons > li > a {
     padding-right: 10px;
     padding-left: 10px;
