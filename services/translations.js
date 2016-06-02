@@ -864,7 +864,7 @@ module.exports = {
       en: 'About us'
     },
     ABOUTUS_LINK: {
-      de: 'http://www.break-out.org/ueber-uns/'
+      de: '/de/team'
     },
     JOIN: {
       de: 'Mitorganisieren',
