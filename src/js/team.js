@@ -1,12 +1,12 @@
-/**
- * Created by Ardobras on 21.05.2016.
- */
 var Masonry = require('masonry-layout');
+var Plyr = require('plyr');
 var toggleLoading = require('./helpers.js').toggleLoading;
 var sanityCheck = require('./helpers.js').sanityCheck;
 window.msnry = null;
 
 $(window).on("load", function () {
+
+  Plyr.setup();
 
   if ($('#teamPosts').length > 0) {
     window.msnry = new Masonry('#teamPosts', {

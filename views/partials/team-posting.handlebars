@@ -22,7 +22,19 @@
     </div>
     <div class="bo-card-media">
         {{#if media.0.sizes}}
-            <img class="bo-card-media-image" src="{{getImageByWidth 400 media.0.sizes}}"/>
+            {{#ifCond media.0.type 'IMAGE'}}
+                <img class="bo-card-media-image" src="{{getImageByWidth 400 media.0.sizes}}"/>
+            {{/ifCond}}
+            {{#ifCond media.0.type 'AUDIO'}}
+                <div class="plyr">
+                    <audio controls>
+                        <source src="{{getSmallestAudio media.0.sizes}}">
+
+                        <!-- Fallback -->
+                        <a href="{{getSmallestAudio media.0.sizes}}">Download</a>
+                    </audio>
+                </div>
+            {{/ifCond}}
             {{#if isUserAdmin}}
                 <div class="bo-admin-delete" data-type="media" data-id="{{media.0.id}}">
                     <i class="material-icons bo-card-actions-icon">delete forever</i>

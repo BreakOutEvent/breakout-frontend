@@ -6,7 +6,7 @@ module.exports = function (grunt) {
       js: ['src/js/*.js']
     },
     less: {
-      development:{
+      development: {
         options: {
           compress: true,
           yuicompress: true,
@@ -71,7 +71,7 @@ module.exports = function (grunt) {
         presets: ['es2015']
       },
       dist: {
-        files: { 
+        files: {
           'public/js/bundle.js': ['public/js/bundle.js'],
           'public/js/registration.js': ['public/js/registration.js'],
           'public/js/profile.js': ['public/js/profile.js'],
@@ -83,10 +83,17 @@ module.exports = function (grunt) {
         }
       }
     },
+    autoprefixer: {
+      dist: {
+        files: {
+          'public/css/styles.css': 'public/css/styles.css'
+        }
+      }
+    },
     watch: {
       css: {
         files: ['src/less/**/*.less'],
-        tasks: ['less']
+        tasks: ['less', 'autoprefixer']
       },
       js: {
         files: '<%= files.js %>',
@@ -102,6 +109,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-autoprefixer');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-babel');
@@ -112,6 +120,7 @@ module.exports = function (grunt) {
       'babel',
       'less',
       'uglify',
+      'autoprefixer',
       'cssmin'
     ]);
 };

@@ -181,6 +181,26 @@ exports.prettyLocation = (location) => {
   return locString;
 };
 
+exports.getSmallestAudio = (sizes) => {
+  if (Array.isArray(sizes) && sizes.length > 0) {
+
+    sizes = sizes.filter((s) => s.url.endsWith(".mp3"));
+
+    var minsize = 100000000000;
+    var url = sizes[0].url;
+
+    sizes.forEach(s => {
+      console.log(s);
+      if (s.size < minsize) {
+        minsize = s.size;
+        url = s.url;
+      }
+    });
+
+    return url;
+  }
+};
+
 exports.challengeHasProof = (status) => {
   if (status === 'WITH_PROOF' || status === 'PROOF_ACCEPTED') {
     return true;
