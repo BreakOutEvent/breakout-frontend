@@ -9,8 +9,9 @@ const co = require('co');
 const request = require('request');
 const crequest = require('co-request');
 const config = requireLocal('config/config.js');
-
+const cache = requireLocal('services/cache.js');
 const url = `${config.api.protocol}://${config.api.url}`;
+const qs = require('querystring');
 
 Object.keys(config).forEach(k => {
   if (!config[k])
@@ -261,14 +262,18 @@ API.activateUser = (token) => {
 API.general = {};
 
 API.general.get = (modelURL) => {
-  logger.info('Trying to get', modelURL, 'from backend');
-  return new Promise((resolve, reject)=> {
-      request
-        .get({
-          url: `${url}${modelURL}`
-        }, handleResponse(resolve, reject, 'Got ' + modelURL + ' from backend'));
-    }
-  );
+
+  return cache.getObject(modelURL, function () {
+    logger.info('Trying to get', modelURL, 'from backend');
+    return new Promise((resolve, reject)=> {
+        request
+          .get({
+            url: `${url}${modelURL}`
+          }, handleResponse(resolve, reject, 'Got ' + modelURL + ' from backend'));
+      }
+    );
+  });
+
 };
 
 API.sponsoring = {};
@@ -582,13 +587,18 @@ API.posting.getAllPostings = (token, offset, limit) => {
 
   if (token) options.auth = { bearer: token.access_token };
 
-  if (token) options.qs.userid = token.me.id;
+  if (token)options.qs.userid = token.me.id;
   if (offset) options.qs.offset = offset;
   if (limit) options.qs.limit = limit;
 
-  return new Promise((resolve, reject) => {
-    request.get(options, handleResponse(resolve, reject, 'Successfully got all postings'));
+  var queryString = qs.stringify(options.qs);
+
+  return cache.getObject(`/posting/${queryString}`, function () {
+    return new Promise((resolve, reject) => {
+      request.get(options, handleResponse(resolve, reject, 'Successfully got all postings'));
+    });
   });
+
 };
 
 API.posting.getPosting = (postingId) => {
