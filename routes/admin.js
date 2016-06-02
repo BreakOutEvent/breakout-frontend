@@ -47,6 +47,16 @@ router.get('/payment', session.isAdmin, (req, res, next) => co(function*() {
   next(ex);
 }));
 
+router.get('/checkin', session.isAdmin, (req, res, next) => co(function*() {
+  let options = resDefault(req);
+  options.view = 'admin-payment';
+  options.data = yield admin.getInvoices(req);
+  res.render(`static/admin/dashboard`, options);
+}).catch((ex) => {
+  console.log(ex);
+  next(ex);
+}));
+
 router.post('/payment/add', session.isAdmin, admin.addPayment);
 
 module.exports = router;
