@@ -27,12 +27,22 @@
             {{/ifCond}}
             {{#ifCond media.0.type 'AUDIO'}}
                 <div class="plyr">
-                    <audio controls>
-                        <source src="{{getSmallestAudio media.0.sizes}}">
+                    <audio controls preload="none">
+                        <source src="{{getSmallestAudio media.0.sizes}}" type="audio/mp3">
 
                         <!-- Fallback -->
                         <a href="{{getSmallestAudio media.0.sizes}}">Download</a>
                     </audio>
+                </div>
+            {{/ifCond}}
+            {{#ifCond media.0.type 'VIDEO'}}
+                <div class="plyr">
+                    <video poster="{{getImageByWidth 400 media.0.sizes}}" controls preload="none">
+
+                        <source src="{{getVideoByWidth 400 media.0.sizes}}" type="video/mp4">
+
+                        <a href="{{getVideoByWidth 400 media.0.sizes}}">Download</a>
+                    </video>
                 </div>
             {{/ifCond}}
             {{#if isUserAdmin}}
