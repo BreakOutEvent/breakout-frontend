@@ -937,34 +937,44 @@ module.exports = {
   },
   HOWTOSPONSOR: {
     HEADLINE: {
-      de: 'Sponsor werden'
+      de: 'Sponsor werden',
+      en: 'Become a Sponsor'
     },
     SECTION1_H: {
-      de: 'Wie funktioniert das?'
+      de: 'Wie funktioniert das?',
+      en: 'How does it work?'
     },
     SECTION1_TEXT: {
-      de: 'Als Sponsor vereinbaren Sie mit einem Team, pro gereistem Kilometer einen bestimmten Betrag zu spenden (z.B. 1 € / km). Oder sie stellen dem Team Aufgaben (Challenges), z.B. "Macht einen Handstand am Strand." und dotieren deren Erfüllung jeweils mit einem bestimmten Betrag.  Während des Events postet Ihr Team über die BreakOut-App seine aktuelle Position und meldet die Erfüllung bestimmter Challenges. –  Sie können das alles auf unserem <a href="/">Liveblog</a> verfolgen.'
+      de: 'Als Sponsor vereinbaren Sie mit einem <a href="/Team">Team</a>, pro gereistem Kilometer einen bestimmten Betrag zu spenden (z.B. 1 € / km). Oder sie stellen dem Team Aufgaben (Challenges), z.B. "Macht einen Handstand am Strand." und dotieren deren Erfüllung jeweils mit einem bestimmten Betrag.  Während des Events postet Ihr Team über die BreakOut-App seine aktuelle Position und meldet die Erfüllung bestimmter Challenges. –  Sie können das alles auf unserem <a href="/">Liveblog</a> verfolgen.',
+      en: 'As sponsor of a <a href="/Team">BreakOut-team</a> you have got two options. Either you agree to donate a certain amount per kilometer they travel, or you give them tasks (challenges), e.g. “do a handstand on the beach” and give a predefined sum each time they complete one. During the event your team will post where the currently are and which challenges they have completed through the BreakOut-App. - You can follow them live at <a href="/">Liveblog</a>.'
     },
     BTN_TEXT: {
-      de: 'Jetzt Sponsor werden'
+      de: 'Jetzt Sponsor werden',
+      en: 'Become a sponsor'
     },
     SECTION2_H: {
-      de: 'Wohin geht das Geld?'
+      de: 'Wohin geht das Geld?',
+      en: 'Where does the money go?'
     },
     SECTION2_TEXT: {
-      de: 'Ihre Spende geht direkt an das <a href="http://www.unhcr.de/unhcr/dafi.html">DAFI-Programm der UNO-Flüchtlingshilfe</a> und ermöglicht damit Flüchtlingen ein Studium. Die UNO-Flüchtlingshilfe trägt das DZI-Spendensiegel und stellt Ihnen als gemeinnütziger Verein auch gerne eine Spendenbescheinigung aus, die Sie steuerlich geltend machen können.'
+      de: 'Ihre Spende geht direkt an das <a href="https://www.uno-fluechtlingshilfe.de/breakout">DAFI-Programm der UNO-Flüchtlingshilfe</a> und ermöglicht damit Flüchtlingen ein Studium. Die UNO-Flüchtlingshilfe trägt das DZI-Spendensiegel und stellt Ihnen als gemeinnütziger Verein auch gerne eine Spendenbescheinigung aus, die Sie steuerlich geltend machen können.',
+      en: 'Your donation goes directly to <a href="https://www.uno-fluechtlingshilfe.de/breakout">UNHCR’s DAFI-Programm</a> and gives refugees the opportunity of a university education. Our patner, the UNO-Flüchtlingshilfe e.V., is a non profit organisation certified to be particularly efficient and transparent in handling donations. - If you are interested, they can provide you with a “Spendenbescheinigung” which can be used for tax reductions in Germany.'
     },
     SECTION3_H: {
-      de: 'Was habe ich davon?'
+      de: 'Was habe ich davon?',
+      en: 'What is in it for me?'
     },
     SECTION3_TEXT: {
-      de: 'Neben der Gewissheit, etwas Gutes zu tun, erhalten Sie eine Spendenbescheinigung. Außerdem können Sie mit Ihrem Team vereinbaren, dass dieses z.B. den Namen Ihrer Firma trägt, Werbematerialien mit auf die Reise nimmt, … - Vielleicht schafft es Ihr Logo ja aufs Siegertreppchen?'
+      de: 'Neben der Gewissheit, etwas Gutes zu tun, erhalten Sie eine Spendenbescheinigung. Außerdem können Sie mit Ihrem Team vereinbaren, dass dieses z.B. den Namen Ihrer Firma trägt, Werbematerialien mit auf die Reise nimmt, … - Vielleicht schafft es Ihr Logo ja aufs Siegertreppchen?',
+      en: 'Besides being sure to be doing something good, you can get a tax reduction in Germany. Furhtermore, your team can e.g. be named after you or your company, carry your promotion material, …- Possibly your logo will make it to the podium?'
     },
     SECTION4_H: {
-      de: 'Was muss ich tun?'
+      de: 'Was muss ich tun?',
+      en: 'What should I do?'
     },
     SECTION4_TEXT: {
-      de: 'Melden Sie sich <a href="/sponsor">jetzt als Sponsor</a> an und unterstützen Sie Ihr favorisiertes Team. Stellen Sie Aufgaben und geben Sie Kilometersponsorings noch bis zum Ende der 36 Stunden am Samstag, den 4. Juni um 21 Uhr. Verfolgen Sie das Event Live auf <a href="/">https://event.break-out.org/</a>. Nach Ablauf des Events rechnen wir für Sie aus, wie viel die Summe Ihrer Kilometersponsorings und erfüllten Challenges insgesamt ergibt. Dann bitten wir Sie, diese Summe <strong>bis zum 10. Juni</strong> auf das Spendenkonto der UNO-Flüchtlingshilfe e.V. zu überweisen. Sie bekommen dafür von uns per E-Mail einen individuellen Verwendungszweck. Bitte verwenden Sie genau den, damit wir Ihre Spende zuordnen können! – Sie bekommen dann automatisch eine Spendenbescheinigung.'
+      de: 'Melden Sie sich <a href="/sponsor">jetzt als Sponsor</a> an und unterstützen Sie Ihr favorisiertes Team. Stellen Sie Aufgaben und geben Sie Kilometersponsorings noch bis zum Ende der 36 Stunden am Samstag, den 4. Juni um 21 Uhr. Verfolgen Sie das Event Live auf <a href="/">https://event.break-out.org/</a>. Nach Ablauf des Events rechnen wir für Sie aus, wie viel die Summe Ihrer Kilometersponsorings und erfüllten Challenges insgesamt ergibt. Dann bitten wir Sie, diese Summe <strong>bis zum 10. Juni</strong> auf das Spendenkonto der UNO-Flüchtlingshilfe e.V. zu überweisen. Sie bekommen dafür von uns per E-Mail einen individuellen Verwendungszweck. Bitte verwenden Sie genau den, damit wir Ihre Spende zuordnen können! – Sie bekommen dann automatisch eine Spendenbescheinigung.',
+      en: '<a href="/sponsor">Register as a sponsor</a> now and support your favorite team. Give them challenges and kilometer-sponsorings right until the end of BreakOut, Saturday 4 June at 9pm. Follow the event live at <a href="/">https://event.break-out.org/</a>. After the event, we will calculate the sum of you kilometer-sponsorings and fulfilled challenges. Then we will ask you to transfer this amount <strong>until 10 June</strong>. We will provide you with an individual reference. Please use exactly that to help us track your donation!'
     },
     PURPOSE_TITLE: {
       de: 'Zweck',
@@ -975,13 +985,16 @@ module.exports = {
       en: 'Will be provided by email.'
     },
     SECTION5_H: {
-      de: 'Kann ich auch BreakOut selber unterstützen?'
+      de: 'Kann ich auch BreakOut selber unterstützen?',
+      en: 'Can I support BreakOut directly?'
     },
     SECTION5_TEXT: {
-      de: 'BreakOut wird gründet gerade einen gemeinnützigen Verein und freut sich jederzeit über Ihre Unterstützung. Wenden Sie sich gerne an <a href="mailto:event@break-out.org">event@break-out.org</a>.'
+      de: 'BreakOut wird gründet gerade einen gemeinnützigen Verein und freut sich jederzeit über Ihre Unterstützung. Wenden Sie sich gerne an <a href="mailto:event@break-out.org">event@break-out.org</a>.',
+      en: 'BreakOut is currently registering as a non profit organisation. If you would like to support us, feel free to contact <a href="mailto:event@break-out.org">event@break-out.org</a>.'
     },
     SECTION6_TEXT: {
-      de: 'Noch Fragen? - Wenden Sie sich gerne an <a href="mailto:event@break-out.org">event@break-out.org</a>.'
+      de: 'Noch Fragen? - Wenden Sie sich gerne an <a href="mailto:event@break-out.org">event@break-out.org</a>.',
+      en: 'Any questions? - Feel free to contact <a href="mailto:event@break-out.org">event@break-out.org</a>'
     }
   }
 };
