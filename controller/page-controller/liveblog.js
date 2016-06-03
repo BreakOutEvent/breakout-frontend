@@ -84,29 +84,31 @@ liveblog.getMapData = () => co(function *() {
     eventsById[e.id] = e;
   });
 
-  let allLocations = yield events.map(e => api.location.getByEvent(e.id));
+  let locations = yield api.posting.getAllPostings();
 
-  let locations = _.flatten(allLocations);
-  locations = locations.filter(l => l.duringEvent);
+  locations = _.sortBy(locations, l => l.date);
+
+  locations = locations.filter(l => l.postingLocation && l.postingLocation.duringEvent);
 
   let teams = [];
 
   locations.forEach(l => {
-    let t = teams[l.teamId];
+    let team = l.user.participant;
+    let t = teams[team.teamId];
     if(!t) {
       t = {
-        id: l.teamId,
-        name: l.team,
-        event: eventsById[l.eventId],
+        id: team.teamId,
+        name: team.teamName,
+        event: eventsById[team.eventId],
         locations: []
       };
     }
     t.locations.push({
-      latitude: l.latitude,
-      longitude: l.longitude
+      latitude: l.postingLocation.latitude,
+      longitude: l.postingLocation.longitude
     });
 
-    teams[l.teamId] = t;
+    teams[team.teamId] = t;
   });
 
   return teams;
