@@ -39,7 +39,7 @@ admin.addPayment = (req, res, next) => co(function*() {
 
   return res.sendStatus(200);
 }).catch((ex) => {
-  sendErr(res, err.message, ex);
+  sendErr(res, ex.message, ex);
 });
 
 admin.getInvoices = (req) => co(function*() {
@@ -72,5 +72,38 @@ admin.getInvoices = (req) => co(function*() {
 }).catch((ex) => {
   throw ex;
 });
+
+admin.getAllTeams = (req) => co(function*() {
+
+  const events = yield api.event.all();
+
+  let teamsByEvent = yield events.map((e) => api.team.getAllByEvent(e.id));
+  let allTeams = _.flatten(teamsByEvent);
+
+  allTeams = allTeams.filter(t => t.hasFullyPaid);
+
+  return allTeams.filter(t => t.hasFullyPaid);
+
+}).catch((ex) => {
+  throw ex;
+});
+
+admin.checkinTeam = (req, res, next) => co(function*() {
+
+  console.log(req.body);
+
+  let checkin = yield api.putModel(
+    `event/${req.body.event}/team/`, req.body.team,
+    req.user,
+    { hasStarted: true }
+  );
+
+  if (!checkin) return res.sendStatus(500);
+
+  return res.sendStatus(200);
+}).catch((ex) => {
+  sendErr(res, ex.message, ex);
+});
+
 
 module.exports = admin;

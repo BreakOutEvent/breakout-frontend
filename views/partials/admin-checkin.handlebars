@@ -9,37 +9,26 @@
             <thead>
             <tr>
                 <th>Team ID</th>
+                <th>Team Name</th>
                 <th>Stadt</th>
                 <th>Mitglieder</th>
-                <th>Betrag Offen</th>
-                <th>Zahlungslinks</th>
+                <th>Aktion</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody id="list">
             {{#each this}}
                 <tr>
-                    <td>{{team}}</td>
+                    <td>{{id}}</td>
+                    <td>{{name}}</td>
                     <td>{{event}}</td>
                     <td>
                         {{#each members}}
-                            {{firstname}} {{lastname}}{{#if @first}}<br/>{{/if}}
+                            {{firstname}} {{lastname}} ({{gender}} - {{participant.tshirtSize}}){{#if @first}}<br/>{{/if}}
                         {{/each}}
                     </td>
-                    <td>{{open}} €</td>
-                    {{#if open}}
-                        <td>
-                            <button class="btn btn-primary btn-payment" data-team="{{team}}" data-invoice="{{id}}"
-                                    data-amount="30">ADD 30€
-                            </button>
-                            <button class="btn btn-primary btn-payment" data-team="{{team}}" data-invoice="{{id}}"
-                                    data-amount="60">ADD 60€
-                            </button>
-                        </td>
-                    {{else}}
-                        <td>
-                            <span style="color: green;">ZAHLUNG ABGESCHLOSSEN</span>
-                        </td>
-                    {{/if}}
+                    <td>
+                        <button class="btn btn-primary btn-checkin" data-event="{{event}}" data-team="{{id}}">TEAM EINCHECKEN</button>
+                    </td>
                 </tr>
             {{/each}}
             </tbody>

@@ -32,4 +32,49 @@ $(document).ready(() => {
         toggleLoading(this);
       });
   });
+
+  $('.btn-checkin').click(function () {
+
+    toggleLoading(this, true);
+    var button = this;
+
+    $.post('/admin/team/checkin', {
+      team: $(this).attr('data-team'),
+      event: $(this).attr('data-event')
+    })
+      .success(function () {
+        $('#results')
+          .append('<div class="alert alert-success alert-dismissable">' +
+            '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
+            'Team ' + $(button).attr('data-team') + ' erfolgreich eingecheckt</div>');
+      })
+      .error(function (err) {
+        console.log(err);
+        $('#results')
+          .append('<div class="alert alert-danger alert-dismissable">' +
+            '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
+            'Eintragen von Team ' + $(button).attr('data-team') + ' fehlgeschlagen: ' +
+            err.responseJson.message + ' </div>');
+      })
+      .always(() => {
+        toggleLoading(this);
+      });
+  });
+
+  $('[type=search]').on('input',function (e) {
+
+    var val = $(this).val().toLowerCase();
+
+    if (val.length < 1) {
+      $("#list tr").show();
+    } else {
+      $("#list tr").each(function (i, e) {
+        if($(e).html().toLowerCase().indexOf(val) > -1) {
+          $(e).show();
+        } else {
+          $(e).hide();
+        }
+      });
+    }
+  })
 });
