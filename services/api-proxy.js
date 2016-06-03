@@ -801,7 +801,7 @@ function handleResponse(resolve, reject, msg) {
       if (response.statusCode.toString().match(/^2\d\d$/)) {
         if (!process.env.NODE_ENVIRONMENT === 'prod') logger.info(msg);
         try {
-          if (body === '') body = '{}';
+          if (body === '' || body === 'done') body = '{}';
           resolve(JSON.parse(body));
         } catch (ex) {
           resolve(body);
