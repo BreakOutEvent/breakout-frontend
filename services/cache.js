@@ -37,7 +37,11 @@ cache.getObject = (key, callback) =>
             return callback().then((resultLive) => {
               return cache.updateCache(doc, resultLive);
             });
-          }).catch(reject);
+          }).catch(ex => {
+            reject(ex);
+            resultCache.updating = false;
+            resultCache.save();
+          });
         }
       } else { // Key is not cached
         if (key in cacheCallbackQueue) {
