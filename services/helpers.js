@@ -176,6 +176,10 @@ exports.round = (amount) => {
   return Math.round(parseFloat(amount)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 };
 
+exports.addOne = (amount) => {
+  return (parseFloat(amount) + 1);
+};
+
 exports.prettyLocation = (location) => {
   //Check if it exists.
   if (!location) return '';
