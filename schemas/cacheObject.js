@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');
 
 var cacheObject = new mongoose.Schema({
-  key: String,
+  key: {type: String, unique: true},
   expiration: Number,
   content: String,
   updating: Boolean

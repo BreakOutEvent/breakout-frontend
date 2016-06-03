@@ -8,48 +8,71 @@ const CacheObject = mongoose.model('cache', requireLocal('schemas/cacheObject'))
 
 let cache = {};
 
-cache.getObject = (key, callback) => {
+let cacheCallbackQueue = {};
 
-  return new Promise((resolve, reject) => {
-    CacheObject.findOne({key: key}, function (err, resultCache) {
+cache.getObject = (key, callback) =>
+  new Promise((resolve, reject) => {
+    CacheObject.findOne({ key: key }, function (err, resultCache) {
       if (err) {
         logger.error(err);
-        reject(err);
+        return reject(err);
       }
-      if (resultCache) {
 
+      if (resultCache) { // Key is cached
         //Send object anyways
         try {
           resolve(JSON.parse(resultCache.content));
         } catch (ex) {
-          logger.error(ex);
+          logger.error(resultCache, ex);
           reject(ex);
         }
 
         if (resultCache.expiration < Date.now() && !resultCache.updating) {
           resultCache.updating = true;
-          resultCache.save((err, doc) => {
+          resultCache.save().then(doc => {
             if (err) {
-              logger.error(err);
-              return reject(err);
+              logger.error(resultCache, err);
+              return;
             }
-            callback().then((resultLive) => {
-              cache.updateCache(doc, resultLive);
-            }).catch(reject);
+            return callback().then((resultLive) => {
+              return cache.updateCache(doc, resultLive);
+            });
+          }).catch(reject);
+        }
+      } else { // Key is not cached
+        if (key in cacheCallbackQueue) {
+          logger.info('Adding', key, 'to queue');
+          // Add resolve and reject to array
+          cacheCallbackQueue[key].push([resolve, reject])
+        } else {
+          // Create array of callbacks empty
+          cacheCallbackQueue[key] = [];
+
+          callback().then((resultLive) => {
+            return cache.createObject(key, resultLive).then(() => {
+              logger.info('notifying all queued requests', key);
+              // Notify all queued requests
+              cacheCallbackQueue[key].forEach(e => e[0](resultLive));
+
+              // Resolve the caller
+              resolve(resultLive);
+
+              // Delete the queued requests
+              delete cacheCallbackQueue[key];
+            });
+          }).catch(ex => {
+            // Notify and delete all queued things
+            cacheCallbackQueue[key].forEach(e => e[1](ex));
+            delete cacheCallbackQueue[key];
+            reject(ex);
           });
         }
-      } else {
-        callback().then((resultLive) => {
-          resolve(resultLive);
-          cache.createObject(key, resultLive);
-        }).catch(reject);
       }
     });
   });
-};
 
-cache.createObject = (key, object) => co(function*() {
-  return new Promise((resolve, reject) => {
+cache.createObject = (key, object) =>
+  new Promise((resolve, reject) => {
     CacheObject.create({
       key: key,
       expiration: Date.now() + 30000,
@@ -63,12 +86,9 @@ cache.createObject = (key, object) => co(function*() {
       return resolve(doc);
     });
   });
-}).catch(ex => {
-  throw ex;
-});
 
-cache.updateCache = (doc, object) => co(function*() {
-  return new Promise((resolve, reject) => {
+cache.updateCache = (doc, object) =>
+  new Promise((resolve, reject) => {
     doc.expiration = Date.now() + 30000;
     doc.content = JSON.stringify(object);
     doc.updating = false;
@@ -80,9 +100,6 @@ cache.updateCache = (doc, object) => co(function*() {
       return resolve(doc);
     });
   });
-}).catch(ex => {
-  throw ex;
-});
 
 
 module.exports = cache;
