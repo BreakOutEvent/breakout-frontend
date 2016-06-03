@@ -5,9 +5,16 @@
     </div>
     <div class="row">
         <div class="col-xs-12">
-            <input type="text" placeholder="Suche nach Name, Team ..." id="boTeamSearch" class="form-control bo-team-profile-search" />
+            <input type="text" placeholder="Suche nach Name, Team ..." id="boTeamSearch"
+                   class="form-control bo-team-profile-search"/>
         </div>
     </div>
+    <div class="row" style="margin-top: 20px; margin-bottom: 20px;">
+        <div class="col-xs-12">
+            <a href="/highscore"> <img src="/img/highscore_banner.jpg" class="img-responsive"></div>
+        </a>
+    </div>
+
     <div class="row" id="teamProfiles">
         {{#each teams}}
             {{> team-tile}}
