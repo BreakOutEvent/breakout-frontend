@@ -41,7 +41,6 @@ cache.getObject = (key, callback) =>
         }
       } else { // Key is not cached
         if (key in cacheCallbackQueue) {
-          logger.info('Adding', key, 'to queue');
           // Add resolve and reject to array
           cacheCallbackQueue[key].push([resolve, reject])
         } else {
@@ -50,7 +49,6 @@ cache.getObject = (key, callback) =>
 
           callback().then((resultLive) => {
             return cache.createObject(key, resultLive).then(() => {
-              logger.info('notifying all queued requests', key);
               // Notify all queued requests
               cacheCallbackQueue[key].forEach(e => e[0](resultLive));
 

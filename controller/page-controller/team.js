@@ -50,12 +50,21 @@ team.getTeamByUrl = (teamId, token) => co(function*() {
   let postingIds = yield api.team.getPostingIds(teamId);
   tempTeam.postings = yield api.posting.getPostingsByIds(postingIds, token);
 
-  let locations = yield api.location.getByTeam(teamId);
-  locations = locations.filter(l => l.duringEvent);
+  let locations = _.map(
+    _.sortBy(
+      _.filter(tempTeam.postings, p => p.postingLocation),
+      p => p.date),
+    p => _.pick(p.postingLocation, ['latitude', 'longitude'])
+  );
+
+  const distances = yield [
+    api.team.getDistance(teamId),
+    api.team.getDonations(teamId)
+  ];
 
   tempTeam.max = {};
-  tempTeam.max.distance = yield api.team.getDistance(teamId);
-  tempTeam.max.donations = yield api.team.getDonations(teamId);
+  tempTeam.max.distance = distances[0];
+  tempTeam.max.donations = distances[1];
 
 
   tempTeam.mapData = [{
