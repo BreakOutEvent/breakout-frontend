@@ -38,3 +38,4 @@ Please note that all the above defined environment variables have to be defined 
 
 * `docker build -t breakout/frontend .`
 * `docker run -d -p 3000:3000 breakout/frontend`
+
