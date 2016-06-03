@@ -12,7 +12,7 @@ const session = requireLocal('controller/session');
 
 const router = express.Router();
 
-router.get('/:hashtag', (req, res, next) => co(function*() {
+router.get('/hashtag/:hashtag', (req, res, next) => co(function*() {
   const postings = yield posting.getByHashtag(req.params.hashtag, req.user);
 
   let currentUser = null;
@@ -31,6 +31,28 @@ router.get('/:hashtag', (req, res, next) => co(function*() {
       isLoggedIn: req.user,
       hashtag: req.params.hashtag,
       title: `Hashtag '${req.params.hashtag}'`
+    });
+}).catch(next));
+
+
+router.get('/:postingId', (req, res, next) => co(function*() {
+  const postings = yield posting.getById(req.params.postingId, req.user);
+  
+  let currentUser = null;
+
+  if (req.user && req.user.me) {
+    currentUser = req.user.me;
+  }
+
+  res.render(`dynamic/posting/posting`,
+    {
+      error: req.flash('error'),
+      layout: 'master',
+      language: req.language,
+      postings: [postings],
+      user: currentUser,
+      isLoggedIn: req.user,
+      title: postings.text
     });
 }).catch(next));
 
