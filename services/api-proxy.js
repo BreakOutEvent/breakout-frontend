@@ -796,7 +796,7 @@ function handleResponse(resolve, reject, msg) {
   return (error, response, body) => {
     if (error) {
       logger.error(error);
-      throw error;
+      reject(error);
     } else {
       if (response.statusCode.toString().match(/^2\d\d$/)) {
         if (!process.env.NODE_ENVIRONMENT === 'prod') logger.info(msg);
@@ -807,6 +807,7 @@ function handleResponse(resolve, reject, msg) {
           resolve(body);
           console.dir(body);
           logger.warn('Could not parse JSON', ex);
+          reject(ex);
         }
       } else {
         if (!process.env.NODE_ENVIRONMENT === 'prod') logger.error(body);
@@ -815,6 +816,7 @@ function handleResponse(resolve, reject, msg) {
         } catch (ex) {
           console.dir(body);
           logger.error(ex);
+          reject(ex);
         }
       }
     }
