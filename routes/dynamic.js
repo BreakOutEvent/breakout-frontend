@@ -13,7 +13,9 @@ const passport = requireLocal('services/auth');
 const registration = requireLocal('controller/page-controller/registration');
 const profile = requireLocal('controller/page-controller/profile');
 const liveblog = requireLocal('controller/page-controller/liveblog');
+const team = requireLocal('controller/page-controller/team');
 const session = requireLocal('controller/session');
+
 
 const upload = multer({ inMemory: true });
 const router = express.Router();
@@ -234,6 +236,33 @@ router.get('/activation/:token', (req, res, next) => co(function*() {
       language: req.language
     });
 }));
+
+router.get('/highscore', (req, res, next) => co(function*(){
+
+  var map = yield liveblog.getMapData();
+  var allTeams = yield team.getAll();
+
+  var sortedTeamsbyDistance =( _.sortBy(allTeams, t => t.distance.linear_distance )).reverse();
+
+  var sortedTeamsbyMoney = (_.sortBy(allTeams, y => y.donateSum.full_sum )).reverse();
+
+  var slicedDistance = sortedTeamsbyDistance.slice(0,5);
+  var slicedMoney = sortedTeamsbyMoney.slice(0,5);
+
+
+  res.render('dynamic/liveblog/highscore',
+    {
+      error: null,
+      layout: 'master',
+      language:req.language,
+      mapData: map,
+      teamDistanceData: slicedDistance,
+      teamMoneyData: slicedMoney
+    }
+  );
+
+
+}).catch(ex => next(ex)));
 
 router.get('/sponsoring', (req, res, next) => co(function*() {
 
