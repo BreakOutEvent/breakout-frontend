@@ -293,24 +293,7 @@ API.sponsoring.create = (token, event, team, body) => {
 };
 
 API.sponsoring.getByTeam = (eventId, teamId) => {
-  logger.info('Trying to get sponsorings for team', teamId);
-
-  let mockdata = [{
-    "id": 1,
-    "amountPerKm": 1,
-    "limit": 100,
-    "teamId": teamId,
-    "team": "namedesteams",
-    "sponsorId": 1
-  }];
-
-  return new Promise(function (resolve, reject) {
-    //return resolve(mockdata);
-    request
-      .get({
-        url: `${url}/event/${eventId}/team/${teamId}/sponsoring/`
-      }, handleResponse(resolve, reject, 'Successfully got sponsorings for team ' + teamId));
-  });
+  return API.general.get(`/event/${eventId}/team/${teamId}/sponsoring/`);
 };
 
 API.sponsoring.getBySponsor = (token, userId) => {
@@ -389,13 +372,7 @@ API.challenge.create = (token, eventId, teamId, body) => {
 };
 
 API.challenge.getByTeam = (eventId, teamId) => {
-  logger.info('Trying to get challenge for team', teamId);
-  return new Promise(function (resolve, reject) {
-    request
-      .get({
-        url: `${url}/event/${eventId}/team/${teamId}/challenge/`
-      }, handleResponse(resolve, reject, 'Successfully got sponsorings for team ' + teamId));
-  });
+  return API.general.get(`/event/${eventId}/team/${teamId}/challenge/`);
 };
 
 API.challenge.getBySponsor = (token, userId) => {
