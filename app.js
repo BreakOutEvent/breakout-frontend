@@ -40,11 +40,11 @@ const server = callback => co(function*() {
         streams: [
           {
             level: 'info',
-            stream: fs.createWriteStream(ROOT + '/logs/info.log', { flags: 'a' })
+            stream: fs.createWriteStream(ROOT + '/logs/info.log', {flags: 'a'})
           },
           {
             level: 'error',
-            stream: fs.createWriteStream(ROOT + '/logs/error.log', { flags: 'a' })
+            stream: fs.createWriteStream(ROOT + '/logs/error.log', {flags: 'a'})
           }
         ],
         serializers: bunyan.stdSerializers,
@@ -53,7 +53,7 @@ const server = callback => co(function*() {
     );
 
     app.use(morgan('combined',
-      { stream: fs.createWriteStream(ROOT + '/logs/access.log', { flags: 'a' }) }
+      {stream: fs.createWriteStream(ROOT + '/logs/access.log', {flags: 'a'})}
     ));
   } else {
     global.logger = {
@@ -104,7 +104,7 @@ const server = callback => co(function*() {
     throw new Error('No secret specified, please set one via jwt_secret');
   }
 
-  if(process.env.NODE_ENVIRONMENT === 'prod' && process.env.SHOW_ERROR !== 'true') {
+  if (process.env.NODE_ENVIRONMENT === 'prod' && process.env.SHOW_ERROR !== 'true') {
     app.enable('view cache');
   }
 
@@ -115,7 +115,7 @@ const server = callback => co(function*() {
     secret: config.jwt_secret,
     resave: false,
     saveUninitialized: false,
-    store: new MongoStore({ mongooseConnection: mongoose.connection })
+    store: new MongoStore({mongooseConnection: mongoose.connection})
   }));
 
   // Initialize Passport and restore authentication state, if any, from the
@@ -167,7 +167,7 @@ const server = callback => co(function*() {
   app.use('/', requireLocal('routes/main'));
   app.use('/', requireLocal('routes/dynamic'));
   app.use('/team', requireLocal('routes/team'));
-  app.use('/hashtag', requireLocal('routes/hashtag'));
+  app.use('/post', requireLocal('routes/posting'));
   app.use('/messages', requireLocal('routes/messages'));
   app.use('/settings', requireLocal('routes/settings'));
   app.use('/api', requireLocal('routes/api'));

@@ -267,7 +267,7 @@ $(window).on("load", function () {
     var text = $(this).text();
 
     for (var i = 0; i < hashtags.length; i++) {
-      text = text.replace('#' + hashtags[i], "<a href=\"/hashtag/" + hashtags[i] + "\">#" + hashtags[i] + "</a>");
+      text = text.replace('#' + hashtags[i], "<a href=\"/post/hashtag/" + hashtags[i] + "\">#" + hashtags[i] + "</a>");
     }
 
     $(this).html(text);

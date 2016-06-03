@@ -34,7 +34,7 @@ API.authenticate = (username, password) => {
           user: config.api.client_id,
           pass: config.api.client_secret
         },
-        form: { username: username, password: password }
+        form: {username: username, password: password}
       }, handleResponse(resolve, reject, 'Authenticated user ' + username));
   });
 };
@@ -70,7 +70,7 @@ API.getCurrentUserco = user => co(function*() {
   const req = yield crequest
     .get({
       url: `${url}/me/`,
-      auth: { bearer: user.access_token }
+      auth: {bearer: user.access_token}
     });
 
   if (req.statusCode in [200, 201]) {
@@ -88,7 +88,7 @@ API.getCurrentUser = token => {
     request
       .get({
         url: `${url}/me/`,
-        auth: { bearer: token.access_token }
+        auth: {bearer: token.access_token}
       }, handleResponse(resolve, reject, 'Got information about currently logged in user'))
   );
 };
@@ -101,7 +101,7 @@ API.getModel = (modelName, token, id) => {
       request
         .get({
           url: `${url}/${modelName}/${sendID}`,
-          auth: { bearer: token.access_token }
+          auth: {bearer: token.access_token}
         }, handleResponse(resolve, reject, 'Got ' + modelName + ' with id ' + (id || 'noID') + ' from backend'));
     }
   );
@@ -113,9 +113,9 @@ API.postModel = (modelName, token, body) => {
     request
       .post({
         url: `${url}/${modelName}`,
-        auth: { bearer: token.access_token },
+        auth: {bearer: token.access_token},
         body: JSON.stringify(body),
-        headers: { 'content-type': 'application/json' }
+        headers: {'content-type': 'application/json'}
       }, handleResponse(resolve, reject, 'Successfully POSTed ' + modelName + ' with ' + JSON.stringify(body) + ' to backend'))
   );
 };
@@ -124,7 +124,7 @@ API.putModel = (modelName, id, token, body) => {
   logger.info('Sending PUT request with ', body, 'to', modelName, 'with ID', id);
   return new Promise(function (resolve, reject) {
     if (!id) {
-      reject({ error_description: 'No ID specified' });
+      reject({error_description: 'No ID specified'});
       return;
     }
 
@@ -132,9 +132,9 @@ API.putModel = (modelName, id, token, body) => {
     request
       .put({
         url: `${url}/${modelName}/${(id)}/`,
-        auth: { bearer: token.access_token },
+        auth: {bearer: token.access_token},
         body: JSON.stringify(body),
-        headers: { 'content-type': 'application/json' }
+        headers: {'content-type': 'application/json'}
       }, handleResponse(resolve, reject, 'Successfully PUT ' + modelName + ' with id ' + id + ' and data ' + JSON.stringify(body) + ' to backend'));
   });
 };
@@ -143,14 +143,14 @@ API.delModel = function (modelName, token, id) {
   logger.info('Sending DELETE request on', modelName, ' with ID', id);
   return new Promise(function (resolve, reject) {
     if (!id) {
-      reject({ error_message: 'No ID specified' });
+      reject({error_message: 'No ID specified'});
       return;
     }
 
     request
       .del({
         url: `${url}/${modelName}/${id}`,
-        auth: { bearer: token.access_token }
+        auth: {bearer: token.access_token}
       }, handleResponse(resolve, reject, 'Successfully DELETEed ' + modelName + ' with ID ' + id));
   });
 };
@@ -165,8 +165,8 @@ API.createUser = function (email, password) {
           user: config.api.client_id,
           pass: config.api.client_secret
         },
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ email, password })
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify({email, password})
       }, handleResponse(resolve, reject, 'Successfully created user with email ' + email + ' in' +
         ' backend'));
   });
@@ -180,7 +180,7 @@ API.uploadPicture = function (file, mediaObj) {
     request
       .post({
         url: `${config.media_url}`,
-        headers: { 'X-UPLOAD-TOKEN': mediaObj.uploadToken },
+        headers: {'X-UPLOAD-TOKEN': mediaObj.uploadToken},
         formData: {
           id: mediaObj.id,
           file: {
@@ -203,7 +203,7 @@ API.getPaymentToken = (invoiceID, token) => {
     request
       .get({
         url: `${url}/invoice/${invoiceID}/payment/braintree/client_token/`,
-        auth: { bearer: token.access_token }
+        auth: {bearer: token.access_token}
       }, handleResponse(resolve, reject, 'Got payment token for invoice ' + invoiceID + ' from backend'));
   });
 };
@@ -214,7 +214,7 @@ API.checkoutPayment = (invoiceID, token, data) => {
     request
       .post({
         url: `${url}/invoice/${invoiceID}/payment/braintree/checkout/`,
-        auth: { bearer: token.access_token },
+        auth: {bearer: token.access_token},
         form: data
       }, handleResponse(resolve, reject, 'Successfully checked out invoice' + invoiceID));
   });
@@ -239,9 +239,9 @@ API.inviteUser = (token, eventID, teamID, email) => {
     request
       .post({
         url: `${url}/event/${eventID}/team/${teamID}/invitation/`,
-        auth: { bearer: token.access_token },
-        body: JSON.stringify({ email: email }),
-        headers: { 'content-type': 'application/json' }
+        auth: {bearer: token.access_token},
+        body: JSON.stringify({email: email}),
+        headers: {'content-type': 'application/json'}
       }, handleResponse(resolve, reject, 'Successfully invited ' + email + ' to team ' + teamID));
   });
 };
@@ -285,9 +285,9 @@ API.sponsoring.create = (token, event, team, body) => {
     request
       .post({
         url: `${url}/event/${event}/team/${team}/sponsoring/`,
-        auth: { bearer: token.access_token },
+        auth: {bearer: token.access_token},
         body: JSON.stringify(body),
-        headers: { 'content-type': 'application/json' }
+        headers: {'content-type': 'application/json'}
       }, handleResponse(resolve, reject, 'Successfully created sponsoring for team ' + team));
   });
 };
@@ -313,7 +313,7 @@ API.sponsoring.getBySponsor = (token, userId) => {
     request
       .get({
         url: `${url}/user/${userId}/sponsor/sponsoring/`,
-        auth: { bearer: token.access_token }
+        auth: {bearer: token.access_token}
       }, handleResponse(resolve, reject, 'Successfully got sponsorings from user ' + userId));
   });
 };
@@ -337,9 +337,9 @@ API.sponsoring.changeStatus = (token, eventId, teamId, sponsoringId, status) => 
     request
       .put({
         url: `${url}/event/${eventId}/team/${teamId}/sponsoring/${sponsoringId}/status/`,
-        auth: { bearer: token.access_token },
+        auth: {bearer: token.access_token},
         body: JSON.stringify(body),
-        headers: { 'content-type': 'application/json' }
+        headers: {'content-type': 'application/json'}
       }, handleResponse(resolve, reject, 'Successfully changed status of sponsoring ' + sponsoringId + ' to ' + status));
   });
 };
@@ -365,8 +365,8 @@ API.challenge.create = (token, eventId, teamId, body) => {
       .post({
         url: `${url}/event/${eventId}/team/${teamId}/challenge/`,
         body: JSON.stringify(body),
-        headers: { 'content-type': 'application/json' },
-        auth: { bearer: token.access_token }
+        headers: {'content-type': 'application/json'},
+        auth: {bearer: token.access_token}
       }, handleResponse(resolve, reject, 'Challenge created for team' + teamId));
   });
 };
@@ -381,7 +381,7 @@ API.challenge.getBySponsor = (token, userId) => {
     request
       .get({
         url: `${url}/user/${userId}/sponsor/challenge/`,
-        auth: { bearer: token.access_token }
+        auth: {bearer: token.access_token}
       }, handleResponse(resolve, reject, 'Successfully got challenges from user ' + userId));
   });
 };
@@ -395,9 +395,9 @@ API.challenge.changeStatus = (token, eventId, teamId, challengeId, status) => {
     request
       .put({
         url: `${url}/event/${eventId}/team/${teamId}/challenge/${challengeId}/status/`,
-        auth: { bearer: token.access_token },
+        auth: {bearer: token.access_token},
         body: JSON.stringify(body),
-        headers: { 'content-type': 'application/json' }
+        headers: {'content-type': 'application/json'}
       }, handleResponse(resolve, reject, 'Successfully changed status of challenge ' + challengeId + ' to ' + status));
   });
 };
@@ -412,9 +412,9 @@ API.challenge.proof = (token, challengeId, postId) => {
     request
       .put({
         url: `${url}/event/1/team/1/challenge/${challengeId}/status/`,
-        auth: { bearer: token.access_token },
+        auth: {bearer: token.access_token},
         body: JSON.stringify(body),
-        headers: { 'content-type': 'application/json' }
+        headers: {'content-type': 'application/json'}
       }, handleResponse(resolve, reject, 'Successfully changed status of challenge ' + challengeId + ' to WITH_PROOF'));
   });
 };
@@ -439,8 +439,8 @@ API.pwreset.requestPwReset = (email) => {
     request
       .post({
         url: `${url}/user/requestreset/`,
-        body: JSON.stringify({ email: email }),
-        headers: { 'content-type': 'application/json' }
+        body: JSON.stringify({email: email}),
+        headers: {'content-type': 'application/json'}
       }, handleResponse(resolve, reject, 'An email with instructions to reset your password was sent to: ' + email));
   });
 };
@@ -451,8 +451,8 @@ API.pwreset.resetPassword = (email, token, password) => {
     request
       .post({
         url: `${url}/user/passwordreset/`,
-        body: JSON.stringify({ email: email, token: token, password: password }),
-        headers: { 'content-type': 'application/json' }
+        body: JSON.stringify({email: email, token: token, password: password}),
+        headers: {'content-type': 'application/json'}
       }, handleResponse(resolve, reject, 'Successfully reset password for: ' + email));
   });
 };
@@ -471,9 +471,9 @@ API.messaging.createGroupMessage = (token, userIds) => {
     request
       .post({
         url: `${url}/messaging/`,
-        auth: { bearer: token.access_token },
+        auth: {bearer: token.access_token},
         body: JSON.stringify(userIds),
-        headers: { 'content-type': 'application/json' }
+        headers: {'content-type': 'application/json'}
       }, handleResponse(resolve, reject, 'Successfully created new GroupMessage'));
   });
 };
@@ -489,9 +489,9 @@ API.messaging.addUsersToGroupMessage = (token, groupMessageId, userIds) => {
     request
       .put({
         url: `${url}/messaging/${groupMessageId}/`,
-        auth: { bearer: token.access_token },
+        auth: {bearer: token.access_token},
         body: JSON.stringify(userIds),
-        headers: { 'content-type': 'application/json' }
+        headers: {'content-type': 'application/json'}
       }, handleResponse(resolve, reject, 'Successfully added users to GroupMessage: ' + groupMessageId + ' users: ' + userIds));
   });
 };
@@ -504,7 +504,7 @@ API.messaging.getGroupMessage = (token, groupMessageId) => {
     request
       .get({
         url: `${url}/messaging/${groupMessageId}/`,
-        auth: { bearer: token.access_token }
+        auth: {bearer: token.access_token}
       }, handleResponse(resolve, reject, 'Successfully got GroupMessage: ' + groupMessageId));
   });
 };
@@ -520,9 +520,9 @@ API.messaging.addMessageToGroupMessage = (token, groupMessageId, text) => {
     request
       .post({
         url: `${url}/messaging/${groupMessageId}/message/`,
-        auth: { bearer: token.access_token },
+        auth: {bearer: token.access_token},
         body: JSON.stringify(body),
-        headers: { 'content-type': 'application/json' }
+        headers: {'content-type': 'application/json'}
       }, handleResponse(resolve, reject, 'Successfully added Message to GroupMessage: ' + groupMessageId));
   });
 };
@@ -547,9 +547,9 @@ API.posting.createPosting = (token, text, uploadMediaTypes, latitude, longitude)
     request
       .post({
         url: `${url}/posting/`,
-        auth: { bearer: token.access_token },
+        auth: {bearer: token.access_token},
         body: JSON.stringify(body),
-        headers: { 'content-type': 'application/json' }
+        headers: {'content-type': 'application/json'}
       }, handleResponse(resolve, reject, 'Successfully created Posting: ' + text + ' - ' + uploadMediaTypes));
   });
 };
@@ -562,7 +562,7 @@ API.posting.getAllPostings = (token, offset, limit) => {
     qs: {}
   };
 
-  if (token) options.auth = { bearer: token.access_token };
+  if (token) options.auth = {bearer: token.access_token};
 
   if (token)options.qs.userid = token.me.id;
   if (offset) options.qs.offset = offset;
@@ -578,8 +578,17 @@ API.posting.getAllPostings = (token, offset, limit) => {
 
 };
 
-API.posting.getPosting = (postingId) => {
-  return API.general.get(`/posting/${postingId}/`);
+API.posting.getPosting = (postingId, token) => {
+  let options = {
+    url: `${url}/posting/${postingId}/`
+  };
+
+  if (token) options.auth = {bearer: token.access_token};
+  if (token) options.qs = {userid: token.me.id};
+
+  return new Promise((resolve, reject) => {
+    request.get(options, handleResponse(resolve, reject, 'Successfully got Posting: ' + postingId));
+  });
 };
 
 API.posting.getPostingsByIds = (postingIds, token) => {
@@ -588,11 +597,11 @@ API.posting.getPostingsByIds = (postingIds, token) => {
   let options = {
     url: `${url}/posting/get/ids`,
     body: JSON.stringify(postingIds),
-    headers: { 'content-type': 'application/json' }
+    headers: {'content-type': 'application/json'}
   };
 
-  if (token) options.auth = { bearer: token.access_token };
-  if (token) options.qs = { userid: token.me.id };
+  if (token) options.auth = {bearer: token.access_token};
+  if (token) options.qs = {userid: token.me.id};
 
   return new Promise((resolve, reject) => {
 
@@ -613,8 +622,8 @@ API.posting.getPostingsByHashtag = (hashtag, token) => {
     url: `${url}/posting/hashtag/${hashtag}/`
   };
 
-  if (token) options.auth = { bearer: token.access_token };
-  if (token) options.qs = { userid: token.me.id };
+  if (token) options.auth = {bearer: token.access_token};
+  if (token) options.qs = {userid: token.me.id};
 
   return new Promise((resolve, reject) => {
     request.get(options, handleResponse(resolve, reject, 'Successfully got Postings by Hashtag: ' + hashtag));
@@ -632,9 +641,9 @@ API.posting.createComment = (token, postingId, text) => {
     request
       .post({
         url: `${url}/posting/${postingId}/comment/`,
-        auth: { bearer: token.access_token },
+        auth: {bearer: token.access_token},
         body: JSON.stringify(body),
-        headers: { 'content-type': 'application/json' }
+        headers: {'content-type': 'application/json'}
       }, handleResponse(resolve, reject, 'Successfully created Comment for Posting: ' + postingId));
   });
 };
@@ -649,9 +658,9 @@ API.posting.createLike = (token, postingId) => {
     request
       .post({
         url: `${url}/posting/${postingId}/like/`,
-        auth: { bearer: token.access_token },
+        auth: {bearer: token.access_token},
         body: JSON.stringify(body),
-        headers: { 'content-type': 'application/json' }
+        headers: {'content-type': 'application/json'}
       }, handleResponse(resolve, reject, 'Successfully created Like for Posting: ' + postingId));
   });
 };
@@ -738,7 +747,7 @@ API.admin.deletePosting = (token, postingId) => {
     request
       .delete({
         url: `${url}/posting/${postingId}/`,
-        auth: { bearer: token.access_token }
+        auth: {bearer: token.access_token}
       }, handleResponse(resolve, reject, 'Successfully deleted Posting: ' + postingId));
   });
 };
@@ -751,7 +760,7 @@ API.admin.deleteMedia = (token, mediaId) => {
     request
       .delete({
         url: `${url}/media/${mediaId}/`,
-        auth: { bearer: token.access_token }
+        auth: {bearer: token.access_token}
       }, handleResponse(resolve, reject, 'Successfully deleted Media: ' + mediaId));
   });
 };
@@ -764,7 +773,7 @@ API.admin.deleteComment = (token, commentId) => {
     request
       .delete({
         url: `${url}/posting/1/comment/${commentId}/`,
-        auth: { bearer: token.access_token }
+        auth: {bearer: token.access_token}
       }, handleResponse(resolve, reject, 'Successfully deleted Comment: ' + commentId));
   });
 };

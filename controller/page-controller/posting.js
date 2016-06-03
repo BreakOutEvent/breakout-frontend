@@ -18,4 +18,11 @@ posting.getByHashtag = (hashtag, token) => co(function*() {
   throw  ex;
 });
 
+posting.getById = (postingId, token) => co(function*() {
+  return yield api.posting.getPosting(postingId, token);
+}).catch((ex) => {
+  throw  ex;
+});
+
+
 module.exports = posting;
