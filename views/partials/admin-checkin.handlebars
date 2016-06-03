@@ -23,7 +23,7 @@
                     <td>{{event}}</td>
                     <td>
                         {{#each members}}
-                            {{firstname}} {{lastname}} ({{participant.tshirtSize}}){{#if @first}}<br/>{{/if}}
+                            {{firstname}} {{lastname}} ({{gender}} - {{participant.tshirtSize}}){{#if @first}}<br/>{{/if}}
                         {{/each}}
                     </td>
                     <td>
