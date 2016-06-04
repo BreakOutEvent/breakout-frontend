@@ -205,7 +205,7 @@ $(document).ready(function () {
 
       if (oldDistance < newDistance && !distanceCounting) {
         distanceCounting = true;
-        $('#bo-donate-sum').countTo({
+        $('#bo-distance-sum').countTo({
           from: oldDonateSum,
           to: newDonateSum,
           speed: 180000,
