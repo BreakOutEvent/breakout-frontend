@@ -120,7 +120,7 @@ $(document).ready(function () {
         function updateTimer() {
           value += increment;
           loopCount++;
-          $(_this).html(value.toFixed(options.decimals));
+          $(_this).html(value.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
 
           if (typeof(options.onUpdate) == 'function') {
             options.onUpdate.call(_this, value);
@@ -157,7 +157,7 @@ $(document).ready(function () {
       console.log(data);
       var $postings = $(data.postings);
       var $teamPosts = $('#teamPosts');
-      console.log($postings);
+      //console.log($postings);
       $teamPosts.prepend($postings);
       window.msnry.prepended($postings);
       //LOLOL DIRTY HACK FOR SLOW BROWSERS
@@ -171,10 +171,10 @@ $(document).ready(function () {
 
     socket.on('newEventInfos', function (data) {
 
-      console.log(data);
+      //console.log(data);
 
-      var oldDonateSum = parseInt($('#bo-donate-sum').text());
-      var newDonateSum = parseInt(data.global.donatesum);
+      var oldDonateSum = parseInt($('#bo-donate-sum').text().replace('.', ''));
+      var newDonateSum = parseInt(data.global.donatesum.toFixed(0).toString().replace('.', ''));
 
       if (oldDonateSum < newDonateSum && !donateCounting) {
         donateCounting = true;
@@ -190,8 +190,8 @@ $(document).ready(function () {
 
         $('.bo-donate-sum').each(function (i, e) {
           $(e).countTo({
-            from: parseInt($(e).text()),
-            to: parseInt(data.individual[i].donatesum.full_sum),
+            from: parseInt($(e).text().replace('.', '')),
+            to: parseInt(data.individual[i].donatesum.full_sum.toFixed(0).toString().replace('.', '')),
             speed: 180000,
             refreshInterval: 100
           });
@@ -199,8 +199,8 @@ $(document).ready(function () {
 
       }
 
-      var oldDistance = parseInt($('#bo-distance-sum').text());
-      var newDistance = parseInt(data.global.distance);
+      var oldDistance = parseInt($('#bo-distance-sum').text().replace('.', ''));
+      var newDistance = parseInt(data.global.distance.toFixed(0).toString().replace('.', ''));
 
       if (oldDistance < newDistance && !distanceCounting) {
         distanceCounting = true;
@@ -216,8 +216,8 @@ $(document).ready(function () {
 
         $('.bo-distance-sum').each(function (i, e) {
           $(e).countTo({
-            from: parseInt($(e).text()),
-            to: parseInt(data.individual[i].distance.linear_distance),
+            from: parseInt($(e).text().replace('.', '')),
+            to: parseInt(data.individual[i].distance.linear_distance.toFixed(0).toString().replace('.', '')),
             speed: 180000,
             refreshInterval: 100
           });
