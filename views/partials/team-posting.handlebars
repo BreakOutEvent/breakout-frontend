@@ -43,9 +43,9 @@
                 <div class="plyr">
                     <video poster="{{getImageByWidth 400 media.0.sizes}}" controls preload="none">
 
-                        <source src="{{getVideoByWidth 400 media.0.sizes}}" type="video/mp4">
+                        <source src="{{getWebmVideoByWidth 400 media.0.sizes}}" type="video/webm">
+                        <source src="{{getH264VideoByWidth 400 media.0.sizes}}" type="video/mp4">
 
-                        <a href="{{getVideoByWidth 400 media.0.sizes}}">Download</a>
                     </video>
                 </div>
             {{/ifCond}}
@@ -88,7 +88,7 @@
                     <input type="hidden" name="newCommentId" style="display: none;" value="{{id}}"/>
                 </div>
                 <div class="col-xs-3">
-                    <button class="btn btn-block btn-default" type="submit">SAVE</button>
+                    <button class="btn btn-block btn-default" type="submit">SEND</button>
                 </div>
                 <div class="clearfix"></div>
             </form>
