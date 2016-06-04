@@ -58,6 +58,16 @@
     </div>
     <div class="bo-card-content">
         <p class="bo-text bo-replace-hashtags" data-hashtags="{{json hashtags}}">{{text}}</p>
+        {{#if proves}}
+            <div class="row bo-card-challenge">
+                <div class="col-xs-2">
+                    <i class="material-icons bo-card-done">done_all</i>
+                </div>
+                <div class="col-xs-10">
+                    <span>{{proves.amount}} € - {{proves.description}}</span>
+                </div>
+            </div>
+        {{/if}}
     </div>
     <div class="bo-card-actions">
         <a href="#" class="bo-card-actions-like {{#if hasLiked}}active{{/if}}" data-id="{{id}}"><i
