@@ -129,22 +129,24 @@ exports.getImageByWidth = (width, sizes) => {
 
   width = parseFloat(width);
 
-  if (Array.isArray(sizes) && sizes.length > 0) {
+  if (Array.isArray(sizes)) {
     sizes = sizes.filter((size) => size.type === 'IMAGE');
+    if (sizes.length > 0) {
 
-    var minDiff = 100000000000;
-    var bestFit = sizes[0].url;
-    sizes.forEach(s => {
-      let currDiff = s.width - width;
-      if (currDiff < 0) currDiff = currDiff * -8;
+      var minDiff = 100000000000;
+      var bestFit = sizes[0].url;
+      sizes.forEach(s => {
+        let currDiff = s.width - width;
+        if (currDiff < 0) currDiff = currDiff * -8;
 
-      if (currDiff < minDiff) {
-        minDiff = currDiff;
-        bestFit = s.url;
-      }
-    });
+        if (currDiff < minDiff) {
+          minDiff = currDiff;
+          bestFit = s.url;
+        }
+      });
 
-    return bestFit;
+      return bestFit;
+    }
   }
 };
 
@@ -153,22 +155,27 @@ exports.getVideoByWidth = (width, sizes) => {
 
   width = parseFloat(width);
 
-  if (Array.isArray(sizes) && sizes.length > 0) {
+  if (Array.isArray(sizes)) {
     sizes = sizes.filter((size) => size.type === 'VIDEO');
 
-    var minDiff = 100000000000;
-    var bestFit = sizes[0].url;
-    sizes.forEach(s => {
-      let currDiff = s.width - width;
-      if (currDiff < 0) currDiff = currDiff * -8;
+    if (sizes.length > 0) {
 
-      if (currDiff < minDiff) {
-        minDiff = currDiff;
-        bestFit = s.url;
-      }
-    });
+      console.log(sizes);
 
-    return bestFit;
+      var minDiff = 100000000000;
+      var bestFit = sizes[0].url;
+      sizes.forEach(s => {
+        let currDiff = s.width - width;
+        if (currDiff < 0) currDiff = currDiff * -8;
+
+        if (currDiff < minDiff) {
+          minDiff = currDiff;
+          bestFit = s.url;
+        }
+      });
+
+      return bestFit;
+    }
   }
 };
 
