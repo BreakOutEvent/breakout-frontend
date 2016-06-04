@@ -29,6 +29,7 @@ exports.sanityCheck = function(id) {
 
   if ($('#registrationForm') && !window.gender) {
     $('button[name=gender]').addClass('bo-reg-form-error');
+    alert('Bitte wählen Sie Ihre Anrede aus!')
   } else {
     $('button[name=gender]').removeClass('bo-reg-form-error');
   }
