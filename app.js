@@ -190,9 +190,8 @@ const server = callback => co(function*() {
 
   //Initate Websocket
 
-  const io = socketio(server);
-
-  websocket.init(io);
+  // const io = socketio(server);
+  // websocket.init(io);
 
   //
 
