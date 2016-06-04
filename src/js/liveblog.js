@@ -176,9 +176,6 @@ $(document).ready(function () {
       var oldDonateSum = parseInt($('#bo-donate-sum').text().replace('.', ''));
       var newDonateSum = parseInt(data.global.donatesum.toFixed(0).toString().replace('.', ''));
 
-      console.log($('#bo-donate-sum'));
-      console.log(data.global.donatesum);
-
       if (oldDonateSum < newDonateSum && !donateCounting) {
         donateCounting = true;
         $('#bo-donate-sum').countTo({
