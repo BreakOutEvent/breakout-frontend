@@ -12,6 +12,7 @@ require('newrelic');
 
 const co = require('co');
 const config = require('./config/config');
+const sticky = require('sticky-cluster');
 
 global.IS_TEST = process.env.FRONTEND_RUN_TESTS === 'true';
 
@@ -176,6 +177,9 @@ const server = callback => co(function*() {
   app.use('/api', requireLocal('routes/api'));
   app.use('/admin', requireLocal('routes/admin'));
 
+  var server = require('http').createServer(app);
+
+  /*
   var server = app.listen(config.port || 3000, () => {
     var host = server.address().address;
     var port = server.address().port;
@@ -186,12 +190,12 @@ const server = callback => co(function*() {
 
     logger.info('Server listening on port ' + port);
     console.log('Listening at http://%s:%s', host, port);
-  });
+  });*/
 
   //Initate Websocket
 
-  // const io = socketio(server);
-  // websocket.init(io);
+  const io = socketio(server);
+  websocket.init(io);
 
   //
 
@@ -222,16 +226,16 @@ const server = callback => co(function*() {
       });
     }
   });
+  callback(server);
 }).catch(ex => {
   console.error(ex.stack);
   throw ex;
 });
 
-// Should start the server clustered (# of cores by default) if FRONTEND_CLUSTER is defined
-const throng = config.cluster === 'true' ? require('throng') : cb => cb(0);
-
 if (!IS_TEST) {
-  throng(id => server());
+  sticky(server, {
+    port: 3000
+  });
 }
 
 module.exports = server;

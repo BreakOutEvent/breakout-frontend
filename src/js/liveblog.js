@@ -102,7 +102,6 @@ $(document).ready(function () {
       }
     });
   });
-  /*
   (function ($) {
     $.fn.countTo = function (options) {
       // merge the default plugin settings with the custom options
@@ -226,5 +225,4 @@ $(document).ready(function () {
       }
     });
   });
-  */
 });
