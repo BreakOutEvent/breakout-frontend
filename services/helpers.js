@@ -216,6 +216,10 @@ exports.round = (amount) => {
   return Math.round(parseFloat(amount)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 };
 
+exports.roundWithoutFormat = (amount) => {
+  return Math.round(parseFloat(amount));
+};
+
 exports.addOne = (amount) => {
   return (parseFloat(amount) + 1);
 };

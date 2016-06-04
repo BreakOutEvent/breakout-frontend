@@ -25,6 +25,7 @@ const server = callback => co(function*() {
   const exphbs = require('express-handlebars');
   const bodyparser = require('body-parser');
   const _ = require('lodash');
+  const socketio = require('socket.io');
 
   global.ROOT = path.resolve(__dirname);
 
@@ -32,6 +33,7 @@ const server = callback => co(function*() {
 
   // Register the static path here, to avoid getting them logged
   app.use(express.static(path.join(__dirname, 'public')));
+
 
   if (!IS_TEST) {
     global.logger = bunyan.createLogger(
@@ -71,6 +73,7 @@ const server = callback => co(function*() {
   const mongoose = requireLocal('controller/mongo.js');
   const passport = requireLocal('services/auth.js');
   const API = requireLocal('services/api-proxy');
+  const websocket = requireLocal('services/websocket');
 
   // All dirs containing templates
   const partialsDirs = [
@@ -184,6 +187,14 @@ const server = callback => co(function*() {
     logger.info('Server listening on port ' + port);
     console.log('Listening at http://%s:%s', host, port);
   });
+
+  //Initate Websocket
+
+  const io = socketio(server);
+
+  websocket.init(io);
+
+  //
 
   app.use((req, res) => {
     res.status(404);
