@@ -1,5 +1,6 @@
 var Masonry = require('masonry-layout');
 var Plyr = require('plyr');
+var lightbox = require('lightbox2');
 var toggleLoading = require('./helpers.js').toggleLoading;
 var sanityCheck = require('./helpers.js').sanityCheck;
 window.msnry = null;
@@ -288,5 +289,10 @@ $(window).on("load", function () {
       });
     }
   });
+
+  lightbox.option({
+    'resizeDuration': 200,
+    'wrapAround': true
+  })
 
 });

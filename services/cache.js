@@ -77,7 +77,7 @@ cache.createObject = (key, object) =>
   new Promise((resolve, reject) => {
     CacheObject.create({
       key: key,
-      expiration: Date.now() + 30000,
+      expiration: Date.now() + 90000,
       content: JSON.stringify(object),
       updating: false
     }, (err, doc) => {
@@ -91,7 +91,7 @@ cache.createObject = (key, object) =>
 
 cache.updateCache = (doc, object) =>
   new Promise((resolve, reject) => {
-    doc.expiration = Date.now() + 30000;
+    doc.expiration = Date.now() + 90000;
     doc.content = JSON.stringify(object);
     doc.updating = false;
     doc.save((err, doc) => {

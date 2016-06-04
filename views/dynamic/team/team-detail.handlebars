@@ -4,13 +4,16 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-4 col-md-3">
-            <div class="bo-team-picture" style="
-                {{#if team.profilePic.sizes.0.url}}
-                background-image:url({{team.profilePic.sizes.0.url}})
-                {{else}}
-                background-color:#ccc;
-                {{/if}}
-                    "></div>
+            <a href="{{getImageByWidth 800 team.profilePic.sizes}}" data-lightbox="image-{{id}}-{{user.id}}"
+               data-title="{{name}}">
+                <div class="bo-team-picture" style="
+                    {{#if team.profilePic.sizes}}
+                    background-image:url({{getImageByWidth 200 team.profilePic.sizes}})
+                    {{else}}
+                    background-color:#ccc;
+                    {{/if}}
+                        "></div>
+            </a>
         </div>
         <div class="col-sm-8 col-md-9">
             <div class="bo-team-header-margin">
@@ -66,11 +69,14 @@
                                 <div class="bo-card-content">
                                     <div class="form-group">
                                         <textarea class="form-control" name="postText"
-                                              placeholder="{{__ 'NEWPOSTCONTENT'}}" required="required"></textarea>
+                                                  placeholder="{{__ 'NEWPOSTCONTENT'}}" required="required"></textarea>
                                         {{#if team.openChallenges}}
-                                            <p class="bo-team-select-challenge">Du willst damit eine Challenge beweisen?</p>
+                                            <p class="bo-team-select-challenge">Du willst damit eine Challenge
+                                                beweisen?</p>
                                             <select class="form-control" name="challenge">
-                                                <option disabled="disabled" selected="selected">Eine Challenge auswählen</option>
+                                                <option disabled="disabled" selected="selected">Eine Challenge
+                                                    auswählen
+                                                </option>
                                                 {{#each team.openChallenges}}
                                                     <option value="{{id}}">{{description}}</option>
                                                 {{/each}}

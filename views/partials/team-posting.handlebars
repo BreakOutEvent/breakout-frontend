@@ -2,10 +2,12 @@
     <div class="bo-card-info">
         <div class="row">
             <div class="col-xs-3">
-                <div class="bo-card-profilePic"
-                    {{#if user.profilePic.sizes}}
-                     style="background-image: url({{getImageByWidth 70 user.profilePic.sizes}});"
-                    {{/if}}></div>
+                <a href="{{getImageByWidth 800 user.profilePic.sizes}}" data-lightbox="image-{{id}}-{{user.id}}" data-title="{{user.firstname}} {{user.lastname}}">
+                    <div class="bo-card-profilePic"
+                        {{#if user.profilePic.sizes}}
+                         style="background-image: url({{getImageByWidth 70 user.profilePic.sizes}});"
+                        {{/if}}></div>
+                </a>
             </div>
             <div class="col-xs-9">
                 <div class="bo-card-info-name">
@@ -23,7 +25,9 @@
     <div class="bo-card-media">
         {{#if media.0.sizes}}
             {{#ifCond media.0.type 'IMAGE'}}
-                <img class="bo-card-media-image" src="{{getImageByWidth 400 media.0.sizes}}"/>
+                <a href="{{getImageByWidth 800 media.0.sizes}}" data-lightbox="image-{{id}}" data-title="{{text}}">
+                  <img class="bo-card-media-image" src="{{getImageByWidth 400 media.0.sizes}}"  />
+                </a>
             {{/ifCond}}
             {{#ifCond media.0.type 'AUDIO'}}
                 <div class="plyr">
@@ -54,6 +58,16 @@
     </div>
     <div class="bo-card-content">
         <p class="bo-text bo-replace-hashtags" data-hashtags="{{json hashtags}}">{{text}}</p>
+        {{#if proves}}
+            <div class="row bo-card-challenge">
+                <div class="col-xs-2">
+                    <i class="material-icons bo-card-done">done_all</i>
+                </div>
+                <div class="col-xs-10">
+                    <span>{{proves.amount}} € - {{proves.description}}</span>
+                </div>
+            </div>
+        {{/if}}
     </div>
     <div class="bo-card-actions">
         <a href="#" class="bo-card-actions-like {{#if hasLiked}}active{{/if}}" data-id="{{id}}"><i

@@ -263,17 +263,20 @@ API.general = {};
 
 API.general.get = (modelURL) => {
 
-  return cache.getObject(modelURL, function () {
-    logger.info('Trying to get', modelURL, 'from backend');
-    return new Promise((resolve, reject)=> {
-        request
-          .get({
-            url: `${url}${modelURL}`
-          }, handleResponse(resolve, reject, 'Got ' + modelURL + ' from backend'));
-      }
-    );
-  });
+  logger.info('Trying to get', modelURL, 'from backend');
+  return new Promise((resolve, reject)=> {
+      request
+        .get({
+          url: `${url}${modelURL}`
+        }, handleResponse(resolve, reject, 'Got ' + modelURL + ' from backend'));
+    }
+  );
 
+  /*
+  return cache.getObject(modelURL, function () {
+
+  });
+  */
 };
 
 API.sponsoring = {};
@@ -570,12 +573,14 @@ API.posting.getAllPostings = (token, offset, limit) => {
 
   var queryString = qs.stringify(options.qs);
 
-  return cache.getObject(`/posting/${queryString}`, function () {
-    return new Promise((resolve, reject) => {
-      request.get(options, handleResponse(resolve, reject, 'Successfully got all postings'));
-    });
+  return new Promise((resolve, reject) => {
+    request.get(options, handleResponse(resolve, reject, 'Successfully got all postings'));
   });
+  /*
+  return cache.getObject(`/posting/${queryString}`, function () {
 
+  });
+  */
 };
 
 API.posting.getPosting = (postingId, token) => {
