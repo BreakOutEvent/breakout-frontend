@@ -52,7 +52,7 @@ team.getTeamByUrl = (teamId, token) => co(function*() {
 
   let locations = _.map(
     _.sortBy(
-      _.filter(tempTeam.postings, p => p.postingLocation),
+      _.filter(tempTeam.postings, p => p.postingLocation && p.postingLocation.duringEvent),
       p => p.date),
     p => _.pick(p.postingLocation, ['latitude', 'longitude'])
   );
