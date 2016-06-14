@@ -783,6 +783,35 @@ API.admin.deleteComment = (token, commentId) => {
   });
 };
 
+
+API.invoice = {};
+
+API.invoice.getAll = (token) => {
+  logger.info('Getting all invoices');
+  return new Promise((resolve, reject) => {
+    request
+      .get({
+        url: `${url}/invoice/sponsoring/`,
+        auth: {bearer: token.access_token}
+      }, handleResponse(resolve, reject, 'Successfully got all invoices'));
+  });
+};
+
+API.invoice.addAmount = (token, invoiceId , amount) => {
+  logger.info('Adding payment to invoice', invoiceId, 'with amount', amount);
+  return new Promise((resolve, reject) => {
+    request
+      .post({
+        url: `${url}/invoice/${invoiceId}/payment/`,
+        auth: {bearer: token.access_token},
+        body: JSON.stringify({
+          amount: amount
+        }),
+        headers: {'content-type': 'application/json'}
+      }, handleResponse(resolve, reject, 'Successfully added ' + amount + '€ to invoice' + invoiceId));
+  });
+};
+
 function handleResponse(resolve, reject, msg) {
   return (error, response, body) => {
     if (error) {

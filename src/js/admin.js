@@ -61,6 +61,37 @@ $(document).ready(() => {
       });
   });
 
+  $('.btn-addamount').click(function () {
+
+    toggleLoading(this, true);
+    var button = this;
+    var invoiceId = $(this).attr('data-invoice');
+
+    $.post('/admin/invoice/payment/add', {
+      invoiceId: invoiceId,
+      amount: $('#amount-'+invoiceId).val()
+    })
+      .success(function () {
+        $('#results')
+          .append('<div class="alert alert-success alert-dismissable">' +
+            '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
+            'Erfolgreich ' + $('#amount-'+invoiceId).val() + '€ zu Invoice ' +
+             invoiceId + ' hinzugefügt </div>');
+      })
+      .error(function (err) {
+        console.log(err);
+        $('#results')
+          .append('<div class="alert alert-danger alert-dismissable">' +
+            '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
+            'Eintragen von ' + $('#amount-'+invoiceId).val() + '€ zu Invoice ' +
+            invoiceId + ' fehlgeschlagen: ' +
+            err.responseJson.message + ' </div>');
+      })
+      .always(() => {
+        toggleLoading(this);
+      });
+  });
+
   $('[type=search]').on('input',function (e) {
 
     var val = $(this).val().toLowerCase();

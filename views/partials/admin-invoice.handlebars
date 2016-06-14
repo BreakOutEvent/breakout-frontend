@@ -1,0 +1,64 @@
+<div class="row">
+    <div class="col-xs-12">
+        <input type="search" class="form-control" placeholder="Suche...">
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Team ID</th>
+                <th>Amount</th>
+                <th>Sponsor</th>
+                <th>Mitglieder</th>
+                <th>Aktion</th>
+            </tr>
+            </thead>
+            <tbody id="list">
+            {{#each this}}
+                <tr>
+                    <td>{{team}}</td>
+                    <td>{{amount}} €</td>
+                    <td>
+                        {{#if sponsorings}}
+                            {{#if sponsorings.0.unregisteredSponsor}}
+                                {{#if sponsorings.0.unregisteredSponsor.company}}
+                                    {{sponsorings.0.unregisteredSponsor.company}} -
+                                {{/if}}
+                                {{sponsorings.0.unregisteredSponsor.firstname}}
+                                {{sponsorings.0.unregisteredSponsor.lastname}}
+                            {{else}}
+
+                            {{/if}}
+                        {{else}}
+                            {{#if challenges.0.unregisteredSponsor}}
+                                {{#if challenges.0.unregisteredSponsor.company}}
+                                    {{challenges.0.unregisteredSponsor.company}} -
+                                {{/if}}
+                                {{challenges.0.unregisteredSponsor.firstname}}
+                                {{challenges.0.unregisteredSponsor.lastname}}
+                            {{else}}
+
+                            {{/if}}
+                        {{/if}}
+
+
+                        {{#each members}}
+                            {{firstname}} {{lastname}} ({{gender}} - {{participant.tshirtSize}}){{#if @first}}<br/>{{/if}}
+                        {{/each}}
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="amount" id="amount-{{id}}" value="{{amount}}" />
+                        </div>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary btn-addamount" data-invoice="{{id}}">EINTRAGEN</button>
+                    </td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>

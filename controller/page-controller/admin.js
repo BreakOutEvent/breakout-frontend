@@ -90,8 +90,6 @@ admin.getAllTeams = (req) => co(function*() {
 
 admin.checkinTeam = (req, res, next) => co(function*() {
 
-  console.log(req.body);
-
   let checkin = yield api.putModel(
     `event/${req.body.event}/team/`, req.body.team,
     req.user,
@@ -105,5 +103,24 @@ admin.checkinTeam = (req, res, next) => co(function*() {
   sendErr(res, ex.message, ex);
 });
 
+
+admin.getAllInvoices = (req) => co(function*() {
+
+  return yield api.invoice.getAll(req.user);
+
+}).catch((ex) => {
+  throw ex;
+});
+
+admin.addAmountToInvoice = (req, res, next) => co(function*() {
+
+  let addAmount = yield api.invoice.addAmount(req.user, req.body.invoiceId, req.body.amount);
+
+  if (!addAmount) return res.sendStatus(500);
+
+  return res.sendStatus(200);
+}).catch((ex) => {
+  sendErr(res, ex.message, ex);
+});
 
 module.exports = admin;
