@@ -155,14 +155,9 @@ exports.getH264VideoByWidth = (width, sizes) => {
   width = parseFloat(width);
 
   if (Array.isArray(sizes)) {
-    console.log("1",sizes);
     sizes = sizes.filter((size) => size.type === 'VIDEO' && size.url.endsWith(".mp4"));
-    console.log("2",sizes);
-
 
     if (sizes.length > 0) {
-
-      console.log(sizes);
 
       var minDiff = 100000000000;
       var bestFit = sizes[0].url;
@@ -186,15 +181,10 @@ exports.getWebmVideoByWidth = (width, sizes) => {
   width = parseFloat(width);
 
   if (Array.isArray(sizes)) {
-    console.log("3",sizes);
     sizes = sizes.filter((size) => size.type === 'VIDEO' && size.url.endsWith(".webm"));
-    console.log("4",sizes);
-
 
     if (sizes.length > 0) {
-
-      console.log(sizes);
-
+      
       var minDiff = 100000000000;
       var bestFit = sizes[0].url;
       sizes.forEach(s => {

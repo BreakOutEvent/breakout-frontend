@@ -23,7 +23,6 @@ websocket.init = (io) => {
 
   var oldData = [];
   new CronJob('*/10 * * * * *', () => co(function*() {
-    console.log("data");
     var data = yield api.posting.getAllPostings(null, 0, 10);
     var diff = [];
     if (oldData.length === 0) {
@@ -33,7 +32,6 @@ websocket.init = (io) => {
       diff = compareData(oldData, data);
       oldData = data;
     }
-    console.log(diff);
     if(diff.length > 0) {
       var html = yield HBS.render('views/dynamic/liveblog/postings.handlebars',
         {
