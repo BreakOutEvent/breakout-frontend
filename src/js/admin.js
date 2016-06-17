@@ -67,7 +67,7 @@ $(document).ready(() => {
     var button = this;
     var invoiceId = $(this).attr('data-invoice');
 
-    $.post('/admin/invoice/payment/add', {
+    $.post('/admin/invoice/amount/add', {
       invoiceId: invoiceId,
       amount: $('#amount-'+invoiceId).val()
     })
@@ -85,7 +85,7 @@ $(document).ready(() => {
             '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
             'Eintragen von ' + $('#amount-'+invoiceId).val() + '€ zu Invoice ' +
             invoiceId + ' fehlgeschlagen: ' +
-            err.responseJson.message + ' </div>');
+            err.responseJson + ' </div>');
       })
       .always(() => {
         toggleLoading(this);
@@ -108,4 +108,26 @@ $(document).ready(() => {
       });
     }
   })
+  
+  $('#newSponsoring').on('submit', function (e) {
+    e.preventDefault();
+
+    var data = new FormData($('#newSponsoring')[0]);
+
+    $.post('/admin/invoice/add', {
+      teamId: $('#teamId').val(),
+      firstname: $('#firstname').val(),
+      lastname: $('#lastname').val(),
+      company: $('#company').val(),
+      amount: $('#amount').val()
+    })
+      .error(function (err) {
+        console.log(err);
+        $('#results')
+          .append('<div class="alert alert-danger alert-dismissable">' +
+            '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
+            'Fehler beim eintragen </div>');
+      });
+  })
+  
 });

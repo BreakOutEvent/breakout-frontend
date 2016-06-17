@@ -16,6 +16,16 @@
             </tr>
             </thead>
             <tbody id="list">
+            <tr>
+                <form id="newSponsoring">
+                    <td><input class="form-control" type="number" id="teamId" placeholder="TeamNr" required="required"/></td>
+                    <td><input class="form-control" type="text" id="company" placeholder="Firma" /></td>
+                    <td><input class="form-control" type="text" id="firstname" placeholder="Vorname" required="required" />
+                    <input class="form-control" type="text" id="lastname" placeholder="Nachname" required="required" /></td>
+                    <td><input class="form-control" type="number" id="amount" placeholder="€" required="required" /></td>
+                    <td><button class="btn btn-primary" type="submit">ADD</button></td>
+                </form>
+            </tr>
             {{#each this}}
                 <tr>
                     <td>{{team}}</td>
@@ -29,7 +39,11 @@
                                 {{sponsorings.0.unregisteredSponsor.firstname}}
                                 {{sponsorings.0.unregisteredSponsor.lastname}}
                             {{else}}
-
+                                {{#if sponsorings.0.company}}
+                                    {{sponsorings.0.company}} -
+                                {{/if}}
+                                {{sponsorings.0.firstname}}
+                                {{sponsorings.0.lastname}}
                             {{/if}}
                         {{else}}
                             {{#if challenges.0.unregisteredSponsor}}
@@ -39,18 +53,23 @@
                                 {{challenges.0.unregisteredSponsor.firstname}}
                                 {{challenges.0.unregisteredSponsor.lastname}}
                             {{else}}
-
+                                {{#if challenges.0.company}}
+                                    {{challenges.0.company}} -
+                                {{/if}}
+                                {{challenges.0.firstname}}
+                                {{challenges.0.lastname}}
                             {{/if}}
                         {{/if}}
 
-
                         {{#each members}}
-                            {{firstname}} {{lastname}} ({{gender}} - {{participant.tshirtSize}}){{#if @first}}<br/>{{/if}}
+                            {{firstname}} {{lastname}} ({{gender}} - {{participant.tshirtSize}}){{#if @first}}
+                            <br/>{{/if}}
                         {{/each}}
                     </td>
                     <td>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="amount" id="amount-{{id}}" value="{{amount}}" />
+                            <input type="text" class="form-control" name="amount" id="amount-{{id}}"
+                                   value="{{amount}}"/>
                         </div>
                     </td>
                     <td>

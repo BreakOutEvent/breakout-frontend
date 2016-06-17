@@ -812,6 +812,20 @@ API.invoice.addAmount = (token, invoiceId , amount) => {
   });
 };
 
+API.invoice.create = (token, body) => {
+  logger.info('Add invoice to team', body.teamId, 'with amount', body.amount);
+  console.log(body);
+  return new Promise((resolve, reject) => {
+    request
+      .post({
+        url: `${url}/invoice/sponsoring/`,
+        auth: {bearer: token.access_token},
+        body: JSON.stringify(body),
+        headers: {'content-type': 'application/json'}
+      }, handleResponse(resolve, reject, 'Successfully added  invoice with ' + body.amount + '€ to team ' + body.teamId));
+  });
+};
+
 function handleResponse(resolve, reject, msg) {
   return (error, response, body) => {
     if (error) {

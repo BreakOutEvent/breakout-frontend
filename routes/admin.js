@@ -70,6 +70,7 @@ router.get('/invoice', session.isAdmin, (req, res, next) => co(function*() {
 
 router.post('/payment/add', session.isAdmin, admin.addPayment);
 router.post('/invoice/amount/add', session.isAdmin, admin.addAmountToInvoice);
+router.post('/invoice/add', session.isAdmin, admin.addInvoice);
 router.post('/team/checkin', session.isAdmin, admin.checkinTeam);
 
 module.exports = router;

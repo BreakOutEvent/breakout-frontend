@@ -123,4 +123,23 @@ admin.addAmountToInvoice = (req, res, next) => co(function*() {
   sendErr(res, ex.message, ex);
 });
 
+admin.addInvoice = (req, res, next) => co(function*() {
+
+  var body = {
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    company: req.body.company,
+    teamId: req.body.teamId,
+    amount: req.body.amount
+  };
+
+  let addAmount = yield api.invoice.create(req.user, body);
+
+  if (!addAmount) return res.sendStatus(500);
+
+  return res.sendStatus(200);
+}).catch((ex) => {
+  sendErr(res, ex.message, ex);
+});
+
 module.exports = admin;
