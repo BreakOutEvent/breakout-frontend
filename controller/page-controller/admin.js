@@ -129,8 +129,8 @@ admin.addInvoice = (req, res, next) => co(function*() {
     firstname: req.body.firstname,
     lastname: req.body.lastname,
     company: req.body.company,
-    teamId: req.body.teamId,
-    amount: req.body.amount
+    teamId: parseFloat(req.body.teamId),
+    amount: parseFloat(req.body.amount)
   };
 
   let addAmount = yield api.invoice.create(req.user, body);

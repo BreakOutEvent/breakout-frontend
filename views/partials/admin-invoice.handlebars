@@ -31,33 +31,41 @@
                     <td>{{team}}</td>
                     <td>{{amount}} €</td>
                     <td>
-                        {{#if sponsorings}}
-                            {{#if sponsorings.0.unregisteredSponsor}}
-                                {{#if sponsorings.0.unregisteredSponsor.company}}
-                                    {{sponsorings.0.unregisteredSponsor.company}} -
-                                {{/if}}
-                                {{sponsorings.0.unregisteredSponsor.firstname}}
-                                {{sponsorings.0.unregisteredSponsor.lastname}}
-                            {{else}}
-                                {{#if sponsorings.0.company}}
-                                    {{sponsorings.0.company}} -
-                                {{/if}}
-                                {{sponsorings.0.firstname}}
-                                {{sponsorings.0.lastname}}
+                        {{#if firstname}}
+                            {{#if company}}
+                                {{company}} -
                             {{/if}}
+                            {{firstname}}
+                            {{lastname}}
                         {{else}}
-                            {{#if challenges.0.unregisteredSponsor}}
-                                {{#if challenges.0.unregisteredSponsor.company}}
-                                    {{challenges.0.unregisteredSponsor.company}} -
+                            {{#if sponsorings}}
+                                {{#if sponsorings.0.unregisteredSponsor}}
+                                    {{#if sponsorings.0.unregisteredSponsor.company}}
+                                        {{sponsorings.0.unregisteredSponsor.company}} -
+                                    {{/if}}
+                                    {{sponsorings.0.unregisteredSponsor.firstname}}
+                                    {{sponsorings.0.unregisteredSponsor.lastname}}
+                                {{else}}
+                                    {{#if sponsorings.0.company}}
+                                        {{sponsorings.0.company}} -
+                                    {{/if}}
+                                    {{sponsorings.0.firstname}}
+                                    {{sponsorings.0.lastname}}
                                 {{/if}}
-                                {{challenges.0.unregisteredSponsor.firstname}}
-                                {{challenges.0.unregisteredSponsor.lastname}}
                             {{else}}
-                                {{#if challenges.0.company}}
-                                    {{challenges.0.company}} -
+                                {{#if challenges.0.unregisteredSponsor}}
+                                    {{#if challenges.0.unregisteredSponsor.company}}
+                                        {{challenges.0.unregisteredSponsor.company}} -
+                                    {{/if}}
+                                    {{challenges.0.unregisteredSponsor.firstname}}
+                                    {{challenges.0.unregisteredSponsor.lastname}}
+                                {{else}}
+                                    {{#if challenges.0.company}}
+                                        {{challenges.0.company}} -
+                                    {{/if}}
+                                    {{challenges.0.firstname}}
+                                    {{challenges.0.lastname}}
                                 {{/if}}
-                                {{challenges.0.firstname}}
-                                {{challenges.0.lastname}}
                             {{/if}}
                         {{/if}}
 

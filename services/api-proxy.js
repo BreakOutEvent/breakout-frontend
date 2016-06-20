@@ -814,7 +814,6 @@ API.invoice.addAmount = (token, invoiceId , amount) => {
 
 API.invoice.create = (token, body) => {
   logger.info('Add invoice to team', body.teamId, 'with amount', body.amount);
-  console.log(body);
   return new Promise((resolve, reject) => {
     request
       .post({
