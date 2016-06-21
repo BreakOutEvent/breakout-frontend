@@ -48,8 +48,18 @@ router.get('/', (req, res, next) => co(function*() {
 }).catch(next));
 
 router.get('/:teamId', (req, res, next) => co(function*() {
-  const currTeam = yield team.getTeamByUrl(req.params.teamId, req.user);
 
+  let teamId = parseInt(req.params.teamId);
+
+  if (teamId === 103) {
+    res.status(404);
+    return res.render('error', {
+      code: 404,
+      message: `Team ${req.params.teamId} could not be found on this server`
+    });
+  }
+
+  const currTeam = yield team.getTeamByUrl(req.params.teamId, req.user);
 
   if (!currTeam.hasFullyPaid) {
     res.status(404);
