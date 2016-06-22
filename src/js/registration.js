@@ -3,6 +3,27 @@
 var sanityCheck = require('./helpers').sanityCheck;
 var toggleLoading = require('./helpers').toggleLoading;
 
+function requestPasswordReset(email) {
+  return $.post('/request-pw-reset', {
+    email: email
+  });
+}
+
+function resetPassword(email, newPassword, token) {
+  return $.post('/reset-pw', {
+    token: token,
+    email: email,
+    password: newPassword
+  });
+}
+
+function displayError(message) {
+  $('#error').html(`<div class="alert alert-danger">${message}</div>`);
+}
+
+function displaySuccess(message) {
+  $('#success').html('<div class="alert alert-success">'+message+'</div>');
+}
 
 $(document).ready(() => {
 
@@ -21,56 +42,45 @@ $(document).ready(() => {
   $('#forgotPW').click(function () {
     let email = $('#username').val();
     if (email === '') {
-      $('#error').html('<div class="alert alert-danger">' +
-        'You must enter the email address you registered with, to reset your password!</div>');
-    } else {
-
-      toggleLoading('#forgotPW');
-      $.post('/request-pw-reset', {
-        email: email
-      })
-        .success(() => {
-          $('#success').html('<div class="alert alert-success">' +
-            'An email with instructions to reset your password was sent to: ' + email + '</div>');
-        })
-        .error(err => {
-          $('#error').html('<div class="alert alert-danger">' +
-            err.responseJSON.error + '</div>');
-        })
-        .always(() => {
-          toggleLoading('#forgotPW');
-        });
+      displayError('You must enter the email address you registered with, to reset your password!');
+      return;
     }
-  });
 
+    toggleLoading('#forgotPW');
+    requestPasswordReset(email)
+      .success(() => displaySuccess('An email with instructions to reset your password was sent to: ' + email))
+      .error(err => displayError(err.responseJSON.error))
+      .always(() => toggleLoading('#forgotPW'));
+  });
 
   $('#resetPwForm').on('submit', e => {
     e.preventDefault();
 
-    if (sanityCheck('resetPwForm')) {
-      if ($('#password').val() !== $('#password_repeat').val()) {
-        $('#error').html('<div class="alert alert-danger"> ' +
-          'The passwords you entered do not match.</div>');
-      } else {
-        toggleLoading('#mainCTA');
-        $.post('/reset-pw', {
-          token: $('#token').val(),
-          email: $('#email').val(),
-          password: $('#password').val()
-        })
-          .success(data => {
-            $('#success').html('<div class="alert alert-success">' + data.success + '</div>');
-          })
-          .error(err => {
-            console.log(err);
-            $('#error').html('<div class="alert alert-danger">' +
-              err.responseJSON.error + '</div>');
-          })
-          .always(() => {
-            toggleLoading('#mainCTA');
-          });
-      }
+    if(!sanityCheck('resetPwForm')) {
+      // TODO: What do we if sanity check fails??
     }
+
+    const password = $('#password').val();
+    const passwordRepeat = $('#password_repeat').val();
+
+    console.log('test');
+
+    if (password !== passwordRepeat) {
+      displayError('The passwords you entered do not match');
+      return;
+    }
+
+    toggleLoading('#mainCTA');
+    const token = $('#token').val();
+    const email = $('#email').val();
+
+    resetPassword(email, password, token)
+      .success(data => displaySuccess(data.success))
+      .error(err => {
+        console.log(err);
+        displayError(err.responseJSON.error);
+      })
+      .always(() => toggleLoading('#mainCTA'));
   });
 
 
@@ -167,7 +177,7 @@ $(document).ready(() => {
 
         if (!($('#profilePic')[0] && $('#profilePic')[0].files &&
           $('#profilePic')[0].files[0])) {
-          
+
           //dirty safari hack
           $('#profilePic').remove();
         }
@@ -274,13 +284,13 @@ $(document).ready(() => {
 
         toggleLoading('#mainCTA');
         $.ajax({
-          url: '/sponsor',
-          type: 'POST',
-          cache: false,
-          processData: false,
-          contentType: false,
-          data: data
-        })
+            url: '/sponsor',
+            type: 'POST',
+            cache: false,
+            processData: false,
+            contentType: false,
+            data: data
+          })
           .success(function (res) {
             window.location.href = res.nextURL;
           })
