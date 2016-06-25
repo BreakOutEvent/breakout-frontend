@@ -61,7 +61,10 @@ router.get('/invoice', session.isAdmin, (req, res, next) => co(function*() {
   let options = resDefault(req);
   options.view = 'admin-invoice';
   options.data = yield admin.getAllInvoices(req);
-  console.log(options.data[501]);
+  console.log(options.data[200]);
+  console.log(options.data[300]);
+  console.log(options.data[400]);
+  console.log(options.data[500])
   res.render(`static/admin/dashboard`, options);
 }).catch((ex) => {
   console.log(ex);

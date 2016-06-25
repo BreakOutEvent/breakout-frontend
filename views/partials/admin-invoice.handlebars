@@ -9,9 +9,10 @@
             <thead>
             <tr>
                 <th>Team ID</th>
-                <th>Amount</th>
+                <th>Soll</th>
+                <th>Ist</th>
                 <th>Sponsor</th>
-                <th>Tatsächlicher Betrag</th>
+                <th>Offen</th>
                 <th>Aktion</th>
             </tr>
             </thead>
@@ -19,7 +20,7 @@
             <tr>
                 <form id="newSponsoring">
                     <td><input class="form-control" type="number" id="teamId" placeholder="TeamNr" required="required"/></td>
-                    <td><input class="form-control" type="text" id="company" placeholder="Firma" /></td>
+                    <td colspan="2"><input class="form-control" type="text" id="company" placeholder="Firma" /></td>
                     <td><input class="form-control" type="text" id="firstname" placeholder="Vorname" required="required" />
                     <input class="form-control" type="text" id="lastname" placeholder="Nachname" required="required" /></td>
                     <td><input class="form-control" type="number" id="amount" placeholder="€" required="required" /></td>
@@ -30,6 +31,7 @@
                 <tr>
                     <td>{{teamId}}</td>
                     <td>{{amount}} €</td>
+                    <td>{{payed}} €</td>
                     <td>
                         {{#if firstname}}
                             {{#if company}}
@@ -77,7 +79,7 @@
                     <td>
                         <div class="form-group">
                             <input type="text" class="form-control" name="amount" id="amount-{{id}}"
-                                   value="{{amount}}"/>
+                                   value="{{open}}"/>
                         </div>
                     </td>
                     <td>

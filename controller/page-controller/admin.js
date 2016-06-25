@@ -106,7 +106,23 @@ admin.checkinTeam = (req, res, next) => co(function*() {
 
 admin.getAllInvoices = (req) => co(function*() {
 
-  return yield api.invoice.getAll(req.user);
+  let rawInvoices =  yield api.invoice.getAll(req.user);
+
+  return rawInvoices.map(i => {
+    if (i.payments.length) {
+      i.payed = i.payments.reduce((prev, curr) => {
+        return prev + curr.amount;
+      }, 0);
+      i.open = i.amount - i.payed;
+      if (i.open < 0) i.open = 0;
+    } else {
+      i.payed = 0;
+      i.open = i.amount;
+    }
+    return i;
+  });
+
+
 
 }).catch((ex) => {
   throw ex;
