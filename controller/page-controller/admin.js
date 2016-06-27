@@ -108,7 +108,11 @@ admin.getAllInvoices = (req) => co(function*() {
 
   let rawInvoices =  yield api.invoice.getAll(req.user);
 
-  return rawInvoices.map(i => {
+  var teams = [];
+
+
+
+  var invoices = rawInvoices.map(i => {
     if (i.payments.length) {
       i.payed = i.payments.reduce((prev, curr) => {
         return prev + curr.amount;
@@ -121,6 +125,23 @@ admin.getAllInvoices = (req) => co(function*() {
     }
     return i;
   });
+
+
+  invoices.forEach(i => {
+    if(!teams[i.teamId]) teams[i.teamId] = 0;
+    teams[i.teamId] += i.payed;
+  });
+
+  var depositTeams = teams.map((t, index) => {
+    if(t > 100) {
+      return {
+        teamId: index,
+        amount: t
+      }
+    }
+  });
+
+  return invoices;
 
 
 

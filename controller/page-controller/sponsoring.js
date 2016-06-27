@@ -300,4 +300,39 @@ sponsoring.challenge.delete = (req, res, next) => co(function*() {
   sendErr(res, ex.message, ex);
 });
 
+sponsoring.invoice = {};
+
+sponsoring.invoice.getByTeam = (req) => co(function*() {
+
+  let rawInvoices =  yield api.invoice.getByTeam(req.user, req.user.me.participant.teamId);
+
+  let invoices = rawInvoices.map(i => {
+    if (i.payments.length) {
+      i.payed = i.payments.reduce((prev, curr) => {
+        return prev + curr.amount;
+      }, 0);
+      i.open = i.amount - i.payed;
+      if (i.open < 0) i.open = 0;
+    } else {
+      i.payed = 0;
+      i.open = i.amount;
+    }
+    return i;
+  });
+
+  let confirmedDonations = {};
+  confirmedDonations.invoices = invoices;
+  confirmedDonations.totalSum = invoices.reduce((curr, next) => {
+    return curr + next.payed
+  },0);
+
+  confirmedDonations.totalCount = invoices.filter(i => i.payed > 0 ).length;
+
+
+  return confirmedDonations;
+
+}).catch(ex => {
+  throw ex;
+});
+
 module.exports = sponsoring;

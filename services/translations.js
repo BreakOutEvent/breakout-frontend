@@ -601,6 +601,10 @@ module.exports = {
       de: 'Ausgehende Sponsorings',
       en: 'Outgoing sponsorings'
     },
+    NAVIGATION_RESULT: {
+      de: 'Erfasste Spenden',
+      en: 'Recorded donations'
+    },
     LINK_SPONSOR: {
       de: 'Sponsor werden',
       en: 'Become a sponsor'

@@ -797,6 +797,17 @@ API.invoice.getAll = (token) => {
   });
 };
 
+API.invoice.getByTeam = (token, teamId) => {
+  logger.info('Getting invoices for team',teamId);
+  return new Promise((resolve, reject) => {
+    request
+      .get({
+        url: `${url}/invoice/sponsoring/${teamId}/`,
+        auth: {bearer: token.access_token}
+      }, handleResponse(resolve, reject, 'Successfully got all invoices for team ' + teamId));
+  });
+};
+
 API.invoice.addAmount = (token, invoiceId , amount) => {
   logger.info('Adding payment to invoice', invoiceId, 'with amount', amount);
   return new Promise((resolve, reject) => {

@@ -23,7 +23,11 @@
                 ><a href="#sponsor" aria-controls="team" role="tab"
                     data-toggle="tab">{{__ 'NAVIGATION_SPONSOR'}}</a></li>
             {{ else }}
-                <li role="presentation"><a href="/sponsor">{{__ 'LINK_SPONSOR'}}</a></li>
+                <!--<li role="presentation"><a href="/sponsor">{{__ 'LINK_SPONSOR'}}</a></li>-->
+            {{/if}}
+            {{#if status.is.team}}
+                <li role="presentation"><a href="#result" aria-controls="result" role="tab"
+                                                          data-toggle="tab">{{__ 'NAVIGATION_RESULT'}}</a></li>
             {{/if}}
         </ul>
     </div>
@@ -260,6 +264,78 @@
                     </table>
                 </div>
             </div>
+        </div>
+    </div>
+    <!-- Recorded donations -->
+    <div role="tabpanel" class="tab-pane" id="result">
+        <div class="container">
+            <div class="registration-margin"></div>
+            <div id="result_in"></div>
+            <h3>{{__ 'NAVIGATION_RESULT'}} (Total: {{confirmedDonations.totalSum}} € in {{confirmedDonations.totalCount}})</h3>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Soll</th>
+                    <th>Ist</th>
+                    <th>Offen</th>
+                    <th>Sponsor</th>
+                </tr>
+                </thead>
+                <tbody id="list">
+                {{#each confirmedDonations.invoices}}
+                    <tr>
+                        <td>{{amount}} €</td>
+                        <td>{{payed}} €</td>
+                        <td>{{open}} €</td>
+                        <td>
+                            {{#if firstname}}
+                                {{#if company}}
+                                    {{company}} -
+                                {{/if}}
+                                {{firstname}}
+                                {{lastname}}
+                            {{else}}
+                                {{#if sponsorings}}
+                                    {{#if sponsorings.0.unregisteredSponsor}}
+                                        {{#if sponsorings.0.unregisteredSponsor.company}}
+                                            {{sponsorings.0.unregisteredSponsor.company}} -
+                                        {{/if}}
+                                        {{sponsorings.0.unregisteredSponsor.firstname}}
+                                        {{sponsorings.0.unregisteredSponsor.lastname}}
+                                    {{else}}
+                                        {{#if sponsorings.0.company}}
+                                            {{sponsorings.0.company}} -
+                                        {{/if}}
+                                        {{sponsorings.0.firstname}}
+                                        {{sponsorings.0.lastname}}
+                                    {{/if}}
+                                {{else}}
+                                    {{#if challenges.0.unregisteredSponsor}}
+                                        {{#if challenges.0.unregisteredSponsor.company}}
+                                            {{challenges.0.unregisteredSponsor.company}} -
+                                        {{/if}}
+                                        {{challenges.0.unregisteredSponsor.firstname}}
+                                        {{challenges.0.unregisteredSponsor.lastname}}
+                                    {{else}}
+                                        {{#if challenges.0.company}}
+                                            {{challenges.0.company}} -
+                                        {{/if}}
+                                        {{challenges.0.firstname}}
+                                        {{challenges.0.lastname}}
+                                    {{/if}}
+                                {{/if}}
+                            {{/if}}
+
+                            {{#each members}}
+                                {{firstname}} {{lastname}} ({{gender}} - {{participant.tshirtSize}}){{#if @first}}
+                                <br/>{{/if}}
+                            {{/each}}
+                        </td>
+
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

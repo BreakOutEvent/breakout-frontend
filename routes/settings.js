@@ -29,11 +29,13 @@ router.get('/sponsoring', session.isUser, (req, res, next) => co(function*() {
   let incChallenges = [];
   let outSponsoring = [];
   let outChallenges = [];
+  let confirmedDonations = [];
   //INCOMING
 
   if(req.user.status.is.team) {
     incSponsoring = yield sponsoring.getByTeam(req);
     incChallenges = yield sponsoring.challenge.getByTeam(req);
+    confirmedDonations = yield sponsoring.invoice.getByTeam(req);
   }
 
   //OUTGOING
@@ -57,6 +59,7 @@ router.get('/sponsoring', session.isUser, (req, res, next) => co(function*() {
       incChallenges: incChallenges,
       outSponsoring: outSponsoring,
       outChallenges: outChallenges,
+      confirmedDonations: confirmedDonations,
       teams:teams,
       isLoggedIn: req.user,
       title: 'Sponsorings'
