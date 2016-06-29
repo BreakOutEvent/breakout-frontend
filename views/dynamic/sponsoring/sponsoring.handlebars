@@ -12,7 +12,7 @@
     <div class="container bo-secondary-nav">
         <ul class="nav nav-tabs">
             {{#if status.is.team}}
-                <li role="presentation" class="active"><a href="#team" aria-controls="team" role="tab"
+                <li role="presentation"><a href="#team" aria-controls="team" role="tab"
                                                           data-toggle="tab">{{__ 'NAVIGATION_TEAM'}}</a></li>
             {{/if}}
             {{#if status.is.sponsor}}
@@ -26,7 +26,7 @@
                 <!--<li role="presentation"><a href="/sponsor">{{__ 'LINK_SPONSOR'}}</a></li>-->
             {{/if}}
             {{#if status.is.team}}
-                <li role="presentation"><a href="#result" aria-controls="result" role="tab"
+                <li role="presentation" class="active"><a href="#result" aria-controls="result" role="tab"
                                                           data-toggle="tab">{{__ 'NAVIGATION_RESULT'}}</a></li>
             {{/if}}
         </ul>
@@ -35,11 +35,7 @@
 
 <!-- Tab panes -->
 <div class="tab-content">
-    <div role="tabpanel" class="tab-pane
-    {{#if status.is.team}}
-        active
-    {{/if}}
-    " id="team">
+    <div role="tabpanel" class="tab-pane" id="team">
         <div class="container">
             <div class="row registration-margin">
                 <div class="col-sm-3 col-sm-offset-9 text-right">
@@ -267,7 +263,11 @@
         </div>
     </div>
     <!-- Recorded donations -->
-    <div role="tabpanel" class="tab-pane" id="result">
+    <div role="tabpanel" class="tab-pane
+    {{#if status.is.team}}
+        active
+    {{/if}}
+    " id="result">
         <div class="container">
             <div class="registration-margin"></div>
             <div id="result_in"></div>
