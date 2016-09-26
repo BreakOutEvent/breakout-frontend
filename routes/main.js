@@ -9,7 +9,6 @@ const co = require('co');
 const execa = require('execa');
 const a2h = require('ansi2html-extended');
 
-const memberController = requireLocal('controller/page-controller/member');
 const staticController = requireLocal('controller/page-controller/static');
 const renderer = requireLocal('services/renderer');
 const session = requireLocal('controller/session');
@@ -35,10 +34,6 @@ router.get('/logs/:log(error|info)', session.isAdmin, (req, res, next) => co(fun
 }).catch(ex => {
   next(ex);
 }));
-
-router.get('/:language([a-zA-Z]{2})/team', (req, res, next) => co(function*() {
-  memberController.teamPage(req.params.language, res);
-}).catch(ex => next(ex)));
 
 router.get('/:language([a-zA-Z]{2})/:path', (req, res, next) => co(function*() {
   staticController.prerendered(req.params.language, req.params.path, res, next);

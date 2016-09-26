@@ -40,7 +40,6 @@ const renderTemplate = (type, folder, layout) => (template) => (req, res) => {
     options.email = req.params.email;
   }
 
-  console.log(`${type}/${folder}/${template}`, options);
   res.render(`${type}/${folder}/${template}`, options);
 };
 
@@ -51,7 +50,6 @@ const redirectOnLogin = (req, res, next) => {
 };
 
 const funnelTemplate = renderTemplate('dynamic', 'register', 'funnel');
-const masterStaticTemplate = renderTemplate('static', 'content', 'master');
 
 //GET
 //router.get('/', redirectOnLogin, funnelTemplate('register'));
@@ -66,10 +64,6 @@ router.get('/spectator-success', session.isUser, funnelTemplate('spectator-succe
 router.get('/invite', session.hasTeam, registration.lock, funnelTemplate('invite'));
 router.get('/reset/:email/:token', funnelTemplate('reset-pw'));
 router.get('/closed', funnelTemplate('closed'));
-
-//static content pages
-router.get('/about', masterStaticTemplate('about'));
-
 
 router.get('/login', redirectOnLogin, (req, res, next) => {
   if (req.query.return) req.flash('url', req.query.return);

@@ -170,6 +170,7 @@ const server = callback => co(function*() {
 
   app.use('/', requireLocal('routes/main'));
   app.use('/', requireLocal('routes/dynamic'));
+  app.use('/', requireLocal('routes/static'));
   app.use('/team', requireLocal('routes/team'));
   app.use('/post', requireLocal('routes/posting'));
   app.use('/messages', requireLocal('routes/messages'));
