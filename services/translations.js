@@ -809,8 +809,7 @@ module.exports = {
       en: 'About BreakOut'
     },
     ABOUT_LINK: {
-      de: 'http://www.break-out.org/worum-gehts/',
-      en: 'http://www.break-out.org/en/what-is-breakout-about/'
+      de: '/about'
     },
     TEAMS: {
       de: 'Teams'
@@ -826,56 +825,53 @@ module.exports = {
       en: 'Next Steps'
     },
     NEXT_STEPS_LINK: {
-      de: 'http://www.break-out.org/naechste-schritte/',
-      en: 'http://www.break-out.org/en/next-steps/'
+      de: '/next-steps'
     },
     FAQ: {
       de: 'FAQ'
     },
     FAQ_LINK: {
-      de: 'http://www.break-out.org/faq/',
-      en: 'http://www.break-out.org/en/faq-2/'
+      de: '/faq'
     },
     CODE: {
       de: 'Code of Honour'
     },
     CODE_LINK: {
-      de: 'http://www.break-out.org/code-of-honour/',
-      en: 'http://www.break-out.org/en/code-of-honour-2/'
+      de: '/code-of-honour',
     },
     TERMS: {
       de: 'Teilnahmebedingungen'
     },
     TERMS_LINK: {
-      de: 'http://www.break-out.org/teilnahmebedingungen/'
+      de: '/terms-and-conditions'
     },
     PARTNER: {
       de: 'Partner',
       en: 'Partners'
     },
     PARTNER_LINK: {
-      de: 'http://www.break-out.org/partner/'
+      de: '/partner'
     },
     PRESS: {
       de: 'Presse',
       en: 'Press'
     },
     PRESS_LINK: {
-      de: 'http://www.break-out.org/pressebereich/'
+      de: '/press'
     },
     ABOUTUS: {
       de: 'Über uns',
       en: 'About us'
     },
     ABOUTUS_LINK: {
-      de: '/de/team'
+      de: '/members'
     },
     JOIN: {
       de: 'Mitorganisieren',
       en: 'Join us'
     },
     JOIN_LINK: {
-      de: 'http://www.break-out.org/mitmachen/'
+      de: '/get-involved'
     },
     LOGIN: {
       de: 'Einloggen',
@@ -999,6 +995,60 @@ module.exports = {
     SECTION6_TEXT: {
       de: 'Noch Fragen? - Wenden Sie sich gerne an <a href="mailto:event@break-out.org">event@break-out.org</a>.',
       en: 'Any questions? - Feel free to contact <a href="mailto:event@break-out.org">event@break-out.org</a>'
+    }
+  },
+  ABOUT: {
+    ABOUT_BREAKOUT_HEADING: {
+      de: 'Worum geht’s bei BreakOut',
+      en: 'What is BreakOut about'
+    },
+    DESCRIPTION_1: {
+      de: 'Möglichst weit weg. Zu zweit. Ohne Geld. In 36 Stunden. – Für die UNO-Flüchtlingshilfe.',
+      en: '<em>Break</em>Out – As far away as possible. Two people. No money. 36 hours. – For the UNHCR.'
+    },
+    DESCRIPTION_2: {
+      de: 'Hier erfahrt Ihr, worum es bei <em>Break</em>Out geht.',
+      en: ''
+    },
+    DESCRIPTION_VIDEO: {
+      de: 'Dieses Video erklärt <em>Break</em>Out. Erfahrungsberichte findet Ihr weiter unten.',
+      en: ''
+    },
+    GOAL_HEADING: {
+      de: 'Das Ziel',
+      en: 'The Goal'
+    },
+    GOAL_CONTENT: {
+      de: 'Ihr wollt so weit wie möglich vom Startpunkt (München oder Berlin) weg. Himmelsrichtung und Transportmittel bleiben Euch überlassen. Aber <em>Break</em>Out ist mehr als nur ein Wettbewerb: Gleichzeitig sammelt Ihr, wie bei einem Spendenmarathon, Geld für ein <a title="Das soziale Projekt" href="https://www.uno-fluechtlingshilfe.de/breakout" target="_blank">soziales Projekt</a>.',
+      en: 'You want to get as far away as possible from the starting point (Munich or Berlin). Direction and means of transport are your choice. However, <em>Break</em>Out is more than a simple competition: While travelling you raise money for <a title="The Charity" href="http://www.unhcr.org/pages/49e4a2dd6.html" target="_blank">charity.</a>'
+    },
+    WAY_HEADING: {
+      de: 'Der Ablauf',
+      en: 'The way to go'
+    },
+    WAY_CONTENT: {
+      de: '<ul><li>Teampartner finden</li><li>Bis zum 15. Mai bei <em>Break</em>Out <a title="Mitmachen" href="/register">anmelden</a></li><li>Sponsoren für das eigene Team suchen (z.B. Geschäfte, Unternehmen, Familie…)</li><li>Auf, auf und davon…</li></ul><p>Im Laufe der folgenden 36 Stunden versucht Ihr ohne Geld, also beispielsweise durch Trampen, so weit wegzukommen wie möglich. Seid kreativ und beweist Verhandlungsgeschick. Euer Engagement könnte den Unterschied zwischen Pasing und Paris machen! Letztes Jahr sind alle Teilnehmer zusammen ein Fünftel der Distanz bis zum Mond gereist.</p><p>Der Fortschritt aller reisenden Teams kann während des Events live mitverfolgt werden.</p>',
+      en: '<ul><li>Find a team-mate</li><li><a title="Register" href="/register">Register</a></li><li>Find sponsors for your team (e.g. small shops, companies, friends family etc.)</li><li><em>Break</em>Out</li></ul><p>Your journey starts on Thursday, June 4th, at 9 am on Geschwister-Scholl-Platz, Munich. During the following 36 hours you will try to get as far away as possible without spending money for transport, e.g. by hitch-hiking. By creative and negotiate! Your commitment may well make the difference between Pasing and Paris! – Last year all teams together travelled around half the world.</p><p>Through our app the progess of all BreakOut-teams can be seen live during the event.</p>',
+    },
+    CHARITY_HEADING: {
+      de: 'Der Soziale Aspekt',
+      en: 'The charity'
+    },
+    CHARITY_CONTENT: {
+      de: '<p>Hinter BreakOut verbirgt sich nicht nur ein Haufen Spaß beim Reisen, sondern vor allem ein sozialer Gedanke. Für jeden erreichten Kilometer spenden die Sponsoren des eigenen Teams zum Beispiel 1€. Das gesamte Geld wird zu 100% an das <a title="Das soziale Projekt" href="https://www.uno-fluechtlingshilfe.de/breakout" target="_blank">DAFI-Programm der UNO-Flüchtlingshilfe</a> gespendet. DAFI vergibt Stipendien an junge, begabte Flüchtlinge, um ihnen so den Zugang zu Bildung zu erleichtern und ein Studium zu ermöglichen.</p><p>Ganz nach dem Motto: Von Studenten für Studenten.</p>',
+      en: '<p>Apart from having a lot fun travelling, with BreakOut your are doing something good. For each kilometer a team travels, their sponsors give a certain amount to charity: e.g. 1€/km. This money goes 100% directly to <a title="The Charity" href="http://www.unhcr.org/pages/49e4a2dd6.html" target="_blank">DAFI</a>. DAFI is a scholarship-program managed by the UNHCR. It gives young refugees access to higher eduction by financing their university studies.</p><p>Our motto: From students to students.</p>',
+    },
+    WINNERS_HEADING: {
+      de: 'Die Gewinner',
+      en: 'The winners'
+    },
+    WINNERS_CONTENT: {
+      de: '<p>Gewinnen können die Teams bei <em>Break</em>Out auf verschiedene Arten, zum Beispiel:</p><ul><li>Größte Entfernung (Luftlinie)</li><li>Höchste Spendensumme</li><li>Meisten bereisten Länder</li><li>Beste Dokumentation</li></ul><p>Es wird Preise geben, also strengt Euch an!</p><p>Unendlich geehrt wird, wer einen anderen Kontinent oder Planeten erreicht, die 10.000km knackt oder auf einem Kamel, Einhorn oder Segelschiff reist.</p>',
+      en: '<p><em>Break</em> offers several chances to win: First of all you win an amazing experience. Additionally there will be several prices:</p><ul><li>Largest distance from Munich (as the crow flies)</li><li>Most money raised</li><li>Most countries visited</li><li>Best documentation (e.g. video)</li></ul><p>Infinitely honoured will be those who reach another continent, go further than 10,000 km or travel by camel, unicorn or ship.</p>'
+    },
+    WINNERS_BUTTON: {
+      de: 'Challenge accepted? – Zur Anmeldung!',
+      en: 'Challenge accepted? – Register here!'
     }
   }
 };
