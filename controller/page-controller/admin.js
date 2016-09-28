@@ -174,7 +174,8 @@ admin.addInvoice = (req, res, next) => co(function*() {
 
   if (!addAmount) return res.sendStatus(500);
 
-  return res.sendStatus(200);
+  return res.status(200).send(addAmount);
+
 }).catch((ex) => {
   sendErr(res, ex.message, ex);
 });

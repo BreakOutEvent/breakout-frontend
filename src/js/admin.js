@@ -108,26 +108,50 @@ $(document).ready(() => {
       });
     }
   })
-  
-  $('#newSponsoring').on('submit', function (e) {
-    e.preventDefault();
 
-    var data = new FormData($('#newSponsoring')[0]);
+  const buttonAddNewPayment = $('#btn-addNewPayment');
 
-    $.post('/admin/invoice/add', {
+  buttonAddNewPayment.click(() => {
+
+    const data = {
       teamId: $('#teamId').val(),
       firstname: $('#firstname').val(),
       lastname: $('#lastname').val(),
       company: $('#company').val(),
       amount: $('#amount').val()
-    })
-      .error(function (err) {
-        console.log(err);
-        $('#results')
-          .append('<div class="alert alert-danger alert-dismissable">' +
-            '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
-            'Fehler beim eintragen </div>');
-      });
-  })
-  
+    }
+
+    toggleLoading(buttonAddNewPayment);
+
+    $.post('/admin/invoice/add', data)
+      .success((response) => {
+        const invoiceId = response.id;
+        $.post('/admin/invoice/amount/add', {
+          invoiceId: invoiceId,
+          amount: data.amount
+        }).success(() => {
+          const message = `Rechnung mit ID ${invoiceId} erfolgreich erstellt und eine Zahlung von ${data.amount}€ hinzugefügt`;
+          displaySuccess(message);
+        }).error((err) => {
+          const message = `Fehler beim hinzufügen einer Zahlung zur Rechnung mit ID ${invoiceId}: ${err.message}`;
+          displayError(message);
+        })
+      })
+      .error((err) => {
+        displayError(`Fehler beim Erstellen einer neuen Rechnung`);
+      })
+      .always(() => toggleLoading(buttonAddNewPayment));
+  });
 });
+
+function displaySuccess(message) {
+  $('#results')
+    .append('<div class="alert alert-success alert-dismissable">' +
+      '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> '+message+' </div>');
+}
+
+function displayError(message) {
+  $('#results')
+    .append('<div class="alert alert-danger alert-dismissable">' +
+      '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> '+message+' </div>');
+}

@@ -18,14 +18,12 @@
             </thead>
             <tbody id="list">
             <tr>
-                <form id="newSponsoring">
-                    <td><input class="form-control" type="number" id="teamId" placeholder="TeamNr" required="required"/></td>
-                    <td colspan="2"><input class="form-control" type="text" id="company" placeholder="Firma" /></td>
-                    <td><input class="form-control" type="text" id="firstname" placeholder="Vorname" required="required" />
-                    <input class="form-control" type="text" id="lastname" placeholder="Nachname" required="required" /></td>
-                    <td><input class="form-control" type="number" id="amount" placeholder="€" required="required" /></td>
-                    <td><button class="btn btn-primary" type="submit">ADD</button></td>
-                </form>
+                <td><input class="form-control" type="number" id="teamId" placeholder="TeamNr" required="required"/></td>
+                <td colspan="2"><input class="form-control" type="text" id="company" placeholder="Firma" /></td>
+                <td><input class="form-control" type="text" id="firstname" placeholder="Vorname" required="required" />
+                <input class="form-control" type="text" id="lastname" placeholder="Nachname" required="required" /></td>
+                <td><input class="form-control" type="number" id="amount" placeholder="€" required="required" /></td>
+                <td><button id="btn-addNewPayment" class="btn btn-primary" type="submit">ADD</button></td>
             </tr>
             {{#each this}}
                 <tr>
