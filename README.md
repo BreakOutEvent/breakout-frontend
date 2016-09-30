@@ -23,7 +23,7 @@ For related applications check the organization: https://github.com/BreakOutEven
 
 1. `npm i` installs all dependencies and builds the frontend
 1. Runs at `localhost:3000`
-
+  
 **Commands:**
 * `npm build` builds frontend with grunt
 * `npm log:info` prints info log
