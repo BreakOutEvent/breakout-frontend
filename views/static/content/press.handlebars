@@ -1,0 +1,81 @@
+<div class="bo-header-info"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>{{__ 'PRESS_HEADING'}}</h1>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <!-- Testimonials end up here -->
+        <div class="col-md-8">
+            {{#each testimonials}}
+                <div class="row">
+                    <div class="col-md-12">
+                        <a class="bo-press-testimonial-text" href="{{this.link}}">&quot;{{this.text}}&quot;</a><br/>
+                        <span class="bo-press-testimonial-from">&mdash; {{this.from}}, {{this.date}}</span>
+                        <hr>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-md-4">
+
+            <!--Press material-->
+            <!--TODO: Chance link!!-->
+            <img src="http://www.break-out.org/wordpress/wp-content/themes/arcade-basic-child/images/pressemitteilungen.svg"
+                 class="img-circle img-responsive bo-press-material-img">
+            <div class="row">
+                <div class="col-md-10">
+                    <!-- TODO: i18n!! -->
+                    <h2>Pressematerialien</h2>
+                </div>
+            </div>
+
+            {{#each pressMaterials}}
+                <div class="row bo-press-material">
+                    <div class="col-md-12">
+                        <a href="{{this.link}}">{{this.text}}</a>
+                    </div>
+                </div>
+            {{/each}}
+
+            <!-- pressReviews-->
+            <!--TODO: Chance link!!-->
+            <img src="http://www.break-out.org/wordpress/wp-content/themes/arcade-basic-child/images/pressepaket.svg"
+                 class="img-circle img-responsive bo-press-material-img">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- TODO: i18n!! -->
+                    <h2>Pressespiegel</h2>
+                </div>
+            </div>
+
+            {{#each pressReviews}}
+                <div class="row bo-press-material">
+                    <div class="col-md-12">
+                        <a href="{{this.link}}">{{this.text}}</a>
+                    </div>
+                </div>
+            {{/each}}
+            <br /><!-- TODO: Remove me! -->
+            <!--press spokeswoman-->
+            <img src="http://break-out.org/wordpress/wp-content/uploads/2014/06/annie.jpg"
+                 class="img-circle img-responsive bo-press-material-img">
+            <div class="row">
+                <div class="col-md-12">
+                    <!--TODO: i18n-->
+                    <h2>Pressesprecherin</h2>
+                    <p>
+                        Bei Interviewanfragen oder falls sie zusätzliches Material benötigen,
+                        melden Sie sich gerne bei unserer Pressesprecherin
+                        <a href="mailto:anna-catharina.wedde@break-out.org">Anna-Catharina Wedde.</a>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

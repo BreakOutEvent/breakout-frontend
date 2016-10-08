@@ -10,6 +10,10 @@ const co = require('co');
 const memberController = requireLocal('controller/page-controller/member');
 const router = express.Router();
 
+const testimonials = requireLocal('content/press/testimonials');
+const pressMaterials = requireLocal('content/press/pressMaterials');
+const pressReviews = requireLocal('content/press/pressReviews');
+
 const renderTemplate = (type, folder, layout) => (template, title) => (req, res) => {
 
   let options = {
@@ -27,8 +31,24 @@ const renderTemplate = (type, folder, layout) => (template, title) => (req, res)
 const masterStaticTemplate = renderTemplate('static', 'content', 'master');
 
 //static content pages
-router.get('/about', masterStaticTemplate('about', 'About'));
+router.get('/press', (req, res) => {
 
+  const options = {
+    error: req.flash('error'),
+    success: req.flash('success'),
+    layout: 'master',
+    language: req.language,
+    title: 'Press',
+    testimonials: testimonials,
+    pressMaterials: pressMaterials,
+    pressReviews: pressReviews
+  }
+
+  res.render(`static/content/press`, options)
+
+});
+
+router.get('/about', masterStaticTemplate('about', 'About'));
 
 router.get('/members', (req, res, next) => co(function*() {
   memberController.teamPage(req.language, res);

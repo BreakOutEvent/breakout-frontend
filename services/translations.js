@@ -1050,5 +1050,13 @@ module.exports = {
       de: 'Challenge accepted? – Zur Anmeldung!',
       en: 'Challenge accepted? – Register here!'
     }
+  },
+
+  // Translations for /press
+  PRESS: {
+    PRESS_HEADING: {
+      de: 'PRESSE',
+      en: 'PRESS'
+    }
   }
 };
