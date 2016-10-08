@@ -48,6 +48,7 @@ router.get('/press', (req, res) => {
 
 });
 
+router.get('/partner', masterStaticTemplate('partner', 'Partner'));
 router.get('/about', masterStaticTemplate('about', 'About'));
 
 router.get('/members', (req, res, next) => co(function*() {

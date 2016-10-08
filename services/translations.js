@@ -1058,5 +1058,52 @@ module.exports = {
       de: 'PRESSE',
       en: 'PRESS'
     }
+  },
+
+  // Translations for /partner
+  PARTNER: {
+    PARTNER_HEADING: {
+      de: 'Partner',
+      en: 'Partners'
+    },
+    PARTNER_TITLE: {
+      de: '<p>Partner von <em>Break</em>Out:</p>',
+      en: 'Our Partners:'
+    },
+    SUPPORTER_TITLE: {
+      de: 'Unterstützt von:',
+      en: 'Our Supporters:'
+    },
+    FRIENDS_TITLE: {
+      de: 'Unsere Freunde:',
+      en: 'Our Friends:'
+    },
+    FINANCIAL_SUPPORT_HEADER: {
+      de: 'Geldsponsoring'
+    },
+    FINANCIAL_SUPPORT: {
+      de: 'Damit <em>Break</em>Out auch in den nächsten Jahren ein Erfolg wird, bedarf es Ihrer Unterstützung, da das Projekt als solches kein eigenes Budget hat und wir somit bei den Kosten, wie für Marketing, IT-Kosten etc. oder bei der Bereitstellung von Materialien (Preise, Verpflegung etc.) auf Ihre Hilfe angewiesen sind. Um <em>Break</em>Out in mehr Städten etablieren zu können, sind wir auf der Suche nach einem Partner, der das Projekt langfristig unterstützt'
+    },
+    PRODUCT_SPONSORING_HEADER: {
+      de: 'Sachsponsoring'
+    },
+    PRODUCT_SPONSORING_1: {
+      de: '<em>Break</em>Out rüstet jedes Team mit einem Starterkit aus, das die Teilnehmer auf der Reise unterstützt. Ihre Produkte oder Samples könnten an so manch einer einsamen Raststätte die Situation retten. Mit solch einer Produktplatzierung erreichen Sie abenteuerlustige, aufgeschlossene Studenten.'
+    },
+    PRODUCT_SPONSORING_2: {
+      de: 'Um die Teams zu motivieren, gibt es in verschiedenen Kategorien Preise zu gewinnen. Stellen Sie mit Ihrer Sachspende einen Preis für z.B. die weiteste Entfernung oder die meisten bereisten Länder. Die Hauptgewinne werden auf Facebook und der Webseite beworben.'
+    },
+    SUPPORT_1: {
+      de: 'Ihnen gefällt diese Idee und Sie möchten <em>Break</em>Out gerne unterstützen? Unterstützen Sie unser Projekt durch Geld- oder Sachsponsoring'
+    },
+    SUPPORT_2: {
+      de: '<em>Break</em>Out bietet Ihnen eine spannende Plattform, um viele tausend Menschen in einer jungen Zielgruppe zu erreichen. Unsere Facebookposts erreichen derzeit eine Reichweite im fünfstelligen Bereich, während des Eventzeitraums 2016 erwarten wir rund 100.000 Besuche auf unserer Webseite. Darüber hinaus erreicht <em>Break</em>Out viele Menschen über Printwerbung wie Flyer sowie über seine Pressepräsenz.'
+    },
+    CONTACT: {
+      de: 'Sie haben Interesse ein Sponsor zu werden oder weitere Fragen in Sachen Sponsoring? Wenden Sie sich gerne direkt an Daria Brauner unter <a href="mailto: daria.brauner@break-out.org">daria.brauner@break-out.org</a>.'
+    },
+    THINKBIG_DESCRIPTION: {
+      de: 'ThinkBig ist ein Jugendprogramm der Telefónice Stiftung und der deutschen Kinder- und JugendStiftung (DKJS) gemeinsam mit O2.'
+    }
   }
 };
