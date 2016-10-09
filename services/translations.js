@@ -1105,5 +1105,41 @@ module.exports = {
     THINKBIG_DESCRIPTION: {
       de: 'ThinkBig ist ein Jugendprogramm der Telefónice Stiftung und der deutschen Kinder- und JugendStiftung (DKJS) gemeinsam mit O2.'
     }
+  },
+
+  NEXTSTEPS: {
+    NEXT_STEPS_HEADING: {
+      de: "Nächste Schritte"
+    },
+    INFORM_HEADING: {
+      de: 'Informieren'
+    },
+    INFORM_TEXT: {
+      de: '<p>Solltest Du weitere Fragen haben schau außerdem mal bei den <a href="http://break-out.org/faq">FAQ</a> vorbei oder schreib uns unter event@break-out.org! Außerdem halten wir Dich gerne auf <a href="https://www.facebook.com/breakoutmuenchen">Facebook</a> und Instagram auf dem Laufenden.</p>'
+    },
+    SIGNUP_HEADING: {
+      de: 'Anmelden'
+    },
+    SIGNUP_TEXT: {
+      de: '<p>Die Anmeldung für <em>Break</em>Out 2016 ist leider schon vorbei! Wir halten Dich aber gerne über <a href="https://www.facebook.com/breakoutmunchen">Facebook</a> und Instagram auf dem Laufenden. Außerdem kannst Du Dich für unseren <a href="https://break-out.org/newsletter">Newsletter</a> eintragen. Bei der Anmeldung erklärst Du Dich mit dem <a href="http://break-out.org/code-of-honour/">Code of Honour</a> und den <a href="http://break-out.org/teilnahmebedingungen/">Teilnahmebedingungen</a> einverstanden. Außerdem hinterlegst Du ein rückzahlbares Deposit, das Du wiederbekommst, wenn Dein Team erfolgreich Spenden gesammelt hat.</p>'
+    },
+    FIND_SPONSOR_HEADING: {
+      de: 'Sponsoren finden'
+    },
+    FIND_SPONSOR_TEXT: {
+      de: '<p>Spendensammeln bei <i>Break</i>Out funktioniert auf zwei Arten: Einerseits ist es wie bei einem Spendenmarathon: Ihr vereinbart mit Eurem Sponsor eine bestimmte Regelung, beispielsweise 10 Cent / km. Kommt Ihr dann z.B. bis nach Brüssel (600 km Luftlinie von München), dann spendet Euer Sponsor 60 € an die UNO-Flüchtlingshilfe. Alternativ oder zusätzlich können Euch Sponsoren Aufgaben („Challenges“) stellen, die mit einer bestimmten Spende dotiert sind. So könnte Euch ein Freund herausfordern, im Atlantik schwimmen zu gehen und dafür 10€ an die UNO-Flüchtlingshilfe spenden.</p><p>Sponsoren sind extrem wichtig, denn sie sind Euer Argument mitgenommen zu werden. Jeder kann Euer Sponsor werden: Angefangen bei Familie und Freunden über Bars und Restaurants bis hin zu kleinen Firmen oder Läden bei Euch in der Nähe… – Ihr könnt auch mehrere kleine Sponsoren haben, die also z.B. jeder nur 2 Cent / km geben – Kleinvieh macht auch Mist!</p><p>Sponsoren zu finden ist einfacher als Ihr denkt. Trotzdem hier ein paar Tipps &amp; Tricks für die Sponsorensuche:</p><ul> <li>Gute Sponsoren sind Bars, Restaurants und Läden, wo ihr den Chef persönlich antreffen könnt.</li> <li>Nutzt außerdem Euer persönliches Netzwerk und fordert z.B. Eure Freunde über Facebook auf, Euch Challenges zu geben.</li> <li>Um auf BreakOut aufmarksam zu machen, könnt Ihr dieses <a title="Material-Paket" href="http://break-out.org/wordpress/wp-content/uploads/2014/06/breakout_logos1.zip">Material-Paket</a> verwenden.</li> <li>Zieht zusammen los: Das macht mehr Spaß und ist glaubwürdiger.</li> <li>Sprecht potenzielle Sponsoren persönlich an.</li> <li>Begeistert die Person von BreakOut und erzählt, warum Ihr mitmacht.</li> <li>Nehmt am Besten BreakOut-Flyer, DAFI-Flyer oder eine&nbsp;<a href="http://break-out.org/wordpress/wp-content/uploads/2015/05/BreakOut_ProjektbeschreibungCoaching012016-1.pdf">Projektbeschreibung</a> mit.</li> <li>Häufig hilft es auch, den <a href="http://www.break-out.org/wordpress/wp-content/uploads/2016/04/UNO_Sponsorenbrief_2016.pdf">Sponsorenbrief</a> und einen ausgedruckten&nbsp;<a href="http://www.break-out.org/wordpress/wp-content/uploads/2016/05/SpendenVertrag_BreakOut_2016_3.pdf">Spendenvertrag</a> mitzunehmen und direkt vor Ort auszufüllen (nicht vergessen ihn nachher <a title="Sponsor" href="http://break-out.org/sponsor/">Online</a> einzutragen).</li> <li>Sagt den Sponsoren, dass die Luftlinie und nicht zurückgelegte Kilometer zählen.</li> <li>Erzählt, dass die Spenden direkt an die UNO-Flüchtlingshilfe gehen.</li> <li>Als Benefits für die Sponsoren könnt Ihr: Euer Team nach Eurem Sponsor benennen, dessen Logo hochladen oder seine Produkte in Euren Posts platzieren. Unsere Website wird während des Events von vielen tausend Menschen verfolgt. Über das Siegerteam wird außerdem in der regionalen und überregionalen Presse berichtet.</li> <li>Alle Sponsoren können eine Spendenquittung bekommen und Ihre Spende so von der Steuer absetzen.</li> <li>Auf Wunsch können Sponsoren anonym bleiben</li></ul><p>Eure Sponsoren können sich sobald die Anmeldung offen ist online eintragen. Wenn Ihr das Spendenversprechen zusammen mit Eurem Sponsor jetzt schon offline ausfüllen wollt, könnt Ihr diesen <a href="http://www.break-out.org/wordpress/wp-content/uploads/2016/04/SpendenVertrag_BreakOut_2016.pdf">Spendenvertrag</a> herunterladen und ihn dann selbst online eintragen. WICHTIG: Stellt sicher, dass alle Eure Sponsoren eingetragen sind, damit sie in der App richtig angezeigt werden! Versucht Eure Sponsoren bis zum Event-Start am 3. Juni online einzutragen. Insbesondere Challenges können aber auch noch während des Events hinzugefügt werden und erscheinen dann direkt in der App.</p>'
+    },
+    PREPARE_HEADING: {
+      de: 'Vorbereiten'
+    },
+    PREPARE_TEXT: {
+      de: '<p>Ihr dürft zwar vor der Reise keine Absprachen treffen, aber trotzdem lässt sich einiges vorbereiten:</p><ul> <li>Ihr braucht ein Smartphone mit Apple iOS oder Android und mobiles Internet in allen Ländern in die Ihr reisen wollt. Wir empfehlen etwa 250 MB. Kontaktiert am Besten Euren Provider um mit ihm Data-Roaming-Möglichkeiten zu besprechen. Einerseits könnt Ihr damit Eure Reise planen (Strecken, Hostels, Sehenswürdigkeiten, etc.) andererseits braucht Ihr Internet, damit die App funktioniert, sodass Eure Fans Zuhause mitfiebern können und Ihr seht, was die anderen Teams machen.</li> <li>Empfehlenswert ist ein Zusatz/Ersatzakku für Euer Smartphone und ein Auto-Ladegerät.</li> <li>“Hitchwiki.org Phrasebook”, “ForeverMap2” oder &nbsp;“Scout” könnten hilfreiche Apps sein.</li> <li>Tipps zum Trampen könnt Ihr z.B. auf diesen Websites finden: “hitchwiki.org”, “hitchbase.com”, “anhalterfreunde.de” oder “trampen.veitkuehne.de”</li> <li>Je nachdem, &nbsp;was Ihr vorhabt, solltet Ihr an Schlafsack, Sonnencreme oder Badehose denken. Aber kleiner Tipp: Alles was Ihr mitnehmt, müsst Ihr auch tragen. Also besser klein und schnell…</li> </ul>'
+    },
+    APPS_HEADING: {
+      de: 'Apps herunterladen'
+    },
+    APPS_TEXT: {
+      de: 'Ladet unsere Apps für iOS oder Android herunter um bequem unterwegs eure Posts zu teilen.'
+    }
   }
 };
