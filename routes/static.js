@@ -31,7 +31,17 @@ const renderTemplate = (type, folder, layout) => (template, title) => (req, res)
 const masterStaticTemplate = renderTemplate('static', 'content', 'master');
 
 //static content pages
-router.get('/press', (req, res) => {
+router.get('/press', renderPressPage);
+router.get('/partner', masterStaticTemplate('partner', 'Partner'));
+router.get('/about', masterStaticTemplate('about', 'About'));
+router.get('/next-steps', masterStaticTemplate('nextSteps', 'Next Steps'));
+router.get('/imprint', masterStaticTemplate('imprint', 'Imprint'));
+
+router.get('/members', (req, res, next) => co(function*() {
+  memberController.teamPage(req.language, res);
+}).catch(ex => next(ex)));
+
+function renderPressPage(req, res) {
 
   const options = {
     error: req.flash('error'),
@@ -45,17 +55,7 @@ router.get('/press', (req, res) => {
   }
 
   res.render(`static/content/press`, options)
-
-});
-
-router.get('/partner', masterStaticTemplate('partner', 'Partner'));
-router.get('/about', masterStaticTemplate('about', 'About'));
-router.get('/next-steps', masterStaticTemplate('nextSteps', 'Next Steps'));
-router.get('/imprint', masterStaticTemplate('imprint', 'Imprint'))
-
-router.get('/members', (req, res, next) => co(function*() {
-  memberController.teamPage(req.language, res);
-}).catch(ex => next(ex)));
+}
 
 
 module.exports = router;
