@@ -1166,6 +1166,44 @@ module.exports = {
     },
     DISCLAIMER_TEXT: {
       de: '<p><strong>Haftung für Inhalte</strong></p><p>Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.</p><p><strong>Haftung für Links</strong></p><p>Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar. Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.</p><p><strong>Urheberrecht</strong></p><p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet. Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter beachtet. Insbesondere werden Inhalte Dritter als solche gekennzeichnet. Sollten Sie trotzdem auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte umgehend entfernen.</p>'
+    },
+  },
+  CODEOFHONOUR: {
+    CODE_HEADING: {
+      de: 'Code of Honour'
+    },
+    INTRO: {
+      de: 'Der Code of Honour für BreakOut 2016 beinhaltet die Regeln, an die Du Dich während Deines Abenteuers halten solltest. Lies Ihn also bitte aufmerksam durch!'
+    },
+    INTRO_HEADING: {
+      de: '<em>Break</em>Out 2016 – Code of Honour'
+    },
+    GENERAL_COH: {
+      de: '<p>Break<em>Out</em> ist ein Reisewettbewerb mit einer sozialen Komponente, deswegen gibt es zwei Hauptgewinne:</p><ol> <li>Das Team, welches nach Ablauf der 36 Stunden die weiteste Strecke (Luftlinie) vom Startpunkt in München entfernt ist.</li> <li>Das Team, welches durch Kilometerspenden und Challenges am meisten Spendengelder eingenommen hat.</li> </ol><p>Zusätzlich gibt es noch viele weitere Preise, z.B. für die meisten bereisten Länder, das lustigste Verkehrsmittel oder den besten Reisebericht. Auch wenn Ihr keinen der begehrten Preise abräumt, gewinnt Ihr trotzdem unvergessliche Erfahrungen und eine coole Story. Ewig geehrt werden Teams, die den europäischen Kontinent verlassen oder auf einem Kamel reiten. Es gilt, die letztjährigen Gewinnerteams mit 3.293 km oder 1.831€ Spenden zu schlagen! – Und bitte kommt heil wieder zurück, dafür könnten die <a href="http://www.auswaertiges-amt.de/DE/Laenderinformationen/LaenderReiseinformationen_node.html" target="_blank">Hinweise des Auswärtigen Amtes hilfreich sein.</a></p><p class="text-bold">Damit der Wettbewerb fair ist und alle möglichst viel Spaß haben, gibt es einen Code of Honour.</p>'
+    },
+    TRAVEL_COH_HEADING: {
+      de: 'Reisecode of Honour:'
+    },
+    TRAVEL_COH_TEXT: {
+      de: '<ul> <li>Der Witz an BreakOut ist, KEIN Geld für’s Reisen auszugeben. Für Essen, Trinken und Übernachtung natürlich schon. Das Kleingedruckte: Für Rückreisekosten müsst Ihr selber aufkommen</li> <li>Jedes Fortbewegungsmittel ist erlaubt, solange Ihr dafür kein Geld ausgebt – Je kreativer, desto besser (Kamel gab es noch nicht)</li> <li>Ihr dürft Euch Tickets bezahlen lassen, aber kein Bargeld sammeln, um damit zu reisen. Hauptsache Ihr nehmt kein Geld in die Hand</li> <li>Ihr dürft im Vorhinein keine Absprachen treffen. Auch nicht bei der Großmutter mitfahren, die grade “zufällig” nach Süd-Spanien unterwegs ist</li> </ul>'
+    },
+    DONATION_COH_HEADING: {
+      de: 'Spendencode of Honour:'
+    },
+    DONATION_COH_TEXT: {
+      de: '<ul> <li>Neben dem Reisen und dem Spaß möchten wir nachhaltig etwas Gutes tun: Flüchtlingen ein Studium ermöglichen. Deshalb muss sich jedes Team mindestens einen Sponsor organisieren. Je mehr Sponsoren, desto besser!</li> <li>Jedes Team hinterlegt ein Deposit von 20€, das bei Erreichen des Mindestspendenziels von 100€ zurückerstattet wird. (Schafft Ihr easy! Letztes Jahr lag der durchschnittliche Spendenertrag pro Team bei 400€)</li> <li>Ihr seid dafür zuständig, dass Eure Sponsoren am Ende auch überweisen</li> </ul>'
+    },
+    BEHAVIOUR_COH_HEADING: {
+      de: 'Verhaltenscode of Honour:'
+    },
+    BEHAVIOUR_COH_TEXT: {
+      de: '<ul> <li>Seid bitte vorsichtig beim Trampen und schaut Euch Autos und Fahrer vorher gut an. Steigt zum Beispiel nicht bei James Bond ein (da explodieren immer die Autos)</li> <li>Zu jeder Tageszeit und in jedem Breitengrad gilt es sich respektvoll allen Kulturen und Lebewesen gegenüber zu verhalten. Es ist sehr empfehlenswert, sich über die Regeln und Gesetze in anderen Ländern zu informieren. Vorsicht bei Kühen in Indien und Bier in islamischen Ländern</li> <li>Dein Reisepartner und Du, Ihr seid ein Team. Ihr passt aufeinander auf und trennt Euch nicht. Die Distanz zählt nur, wenn beide auf dem Zielfoto lächeln</li> </ul>'
+    },
+    APP_COH_HEADING: {
+      de: 'BreakOut-Appcode of Honour:'
+    },
+    APP_COH_TEXT: {
+      de: '<ul> <li>Bitte schickt uns nach jedem Wechsel eines Transportmittels, nach jeder Grenzüberschreitung, wenn Ihr z.B. einen Papst trefft und mindestens alle drei Stunden Eure Position – möglichst mit Text und Foto – damit Eure Fans zu Hause live mitfiebern können</li> <li>Als Beweis, dass Ihr wirklich in New York seid, schickt Ihr über die App ein Zielfoto, auf dem Ihr mit T-Shirt vor der Statue of Liberty steht</li> </ul>'
     }
   }
 };
