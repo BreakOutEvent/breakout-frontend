@@ -38,6 +38,7 @@ router.get('/next-steps', masterStaticTemplate('nextSteps', 'Next Steps'));
 router.get('/imprint', masterStaticTemplate('imprint', 'Imprint'));
 router.get('/code-of-honour', masterStaticTemplate('codeOfHonour', 'Code of Honour'))
 router.get('/terms-and-conditions', masterStaticTemplate('termsAndConditions', 'Terms and Conditions'))
+router.get('/faq', masterStaticTemplate('faq', 'FAQ'))
 
 router.get('/members', (req, res, next) => co(function*() {
   memberController.teamPage(req.language, res);
