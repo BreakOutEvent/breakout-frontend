@@ -1011,7 +1011,7 @@ module.exports = {
       en: ''
     },
     DESCRIPTION_VIDEO: {
-      de: 'Dieses Video erklärt <em>Break</em>Out. Erfahrungsberichte findet Ihr weiter unten.',
+      de: 'Dieses Video erklärt <em>Break</em>Out.',
       en: ''
     },
     GOAL_HEADING: {
@@ -1027,7 +1027,7 @@ module.exports = {
       en: 'The way to go'
     },
     WAY_CONTENT: {
-      de: '<ul><li>Teampartner finden</li><li>Bis zum 15. Mai bei <em>Break</em>Out <a title="Mitmachen" href="/register">anmelden</a></li><li>Sponsoren für das eigene Team suchen (z.B. Geschäfte, Unternehmen, Familie…)</li><li>Auf, auf und davon…</li></ul><p>Im Laufe der folgenden 36 Stunden versucht Ihr ohne Geld, also beispielsweise durch Trampen, so weit wegzukommen wie möglich. Seid kreativ und beweist Verhandlungsgeschick. Euer Engagement könnte den Unterschied zwischen Pasing und Paris machen! Letztes Jahr sind alle Teilnehmer zusammen ein Fünftel der Distanz bis zum Mond gereist.</p><p>Der Fortschritt aller reisenden Teams kann während des Events live mitverfolgt werden.</p>',
+      de: '<ul><li>Teampartner finden</li><li>Bei <em>Break</em>Out <a title="Mitmachen" href="/register">anmelden</a></li><li>Sponsoren für das eigene Team suchen (z.B. Geschäfte, Unternehmen, Familie…)</li><li>Auf, auf und davon…</li></ul><p>Im Laufe der folgenden 36 Stunden versucht Ihr ohne Geld, also beispielsweise durch Trampen, so weit wegzukommen wie möglich. Seid kreativ und beweist Verhandlungsgeschick. Euer Engagement könnte den Unterschied zwischen Pasing und Paris machen! Letztes Jahr sind alle Teilnehmer zusammen ein Fünftel der Distanz bis zum Mond gereist.</p><p>Der Fortschritt aller reisenden Teams kann während des Events live mitverfolgt werden.</p>',
       en: '<ul><li>Find a team-mate</li><li><a title="Register" href="/register">Register</a></li><li>Find sponsors for your team (e.g. small shops, companies, friends family etc.)</li><li><em>Break</em>Out</li></ul><p>Your journey starts on Thursday, June 4th, at 9 am on Geschwister-Scholl-Platz, Munich. During the following 36 hours you will try to get as far away as possible without spending money for transport, e.g. by hitch-hiking. By creative and negotiate! Your commitment may well make the difference between Pasing and Paris! – Last year all teams together travelled around half the world.</p><p>Through our app the progess of all BreakOut-teams can be seen live during the event.</p>',
     },
     CHARITY_HEADING: {
@@ -1100,7 +1100,7 @@ module.exports = {
       de: '<em>Break</em>Out bietet Ihnen eine spannende Plattform, um viele tausend Menschen in einer jungen Zielgruppe zu erreichen. Unsere Facebookposts erreichen derzeit eine Reichweite im fünfstelligen Bereich, während des Eventzeitraums 2016 erwarten wir rund 100.000 Besuche auf unserer Webseite. Darüber hinaus erreicht <em>Break</em>Out viele Menschen über Printwerbung wie Flyer sowie über seine Pressepräsenz.'
     },
     CONTACT: {
-      de: 'Sie haben Interesse ein Sponsor zu werden oder weitere Fragen in Sachen Sponsoring? Wenden Sie sich gerne direkt an Daria Brauner unter <a href="mailto: daria.brauner@break-out.org">daria.brauner@break-out.org</a>.'
+      de: 'Sie haben Interesse ein Sponsor zu werden oder weitere Fragen in Sachen Sponsoring? Wenden Sie sich gerne direkt an Domenic Meinung unter <a href="mailto:domenic.meining@break-out.org ">domenic.meining@break-out.org</a>.'
     },
     THINKBIG_DESCRIPTION: {
       de: 'ThinkBig ist ein Jugendprogramm der Telefónice Stiftung und der deutschen Kinder- und JugendStiftung (DKJS) gemeinsam mit O2.'
