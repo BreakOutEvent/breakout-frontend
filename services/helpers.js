@@ -1,6 +1,15 @@
 'use strict';
 
-let i18n = requireLocal('services/i18n');
+// Load modules
+const i18n = requireLocal('services/i18n');
+const fs = require('fs');
+const Remarkable = require('remarkable');
+const path = require('path');
+
+// Setup
+const md = new Remarkable({
+  html: true
+});
 
 /**
  * Concatenates first and second.
@@ -23,6 +32,27 @@ exports.ifCond = function (v1, v2, options) {
 
   return options.inverse(this);
 };
+
+/**
+ * Render markdown from content/mdFileName to html
+ * @param mdFileName
+ * @returns rendered html
+ */
+exports.markdown = function renderMarkdown(mdFileName, context) {
+  const rawMd = loadFileContent(mdFileName);
+  const html = md.render(rawMd);
+  return html
+}
+
+function loadFileContent(mdFileName) {
+  const path = getFilepath(mdFileName);
+  return fs.readFileSync(path, 'utf-8');
+}
+
+function getFilepath(mdFileName) {
+  const contentFolderPath = path.resolve('content/')
+  return `${contentFolderPath}/${mdFileName}.md`;
+}
 
 /**
  * Tries to find the matching translation for the language the browser sent us.
@@ -184,7 +214,7 @@ exports.getWebmVideoByWidth = (width, sizes) => {
     sizes = sizes.filter((size) => size.type === 'VIDEO' && size.url.endsWith(".webm"));
 
     if (sizes.length > 0) {
-      
+
       var minDiff = 100000000000;
       var bestFit = sizes[0].url;
       sizes.forEach(s => {
