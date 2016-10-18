@@ -16,7 +16,7 @@
     "mocha": "mocha",
     "grunt": "grunt",
     "bunyan": "bunyan --color",
-    "eslint": "node_modules/eslint/bin/eslint.js ."
+    "eslint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -66,6 +66,7 @@
     "babel-loader": "^6.2.4",
     "babel-preset-es2015": "^6.6.0",
     "bootstrap-less": "^3.3.8",
+    "eslint": "^3.8.1",
     "grunt": "^0.4.5",
     "grunt-autoprefixer": "^3.0.4",
     "grunt-babel": "^6.0.0",
