@@ -16,17 +16,19 @@ const sticky = require('sticky-cluster');
 
 global.IS_TEST = process.env.FRONTEND_RUN_TESTS === 'true';
 
+const path = require('path');
+const fs = require('fs');
+const cfs = require('co-fs-extra');
+const bunyan = require('bunyan');
+const morgan = require('morgan');
+const express = require('express');
+const exphbs = require('express-handlebars');
+const bodyparser = require('body-parser');
+const _ = require('lodash');
+const socketio = require('socket.io');
+
 const server = callback => co(function*() {
-  const path = require('path');
-  const fs = require('fs');
-  const cfs = require('co-fs-extra');
-  const bunyan = require('bunyan');
-  const morgan = require('morgan');
-  const express = require('express');
-  const exphbs = require('express-handlebars');
-  const bodyparser = require('body-parser');
-  const _ = require('lodash');
-  const socketio = require('socket.io');
+
 
   global.ROOT = path.resolve(__dirname);
 
