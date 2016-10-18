@@ -31,9 +31,9 @@ const renderTemplate = (type, folder, layout) => (template, title) => (req, res)
 const masterStaticTemplate = renderTemplate('static', 'content', 'master');
 
 //static content pages
+router.get('/', masterStaticTemplate('about', 'About'));
 router.get('/press', renderPressPage);
 router.get('/partner', masterStaticTemplate('partner', 'Partner'));
-router.get('/about', masterStaticTemplate('about', 'About'));
 router.get('/next-steps', masterStaticTemplate('nextSteps', 'Next Steps'));
 router.get('/imprint', masterStaticTemplate('imprint', 'Imprint'));
 router.get('/code-of-honour', masterStaticTemplate('codeOfHonour', 'Code of Honour'))

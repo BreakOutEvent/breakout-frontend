@@ -804,12 +804,20 @@ module.exports = {
     }
   },
   MASTER: {
+    LIVE_BLOG: {
+      de: 'Live Blog',
+      en: 'Live Blog'
+    },
+    LIVE_BLOG_LINK: {
+      de: '/live',
+      en: '/live'
+    },
     ABOUT: {
       de: 'Worum gehts',
       en: 'About BreakOut'
     },
     ABOUT_LINK: {
-      de: '/about'
+      de: '/'
     },
     TEAMS: {
       de: 'Teams'

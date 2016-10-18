@@ -78,7 +78,7 @@ router.get('/sponsor', session.isUser, (req, res, next) => {
 }, funnelTemplate('sponsor'));
 
 
-router.get('/', (req, res, next) => co(function*() {
+router.get('/live', (req, res, next) => co(function*() {
 
   var token = null;
   if (req.isAuthenticated()) token = req.user;
