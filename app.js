@@ -15,8 +15,6 @@ const config = require('./config/config');
 const sticky = require('sticky-cluster');
 const path = require('path');
 const fs = require('fs');
-const cfs = require('co-fs-extra');
-const bunyan = require('bunyan');
 const morgan = require('morgan');
 const express = require('express');
 const exphbs = require('express-handlebars');
@@ -25,11 +23,12 @@ const _ = require('lodash');
 const socketio = require('socket.io');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
-const newrelic = require('newrelic');
-const cookieParser = require('cookie-parser')()
-const connectFlash = require('connect-flash')()
-const http = require('http')
+const cookieParser = require('cookie-parser')();
+const connectFlash = require('connect-flash')();
+const http = require('http');
 const logger = require('./services/logger');
+
+require('newrelic');
 
 const mongoose = requireLocal('controller/mongo.js');
 const passport = requireLocal('services/auth.js');
@@ -37,12 +36,11 @@ const API = requireLocal('services/api-proxy');
 const websocket = requireLocal('services/websocket');
 
 function setupLogger(app) {
-  if(IS_TEST) return;
-
-  app.use(morgan('combined', { stream: fs.createWriteStream(ROOT + '/logs/access.log', {flags: 'a'})}));
+  if (IS_TEST) return;
+  app.use(morgan('combined', {stream: fs.createWriteStream(ROOT + '/logs/access.log', {flags: 'a'})}));
 }
 
-function genericErrorHandler(err, req, res, next) {
+function genericErrorHandler(err, req, res) {
 
   logger.error(err);
 
@@ -89,7 +87,7 @@ function sessionHandler(req, res, next) {
     req.logout();
     req.flash('error', 'Something went wrong while refreshing your token. You were logged out.');
     res.redirect('/');
-  })
+  });
 }
 
 
@@ -97,7 +95,7 @@ function checkForDuplicates(partialsDirs) {
 // Read all files from the template directories and flatten them into one array
   const readDirs = partialsDirs
     .map(dir => fs.readdirSync(dir))
-    .reduce((first, second) => first.concat(second))
+    .reduce((first, second) => first.concat(second));
 
   // If there are any duplicates in the list, they are different in length
   const uniqueFiles = _.uniq(_.filter(readDirs, v => _.filter(readDirs, v1 => v1 === v).length > 1));
@@ -108,90 +106,88 @@ function checkForDuplicates(partialsDirs) {
 
 function server(callback) {
 
-    const app = express();
+  const app = express();
 
-    // Register the static path here, to avoid getting them logged
-    app.use(express.static(path.join(__dirname, 'public')));
-    setupLogger(app);
+  // Register the static path here, to avoid getting them logged
+  app.use(express.static(path.join(__dirname, 'public')));
+  setupLogger(app);
 
-    // All dirs containing templates
-    const partialsDirs = [
-      'views/partials',
-      'views/templates'
-    ];
+  // All dirs containing templates
+  const partialsDirs = [
+    'views/partials',
+    'views/templates'
+  ];
 
-    checkForDuplicates(partialsDirs); // TODO: Why do we need this??
+  checkForDuplicates(partialsDirs); // TODO: Why do we need this??
 
-    // Handlebars setup
-    const hbs = exphbs.create({
-        helpers: requireLocal('services/helpers'),
-        partialsDir: partialsDirs
-      }
-    );
+  // Handlebars setup
+  const hbs = exphbs.create({
+    helpers: requireLocal('services/helpers'),
+    partialsDir: partialsDirs
+  });
 
-    global.HBS = hbs;
+  global.HBS = hbs;
 
-    app.engine('handlebars', hbs.engine);
-    app.set('view engine', 'handlebars');
+  app.engine('handlebars', hbs.engine);
+  app.set('view engine', 'handlebars');
 
-    if (process.env.NODE_ENVIRONMENT === 'prod' && !config.jwt_secret) {
-      throw new Error('No secret specified, please set one via jwt_secret');
-    }
+  if (process.env.NODE_ENVIRONMENT === 'prod' && !config.jwt_secret) {
+    throw new Error('No secret specified, please set one via jwt_secret');
+  }
 
-    if (process.env.NODE_ENVIRONMENT === 'prod' && process.env.SHOW_ERROR !== 'true') {
-      app.enable('view cache');
-    }
+  if (process.env.NODE_ENVIRONMENT === 'prod' && process.env.SHOW_ERROR !== 'true') {
+    app.enable('view cache');
+  }
 
-    app.use(session({
-      secret: config.jwt_secret,
-      resave: false,
-      saveUninitialized: false,
-      store: new MongoStore({mongooseConnection: mongoose.connection})
-    }));
+  app.use(session({
+    secret: config.jwt_secret,
+    resave: false,
+    saveUninitialized: false,
+    store: new MongoStore({mongooseConnection: mongoose.connection})
+  }));
 
-    app.use(passport.initialize()); // Initialize password
-    app.use(passport.session()); // Restore authentication state, if any
-    app.use(bodyparser.urlencoded({extended: true}));
-    app.use(bodyparser.json());
-    app.use(cookieParser);
-    app.use(connectFlash);
-    app.use(requireLocal('services/i18n').init); //Set language header correctly including fallback option.
-    app.use(sessionHandler);
+  app.use(passport.initialize()); // Initialize password
+  app.use(passport.session()); // Restore authentication state, if any
+  app.use(bodyparser.urlencoded({extended: true}));
+  app.use(bodyparser.json());
+  app.use(cookieParser);
+  app.use(connectFlash);
+  app.use(requireLocal('services/i18n').init); //Set language header correctly including fallback option.
+  app.use(sessionHandler);
 
-    // Maintenance Mode
-    if (process.env.FRONTEND_MAINTENANCE) {
-      app.use((req, res, next) => {
-        res.render(`dynamic/register/maintenance`,
-          {
-            layout: 'funnel',
-            language: req.language
-          });
+  // Maintenance Mode
+  if (process.env.FRONTEND_MAINTENANCE) {
+    app.use((req, res) => {
+      res.render('dynamic/register/maintenance', {
+        layout: 'funnel',
+        language: req.language
       });
-    }
+    });
+  }
 
-    // Routers
-    app.use('/', requireLocal('routes/main'));
-    app.use('/', requireLocal('routes/dynamic'));
-    app.use('/', requireLocal('routes/static'));
-    app.use('/team', requireLocal('routes/team'));
-    app.use('/post', requireLocal('routes/posting'));
-    app.use('/messages', requireLocal('routes/messages'));
-    app.use('/settings', requireLocal('routes/settings'));
-    app.use('/api', requireLocal('routes/api'));
-    app.use('/admin', requireLocal('routes/admin'));
+  // Routers
+  app.use('/', requireLocal('routes/main'));
+  app.use('/', requireLocal('routes/dynamic'));
+  app.use('/', requireLocal('routes/static'));
+  app.use('/team', requireLocal('routes/team'));
+  app.use('/post', requireLocal('routes/posting'));
+  app.use('/messages', requireLocal('routes/messages'));
+  app.use('/settings', requireLocal('routes/settings'));
+  app.use('/api', requireLocal('routes/api'));
+  app.use('/admin', requireLocal('routes/admin'));
 
-    var server = http.createServer(app);
-    const io = socketio(server);
-    websocket.init(io);
+  var server = http.createServer(app);
+  const io = socketio(server);
+  websocket.init(io);
 
-    app.use(notFoundHandler);
-    app.use(genericErrorHandler);
+  app.use(notFoundHandler);
+  app.use(genericErrorHandler);
 
-    if (callback) {
-      callback(server);
-    } else {
-      app.listen(3000);
-    }
+  if (callback) {
+    callback(server);
+  } else {
+    app.listen(3000);
+  }
 }
 
 if (!IS_TEST) {
