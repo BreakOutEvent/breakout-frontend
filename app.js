@@ -183,20 +183,7 @@ const server = callback => co(function*() {
   app.use('/admin', requireLocal('routes/admin'));
 
   var server = require('http').createServer(app);
-
-  /*
-  var server = app.listen(config.port || 3000, () => {
-    var host = server.address().address;
-    var port = server.address().port;
-
-    if (callback && typeof callback === 'function') {
-      callback(server);
-    }
-
-    logger.info('Server listening on port ' + port);
-    console.log('Listening at http://%s:%s', host, port);
-  });*/
-
+  
   //Initate Websocket
 
   const io = socketio(server);
