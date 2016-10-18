@@ -16,7 +16,8 @@
     "mocha": "mocha",
     "grunt": "grunt",
     "bunyan": "bunyan --color",
-    "wdio": "wdio"
+    "wdio": "wdio",
+    "eslint": "node_modules/eslint/bin/eslint.js ."
   },
   "repository": {
     "type": "git",
