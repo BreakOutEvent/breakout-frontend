@@ -27,17 +27,7 @@ const bodyparser = require('body-parser');
 const _ = require('lodash');
 const socketio = require('socket.io');
 
-const server = callback => co(function*() {
-
-
-  global.ROOT = path.resolve(__dirname);
-
-  const app = express();
-
-  // Register the static path here, to avoid getting them logged
-  app.use(express.static(path.join(__dirname, 'public')));
-
-
+function setupLogger(app) {
   if (!IS_TEST) {
     global.logger = bunyan.createLogger(
       {
@@ -72,6 +62,18 @@ const server = callback => co(function*() {
       }
     };
   }
+}
+
+const server = callback => co(function*() {
+
+
+  global.ROOT = path.resolve(__dirname);
+
+  const app = express();
+
+  // Register the static path here, to avoid getting them logged
+  app.use(express.static(path.join(__dirname, 'public')));
+  setupLogger(app);
 
   const mongoose = requireLocal('controller/mongo.js');
   const passport = requireLocal('services/auth.js');
