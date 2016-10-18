@@ -29,42 +29,17 @@ const newrelic = require('newrelic');
 const cookieParser = require('cookie-parser')()
 const connectFlash = require('connect-flash')()
 const http = require('http')
+const logger = require('./services/logger');
+
+const mongoose = requireLocal('controller/mongo.js');
+const passport = requireLocal('services/auth.js');
+const API = requireLocal('services/api-proxy');
+const websocket = requireLocal('services/websocket');
 
 function setupLogger(app) {
-  if (!IS_TEST) {
-    global.logger = bunyan.createLogger(
-      {
-        name: 'breakout-frontend',
-        streams: [
-          {
-            level: 'info',
-            stream: fs.createWriteStream(ROOT + '/logs/info.log', {flags: 'a'})
-          },
-          {
-            level: 'error',
-            stream: fs.createWriteStream(ROOT + '/logs/error.log', {flags: 'a'})
-          }
-        ],
-        serializers: bunyan.stdSerializers,
-        src: process.env.NODE_ENVIRONMENT !== 'prod'
-      }
-    );
+  if(IS_TEST) return;
 
-    app.use(morgan('combined',
-      {stream: fs.createWriteStream(ROOT + '/logs/access.log', {flags: 'a'})}
-    ));
-  } else {
-    global.logger = {
-      info: () => {
-      },
-
-      error: () => {
-      },
-
-      warn: () => {
-      }
-    };
-  }
+  app.use(morgan('combined', { stream: fs.createWriteStream(ROOT + '/logs/access.log', {flags: 'a'})}));
 }
 
 function genericErrorHandler(err, req, res, next) {
@@ -138,12 +113,6 @@ function server(callback) {
     // Register the static path here, to avoid getting them logged
     app.use(express.static(path.join(__dirname, 'public')));
     setupLogger(app);
-
-    // TODO: For now this must stay here because it has dependencies on the logger being set up
-    const mongoose = requireLocal('controller/mongo.js');
-    const passport = requireLocal('services/auth.js');
-    const API = requireLocal('services/api-proxy');
-    const websocket = requireLocal('services/websocket');
 
     // All dirs containing templates
     const partialsDirs = [
