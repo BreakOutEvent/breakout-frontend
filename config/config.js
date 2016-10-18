@@ -2,11 +2,11 @@ var config;
 
 
 if (process.env.NODE_ENVIRONMENT && process.env.NODE_ENVIRONMENT == "dev") {
-  config = requireLocal('config-dev.json');
+  config = require('../config-dev.json');
 }
 
 if (process.env.NODE_ENVIRONMENT && process.env.NODE_ENVIRONMENT == "prod") {
-  config = requireLocal('config-prod.json');
+  config = require('../config-prod.json');
 }
 
 
