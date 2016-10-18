@@ -16,7 +16,6 @@
     "mocha": "mocha",
     "grunt": "grunt",
     "bunyan": "bunyan --color",
-    "wdio": "wdio",
     "eslint": "node_modules/eslint/bin/eslint.js ."
   },
   "repository": {
@@ -82,7 +81,6 @@
     "masonry-layout": "^4.1.0",
     "mocha": "^2.4.5",
     "path": "^0.12.7",
-    "wdio-mocha-framework": "^0.2.13",
     "webdriverio": "^4.0.7"
   },
   "jscsConfig": {
