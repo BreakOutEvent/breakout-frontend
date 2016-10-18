@@ -1,3 +1,4 @@
+![Travis Build Status](https://travis-ci.org/BreakOutEvent/breakout-frontend.svg?branch=develop)
 # frontend
 Web Frontend for BreakOut
 
