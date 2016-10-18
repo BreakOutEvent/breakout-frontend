@@ -1108,7 +1108,7 @@ module.exports = {
       de: '<em>Break</em>Out bietet Ihnen eine spannende Plattform, um viele tausend Menschen in einer jungen Zielgruppe zu erreichen. Unsere Facebookposts erreichen derzeit eine Reichweite im fünfstelligen Bereich, während des Eventzeitraums 2016 erwarten wir rund 100.000 Besuche auf unserer Webseite. Darüber hinaus erreicht <em>Break</em>Out viele Menschen über Printwerbung wie Flyer sowie über seine Pressepräsenz.'
     },
     CONTACT: {
-      de: 'Sie haben Interesse ein Sponsor zu werden oder weitere Fragen in Sachen Sponsoring? Wenden Sie sich gerne direkt an Domenic Meinung unter <a href="mailto:domenic.meining@break-out.org ">domenic.meining@break-out.org</a>.'
+      de: 'Sie haben Interesse ein Sponsor zu werden oder weitere Fragen in Sachen Sponsoring? Wenden Sie sich gerne direkt an Domenic Meining unter <a href="mailto:domenic.meining@break-out.org ">domenic.meining@break-out.org</a>.'
     },
     THINKBIG_DESCRIPTION: {
       de: 'ThinkBig ist ein Jugendprogramm der Telefónice Stiftung und der deutschen Kinder- und JugendStiftung (DKJS) gemeinsam mit O2.'
