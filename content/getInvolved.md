@@ -4,7 +4,7 @@
 Wir möchten <em>Break</em>Out noch größer und noch besser machen! Hast Du Lust uns zu helfen und dabei mitzugestalten?
 Schreib uns! Wir können jede Hilfe gebrauchen:
 
-<img src="http://break-out.org/wordpress/wp-content/uploads/2015/07/breakout_mitmachen.jpg" class="img-responsive"></img>
+<img src="img/static/breakout_mitmachen.jpg" class="img-responsive"></img>
 
 Dein Traumjob war nicht dabei und Du hast aber trotzdem Lust mitzumachen? Du hast noch Fragen?
 Schreib uns an [mitmachen@break-out.org](mailto:mitmachen@break-out.org)! Wir brauchen jede helfende Hand!
