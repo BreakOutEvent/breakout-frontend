@@ -36,10 +36,11 @@ router.get('/press', renderPressPage);
 router.get('/partner', masterStaticTemplate('partner', 'Partner'));
 router.get('/next-steps', masterStaticTemplate('nextSteps', 'Next Steps'));
 router.get('/imprint', masterStaticTemplate('imprint', 'Imprint'));
-router.get('/code-of-honour', masterStaticTemplate('codeOfHonour', 'Code of Honour'))
-router.get('/terms-and-conditions', masterStaticTemplate('termsAndConditions', 'Terms and Conditions'))
-router.get('/faq', masterStaticTemplate('faq', 'FAQ'))
-router.get('/get-involved', masterStaticTemplate('getInvolved', 'Get Involved'))
+router.get('/code-of-honour', masterStaticTemplate('codeOfHonour', 'Code of Honour'));
+router.get('/terms-and-conditions', masterStaticTemplate('termsAndConditions', 'Terms and Conditions'));
+router.get('/faq', masterStaticTemplate('faq', 'FAQ'));
+router.get('/get-involved', masterStaticTemplate('getInvolved', 'Get Involved'));
+router.get('/newsletter', masterStaticTemplate('newsletter', 'Newsletter'));
 
 router.get('/members', (req, res, next) => co(function*() {
   memberController.teamPage(req.language, res);
@@ -56,9 +57,9 @@ function renderPressPage(req, res) {
     testimonials: testimonials,
     pressMaterials: pressMaterials,
     pressReviews: pressReviews
-  }
+  };
 
-  res.render(`static/content/press`, options)
+  res.render('static/content/press', options);
 }
 
 
