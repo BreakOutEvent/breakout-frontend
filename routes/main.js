@@ -8,9 +8,6 @@ const express = require('express');
 const co = require('co');
 const execa = require('execa');
 const a2h = require('ansi2html-extended');
-
-const staticController = requireLocal('controller/page-controller/static');
-const renderer = requireLocal('services/renderer');
 const session = requireLocal('controller/session');
 
 const router = express.Router();
@@ -18,6 +15,7 @@ const router = express.Router();
 /**
  * Endpoint for live log output.
  */
+// TODO: This needs refactoring!
 router.get('/logs/:log(error|info)', session.isAdmin, (req, res, next) => co(function*() {
   var cmd = 'npm run bunyan -s logs/' + req.params.log + '.log';
 
@@ -34,13 +32,5 @@ router.get('/logs/:log(error|info)', session.isAdmin, (req, res, next) => co(fun
 }).catch(ex => {
   next(ex);
 }));
-
-router.get('/:language([a-zA-Z]{2})/:path', (req, res, next) => co(function*() {
-  staticController.prerendered(req.params.language, req.params.path, res, next);
-}).catch(ex => next(ex)));
-
-router.get('/live/:language([a-zA-Z]{2})/:path', (req, res, next) => co(function*() {
-  staticController.live(req.params.language, req.params.path, res, next);
-}).catch(ex => next(ex)));
 
 module.exports = router;

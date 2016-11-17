@@ -173,7 +173,6 @@ function server(callback) {
   app.use('/post', requireLocal('routes/posting'));
   app.use('/messages', requireLocal('routes/messages'));
   app.use('/settings', requireLocal('routes/settings'));
-  app.use('/api', requireLocal('routes/api'));
   app.use('/admin', requireLocal('routes/admin'));
 
   var server = http.createServer(app);
