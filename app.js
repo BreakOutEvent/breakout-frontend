@@ -179,8 +179,10 @@ function server(callback) {
   const io = socketio(server);
   websocket.init(io);
 
-  app.use(notFoundHandler);
+  // The order is important here
+  // First try to handle errors
   app.use(genericErrorHandler);
+  app.use(notFoundHandler);
 
   if (callback) {
     callback(server);
