@@ -5,28 +5,11 @@
 
 const co = require('co');
 const _ = require('lodash');
-
 const api = requireLocal('services/api-proxy');
-const registration = requireLocal('controller/page-controller/registration');
 
 let admin = {};
 
-/**
- * Sends the occurred error back to the client, and logs it to the bunyan global logger.
- * @param res
- * @param errMsg
- * @param err
- * @returns {*}
- */
-const sendErr = (res, errMsg, err) => {
-
-  if (err) logger.error(errMsg, err);
-  else logger.error(errMsg);
-
-  res.status(500).send({ error: errMsg });
-};
-
-admin.addPayment = (req, res, next) => co(function*() {
+admin.addPayment = function *(req, res, next) {
   logger.info(`Trying to add payment for invoice ${req.body.invoice}`);
 
   let payment = yield api.postModel(
@@ -38,9 +21,7 @@ admin.addPayment = (req, res, next) => co(function*() {
   if (!payment) return res.sendStatus(500);
 
   return res.sendStatus(200);
-}).catch((ex) => {
-  sendErr(res, ex.message, ex);
-});
+};
 
 admin.getInvoices = (req) => co(function*() {
   const events = yield api.getModel('event', req.user);
@@ -53,14 +34,14 @@ admin.getInvoices = (req) => co(function*() {
   for (let i = 0; i < allTeams.length; i++) {
     let t = allTeams[i];
     if(t.members.length > 1) {
-      let invoice = yield api.getModel(`invoice`, req.user, t.invoiceId);
+      let invoice = yield api.getModel('invoice', req.user, t.invoiceId);
       invoice.event = events[t.event -1].city;
       invoice.members = t.members;
       invoice.id = t.invoiceId;
       if (invoice.payments.length) {
         invoice.open = invoice.amount - invoice.payments.reduce((prev, curr) => {
-            return prev + curr.amount;
-          }, 0);
+          return prev + curr.amount;
+        }, 0);
       } else {
         invoice.open = invoice.amount;
       }
@@ -73,7 +54,7 @@ admin.getInvoices = (req) => co(function*() {
   throw ex;
 });
 
-admin.getAllTeams = (req) => co(function*() {
+admin.getAllTeams = () => co(function*() {
 
   const events = yield api.event.all();
 
@@ -88,7 +69,7 @@ admin.getAllTeams = (req) => co(function*() {
   throw ex;
 });
 
-admin.checkinTeam = (req, res, next) => co(function*() {
+admin.checkinTeam = function *(req, res) {
 
   let checkin = yield api.putModel(
     `event/${req.body.event}/team/`, req.body.team,
@@ -99,9 +80,7 @@ admin.checkinTeam = (req, res, next) => co(function*() {
   if (!checkin) return res.sendStatus(500);
 
   return res.sendStatus(200);
-}).catch((ex) => {
-  sendErr(res, ex.message, ex);
-});
+};
 
 
 admin.getAllInvoices = (req) => co(function*() {
@@ -132,12 +111,13 @@ admin.getAllInvoices = (req) => co(function*() {
     teams[i.teamId] += i.payed;
   });
 
+  // TODO: This is unused, what is the reason?
   var depositTeams = teams.map((t, index) => {
     if(t > 100) {
       return {
         teamId: index,
         amount: t
-      }
+      };
     }
   });
 
@@ -149,18 +129,16 @@ admin.getAllInvoices = (req) => co(function*() {
   throw ex;
 });
 
-admin.addAmountToInvoice = (req, res, next) => co(function*() {
+admin.addAmountToInvoice = function *(req, res) {
 
   let addAmount = yield api.invoice.addAmount(req.user, req.body.invoiceId, req.body.amount);
 
   if (!addAmount) return res.sendStatus(500);
 
   return res.sendStatus(200);
-}).catch((ex) => {
-  sendErr(res, ex.message, ex);
-});
+};
 
-admin.addInvoice = (req, res, next) => co(function*() {
+admin.addInvoice = function *(req, res) {
 
   var body = {
     firstname: req.body.firstname,
@@ -176,8 +154,6 @@ admin.addInvoice = (req, res, next) => co(function*() {
 
   return res.status(200).send(addAmount);
 
-}).catch((ex) => {
-  sendErr(res, ex.message, ex);
-});
+};
 
 module.exports = admin;

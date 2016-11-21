@@ -40,7 +40,9 @@ function setupLogger(app) {
   app.use(morgan('combined', {stream: fs.createWriteStream(ROOT + '/logs/access.log', {flags: 'a'})}));
 }
 
-function genericErrorHandler(err, req, res) {
+// TODO: eslint ignore unused
+// next may be unused but must be here in order to be work properly!
+function genericErrorHandler(err, req, res, next) {
 
   logger.error(err);
 
