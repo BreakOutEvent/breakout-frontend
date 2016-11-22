@@ -4,7 +4,6 @@
  * Routes for all dynamic user pages.
  */
 
-const express = require('express');
 const co = require('co');
 const multer = require('multer');
 const _ = require('lodash');
@@ -17,8 +16,9 @@ const team = requireLocal('controller/page-controller/team');
 const session = requireLocal('controller/session');
 
 
-const upload = multer({ inMemory: true });
-const router = express.Router();
+const upload = multer({inMemory: true});
+const Router = require('co-router');
+const router = new Router();
 
 const renderTemplate = (type, folder, layout) => (template) => (req, res) => {
 
@@ -71,14 +71,16 @@ router.get('/login', redirectOnLogin, (req, res, next) => {
 }, funnelTemplate('login'));
 
 router.get('/sponsor', session.isUser, (req, res, next) => {
-  if(req.user.status.is.sponsor) {
+  if (req.user.status.is.sponsor) {
     return res.redirect('/settings/sponsoring');
   }
   next();
 }, funnelTemplate('sponsor'));
 
 
-router.get('/live', (req, res, next) => co(function*() {
+router.post('/liveblog/posting/', liveblog.returnPostings);
+
+router.get('/live', function*(req, res) {
 
   var token = null;
   if (req.isAuthenticated()) token = req.user;
@@ -103,14 +105,11 @@ router.get('/live', (req, res, next) => co(function*() {
 
   options.counter = yield liveblog.getCounterInfos(options.events.individual);
 
-  res.render(`dynamic/liveblog/liveblog`, options);
+  res.render('dynamic/liveblog/liveblog', options);
 
-}).catch(ex => next(ex)));
+});
 
-router.post('/liveblog/posting/', liveblog.returnPostings);
-
-
-router.get('/profile', session.isUser, (req, res, next) => co(function*() {
+router.get('/profile', session.isUser, function *(req, res) {
 
   let team = null;
 
@@ -118,80 +117,74 @@ router.get('/profile', session.isUser, (req, res, next) => co(function*() {
     team = yield profile.getTeam(req);
   }
 
-  res.render(`dynamic/profile/profile`,
-    {
-      error: req.flash('error'),
-      layout: 'master',
-      language: req.language,
-      me: req.user.me,
-      team: team,
-      title: 'Profile'
-    });
+  res.render('dynamic/profile/profile', {
+    error: req.flash('error'),
+    layout: 'master',
+    language: req.language,
+    me: req.user.me,
+    team: team,
+    title: 'Profile'
+  });
 
-}).catch(ex => next(ex)));
+});
 
-router.get('/logout', session.isUser, (req, res, next) => co(function*() {
+router.get('/logout', session.isUser, function *(req, res) {
   req.logout();
   req.flash('success', 'Successfully logged out!');
   res.redirect('/login');
-}).catch(ex => next(ex)));
+});
 
-router.get('/payment', session.hasTeam, (req, res, next) => co(function*() {
+router.get('/payment', session.hasTeam, function *(req, res) {
 
   const purpose = yield registration.getTransactionPurpose(req);
 
-  res.render(`dynamic/register/payment`,
-    {
+  res.render('dynamic/register/payment', {
+    error: req.flash('error'),
+    layout: 'funnel',
+    language: req.language,
+    purpose: purpose
+  });
+
+});
+
+router.get('/join/:token', function*(req, res) {
+  let invite = yield registration.getInviteByToken(req.params.token);
+
+  // TODO: This error handling is not correct! Invite is not null if backend returns an error json!
+  if (!invite) {
+    res.render('dynamic/register/register', {
+      error: 'Invitecode is not valid.',
+      layout: 'funnel',
+      language: req.language
+    });
+  } else {
+    res.render('dynamic/register/register', {
       error: req.flash('error'),
       layout: 'funnel',
       language: req.language,
-      purpose: purpose
-    }
-  );
-}).catch(ex => next(ex)));
-
-router.get('/join/:token', (req, res, next) => co(function*() {
-  let invite = yield registration.getInviteByToken(req.params.token);
-
-  if (!invite) {
-    res.render('dynamic/register/register',
-      {
-        error: 'Invitecode is not valid.',
-        layout: 'funnel',
-        language: req.language
-      }
-    );
-  } else {
-    res.render('dynamic/register/register',
-      {
-        error: req.flash('error'),
-        layout: 'funnel',
-        language: req.language,
-        invite: invite
-      }
-    );
+      invite: invite
+    });
   }
-}).catch(ex => next(ex)));
+});
 
-router.get('/team-invite', session.isParticipant, registration.lock, (req, res, next) => co(function*() {
+router.get('/team-invite', session.isParticipant, registration.lock, function*(req, res) {
   const teams = yield registration.getInvites(req);
 
   if (teams.length > 0) {
-    res.render('dynamic/register/team-invite',
-      {
-        error: req.flash('error'),
-        layout: 'funnel',
-        language: req.language,
-        amountInvites: teams.length,
-        teams: teams
-      }
-    );
+    res.render('dynamic/register/team-invite', {
+      error: req.flash('error'),
+      layout: 'funnel',
+      language: req.language,
+      amountInvites: teams.length,
+      teams: teams
+    });
   } else {
     res.redirect('/team-create');
   }
-}).catch(ex => next(ex)));
+});
 
-router.get('/team-create', session.isParticipant, registration.lock, (req, res, next) => co(function*() {
+// TODO: Refactor this in order to use yield!
+router.get('/team-create', session.isParticipant, registration.lock, function *(req, res, next) {
   registration.getEvents(req)
     .then(events => {
       res.render('dynamic/register/team-create',
@@ -203,6 +196,7 @@ router.get('/team-create', session.isParticipant, registration.lock, (req, res, 
       );
     })
     .catch(err => {
+      // TODO: Find out why this is commented out!
       /*
        res.render('dynamic/register/team-create',
        {
@@ -214,84 +208,73 @@ router.get('/team-create', session.isParticipant, registration.lock, (req, res, 
        */
       next(err);
     });
-}).catch(ex => next(ex)));
+});
 
-router.get('/activation/:token', (req, res, next) => co(function*() {
+router.get('/activation/:token', function *(req, res) {
 
-  yield registration.activateUser(req.params.token);
-  yield session.refreshSession(req);
+  try {
+    yield registration.activateUser(req.params.token);
+    yield session.refreshSession(req);
 
-  res.render('dynamic/register/activation',
-    {
+    res.render('dynamic/register/activation', {
       error: null,
       layout: 'funnel',
       language: req.language
-    }
-  );
-}).catch(ex => {
-  res.render('dynamic/register/activation',
-    {
+    });
+
+  } catch (err) {
+    res.render('dynamic/register/activation', {
       error: 'The token you provided is not valid (anymore).',
       layout: 'funnel',
       language: req.language
     });
-}));
+  }
+});
 
-router.get('/highscore', (req, res, next) => co(function*(){
+router.get('/highscore', function *(req, res) {
 
   var map = yield liveblog.getMapData();
   var allTeams = yield team.getAll();
 
-  var sortedTeamsbyDistance =( _.sortBy(allTeams, t => t.distance.linear_distance )).reverse();
+  var sortedTeamsbyDistance = ( _.sortBy(allTeams, t => t.distance.linear_distance)).reverse();
 
-  var sortedTeamsbyMoney = (_.sortBy(allTeams, y => y.donateSum.full_sum )).reverse();
+  var sortedTeamsbyMoney = (_.sortBy(allTeams, y => y.donateSum.full_sum)).reverse();
 
-  var slicedDistance = sortedTeamsbyDistance.slice(0,5);
-  var slicedMoney = sortedTeamsbyMoney.slice(0,5);
-
-
-  res.render('dynamic/liveblog/highscore',
-    {
-      error: null,
-      layout: 'master',
-      language:req.language,
-      mapData: map,
-      teamDistanceData: slicedDistance,
-      teamMoneyData: slicedMoney
-    }
-  );
+  var slicedDistance = sortedTeamsbyDistance.slice(0, 5);
+  var slicedMoney = sortedTeamsbyMoney.slice(0, 5);
 
 
-}).catch(ex => next(ex)));
+  res.render('dynamic/liveblog/highscore', {
+    error: null,
+    layout: 'master',
+    language: req.language,
+    mapData: map,
+    teamDistanceData: slicedDistance,
+    teamMoneyData: slicedMoney
+  });
 
-router.get('/sponsoring', (req, res, next) => co(function*() {
+});
 
-  res.render('static/howtosponsor',
-    {
-      error: null,
-      layout: 'master',
-      language: req.language
-    }
-  );
-
-
-}).catch(ex => next(ex)));
+router.get('/sponsoring', function* (req, res) {
+  res.render('static/howtosponsor', {
+    error: null,
+    layout: 'master',
+    language: req.language
+  });
+});
 
 //POST
 
-router.post('/participant', session.isUser, upload.single('profilePic'),
-  registration.createParticipant);
+router.post('/participant', session.isUser, upload.single('profilePic'), registration.createParticipant);
 router.post('/register', registration.createUser);
-router.post('/team-create', session.isParticipant, upload.single('profilePic'),
-  registration.createTeam);
+router.post('/team-create', session.isParticipant, upload.single('profilePic'), registration.createTeam);
 router.post('/invite', session.hasTeam, registration.inviteUser);
 router.post('/team-invite', session.isParticipant, registration.joinTeamAPI);
 router.post('/sponsor', session.isUser, upload.single('profilePic'), registration.createSponsor);
-
 router.post('/request-pw-reset', registration.requestPwReset);
 router.post('/reset-pw', registration.resetPassword);
 
-
+// TODO: Add proper logging here!
 router.post('/login', function (req, res, next) {
   passport.authenticate('local', function (err, user, info) {
     if (err) {
@@ -306,14 +289,11 @@ router.post('/login', function (req, res, next) {
         return next(err);
       }
       var url = req.flash('url');
-      console.log(url);
       if (Array.isArray(url)) url = url[url.length - 1];
-      console.log(url);
       if (url) return res.redirect(url);
       return res.redirect('/');
     });
-  })(req, res, next)
+  })(req, res, next);
 });
-
 
 module.exports = router;

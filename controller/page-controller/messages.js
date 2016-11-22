@@ -27,6 +27,29 @@ const sendErr = (res, errMsg, err) => {
   res.status(500).send({ error: errMsg });
 };
 
+messages.getById = function *(req, res) {
+
+  let threads = yield messages.getAll(req);
+  let activeMessage = threads[threads.length - 1];
+  if (req.params.messageId) {
+    activeMessage = threads.filter(m => m.id == req.params.messageId)[0];
+    if (!activeMessage) {
+      return res.redirect('/messages/');
+    }
+  }
+
+  res.render('dynamic/message/message', {
+    error: req.flash('error'),
+    layout: 'master',
+    language: req.language,
+    threads: threads,
+    userId: req.user.me.id,
+    activeMessage: activeMessage,
+    isLoggedIn: req.user,
+    title: 'Nachrichten'
+  });
+};
+
 messages.getAll = (req) => co(function*() {
   if (req.user.me.groupMessageIds.length === 0) return [];
   return yield req.user.me.groupMessageIds.map(gMId => api.messaging.getGroupMessage(req.user, gMId));

@@ -4,24 +4,23 @@
  * Routes for all sponsoring related requests
  */
 
-const express = require('express');
-const co = require('co');
 const multer = require('multer');
 
 const sponsoring = requireLocal('controller/page-controller/sponsoring');
-const registration = requireLocal('controller/page-controller/registration');
 const profile = requireLocal('controller/page-controller/profile');
 const session = requireLocal('controller/session');
 
 const upload = multer({inMemory: true});
-const router = express.Router();
 
-router.get('/sponsoring', session.isUser, (req, res, next) => co(function*() {
+const Router = require('co-router');
+const router = new Router();
+
+router.get('/sponsoring', session.isUser, function*(req, res) {
 
 
   //CHECK IF USER IS SPONSOR OR PARTICIPANT
   if (!req.user.status.is.team && !req.user.status.is.sponsor) {
-    req.flash(`error`, `Um diese Seite aufzurufen, musst Du entweder Teil eines Teams oder ein Sponsor sein.`);
+    req.flash('error', 'Um diese Seite aufzurufen, musst Du entweder Teil eines Teams oder ein Sponsor sein.');
     return res.redirect('/selection');
   }
 
@@ -32,14 +31,14 @@ router.get('/sponsoring', session.isUser, (req, res, next) => co(function*() {
   let confirmedDonations = [];
   //INCOMING
 
-  if(req.user.status.is.team) {
+  if (req.user.status.is.team) {
     incSponsoring = yield sponsoring.getByTeam(req);
     incChallenges = yield sponsoring.challenge.getByTeam(req);
     confirmedDonations = yield sponsoring.invoice.getByTeam(req);
   }
 
   //OUTGOING
-  if(req.user.status.is.sponsor) {
+  if (req.user.status.is.sponsor) {
     outSponsoring = yield sponsoring.getBySponsor(req);
     outChallenges = yield sponsoring.challenge.getBySponsor(req);
   }
@@ -48,26 +47,25 @@ router.get('/sponsoring', session.isUser, (req, res, next) => co(function*() {
   const teams = yield sponsoring.getAllTeams(req);
 
 
-  res.render(`dynamic/sponsoring/sponsoring`,
-    {
-      error: req.flash('error'),
-      layout: 'master',
-      language: req.language,
-      me: req.user.me,
-      status: req.user.status,
-      incSponsoring: incSponsoring,
-      incChallenges: incChallenges,
-      outSponsoring: outSponsoring,
-      outChallenges: outChallenges,
-      confirmedDonations: confirmedDonations,
-      teams:teams,
-      isLoggedIn: req.user,
-      title: 'Sponsorings'
-    });
+  res.render('dynamic/sponsoring/sponsoring', {
+    error: req.flash('error'),
+    layout: 'master',
+    language: req.language,
+    me: req.user.me,
+    status: req.user.status,
+    incSponsoring: incSponsoring,
+    incChallenges: incChallenges,
+    outSponsoring: outSponsoring,
+    outChallenges: outChallenges,
+    confirmedDonations: confirmedDonations,
+    teams: teams,
+    isLoggedIn: req.user,
+    title: 'Sponsorings'
+  });
 
-}).catch(ex => next(ex)));
+});
 
-//SPONSRING ROUTES
+//SPONSORING ROUTES
 
 router.post('/sponsoring/create', session.isUser, upload.single('contract'), sponsoring.create);
 router.post('/sponsoring/accept', session.isUser, sponsoring.accept);
@@ -86,26 +84,25 @@ router.post('/challenge/delete', session.isUser, sponsoring.challenge.delete);
  */
 
 
-router.get('/profile', session.isUser, (req, res, next) => co(function*() {
+router.get('/profile', session.isUser, function*(req, res) {
 
   let team = null;
 
-  if(req.user.status.is.team) {
+  if (req.user.status.is.team) {
     team = yield profile.getTeam(req);
   }
 
-  res.render(`dynamic/profile/profile`,
-    {
-      error: req.flash('error'),
-      layout: 'master',
-      language: req.language,
-      me: req.user.me,
-      team: team,
-      isLoggedIn: req.user,
-      title: 'Profile'
-    });
+  res.render('dynamic/profile/profile', {
+    error: req.flash('error'),
+    layout: 'master',
+    language: req.language,
+    me: req.user.me,
+    team: team,
+    isLoggedIn: req.user,
+    title: 'Profile'
+  });
 
-}).catch(ex => next(ex)));
+});
 
 router.put('/profile/team', session.hasTeam, upload.single('teamPic'), profile.putTeam);
 

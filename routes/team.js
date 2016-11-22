@@ -4,19 +4,18 @@
  * Routes for all team related requests
  */
 
-const express = require('express');
-const co = require('co');
+const Router = require('co-router');
 const multer = require('multer');
 const _ = require('lodash');
 
 const team = requireLocal('controller/page-controller/team');
 const session = requireLocal('controller/session');
 
-const upload = multer({ inMemory: true });
-const router = express.Router();
+const router = new Router();
+const upload = multer({inMemory: true});
 
 
-router.get('/', (req, res, next) => co(function*() {
+router.get('/', function* (req, res) {
 
   const allTeams = yield team.getAll();
   const searchData = allTeams.map(t => {
@@ -24,30 +23,27 @@ router.get('/', (req, res, next) => co(function*() {
       return {
         firstname: m.firstname,
         lastname: m.lastname
-      }
+      };
     });
     return {
       name: t.name,
       id: t.id,
       members: members
-    }
+    };
   });
 
-  res.render(`dynamic/team/team-overview`,
-    {
-      error: req.flash('error'),
-      layout: 'master',
-      language: req.language,
-      teams: allTeams,
-      searchData: searchData,
-      isLoggedIn: req.user,
-      title: 'Team Übersicht'
-    });
+  res.render('dynamic/team/team-overview', {
+    error: req.flash('error'),
+    layout: 'master',
+    language: req.language,
+    teams: allTeams,
+    searchData: searchData,
+    isLoggedIn: req.user,
+    title: 'Team Übersicht'
+  });
+});
 
-
-}).catch(next));
-
-router.get('/:teamId', (req, res, next) => co(function*() {
+router.get('/:teamId', function* (req, res) {
 
   let teamId = parseInt(req.params.teamId);
 
@@ -79,19 +75,18 @@ router.get('/:teamId', (req, res, next) => co(function*() {
     isUserAdmin = _.findIndex(req.user.me.roles, r => r === 'ADMIN') > -1;
   }
 
-  res.render(`dynamic/team/team-detail`,
-    {
-      error: req.flash('error'),
-      layout: 'master',
-      language: req.language,
-      team: currTeam,
-      user: currentUser,
-      isUserOfTeam: isUserOfTeam,
-      isUserAdmin: isUserAdmin,
-      isLoggedIn: req.user,
-      title: currTeam.name
-    });
-}).catch(next));
+  res.render('dynamic/team/team-detail', {
+    error: req.flash('error'),
+    layout: 'master',
+    language: req.language,
+    team: currTeam,
+    user: currentUser,
+    isUserOfTeam: isUserOfTeam,
+    isUserAdmin: isUserAdmin,
+    isLoggedIn: req.user,
+    title: currTeam.name
+  });
+});
 
 router.post('/post/create', session.hasTeam, upload.single('postPic'), team.createPost);
 router.post('/comment/create', session.isUser, team.createComment);

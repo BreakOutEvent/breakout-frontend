@@ -3,13 +3,10 @@
 /**
  * Routes for all static pages.
  */
-
-const express = require('express');
-const co = require('co');
+const Router = require('co-router');
+const router = new Router();
 
 const memberController = requireLocal('controller/page-controller/member');
-const router = express.Router();
-
 const testimonials = requireLocal('content/press/testimonials');
 const pressMaterials = requireLocal('content/press/pressMaterials');
 const pressReviews = requireLocal('content/press/pressReviews');
@@ -42,9 +39,9 @@ router.get('/faq', masterStaticTemplate('faq', 'FAQ'));
 router.get('/get-involved', masterStaticTemplate('getInvolved', 'Get Involved'));
 router.get('/newsletter', masterStaticTemplate('newsletter', 'Newsletter'));
 
-router.get('/members', (req, res, next) => co(function*() {
+router.get('/members', function* (req, res) {
   memberController.teamPage(req.language, res);
-}).catch(ex => next(ex)));
+});
 
 function renderPressPage(req, res) {
 
