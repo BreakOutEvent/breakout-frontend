@@ -6,6 +6,7 @@
 const co = require('co');
 const _ = require('lodash');
 const api = requireLocal('services/api-proxy');
+const Promise = require('bluebird');
 
 let admin = {};
 
@@ -54,20 +55,12 @@ admin.getInvoices = (req) => co(function*() {
   throw ex;
 });
 
-admin.getAllTeams = () => co(function*() {
-
-  const events = yield api.event.all();
-
-  let teamsByEvent = yield events.map((e) => api.team.getAllByEvent(e.id));
-  let allTeams = _.flatten(teamsByEvent);
-
-  allTeams = allTeams.filter(t => t.hasFullyPaid);
-
-  return allTeams.filter(t => t.hasFullyPaid);
-
-}).catch((ex) => {
-  throw ex;
-});
+admin.getAllTeams = function() {
+  return Promise.resolve(api.event.all())
+    .map(event => api.team.getAllByEvent(event.id))
+    .reduce((a, b) => a.concat(b), [])
+    .filter(team => team.hasFullyPaid);
+};
 
 admin.checkinTeam = function *(req, res) {
 

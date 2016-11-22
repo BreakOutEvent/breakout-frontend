@@ -1117,7 +1117,7 @@ module.exports = {
 
   NEXTSTEPS: {
     NEXT_STEPS_HEADING: {
-      de: "Nächste Schritte"
+      de: 'Nächste Schritte'
     },
     INFORM_HEADING: {
       de: 'Informieren'

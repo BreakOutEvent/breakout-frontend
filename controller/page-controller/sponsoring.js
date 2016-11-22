@@ -33,10 +33,10 @@ const parseAmount = (rawAmount) => {
   let amountArray = rawAmountString.match(/(\d+)[\.|,]?(\d*)/);
   if(amountArray.length === 3) {
     return amountArray[1] + '.' + amountArray[2];
-  } else if(amountArray[2] === "") {
+  } else if(amountArray[2] === '') {
     return amountArray[1];
   } else {
-    throw "could not parse amount";
+    throw 'could not parse amount';
   }
 };
 
@@ -80,10 +80,8 @@ sponsoring.create = (req, res, next) => co(function*() {
     body.unregisteredSponsor.company = req.body.company;
     body.unregisteredSponsor.gender = req.body.gender;
 
-    if (!req.body.url) body.unregisteredSponsor.url = "";
+    if (!req.body.url) body.unregisteredSponsor.url = '';
     else body.unregisteredSponsor.url = req.body.url;
-
-    console.log(req.body.selfChallengeDescription);
 
     if (req.body.selfChallengeDescription) {
       if (req.body.selfChallengeDescription.length !== req.body.selfChallengeAmount.length) {
@@ -235,7 +233,7 @@ sponsoring.challenge.create = (req, res, next) => co(function*() {
         amount: parseAmount(req.body.addChallengeAmount[i]),
         description: e
       };
-      return api.challenge.create(req.user, body.event, body.team, currBody)
+      return api.challenge.create(req.user, body.event, body.team, currBody);
     });
 
   res.sendStatus(200);
@@ -323,7 +321,7 @@ sponsoring.invoice.getByTeam = (req) => co(function*() {
   let confirmedDonations = {};
   confirmedDonations.invoices = invoices;
   confirmedDonations.totalSum = invoices.reduce((curr, next) => {
-    return curr + next.payed
+    return curr + next.payed;
   },0);
 
   confirmedDonations.totalCount = invoices.filter(i => i.payed > 0 ).length;

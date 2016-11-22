@@ -5,7 +5,7 @@ var toggleLoading = require('./helpers.js').toggleLoading;
 var sanityCheck = require('./helpers.js').sanityCheck;
 window.msnry = null;
 
-$(window).on("load", function () {
+$(window).on('load', function () {
 
   Plyr.setup();
 
@@ -34,16 +34,14 @@ $(window).on("load", function () {
         processData: false,
         contentType: false,
         data: data
-      })
-        .success(function () {
-          window.location.reload();
-        })
-        .error(function (err) {
-          console.log(err);
-          $('#bo-post-result')
-            .html('<div class="alert alert-danger">Speichern fehlgeschlagen!</div>');
-          window.msnry.layout();
-        });
+      }).success(function () {
+        window.location.reload();
+      }).error(function (err) {
+        console.log(err);
+        $('#bo-post-result')
+          .html('<div class="alert alert-danger">Speichern fehlgeschlagen!</div>');
+        window.msnry.layout();
+      });
     });
 
     $('.newComment').on('submit', function (e) {
@@ -58,16 +56,14 @@ $(window).on("load", function () {
       $.post('/team/comment/create', {
         id: data.get('newCommentId'),
         text: data.get('newCommentText')
-      })
-        .success(function () {
-          window.location.reload();
-        })
-        .error(function (err) {
-          console.log(err);
-          $('#bo-post-result')
-            .html('<div class="alert alert-danger">Speichern fehlgeschlagen!</div>');
-          window.msnry.layout();
-        });
+      }).success(function () {
+        window.location.reload();
+      }).error(function (err) {
+        console.log(err);
+        $('#bo-post-result')
+          .html('<div class="alert alert-danger">Speichern fehlgeschlagen!</div>');
+        window.msnry.layout();
+      });
     });
 
     $('#postPic').change(function () {
@@ -125,7 +121,7 @@ $(window).on("load", function () {
           if (position.coords.longitude !== 0) {
             $('#bo-team-longitude').val(position.coords.longitude);
           }
-          $('#bo-team-location').html('lat: ' + position.coords.latitude + ', long: ' + position.coords.longitude)
+          $('#bo-team-location').html('lat: ' + position.coords.latitude + ', long: ' + position.coords.longitude);
         }
       }
     }
@@ -138,10 +134,10 @@ $(window).on("load", function () {
         return window.location.href = '/login?return=' + window.location.pathname;
       }
 
-      $.post('/team/like', { postingId: $button.data('id') })
+      $.post('/team/like', {postingId: $button.data('id')})
         .success(function (data) {
           $button.toggleClass('active');
-          var $likeCount = $button.find(".bo-like-count");
+          var $likeCount = $button.find('.bo-like-count');
           if ($likeCount.size() > 0) {
             var count = parseInt($likeCount.text());
             count++;
@@ -152,13 +148,13 @@ $(window).on("load", function () {
         });
     });
 
-    $('.bo-card-actions-like').on("mouseover", function () {
+    $('.bo-card-actions-like').on('mouseover', function () {
 
       var cardLike = $(this);
 
-      if (cardLike.find(".bo-like-count").size() > 0) {
-        cardLike.addClass("bo-tooltip");
-        cardLike.attr("data-tooltip", "Lädt...");
+      if (cardLike.find('.bo-like-count').size() > 0) {
+        cardLike.addClass('bo-tooltip');
+        cardLike.attr('data-tooltip', 'Lädt...');
 
         $.get('/team/likes/' + $(this).attr('data-id'), function (data) {
 
@@ -166,18 +162,18 @@ $(window).on("load", function () {
           var names = [];
           data.forEach(function (like) {
             if (like.user.firstname && like.user.lastname && names.length < 10) {
-              names.push(like.user.firstname + " " + like.user.lastname);
+              names.push(like.user.firstname + ' ' + like.user.lastname);
             } else {
               add++;
             }
           });
 
           if (add != 0) {
-            names.push("und " + add + " weitere Person");
+            names.push('und ' + add + ' weitere Person');
           }
 
-          cardLike.attr("data-tooltip", names.join("\n"));
-        })
+          cardLike.attr('data-tooltip', names.join('\n'));
+        });
       }
     });
 
@@ -268,7 +264,7 @@ $(window).on("load", function () {
     var text = $(this).text();
 
     for (var i = 0; i < hashtags.length; i++) {
-      text = text.replace('#' + hashtags[i], "<a href=\"/post/hashtag/" + hashtags[i] + "\">#" + hashtags[i] + "</a>");
+      text = text.replace('#' + hashtags[i], '<a href=\'/post/hashtag/' + hashtags[i] + '\'>#' + hashtags[i] + '</a>');
     }
 
     $(this).html(text);
@@ -278,12 +274,12 @@ $(window).on("load", function () {
     var type = $(this).attr('data-type');
     var id = parseInt($(this).attr('data-id'));
 
-    if (confirm("Magst du wirklich '" + type + "' mit Id: '" + id + "' unwiederruflich löschen?")) {
+    if (confirm('Magst du wirklich ' + type + ' mit Id: ' + id + 'unwiederruflich löschen?')) {
       $.ajax({
         url: '/team/' + type + '/' + id,
         type: 'DELETE',
         success: function () {
-          alert("DELETED!");
+          alert('DELETED!');
           window.location.reload();
         }
       });
@@ -293,6 +289,6 @@ $(window).on("load", function () {
   lightbox.option({
     'resizeDuration': 200,
     'wrapAround': true
-  })
+  });
 
 });

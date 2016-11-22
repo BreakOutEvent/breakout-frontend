@@ -41,8 +41,8 @@ exports.ifCond = function (v1, v2, options) {
 exports.markdown = function renderMarkdown(mdFileName, context) {
   const rawMd = loadFileContent(mdFileName);
   const html = md.render(rawMd);
-  return html
-}
+  return html;
+};
 
 function loadFileContent(mdFileName) {
   const path = getFilepath(mdFileName);
@@ -50,7 +50,7 @@ function loadFileContent(mdFileName) {
 }
 
 function getFilepath(mdFileName) {
-  const contentFolderPath = path.resolve('content/')
+  const contentFolderPath = path.resolve('content/');
   return `${contentFolderPath}/${mdFileName}.md`;
 }
 
@@ -127,11 +127,11 @@ exports.length = function (array) {
 
 exports.strColor = (str) => {
   var hash = 0;
-  for (var i = 0; i < str.length; i++) {
+  for (let i = 0; i < str.length; i++) {
     hash = str.charCodeAt(i) + ((hash << 5) - hash);
   }
   var colour = '#';
-  for (var i = 0; i < 3; i++) {
+  for (let i = 0; i < 3; i++) {
     var value = (hash >> (i * 8)) & 0xFF;
     colour += ('00' + value.toString(16)).substr(-2);
   }
@@ -185,7 +185,7 @@ exports.getH264VideoByWidth = (width, sizes) => {
   width = parseFloat(width);
 
   if (Array.isArray(sizes)) {
-    sizes = sizes.filter((size) => size.type === 'VIDEO' && size.url.endsWith(".mp4"));
+    sizes = sizes.filter((size) => size.type === 'VIDEO' && size.url.endsWith('.mp4'));
 
     if (sizes.length > 0) {
 
@@ -211,7 +211,7 @@ exports.getWebmVideoByWidth = (width, sizes) => {
   width = parseFloat(width);
 
   if (Array.isArray(sizes)) {
-    sizes = sizes.filter((size) => size.type === 'VIDEO' && size.url.endsWith(".webm"));
+    sizes = sizes.filter((size) => size.type === 'VIDEO' && size.url.endsWith('.webm'));
 
     if (sizes.length > 0) {
 
@@ -233,7 +233,7 @@ exports.getWebmVideoByWidth = (width, sizes) => {
 };
 
 exports.round = (amount) => {
-  return Math.round(parseFloat(amount)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  return Math.round(parseFloat(amount)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 };
 
 exports.roundWithoutFormat = (amount) => {
@@ -263,7 +263,7 @@ exports.prettyLocation = (location) => {
 
   if (location.hasOwnProperty('COUNTRY')) {
     if (locString !== '') {
-      locString += ', '
+      locString += ', ';
     }
     locString += location.COUNTRY;
   }
@@ -276,10 +276,10 @@ exports.prettyLocation = (location) => {
 exports.getSmallestAudio = (sizes) => {
   if (Array.isArray(sizes) && sizes.length > 0) {
 
-    var filteredsizes = sizes.filter((size) => size.type === 'AUDIO').filter((s) => s.url.endsWith(".mp3"));
+    var filteredsizes = sizes.filter((size) => size.type === 'AUDIO').filter((s) => s.url.endsWith('.mp3'));
 
     if (filteredsizes.length === 0) {
-      filteredsizes = sizes
+      filteredsizes = sizes;
     }
 
     var minsize = 100000000000;
@@ -301,5 +301,5 @@ exports.challengeHasProof = (status) => {
     return true;
   }
 
-  return false
+  return false;
 };

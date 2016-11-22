@@ -19,15 +19,15 @@ const bunyanConfig = {
   ],
   serializers: bunyan.stdSerializers,
   src: process.env.NODE_ENVIRONMENT !== 'prod'
-}
+};
 
 // TODO: There should be a better way for this!
 if(process.env.IS_TEST) {
-  logger.info = () => {}
-  logger.error = () => {}
-  logger.warn = () => {}
+  logger.info = () => {};
+  logger.error = () => {};
+  logger.warn = () => {};
 }
 
-logger = bunyan.createLogger(bunyanConfig)
-global.logger = logger // TODO: This should be removed, but there are some dependencies on the global logger object
-module.exports = logger
+logger = bunyan.createLogger(bunyanConfig);
+global.logger = logger; // TODO: This should be removed, but there are some dependencies on the global logger object
+module.exports = logger;

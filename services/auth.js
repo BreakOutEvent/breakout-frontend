@@ -73,7 +73,7 @@ passport.createSession = (username, user) => co(function*() {
 
   return user;
 }).catch(ex => {
-  console.log(ex);
+  // TODO: Removed console, add logging
   throw ex;
 });
 

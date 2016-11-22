@@ -42,7 +42,9 @@ websocket.init = (io) => {
       io.sockets.emit('newPostings', {postings: html});
     }
 
-  }).catch(console.log), null, true);
+  }).catch(err => {
+    // TODO: Logging
+  }), null, true);
 };
 
 function compareData(oldData, data) {

@@ -1,28 +1,31 @@
-// client side js
 module.exports = {
-  "env": {
-    "browser": true,
-    "commonjs": true,
-    "es6": true,
-    "jquery": true
-  },
-  "extends": "eslint:recommended",
-  "rules": {
-    "indent": [
-      "error",
-      2
-    ],
-    "quotes": [
-      "error",
-      "single"
-    ],
-    "semi": [
-      "error",
-      "always"
-    ],
-    "require-yield": 0
-  },
-  globals: {
-    google: true
-  }
-}
+    "env": {
+        "es6": true,
+        "browser": true,
+        "jquery": true
+    },
+    "extends": "eslint:recommended",
+    "rules": {
+        "indent": [
+            "error",
+            2, {
+                "SwitchCase": 1
+            }
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        'no-console': 0,
+        'no-unused-vars': 1
+    },
+    'globals': {
+        'google': true,
+        'io': true,
+        'infowindow': true
+    }
+};

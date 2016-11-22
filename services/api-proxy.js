@@ -9,9 +9,7 @@ const co = require('co');
 const request = require('request');
 const crequest = require('co-request');
 const config = requireLocal('config/config.js');
-const cache = requireLocal('services/cache.js');
 const url = `${config.api.protocol}://${config.api.url}`;
-const qs = require('querystring');
 
 Object.keys(config).forEach(k => {
   if (!config[k])
@@ -97,14 +95,13 @@ API.getModel = (modelName, token, id) => {
   logger.info('Trying to get', modelName, 'with id', (id || 'noID'), 'from backend');
   let sendID = '';
   if (id) sendID = id + '/';
-  return new Promise((resolve, reject)=> {
-      request
-        .get({
-          url: `${url}/${modelName}/${sendID}`,
-          auth: {bearer: token.access_token}
-        }, handleResponse(resolve, reject, 'Got ' + modelName + ' with id ' + (id || 'noID') + ' from backend'));
-    }
-  );
+  return new Promise((resolve, reject) => {
+    request
+      .get({
+        url: `${url}/${modelName}/${sendID}`,
+        auth: {bearer: token.access_token}
+      }, handleResponse(resolve, reject, 'Got ' + modelName + ' with id ' + (id || 'noID') + ' from backend'));
+  });
 };
 
 API.postModel = (modelName, token, body) => {
@@ -116,8 +113,7 @@ API.postModel = (modelName, token, body) => {
         auth: {bearer: token.access_token},
         body: JSON.stringify(body),
         headers: {'content-type': 'application/json'}
-      }, handleResponse(resolve, reject, 'Successfully POSTed ' + modelName + ' with ' + JSON.stringify(body) + ' to backend'))
-  );
+      }, handleResponse(resolve, reject, 'Successfully POSTed ' + modelName + ' with ' + JSON.stringify(body) + ' to backend')));
 };
 
 API.putModel = (modelName, id, token, body) => {
@@ -128,7 +124,6 @@ API.putModel = (modelName, id, token, body) => {
       return;
     }
 
-    console.log(body, token);
     request
       .put({
         url: `${url}/${modelName}/${(id)}/`,
@@ -174,8 +169,6 @@ API.createUser = function (email, password) {
 
 API.uploadPicture = function (file, mediaObj) {
   logger.info('Trying to upload file with id', mediaObj.id);
-  console.log(mediaObj);
-  console.log(file);
   return new Promise(function (resolve, reject) {
     request
       .post({
@@ -265,18 +258,16 @@ API.general.get = (modelURL) => {
 
   logger.info('Trying to get', modelURL, 'from backend');
   return new Promise((resolve, reject)=> {
-      request
-        .get({
-          url: `${url}${modelURL}`
-        }, handleResponse(resolve, reject, 'Got ' + modelURL + ' from backend'));
-    }
-  );
+    request.get({
+      url: `${url}${modelURL}`
+    }, handleResponse(resolve, reject, 'Got ' + modelURL + ' from backend'));
+  });
 
   /*
-  return cache.getObject(modelURL, function () {
+   return cache.getObject(modelURL, function () {
 
-  });
-  */
+   });
+   */
 };
 
 API.sponsoring = {};
@@ -303,12 +294,12 @@ API.sponsoring.getBySponsor = (token, userId) => {
   logger.info('Trying to get sponsorings from user', userId);
 
   let mockdata = [{
-    "id": 1,
-    "amountPerKm": 1,
-    "limit": 100,
-    "teamId": 1,
-    "team": "namedesteams",
-    "sponsorId": userId
+    'id': 1,
+    'amountPerKm': 1,
+    'limit': 100,
+    'teamId': 1,
+    'team': 'namedesteams',
+    'sponsorId': userId
   }];
 
   return new Promise(function (resolve, reject) {
@@ -325,11 +316,11 @@ API.sponsoring.changeStatus = (token, eventId, teamId, sponsoringId, status) => 
   logger.info('Trying to change status of  sponsoring ', sponsoringId, 'to', status);
 
   let mockdata = [{
-    "amountPerKm": 1,
-    "limit": 100,
-    "teamId": teamId,
-    "team": "namedesteams",
-    "sponsorId": 1
+    'amountPerKm': 1,
+    'limit': 100,
+    'teamId': teamId,
+    'team': 'namedesteams',
+    'sponsorId': 1
   }];
 
   return new Promise(function (resolve, reject) {
@@ -348,21 +339,20 @@ API.sponsoring.changeStatus = (token, eventId, teamId, sponsoringId, status) => 
 };
 
 API.sponsoring.reject = (token, eventId, teamId, sponsoringId) => {
-  return API.sponsoring.changeStatus(token, eventId, teamId, sponsoringId, "rejected");
+  return API.sponsoring.changeStatus(token, eventId, teamId, sponsoringId, 'rejected');
 };
 
 API.sponsoring.accept = (token, eventId, teamId, sponsoringId) => {
-  return API.sponsoring.changeStatus(token, eventId, teamId, sponsoringId, "accepted");
+  return API.sponsoring.changeStatus(token, eventId, teamId, sponsoringId, 'accepted');
 };
 
 API.sponsoring.delete = (token, eventId, teamId, sponsoringId) => {
-  return API.sponsoring.changeStatus(token, eventId, teamId, sponsoringId, "withdrawn");
+  return API.sponsoring.changeStatus(token, eventId, teamId, sponsoringId, 'withdrawn');
 };
 
 API.challenge = {};
 
 API.challenge.create = (token, eventId, teamId, body) => {
-  console.log(`${url}/event/${eventId}/team/${teamId}/challenge/`);
   return new Promise(function (resolve, reject) {
     request
       .post({
@@ -423,15 +413,15 @@ API.challenge.proof = (token, challengeId, postId) => {
 };
 
 API.challenge.reject = (token, eventId, teamId, challengeId) => {
-  return API.challenge.changeStatus(token, eventId, teamId, challengeId, "rejected");
+  return API.challenge.changeStatus(token, eventId, teamId, challengeId, 'rejected');
 };
 
 API.challenge.accept = (token, eventId, teamId, challengeId) => {
-  return API.challenge.changeStatus(token, eventId, teamId, challengeId, "accepted");
+  return API.challenge.changeStatus(token, eventId, teamId, challengeId, 'accepted');
 };
 
 API.challenge.delete = (token, eventId, teamId, challengeId) => {
-  return API.challenge.changeStatus(token, eventId, teamId, challengeId, "withdrawn");
+  return API.challenge.changeStatus(token, eventId, teamId, challengeId, 'withdrawn');
 };
 
 API.pwreset = {};
@@ -468,7 +458,7 @@ API.messaging.createGroupMessage = (token, userIds) => {
   return new Promise((resolve, reject) => {
 
     if (!Array.isArray(userIds) && userIds.length > 0) {
-      reject("userIds has to be array to create groupMessage with more than 0 entries");
+      reject('userIds has to be array to create groupMessage with more than 0 entries');
     }
 
     request
@@ -486,7 +476,7 @@ API.messaging.addUsersToGroupMessage = (token, groupMessageId, userIds) => {
   return new Promise((resolve, reject) => {
 
     if (!Array.isArray(userIds) && userIds.length > 0) {
-      reject("userIds has to be array to edit groupMessage with more than 0 entries");
+      reject('userIds has to be array to edit groupMessage with more than 0 entries');
     }
 
     request
@@ -546,7 +536,6 @@ API.posting.createPosting = (token, text, uploadMediaTypes, latitude, longitude)
       body.postingLocation.longitude = longitude;
     }
     body.date = Math.floor(new Date().getTime() / 1000);
-    console.log(body);
     request
       .post({
         url: `${url}/posting/`,
@@ -570,17 +559,15 @@ API.posting.getAllPostings = (token, offset, limit) => {
   if (token)options.qs.userid = token.me.id;
   if (offset) options.qs.offset = offset;
   if (limit) options.qs.limit = limit;
-
-  var queryString = qs.stringify(options.qs);
-
+  
   return new Promise((resolve, reject) => {
     request.get(options, handleResponse(resolve, reject, 'Successfully got all postings'));
   });
   /*
-  return cache.getObject(`/posting/${queryString}`, function () {
+   return cache.getObject(`/posting/${queryString}`, function () {
 
-  });
-  */
+   });
+   */
 };
 
 API.posting.getPosting = (postingId, token) => {
@@ -611,7 +598,7 @@ API.posting.getPostingsByIds = (postingIds, token) => {
   return new Promise((resolve, reject) => {
 
     if (!Array.isArray(postingIds)) {
-      reject("postingIds has to be array");
+      reject('postingIds has to be array');
     }
 
     request.post(options, handleResponse(resolve, reject, 'Successfully got Postings by Ids: ' + postingIds));
@@ -704,7 +691,7 @@ API.event.get = function (eventId) {
 };
 
 API.event.all = function () {
-  return API.general.get(`/event/`);
+  return API.general.get('/event/');
 };
 
 API.event.getDonateSum = function (eventId) {
@@ -798,7 +785,7 @@ API.invoice.getAll = (token) => {
 };
 
 API.invoice.getByTeam = (token, teamId) => {
-  logger.info('Getting invoices for team',teamId);
+  logger.info('Getting invoices for team', teamId);
   return new Promise((resolve, reject) => {
     request
       .get({
@@ -808,7 +795,7 @@ API.invoice.getByTeam = (token, teamId) => {
   });
 };
 
-API.invoice.addAmount = (token, invoiceId , amount) => {
+API.invoice.addAmount = (token, invoiceId, amount) => {
   logger.info('Adding payment to invoice', invoiceId, 'with amount', amount);
   return new Promise((resolve, reject) => {
     request
@@ -849,7 +836,6 @@ function handleResponse(resolve, reject, msg) {
           resolve(JSON.parse(body));
         } catch (ex) {
           resolve(body);
-          console.dir(body);
           logger.warn('Could not parse JSON', ex);
           reject(ex);
         }
@@ -858,7 +844,6 @@ function handleResponse(resolve, reject, msg) {
         try {
           reject(JSON.parse(body));
         } catch (ex) {
-          console.dir(body);
           logger.error(ex);
           reject(ex);
         }

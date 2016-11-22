@@ -2,7 +2,7 @@
 
 $(document).ready(function () {
 
-  var searchval = "";
+  var searchval = '';
   var selectedResults = [];
 
   $('#search').on('input', function () {
@@ -85,15 +85,15 @@ $(document).ready(function () {
 
     $.ajax({
       url: '/messages/new',
-      type: "POST",
+      type: 'POST',
       data: JSON.stringify(userIds),
-      contentType: "application/json; charset=utf-8",
-      dataType: "json"
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'json'
     }).success((data) => {
-      window.location.href = "/messages/" + data.id;
+      window.location.href = '/messages/' + data.id;
     }).error(err => {
       $('#results').html('<div class="alert alert-danger">' + err.responseJSON.error + '</div>');
-    })
+    });
   });
 
   $('#sendMessage').on('submit', function (e) {
@@ -102,10 +102,10 @@ $(document).ready(function () {
     var id = $('#messageId').val();
     $.ajax({
       url: '/messages/send/' + id,
-      type: "POST",
+      type: 'POST',
       data: JSON.stringify({ text: text }),
-      contentType: "application/json; charset=utf-8",
-      dataType: "json"
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'json'
     }).success((data) => {
       window.location.reload();
     }).error(err => {
@@ -114,6 +114,6 @@ $(document).ready(function () {
 
   });
 
-  var panel = document.getElementById("bo-msg-panel");
-  panel.scrollTop = panel.scrollHeight
+  var panel = document.getElementById('bo-msg-panel');
+  panel.scrollTop = panel.scrollHeight;
 });

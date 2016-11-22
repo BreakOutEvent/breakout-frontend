@@ -54,7 +54,7 @@ const sendErr = (res, errMsg, err) => {
 
 registration.lock = (req, res, next) => {
   if(Date.now() > 1463468400000) {
-    return res.redirect('/closed')
+    return res.redirect('/closed');
   }
   next();
 };

@@ -12,9 +12,9 @@ function buildMongoUrl(user, password, database, host) {
   }
 }
 
-Object.keys(config.db).forEach((k, val) => {
-  if (config.db[k] === undefined) {
-    throw new Error(`No config entry found for ${k}`);
+Object.keys(config.db).forEach((key) => {
+  if (config.db[key] === undefined) {
+    throw new Error(`No config entry found for ${key}`);
   }
 });
 
@@ -45,7 +45,7 @@ db.on('error', function (error) {
 });
 
 db.on('disconnected', function () {
-  console.log('MongoDB disconnected!');
+  //TODO: Add logging, Before: console.log('MongoDB disconnected!');
   var now = new Date().getTime();
 
   // check if the last reconnection attempt was too early

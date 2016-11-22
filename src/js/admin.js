@@ -8,29 +8,26 @@ $(document).ready(() => {
     var button = this;
 
     $.post('/admin/payment/add', {
-        team: $(this).attr('data-team'),
-        amount: $(this).attr('data-amount'),
-        invoice: $(this).attr('data-invoice')
-      })
-      .success(function () {
-        $('#results')
-          .append('<div class="alert alert-success alert-dismissable">' +
-            '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
-            'Erfolgreich ' + $(button).attr('data-amount') + '€ zu Team ' +
-            $(button).attr('data-team') + ' hinzugefügt </div>');
-      })
-      .error(function (err) {
-        console.log(err);
-        $('#results')
-          .append('<div class="alert alert-danger alert-dismissable">' +
-            '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
-            'Eintragen von ' + $(button).attr('data-amount') + '€ zu Team ' +
-            $(button).attr('data-team') + ' fehlgeschlagen: ' + 
-            err.responseJson.message + ' </div>');
-      })
-      .always(() => {
-        toggleLoading(this);
-      });
+      team: $(this).attr('data-team'),
+      amount: $(this).attr('data-amount'),
+      invoice: $(this).attr('data-invoice')
+    }).success(function () {
+      $('#results')
+        .append('<div class="alert alert-success alert-dismissable">' +
+          '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
+          'Erfolgreich ' + $(button).attr('data-amount') + '€ zu Team ' +
+          $(button).attr('data-team') + ' hinzugefügt </div>');
+    }).error(function (err) {
+      console.log(err);
+      $('#results')
+        .append('<div class="alert alert-danger alert-dismissable">' +
+          '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
+          'Eintragen von ' + $(button).attr('data-amount') + '€ zu Team ' +
+          $(button).attr('data-team') + ' fehlgeschlagen: ' +
+          err.responseJson.message + ' </div>');
+    }).always(() => {
+      toggleLoading(this);
+    });
   });
 
   $('.btn-checkin').click(function () {
@@ -41,24 +38,21 @@ $(document).ready(() => {
     $.post('/admin/team/checkin', {
       team: $(this).attr('data-team'),
       event: $(this).attr('data-event')
-    })
-      .success(function () {
-        $('#results')
-          .append('<div class="alert alert-success alert-dismissable">' +
-            '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
-            'Team ' + $(button).attr('data-team') + ' erfolgreich eingecheckt</div>');
-      })
-      .error(function (err) {
-        console.log(err);
-        $('#results')
-          .append('<div class="alert alert-danger alert-dismissable">' +
-            '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
-            'Eintragen von Team ' + $(button).attr('data-team') + ' fehlgeschlagen: ' +
-            err.responseJson.message + ' </div>');
-      })
-      .always(() => {
-        toggleLoading(this);
-      });
+    }).success(function () {
+      $('#results')
+        .append('<div class="alert alert-success alert-dismissable">' +
+          '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
+          'Team ' + $(button).attr('data-team') + ' erfolgreich eingecheckt</div>');
+    }).error(function (err) {
+      console.log(err);
+      $('#results')
+        .append('<div class="alert alert-danger alert-dismissable">' +
+          '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
+          'Eintragen von Team ' + $(button).attr('data-team') + ' fehlgeschlagen: ' +
+          err.responseJson.message + ' </div>');
+    }).always(() => {
+      toggleLoading(this);
+    });
   });
 
   $('.btn-addamount').click(function () {
@@ -69,45 +63,42 @@ $(document).ready(() => {
 
     $.post('/admin/invoice/amount/add', {
       invoiceId: invoiceId,
-      amount: $('#amount-'+invoiceId).val()
-    })
-      .success(function () {
-        $('#results')
-          .append('<div class="alert alert-success alert-dismissable">' +
-            '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
-            'Erfolgreich ' + $('#amount-'+invoiceId).val() + '€ zu Invoice ' +
-             invoiceId + ' hinzugefügt </div>');
-      })
-      .error(function (err) {
-        console.log(err);
-        $('#results')
-          .append('<div class="alert alert-danger alert-dismissable">' +
-            '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
-            'Eintragen von ' + $('#amount-'+invoiceId).val() + '€ zu Invoice ' +
-            invoiceId + ' fehlgeschlagen: ' +
-            err.responseJson + ' </div>');
-      })
-      .always(() => {
-        toggleLoading(this);
-      });
+      amount: $('#amount-' + invoiceId).val()
+    }).success(function () {
+      $('#results')
+        .append('<div class="alert alert-success alert-dismissable">' +
+          '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
+          'Erfolgreich ' + $('#amount-' + invoiceId).val() + '€ zu Invoice ' +
+          invoiceId + ' hinzugefügt </div>');
+    }).error(function (err) {
+      console.log(err);
+      $('#results')
+        .append('<div class="alert alert-danger alert-dismissable">' +
+          '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
+          'Eintragen von ' + $('#amount-' + invoiceId).val() + '€ zu Invoice ' +
+          invoiceId + ' fehlgeschlagen: ' +
+          err.responseJson + ' </div>');
+    }).always(() => {
+      toggleLoading(this);
+    });
   });
 
-  $('[type=search]').on('input',function (e) {
+  $('[type=search]').on('input', function (e) {
 
     var val = $(this).val().toLowerCase();
 
     if (val.length < 1) {
-      $("#list tr").show();
+      $('#list tr').show();
     } else {
-      $("#list tr").each(function (i, e) {
-        if($(e).html().toLowerCase().indexOf(val) > -1) {
+      $('#list tr').each(function (i, e) {
+        if ($(e).html().toLowerCase().indexOf(val) > -1) {
           $(e).show();
         } else {
           $(e).hide();
         }
       });
     }
-  })
+  });
 
   const buttonAddNewPayment = $('#btn-addNewPayment');
 
@@ -119,7 +110,7 @@ $(document).ready(() => {
       lastname: $('#lastname').val(),
       company: $('#company').val(),
       amount: $('#amount').val()
-    }
+    };
 
     toggleLoading(buttonAddNewPayment);
 
@@ -135,10 +126,10 @@ $(document).ready(() => {
         }).error((err) => {
           const message = `Fehler beim hinzufügen einer Zahlung zur Rechnung mit ID ${invoiceId}: ${err.message}`;
           displayError(message);
-        })
+        });
       })
       .error((err) => {
-        displayError(`Fehler beim Erstellen einer neuen Rechnung`);
+        displayError('Fehler beim Erstellen einer neuen Rechnung');
       })
       .always(() => toggleLoading(buttonAddNewPayment));
   });
@@ -147,11 +138,11 @@ $(document).ready(() => {
 function displaySuccess(message) {
   $('#results')
     .append('<div class="alert alert-success alert-dismissable">' +
-      '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> '+message+' </div>');
+      '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> ' + message + ' </div>');
 }
 
 function displayError(message) {
   $('#results')
     .append('<div class="alert alert-danger alert-dismissable">' +
-      '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> '+message+' </div>');
+      '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> ' + message + ' </div>');
 }

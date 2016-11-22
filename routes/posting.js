@@ -3,13 +3,12 @@
 /**
  * Routes for all hashtag related requests
  */
-const posting = requireLocal('controller/page-controller/posting');
-
+const api = requireLocal('services/api-proxy');
 const Router = require('co-router');
 const router = new Router();
 
 router.get('/hashtag/:hashtag', function *(req, res) {
-  const postings = yield posting.getByHashtag(req.params.hashtag, req.user);
+  const postings = yield api.posting.getPostingsByHashtag(req.params.hashtag, req.user);
 
   let currentUser = null;
 
@@ -32,7 +31,7 @@ router.get('/hashtag/:hashtag', function *(req, res) {
 // TODO: Check proper error handling here!
 router.get('/:postingId', function *(req, res) {
 
-  const postings = yield posting.getById(req.params.postingId, req.user);
+  const postings = yield api.posting.getPosting(req.params.postingId, req.user);
 
   let currentUser = null;
 

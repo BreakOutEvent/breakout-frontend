@@ -5,7 +5,6 @@ $(document).ready(function () {
   var $description = $('#boLbCounterDescription');
 
 
-
   function updateCounter() {
     var counter = {
       current: Date.now(),
@@ -75,29 +74,27 @@ $(document).ready(function () {
         if (!loading && !finished) {
           loading = true;
           $.post('/liveblog/posting/', {
-              limit: 30,
-              offset: current + 1
-            })
-            .success(function (postingsHTML) {
-              var $postings = $(postingsHTML);
-              if ($postings.length === 0) {
-                finished = true;
-                $marker.html('<div class="alert alert-success">Keine weiteren Posts verfügbar!</div>')
-              } else {
-                current++;
-                $teamPosts.append($postings);
-                window.msnry.appended($postings);
-                //LOLOL DIRTY HACK FOR SLOW BROWSERS
-                setTimeout(function () {
-                  window.msnry.layout();
-                }, 200);
-                loading = false;
-              }
-            })
-            .error(function () {
-              $marker.html('<div class="alert alert-danger">Konnte keine weiteren Posts laden.</div>')
+            limit: 30,
+            offset: current + 1
+          }).success(function (postingsHTML) {
+            var $postings = $(postingsHTML);
+            if ($postings.length === 0) {
+              finished = true;
+              $marker.html('<div class="alert alert-success">Keine weiteren Posts verfügbar!</div>');
+            } else {
+              current++;
+              $teamPosts.append($postings);
+              window.msnry.appended($postings);
+              //LOLOL DIRTY HACK FOR SLOW BROWSERS
+              setTimeout(function () {
+                window.msnry.layout();
+              }, 200);
               loading = false;
-            })
+            }
+          }).error(function () {
+            $marker.html('<div class="alert alert-danger">Konnte keine weiteren Posts laden.</div>');
+            loading = false;
+          });
         }
       }
     });
@@ -120,7 +117,7 @@ $(document).ready(function () {
         function updateTimer() {
           value += increment;
           loopCount++;
-          $(_this).html(value.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
+          $(_this).html(value.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
 
           if (typeof(options.onUpdate) == 'function') {
             options.onUpdate.call(_this, value);

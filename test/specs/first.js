@@ -1,4 +1,8 @@
+/* eslint-disable */
+/* TODO: Check globals for this file */
+
 'use strict';
+
 
 const assert = require('assert');
 const co = require('co');

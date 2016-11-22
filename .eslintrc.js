@@ -18,6 +18,7 @@ module.exports = {
             "error",
             "always"
         ],
+        "no-unused-vars": 1,
       "require-yield": 0
     },
     "globals": {

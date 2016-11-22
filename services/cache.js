@@ -46,7 +46,7 @@ cache.getObject = (key, callback) =>
       } else { // Key is not cached
         if (key in cacheCallbackQueue) {
           // Add resolve and reject to array
-          cacheCallbackQueue[key].push([resolve, reject])
+          cacheCallbackQueue[key].push([resolve, reject]);
         } else {
           // Create array of callbacks empty
           cacheCallbackQueue[key] = [];

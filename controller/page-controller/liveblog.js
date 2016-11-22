@@ -20,24 +20,22 @@ liveblog.getEventInfos = () => co(function *() {
     individual: events,
     global: {
       donatesum: events.reduce((prev, curr) => {
-          return prev + curr.donatesum.full_sum
-        }
-        , 0),
+        return prev + curr.donatesum.full_sum;
+      }, 0),
       distance: events.reduce((prev, curr) => {
-          return prev + curr.distance.linear_distance
-        }
-        , 0)
+        return prev + curr.distance.linear_distance;
+      }, 0)
     }
   };
 
 }).catch(ex => {
-  throw ex
+  throw ex;
 });
 
 liveblog.getAllPostings = (token) => co(function *() {
-  return api.posting.getAllPostings(token,0,30);
+  return api.posting.getAllPostings(token, 0, 30);
 }).catch(ex => {
-  throw ex
+  throw ex;
 });
 
 liveblog.getCounterInfos = (events) => co(function *() {
@@ -53,7 +51,7 @@ liveblog.getCounterInfos = (events) => co(function *() {
   };
 
 }).catch(ex => {
-  throw ex
+  throw ex;
 });
 
 liveblog.returnPostings = (req, res, next) => co(function *() {
@@ -71,7 +69,7 @@ liveblog.returnPostings = (req, res, next) => co(function *() {
 
 
 }).catch(ex => {
-  throw ex
+  throw ex;
 });
 
 liveblog.getMapData = () => co(function *() {
@@ -95,7 +93,7 @@ liveblog.getMapData = () => co(function *() {
   locations.forEach(l => {
     let team = l.user.participant;
     let t = teams[team.teamId];
-    if(!t) {
+    if (!t) {
       t = {
         id: team.teamId,
         name: team.teamName,
@@ -114,7 +112,7 @@ liveblog.getMapData = () => co(function *() {
   return teams;
 
 }).catch(ex => {
-  throw ex
+  throw ex;
 });
 
 

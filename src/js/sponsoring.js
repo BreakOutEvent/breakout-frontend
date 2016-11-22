@@ -102,7 +102,7 @@ $(document).ready(() => {
           $('#selfResult')
             .html('<div class="alert alert-danger">Speichern fehlgeschlagen!</div>');
           toggleLoading('#bo-self-cta');
-        })
+        });
     }
 
   });
@@ -129,7 +129,7 @@ $(document).ready(() => {
           $('#editResult')
             .html('<div class="alert alert-danger">Speichern fehlgeschlagen!</div>');
           toggleLoading('#bo-edit-cta');
-        })
+        });
     }
 
   });
@@ -156,7 +156,7 @@ $(document).ready(() => {
           $('#addResult')
             .html('<div class="alert alert-danger">Speichern fehlgeschlagen!</div>');
           toggleLoading('#bo-add-cta');
-        })
+        });
     }
   });
 
@@ -176,7 +176,7 @@ $(document).ready(() => {
         $('#result_in')
           .html('<div class="alert alert-danger">Annehmen fehlgeschlagen!</div>');
         toggleLoading(button);
-      })
+      });
   });
 
   $('.bo-btn-decline').click(function () {
@@ -195,7 +195,7 @@ $(document).ready(() => {
         $('#result_in')
           .html('<div class="alert alert-danger">Ablehnen fehlgeschlagen!</div>');
         toggleLoading(button);
-      })
+      });
   });
 
   $('.bo-btn-delete').click(function () {
@@ -214,7 +214,7 @@ $(document).ready(() => {
         $('#result_in')
           .html('<div class="alert alert-danger">Löschen fehlgeschlagen!</div>');
         toggleLoading(button);
-      })
+      });
   });
 
   $('#addChallengeExtend').click(function () {
@@ -251,7 +251,7 @@ $(document).ready(() => {
           $('#addChallengeResult')
             .html('<div class="alert alert-danger">Speichern fehlgeschlagen!</div>');
           toggleLoading('#addChallengeCTA');
-        })
+        });
     }
   });
 
@@ -271,7 +271,7 @@ $(document).ready(() => {
         $('#result_in')
           .html('<div class="alert alert-danger">Annehmen fehlgeschlagen!</div>');
         toggleLoading(button);
-      })
+      });
   });
 
   $('.challengeReject').click(function () {
@@ -290,7 +290,7 @@ $(document).ready(() => {
         $('#result_in')
           .html('<div class="alert alert-danger">Ablehnen fehlgeschlagen!</div>');
         toggleLoading(button);
-      })
+      });
   });
 
   $('.challengeDelete').click(function () {
@@ -309,7 +309,7 @@ $(document).ready(() => {
         $('#result_in')
           .html('<div class="alert alert-danger">Löschen fehlgeschlagen!</div>');
         toggleLoading(button);
-      })
+      });
   });
 
 });

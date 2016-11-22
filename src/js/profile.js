@@ -46,25 +46,22 @@ $(document).ready(() => {
 
       toggleLoading('#profile_CTA');
       $.ajax({
-          url: '/participant',
-          type: 'POST',
-          cache: false,
-          processData: false,
-          contentType: false,
-          data: data
-        })
-        .success(function () {
-          $('#result_profile')
-            .html('<div class="alert alert-success">Erfolgreich gespeichert!</div>');
-        })
-        .error(function (err) {
-          console.log(err);
-          $('#result_profile')
-            .html('<div class="alert alert-error">Speichern fehlgeschlagen!</div>');
-        })
-        .always(() => {
-          toggleLoading('#profile_CTA');
-        });
+        url: '/participant',
+        type: 'POST',
+        cache: false,
+        processData: false,
+        contentType: false,
+        data: data
+      }).success(function () {
+        $('#result_profile')
+          .html('<div class="alert alert-success">Erfolgreich gespeichert!</div>');
+      }).error(function (err) {
+        console.log(err);
+        $('#result_profile')
+          .html('<div class="alert alert-error">Speichern fehlgeschlagen!</div>');
+      }).always(() => {
+        toggleLoading('#profile_CTA');
+      });
     }
 
   });
@@ -77,25 +74,22 @@ $(document).ready(() => {
 
       toggleLoading('#participant_CTA');
       $.ajax({
-          url: '/participant',
-          type: 'POST',
-          cache: false,
-          processData: false,
-          contentType: false,
-          data: data
-        })
-        .success(function () {
-          $('#result_participant')
-            .html('<div class="alert alert-success">Erfolgreich gespeichert!</div>');
-        })
-        .error(function (err) {
-          console.log(err);
-          $('#result_participant')
-            .html('<div class="alert alert-danger">Speichern fehlgeschlagen!</div>');
-        })
-        .always(() => {
-          toggleLoading('#participant_CTA');
-        });
+        url: '/participant',
+        type: 'POST',
+        cache: false,
+        processData: false,
+        contentType: false,
+        data: data
+      }).success(function () {
+        $('#result_participant')
+          .html('<div class="alert alert-success">Erfolgreich gespeichert!</div>');
+      }).error(function (err) {
+        console.log(err);
+        $('#result_participant')
+          .html('<div class="alert alert-danger">Speichern fehlgeschlagen!</div>');
+      }).always(() => {
+        toggleLoading('#participant_CTA');
+      });
     }
 
   });
@@ -115,23 +109,20 @@ $(document).ready(() => {
 
       toggleLoading('#team_CTA');
       $.ajax({
-          url: '/settings/profile/team',
-          type: 'PUT',
-          cache: false,
-          processData: false,
-          contentType: false,
-          data: data
-        })
-        .success(function () {
-          $('#result_team').html('<div class="alert alert-success">Erfolgreich gespeichert!</div>');
-        })
-        .error(function (err) {
-          console.log(err);
-          $('#result_team').html('<div class="alert alert-danger">Speichern fehlgeschlagen!</div>');
-        })
-        .always(() => {
-          toggleLoading('#team_CTA');
-        });
+        url: '/settings/profile/team',
+        type: 'PUT',
+        cache: false,
+        processData: false,
+        contentType: false,
+        data: data
+      }).success(function () {
+        $('#result_team').html('<div class="alert alert-success">Erfolgreich gespeichert!</div>');
+      }).error(function (err) {
+        console.log(err);
+        $('#result_team').html('<div class="alert alert-danger">Speichern fehlgeschlagen!</div>');
+      }).always(() => {
+        toggleLoading('#team_CTA');
+      });
     }
 
   });
@@ -150,19 +141,16 @@ $(document).ready(() => {
         processData: false,
         contentType: false,
         data: data
-      })
-        .success(function () {
-          $('#result_sponsor')
-            .html('<div class="alert alert-success">Erfolgreich gespeichert!</div>');
-        })
-        .error(function (err) {
-          console.log(err);
-          $('#result_sponsor')
-            .html('<div class="alert alert-danger">Speichern fehlgeschlagen!</div>');
-        })
-        .always(() => {
-          toggleLoading('#sponsor_CTA');
-        });
+      }).success(function () {
+        $('#result_sponsor')
+          .html('<div class="alert alert-success">Erfolgreich gespeichert!</div>');
+      }).error(function (err) {
+        console.log(err);
+        $('#result_sponsor')
+          .html('<div class="alert alert-danger">Speichern fehlgeschlagen!</div>');
+      }).always(() => {
+        toggleLoading('#sponsor_CTA');
+      });
     }
 
   });

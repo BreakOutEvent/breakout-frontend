@@ -1,7 +1,7 @@
 'use strict';
 exports.sanityCheck = function(id) {
 
-  var inputs = $(`#${id}`).find(`:input`);
+  var inputs = $(`#${id}`).find(':input');
 
   inputs.each((i, element) => {
     let val = $(element).val();
@@ -29,7 +29,7 @@ exports.sanityCheck = function(id) {
 
   if ($('#registrationForm') && !window.gender) {
     $('button[name=gender]').addClass('bo-reg-form-error');
-    alert('Bitte wählen Sie Ihre Anrede aus!')
+    alert('Bitte wählen Sie Ihre Anrede aus!');
   } else {
     $('button[name=gender]').removeClass('bo-reg-form-error');
   }
