@@ -10,6 +10,51 @@ const Promise = require('bluebird');
 
 let admin = {};
 
+const defaultOptions = (req) => {
+  return {
+    error: req.flash('error'),
+    success: req.flash('success'),
+    layout: 'master',
+    isLoggedIn: req.user,
+    language: req.language
+  };
+};
+
+admin.showDashboard = (req, res) => {
+  let options = defaultOptions(req);
+  options.view = 'admin-dashboard';
+  options.data = {};
+  res.render('static/admin/dashboard', options);
+};
+
+admin.showDashboardEmails =  (req, res) => {
+  let options = defaultOptions(req);
+  options.view = 'admin-emails';
+  options.data = {};
+  res.render('static/admin/dashboard', options);
+};
+
+admin.showDashboardPayment = function* (req, res) {
+  let options = defaultOptions(req);
+  options.view = 'admin-payment';
+  options.data = yield admin.getInvoices(req);
+  res.render('static/admin/dashboard', options);
+};
+
+admin.showDashboardCheckin = function* (req, res) {
+  let options = defaultOptions(req);
+  options.view = 'admin-checkin';
+  options.data = yield admin.getAllTeams(req);
+  res.render('static/admin/dashboard', options);
+};
+
+admin.showDashboardInvoice = function* (req, res) {
+  let options = defaultOptions(req);
+  options.view = 'admin-invoice';
+  options.data = yield admin.getAllInvoices(req);
+  res.render('static/admin/dashboard', options);
+};
+
 admin.addPayment = function *(req, res, next) {
   logger.info(`Trying to add payment for invoice ${req.body.invoice}`);
 

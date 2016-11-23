@@ -18,5 +18,4 @@ router.post('/new', messages.createNew);
 
 router.post('/send/:id', messages.send);
 
-
 module.exports = router;

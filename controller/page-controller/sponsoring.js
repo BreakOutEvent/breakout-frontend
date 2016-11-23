@@ -40,6 +40,55 @@ const parseAmount = (rawAmount) => {
   }
 };
 
+sponsoring.showSponsorings = function*(req, res) {
+
+
+  //CHECK IF USER IS SPONSOR OR PARTICIPANT
+  if (!req.user.status.is.team && !req.user.status.is.sponsor) {
+    req.flash('error', 'Um diese Seite aufzurufen, musst Du entweder Teil eines Teams oder ein Sponsor sein.');
+    return res.redirect('/selection');
+  }
+
+  let incSponsoring = [];
+  let incChallenges = [];
+  let outSponsoring = [];
+  let outChallenges = [];
+  let confirmedDonations = [];
+  //INCOMING
+
+  if (req.user.status.is.team) {
+    incSponsoring = yield sponsoring.getByTeam(req);
+    incChallenges = yield sponsoring.challenge.getByTeam(req);
+    confirmedDonations = yield sponsoring.invoice.getByTeam(req);
+  }
+
+  //OUTGOING
+  if (req.user.status.is.sponsor) {
+    outSponsoring = yield sponsoring.getBySponsor(req);
+    outChallenges = yield sponsoring.challenge.getBySponsor(req);
+  }
+
+
+  const teams = yield sponsoring.getAllTeams(req);
+
+
+  res.render('dynamic/sponsoring/sponsoring', {
+    error: req.flash('error'),
+    layout: 'master',
+    language: req.language,
+    me: req.user.me,
+    status: req.user.status,
+    incSponsoring: incSponsoring,
+    incChallenges: incChallenges,
+    outSponsoring: outSponsoring,
+    outChallenges: outChallenges,
+    confirmedDonations: confirmedDonations,
+    teams: teams,
+    isLoggedIn: req.user,
+    title: 'Sponsorings'
+  });
+
+};
 
 /**
  * Creates a sponsoring.

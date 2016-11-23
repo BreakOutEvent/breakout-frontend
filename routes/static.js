@@ -6,58 +6,28 @@
 const Router = require('co-router');
 const router = new Router();
 
-const memberController = requireLocal('controller/page-controller/member');
-const testimonials = requireLocal('content/press/testimonials');
-const pressMaterials = requireLocal('content/press/pressMaterials');
-const pressReviews = requireLocal('content/press/pressReviews');
+const StaticController = require('../controller/page-controller/static.js');
 
-const renderTemplate = (type, folder, layout) => (template, title) => (req, res) => {
+router.get('/members', StaticController.renderTeamPage);
 
-  let options = {
-    error: req.flash('error'),
-    success: req.flash('success'),
-    layout: layout,
-    language: req.language,
-    title: title
-  };
+router.get('/press', StaticController.renderPressPage);
 
-  res.render(`${type}/${folder}/${template}`, options);
-};
+router.get('/', StaticController.render('about', 'About'));
 
+router.get('/partner', StaticController.render('partner', 'Partner'));
 
-const masterStaticTemplate = renderTemplate('static', 'content', 'master');
+router.get('/next-steps', StaticController.render('nextSteps', 'Next Steps'));
 
-//static content pages
-router.get('/', masterStaticTemplate('about', 'About'));
-router.get('/press', renderPressPage);
-router.get('/partner', masterStaticTemplate('partner', 'Partner'));
-router.get('/next-steps', masterStaticTemplate('nextSteps', 'Next Steps'));
-router.get('/imprint', masterStaticTemplate('imprint', 'Imprint'));
-router.get('/code-of-honour', masterStaticTemplate('codeOfHonour', 'Code of Honour'));
-router.get('/terms-and-conditions', masterStaticTemplate('termsAndConditions', 'Terms and Conditions'));
-router.get('/faq', masterStaticTemplate('faq', 'FAQ'));
-router.get('/get-involved', masterStaticTemplate('getInvolved', 'Get Involved'));
-router.get('/newsletter', masterStaticTemplate('newsletter', 'Newsletter'));
+router.get('/imprint', StaticController.render('imprint', 'Imprint'));
 
-router.get('/members', function* (req, res) {
-  memberController.teamPage(req.language, res);
-});
+router.get('/code-of-honour', StaticController.render('codeOfHonour', 'Code of Honour'));
 
-function renderPressPage(req, res) {
+router.get('/terms-and-conditions', StaticController.render('termsAndConditions', 'Terms and Conditions'));
 
-  const options = {
-    error: req.flash('error'),
-    success: req.flash('success'),
-    layout: 'master',
-    language: req.language,
-    title: 'Press',
-    testimonials: testimonials,
-    pressMaterials: pressMaterials,
-    pressReviews: pressReviews
-  };
+router.get('/faq', StaticController.render('faq', 'FAQ'));
 
-  res.render('static/content/press', options);
-}
+router.get('/get-involved', StaticController.render('getInvolved', 'Get Involved'));
 
+router.get('/newsletter', StaticController.render('newsletter', 'Newsletter'));
 
 module.exports = router;
