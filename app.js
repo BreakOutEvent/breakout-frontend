@@ -92,6 +92,17 @@ function sessionHandler(req, res, next) {
   });
 }
 
+function maintenanceView(req, res, next) {
+  if(req.app.get('maintenance')) {
+    res.render('dynamic/register/maintenance', {
+      layout: 'funnel',
+      language: req.language
+    });
+  } else {
+    next();
+  }
+}
+
 
 function checkForDuplicates(partialsDirs) {
 // Read all files from the template directories and flatten them into one array
@@ -156,16 +167,7 @@ function server(callback) {
   app.use(connectFlash);
   app.use(requireLocal('services/i18n').init); //Set language header correctly including fallback option.
   app.use(sessionHandler);
-
-  // Maintenance Mode
-  if (process.env.FRONTEND_MAINTENANCE) {
-    app.use((req, res) => {
-      res.render('dynamic/register/maintenance', {
-        layout: 'funnel',
-        language: req.language
-      });
-    });
-  }
+  app.use(maintenanceView);
 
   // Routers
   app.use('/', requireLocal('routes/main'));
@@ -176,6 +178,10 @@ function server(callback) {
   app.use('/messages', requireLocal('routes/messages'));
   app.use('/settings', requireLocal('routes/settings'));
   app.use('/admin', requireLocal('routes/admin'));
+
+  // ENV specific setup
+  if(process.env.FRONTEND_MAINTENANCE) app.enable('maintenance');
+  else app.disable('maintenance');
 
   var server = http.createServer(app);
   const io = socketio(server);
