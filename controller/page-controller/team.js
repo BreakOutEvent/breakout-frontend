@@ -78,7 +78,7 @@ team.getTeamByUrl = (teamId, token) => co(function*() {
   tempTeam.members.forEach((m, i) => {
     tempTeam.mapData[0].members[i] = {
       firstname: m.firstname
-    }
+    };
   });
 
   return tempTeam;

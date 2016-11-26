@@ -113,17 +113,6 @@ $(window).on('load', function () {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
       }
-      function showPosition(position) {
-        if (position.coords) {
-          if (position.coords.latitude !== 0) {
-            $('#bo-team-latitude').val(position.coords.latitude);
-          }
-          if (position.coords.longitude !== 0) {
-            $('#bo-team-longitude').val(position.coords.longitude);
-          }
-          $('#bo-team-location').html('lat: ' + position.coords.latitude + ', long: ' + position.coords.longitude);
-        }
-      }
     }
 
     $('.bo-card-actions-like').click(function (e) {
@@ -204,59 +193,6 @@ $(window).on('load', function () {
       }, 200);
     });
 
-    function searchForString(string) {
-      if (!window.teamData) return null;
-      string = string.toLowerCase();
-
-      var d = window.teamData;
-      var r = [];
-      for (var i = 0; i < d.length; i++) {
-        var c = d[i];
-        if (
-          c.name.toLowerCase().indexOf(string) > -1 ||
-          String(c.id).toLowerCase().indexOf(string) > -1
-        ) {
-          r.push(c);
-        } else {
-          $.each(c.members, function (i, m) {
-            if (
-              m.firstname.toLowerCase().indexOf(string) > -1 ||
-              m.lastname.toLowerCase().indexOf(string) > -1
-            ) {
-              r.push(c);
-            }
-          });
-        }
-      }
-      console.log(r);
-      return r;
-    }
-
-    function onlyShowSelected(teams) {
-      var items = $('.bo-team-profile');
-
-      for (var i = 0; i < items.length; i++) {
-        var $o = $(items[i]);
-        $o.detach().appendTo('#hiddenTeamSearch');
-        for (var j = 0; j < teams.length; j++) {
-          if ($o.data('id') == teams[j].id) {
-            $o.detach().appendTo('#teamProfiles');
-            break;
-          }
-        }
-      }
-      window.msnry.layout();
-    }
-
-    function showAll() {
-      var items = $('.bo-team-profile');
-
-      for (var i = 0; i < items.length; i++) {
-        var $o = $(items[i]);
-        $o.detach().appendTo('#teamProfiles');
-      }
-      window.msnry.layout();
-    }
   }
 
   $('.bo-replace-hashtags').each(function () {
@@ -292,3 +228,69 @@ $(window).on('load', function () {
   });
 
 });
+
+function searchForString(string) {
+  if (!window.teamData) return null;
+  string = string.toLowerCase();
+
+  var d = window.teamData;
+  var r = [];
+  for (var i = 0; i < d.length; i++) {
+    var c = d[i];
+    if (
+      c.name.toLowerCase().indexOf(string) > -1 ||
+      String(c.id).toLowerCase().indexOf(string) > -1
+    ) {
+      r.push(c);
+    } else {
+      $.each(c.members, function (i, m) {
+        if (
+          m.firstname.toLowerCase().indexOf(string) > -1 ||
+          m.lastname.toLowerCase().indexOf(string) > -1
+        ) {
+          r.push(c);
+        }
+      });
+    }
+  }
+  console.log(r);
+  return r;
+}
+
+function onlyShowSelected(teams) {
+  var items = $('.bo-team-profile');
+
+  for (var i = 0; i < items.length; i++) {
+    var $o = $(items[i]);
+    $o.detach().appendTo('#hiddenTeamSearch');
+    for (var j = 0; j < teams.length; j++) {
+      if ($o.data('id') == teams[j].id) {
+        $o.detach().appendTo('#teamProfiles');
+        break;
+      }
+    }
+  }
+  window.msnry.layout();
+}
+
+function showAll() {
+  var items = $('.bo-team-profile');
+
+  for (var i = 0; i < items.length; i++) {
+    var $o = $(items[i]);
+    $o.detach().appendTo('#teamProfiles');
+  }
+  window.msnry.layout();
+}
+
+function showPosition(position) {
+  if (position.coords) {
+    if (position.coords.latitude !== 0) {
+      $('#bo-team-latitude').val(position.coords.latitude);
+    }
+    if (position.coords.longitude !== 0) {
+      $('#bo-team-longitude').val(position.coords.longitude);
+    }
+    $('#bo-team-location').html('lat: ' + position.coords.latitude + ', long: ' + position.coords.longitude);
+  }
+}
