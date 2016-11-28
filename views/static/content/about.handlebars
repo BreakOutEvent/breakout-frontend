@@ -1,178 +1,184 @@
 <div class="bo-header-info"></div>
 <div class="container">
+
     <div class="row">
-        <h1>{{__ 'ABOUT_BREAKOUT_HEADING'}}</h1>
-        <div class="row">
-            <div class="col-md-12">
+        <div class="col-md-12">
+            <h1>{{__ 'ABOUT_BREAKOUT_HEADING'}}</h1>
+            <hr>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            {{{__ 'DESCRIPTION_1'}}}<br/>
+            {{{__ 'DESCRIPTION_2'}}}
+            <hr>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
                 <div class="col-md-12">
-
-                    <div class="col-md-12">
-                        <hr>
+                    {{{__ 'DESCRIPTION_VIDEO'}}}
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="video-container-16-to-9">
+                        <iframe src="https://www.youtube.com/embed/Q5qWuPJTMKk" allowfullscreen="allowfullscreen"
+                                frameborder="none"></iframe>
                     </div>
+                </div>
+            </div>
+            <hr>
+        </div>
+    </div>
 
-                    <div class="row">
-                        <div class="col-md-offset-1 col-md-7">
-                            <div class="row">
-                                {{{__ 'DESCRIPTION_1'}}}
-                            </div>
-                            <div class="row">
-                                {{{__ 'DESCRIPTION_2'}}}
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="col-md-12">
-                        <hr>
-                    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <h1>{{__ 'GOAL_HEADING'}}</h1>
+            <p>{{{__ 'GOAL_CONTENT'}}}</p>
+        </div>
+        <div class="col-md-4">
+            <img src="/img/static/ziel.svg" alt="">
+        </div>
+    </div>
+    <hr>
 
-                    <div class="row">
-                        <div class="col-md-offset-1 col-md-7">
-                            <div class="row">
-                                {{{__ 'DESCRIPTION_VIDEO'}}}
-                            </div>
-                        </div>
-                    </div>
-                    <p>
-                        <iframe style="display: block; margin: 20px auto 0 auto;"
-                                src="https://www.youtube.com/embed/Q5qWuPJTMKk" width="853" height="480" frameborder="0"
-                                allowfullscreen="allowfullscreen"></iframe>
+    <div class="row">
+        <div class="col-md-4">
+            <img src="/img/static/ablauf_2.svg" alt="">
+        </div>
+        <div class="col-md-8">
+            <h1>{{__ 'WAY_HEADING'}}</h1>
+            <p>{{{__ 'WAY_CONTENT'}}}</p>
+        </div>
+    </div>
+    <hr>
+
+    <div class="row">
+        <div class="col-md-offset-1 col-md-7">
+            <h1>{{__ 'CHARITY_HEADING'}}</h1>
+            <p>{{{__ 'CHARITY_CONTENT'}}}</p>
+        </div>
+        <div class="col-md-4 hidden-sm hidden-xs"><img src="/img/static/sozialer_aspekt_2.svg" alt="">
+        </div>
+    </div>
+    <hr>
+
+    <div class="row">
+        <div class="col-md-4 hidden-sm hidden-xs"><img src="/img/static/Gewinner.svg" alt=""></div>
+        <div class="col-md-7">
+            <h1>{{__ 'WINNERS_HEADING'}}</h1>
+            {{{__ 'WINNERS_CONTENT'}}}
+        </div>
+    </div>
+    <hr>
+
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Was 2016 geschah -->
+            <h1>Was 2016 bei <span style="font-style: italic;">Break</span>Out geschah</h1>
+            <div class="row">
+
+                <div class="col-md-3" style="margin-top: 80px;">
+                    <img src="/img/static/teams_2016.svg" alt="" style="max-height: 200px">
+                    <p>Beim dritten <em>Break</em>Out in Deutschland nahmen 102 Zweierteams teil.</p>
+                </div>
+
+                <div class="col-md-4 col-md-offset-1">
+                    <img src="/img/static/spendensumme_2016.svg" alt="" style="max-height: 200px">
+                    <p>Insgesamt hat <em>Break</em>Out 2016 ein Spendenversprechen von 107.999€ für die
+                        UNO-Flüchtlingshilfe erreicht. Mit diesem Geld kann das <a
+                                href="https://www.uno-fluechtlingshilfe.de/breakout">DAFI-Programm
+                            der UNO-Flüchtlingshilfe</a> Flüchtlingen ein Studium in
+                        Südafrika bezahlen: Von der Unterkunft über Studiengebühren bis hin zur Kleidung.
                     </p>
-                    <div class="col-md-12">
-                        <hr>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-offset-1 col-md-7">
-                            <h1>{{__ 'GOAL_HEADING'}}</h1>
-                            <p>{{{__ 'GOAL_CONTENT'}}}</p>
-                        </div>
-                        <div class="col-md-4 hidden-sm hidden-xs "><img src="/img/static/ziel.svg" alt=""></div>
-                    </div>
-                    <div class="col-md-12">
-                        <hr>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4 hidden-sm hidden-xs"><img src="/img/static/ablauf_2.svg" alt=""></div>
-                        <div class="col-md-7">
-                            <h1>{{__ 'WAY_HEADING'}}</h1>
-                            <p>{{{__ 'WAY_CONTENT'}}}</p>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <hr>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-offset-1 col-md-7">
-                            <h1>{{__ 'CHARITY_HEADING'}}</h1>
-                            <p>{{{__ 'CHARITY_CONTENT'}}}</p>
-                        </div>
-                        <div class="col-md-4 hidden-sm hidden-xs"><img src="/img/static/sozialer_aspekt_2.svg" alt="">
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <hr>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4 hidden-sm hidden-xs"><img src="/img/static/Gewinner.svg" alt=""></div>
-                        <div class="col-md-7">
-                            <h1>{{__ 'WINNERS_HEADING'}}</h1>
-                            {{{__ 'WINNERS_CONTENT'}}}
-                        </div>
-                    </div>
-                    <div class="col-xs-12">
-                        <div style="margin: 0 auto; text-align: center;">
-                            <!--<a href="/anmeldung">-->
-                                <!--<button class="btn btn-primary"-->
-                                        <!--style="padding: 10px 50px; font-size: 20px; border-radius: 100px; border: none; margin-top: 40px;">{{__ 'WINNERS_BUTTON'}}</button>-->
-                            <!--</a>-->
-                        </div>
+                </div>
+                <div class="col-md-3 col-md-offset-1" style="margin-top: 80px;">
+                    <p><img src="/img/static/strecke_2016.svg" alt="" style="max-height: 200px"></p>
+                    <p>Die 102 Teams haben insgesamt über 104.924 km Luftlinie zurückgelegt. Damit ist
+                        <em>Break</em>Out fast dreimal um die Erde gereist.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
 
-                        <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Die Gewinner von 2016 -->
+            <h1>Die Gewinner von 2016</h1>
+            <div class="row">
+                <div class="col-md-3 text-center">
+                    <div class="bo-team-picture top30 center-block"
+                         style="background-image:url('https://breakoutmedia.blob.core.windows.net/recoded/96f8a04f-39f8-44b6-92ac-a0a6675040bb.jpg')"></div>
+                    <b>Als Erstes Europa verlassen</b>
+                    <a href="/team/26"><p>Paul & Felix von Palitos y FeliZ</p></a>
+                </div>
 
-                        <!-- Was 2016 geschah -->
-                        <h1>Was 2016 bei <span style="font-style: italic;">Break</span>Out geschah</h1>
-                        <div class="row">
+                <div class="col-md-3 text-center">
+                    <div class="bo-team-picture top30 center-block"
+                         style="background-image:url('https://breakoutmedia.blob.core.windows.net/recoded/209cf1ac-14d6-47de-a201-26050a60a5cf.jpg')"></div>
+                    <b>Meiste Länder</b>
+                    <a href="/team/31"><p>Steffi & Susi von Straight Outta Bavaria</p></a>
+                </div>
 
-                            <div class="col-md-3" style="margin-top: 80px;">
-                                <img src="/img/static/teams_2016.svg" alt="" style="max-height: 200px">
-                                <p>Beim dritten <em>Break</em>Out in Deutschland nahmen 102 Zweierteams teil.</p>
-                            </div>
+                <div class="col-md-3 text-center">
+                    <div class="bo-team-picture top30 center-block"
+                         style="background-image:url('https://breakoutmedia.blob.core.windows.net/recoded/209cf1ac-14d6-47de-a201-26050a60a5cf.jpg')"></div>
+                    <b>Krasseste Tramper</b>
+                    <a href="/team/31"><p>Steffi & Susi von Straight Outta Bavaria</p></a>
+                </div>
 
-                            <div class="col-md-4 col-md-offset-1">
-                                <img src="/img/static/spendensumme_2016.svg" alt="" style="max-height: 200px">
-                                <p>Insgesamt hat <em>Break</em>Out 2016 ein Spendenversprechen von 107.999€ für die
-                                    UNO-Flüchtlingshilfe erreicht. Mit diesem Geld kann das <a
-                                            href="https://www.uno-fluechtlingshilfe.de/breakout">DAFI-Programm
-                                        der UNO-Flüchtlingshilfe</a> Flüchtlingen ein Studium in
-                                    Südafrika bezahlen: Von der Unterkunft über Studiengebühren bis hin zur Kleidung.
-                                </p>
-                            </div>
-                            <div class="col-md-3 col-md-offset-1" style="margin-top: 80px;">
-                                <p><img src="/img/static/strecke_2016.svg" alt="" style="max-height: 200px"></p>
-                                <p>Die 102 Teams haben insgesamt über 104.924 km Luftlinie zurückgelegt. Damit ist
-                                    <em>Break</em>Out fast dreimal um die Erde gereist.</p>
-                            </div>
-                        </div>
+                <div class="col-md-3 text-center">
+                    <div class="bo-team-picture top30 center-block"
+                         style="background-image:url('https://breakoutmedia.blob.core.windows.net/recoded/1a4e0e8b-920d-4060-ae47-e233a741159e.png')"></div>
+                    <b>Größte Entfernung & Meiste Spenden <br>3. Platz</b>
+                    <a href="team/138"><p>Steffi & Seve von 2S</p></a>
+                </div>
 
-                        <hr>
+                <div class="col-md-3 text-center">
+                    <div class="bo-team-picture top30 center-block"
+                         style="background-image:url('https://breakoutmedia.blob.core.windows.net/recoded/6c6aa0f4-923c-4d63-b114-3b3dda8697d0.jpg')"></div>
+                    <b>Größte Entfernung & Meiste Spenden <br>2. Platz </b>
+                    <a href="http://localhost:3000/team/17"><p>Sarah & Sabou Mitose</p></a>
+                </div>
 
-                        <!-- Die Gewinner von 2016 -->
-                        <h1>Die Gewinner von 2016</h1>
-                        <div class="row">
-                            <div class="col-md-3 text-center">
-                                <div class="bo-team-picture top30 center-block" style="background-image:url('https://breakoutmedia.blob.core.windows.net/recoded/96f8a04f-39f8-44b6-92ac-a0a6675040bb.jpg')"></div>
-                                <b>Als Erstes Europa verlassen</b>
-                                <a href="/team/26"><p>Paul & Felix von Palitos y FeliZ</p></a>
-                            </div>
+                <div class="col-md-3 text-center">
+                    <div class="bo-team-picture top30 center-block"
+                         style="background-image:url('https://breakoutmedia.blob.core.windows.net/recoded/44b0aa88-35a0-4566-b8c9-669b3261de22.jpg')"></div>
+                    <b>Größte Entfernung & Meiste Spenden <br>1. Platz</b>
+                    <a href="http://localhost:3000/team/58"><p>Anna & Susanna von La Caravana SusAnna</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
 
-                            <div class="col-md-3 text-center">
-                                <div class="bo-team-picture top30 center-block" style="background-image:url('https://breakoutmedia.blob.core.windows.net/recoded/209cf1ac-14d6-47de-a201-26050a60a5cf.jpg')"></div>
-                                <b>Meiste Länder</b>
-                                <a href="/team/31"><p>Steffi & Susi von Straight Outta Bavaria</p></a>
-                            </div>
-
-                            <div class="col-md-3 text-center">
-                                <div class="bo-team-picture top30 center-block" style="background-image:url('https://breakoutmedia.blob.core.windows.net/recoded/209cf1ac-14d6-47de-a201-26050a60a5cf.jpg')"></div>
-                                <b>Krasseste Tramper</b>
-                                <a href="/team/31"><p>Steffi & Susi von Straight Outta Bavaria</p></a>
-                            </div>
-
-                            <div class="col-md-3 text-center">
-                                <div class="bo-team-picture top30 center-block" style="background-image:url('https://breakoutmedia.blob.core.windows.net/recoded/1a4e0e8b-920d-4060-ae47-e233a741159e.png')"></div>
-                                <b>Größte Entfernung & Meiste Spenden <br>3. Platz</b>
-                                <a href="team/138"><p>Steffi & Seve von 2S</p></a>
-                            </div>
-
-                            <div class="col-md-3 text-center">
-                                <div class="bo-team-picture top30 center-block" style="background-image:url('https://breakoutmedia.blob.core.windows.net/recoded/6c6aa0f4-923c-4d63-b114-3b3dda8697d0.jpg')"></div>
-                                <b>Größte Entfernung & Meiste Spenden <br>2. Platz </b>
-                                <a href="http://localhost:3000/team/17"><p>Sarah & Sabou Mitose</p></a>
-                            </div>
-
-                            <div class="col-md-3 text-center">
-                                <div class="bo-team-picture top30 center-block" style="background-image:url('https://breakoutmedia.blob.core.windows.net/recoded/44b0aa88-35a0-4566-b8c9-669b3261de22.jpg')"></div>
-                                <b>Größte Entfernung & Meiste Spenden <br>1. Platz</b>
-                                <a href="http://localhost:3000/team/58"><p>Anna & Susanna von La Caravana SusAnna</p></a>
-                            </div>
-                        </div>
-
-                        <hr>
-
-                        <h1>Fotos und Videos von&nbsp;2016</h1>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p>
-                                    <a class="embedly-card" href="http://www.br.de/mediathek/video/sendungen/abendschau/breakout-spendenreise-muenchen-100.html">Breakout: So weit weg von München wie möglich! | BR Mediathek VIDEO</a>
-                                    <script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
-                                </p>
-                            </div>
-                            <div class="col-md-6">
-                                <p>
-                                    <a class="embedly-card" href="https://www.muenchen.tv/mediathek/tag/breakout/video/breakout-spendenmarathon-der-anderen-art/">BreakOut - Spendenmarathon der anderen Art</a>
-                                    <script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Fotos und Videos von&nbsp;2016</h1>
+            <div class="row">
+                <div class="col-md-6">
+                    <p>
+                        <a class="embedly-card"
+                           href="http://www.br.de/mediathek/video/sendungen/abendschau/breakout-spendenreise-muenchen-100.html">Breakout:
+                            So weit weg von München wie möglich! | BR Mediathek VIDEO</a>
+                        <script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <p>
+                        <a class="embedly-card"
+                           href="https://www.muenchen.tv/mediathek/tag/breakout/video/breakout-spendenmarathon-der-anderen-art/">BreakOut
+                            - Spendenmarathon der anderen Art</a>
+                        <script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
+                    </p>
                 </div>
             </div>
         </div>
