@@ -5,7 +5,7 @@
  */
 
 const co = require('co');
-const logger = require('../services/logger');
+const logger = require('../../services/logger');
 
 const session = requireLocal('controller/session');
 const api = requireLocal('services/api-proxy');

@@ -7,7 +7,7 @@ const co = require('co');
 const _ = require('lodash');
 const api = requireLocal('services/api-proxy');
 const Promise = require('bluebird');
-const logger = require('../services/logger');
+const logger = require('../../services/logger');
 
 let admin = {};
 

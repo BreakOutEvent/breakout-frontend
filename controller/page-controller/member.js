@@ -9,7 +9,7 @@ const GoogleSpreadsheet = require('google-spreadsheet');
 const co = require('co');
 const _ = require('lodash');
 const fs = require('co-fs-extra');
-const logger = require('../services/logger');
+const logger = require('../../services/logger');
 
 const config = requireLocal('config/config.js');
 
