@@ -11,7 +11,7 @@ const _ = require('lodash');
 const fs = require('co-fs-extra');
 const logger = require('../../services/logger');
 
-const config = requireLocal('config/config.js');
+const config = require('../../config/config.js');
 
 /**
  * GET route for the BreakOut-Member-Page.

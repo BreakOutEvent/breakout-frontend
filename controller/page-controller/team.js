@@ -9,7 +9,7 @@ const _ = require('lodash');
 const fs = require('fs');
 const logger = require('../../services/logger');
 
-const api = requireLocal('services/api-proxy');
+const api = require('../../services/api-proxy');
 
 let team = {};
 

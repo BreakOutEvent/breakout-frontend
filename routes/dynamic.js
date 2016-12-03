@@ -5,9 +5,9 @@ const AuthenticationController = require('../controller/page-controller/Authenti
 const Router = require('co-router');
 const multer = require('multer');
 
-const registration = requireLocal('controller/page-controller/registration');
-const liveblog = requireLocal('controller/page-controller/liveblog');
-const session = requireLocal('controller/session');
+const registration = require('../controller/page-controller/registration');
+const liveblog = require('../controller/page-controller/liveblog');
+const session = require('../controller/session');
 
 const upload = multer({inMemory: true});
 const router = new Router();

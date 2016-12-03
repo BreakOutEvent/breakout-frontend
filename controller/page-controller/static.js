@@ -1,10 +1,10 @@
 'use strict';
 
-const testimonials = requireLocal('content/press/testimonials');
-const memberController = requireLocal('controller/page-controller/member');
+const testimonials = require('../../content/press/testimonials');
+const memberController = require('../../controller/page-controller/member');
 
-const pressMaterials = requireLocal('content/press/pressMaterials');
-const pressReviews = requireLocal('content/press/pressReviews');
+const pressMaterials = require('../../content/press/pressMaterials');
+const pressReviews = require('../../content/press/pressReviews');
 
 const renderTemplate = (type, folder, layout) => (template, title) => (req, res) => {
 

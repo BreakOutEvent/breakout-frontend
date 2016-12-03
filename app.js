@@ -6,7 +6,6 @@
 
 'use strict';
 
-global.requireLocal = module => require(__dirname + '/' + module);
 global.IS_TEST = process.env.FRONTEND_RUN_TESTS === 'true';
 global.ROOT = require('path').resolve(__dirname);
 
@@ -30,10 +29,10 @@ const logger = require('./services/logger');
 
 require('newrelic');
 
-const mongoose = requireLocal('controller/mongo.js');
-const passport = requireLocal('services/auth.js');
-const API = requireLocal('services/api-proxy');
-const websocket = requireLocal('services/websocket');
+const mongoose = require('./controller/mongo.js');
+const passport = require('./services/auth.js');
+const API = require('./services/api-proxy');
+const websocket = require('./services/websocket');
 
 function setupLogger(app) {
   if (IS_TEST) return;
@@ -135,7 +134,7 @@ function server(callback) {
 
   // Handlebars setup
   const hbs = exphbs.create({
-    helpers: requireLocal('services/helpers'),
+    helpers: require('./services/helpers'),
     partialsDir: partialsDirs
   });
 
@@ -165,19 +164,19 @@ function server(callback) {
   app.use(bodyparser.json());
   app.use(cookieParser);
   app.use(connectFlash);
-  app.use(requireLocal('services/i18n').init); //Set language header correctly including fallback option.
+  app.use(require('./services/i18n').init); //Set language header correctly including fallback option.
   app.use(sessionHandler);
   app.use(maintenanceView);
 
   // Routers
-  app.use('/', requireLocal('routes/main'));
-  app.use('/', requireLocal('routes/dynamic'));
-  app.use('/', requireLocal('routes/static'));
-  app.use('/team', requireLocal('routes/team'));
-  app.use('/post', requireLocal('routes/posting'));
-  app.use('/messages', requireLocal('routes/messages'));
-  app.use('/settings', requireLocal('routes/settings'));
-  app.use('/admin', requireLocal('routes/admin'));
+  app.use('/', require('./routes/main'));
+  app.use('/', require('./routes/dynamic'));
+  app.use('/', require('./routes/static'));
+  app.use('/team', require('./routes/team'));
+  app.use('/post', require('./routes/posting'));
+  app.use('/messages', require('./routes/messages'));
+  app.use('/settings', require('./routes/settings'));
+  app.use('/admin', require('./routes/admin'));
 
   // ENV specific setup
   if(process.env.FRONTEND_MAINTENANCE) app.enable('maintenance');

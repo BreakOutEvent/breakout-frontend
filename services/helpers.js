@@ -1,7 +1,7 @@
 'use strict';
 
 // Load modules
-const i18n = requireLocal('services/i18n');
+const i18n = require('../services/i18n');
 const fs = require('fs');
 const Remarkable = require('remarkable');
 const path = require('path');

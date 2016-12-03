@@ -5,7 +5,7 @@
  * @type {string}
  */
 
-const langData = requireLocal('services/translations');
+const langData = require('../services/translations');
 const logger = require('../services/logger');
 
 const FALLBACK = 'de';

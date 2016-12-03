@@ -3,8 +3,8 @@
 const _ = require('lodash');
 const co = require('co');
 
-const liveblog = requireLocal('controller/page-controller/liveblog');
-const api = requireLocal('services/api-proxy');
+const liveblog = require('../controller/page-controller/liveblog');
+const api = require('../services/api-proxy');
 
 var websocket = {};
 

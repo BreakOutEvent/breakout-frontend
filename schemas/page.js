@@ -1,6 +1,6 @@
 'use strict';
 var mongoose = require('mongoose');
-var viewSchema = requireLocal('schemas/view.js');
+var viewSchema = require('../schemas/view.js');
 
 var pageSchema = new mongoose.Schema({
   properties: [{

@@ -4,9 +4,9 @@ const multer = require('multer');
 const ProfileController = require('../controller/page-controller/ProfileController');
 const Router = require('co-router');
 
-const sponsoring = requireLocal('controller/page-controller/sponsoring');
-const profile = requireLocal('controller/page-controller/profile');
-const session = requireLocal('controller/session');
+const sponsoring = require('../controller/page-controller/sponsoring');
+const profile = require('../controller/page-controller/profile');
+const session = require('../controller/session');
 
 const upload = multer({inMemory: true});
 const router = new Router();

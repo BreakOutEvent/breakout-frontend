@@ -4,7 +4,7 @@ const co = require('co');
 const _ = require('lodash');
 
 
-const api = requireLocal('services/api-proxy');
+const api = require('../../services/api-proxy');
 
 let liveblog = {};
 

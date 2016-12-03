@@ -1,6 +1,6 @@
 'use strict';
 
-const profile = requireLocal('controller/page-controller/profile');
+const profile = require('../../controller/page-controller/profile');
 
 class ProfileController {
 

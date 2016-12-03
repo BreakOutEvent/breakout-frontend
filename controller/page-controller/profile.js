@@ -7,8 +7,8 @@
 const co = require('co');
 const logger = require('../../services/logger');
 
-const session = requireLocal('controller/session');
-const api = requireLocal('services/api-proxy');
+const session = require('../../controller/session');
+const api = require('../../services/api-proxy');
 
 let profile = {};
 

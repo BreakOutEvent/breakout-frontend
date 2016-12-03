@@ -24,7 +24,6 @@ module.exports = {
     "globals": {
       "ROOT": true,
       "IS_TEST": true,
-      "requireLocal":true,
       "HBS": true
     }
 }

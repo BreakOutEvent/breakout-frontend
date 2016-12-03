@@ -10,7 +10,7 @@ const _ = require('lodash');
 
 const Strategy = require('passport-local').Strategy;
 
-const API = requireLocal('services/api-proxy.js');
+const API = require('../services/api-proxy.js');
 
 
 /**

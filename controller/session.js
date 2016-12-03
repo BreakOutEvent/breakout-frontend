@@ -6,8 +6,8 @@
 
 const co = require('co');
 
-const api = requireLocal('services/api-proxy');
-const passport = requireLocal('services/auth');
+const api = require('../services/api-proxy');
+const passport = require('../services/auth');
 
 let ses = {};
 

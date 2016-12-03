@@ -8,9 +8,9 @@ const co = require('co');
 const _ = require('lodash');
 const logger = require('../../services/logger');
 
-const passport = requireLocal('services/auth');
-const session = requireLocal('controller/session');
-const api = requireLocal('services/api-proxy');
+const passport = require('../../services/auth');
+const session = require('../../controller/session');
+const api = require('../../services/api-proxy');
 
 /**
  * All available URLs for redirecting the user.

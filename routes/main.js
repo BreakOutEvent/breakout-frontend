@@ -4,7 +4,7 @@
  * Router for /
  */
 const Router = require('co-router');
-const session = requireLocal('controller/session');
+const session = require('../controller/session');
 const index = require('../controller/page-controller/index');
 
 const router = new Router();

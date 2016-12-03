@@ -1,6 +1,6 @@
 'use strict';
 
-const team = requireLocal('controller/page-controller/team');
+const team = require('../../controller/page-controller/team');
 const _ = require('lodash');
 
 class TeamController {

@@ -5,8 +5,8 @@
  */
 const Router = require('co-router');
 
-const messages = requireLocal('controller/page-controller/messages');
-const session = requireLocal('controller/session');
+const messages = require('../controller/page-controller/messages');
+const session = require('../controller/session');
 
 const router = new Router();
 

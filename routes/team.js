@@ -8,8 +8,8 @@ const Router = require('co-router');
 const multer = require('multer');
 const TeamController = require('../controller/page-controller/TeamController');
 
-const team = requireLocal('controller/page-controller/team');
-const session = requireLocal('controller/session');
+const team = require('../controller/page-controller/team');
+const session = require('../controller/session');
 
 const router = new Router();
 const upload = multer({inMemory: true});
