@@ -6,6 +6,7 @@
  */
 
 const langData = requireLocal('services/translations');
+const logger = require('../services/logger');
 
 const FALLBACK = 'de';
 

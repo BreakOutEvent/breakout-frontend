@@ -5,6 +5,7 @@ const i18n = requireLocal('services/i18n');
 const fs = require('fs');
 const Remarkable = require('remarkable');
 const path = require('path');
+const logger = require('../services/logger');
 
 // Setup
 const md = new Remarkable({

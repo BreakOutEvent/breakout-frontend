@@ -10,6 +10,7 @@ const request = require('request');
 const crequest = require('co-request');
 const config = requireLocal('config/config.js');
 const url = `${config.api.protocol}://${config.api.url}`;
+const logger = require('../services/logger');
 
 Object.keys(config).forEach(k => {
   if (!config[k])

@@ -29,5 +29,4 @@ if(process.env.IS_TEST) {
 }
 
 logger = bunyan.createLogger(bunyanConfig);
-global.logger = logger; // TODO: This should be removed, but there are some dependencies on the global logger object
 module.exports = logger;

@@ -25,7 +25,6 @@ module.exports = {
       "ROOT": true,
       "IS_TEST": true,
       "requireLocal":true,
-      "logger": true,
       "HBS": true
     }
 }

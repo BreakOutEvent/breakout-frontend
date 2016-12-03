@@ -6,6 +6,7 @@
 
 const co = require('co');
 const _ = require('lodash');
+const logger = require('../services/logger');
 
 const passport = requireLocal('services/auth');
 const session = requireLocal('controller/session');

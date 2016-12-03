@@ -8,6 +8,7 @@ const co = require('co');
 
 const api = requireLocal('services/api-proxy');
 const session = requireLocal('controller/session');
+const logger = require('../services/logger');
 
 let messages = {};
 

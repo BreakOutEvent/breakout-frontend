@@ -2,6 +2,7 @@
 
 const co = require('co');
 const _ = require('lodash');
+const logger = require('../services/logger');
 
 const api = requireLocal('services/api-proxy');
 
