@@ -1,4 +1,5 @@
 /**
+/**
  * Created by Ardobras on 20.04.2016.
  */
 'use strict';
@@ -1070,6 +1071,10 @@ module.exports = {
 
   // Translations for /partner
   PARTNER: {
+    POWERED_BY_HEADING: {
+      de: 'Wir laufen dank',
+      en: 'We are powered by'
+    },
     PARTNER_HEADING: {
       de: 'Partner',
       en: 'Partners'
