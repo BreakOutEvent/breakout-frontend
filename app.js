@@ -36,7 +36,14 @@ const websocket = require('./services/websocket');
 
 function setupLogger(app) {
   if (IS_TEST) return;
-  app.use(morgan('combined', {stream: fs.createWriteStream(ROOT + '/logs/access.log', {flags: 'a'})}));
+
+  app.use(morgan(':method :url :status :response-time ms - :res[content-length]', {
+    stream: {
+      write: function (message) {
+        logger.info(message.trim('\n'));
+      }
+    }
+  }));
 }
 
 // TODO: eslint ignore unused
