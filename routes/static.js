@@ -24,7 +24,7 @@ router.get('/code-of-honour', StaticController.render('codeOfHonour', 'Code of H
 
 router.get('/terms-and-conditions', StaticController.render('termsAndConditions', 'Terms and Conditions'));
 
-router.get('/faq', StaticController.render('faq', 'FAQ'));
+router.get('/faq', StaticController.renderFAQPage);
 
 router.get('/get-involved', StaticController.render('getInvolved', 'Get Involved'));
 
