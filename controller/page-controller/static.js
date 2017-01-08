@@ -1,8 +1,12 @@
 'use strict';
+
 const config = require('../../config/config');
+
 const space = config.space;
 const accessToken = config.accessToken;
+
 const memberController = require('../../controller/page-controller/member');
+
 const contentful = require('contentful');
 const contentfulClient = contentful.createClient({
   space: space,
@@ -30,6 +34,7 @@ class StaticController {
   }
 
   static renderFAQPage(req, res){
+
     var preferredLanguage = req.acceptsLanguages()[0];
     var faqs = [];
     contentfulClient.getEntries({
@@ -51,51 +56,45 @@ class StaticController {
     });
   }
 
-  static renderPressPage(req, res){
+  static *renderPressPage(req, res){
     var preferredLanguage = req.acceptsLanguages()[0];
     var testimonials = [];
     var pressMaterials = [];
     var pressReviews = [];
 
-    contentfulClient.getEntries({
+
+
+    let testimonialsPromise = yield contentfulClient.getEntries({
       'content_type': 'testimonials',
       'locale': preferredLanguage
-    })
-    .then(function (entries) {
-      var items = entries.items;
-      testimonials = items.map(item => item.fields);
     });
 
-    contentfulClient.getEntries({
+    let pressMaterialsPromise =  yield contentfulClient.getEntries({
       'content_type': 'pressMaterials',
       'locale': preferredLanguage
-    })
-    .then(function (entries) {
-      var items = entries.items;
-      pressMaterials = items.map(item => item.fields);
     });
 
-    contentfulClient.getEntries({
+    let pressReviewsPromise = yield contentfulClient.getEntries({
       'content_type': 'pressReview',
       'locale': preferredLanguage
-    })
-    .then(function (entries) {
-      var items = entries.items;
-      pressReviews = items.map(item => item.fields);
     });
 
-    setTimeout(function(){
-      const options = {
-        error: req.flash('error'),
-        success: req.flash('success'),
-        layout: 'master',
-        language: req.language,
-        title: 'Press',
-        testimonials: testimonials,
-        pressMaterials: pressMaterials,
-        pressReviews: pressReviews
-      };
-      res.render('static/content/press', options);}, 5000);
+    testimonials = testimonialsPromise.items.map(item => item.fields);
+    pressMaterials = pressMaterialsPromise.items.map(item => item.fields);
+    pressReviews = pressReviewsPromise.items.map(item => item.fields);
+
+    var options = {
+      error: req.flash('error'),
+      success: req.flash('success'),
+      layout: 'master',
+      language: req.language,
+      title: 'Press',
+      testimonials: testimonials,
+      pressMaterials: pressMaterials,
+      pressReviews: pressReviews
+    };
+
+    res.render('static/content/press', options);
   }
 
   static renderTeamPage(req, res) {
