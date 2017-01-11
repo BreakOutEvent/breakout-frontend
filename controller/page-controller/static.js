@@ -5,8 +5,6 @@ const config = require('../../config/config');
 const space = config.space;
 const accessToken = config.accessToken;
 
-const memberController = require('../../controller/page-controller/member');
-
 const contentful = require('contentful');
 const contentfulClient = contentful.createClient({
   space: space,
@@ -120,6 +118,40 @@ class StaticController {
     };
 
     res.render('static/content/termsAndConditions', options);
+  }
+
+  static *renderMemberPage(req, res) {
+
+    let entries = yield contentfulClient.getEntries({
+      content_type: 'members',
+      locale: req.contentfulLocale
+    });
+
+    let fields = entries.items.map(item => item.fields)[0];
+
+    let membersRes = yield contentfulClient.getEntries({
+      content_type: 'teammitglieder',
+      locale: req.contentfulLocale
+    });
+
+    let members = membersRes.items.map(item => item.fields);
+
+    let options = {
+      error: req.flash('error'),
+      success: req.flash('success'),
+      layout: 'master',
+      language: req.language,
+      title: fields.title,
+      headline: fields.headline,
+      description: fields.description,
+      teamImage: fields.teamImage,
+      activeMembers: members.filter(m => m.isAktive),
+      inactiveMembers: members.filter(m => !m.isAktive),
+      hasInactiveMembers: (members.filter(m => !m.isAktive).length > 0)
+    };
+
+    res.render('static/team/content', options);
+
   }
 }
 

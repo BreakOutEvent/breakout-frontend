@@ -8,7 +8,7 @@ const router = new Router();
 
 const StaticController = require('../controller/page-controller/static.js');
 
-router.get('/members', StaticController.renderTeamPage);
+router.get('/members', StaticController.renderMemberPage);
 
 router.get('/press', StaticController.renderPressPage);
 
