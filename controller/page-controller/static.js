@@ -57,31 +57,25 @@ class StaticController {
   }
 
   static *renderPressPage(req, res){
-    var preferredLanguage = req.acceptsLanguages()[0];
-    var testimonials = [];
-    var pressMaterials = [];
-    var pressReviews = [];
-
-
 
     let testimonialsPromise = yield contentfulClient.getEntries({
       'content_type': 'testimonials',
-      'locale': preferredLanguage
+      'locale': req.contentfulLocale
     });
 
     let pressMaterialsPromise =  yield contentfulClient.getEntries({
       'content_type': 'pressMaterials',
-      'locale': preferredLanguage
+      'locale': req.contentfulLocale
     });
 
     let pressReviewsPromise = yield contentfulClient.getEntries({
       'content_type': 'pressReview',
-      'locale': preferredLanguage
+      'locale': req.contentfulLocale
     });
 
-    testimonials = testimonialsPromise.items.map(item => item.fields);
-    pressMaterials = pressMaterialsPromise.items.map(item => item.fields);
-    pressReviews = pressReviewsPromise.items.map(item => item.fields);
+    let testimonials = testimonialsPromise.items.map(item => item.fields);
+    let pressMaterials = pressMaterialsPromise.items.map(item => item.fields);
+    let pressReviews = pressReviewsPromise.items.map(item => item.fields);
 
     var options = {
       error: req.flash('error'),
