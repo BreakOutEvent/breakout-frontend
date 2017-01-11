@@ -4,64 +4,61 @@
     <!-- Heading -->
     <div class="row">
         <div class="col-md-12">
-            <h1>{{__ 'NEXT_STEPS_HEADING'}}</h1>
+            <h1>{{this.headline}}</h1>
             <hr>
         </div>
     </div>
 
     <div class="row top30">
-        <div class="col-md-12">
-            <h3>{{__ 'INFORM_HEADING'}}</h3>
-            <p>{{{__ 'INFORM_TEXT'}}}</p>
+        <div class="col-md-6">
+            {{{md this.inform}}}
+            <br>
+            {{{md this.signUp}}}
+            <br>
+            {{{md this.prepare}}}
+        </div>
+        <div class="col-md-6">
+            {{{md this.findSponsors}}}
         </div>
     </div>
 
-    <div class="row top30">
-        <div class="col-md-12">
-            <h3>{{__ 'SIGNUP_HEADING'}}</h3>
-            <p>{{{__ 'SIGNUP_TEXT'}}}</p>
-        </div>
-    </div>
-
-    <div class="row top30">
-        <div class="col-md-12">
-            <h3>{{__ 'FIND_SPONSOR_HEADING'}}</h3>
-            <p>{{{__ 'FIND_SPONSOR_TEXT'}}}</p>
-        </div>
-    </div>
-
-    <div class="row top30">
-        <div class="col-md-12"></div>
-    </div>
+    <hr>
     <div class="row top15">
         <div class="col-md-12">
-            <iframe style="display: block; margin: 0 auto;" src="https://www.youtube.com/embed/5L3vk-S9NZ0" width="853"
-                    height="480" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+            <div class="video-container-16-to-9">
+                <iframe style="display: block; margin: 0 auto;"
+                        src="https://www.youtube.com/embed/{{this.explanationVideo}}" width="853"
+                        height="480" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+            </div>
+        </div>
+    </div>
+    <hr>
+
+    <div class="row top30">
+        <div class="col-md-12">
+
         </div>
     </div>
 
     <div class="row top30">
         <div class="col-md-12">
-            <h3>{{__ 'PREPARE_HEADING'}}</h3>
-            <p>{{{__ 'PREPARE_TEXT'}}}</p>
-        </div>
-    </div>
-
-    <div class="row top30">
-        <div class="col-md-12">
-            <h3>{{__ 'APPS_HEADING'}}</h3>
-            <p>{{{__ 'APPS_TEXT'}}}</p>
+            {{{md this.downloadApps}}}
         </div>
 
         <div class="col-sm-6" style="margin: 40px 0;">
-            <div style="margin: 0 auto; text-align: center;"><a href="https://geo.itunes.apple.com/de/app/breakout-how-far-can-you-go/id987528573?mt=8" style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg) no-repeat;width:330px;height:80px; background-size: 330px 80px;"></a></div>
+            <div style="margin: 0 auto; text-align: center;"><a
+                    href="https://geo.itunes.apple.com/de/app/breakout-how-far-can-you-go/id987528573?mt=8"
+                    style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg) no-repeat;width:330px;height:80px; background-size: 330px 80px;"></a>
+            </div>
         </div>
 
         <div class="col-sm-6" style="margin: 20px 0;">
-            <div style="margin: 0 auto; text-align: center;"><a href="https://play.google.com/store/apps/details?id=org.break_out.breakout" style="display:inline-block;overflow:hidden;background:url(https://play.google.com/intl/en_us/badges/images/generic/de_badge_web_generic.png) no-repeat;width:315px;height:120px; background-size: 315px 120px;"></a></div>
+            <div style="margin: 0 auto; text-align: center;"><a
+                    href="https://play.google.com/store/apps/details?id=org.break_out.breakout"
+                    style="display:inline-block;overflow:hidden;background:url(https://play.google.com/intl/en_us/badges/images/generic/de_badge_web_generic.png) no-repeat;width:315px;height:120px; background-size: 315px 120px;"></a>
+            </div>
         </div>
 
     </div>
-
 
 </div>

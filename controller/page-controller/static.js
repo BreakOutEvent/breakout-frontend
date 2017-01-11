@@ -149,6 +149,37 @@ class StaticController {
     res.render('static/team/content', options);
 
   }
+
+  static *renderNextSteps(req, res) {
+    let entries = yield contentfulClient.getEntries({
+      content_type: 'nextSteps',
+      locale: req.contentfulLocale
+    });
+
+    let fields = entries.items.map(item => item.fields)[0];
+
+    let options = {
+      error: req.flash('error'),
+      success: req.flash('success'),
+      layout: 'master',
+      language: req.language,
+      title: fields.titel,
+      headline: fields.headline,
+      inform: fields.inform,
+      signUp: fields.signUp,
+      findSponsors: fields.findSponsors,
+      prepare: fields.prepare,
+      downloadApps: fields.downloadApps,
+      explanationVideo: parseYoutubeUrl(fields.explanationVideo)
+    };
+
+    res.render('static/content/nextSteps', options);
+  }
+}
+function parseYoutubeUrl(url){
+  const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+  const match = url.match(regExp);
+  return (match&&match[7].length == 11) ? match[7] : false;
 }
 
 module.exports = StaticController;

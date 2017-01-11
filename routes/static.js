@@ -16,7 +16,7 @@ router.get('/', StaticController.render('about', 'About'));
 
 router.get('/partner', StaticController.render('partner', 'Partner'));
 
-router.get('/next-steps', StaticController.render('nextSteps', 'Next Steps'));
+router.get('/next-steps', StaticController.renderNextSteps);
 
 router.get('/imprint', StaticController.render('imprint', 'Imprint'));
 
