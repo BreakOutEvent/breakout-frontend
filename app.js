@@ -102,6 +102,22 @@ function maintenanceView(req, res, next) {
   }
 }
 
+function contentfulLocale(req, res, next) {
+  var preferredLanguage = req.acceptsLanguages()[0];
+
+
+  if (preferredLanguage.substring(0, 2) === 'de') {
+    preferredLanguage = 'de';
+  } else {
+    preferredLanguage = 'en-US';
+  }
+
+  req.contentfulLocale = preferredLanguage;
+  logger.debug(`Using contentfulLocale ${preferredLanguage} from acceptsLanguage ${req.acceptsLanguage()[0]}`);
+
+  next();
+}
+
 
 function checkForDuplicates(partialsDirs) {
 // Read all files from the template directories and flatten them into one array
@@ -167,6 +183,8 @@ function server(callback) {
   app.use(require('./services/i18n').init); //Set language header correctly including fallback option.
   app.use(sessionHandler);
   app.use(maintenanceView);
+
+  app.use(contentfulLocale);
 
   // Routers
   app.use('/', require('./routes/main'));
