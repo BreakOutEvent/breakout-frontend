@@ -45,6 +45,11 @@ exports.markdown = function renderMarkdown(mdFileName, context) {
   return html;
 };
 
+exports.md = function renderMarkdown(rawMd, context) {
+  const html = md.render(rawMd);
+  return html;
+};
+
 function loadFileContent(mdFileName) {
   const path = getFilepath(mdFileName);
   return fs.readFileSync(path, 'utf-8');

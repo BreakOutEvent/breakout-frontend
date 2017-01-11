@@ -94,6 +94,33 @@ class StaticController {
   static renderTeamPage(req, res) {
     return memberController.teamPage(req.language, res);
   }
+
+  static *renderTermsAndConditions(req, res) {
+
+    let entries = yield contentfulClient.getEntries({
+      content_type: 'termsAndConditions',
+      locale: req.contentfulLocale
+    });
+
+    const tos = entries.items
+      .map(item => item.fields)[0]
+      .body;
+
+    const title = entries.items
+      .map(item => item.fields)[0]
+      .title;
+
+    var options = {
+      error: req.flash('error'),
+      success: req.flash('success'),
+      layout: 'master',
+      language: req.language,
+      title: title,
+      termsAndConditions: tos
+    };
+
+    res.render('static/content/termsAndConditions', options);
+  }
 }
 
 module.exports = StaticController;

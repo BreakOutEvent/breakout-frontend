@@ -22,7 +22,7 @@ router.get('/imprint', StaticController.render('imprint', 'Imprint'));
 
 router.get('/code-of-honour', StaticController.render('codeOfHonour', 'Code of Honour'));
 
-router.get('/terms-and-conditions', StaticController.render('termsAndConditions', 'Terms and Conditions'));
+router.get('/terms-and-conditions', StaticController.renderTermsAndConditions);
 
 router.get('/faq', StaticController.renderFAQPage);
 
