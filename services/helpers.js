@@ -50,6 +50,17 @@ exports.md = function renderMarkdown(rawMd, context) {
   return html;
 };
 
+exports.contentfulImage = function (imageObject, clazz, id, context) {
+
+  clazz = (clazz != null) ? clazz : '';
+  id = (id != null) ? id : '';
+
+  const url = imageObject.fields.file.url;
+  const alt = (imageObject.fields.description != null) ? imageObject.fields.description : '';
+
+  return `<img src="${url}" alt="${alt}" class="${clazz}" id="${id}"/>`;
+};
+
 function loadFileContent(mdFileName) {
   const path = getFilepath(mdFileName);
   return fs.readFileSync(path, 'utf-8');
