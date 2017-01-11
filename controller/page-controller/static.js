@@ -89,10 +89,6 @@ class StaticController {
     res.render('static/content/press', options);
   }
 
-  static renderTeamPage(req, res) {
-    return memberController.teamPage(req.language, res);
-  }
-
   static *renderTermsAndConditions(req, res) {
 
     let entries = yield contentfulClient.getEntries({
