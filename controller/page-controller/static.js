@@ -175,11 +175,48 @@ class StaticController {
 
     res.render('static/content/nextSteps', options);
   }
+
+  static *renderPartnerPage(req, res) {
+
+    let data = yield Promise.all([
+      getFieldsForContentType('partnerPage', req.contentfulLocale),
+      getFieldsForContentType('supporter', req.contentfulLocale),
+      getFieldsForContentType('sponsor', req.contentfulLocale),
+    ]);
+
+    const page = data[0][0];
+    const supporters = data[1];
+    const sponsors = data[2];
+
+    let options = {
+      error: req.flash('error'),
+      success: req.flash('success'),
+      layout: 'master',
+      language: req.language,
+      title: page.title,
+      page: page,
+      supporters: supporters,
+      sponsors: sponsors,
+      hasSponsors: sponsors.length > 0,
+      hasSupporters: supporters.length > 0
+    };
+
+    res.render('static/content/partner', options);
+
+  }
 }
-function parseYoutubeUrl(url){
+
+function getFieldsForContentType(contentType, locale) {
+  return contentfulClient.getEntries({
+    content_type: contentType,
+    locale: locale,
+  }).then(res => res.items.map(item => item.fields));
+}
+
+function parseYoutubeUrl(url) {
   const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
   const match = url.match(regExp);
-  return (match&&match[7].length == 11) ? match[7] : false;
+  return (match && match[7].length == 11) ? match[7] : false;
 }
 
 module.exports = StaticController;

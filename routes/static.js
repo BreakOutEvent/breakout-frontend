@@ -14,7 +14,7 @@ router.get('/press', StaticController.renderPressPage);
 
 router.get('/', StaticController.render('about', 'About'));
 
-router.get('/partner', StaticController.render('partner', 'Partner'));
+router.get('/partner', StaticController.renderPartnerPage);
 
 router.get('/next-steps', StaticController.renderNextSteps);
 
