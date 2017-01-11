@@ -40,6 +40,4 @@ rendered/*/*.html
 rendered/*/*.json
 .brackets.json
 
-config-dev.json
-config-prod.json
-config-florian.json
+config-*

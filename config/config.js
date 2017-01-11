@@ -1,17 +1,20 @@
-var config;
+'use strict';
 
+/* Allowed here, because no logger set up yet */
+/* eslint no-console: 0 */
 
-if (process.env.NODE_ENVIRONMENT && process.env.NODE_ENVIRONMENT == 'dev') {
-  config = require('../config-dev.json');
+if (!process.env.NODE_ENVIRONMENT) {
+  console.error('NODE_ENVIRONEMNT is not specified');
+  process.exit(1);
 }
 
-if (process.env.NODE_ENVIRONMENT && process.env.NODE_ENVIRONMENT == 'prod') {
-  config = require('../config-prod.json');
+const filename = `config-${process.env.NODE_ENVIRONMENT}.json`;
+const path = `../${filename}`;
+
+try {
+  module.exports = require(path);
+  console.info(`Using config '${filename}'`);
+} catch (err) {
+  console.error(`No config with filename ${filename} found`);
+  process.exit(1);
 }
-
-
-if (!config) {
-  throw Error('no NODE_ENVIRONMENT configured, available: dev, prod');
-}
-
-module.exports = config;
