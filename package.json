@@ -38,6 +38,7 @@
     "co-router": "^1.0.3",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^1.1.0",
+    "contentful": "^3.8.0",
     "cookie-parser": "^1.4.1",
     "cron": "^1.1.0",
     "execa": "^0.4.0",
