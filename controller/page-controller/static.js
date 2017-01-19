@@ -171,6 +171,17 @@ class StaticController {
 
     res.render('static/content/partner', options);
   }
+
+  static *renderCodeOfHonour(req, res) {
+    let codeOfHonours = yield getFieldsForContentType('codeOfHonour', req.contentfulLocale);
+
+    let options = extendDefaultOptions(req, {
+      title: 'Code of Honour', // TODO: Add from page
+      codeOfHonours: codeOfHonours
+    });
+
+    res.render('static/content/codeOfHonour', options);
+  }
 }
 
 function getFieldsForContentType(contentType, locale) {

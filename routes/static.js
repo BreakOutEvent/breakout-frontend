@@ -20,7 +20,7 @@ router.get('/next-steps', StaticController.renderNextSteps);
 
 router.get('/imprint', StaticController.render('imprint', 'Imprint'));
 
-router.get('/code-of-honour', StaticController.render('codeOfHonour', 'Code of Honour'));
+router.get('/code-of-honour', StaticController.renderCodeOfHonour);
 
 router.get('/terms-and-conditions', StaticController.renderTermsAndConditions);
 

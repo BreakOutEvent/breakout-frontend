@@ -4,70 +4,26 @@
     <!-- Heading -->
     <div class="row">
         <div class="col-md-12">
-            <h1>{{__ 'CODE_HEADING'}}</h1>
+            <h1>{{__ 'CODE_HEADING'}}</h1> <!-- TODO: Move to contentful -->
             <hr>
         </div>
     </div>
-    <!--Lorem ipsum-->
-    <div class="row">
-        <div class="col-md-3 hidden-sm hidden-xs">
-            <img src="img/static/code_of_honour.svg"
-                 alt="Code of Honour">
-        </div>
-        <div class="col-md-9">
-            <p>{{__ 'INTRO'}}</p>
-            <h3>{{{__ 'INTRO_HEADING'}}}</h3>
-            {{{__ 'GENERAL_COH'}}}
-        </div>
-    </div>
 
-    <div class="row">
-        <hr>
-        <div class="col-md-3 hidden-sm hidden-xs">
-            <img src="img/static/reise_code.svg"
-                 alt="Code of Honour">
-        </div>
-        <div class="col-md-9">
-            <h3>{{{__ 'TRAVEL_COH_HEADING'}}}</h3>
-            {{{__ 'TRAVEL_COH_TEXT'}}}
-        </div>
-    </div>
+    {{#each codeOfHonours}}
+        <div class="row">
 
-    <div class="row">
-        <hr>
-        <div class="col-md-3 hidden-sm hidden-xs">
-            <img src="img/static/spenden_code.svg"
-                 alt="Code of Honour">
-        </div>
-        <div class="col-md-9">
-            <h3>{{{__ 'DONATION_COH_HEADING'}}}</h3>
-            {{{__ 'DONATION_COH_TEXT'}}}
-        </div>
-    </div>
+            <div class="col-md-4 hidden-sm hidden-xs">
+                <img class="media-object media-middle" width="300px;"
+                     src="{{this.image.fields.file.url}}"/>
+            </div>
 
-    <div class="row">
+            <div class="col-md-8 top15">
+                <h3>{{this.title}}</h3>
+                <p>{{{md this.content}}}</p>
+            </div>
+        </div>
         <hr>
-        <div class="col-md-3 hidden-sm hidden-xs">
-            <img src="img/static/verhaltens_code.svg"
-                 alt="Code of Honour">
-        </div>
-        <div class="col-md-9">
-            <h3>{{{__ 'BEHAVIOUR_COH_HEADING'}}}</h3>
-            {{{__ 'BEHAVIOUR_COH_TEXT'}}}
-        </div>
-    </div>
-
-    <div class="row">
-        <hr>
-        <div class="col-md-3 hidden-sm hidden-xs">
-            <img src="img/static/app_code.svg"
-                 alt="Code of Honour">
-        </div>
-        <div class="col-md-9">
-            <h3>{{{__ 'APP_COH_HEADING'}}}</h3>
-            {{{__ 'APP_COH_TEXT'}}}
-        </div>
-    </div>
+    {{/each}}
 
     <div class="row top30">
         <div class="col-md-12"></div>
