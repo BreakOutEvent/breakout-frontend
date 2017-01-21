@@ -26,7 +26,7 @@ router.get('/terms-and-conditions', StaticController.renderTermsAndConditions);
 
 router.get('/faq', StaticController.renderFAQPage);
 
-router.get('/get-involved', StaticController.render('getInvolved', 'Get Involved'));
+router.get('/get-involved', StaticController.renderGetInvolvedPage);
 
 router.get('/newsletter', StaticController.render('newsletter', 'Newsletter'));
 

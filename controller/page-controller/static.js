@@ -56,24 +56,12 @@ class StaticController {
 
   static *renderPressPage(req, res) {
 
-    let testimonialsPromise = yield contentfulClient.getEntries({
-      'content_type': 'testimonials',
-      'locale': req.contentfulLocale
-    });
-
-    let pressMaterialsPromise = yield contentfulClient.getEntries({
-      'content_type': 'pressMaterials',
-      'locale': req.contentfulLocale
-    });
-
-    let pressReviewsPromise = yield contentfulClient.getEntries({
-      'content_type': 'pressReview',
-      'locale': req.contentfulLocale
-    });
-
-    let testimonials = testimonialsPromise.items.map(item => item.fields);
-    let pressMaterials = pressMaterialsPromise.items.map(item => item.fields);
-    let pressReviews = pressReviewsPromise.items.map(item => item.fields);
+    const data = yield Promise.all([
+      getFieldsForContentType('testimonials', req.contentfulLocale),
+      getFieldsForContentType('pressMaterials', req.contentfulLocale),
+      getFieldsForContentType('pressReview', req.contentfulLocale)
+    ]
+    )
 
     var options = {
       error: req.flash('error'),
@@ -81,9 +69,9 @@ class StaticController {
       layout: 'master',
       language: req.language,
       title: 'Press',
-      testimonials: testimonials,
-      pressMaterials: pressMaterials,
-      pressReviews: pressReviews
+      testimonials: data[0],
+      pressMaterials: data[1],
+      pressReviews: data[2]
     };
 
     res.render('static/content/press', options);
@@ -182,7 +170,28 @@ class StaticController {
 
     res.render('static/content/codeOfHonour', options);
   }
+
+  static *renderGetInvolvedPage(req, res) {
+
+    let data = yield Promise.all([
+      getFieldsForContentType('mitmachenSeite', req.contentfulLocale),
+    ]);
+
+    const page = data[0][0];
+
+    let options = extendDefaultOptions(req, {
+      page: page,
+      image: page.image.fields.file.url
+    });
+
+    console.log(page.image.fields.file.url);
+
+    res.render('static/content/getInvolved', options);
+  }
+
 }
+
+
 
 function getFieldsForContentType(contentType, locale) {
   return contentfulClient.getEntries({
