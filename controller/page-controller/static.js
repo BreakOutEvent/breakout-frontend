@@ -31,6 +31,11 @@ class StaticController {
     return masterStaticTemplate(template, title);
   }
 
+  static renderLandingpage(req, res) {
+    res.render('static/content/about', {
+      language: 'de'
+    });
+  }
   static renderFAQPage(req, res) {
 
     var preferredLanguage = req.acceptsLanguages()[0];

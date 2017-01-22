@@ -12,7 +12,7 @@ router.get('/members', StaticController.renderMemberPage);
 
 router.get('/press', StaticController.renderPressPage);
 
-router.get('/', StaticController.render('about', 'About'));
+router.get('/', StaticController.renderLandingpage);
 
 router.get('/partner', StaticController.renderPartnerPage);
 
