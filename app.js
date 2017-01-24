@@ -171,7 +171,7 @@ function server(callback) {
   }
 
   if (process.env.NODE_ENVIRONMENT === 'prod' && process.env.SHOW_ERROR !== 'true') {
-    app.enable('view cache');
+    // app.enable('view cache');
   }
 
   app.use(session({
@@ -230,4 +230,3 @@ if (!IS_TEST) {
 }
 
 module.exports = server;
-
