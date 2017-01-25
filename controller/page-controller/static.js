@@ -60,8 +60,7 @@ class StaticController {
       getFieldsForContentType('testimonials', req.contentfulLocale),
       getFieldsForContentType('pressMaterials', req.contentfulLocale),
       getFieldsForContentType('pressReview', req.contentfulLocale)
-    ]
-    )
+    ]);
 
     var options = {
       error: req.flash('error'),
@@ -183,8 +182,6 @@ class StaticController {
       page: page,
       image: page.image.fields.file.url
     });
-
-    console.log(page.image.fields.file.url);
 
     res.render('static/content/getInvolved', options);
   }
