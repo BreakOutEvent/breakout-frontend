@@ -29,7 +29,6 @@ if [ ! -z "$TRAVIS_TAG" ]; then
         eval "$(ssh-agent -s)"
         ssh-add id_rsa_breakout_deploy
         ssh -o StrictHostKeyChecking=no $STAGE_LOGIN "docker-compose stop;"
-        scp -o StrictHostKeyChecking=no "docker-compose.yml" $STAGE_LOGIN
         ssh -o StrictHostKeyChecking=no $STAGE_LOGIN "BACKEND_VERSION=latest BACKEND_PROFILE=staging FRONTEND_VERSION=$TRAVIS_TAG docker-compose pull"
         ssh -o StrictHostKeyChecking=no $STAGE_LOGIN "BACKEND_VERSION=latest BACKEND_PROFILE=staging FRONTEND_VERSION=$TRAVIS_TAG docker-compose up -d"
     else
