@@ -7,7 +7,7 @@ if [ ! -z "$TRAVIS_TAG" ]; then
     echo "This will push to docker"
 
     # Decrypt and unzip secrets.zip.enc (contains config-stating.json + cert. for ssh)
-    openssl aes-256-cbc -K $encrypted_a6989f7c6f70_key -iv $encrypted_a6989f7c6f70_iv -in secrets.zip.enc -out secrets.zip -d
+    openssl aes-256-cbc -K $encrypted_c2aec72b3ee3_key -iv $encrypted_c2aec72b3ee3_iv -in secrets.zip.enc -out secrets.zip -d
     unzip secrets.zip
 
     # Login at docker registry
