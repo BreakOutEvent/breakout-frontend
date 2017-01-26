@@ -12,7 +12,7 @@ if [ ! -z "$TRAVIS_TAG" ]; then
     unzip secrets.zip
 
     # Login at docker registry
-    docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS $DOCKER_URL
+    docker login --username=$DOCKER_USER --password=$DOCKER_PASS $DOCKER_URL
 
     # Build docker image
     docker build -f Dockerfile -t $DOCKER_REPO .
