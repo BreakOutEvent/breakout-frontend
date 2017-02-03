@@ -33,9 +33,11 @@ class StaticController {
 
   static renderLandingpage(req, res) {
     res.render('static/content/about', {
-      language: 'de'
+      language: 'de',
+      requirements: ['landingpage']
     });
   }
+
   static renderFAQPage(req, res) {
 
     var preferredLanguage = req.acceptsLanguages()[0];
@@ -192,7 +194,6 @@ class StaticController {
   }
 
 }
-
 
 
 function getFieldsForContentType(contentType, locale) {
