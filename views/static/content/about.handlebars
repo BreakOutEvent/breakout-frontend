@@ -60,7 +60,7 @@
         .instaCaption:before {
             content: '';
             display: block;
-            height: 150px;
+            height: 30px;
         }
 
         .instaCaption {
@@ -345,6 +345,7 @@
     </script>
 </head>
 <body>
+{{> navbar }}
 <header>
     <div class="container">
         <img class="header-logo" src="img/logo.svg" alt="The breakout logo">
@@ -423,16 +424,15 @@
         <script type="text/javascript">
             var feed = new Instafeed({
                 get: 'user',
-                userId: '244409476',
-                clientId: '15187a1e9268483dbcce686a3c498bd1',
-                accessToken: '244409476.15187a1.8c48920f92ec4b82a8d6992b9f23ad54',
+                userId: '3120245646',
+                clientId: '5d325f2ba927465d9c3933be01ee870c',
+                accessToken: '3120245646.1677ed0.84f4da0759f343fabc5948167857ecc7',
                 resolution: 'standard_resolution',
-                template: '<div class="instaimage" style="background-image: url(\'\{{image}}\');"><span class="instaCaption"><b>@breakout_challenge</b><br><br>\{{caption}}</span><span class="instHover"></span></div>',
+                template: '<div class="instaimage" style="background-image: url(\'\{{image}}\');"><a href="https://www.instagram.com/breakout_challenge/"><span class="instaCaption">\{{caption}}</span><span class="instHover"></span></div></a>',
                 limit: 15
             })
             feed.run();
         </script>
-        <!--https://www.instagram.com/oauth/authorize/?client_id=15187a1e9268483dbcce686a3c498bd1&redirect_uri=http://instafeedjs.com&response_type=token&scope=public-->
     </section>
 
     <section id="history" class="row landing-page-section">
