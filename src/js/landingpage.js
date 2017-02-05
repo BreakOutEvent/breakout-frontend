@@ -1,4 +1,5 @@
 const Instafeed = require('instafeed.js');
+const $ = require('jquery');
 
 var feed = new Instafeed({
   get: 'user',
@@ -12,3 +13,14 @@ var feed = new Instafeed({
 
 
 feed.run();
+
+// Register listeners for video section play button and link
+$(function () {
+  $('.trigger-play').click(function () {
+    $('#landingpage-video-before').hide();
+    $('#video-bg').hide();
+    $('#landingpage-video').show();
+    $('iframe#landingpage-video-iframe').attr('src', $('iframe#landingpage-video-iframe').attr('src').replace('autoplay=0', 'autoplay=1'));
+  });
+});
+

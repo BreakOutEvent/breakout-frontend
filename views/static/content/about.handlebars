@@ -41,23 +41,33 @@
         </div>
     </section>
 
-    <section id="video" class="row landing-page-section">
-        <div class="col-sm-4 hidden-xs">
-            <h2>
-                In 36 Stunden.<br>
-                Mölichst weit weg.<br>
-                Ohne Geld.<br>
-            </h2>
-            <p>
-                <a href="https://www.youtube.com/watch?v=neGcu1BHAAU">Schau dir unseren Aftermovie
-                    an</a>
-            </p>
+    <section id="video" class="row landing-page-section" style="padding: 0">
+        <div id="landingpage-video-overlay row">
+            <div id="video-bg"></div>
+            <div id="landingpage-video-before" class="container">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-sm-1" id="video-play-btn">
+                            <br>
+                            <h4 id="play-glyph" class="glyphicon glyphicon-play trigger-play"></h4>
+                            <br>
+                        </div>
+                        <div class="col-sm-11" id="video-play-overlay">
+                            <h4>In 36 Stunden.<br>Möglichst weit weg.<br>Ohne Geld.</h4>
+                            <a class="trigger-play">Schau dir jetzt unseren Teaser an</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="col-sm-8" style="overflow: hidden">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/neGcu1BHAAU"
-                    frameborder="0" allowfullscreen></iframe>
+        <div id="landingpage-video" class="landingpage-video row" style="display: none">
+            <iframe id="landingpage-video-iframe" height="100%" width="100%"
+                    src="https://www.youtube.com/embed/neGcu1BHAAU?modestbranding=1&playsinline=0&rel=0&controls=1&autoplay=0"
+                    frameborder="none">
+            </iframe>
         </div>
+
     </section>
 
     <section id="jambo" class="row landing-page-section">

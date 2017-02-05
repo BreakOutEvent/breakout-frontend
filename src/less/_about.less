@@ -167,3 +167,58 @@ img {
     font-size: x-large;
   }
 }
+
+#video {
+  position: relative;
+  overflow: hidden;
+}
+
+#video-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../img/landingpage/video_bg_3.jpg');
+  background-size: cover;
+  background-position: center center;
+  /*background-position-y: -750px;*/
+  filter: blur(5px);
+  transform: scale(1.1);
+}
+
+#video-play-btn {
+  height: 100%;
+  transform: translateY(35%);
+  text-align: center;
+
+}
+
+#play-glyph:hover {
+  color: @brand-primary;
+}
+
+#video-play-btn > h4 {
+  border: 1px solid white;
+  border-radius: 100%;
+  padding: 20px;
+  line-height: 100%;
+  vertical-align: middle;
+  background-color: #34323b;
+  color: white;
+  font-size: 20px;
+}
+
+#video-play-overlay {
+  height: 100%;
+  transform: translateY(30%);
+  padding-left: 50px;
+}
+
+#video-play-overlay > h4 {
+  font-size: 3em;
+}
+
+#video-play-overlay > a:hover {
+  color: white;
+}
