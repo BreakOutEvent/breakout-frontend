@@ -38,27 +38,17 @@ class StaticController {
     });
   }
 
-  static renderFAQPage(req, res) {
+  static *renderFAQPage(req, res) {
 
-    var preferredLanguage = req.acceptsLanguages()[0];
-    var faqs = [];
-    contentfulClient.getEntries({
-      'content_type': 'faq',
-      'locale': preferredLanguage
-    })
-      .then(function (entries) {
-        var items = entries.items;
-        faqs = items.map(item => item.fields);
-        const options = {
-          error: req.flash('error'),
-          success: req.flash('success'),
-          layout: 'master',
-          language: req.language,
-          title: 'FAQ',
-          faqs: faqs,
-        };
-        res.render('static/content/faq', options);
-      });
+    let faqs = yield getFieldsForContentType('faq', req.contentfulLocale);
+
+    const options = extendDefaultOptions(req, {
+      language: req.language,
+      title: 'FAQ',
+      faqs: faqs,
+    });
+
+    res.render('static/content/faq', options);
   }
 
   static *renderPressPage(req, res) {
