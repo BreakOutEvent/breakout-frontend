@@ -18,7 +18,7 @@ router.get('/partner', StaticController.renderPartnerPage);
 
 router.get('/next-steps', StaticController.renderNextSteps);
 
-router.get('/imprint', StaticController.render('imprint', 'Imprint'));
+router.get('/imprint', StaticController.renderImprint);
 
 router.get('/code-of-honour', StaticController.renderCodeOfHonour);
 
