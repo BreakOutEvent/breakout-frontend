@@ -1,5 +1,5 @@
 'use strict';
-
+const $ = require('jquery');
 var VideoPlayer = function(btnPlay) {
   let $btnPlay = $(btnPlay),
     videoUrl = $btnPlay.attr('data-video') + '?autoplay=1',

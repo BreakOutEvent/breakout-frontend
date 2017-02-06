@@ -1,3 +1,5 @@
+const $ = require('jquery');
+
 $(document).ready(function () {
   exportsMap.init('map', window.mapData);
 });

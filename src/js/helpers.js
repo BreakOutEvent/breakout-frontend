@@ -1,4 +1,6 @@
 'use strict';
+const $ = require('jquery');
+
 exports.sanityCheck = function(id) {
 
   var inputs = $(`#${id}`).find(':input');

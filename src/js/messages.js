@@ -1,5 +1,5 @@
 'use strict';
-
+const $ = require('jquery');
 $(document).ready(function () {
 
   var searchval = '';

@@ -1,4 +1,6 @@
 'use strict';
+const $ = require('jquery');
+
 $(document).ready(function () {
 
   var $counter = $('#boLBCounter');
@@ -144,7 +146,7 @@ $(document).ready(function () {
       onUpdate: null,  // callback method for every time the element is updated,
       onComplete: null  // callback method for when the element finishes updating
     };
-  })(jQuery);
+  })($);
 
 
   $(window).on('load', function () {

@@ -2,7 +2,7 @@
 
 var sanityCheck = require('./helpers').sanityCheck;
 var toggleLoading = require('./helpers').toggleLoading;
-
+const $ = require('jquery');
 $(document).ready(() => {
 
   function output(text, limit, outputHTML, estimate) {

@@ -4,7 +4,7 @@ var lightbox = require('lightbox2');
 var toggleLoading = require('./helpers.js').toggleLoading;
 var sanityCheck = require('./helpers.js').sanityCheck;
 window.msnry = null;
-
+const $ = require('jquery');
 $(window).on('load', function () {
 
   Plyr.setup();

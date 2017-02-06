@@ -3,7 +3,7 @@
 var sanityCheck = require('./helpers').sanityCheck;
 var toggleLoading = require('./helpers').toggleLoading;
 
-
+const $ = require('jquery');
 $(document).ready(() => {
 
   $('#profilePic').change(function () {

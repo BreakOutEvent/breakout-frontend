@@ -1,6 +1,6 @@
 'use strict';
 
-
+const $ = require('jquery');
 var sanityCheck = require('./helpers').sanityCheck;
 var toggleLoading = require('./helpers').toggleLoading;
 

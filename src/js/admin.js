@@ -1,4 +1,6 @@
 'use strict';
+const $ = require('jquery');
+
 var toggleLoading = require('./helpers').toggleLoading;
 
 $(document).ready(() => {
