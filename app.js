@@ -9,6 +9,7 @@
 global.IS_TEST = process.env.FRONTEND_RUN_TESTS === 'true';
 global.ROOT = require('path').resolve(__dirname);
 
+const compression = require('compression');
 const co = require('co');
 const config = require('./config/config');
 const sticky = require('sticky-cluster');
@@ -143,6 +144,7 @@ function server(callback) {
 
   const app = express();
 
+  app.use(compression());
   // Register the static path here, to avoid getting them logged
   app.use(express.static(path.join(__dirname, 'public')));
   setupLogger(app);

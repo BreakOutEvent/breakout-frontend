@@ -36,6 +36,7 @@
     "co-fs-extra": "^1.2.1",
     "co-request": "^1.0.0",
     "co-router": "^1.0.3",
+    "compression": "^1.6.2",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^1.1.0",
     "contentful": "^3.8.0",
