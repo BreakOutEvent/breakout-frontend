@@ -31,9 +31,21 @@ class StaticController {
     return masterStaticTemplate(template, title);
   }
 
-  static renderLandingpage(req, res) {
+  static *renderLandingpage(req, res) {
+
+    const data = yield getFieldsForContentType('landingpage', req.contentfulLocale);
+    const title = data[0].title;
+    const about = data[0].about;
+
     res.render('static/content/about', {
       language: 'de',
+      title: title,
+      about: about,
+      videoOverlay: data[0].videoOverlay,
+      youtubeId: parseYoutubeUrl(data[0].videoUrl),
+      videoBackground: data[0].videoBackgroundImage,
+      partnerDescription: data[0].partnerDescription,
+      partnerImage: data[0].parterImage,
       requirements: ['landingpage']
     });
   }
