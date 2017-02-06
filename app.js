@@ -9,6 +9,18 @@
 global.IS_TEST = process.env.FRONTEND_RUN_TESTS === 'true';
 global.ROOT = require('path').resolve(__dirname);
 
+// This is a workaround, because we currently use NODE_ENVIRONMENT
+// instead if NODE_ENV because legacy
+// TODO: Fix this and use NODE_ENV everywhere, adapt for 'staging'
+
+if (process.env.NODE_ENVIRONMENT === 'prod') {
+  process.env.NODE_ENV = 'production';
+}
+
+if (process.env.NODE_ENVIRONMENT === 'staging') {
+  process.env.NODE_ENV = 'production';
+}
+
 const compression = require('compression');
 const co = require('co');
 const config = require('./config/config');
@@ -100,7 +112,7 @@ function sessionHandler(req, res, next) {
 }
 
 function maintenanceView(req, res, next) {
-  if(req.app.get('maintenance')) {
+  if (req.app.get('maintenance')) {
     res.render('dynamic/register/maintenance', {
       layout: 'funnel',
       language: req.language
@@ -206,7 +218,7 @@ function server(callback) {
   app.use('/admin', require('./routes/admin'));
 
   // ENV specific setup
-  if(process.env.FRONTEND_MAINTENANCE) app.enable('maintenance');
+  if (process.env.FRONTEND_MAINTENANCE) app.enable('maintenance');
   else app.disable('maintenance');
 
   var server = http.createServer(app);
