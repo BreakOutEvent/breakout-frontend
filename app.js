@@ -39,6 +39,7 @@ const cookieParser = require('cookie-parser')();
 const connectFlash = require('connect-flash')();
 const http = require('http');
 const logger = require('./services/logger');
+const contentful = require('./services/contentful');
 
 require('newrelic');
 
@@ -152,6 +153,22 @@ function checkForDuplicates(partialsDirs) {
   }
 }
 
+function contentfulRawHtml(req, res, next) {
+  contentful.getFieldsForContentType('rawHtml')
+    .then(pages => {
+      const matchedPages = pages.filter(page => page.url === req.url);
+      if (matchedPages.length > 0) {
+        res.status(200);
+        res.send(matchedPages[0].content);
+      } else if (next) {
+        next();
+      }
+    })
+    .catch(err => {
+      if (next) next(err);
+    });
+}
+
 function server(callback) {
 
   const app = express();
@@ -225,6 +242,7 @@ function server(callback) {
   const io = socketio(server);
   websocket.init(io);
 
+  app.use(contentfulRawHtml);
   // The order is important here
   // First try to handle errors
   app.use(genericErrorHandler);
