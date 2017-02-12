@@ -1,15 +1,7 @@
 'use strict';
 
-const config = require('../../config/config');
+const contentful = require('../../services/contentful');
 
-const space = config.space;
-const accessToken = config.accessToken;
-
-const contentful = require('contentful');
-const contentfulClient = contentful.createClient({
-  space: space,
-  accessToken: accessToken
-});
 const renderTemplate = (type, folder, layout) => (template, title) => (req, res) => {
   let options = {
     error: req.flash('error'),
@@ -33,7 +25,7 @@ class StaticController {
 
   static *renderLandingpage(req, res) {
 
-    const data = yield getFieldsForContentType('landingpage', req.contentfulLocale);
+    const data = yield contentful.getFieldsForContentType('landingpage', req.contentfulLocale);
     const title = data[0].title;
     const about = data[0].about;
 
@@ -52,7 +44,7 @@ class StaticController {
 
   static *renderFAQPage(req, res) {
 
-    let faqs = yield getFieldsForContentType('faq', req.contentfulLocale);
+    let faqs = yield contentful.getFieldsForContentType('faq', req.contentfulLocale);
 
     const options = extendDefaultOptions(req, {
       language: req.language,
@@ -66,12 +58,12 @@ class StaticController {
   static *renderPressPage(req, res) {
 
     const data = yield Promise.all([
-      getFieldsForContentType('testimonials', req.contentfulLocale),
-      getFieldsForContentType('pressMaterials', req.contentfulLocale),
-      getFieldsForContentType('pressReview', req.contentfulLocale)
+      contentful.getFieldsForContentType('testimonials', req.contentfulLocale),
+      contentful.getFieldsForContentType('pressMaterials', req.contentfulLocale),
+      contentful.getFieldsForContentType('pressReview', req.contentfulLocale)
     ]);
 
-    var options = {
+    const options = {
       error: req.flash('error'),
       success: req.flash('success'),
       layout: 'master',
@@ -87,7 +79,7 @@ class StaticController {
 
   static *renderTermsAndConditions(req, res) {
 
-    const page = yield getFieldsForContentType('termsAndConditions', req.contentfulLocale);
+    const page = yield contentful.getFieldsForContentType('termsAndConditions', req.contentfulLocale);
 
     const options = {
       error: req.flash('error'),
@@ -104,8 +96,8 @@ class StaticController {
   static *renderMemberPage(req, res) {
 
     const data = yield Promise.all([
-      getFieldsForContentType('members', req.contentfulLocale),
-      getFieldsForContentType('teammitglieder', req.contentfulLocale)
+      contentful.getFieldsForContentType('members', req.contentfulLocale),
+      contentful.getFieldsForContentType('teammitglieder', req.contentfulLocale)
     ]);
 
     const fields = data[0][0];
@@ -127,7 +119,7 @@ class StaticController {
 
   static *renderNextSteps(req, res) {
 
-    let fields = yield getFieldsForContentType('nextSteps', req.contentfulLocale);
+    let fields = yield contentful.getFieldsForContentType('nextSteps', req.contentfulLocale);
     fields = fields[0];
 
     let options = extendDefaultOptions(req, {
@@ -147,9 +139,9 @@ class StaticController {
   static *renderPartnerPage(req, res) {
 
     let data = yield Promise.all([
-      getFieldsForContentType('partnerPage', req.contentfulLocale),
-      getFieldsForContentType('supporter', req.contentfulLocale),
-      getFieldsForContentType('sponsor', req.contentfulLocale),
+      contentful.getFieldsForContentType('partnerPage', req.contentfulLocale),
+      contentful.getFieldsForContentType('supporter', req.contentfulLocale),
+      contentful.getFieldsForContentType('sponsor', req.contentfulLocale),
     ]);
 
     const page = data[0][0];
@@ -169,7 +161,7 @@ class StaticController {
   }
 
   static *renderCodeOfHonour(req, res) {
-    let codeOfHonours = yield getFieldsForContentType('codeOfHonour', req.contentfulLocale);
+    let codeOfHonours = yield contentful.getFieldsForContentType('codeOfHonour', req.contentfulLocale);
 
     let options = extendDefaultOptions(req, {
       title: 'Code of Honour', // TODO: Add from page
@@ -182,7 +174,7 @@ class StaticController {
   static *renderGetInvolvedPage(req, res) {
 
     let data = yield Promise.all([
-      getFieldsForContentType('mitmachenSeite', req.contentfulLocale),
+      contentful.getFieldsForContentType('mitmachenSeite', req.contentfulLocale),
     ]);
 
     const page = data[0][0];
@@ -196,7 +188,7 @@ class StaticController {
   }
 
   static *renderImprint(req, res) {
-    let data = yield getFieldsForContentType('imprint', req.contentfulLocale);
+    let data = yield contentful.getFieldsForContentType('imprint', req.contentfulLocale);
 
     let options = extendDefaultOptions(req, {
       imprint: data[0].disclaimer
@@ -205,14 +197,6 @@ class StaticController {
     res.render('static/content/imprint', options);
   }
 
-}
-
-
-function getFieldsForContentType(contentType, locale) {
-  return contentfulClient.getEntries({
-    content_type: contentType,
-    locale: locale,
-  }).then(res => res.items.map(item => item.fields));
 }
 
 function parseYoutubeUrl(url) {
