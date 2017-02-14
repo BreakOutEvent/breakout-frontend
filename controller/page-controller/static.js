@@ -122,6 +122,17 @@ class StaticController {
     let fields = yield contentful.getFieldsForContentType('nextSteps', req.contentfulLocale);
     fields = fields[0];
 
+    let videoUrl;
+    let hasVideo;
+
+    try {
+      videoUrl = parseYoutubeUrl(fields.explanationVideo);
+      hasVideo = true;
+    } catch (err) {
+      hasVideo = false;
+      videoUrl = '';
+    }
+
     let options = extendDefaultOptions(req, {
       title: fields.titel,
       headline: fields.headline,
@@ -130,7 +141,8 @@ class StaticController {
       findSponsors: fields.findSponsors,
       prepare: fields.prepare,
       downloadApps: fields.downloadApps,
-      explanationVideo: parseYoutubeUrl(fields.explanationVideo)
+      explanationVideo: videoUrl,
+      hasVideo: hasVideo
     });
 
     res.render('static/content/nextSteps', options);
