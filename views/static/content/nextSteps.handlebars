@@ -23,16 +23,20 @@
     </div>
 
     <hr>
-    <div class="row top15">
-        <div class="col-md-12">
-            <div class="video-container-16-to-9">
-                <iframe style="display: block; margin: 0 auto;"
-                        src="https://www.youtube.com/embed/{{this.explanationVideo}}" width="853"
-                        height="480" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+
+    {{#if hasVideo }}
+        <div class="row top15">
+            <div class="col-md-12">
+                <div class="video-container-16-to-9">
+                    <iframe style="display: block; margin: 0 auto;"
+                            src="https://www.youtube.com/embed/{{this.explanationVideo}}"
+                            width="853"
+                            height="480" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+                </div>
             </div>
         </div>
-    </div>
-    <hr>
+        <hr>
+    {{/if}}
 
     <div class="row top30">
         <div class="col-md-12">
