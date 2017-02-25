@@ -125,9 +125,9 @@ class DynamicController {
     let map = yield liveblog.getMapData();
     let allTeams = yield team.getAll();
 
-    let sortedTeamsbyDistance = ( _.sortBy(allTeams, t => t.distance.linear_distance)).reverse();
+    let sortedTeamsbyDistance = ( _.sortBy(allTeams, t => t.distance.distance)).reverse();
 
-    let sortedTeamsbyMoney = (_.sortBy(allTeams, y => y.donateSum.full_sum)).reverse();
+    let sortedTeamsbyMoney = (_.sortBy(allTeams, y => y.donateSum.fullSum)).reverse();
 
     let slicedDistance = sortedTeamsbyDistance.slice(0, 5);
     let slicedMoney = sortedTeamsbyMoney.slice(0, 5);

@@ -18,7 +18,7 @@
                 <span class="bo-lb-counter"><span id="bo-donate-sum">{{round events.global.donatesum}}</span> €</span>
                 <p>
                     {{#each events.individual}}
-                        {{#unless @first}} & {{/unless}}<span class="bo-donate-sum" data-id="{{id}}">{{round donatesum.full_sum}}</span>€ {{city}}
+                        {{#unless @first}} & {{/unless}}<span class="bo-donate-sum" data-id="{{id}}">{{round donatesum.fullSum}}</span>€ {{city}}
                     {{/each}}
                 </p>
                 <h3>{{__ 'DONATIONS'}}</h3>
@@ -27,7 +27,7 @@
                 <span class="bo-lb-counter"><span id="bo-distance-sum">{{round events.global.distance}}</span> km</span>
                 <p>
                     {{#each events.individual}}
-                        {{#unless @first}} & {{/unless}}<span class="bo-distance-sum" data-id="{{id}}">{{round distance.linear_distance}}</span> km {{city}}
+                        {{#unless @first}} & {{/unless}}<span class="bo-distance-sum" data-id="{{id}}">{{round distance.distance}}</span> km {{city}}
                     {{/each}}
                 </p>
                 <h3>{{__ 'DISTANCE'}}</h3>

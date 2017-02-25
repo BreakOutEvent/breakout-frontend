@@ -20,10 +20,10 @@ liveblog.getEventInfos = () => co(function *() {
     individual: events,
     global: {
       donatesum: events.reduce((prev, curr) => {
-        return prev + curr.donatesum.full_sum;
+        return prev + curr.donatesum.fullSum;
       }, 0),
       distance: events.reduce((prev, curr) => {
-        return prev + curr.distance.linear_distance;
+        return prev + curr.distance.distance;
       }, 0)
     }
   };
@@ -74,40 +74,31 @@ liveblog.returnPostings = (req, res, next) => co(function *() {
 
 liveblog.getMapData = () => co(function *() {
 
-  let events = yield api.event.all();
-
-  let eventsById = {};
-
-  events.forEach(e => {
-    eventsById[e.id] = e;
+  let allEvents = yield api.event.all();
+  let locationsEvents = yield allEvents.map(e => {
+    return api.location.getByEvent(e.id);
   });
 
-  let locations = yield api.posting.getAllPostings();
-
-  locations = _.sortBy(locations, l => l.date);
-
-  locations = locations.filter(l => l.postingLocation && l.postingLocation.duringEvent);
+  let locations = [];
+  locationsEvents.forEach(e => {
+    e.forEach(tl => {
+      locations.push(tl);
+    })
+  });
 
   let teams = [];
-
-  locations.forEach(l => {
-    let team = l.user.participant;
-    let t = teams[team.teamId];
-    if (!t) {
-      t = {
-        id: team.teamId,
-        name: team.teamName,
-        event: eventsById[team.eventId],
-        locations: []
-      };
+  locations.forEach(tl => {
+    teams[tl.id] = {
+      id: tl.id,
+      name: tl.name,
+      event: allEvents.find(e => {
+        return e.id == tl.event;
+      }),
+      locations: tl.locations
     }
-    t.locations.push({
-      latitude: l.postingLocation.latitude,
-      longitude: l.postingLocation.longitude
-    });
-
-    teams[team.teamId] = t;
   });
+
+  console.log(teams);
 
   return teams;
 

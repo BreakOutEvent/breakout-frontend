@@ -190,7 +190,7 @@ $(document).ready(function () {
         $('.bo-donate-sum').each(function (i, e) {
           $(e).countTo({
             from: parseInt($(e).text().replace('.', '')),
-            to: parseInt(data.individual[i].donatesum.full_sum.toFixed(0).toString().replace('.', '')),
+            to: parseInt(data.individual[i].donatesum.fullSum.toFixed(0).toString().replace('.', '')),
             speed: 180000,
             refreshInterval: 100
           });
@@ -216,7 +216,7 @@ $(document).ready(function () {
         $('.bo-distance-sum').each(function (i, e) {
           $(e).countTo({
             from: parseInt($(e).text().replace('.', '')),
-            to: parseInt(data.individual[i].distance.linear_distance.toFixed(0).toString().replace('.', '')),
+            to: parseInt(data.individual[i].distance.distance.toFixed(0).toString().replace('.', '')),
             speed: 180000,
             refreshInterval: 100
           });
