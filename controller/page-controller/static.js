@@ -25,20 +25,45 @@ class StaticController {
 
   static *renderLandingpage(req, res) {
 
-    const data = yield contentful.getFieldsForContentType('landingpage', req.contentfulLocale);
-    const title = data[0].title;
-    const about = data[0].about;
+    const data = yield Promise.all([
+      contentful.getFieldsForContentType('landingpage', req.contentfulLocale),
+      contentful.getFieldsForContentType('testimonials', req.contentfulLocale),
+      contentful.getFieldsForContentType('sponsor', req.contentfulLocale)
+    ]);
+
+    const landingPage = data[0];
+    const testimonials = data[1];
+    const sponsors = data[2];
 
     res.render('static/content/about', {
       language: 'de',
-      title: title,
-      about: about,
-      videoOverlay: data[0].videoOverlay,
-      youtubeId: parseYoutubeUrl(data[0].videoUrl),
-      videoBackground: data[0].videoBackgroundImage,
-      partnerDescription: data[0].partnerDescription,
-      partnerImage: data[0].parterImage,
-      requirements: ['landingpage']
+      title: landingPage[0].title,
+      about: landingPage[0].about,
+      videoOverlay: landingPage[0].videoOverlay,
+      youtubeId: parseYoutubeUrl(landingPage[0].videoUrl),
+      videoBackground: landingPage[0].videoBackgroundImage,
+      partnerDescription: landingPage[0].partnerDescription,
+      partnerImage: landingPage[0].parterImage,
+      requirements: ['landingpage'],
+      historyHeadline: landingPage[0].historyHeadline,
+      teamCountLogo: landingPage[0].teamCountLogo,
+      teamCountText: landingPage[0].teamCountText,
+      amountLogo: landingPage[0].amountLogo,
+      amountText: landingPage[0].amountText,
+      distanceLogo: landingPage[0].distanceLogo,
+      distanceText: landingPage[0].distanceText,
+      leftButtonLink: landingPage[0].leftButtonLink,
+      leftButtonText: landingPage[0].leftButtonText,
+      buttonGroupCenterText: landingPage[0].buttonGroupCenterText,
+      rightButtonLink: landingPage[0].rightButtonLink,
+      rightButtonText: landingPage[0].rightButtonText,
+      pressButtonText: landingPage[0].pressButtonText,
+      pressButtonLink: landingPage[0].pressButtonLink,
+      sponsorsButtonLink: landingPage[0].sponsorsButtonLink,
+      sponsorsButtonText: landingPage[0].sponsorsButtonText,
+      sponsorsHeadline: landingPage[0].sponsorsHeadline,
+      sponsors: sponsors,
+      testimonials: testimonials
     });
   }
 

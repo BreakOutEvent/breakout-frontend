@@ -77,80 +77,68 @@
 
     <section id="history" class="row landing-page-section">
         <div class="container">
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="history-headline">
                 <span class="history-headline-text">
-                    Das war 2016
+                    {{this.historyHeadline}}
                 </span>
                     </div>
                 </div>
             </div>
 
             <div class="row">
+
                 <div class="col-md-4">
                     <div class="thumbnail history-thumbnail">
-                        <img src="https://break-out.org/img/static/teams_2016.svg" width="100px"
+                        <img src="{{this.teamCountLogo.fields.file.url}}" width="100px"
                              height="100px">
                         <div class="caption history-caption">
-                            <h4 style="text-align: center">102 Teams</h4>
-                            <p>
-                                Beim dritten BreakOut in Deutschland nahmen 102 Zweierteams teil.
-                            </p>
+                            {{{md this.teamCountText}}}
                         </div>
                     </div>
                 </div>
 
                 <div class="col-md-4">
                     <div class="thumbnail history-thumbnail">
-                        <img src="https://break-out.org/img/static/spendensumme_2016.svg"
-                             width="100px"
+                        <img src="{{this.amountLogo.fields.file.url}}" width="100px"
                              height="100px">
                         <div class="caption history-caption">
-                            <h4>107.999€ Spenden</h4>
-                            <p>
-                                Insgesamt hat BreakOut 2016 ein Spendenversprechen von 107.999€ für
-                                die
-                                UNO-Flüchtlingshilfe erreicht. <br>
-                                Mit diesem Geld kann Flüchtlingen ein Studium in Südafrika finanziert werden.
-                                Von der Unterkunft über Studiengebühren bis hin zum täglichen Bedarf.
-                            </p>
+                            {{{md this.amountText}}}
                         </div>
                     </div>
                 </div>
 
                 <div class="col-md-4">
                     <div class="thumbnail history-thumbnail">
-                        <img src="https://break-out.org/img/static/strecke_2016.svg" width="100px"
+                        <img src="{{this.distanceLogo.fields.file.url}}" width="100px"
                              height="100px">
                         <div class="caption history-caption">
-                            <h4 style="text-align: center">104.924 Kilometer</h4>
-                            <p>
-                                Die 102 Teams haben insgesamt über 104.924 km Luftlinie
-                                zurückgelegt.
-                                Damit ist BreakOut fast dreimal um die Erde gereist.
-                            </p>
+                            {{{md this.distanceText}}}
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
 
     <section class="row call-to-action">
         <div class="col-md-12 call-to-action-buttons" style="text-align: center">
-            <a href="/next-steps">
+            <a href="{{this.leftButtonLink}}">
                 <button class="btn btn-primary cta-button-btn" style="display: inline-block">
-                    Bei BreakOut mitmachen
+                    {{this.leftButtonText}}
                 </button>
             </a>
 
             <span class="line-text">
-                2017
+                {{this.buttonGroupCenterText}}
             </span>
-            <a href="/next-steps">
+
+            <a href="{{this.rightButtonLink}}">
                 <button class="btn btn-primary cta-button-btn">
-                    Ein Team unterstützen
+                    {{this.rightButtonText}}
                 </button>
             </a>
         </div>
@@ -158,39 +146,46 @@
 
     <section id="testimonial-carousel" class="row">
         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+
             <!-- Indicators -->
             <ol class="carousel-indicators">
-                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                {{#each this.testimonials}}
+                    {{#if @first}}
+                        <li data-target="#carousel-example-generic" data-slide-to="{{@index}}"
+                            class="active"></li>
+                    {{else}}
+                        <li data-target="#carousel-example-generic" data-slide-to="{{@index}}"></li>
+                    {{/if}}
+                {{/each}}
             </ol>
 
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
-                <div class="item active">
-                    <img class="carousel-img" src="img/news-1.jpg" alt="...">
-                    <div class="carousel-caption">
-                        "Das wohl spannendste Benefizevent Deutschlands"
-                        <br>
-                        — BR Abendschau, 27. Mai 2016
-                    </div>
-                </div>
-                <div class="item">
-                    <img class="carousel-img" src="img/news-2.jpg" alt="...">
-                    <div class="carousel-caption">
-                        "Ohne Geld nach Irgendwo"
-                        — Süddeutsche Zeitung, 6. Mai 2016
-                    </div>
-                </div>
+                {{#each this.testimonials}}
 
-                <div class="item">
-                    <img class="carousel-img" src="img/news-3.jpg" alt="...">
-                    <div class="carousel-caption">
-                        "Jeder Meter zählt und genau dafür brennen sie. Es ist die große Challenge
-                        und es ist beeindruckend, wie weit die Teams ohne Geld gekommen sind."
-                        — münchen.tv, 19. Juni 2015
+                    <div class="item {{#if @first}}active{{/if}}">
+
+                        <img class="carousel-img" src="img/news-1.jpg" alt="...">
+                        <div class="carousel-caption">
+                            <!--<p>-->
+                            <a href="{{this.link}}" class="testimonial-headline">
+                                {{this.headline}}
+                            </a>
+                            <!--</p>-->
+                            <br/>
+                            <span class="testimonial-caption">
+                                — {{this.from}}, {{this.date}}
+                            </span>
+                            <br/>
+                            <a href="{{../pressButtonLink}}">
+                                <button class="btn btn-testimonials">
+                                    {{../pressButtonText}}
+                                </button>
+                            </a>
+                        </div>
                     </div>
-                </div>
+
+                {{/each}}
             </div>
 
             <!-- Controls -->
@@ -208,28 +203,26 @@
     </section>
 
     <section class="row landing-page-section">
-            <div class="col-xs-12" style="text-align: center">
-                <h3>Unsere Sponsoren</h3>
-                <a href="/partner">
-                    <button class="btn btn-primary">Jetzt Sponsor werden</button>
-                </a>
-            </div>
-            <!--<div class="col-md-12" style="text-align: center; margin-bottom: 40px">-->
-            <!--<h2>Unsere Sponsoren</h2>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--<div class="row">-->
-            <!--<div class="col-md-6">-->
-            <!--<img class="center-block" height="300" src="http://de.statravel-downloads.eu/Downloads/Media/STA%20Travel_Logo_Lockup_RGB.jpg">-->
-            <!--</div>-->
-            <!---->
-            <!--<div class="col-md-6">-->
-            <!--<img class="center-block" height=300 src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/ADAC-Logo.svg/2000px-ADAC-Logo.svg.png">-->
-            <!--</div>-->
+        <div class="col-xs-12" style="text-align: center">
+            <h3>{{this.sponsorsHeadline}}</h3>
+        </div>
+        <div class="row">
+            {{#each this.sponsors}}
+                <div class="col-md-12">
+                    <a href="{{this.website}}">
+                        <img class="center-block" height="300" src="{{this.logo.fields.file.url}}">
+                    </a>
+                </div>
+            {{/each}}
+        </div>
+        <div class="col-xs-12" style="text-align: center; padding-top: 20px">
+            <a href="{{this.sponsorsButtonLink}}">
+                <button class="btn btn-primary">{{this.sponsorsButtonText}}</button>
+            </a>
+        </div>
+
     </section>
 </div>
-
-<!-- TODO: Replace this with fixed footer partial-->
 
 {{> footer }}
 
