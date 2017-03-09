@@ -3,7 +3,7 @@ module.exports = {
         "es6": true,
         "browser": true,
     },
-    "extends": "eslint:recommended",
+    "extends": ["eslint:recommended", "plugin:react/recommended"],
     "rules": {
         "indent": [
             "error",
@@ -20,11 +20,18 @@ module.exports = {
             "always"
         ],
         'no-console': 0,
-        'no-unused-vars': 1
+        'no-unused-vars': 1,
     },
     'globals': {
         'google': true,
         'io': true,
         'infowindow': true
+    },
+    'plugins': ['react'],
+    'parserOptions': {
+      'sourceType': "module",
+      'ecmaFeatures': {
+        'jsx': true
+      }
     }
 };
