@@ -8,7 +8,8 @@ const renderTemplate = (type, folder, layout) => (template, title) => (req, res)
     success: req.flash('success'),
     layout: layout,
     language: req.language,
-    title: title
+    title: title,
+    isLoggedIn: req.user
   };
 
   res.render(`${type}/${folder}/${template}`, options);
@@ -35,8 +36,7 @@ class StaticController {
     const testimonials = data[1];
     const sponsors = data[2];
 
-    res.render('static/content/about', {
-      language: 'de',
+    res.render('static/content/about', extendDefaultOptions(req, {
       title: landingPage[0].title,
       about: landingPage[0].about,
       videoOverlay: landingPage[0].videoOverlay,
@@ -63,8 +63,9 @@ class StaticController {
       sponsorsButtonText: landingPage[0].sponsorsButtonText,
       sponsorsHeadline: landingPage[0].sponsorsHeadline,
       sponsors: sponsors,
-      testimonials: testimonials
-    });
+      testimonials: testimonials,
+      layout: '', // Needs to be here, overwrites 'master' from default options!
+    }));
   }
 
   static *renderFAQPage(req, res) {
@@ -72,7 +73,6 @@ class StaticController {
     let faqs = yield contentful.getFieldsForContentType('faq', req.contentfulLocale);
 
     const options = extendDefaultOptions(req, {
-      language: req.language,
       title: 'FAQ',
       faqs: faqs,
     });
@@ -88,16 +88,12 @@ class StaticController {
       contentful.getFieldsForContentType('pressReview', req.contentfulLocale)
     ]);
 
-    const options = {
-      error: req.flash('error'),
-      success: req.flash('success'),
-      layout: 'master',
-      language: req.language,
+    const options = extendDefaultOptions(req, {
       title: 'Press',
       testimonials: data[0],
       pressMaterials: data[1],
       pressReviews: data[2]
-    };
+    });
 
     res.render('static/content/press', options);
   }
@@ -106,14 +102,10 @@ class StaticController {
 
     const page = yield contentful.getFieldsForContentType('termsAndConditions', req.contentfulLocale);
 
-    const options = {
-      error: req.flash('error'),
-      success: req.flash('success'),
-      layout: 'master',
-      language: req.language,
+    const options = extendDefaultOptions(req, {
       title: page[0].title,
       termsAndConditions: page[0].body
-    };
+    });
 
     res.render('static/content/termsAndConditions', options);
   }
@@ -243,6 +235,9 @@ function parseYoutubeUrl(url) {
 }
 
 function extendDefaultOptions(req, additionalOptions) {
+  if (!req || !additionalOptions) {
+    throw new Error(`Expected two arguments: req, additionalOptions, but got one. Did you missing passing 'req' to extendDefaultOptions? `);
+  }
   return apply(getOptions(req), additionalOptions);
 }
 
@@ -251,7 +246,8 @@ function getOptions(req) {
     error: req.flash('error'),
     success: req.flash('success'),
     layout: 'master',
-    language: req.language
+    language: req.language,
+    isLoggedIn: req.user
   };
 }
 
