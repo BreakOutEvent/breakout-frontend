@@ -236,7 +236,7 @@ function parseYoutubeUrl(url) {
 
 function extendDefaultOptions(req, additionalOptions) {
   if (!req || !additionalOptions) {
-    throw new Error(`Expected two arguments: req, additionalOptions, but got one. Did you missing passing 'req' to extendDefaultOptions? `);
+    throw new Error('Expected two arguments: req, additionalOptions, but got one. Did you missing passing `req` to extendDefaultOptions?');
   }
   return apply(getOptions(req), additionalOptions);
 }
