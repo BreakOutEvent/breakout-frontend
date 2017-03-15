@@ -260,7 +260,8 @@ module.exports = {
     'ACCOUNT_SETTINGS': 'Accounteinstellungen',
     'SPONSORINGS': 'Sponsorings',
     'MESSAGES': 'Nachrichten',
-    'LOGOUT': 'Abmelden'
+    'LOGOUT': 'Abmelden',
+    'MY_ACCOUNT': 'Mein Account'
   },
   'LIVEBLOG': {
     'HEADLINE': 'Was ist BreakOut?',
