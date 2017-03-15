@@ -1,33 +1,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top bo-header">
     <div class="container">
 
-        <!-- non-collapsing items -->
-        <ul class="nav navbar-nav navbar-right bo-user-icons visible-lg">
-            {{#if isLoggedIn}}
-                <li class="dropdown">
-                    <a id="userDropDown" class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <div style="background-image: url({{isLoggedIn.me.profilePic.sizes.0.url}}); height: 30px; width: 30px;" class="bo-profile-image pull-left"></div>
-                        <i class="material-icons">expand_more</i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropDown">
-
-                        {{#if isLoggedIn.me.participant.teamId}}
-                            <li><a href="/team/{{isLoggedIn.me.participant.teamId}}">Mein Team Profil</a></li>
-                        {{/if}}
-                        <li><a href="/settings/profile">Account Einstellungen</a></li>
-                        <li><a href="/settings/sponsoring">Sponsorings</a></li>
-                        <li><a href="/messages">Nachrichten</a></li>
-                        <li><a href="http://www.break-out.org/faq" target="_blank">Hilfe</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="/logout">Abmelden</a></li>
-                    </ul>
-                </li>
-            {{else}}
-                <li>
-                    <a role="button" class="btn navbar-btn text-uppercase bo-navbar-btn" href="/login">Anmelden oder Registrieren</a>
-                </li>
-            {{/if}}
-        </ul>
+        <!-- BreakOut Logo at the mostleft part of the navbar (does not collapse) -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                     data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -40,9 +14,75 @@
                 <img class="bo-nav-logo" alt="BreakOut" src="/img/logos/breakout-logo-quer.svg">
             </a>
         </div>
+
+        <!-- All other navbar elements (collapse on smaller sizes) -->
         <div id="navbar" class="collapse navbar-collapse">
+
+            <!-- user logged in on large screens at the most right part of the navbar -->
+            <ul class="nav navbar-nav navbar-right bo-user-icons visible-lg">
+                {{#if isLoggedIn}}
+                    <li class="dropdown visible-lg">
+                        <a id="userDropDown" class="dropdown-toggle" data-toggle="dropdown"
+                           href="#">
+                            <div style="background-image: url({{isLoggedIn.me.profilePic.sizes.0.url}}); height: 30px; width: 30px;"
+                                 class="bo-profile-image pull-left"></div>
+                            <i class="material-icons">expand_more</i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right"
+                            aria-labelledby="userDropDown">
+
+                            {{#if isLoggedIn.me.participant.teamId}}
+                                <li><a href="/team/{{isLoggedIn.me.participant.teamId}}">{{__
+                                        'MASTER.MY_TEAM_PROFILE'}}</a></li>
+                            {{/if}}
+                            <li><a href="/settings/profile">{{__ 'MASTER.ACCOUNT_SETTINGS'}}</a>
+                            </li>
+                            <li><a href="/settings/sponsoring">{{__ 'MASTER.SPONSORINGS'}}</a>
+                            </li>
+                            <li><a href="/messages">{{__ 'MASTER.MESSAGES'}}</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/logout">{{__ 'MASTER.LOGOUT'}}</a></li>
+                        </ul>
+                    </li>
+                {{else}}
+                    <li>
+                        <a role="button" class="btn navbar-btn text-uppercase bo-navbar-btn" href="/login">{{__ 'MASTER.LOGIN_OR_REGISTER'}}</a>
+                    </li>
+                {{/if}}
+            </ul>
+
+            <!-- Navbar elements-->
             <ul class="nav navbar-nav text-uppercase">
-                <li class="hidden-lg"><a href="{{__ 'MASTER.LOGIN_LINK'}}">{{__ 'MASTER.LOGIN'}}</a></li>
+
+                <!-- User logged in elements in dropdown visible only on screens < lg -->
+                {{#if isLoggedIn}}
+                    <li class="dropdown hidden-lg">
+                        <a id="userDropDown" class="dropdown-toggle" data-toggle="dropdown"
+                           href="#">
+                            {{__ 'MASTER.MY_ACCOUNT'}}
+                            <span class="caret"></span></a>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right"
+                            aria-labelledby="userDropDown">
+
+                            {{#if isLoggedIn.me.participant.teamId}}
+                                <li><a href="/team/{{isLoggedIn.me.participant.teamId}}">{{__
+                                        'MASTER.MY_TEAM_PROFILE'}}</a></li>
+                            {{/if}}
+                            <li><a href="/settings/profile">{{__ 'MASTER.ACCOUNT_SETTINGS'}}</a></li>
+                            <li><a href="/settings/sponsoring">{{__ 'MASTER.SPONSORINGS'}}</a></li>
+                            <li><a href="/messages">{{__ 'MASTER.MESSAGES'}}</a></li>
+                            <li><a href="/logout">{{__ 'MASTER.LOGOUT'}}</a></li>
+                        </ul>
+                    </li>
+                {{else}}
+                    <li class="hidden-lg">
+                        <a role="button" class="btn navbar-btn text-uppercase bo-navbar-btn"
+                           href="/login">{{__ 'MASTER.LOGIN_OR_REGISTER'}}</a>
+                    </li>
+                {{/if}}
+
+                <!-- List of navbar entries -->
                 <li><a class="bo-nav-link" href="{{__ 'MASTER.LIVE_BLOG_LINK'}}">{{__ 'MASTER.LIVE_BLOG'}}</a></li>
                 <li><a class="bo-nav-link" href="{{__ 'MASTER.TEAMS_LINK'}}">{{__ 'MASTER.TEAMS'}}</a></li>
                 <li class="dropdown">

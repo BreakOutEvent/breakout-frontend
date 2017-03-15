@@ -5,8 +5,24 @@
  * @type {string}
  */
 
-const langData = require('../services/translations');
+// const langData = require('../services/translations');
 const logger = require('../services/logger');
+const i18next = require('i18next');
+
+const de = require('../resources/translations/translations.de.js');
+const en = require('../resources/translations/translations.en.js');
+
+i18next.init({
+  fallbackLng: 'de',
+  resources: {
+    de: {
+      translation: de
+    },
+    en: {
+      translation: en
+    }
+  }
+});
 
 const FALLBACK = 'de';
 
@@ -36,20 +52,7 @@ i18n.init = (req, res, next) => {
 };
 
 i18n.translate = (view, key, lang) => {
-  if (langData.hasOwnProperty(view)) {
-    if (langData[view].hasOwnProperty(key)) {
-      if (langData[view][key].hasOwnProperty(lang)) {
-        return langData[view][key][lang];
-      } else {
-        logger.warn(`Unknown language ${lang} in key ${key} from view ${view}! Using Fallback`);
-        return langData[view][key][FALLBACK];
-      }
-    } else {
-      throw `Unknown key ${key} in view ${view}`;
-    }
-  } else {
-    throw `Unknown view ${view}`;
-  }
+  return i18next.t(`${view}.${key}`, {lng: lang});
 };
 
 module.exports = i18n;
