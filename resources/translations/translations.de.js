@@ -254,7 +254,13 @@ module.exports = {
     'JOIN': 'Mitorganisieren',
     'JOIN_LINK': '/get-involved',
     'LOGIN': 'Einloggen',
-    'LOGIN_LINK': '/login'
+    'LOGIN_LINK': '/login',
+    'LOGIN_OR_REGISTER': 'Anmelden oder registrieren',
+    'MY_TEAM_PROFILE': 'Mein Teamprofil',
+    'ACCOUNT_SETTINGS': 'Accounteinstellungen',
+    'SPONSORINGS': 'Sponsorings',
+    'MESSAGES': 'Nachrichten',
+    'LOGOUT': 'Abmelden'
   },
   'LIVEBLOG': {
     'HEADLINE': 'Was ist BreakOut?',

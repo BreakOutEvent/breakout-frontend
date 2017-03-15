@@ -226,7 +226,14 @@ module.exports = {
     'PRESS': 'Press',
     'ABOUTUS': 'About us',
     'JOIN': 'Join us',
-    'LOGIN': 'Login'
+    'LOGIN': 'Login',
+    'LOGIN_OR_REGISTER': 'Login or register',
+    'TERMS': 'Terms and Conditions',
+    'MY_TEAM_PROFILE': 'My Teamprofile',
+    'ACCOUNT_SETTINGS': 'Account Settings',
+    'SPONSORINGS': 'Sponsorings',
+    'MESSAGES': 'Messages',
+    'LOGOUT': 'Log Out'
   },
   'LIVEBLOG': {
     'HEADLINE': 'What is BreakOut?',

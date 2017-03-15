@@ -12,19 +12,18 @@
                     <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropDown">
 
                         {{#if isLoggedIn.me.participant.teamId}}
-                            <li><a href="/team/{{isLoggedIn.me.participant.teamId}}">Mein Team Profil</a></li>
+                            <li><a href="/team/{{isLoggedIn.me.participant.teamId}}">{{__ 'MASTER.MY_TEAM_PROFILE'}}</a></li>
                         {{/if}}
-                        <li><a href="/settings/profile">Account Einstellungen</a></li>
-                        <li><a href="/settings/sponsoring">Sponsorings</a></li>
-                        <li><a href="/messages">Nachrichten</a></li>
-                        <li><a href="http://www.break-out.org/faq" target="_blank">Hilfe</a></li>
+                        <li><a href="/settings/profile">{{__ 'MASTER.ACCOUNT_SETTINGS'}}</a></li>
+                        <li><a href="/settings/sponsoring">{{__ 'MASTER.SPONSORINGS'}}</a></li>
+                        <li><a href="/messages">{{__ 'MASTER.MESSAGES'}}</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="/logout">Abmelden</a></li>
+                        <li><a href="/logout">{{__ 'MASTER.LOGOUT'}}</a></li>
                     </ul>
                 </li>
             {{else}}
                 <li>
-                    <a role="button" class="btn navbar-btn text-uppercase bo-navbar-btn" href="/login">Anmelden oder Registrieren</a>
+                    <a role="button" class="btn navbar-btn text-uppercase bo-navbar-btn" href="/login">{{__ 'MASTER.LOGIN_OR_REGISTER'}}</a>
                 </li>
             {{/if}}
         </ul>
