@@ -1,3 +1,5 @@
+import BreakoutApi from "../BreakoutApi";
+
 import React from 'react';
 import {
   FormGroup,
@@ -7,6 +9,7 @@ import {
   ButtonGroup,
   Row,
   Col,
+  Alert,
   Checkbox
 } from 'react-bootstrap';
 
@@ -55,22 +58,32 @@ export default class BecomeParticipant extends React.Component {
     }
   }
 
+  alertIfNeeded() {
+    if (this.state.registrationError) {
+      return (
+        <Alert bsStyle="warning">
+          Something went wrong: + {this.state.registrationError.message}
+        </Alert>
+      );
+    } else {
+      return null;
+    }
+  }
+
   register() {
     const userData = {
       firstname: this.state.firstname,
       lastname: this.state.lastname,
-      tshirtSize: this.state.tshirtSize,
-      contactNumber: this.state.contactNumber,
-      emergencyNumber: this.state.emergencyNumber
+      participant: {
+        tshirtsize: this.state.tshirtSize,
+        phonenumber: this.state.contactNumber,
+        emergencynumber: this.state.emergencyNumber
+      }
     };
 
-    var fakePromise = new Promise((resolve, reject) => {
-    setTimeout(() => {
-        resolve();
-    }, 200);
-    });;
-
-    fakePromise
+    var api = new BreakoutApi("https://backend.break-out.org", "", "", true);
+    api.login("nico.scordialo@break-out.org", "12345");
+    api.becomeParticipant("backend.break-out.org", userData)
       .then(() => {
         // this.props.nextStep();
         this.setState({
@@ -90,7 +103,7 @@ export default class BecomeParticipant extends React.Component {
             <Col sm={12}>
               <ButtonGroup>
                 <Button id="male"
-                        onClick={this.selectGender.bind(this)}
+                        onClick={this.selectGender.bind(this)}c
                         className={this.getStyleForGender('male')}>
                   Männlich
                 </Button>
@@ -176,6 +189,10 @@ export default class BecomeParticipant extends React.Component {
             </Checkbox>
 
           </FormGroup>
+
+          <Row>
+            {this.alertIfNeeded()}
+          </Row>
 
           <Row>
             <Col xs={12} style={{textAlign: 'center'}}>
