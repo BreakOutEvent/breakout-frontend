@@ -3,7 +3,7 @@ var webpack = require('webpack');
 var path = require('path');
 
 module.exports = {
-  entry: './src/js/reactTest.jsx',
+  entry: ['babel-polyfill', './src/js/reactTest.jsx'],
   output: {
     path: './public/js',
     filename: 'reactTest.js'

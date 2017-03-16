@@ -86,24 +86,24 @@ export default class CreateAccount extends React.Component {
     }
   }
 
-  register() {
-    this.api.createAccount(this.state.email, this.state.password)
-      .then((userAccount) => {
-        return this.api.login(this.state.email, this.state.password)
-          .then((data) => {
+  async register() {
+    try {
+      const userAccount = await this.api.createAccount(this.state.email, this.state.password);
+      const data = this.api.login(this.state.email, this.state.password);
 
-            store.set('userId', userAccount.id);
-            store.set('accessToken', data.access_token);
+      store.set('userId', userAccount.id);
+      store.set('accessToken', data.access_token);
 
-            this.props.nextStep();
+      this.setState({
+        registrationError: false,
+        registrationSuccess: true
+      });
 
-            this.setState({
-              registrationError: false,
-              registrationSuccess: true
-            });
-          });
-      })
-      .catch((err) => this.setState({registrationError: err}));
+      this.props.nextStep();
+
+    } catch (err) {
+      this.setState({registrationError: err});
+    }
   }
 
   alertIfNeeded() {
