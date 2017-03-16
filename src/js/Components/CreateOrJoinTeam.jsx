@@ -1,3 +1,5 @@
+import BreakoutApi from "../BreakoutApi";
+
 import React from 'react';
 import {
   FormGroup,
@@ -8,6 +10,53 @@ import {
   Row
 } from 'react-bootstrap';
 
+var testEventData = [
+  {
+    "id": 1,
+    "title": "BreakOut Berlin",
+    "date": 1464937200,
+    "city": "Berlin",
+    "startingLocation": {
+      "latitude": 52.512643,
+      "longitude": 13.321876
+    },
+    "duration": 36
+  },
+  {
+    "id": 2,
+    "title": "BreakOut München",
+    "date": 1464937200,
+    "city": "München",
+    "startingLocation": {
+      "latitude": 48.150676,
+      "longitude": 11.580984
+    },
+    "duration": 36
+  },
+  {
+    "id": 3,
+    "title": "Breakout München 2017",
+    "date": 1488464649,
+    "city": "München",
+    "startingLocation": {
+      "latitude": 0.0,
+      "longitude": 0.0
+    },
+    "duration": 36
+  },
+  {
+    "id": 4,
+    "title": "Mein ganz eigenes Testevent",
+    "date": 1489591050,
+    "city": "München",
+    "startingLocation": {
+      "latitude": 0.0,
+      "longitude": 0.0
+    },
+    "duration": 36
+  }
+]
+
 export default class CreateOrJoinTeam extends React.Component {
 
   constructor(props) {
@@ -17,13 +66,45 @@ export default class CreateOrJoinTeam extends React.Component {
 
   handleChange(event) {
     const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    var value = '';
+
+    if(target.type === "select-one"){
+      value = target.options[target.selectedIndex].text;
+    }
+    else if( target.type === 'checkbox'){
+      value =  target.checked;
+    }
+    else {
+      value =  target.value;
+    }
+
     const id = target.id;
 
     this.setState({
       [id]: value
     });
   }
+
+  register() {
+    const teamData = {
+      eventname: this.state.eventname,
+      partneremail: this.state.partnerEmail,
+      teamname: this.state.Teamnamen
+      }
+    };
+
+    // var api = new BreakoutApi("https://backend.break-out.org", "", "", true);
+    // api.login("nico.scordialo@break-out.org", "12345");
+    // api.becomeParticipant("backend.break-out.org", userData)
+      // .then(() => {
+      //   // this.props.nextStep();
+      //   this.setState({
+      //     registrationError: false,
+      //     registrationSuccess: true
+      //   });
+      // })
+      // .catch((err) => this.setState({registrationError: err}));
+  // }
 
   render() {
     return (
@@ -45,21 +126,18 @@ export default class CreateOrJoinTeam extends React.Component {
                        onChange={this.handleChange.bind(this)}/>
         </FormGroup>
 
-        <FormGroup controlId="tshirtSize" validationState={'error'}>
+        <FormGroup controlId="eventname" validationState={'error'}>
           <ControlLabel>
             Event
           </ControlLabel>
           <FormControl componentClass="select"
-                       placeholder="Wähle aus, von welchem Standort du starten möchtest">
-            <option value="Berlin 2016">Berlin 2016</option>
-            <option value="München 2016">München 2016</option>
-            <option value="Berlin 2017">Berlin 2017</option>
-            <option value="München 2017">München 2017</option>
-            <option value="Barcelona 2017">Barcelona 2017</option>
+                       placeholder="Wähle aus, von welchem Standort du starten möchtest"
+                       onChange={this.handleChange.bind(this)}>
+
+                       {testEventData.map((event) => <option value={event.title}>{event.title}</option>)}
           </FormControl>
         </FormGroup>
-
-        <FormGroup controlId="partnerEmail" validationState={'error'}>
+       <FormGroup controlId="partnerEmail" validationState={'error'}>
           <ControlLabel>
             Email deines Teampartners
           </ControlLabel>
