@@ -20,7 +20,18 @@ export default class BecomeParticipant extends React.Component {
   handleChange(event) {
 
     const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    var value = '';
+
+    if(target.type === "select-one"){
+      value = target.options[target.selectedIndex].text;
+    }
+    else if( target.type === 'checkbox'){
+      value =  target.checked;
+    }
+    else {
+      value =  target.value;
+    }
+
     const id = target.id;
 
     this.setState({
@@ -91,7 +102,8 @@ export default class BecomeParticipant extends React.Component {
               T-Shirt Größe
             </ControlLabel>
             <FormControl componentClass="select"
-                         placeholder="Wähle eine Tshirtgröße aus">
+                         placeholder="Wähle eine Tshirtgröße aus"
+                        onChange={this.handleChange.bind(this)}>
               <option value="s">S</option>
               <option value="m">M</option>
               <option value="l">L</option>
