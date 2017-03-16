@@ -81,7 +81,7 @@ admin.getInvoices = (req) => co(function*() {
   for (let i = 0; i < allTeams.length; i++) {
     let t = allTeams[i];
     if(t.members.length > 1) {
-      let invoice = yield api.getModel('invoice', req.user, t.invoiceId);
+      let invoice = yield api.getModel('invoice/teamfee', req.user, t.invoiceId);
       invoice.event = events[t.event -1].city;
       invoice.members = t.members;
       invoice.id = t.invoiceId;
