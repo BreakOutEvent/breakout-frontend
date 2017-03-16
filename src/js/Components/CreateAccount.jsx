@@ -89,7 +89,7 @@ export default class CreateAccount extends React.Component {
   async register() {
     try {
       const userAccount = await this.api.createAccount(this.state.email, this.state.password);
-      const data = this.api.login(this.state.email, this.state.password);
+      const data = await this.api.login(this.state.email, this.state.password);
 
       store.set('userId', userAccount.id);
       store.set('accessToken', data.access_token);
