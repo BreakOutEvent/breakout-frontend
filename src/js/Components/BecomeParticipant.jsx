@@ -110,7 +110,7 @@ export default class BecomeParticipant extends React.Component {
             <Col sm={12}>
               <ButtonGroup>
                 <Button id="male"
-                        onClick={this.selectGender.bind(this)} c
+                        onClick={this.selectGender.bind(this)}
                         className={this.getStyleForGender('male')}>
                   Männlich
                 </Button>
