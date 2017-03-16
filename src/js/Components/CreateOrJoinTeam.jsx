@@ -1,4 +1,4 @@
-import BreakoutApi from "../BreakoutApi";
+import BreakoutApi from '../BreakoutApi';
 
 import React from 'react';
 import {
@@ -10,72 +10,47 @@ import {
   Row
 } from 'react-bootstrap';
 
-var testEventData = [
-  {
-    "id": 1,
-    "title": "BreakOut Berlin",
-    "date": 1464937200,
-    "city": "Berlin",
-    "startingLocation": {
-      "latitude": 52.512643,
-      "longitude": 13.321876
-    },
-    "duration": 36
-  },
-  {
-    "id": 2,
-    "title": "BreakOut München",
-    "date": 1464937200,
-    "city": "München",
-    "startingLocation": {
-      "latitude": 48.150676,
-      "longitude": 11.580984
-    },
-    "duration": 36
-  },
-  {
-    "id": 3,
-    "title": "Breakout München 2017",
-    "date": 1488464649,
-    "city": "München",
-    "startingLocation": {
-      "latitude": 0.0,
-      "longitude": 0.0
-    },
-    "duration": 36
-  },
-  {
-    "id": 4,
-    "title": "Mein ganz eigenes Testevent",
-    "date": 1489591050,
-    "city": "München",
-    "startingLocation": {
-      "latitude": 0.0,
-      "longitude": 0.0
-    },
-    "duration": 36
-  }
-]
+import Promise from 'bluebird';
+import store from 'store';
+
+const Invitation = (props) => {
+  return (
+    <div className="well well-sm">
+      <div className="row">
+        <div className="col-sm-1" style={{verticalAlign: 'center', textAlign: 'center'}}>
+          <input type="checkbox"/>
+        </div>
+        <div className="col-sm-11">
+          <b>{props.data.team} {props.data.name}</b>
+          {/*<br/>Du wurdest von Florian Schmidt eingeladen (florian.schmidt.1994@icloud.com)*/}
+        </div>
+      </div>
+    </div>);
+};
 
 export default class CreateOrJoinTeam extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      events: [],
+      invitations: []
+    };
+
   }
 
   handleChange(event) {
     const target = event.target;
-    var value = '';
+    let value = '';
 
-    if(target.type === "select-one"){
-      value = target.options[target.selectedIndex].text;
+    if (target.type === 'select-one') {
+      value = target.options[target.selectedIndex].value;
     }
-    else if( target.type === 'checkbox'){
-      value =  target.checked;
+    else if (target.type === 'checkbox') {
+      value = target.checked;
     }
     else {
-      value =  target.value;
+      value = target.value;
     }
 
     const id = target.id;
@@ -85,26 +60,50 @@ export default class CreateOrJoinTeam extends React.Component {
     });
   }
 
-  register() {
-    const teamData = {
-      eventname: this.state.eventname,
-      partneremail: this.state.partnerEmail,
-      teamname: this.state.Teamnamen
-      }
-    };
+  async componentDidMount() {
+    const api = new BreakoutApi('http://localhost:8082', 'breakout_app', '123456789', true);
+    const token = store.get('accessToken');
+    console.log(token);
+    // TODO: Implement!
+    if (!token) {
+      throw Error('No token in store. Needs login!');
+    }
 
-    // var api = new BreakoutApi("https://backend.break-out.org", "", "", true);
-    // api.login("nico.scordialo@break-out.org", "12345");
-    // api.becomeParticipant("backend.break-out.org", userData)
-      // .then(() => {
-      //   // this.props.nextStep();
-      //   this.setState({
-      //     registrationError: false,
-      //     registrationSuccess: true
-      //   });
-      // })
-      // .catch((err) => this.setState({registrationError: err}));
-  // }
+    api.setAccessToken(token);
+    const events = await api.getAllEvents();
+    const invitations = await Promise.all(events.map(event => api.getInvitations(event.id)));
+
+    this.setState({
+      events: events,
+      invitations: invitations.reduce((a, b) => a.concat(b))
+    });
+  }
+
+
+  async createTeam() {
+
+    const api = new BreakoutApi('http://localhost:8082', 'breakout_app', '123456789', true);
+    const token = store.get('accessToken');
+    console.log(token);
+    // TODO: Implement!
+    if (!token) {
+      throw Error('No token in store. Needs login!');
+    }
+
+    api.setAccessToken(token);
+
+    try {
+      await api.createTeam(this.state.selectedEvent, {
+        name: this.state.teamName,
+        description: ''
+      });
+      this.props.nextStep();
+    } catch (err) {
+      // TODO!!
+      throw err;
+    }
+
+  }
 
   render() {
     return (
@@ -126,7 +125,7 @@ export default class CreateOrJoinTeam extends React.Component {
                        onChange={this.handleChange.bind(this)}/>
         </FormGroup>
 
-        <FormGroup controlId="eventname" validationState={'error'}>
+        <FormGroup controlId="selectedEvent" validationState={'error'}>
           <ControlLabel>
             Event
           </ControlLabel>
@@ -134,10 +133,12 @@ export default class CreateOrJoinTeam extends React.Component {
                        placeholder="Wähle aus, von welchem Standort du starten möchtest"
                        onChange={this.handleChange.bind(this)}>
 
-                       {testEventData.map((event) => <option value={event.title}>{event.title}</option>)}
+            {this.state.events.map((event) => <option key={event.id}
+                                                      value={event.id}>{event.title}</option>)}
+
           </FormControl>
         </FormGroup>
-       <FormGroup controlId="partnerEmail" validationState={'error'}>
+        <FormGroup controlId="partnerEmail" validationState={'error'}>
           <ControlLabel>
             Email deines Teampartners
           </ControlLabel>
@@ -149,44 +150,56 @@ export default class CreateOrJoinTeam extends React.Component {
 
         <br />
 
-        <Row>
-          <Col xs={12} style={{textAlign: 'center'}}>
-            <Button bsStyle="primary">
-              Team erstellen und Anmeldung abschließen
-            </Button>
-          </Col>
-        </Row>
+        <FullscreenCenteredButton bsStyle="primary" onClick={this.createTeam.bind(this)}>
+          Team erstellen und Anmeldung abschließen
+        </FullscreenCenteredButton>
 
         <hr/>
 
-        <div className="alert alert-info">
-          Du hast Einladungen zu einem Team
-        </div>
+        <InvitationInfo invitations={this.state.invitations}/>
 
-        <form>
-
-          <div className="well well-sm">
-            <div className="row">
-              <div className="col-sm-1" style={{verticalAlign: 'center', textAlign: 'center'}}>
-                <input type="checkbox"/>
-              </div>
-              <div className="col-sm-11">
-                <b>Team Mui Bien in Barcelona 2017 beitreten</b>
-                <br/>Du wurdest von Florian Schmidt eingeladen (florian.schmidt.1994@icloud.com)
-              </div>
-            </div>
-          </div>
-
-        </form>
-
-        <Row>
-          <Col xs={12} style={{textAlign: 'center'}}>
-            <Button bsStyle="primary">
-              Dem ausgewählten Team beitreten
-            </Button>
-          </Col>
-        </Row>
       </div>
     );
   }
 }
+
+const InvitationInfo = (props) => {
+  if (props.invitations.length > 0) {
+
+    return (
+      <span>
+        <div className="alert alert-info">
+          Du wurdest zu {props.invitations.length} Teams eingeladen
+        </div>
+        {this.state.invitations.map(invitation => <Invitation key={invitation.id}
+                                                              data={invitation}/>)}
+        <FullscreenCenteredButton bsStyle="primary">
+          Dem ausgewählten Team beitreten
+        </FullscreenCenteredButton>
+      </span>
+    );
+
+  } else {
+
+    return (
+      <div className="alert alert-warning">
+        Du hast aktuell noch keine Einladungen
+      </div>
+    );
+
+  }
+};
+
+const FullscreenCenteredButton = (props) => {
+  return (
+    <Row>
+      <Col xs={12}
+           style={{textAlign: 'center'}}>
+        <Button bsStyle={props.bsStyle}
+                onClick={props.onClick}>
+          {props.children}
+        </Button>
+      </Col>
+    </Row>
+  );
+};
