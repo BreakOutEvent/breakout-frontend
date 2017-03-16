@@ -55,6 +55,32 @@ export default class BecomeParticipant extends React.Component {
     }
   }
 
+  register() {
+    const userData = {
+      firstname: this.state.firstname,
+      lastname: this.state.lastname,
+      tshirtSize: this.state.tshirtSize,
+      contactNumber: this.state.contactNumber,
+      emergencyNumber: this.state.emergencyNumber
+    };
+
+    var fakePromise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve();
+    }, 200);
+    });;
+
+    fakePromise
+      .then(() => {
+        // this.props.nextStep();
+        this.setState({
+          registrationError: false,
+          registrationSuccess: true
+        });
+      })
+      .catch((err) => this.setState({registrationError: err}));
+  }
+
   render() {
     return (
       <div>
@@ -153,7 +179,7 @@ export default class BecomeParticipant extends React.Component {
 
           <Row>
             <Col xs={12} style={{textAlign: 'center'}}>
-              <Button bsStyle="primary">
+              <Button bsStyle="primary" onClick={this.register.bind(this)}>
                 Nächster Schritt
               </Button>
             </Col>
