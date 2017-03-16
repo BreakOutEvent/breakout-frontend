@@ -9,7 +9,8 @@ import {
   Alert,
 } from 'react-bootstrap';
 
-import axios from 'axios';
+import BreakoutApi from '../BreakoutApi';
+import store from 'store';
 
 const colors = {
   primary: '#E6823C',
@@ -53,6 +54,10 @@ export default class CreateAccount extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.api = new BreakoutApi('http://localhost:8082/', 'breakout_app', '123456789', true);
+  }
+
   emailChanged(e) {
     this.setState({
       email: e.target.value
@@ -82,23 +87,23 @@ export default class CreateAccount extends React.Component {
   }
 
   register() {
-    this.createAccount(this.state.email, this.state.password)
-      .then(() => {
-        this.props.nextStep();
-        this.setState({
-          registrationError: false,
-          registrationSuccess: true
-        });
+    this.api.createAccount(this.state.email, this.state.password)
+      .then((userAccount) => {
+        return this.api.login(this.state.email, this.state.password)
+          .then((data) => {
+
+            store.set('userId', userAccount.id);
+            store.set('accessToken', data.access_token);
+
+            this.props.nextStep();
+
+            this.setState({
+              registrationError: false,
+              registrationSuccess: true
+            });
+          });
       })
       .catch((err) => this.setState({registrationError: err}));
-  }
-
-  // TODO: Move to api client
-  createAccount(email, password) {
-    return axios.post('http://localhost:8082/user', {
-      email: email,
-      password: password
-    });
   }
 
   alertIfNeeded() {
@@ -155,7 +160,7 @@ export default class CreateAccount extends React.Component {
             Wähle deine Account Rolle, die du bei BreakOut einnehmen möchtest. Du kannst diese
             später jederzeit wechseln!
           </Col>
-        </Row>,
+        </Row>
         <br/>
 
         <form>

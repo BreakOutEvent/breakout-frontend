@@ -100,4 +100,4 @@ class BreakoutApi {
 
 }
 
-
+module.exports = BreakoutApi;
