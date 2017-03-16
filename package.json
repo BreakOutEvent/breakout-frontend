@@ -32,7 +32,7 @@
   "dependencies": {
     "axios": "latest",
     "babel-polyfill": "^6.23.0",
-    "bluebird": "^3.3.4",
+    "bluebird": "^3.5.0",
     "body-parser": "^1.14.2",
     "bunyan": "^1.8.0",
     "co": "^4.6.0",
