@@ -1,4 +1,4 @@
-import BreakoutApi from "../BreakoutApi";
+import BreakoutApi from '../BreakoutApi';
 
 import React from 'react';
 import {
@@ -13,6 +13,8 @@ import {
   Checkbox
 } from 'react-bootstrap';
 
+import store from 'store';
+
 export default class BecomeParticipant extends React.Component {
 
   constructor(props) {
@@ -23,16 +25,16 @@ export default class BecomeParticipant extends React.Component {
   handleChange(event) {
 
     const target = event.target;
-    var value = '';
+    let value = '';
 
-    if(target.type === "select-one"){
+    if (target.type === 'select-one') {
       value = target.options[target.selectedIndex].text;
     }
-    else if( target.type === 'checkbox'){
-      value =  target.checked;
+    else if (target.type === 'checkbox') {
+      value = target.checked;
     }
     else {
-      value =  target.value;
+      value = target.value;
     }
 
     const id = target.id;
@@ -70,7 +72,8 @@ export default class BecomeParticipant extends React.Component {
     }
   }
 
-  register() {
+  async register() {
+
     const userData = {
       firstname: this.state.firstname,
       lastname: this.state.lastname,
@@ -81,17 +84,21 @@ export default class BecomeParticipant extends React.Component {
       }
     };
 
-    var api = new BreakoutApi("https://backend.break-out.org", "", "", true);
-    api.login("nico.scordialo@break-out.org", "12345");
-    api.becomeParticipant("backend.break-out.org", userData)
-      .then(() => {
-        // this.props.nextStep();
-        this.setState({
-          registrationError: false,
-          registrationSuccess: true
-        });
-      })
-      .catch((err) => this.setState({registrationError: err}));
+    let api = new BreakoutApi('http://localhost:8082', 'breakout_app', '123456789', true);
+
+    api.setAccessToken(store.get('accessToken'));
+
+    try {
+      await api.becomeParticipant(store.get('userId'), userData)
+      this.setState({
+        registrationError: false,
+        registrationSuccess: true
+      });
+      this.props.nextStep();
+
+    } catch (err) {
+      this.setState({registrationError: err});
+    }
   }
 
   render() {
@@ -103,7 +110,7 @@ export default class BecomeParticipant extends React.Component {
             <Col sm={12}>
               <ButtonGroup>
                 <Button id="male"
-                        onClick={this.selectGender.bind(this)}c
+                        onClick={this.selectGender.bind(this)} c
                         className={this.getStyleForGender('male')}>
                   Männlich
                 </Button>
@@ -142,7 +149,7 @@ export default class BecomeParticipant extends React.Component {
             </ControlLabel>
             <FormControl componentClass="select"
                          placeholder="Wähle eine Tshirtgröße aus"
-                        onChange={this.handleChange.bind(this)}>
+                         onChange={this.handleChange.bind(this)}>
               <option value="s">S</option>
               <option value="m">M</option>
               <option value="l">L</option>
