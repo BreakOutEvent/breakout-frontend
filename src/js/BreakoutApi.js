@@ -98,6 +98,47 @@ class BreakoutApi {
     return this.instance.put(`/user/${userId}/`, userData).then(resp => resp.data);
   }
 
+  /**
+   * Get all events for breakout
+   *
+   * @return {*|AxiosPromise} An array of events
+   */
+  getAllEvents() {
+    return this.instance.get('/event/').then(resp => resp.data);
+  }
+
+  /**
+   * Get all invitations for the authenticated user for a specific event
+   *
+   * The user needs to be authenticated (via login() or setAccessToken())
+   *
+   * @param eventId The id of the event for which we want to see all invitations
+   * @return {*|AxiosPromise} An array of events
+   */
+  getInvitations(eventId) {
+    return this.instance.get(`/event/${eventId}/team/invitation/`).then(resp => resp.data);
+  }
+
+  /**
+   * Creates a new team at a specific event
+   *
+   * The user needs to be authenticated (via login() or setAccessToken())
+   *
+   * @param eventId
+   * @param teamData
+   *
+   * {
+   *    "name": "what an awesome teamname",
+   *    "description": "Description of this team"
+   * }
+   *
+   * @return {*|AxiosPromise} An object containing all the data for a newly created team
+   *
+   */
+  createTeam(eventId, teamData) {
+    return this.instance.post(`/event/${eventId}/team/`, teamData).then(resp => resp.data);
+  }
+
 }
 
 module.exports = BreakoutApi;
