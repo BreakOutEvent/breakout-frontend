@@ -67,7 +67,8 @@
     "request": "^2.67.0",
     "socket.io": "^1.4.6",
     "sticky-cluster": "^0.1.2",
-    "winston": "^2.3.0"
+    "winston": "^2.3.0",
+    "axios": "latest"
   },
   "devDependencies": {
     "ansi2html-extended": "0.0.4",

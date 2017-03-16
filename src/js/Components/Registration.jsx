@@ -31,24 +31,27 @@ export default class Registration extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      step: 'createAccount'
+      step: 'createOrJoinTeam'
     };
 
     this.steps = {
       createAccount: {
         order: 1,
         title: 'Registrieren',
-        breadcrumb: 'Registrieren'
+        breadcrumb: 'Registrieren',
+        next: 'becomeParticipant'
       },
       becomeParticipant: {
         order: 2,
         title: 'Deine Teilnehmerdaten',
-        breadcrumb: 'Teilnehmerdaten'
+        breadcrumb: 'Teilnehmerdaten',
+        next: 'createOrJoinTeam'
       },
       createOrJoinTeam: {
         order: 3,
-        title: 'Ein Team erstellen oder einem Team beitreten',
-        breadcrumb: 'Team erstellen oder beitreten'
+        title: 'Ein Team erstellen',
+        breadcrumb: 'Team erstellen',
+        next: null
       }
     };
   }
@@ -65,6 +68,14 @@ export default class Registration extends React.Component {
     return this.state.step === step;
   }
 
+  nextStep() {
+    setTimeout(() => {
+      this.setState({
+        step: this.steps[this.state.step].next
+      });
+    }, 1000);
+  }
+
   transitionTo(step) {
     if (!this.isActive(step)) {
       this.setState({
@@ -76,11 +87,11 @@ export default class Registration extends React.Component {
   currentStep() {
     switch (this.state.step) {
       case 'createAccount':
-        return <CreateAccount/>;
+        return <CreateAccount nextStep={this.nextStep.bind(this)}/>;
       case 'becomeParticipant':
-        return <BecomeParticipant/>;
+        return <BecomeParticipant nextStep={this.nextStep.bind(this)}/>;
       case 'createOrJoinTeam':
-        return <CreateOrJoinTeam/>;
+        return <CreateOrJoinTeam nextStep={this.nextStep.bind(this)}/>;
       default:
         return null;
     }

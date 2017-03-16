@@ -36,6 +36,7 @@ class TeamController {
 
     let teamId = parseInt(req.params.teamId);
 
+    // TODO: Remove this dirty hack!
     if (teamId === 103) {
       res.status(404);
       return res.render('error', {

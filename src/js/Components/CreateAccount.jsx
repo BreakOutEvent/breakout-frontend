@@ -9,6 +9,15 @@ import {
   Alert,
 } from 'react-bootstrap';
 
+import axios from 'axios';
+
+const colors = {
+  primary: '#E6823C',
+  secondary: '#34323B',
+  brand: '#3F8FAE',
+  logo: '#EAE79E'
+};
+
 const RoleSelector = (props) => {
 
   const style = {
@@ -17,8 +26,13 @@ const RoleSelector = (props) => {
     border: '1px solid'
   };
 
+  if (props.selected) {
+    style.backgroundColor = colors.primary;
+    style.color = colors.secondary;
+  }
+
   return (
-    <Col sm={4} style={style}>
+    <Col sm={4} style={style} onClick={props.onClick}>
       <b>{props.title}</b>
       <p>{props.body}</p>
     </Col>
@@ -68,13 +82,36 @@ export default class CreateAccount extends React.Component {
   }
 
   register() {
+    this.createAccount(this.state.email, this.state.password)
+      .then(() => {
+        this.props.nextStep();
+        this.setState({
+          registrationError: false,
+          registrationSuccess: true
+        });
+      })
+      .catch((err) => this.setState({registrationError: err}));
+  }
+
+  // TODO: Move to api client
+  createAccount(email, password) {
+    return axios.post('http://localhost:8082/user', {
+      email: email,
+      password: password
+    });
   }
 
   alertIfNeeded() {
     if (this.state.registrationError) {
       return (
         <Alert bsStyle="warning">
-          Something went wrong: + {this.state.registrationError.message}
+          Something went wrong: {this.state.registrationError.message}
+        </Alert>
+      );
+    } else if (this.state.registrationSuccess) {
+      return (
+        <Alert bsStyle="success">
+          Account erfolgreich erstellt. Auf zum nächsten Schritt!
         </Alert>
       );
     } else {
@@ -86,9 +123,30 @@ export default class CreateAccount extends React.Component {
     return (
       <div>
         <Row>
-          <RoleSelector title="Zuschauer" body="Kommentieren von Beiträgen"/>
-          <RoleSelector title="Teilnehmer" body="Melde dich für BreakOut 2017 an"/>
-          <RoleSelector title="Sponsor" body="Unterstütze dein favorisiertes Team 2017"/>
+          <RoleSelector title="Zuschauer" body="Kommentieren von Beiträgen"
+                        selected={this.state.selectedRole === 'VIEWER'}
+                        onClick={() => {
+                          this.setState({
+                            selectedRole: 'VIEWER'
+                          });
+                        }}/>
+
+          <RoleSelector title="Teilnehmer" body="Melde dich für BreakOut 2017 an"
+                        selected={this.state.selectedRole === 'PARTICIPANT'}
+                        onClick={() => {
+                          this.setState({
+                            selectedRole: 'PARTICIPANT'
+                          });
+                        }}/>
+
+          <RoleSelector title="Sponsor" body="Unterstütze dein favorisiertes Team 2017"
+                        selected={this.state.selectedRole === 'SPONSOR'}
+                        onClick={() => {
+                          this.setState({
+                            selectedRole: 'SPONSOR'
+                          });
+                        }}/>
+
         </Row>
 
         <br/>
@@ -97,7 +155,7 @@ export default class CreateAccount extends React.Component {
             Wähle deine Account Rolle, die du bei BreakOut einnehmen möchtest. Du kannst diese
             später jederzeit wechseln!
           </Col>
-        </Row>
+        </Row>,
         <br/>
 
         <form>
@@ -106,7 +164,7 @@ export default class CreateAccount extends React.Component {
               Deine Email-Adresse
             </ControlLabel>
             <FormControl type="text"
-                         value={this.state.emailValue}
+                         value={this.state.email}
                          placeholder="Enter Email"
                          onChange={this.emailChanged.bind(this)}>
             </FormControl>
