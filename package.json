@@ -6,7 +6,7 @@
   "scripts": {
     "postinstall": "npm run build",
     "prestart": "npm run build",
-    "build": "grunt",
+    "build": "grunt && webpack",
     "start": "node app.js",
     "test": "mocha tests/",
     "log:info": "cd logs && cat info.log | npm run bunyan -s",

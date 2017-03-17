@@ -68,7 +68,6 @@ module.exports = function (grunt) {
           'public/js/team.js': ['src/js/team.js'],
           'public/js/liveblog.js': ['src/js/liveblog.js'],
           'public/js/landingpage.js': ['src/js/landingpage.js'],
-          'public/js/reactTest.js': ['src/js/reactTest.jsx']
         }
       }
     },
