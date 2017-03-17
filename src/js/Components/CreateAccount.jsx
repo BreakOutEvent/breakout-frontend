@@ -60,7 +60,7 @@ export default class CreateAccount extends React.Component {
         this.api = api;
       })
       .catch(err => {
-        this.props.onError(error);
+        this.props.onError(err);
       });
   }
 
