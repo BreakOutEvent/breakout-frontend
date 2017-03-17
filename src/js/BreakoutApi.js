@@ -18,6 +18,10 @@ class BreakoutApi {
     }
   }
 
+  static initFromServer() {
+    // axios.get(`${window.location}`)
+  }
+
   registerDebugInterceptor() {
     this.instance.interceptors.request.use(config => {
       // TODO: use logger
@@ -137,6 +141,33 @@ class BreakoutApi {
    */
   createTeam(eventId, teamData) {
     return this.instance.post(`/event/${eventId}/team/`, teamData).then(resp => resp.data);
+  }
+
+  getMe() {
+    return this.instance.get('/me/').then(resp => resp.data);
+  }
+
+  async joinTeam(teamId) {
+
+
+    const me = await this.getMe();
+
+    // This hack is needed because request needs some sort of eventId, no matter which one
+    // TODO: Fix in backend and then here!
+    const events = await this.getAllEvents();
+    const someEventId = events[0].id;
+
+    const response = await this.instance.post(`/event/${someEventId}/team/${teamId}/member/`, {
+      email: me.email
+    });
+
+    return response.data;
+  }
+
+  getTeamById(teamId) {
+    // -1 as event id, because the route needs param here but not checked in backend
+    // TODO: Fix in backend and then here!
+    return this.instance.get(`/event/-1/team/${teamId}`).then(resp => resp.data);
   }
 
 }
