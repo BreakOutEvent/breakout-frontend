@@ -72,7 +72,7 @@ export default class BecomeParticipant extends React.Component {
       }
     };
 
-    let api = new BreakoutApi('http://localhost:8082', 'breakout_app', '123456789', true);
+    let api = await BreakoutApi.initFromServer();
 
     api.setAccessToken(store.get('accessToken'));
 

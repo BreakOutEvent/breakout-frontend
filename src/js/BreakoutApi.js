@@ -19,7 +19,12 @@ class BreakoutApi {
   }
 
   static initFromServer() {
-    // axios.get(`${window.location}`)
+    const url = `${window.location.protocol}//${window.location.hostname}:${window.location.port || 80}/client-config`;
+    return axios.get(url)
+      .then(resp => resp.data)
+      .then(data => {
+        return new BreakoutApi(data.baseUrl, data.clientId, data.clientSecret, true);
+      });
   }
 
   registerDebugInterceptor() {

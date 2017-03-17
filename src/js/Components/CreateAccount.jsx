@@ -55,7 +55,13 @@ export default class CreateAccount extends React.Component {
   }
 
   componentDidMount() {
-    this.api = new BreakoutApi('http://localhost:8082/', 'breakout_app', '123456789', true);
+    BreakoutApi.initFromServer()
+      .then(api => {
+        this.api = api;
+      })
+      .catch(err => {
+        this.props.onError(error);
+      });
   }
 
   emailChanged(e) {

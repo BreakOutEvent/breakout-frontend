@@ -48,7 +48,7 @@ export default class CreateOrJoinTeam extends React.Component {
   }
 
   async componentDidMount() {
-    const api = new BreakoutApi('http://localhost:8082', 'breakout_app', '123456789', true);
+    const api = await BreakoutApi.initFromServer();
     const token = store.get('accessToken');
     console.log(token);
     // TODO: Implement!
@@ -68,7 +68,7 @@ export default class CreateOrJoinTeam extends React.Component {
 
   async createTeam() {
 
-    const api = new BreakoutApi('http://localhost:8082', 'breakout_app', '123456789', true);
+    const api = new BreakoutApi.initFromServer();
     const token = store.get('accessToken');
     console.log(token);
 
@@ -94,7 +94,7 @@ export default class CreateOrJoinTeam extends React.Component {
   }
 
   async joinTeam() {
-    const api = new BreakoutApi('http://localhost:8082', 'breakout_app', '123456789', true);
+    const api = BreakoutApi.initFromServer();
     const token = store.get('accessToken');
     console.log(token);
 
