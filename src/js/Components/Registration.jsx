@@ -31,7 +31,9 @@ export default class Registration extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      step: 'createOrJoinTeam'
+      step: 'createAccount',
+      error: null,
+      visible: this.props.visible
     };
 
     this.steps = {
@@ -51,7 +53,13 @@ export default class Registration extends React.Component {
         order: 3,
         title: 'Ein Team erstellen',
         breadcrumb: 'Team erstellen',
-        next: null
+        next: 'success'
+      },
+      success: {
+        order: 4,
+        title: 'Erfolgreich registiert!',
+        breadcrumb: '',
+        next: 'success'
       }
     };
   }
@@ -68,10 +76,35 @@ export default class Registration extends React.Component {
     return this.state.step === step;
   }
 
+  onError(error) {
+    this.setState({
+      error: error
+    });
+  }
+
+  createErrorMessage() {
+    if (!this.state.error) {
+      return null;
+    }
+
+    return (
+      <div className="alert alert-warning" style={{textAlign: 'left'}}>
+        Es ist ein Fehler aufgetreten: {this.parseError(this.state.error)}
+      </div>
+    );
+  }
+
+  parseError(error) {
+    if (error != null) {
+      return error.message || JSON.stringify(error);
+    }
+  }
+
   nextStep() {
     setTimeout(() => {
       this.setState({
-        step: this.steps[this.state.step].next
+        step: this.steps[this.state.step].next,
+        error: null
       });
     }, 1000);
   }
@@ -87,11 +120,16 @@ export default class Registration extends React.Component {
   currentStep() {
     switch (this.state.step) {
       case 'createAccount':
-        return <CreateAccount nextStep={this.nextStep.bind(this)}/>;
+        return <CreateAccount nextStep={this.nextStep.bind(this)}
+                              onError={this.onError.bind(this)}/>;
       case 'becomeParticipant':
-        return <BecomeParticipant nextStep={this.nextStep.bind(this)}/>;
+        return <BecomeParticipant nextStep={this.nextStep.bind(this)}
+                                  onError={this.onError.bind(this)}/>;
       case 'createOrJoinTeam':
-        return <CreateOrJoinTeam nextStep={this.nextStep.bind(this)}/>;
+        return <CreateOrJoinTeam nextStep={this.nextStep.bind(this)}
+                                 onError={this.onError.bind(this)}/>;
+      case 'success':
+        return <div>Wuuhuu, willkommen an Bord!</div>;
       default:
         return null;
     }
@@ -99,10 +137,11 @@ export default class Registration extends React.Component {
 
   render() {
     return (
-      <Modal show={this.props.visible}>
+      <Modal show={this.state.visible}
+             onHide={() => this.setState({visible: false})}>
         <Modal.Header style={{
           paddingTop: '20px'
-        }}>
+        }} closeButton>
           <Row style={{textAlign: 'center'}}>
             <Breadcrumb style={{
               backgroundColor: 'transparent'
@@ -110,17 +149,13 @@ export default class Registration extends React.Component {
 
               <RegistrationBreadcrumbItem
                 text={this.getBreadcrumbTextForStep('createAccount')}
-                onClick={() => {
-                  this.transitionTo('createAccount');
-                }}
+                onClick={() => this.transitionTo('createAccount')}
                 active={this.isActive('createAccount')}
               />
 
               <RegistrationBreadcrumbItem
                 text={this.getBreadcrumbTextForStep('becomeParticipant')}
-                onClick={() => {
-                  this.transitionTo('becomeParticipant');
-                }}
+                onClick={() => this.transitionTo('becomeParticipant')}
                 active={this.isActive('becomeParticipant')}
               />
 
@@ -137,6 +172,10 @@ export default class Registration extends React.Component {
         <Modal.Body>
           {this.currentStep()}
         </Modal.Body>
+
+        <Modal.Footer>
+          {this.createErrorMessage()}
+        </Modal.Footer>
       </Modal>
     );
   }

@@ -94,33 +94,13 @@ export default class CreateAccount extends React.Component {
       store.set('userId', userAccount.id);
       store.set('accessToken', data.access_token);
 
-      this.setState({
-        registrationError: false,
-        registrationSuccess: true
-      });
-
       this.props.nextStep();
 
     } catch (err) {
-      this.setState({registrationError: err});
+      this.props.onError(err);
     }
   }
 
-  alertIfNeeded() {
-    if (this.state.registrationError) {
-      return (
-        <Alert bsStyle="warning">
-          Something went wrong: {this.state.registrationError.message}
-        </Alert>
-      );
-    } else if (this.state.registrationSuccess) {
-      return (
-        <Alert bsStyle="success">
-          Account erfolgreich erstellt. Auf zum nächsten Schritt!
-        </Alert>
-      );
-    } else {
-      return null;
     }
   }
 
@@ -185,10 +165,6 @@ export default class CreateAccount extends React.Component {
             </FormControl>
           </FormGroup>
         </form>
-
-        <Row>
-          {this.alertIfNeeded()}
-        </Row>
 
         <Row>
           <Col xs={12} style={{textAlign: 'center'}}>

@@ -60,18 +60,6 @@ export default class BecomeParticipant extends React.Component {
     }
   }
 
-  alertIfNeeded() {
-    if (this.state.registrationError) {
-      return (
-        <Alert bsStyle="warning">
-          Something went wrong: + {this.state.registrationError.message}
-        </Alert>
-      );
-    } else {
-      return null;
-    }
-  }
-
   async register() {
 
     const userData = {
@@ -89,15 +77,11 @@ export default class BecomeParticipant extends React.Component {
     api.setAccessToken(store.get('accessToken'));
 
     try {
-      await api.becomeParticipant(store.get('userId'), userData)
-      this.setState({
-        registrationError: false,
-        registrationSuccess: true
-      });
+      await api.becomeParticipant(store.get('userId'), userData);
       this.props.nextStep();
 
     } catch (err) {
-      this.setState({registrationError: err});
+      this.props.onError(err);
     }
   }
 
@@ -196,10 +180,6 @@ export default class BecomeParticipant extends React.Component {
             </Checkbox>
 
           </FormGroup>
-
-          <Row>
-            {this.alertIfNeeded()}
-          </Row>
 
           <Row>
             <Col xs={12} style={{textAlign: 'center'}}>
