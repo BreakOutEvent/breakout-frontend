@@ -101,6 +101,16 @@ export default class CreateAccount extends React.Component {
     }
   }
 
+  async login() {
+    try {
+      const tokens = await this.api.login(this.state.email, this.state.password);
+      const me = await this.api.getMe();
+
+      store.set('userId', me.id);
+      store.set('accessToken', tokens.access_token);
+      this.props.nextStep();
+    } catch (err) {
+      this.props.onError(err);
     }
   }
 
@@ -175,8 +185,9 @@ export default class CreateAccount extends React.Component {
           <br/>
           <Col xs={12} style={{textAlign: 'center', paddingTop: '10px'}}>
             <Button bsStyle="primary"
-                    style={{backgroundColor: 'transparent', 'border': 'none', color: 'grey'}}>
-              Du hast bereits einen Account?
+                    style={{backgroundColor: 'transparent', 'border': 'none', color: 'grey'}}
+                    onClick={this.login.bind(this)}>
+              Einloggen
             </Button>
           </Col>
         </Row>
