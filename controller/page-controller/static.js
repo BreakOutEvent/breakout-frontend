@@ -85,14 +85,18 @@ class StaticController {
     const data = yield Promise.all([
       contentful.getFieldsForContentType('testimonials', req.contentfulLocale),
       contentful.getFieldsForContentType('pressMaterials', req.contentfulLocale),
-      contentful.getFieldsForContentType('pressReview', req.contentfulLocale)
+      contentful.getFieldsForContentType('pressReview', req.contentfulLocale),
+      contentful.getFieldsForContentType('presspage', req.contentfulLocale),
     ]);
+
+    console.log(data[3]);
 
     const options = extendDefaultOptions(req, {
       title: 'Press',
       testimonials: data[0],
       pressMaterials: data[1],
-      pressReviews: data[2]
+      pressReviews: data[2],
+      pressPage: data[3][0]
     });
 
     res.render('static/content/press', options);

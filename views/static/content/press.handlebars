@@ -2,7 +2,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1>{{__ 'PRESS_HEADING'}}</h1>
+            <h1>{{pressPage.pageTitle}}</h1>
             <hr>
         </div>
     </div>
@@ -30,7 +30,7 @@
             <div class="row">
                 <div class="col-md-10">
                     <!-- TODO: i18n!! -->
-                    <h2>Pressematerialien</h2>
+                    <h2>{{pressPage.pressMaterialTitler}}</h2>
                 </div>
             </div>
 
@@ -65,11 +65,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <!--TODO: i18n-->
-                    <h2>Kontakt</h2>
+                    <h2>{{pressPage.contactTitle}}</h2>
                     <p>
-                        Bei Interviewanfragen oder falls sie zusätzliches Material benötigen,
-                        melden Sie sich gerne bei
-                        <a href="mailto:denise.ludwig@break-out.org">Denise Ludwig</a>
+                        {{{md pressPage.contactInfo}}}
                     </p>
                 </div>
             </div>
