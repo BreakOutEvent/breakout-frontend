@@ -68,7 +68,7 @@ export default class CreateOrJoinTeam extends React.Component {
 
   async createTeam() {
 
-    const api = new BreakoutApi.initFromServer();
+    const api = await BreakoutApi.initFromServer();
     const token = store.get('accessToken');
     console.log(token);
 
@@ -81,11 +81,15 @@ export default class CreateOrJoinTeam extends React.Component {
     api.setAccessToken(token);
 
     try {
-      await api.createTeam(this.state.selectedEvent, {
+
+      const createdTeam = await api.createTeam(this.state.selectedEvent, {
         name: this.state.teamName,
         description: ''
       });
+
+      await api.inviteToTeam(createdTeam.id, this.state.partnerEmail);
       this.props.nextStep();
+
     } catch (err) {
       // TODO!!
       throw err;
@@ -94,7 +98,7 @@ export default class CreateOrJoinTeam extends React.Component {
   }
 
   async joinTeam() {
-    const api = BreakoutApi.initFromServer();
+    const api = await BreakoutApi.initFromServer();
     const token = store.get('accessToken');
     console.log(token);
 

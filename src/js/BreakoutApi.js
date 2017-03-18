@@ -172,7 +172,20 @@ class BreakoutApi {
   getTeamById(teamId) {
     // -1 as event id, because the route needs param here but not checked in backend
     // TODO: Fix in backend and then here!
-    return this.instance.get(`/event/-1/team/${teamId}`).then(resp => resp.data);
+    return this.instance.get(`/event/-1/team/${teamId}/`).then(resp => resp.data);
+  }
+
+  async inviteToTeam(teamId, email) {
+
+    const team = await this.getTeamById(teamId);
+    const event = team.event;
+
+    const data = {
+      email: email
+    };
+    console.log(data);
+    const response = await this.instance.post(`/event/${event}/team/${teamId}/invitation/`, data);
+    return response.data;
   }
 
 }
