@@ -89,8 +89,6 @@ class StaticController {
       contentful.getFieldsForContentType('presspage', req.contentfulLocale),
     ]);
 
-    console.log(data[3]);
-
     const options = extendDefaultOptions(req, {
       title: 'Press',
       testimonials: data[0],
