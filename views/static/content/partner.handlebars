@@ -15,11 +15,13 @@
         {{#each this.sponsors}}
 
             <div class="row top30">
-                <div class="col-md-2">
-                    <br>
-                    <img src="{{this.logo.fields.file.url}}" class="img-responsive img-rounded" style="vertical-align: bottom">
-                </div>
-                <div class="col-md-10">
+                <br>
+                <a href="{{this.website}}">
+                    <img src="{{this.logo.fields.file.url}}"
+                         class="center-block img-responsive img-rounded"
+                         style="vertical-align: bottom; max-height: 300px;">
+                </a>
+                <div class="row" style="text-align: center">
                     <h3>{{this.name}}</h3>
                     <p>{{this.description}}</p>
                 </div>

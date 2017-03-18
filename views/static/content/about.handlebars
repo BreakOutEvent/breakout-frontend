@@ -203,24 +203,26 @@
     </section>
 
     <section class="row landing-page-section">
-        <div class="col-xs-12" style="text-align: center">
-            <h3>{{this.sponsorsHeadline}}</h3>
+        <div class="container">
+            <div class="col-xs-12" style="text-align: center">
+                <h3>{{this.sponsorsHeadline}}</h3>
+            </div>
+            <div class="row">
+                {{#each this.sponsors}}
+                    <div class="col-md-12">
+                        <a href="{{this.website}}">
+                            <img class="center-block img-responsive" style="max-height: 300px !important;"
+                                 src="{{this.logo.fields.file.url}}">
+                        </a>
+                    </div>
+                {{/each}}
+            </div>
+            <div class="col-xs-12" style="text-align: center; padding-top: 20px">
+                <a href="{{this.sponsorsButtonLink}}">
+                    <button class="btn btn-primary">{{this.sponsorsButtonText}}</button>
+                </a>
+            </div>
         </div>
-        <div class="row">
-            {{#each this.sponsors}}
-                <div class="col-md-12">
-                    <a href="{{this.website}}">
-                        <img class="center-block img-responsive" height="300" src="{{this.logo.fields.file.url}}">
-                    </a>
-                </div>
-            {{/each}}
-        </div>
-        <div class="col-xs-12" style="text-align: center; padding-top: 20px">
-            <a href="{{this.sponsorsButtonLink}}">
-                <button class="btn btn-primary">{{this.sponsorsButtonText}}</button>
-            </a>
-        </div>
-
     </section>
 </div>
 
