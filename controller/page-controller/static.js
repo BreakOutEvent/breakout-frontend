@@ -208,22 +208,6 @@ class StaticController {
     res.render('static/content/codeOfHonour', options);
   }
 
-  static *renderGetInvolvedPage(req, res) {
-
-    let data = yield Promise.all([
-      contentful.getFieldsForContentType('mitmachenSeite', req.contentfulLocale),
-    ]);
-
-    const page = data[0][0];
-
-    let options = extendDefaultOptions(req, {
-      page: page,
-      image: page.image.fields.file.url
-    });
-
-    res.render('static/content/getInvolved', options);
-  }
-
   static *renderImprint(req, res) {
     let data = yield contentful.getFieldsForContentType('imprint', req.contentfulLocale);
 
