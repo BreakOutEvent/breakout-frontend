@@ -2,17 +2,47 @@
 <div class="container">
 
     <div class="row">
-        <div class="col-md-12">
-            <!-- Heading -->
-            <h1>FAQ</h1>
-            <hr>
-              {{#each faqs}}
-                <h4 class="bo-faq-question"> {{this.headline}} </h4>
-                <p>  {{{md this.questionsAndAnswers}}} </p>
-              {{/each}}
-            <div class="row top30">
-                <div class="col-md-12"></div>
+    <div class="col-md-12">
+        <!-- Heading -->
+        <h1>FAQ</h1>
+        <hr>
+        {{#each faqs}}
+
+            {{#isEven}}
+            <div class="row">
+                <div class="col-sm-6 top30">
+                    <h4 class="bo-faq-question"> {{this.headline}} </h4>
+                    <p>  {{{md this.questionsAndAnswers}}} </p>
+                </div>
+            {{/isEven}}
+
+            {{#isOdd}}
+                <div class="col-sm-6 top30">
+                    <h4 class="bo-faq-question"> {{this.headline}} </h4>
+                    <p>  {{{md this.questionsAndAnswers}}} </p>
+                </div>
             </div>
+            {{/isOdd}}
+
+            {{#isLast}}
+                <div class="col-sm-6 top30">
+                    <h4 class="bo-faq-question"> {{this.headline}} </h4>
+                    <p>  {{{md this.questionsAndAnswers}}} </p>
+                </div>
+            </div>
+            {{/isLast}}
+
+
+        {{/each}}
+        <div class="row top30">
+            <div class="col-md-12"></div>
+        </div>
+        <div class="row top30">
+            <div class="col-md-12"></div>
+        </div>
+        <div class="row top30">
+            <div class="col-md-12"></div>
         </div>
     </div>
+</div>
 </div>

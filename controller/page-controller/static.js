@@ -85,14 +85,16 @@ class StaticController {
     const data = yield Promise.all([
       contentful.getFieldsForContentType('testimonials', req.contentfulLocale),
       contentful.getFieldsForContentType('pressMaterials', req.contentfulLocale),
-      contentful.getFieldsForContentType('pressReview', req.contentfulLocale)
+      contentful.getFieldsForContentType('pressReview', req.contentfulLocale),
+      contentful.getFieldsForContentType('presspage', req.contentfulLocale),
     ]);
 
     const options = extendDefaultOptions(req, {
       title: 'Press',
       testimonials: data[0],
       pressMaterials: data[1],
-      pressReviews: data[2]
+      pressReviews: data[2],
+      pressPage: data[3][0]
     });
 
     res.render('static/content/press', options);
@@ -114,17 +116,23 @@ class StaticController {
 
     const data = yield Promise.all([
       contentful.getFieldsForContentType('members', req.contentfulLocale),
-      contentful.getFieldsForContentType('teammitglieder', req.contentfulLocale)
+      contentful.getFieldsForContentType('teammitglieder', req.contentfulLocale),
+      contentful.getFieldsForContentType('ausschreibungen', req.contentfulLocale)
     ]);
 
     const fields = data[0][0];
     const members = data[1];
+    const openings = data[2];
 
     let options = extendDefaultOptions(req, {
-      title: fields.title,
-      headline: fields.headline,
-      description: fields.description,
-      teamImage: fields.teamImage,
+      titelAbout: fields.titelAbout,
+      teambeschreibung: fields.teambeschreibung,
+      beschreibungStellenausschreibung: fields.beschreibungStellenausschreibung,
+      titeStellenausschreibungen: fields.titeStellenausschreibungen,
+      teamBild: fields.teamBild,
+      openings: openings,
+      downloadIcon: fields.downloadIcon,
+      titelMembers: fields.titelMembers,
       activeMembers: members.filter(m => m.isAktive),
       inactiveMembers: members.filter(m => !m.isAktive),
       hasInactiveMembers: (members.filter(m => !m.isAktive).length > 0)
@@ -198,22 +206,6 @@ class StaticController {
     });
 
     res.render('static/content/codeOfHonour', options);
-  }
-
-  static *renderGetInvolvedPage(req, res) {
-
-    let data = yield Promise.all([
-      contentful.getFieldsForContentType('mitmachenSeite', req.contentfulLocale),
-    ]);
-
-    const page = data[0][0];
-
-    let options = extendDefaultOptions(req, {
-      page: page,
-      image: page.image.fields.file.url
-    });
-
-    res.render('static/content/getInvolved', options);
   }
 
   static *renderImprint(req, res) {

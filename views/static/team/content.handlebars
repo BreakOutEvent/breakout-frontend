@@ -1,23 +1,87 @@
+<style>
+.bo-opening{
+  width: 100%;
+  height: 50px;
+  display: block;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 16px;
+  border: solid 1px rgba(0,0,0,0.2);
+  font-size: 1.3em;
+  text-decoration: none;
+  color: black;
+}
+
+.bo-opening div{
+  display: inline-block;
+}
+
+.bo-opening:hover{
+  border: solid 1px #e6823c;
+  text-decoration: none;
+  color: black;
+}
+
+.download{
+  float: right;
+}
+
+</style>
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
-            <h1>{{this.headline}}</h1>
+            <h1>{{this.titelAbout}}</h1>
+        </div>
+        <div class="col-xs-12" style="height: 40px">
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-5">
             <p class="bo-text">
-                {{{md this.description}}}
+                {{{md this.teambeschreibung}}}
             </p>
         </div>
+        <div class="col-sm-1">
+        </div>
         <div class="col-sm-6">
-            {{{contentfulImage this.teamImage "img-responsive" ""}}}
+            {{{contentfulImage this.teamBild "img-responsive" ""}}}
         </div>
     </div>
     <div class="row">
         <div class="col-xs-12">
             <hr class="bo-member-divider"/>
         </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>{{this.titeStellenausschreibungen}}</h1>
+        </div>
+        <div class="col-xs-12" style="height: 40px">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-5">
+            <p class="bo-text">
+                {{{md this.beschreibungStellenausschreibung}}}
+            </p>
+        </div>
+        <div class="col-sm-1">
+        </div>
+        <div class="col-sm-6">
+          {{#each this.openings}}
+            <a class="bo-opening" target="_blank" href="{{this.dokument.fields.file.url}}"><div> {{this.titel}}</div><img class="download"  src="{{../this.downloadIcon.fields.file.url}}"/></a>
+          {{/each}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <hr class="bo-member-divider"/>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <h1>{{this.titelMembers}}</h1>
+    </div>
+    <div class="col-xs-12" style="height: 40px">
     </div>
     <div class="row">
         {{#each this.activeMembers}}

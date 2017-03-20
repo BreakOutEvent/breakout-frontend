@@ -34,6 +34,30 @@ exports.ifCond = function (v1, v2, options) {
   return options.inverse(this);
 };
 
+exports.isEven = function (context) {
+  if ((context.data.index % 2) === 0) {
+    return context.fn(this);
+  } else {
+    return context.inverse(this);
+  }
+};
+
+exports.isOdd = function (context) {
+  if ((context.data.index % 2) !== 0) {
+    return context.fn(this);
+  } else {
+    return context.inverse(this);
+  }
+};
+
+exports.isLast = function (context) {
+  if (context.data.last) {
+    return context.fn(this);
+  } else {
+    return context.inverse(this);
+  }
+};
+
 /**
  * Render markdown from content/mdFileName to html
  * @param mdFileName
