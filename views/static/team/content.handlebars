@@ -78,9 +78,11 @@
             <hr class="bo-member-divider"/>
         </div>
     </div>
-    <div class="col-xs-12">
-        <h1>{{this.titelMembers}}</h1>
-    </div>
+    {{#if this.hasMembers}}
+      <div class="col-xs-12">
+          <h1>{{this.titelMembers}}</h1>
+        </div>
+    {{/if}}
     <div class="col-xs-12" style="height: 40px">
     </div>
     <div class="row">

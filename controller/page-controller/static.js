@@ -135,7 +135,8 @@ class StaticController {
       titelMembers: fields.titelMembers,
       activeMembers: members.filter(m => m.isAktive),
       inactiveMembers: members.filter(m => !m.isAktive),
-      hasInactiveMembers: (members.filter(m => !m.isAktive).length > 0)
+      hasInactiveMembers: (members.filter(m => !m.isAktive).length > 0),
+      hasMembers: (members.length > 0)
     });
 
     res.render('static/team/content', options);
