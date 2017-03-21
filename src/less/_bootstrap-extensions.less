@@ -6,11 +6,21 @@
   }
 }
 
-.form-control{
+.form-control {
   box-shadow: none;
   &:focus {
     box-shadow: none;
     padding-bottom: 5px;
+  }
+}
+
+.has-error,
+.has-warning {
+  .form-control {
+    box-shadow: none;
+    &:focus {
+      box-shadow: none;
+    }
   }
 }
 

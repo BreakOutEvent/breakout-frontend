@@ -1,4 +1,22 @@
 module.exports = {
+  client: {
+    login: {
+      enter_email_or_password: 'Bitte gib deine Email und Passwort ein',
+      button_login_headline: 'Login',
+      email_label: 'Emailadresse',
+      email_placeholder: 'Gib eine Emailadresse ein',
+      password_label: 'Passwort',
+      password_placeholder: 'Gib ein Passwort ein',
+      password_reset_text: 'Passwort vergessen?',
+      button_login_text: 'Einloggen',
+      button_register_text: 'Registrieren',
+      error_login: 'Falsche Emailadresse oder Passwort',
+      registration_error_bad_request: 'Gib eine gültige Emailadresse ein',
+      registration_error_exists: 'Es existiert bereits ein Account mit dieser Emailadresse',
+      request_reset_success: 'Wir haben dir eine Email mit Anleitung zum zurücksetzen deines Passworts geschickt',
+      request_reset_not_registered: 'Diese Emailadresse existiert nicht'
+    }
+  },
   'SELECTION': {
     'HEADLINE': 'Erfolgreich Registriert',
     'DESCRIPTION_1': 'Du hast den ersten Schritt geschafft! Wir haben Dir eine E-Mail mit einem Link geschickt, mit dem Du Deine E-Mail Adresse bestätigen kannst. Dieser Schritt ist notwendig, damit wir überprüfen können, ob Du wirklich der Inhaber der E-Mail Adresse bist.',

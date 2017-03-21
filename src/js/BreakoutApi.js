@@ -18,8 +18,12 @@ class BreakoutApi {
     }
   }
 
+  static getClientSideUrl() {
+    return `${window.location.protocol}//${window.location.hostname}:${window.location.port || 80}`;
+  }
+
   static initFromServer() {
-    const url = `${window.location.protocol}//${window.location.hostname}:${window.location.port || 80}/client-config`;
+    const url = `${BreakoutApi.getClientSideUrl()}/client-config`;
     return axios.get(url)
       .then(resp => resp.data)
       .then(data => {
@@ -38,6 +42,25 @@ class BreakoutApi {
   }
 
   /**
+   * Perform the at the frontend
+   *
+   * @param email The users email address
+   * @param password The users passworc
+   *
+   * @return {*|AxiosPromise} A promise that returns
+   * the html from the page where the user would normally
+   * be redirected to
+   */
+  frontendLogin(email, password) {
+    const data = qs.stringify({
+      username: email,
+      password: password
+    });
+    return this.instance.post(`${BreakoutApi.getClientSideUrl()}/login`, data)
+      .then(resp => resp.data);
+  }
+
+  /**
    * Perform login for user with email and password
    *
    * A side effect of this operation is that the returned access token
@@ -48,7 +71,7 @@ class BreakoutApi {
    * @param password The users password
    * @returns {*|AxiosPromise} A promise which contains the api response
    */
-  login(email, password) {
+  async login(email, password) {
 
     const formData = qs.stringify({
       username: email,
@@ -66,10 +89,10 @@ class BreakoutApi {
       }
     };
 
-    return this.instance.post('/oauth/token', formData, options).then(resp => {
-      this.setAccessToken(resp.data.access_token);
-      return resp.data;
-    });
+    const response = await this.instance.post('/oauth/token', formData, options);
+    const data = response.data;
+    this.setAccessToken(data.access_token);
+    return response.data;
   }
 
   setAccessToken(accessToken) {
@@ -81,6 +104,13 @@ class BreakoutApi {
       email: email,
       password: password
     }).then(resp => resp.data);
+  }
+
+  requestPasswordReset(email) {
+    const data = {
+      email: email
+    };
+    return this.instance.post('/user/requestreset/', data).then(resp => resp.data);
   }
 
   /**

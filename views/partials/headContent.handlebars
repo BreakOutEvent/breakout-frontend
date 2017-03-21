@@ -36,6 +36,15 @@
             '//www.googletagmanager.com/gtm.js?id=' + i + dl;
     f.parentNode.insertBefore(j, f);
 })(window, document, 'script', 'dataLayer', 'GTM-KH8FMS');</script>
+
+<script>
+
+    window.boUserLang = '{{language}}';
+    window.getBoUserLang = function () {
+        return window.boUserLang || 'en';
+    }
+</script>
+
 <!-- End Google Tag Manager -->
 {{#each requirements}}
     <script type="text/javascript" src="/js/{{this}}.js"></script>
