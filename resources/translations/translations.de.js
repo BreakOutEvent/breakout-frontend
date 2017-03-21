@@ -15,6 +15,16 @@ module.exports = {
       registration_error_exists: 'Es existiert bereits ein Account mit dieser Emailadresse',
       request_reset_success: 'Wir haben dir eine Email mit Anleitung zum zurücksetzen deines Passworts geschickt',
       request_reset_not_registered: 'Diese Emailadresse existiert nicht'
+    },
+    role_select: {
+      visitor_title: 'Zuschauer',
+      visitor_text: 'Als Zuschauer kannst du Postings kommentieren und perfekt deine Freunde verfolgen.',
+      participant_title: 'Teilnehmer',
+      participant_text: 'Hier kannst du bei BreakOut 2017 teilnehmen und ein Team erstellen oder einem Team beitreten.',
+      sponsor_title: 'Sponsor',
+      sponsor_text: 'Unterstütze ein oder mehrere Team mit Kilometerspenden oder indem du ihnen eine Challenge stellst.',
+      description: 'Wähle deine Account Rolle, die du bei BreakOut einnehmen möchtest. Du kannst diese später jederzeit wechseln!',
+      headline: 'Rolle wählen'
     }
   },
   'SELECTION': {

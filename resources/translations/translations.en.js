@@ -15,6 +15,16 @@ module.exports = {
       registration_error_exists: 'An account with this email address already exists',
       request_reset_success: 'An email with instructions to reset your password was sent to you',
       request_reset_not_registered: 'This email address does not exist'
+    },
+    role_select: {
+      visitor_title: 'Visitor',
+      visitor_text: 'As a visitor you can comment on postings and view your friends travel.',
+      participant_title: 'Participant',
+      participant_text: 'Here you can participate at BreakOut 2017 and create or join a team.',
+      sponsor_title: 'Sponsor',
+      sponsor_text: 'Support one or more teams with kilometer donations or by proposing challenges to them.',
+      description: 'Select an account role. You can change this role at any time',
+      headline: 'Select Role'
     }
   },
   'SELECTION': {

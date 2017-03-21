@@ -1,0 +1,227 @@
+<html>
+
+<head>
+    {{> headContent}}
+</head>
+
+<body>
+<div class="container-fluid">
+    {{> navbar }}
+</div>
+<header>
+    <div class="container">
+        <img class="header-logo" src="img/logo.svg" alt="The breakout logo">
+    </div>
+</header>
+
+<div class="container-fluid">
+
+    <section id="about" class="row landing-page-section">
+        <div class="container">
+            <div class="col-sm-7">
+                {{{md this.about}}}
+            </div>
+            <div class="col-sm-5">
+            </div>
+        </div>
+    </section>
+
+    <section id="video" class="row landing-page-section" style="padding: 0">
+        <div id="landingpage-video-overlay row">
+            <div id="video-bg"
+                 style="background-image: url('{{this.videoBackground.fields.file.url}}');">
+            </div>
+            <div id="landingpage-video-before" class="container">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-sm-1" id="video-play-btn">
+                            <br>
+                            <h4 id="play-glyph" class="glyphicon glyphicon-play trigger-play"></h4>
+                            <br>
+                        </div>
+                        <div class="col-sm-11" id="video-play-overlay">
+                            {{{md this.videoOverlay}}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="landingpage-video" class="landingpage-video row" style="display: none;">
+            <iframe id="landingpage-video-iframe" height="100%" width="100%"
+                    src="https://www.youtube.com/embed/{{this.youtubeId}}?modestbranding=1&playsinline=0&rel=0&controls=1&autoplay=0"
+                    frameborder="none">
+            </iframe>
+        </div>
+
+    </section>
+
+    <section id="jambo" class="row landing-page-section">
+        <div class="container">
+
+            <div class="col-sm-5 col-sm-push-7">
+                <img class="img-responsive center-block" src="{{this.partnerImage.fields.file.url}}"
+                     style="max-height: 300px">
+            </div>
+
+            <div class="col-sm-7 col-sm-pull-5">
+                {{{md this.partnerDescription}}}
+            </div>
+
+        </div>
+    </section>
+
+    <section id="instafeed" class="row landing-page-section">
+        <!-- Instagram feed get's injected here by landingpage.js -->
+    </section>
+
+    <section id="history" class="row landing-page-section">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="history-headline">
+                <span class="history-headline-text">
+                    {{this.historyHeadline}}
+                </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-4">
+                    <div class="thumbnail history-thumbnail">
+                        <img src="{{this.teamCountLogo.fields.file.url}}" width="100px"
+                             height="100px">
+                        <div class="caption history-caption">
+                            {{{md this.teamCountText}}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="thumbnail history-thumbnail">
+                        <img src="{{this.amountLogo.fields.file.url}}" width="100px"
+                             height="100px">
+                        <div class="caption history-caption">
+                            {{{md this.amountText}}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="thumbnail history-thumbnail">
+                        <img src="{{this.distanceLogo.fields.file.url}}" width="100px"
+                             height="100px">
+                        <div class="caption history-caption">
+                            {{{md this.distanceText}}}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="call-to-action" class="row">
+
+        <a class="btn btn-primary" href="{{this.leftButtonLink}}">
+            {{this.leftButtonText}}
+        </a>
+
+        <h2>{{this.buttonGroupCenterText}}</h2>
+
+        <a class="btn btn-primary" href="{{this.rightButtonLink}}">
+            {{this.rightButtonText}}
+        </a>
+
+    </section>
+
+    <section id="testimonial-carousel" class="row">
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                {{#each this.testimonials}}
+                    {{#if @first}}
+                        <li data-target="#carousel-example-generic" data-slide-to="{{@index}}"
+                            class="active"></li>
+                    {{else}}
+                        <li data-target="#carousel-example-generic" data-slide-to="{{@index}}"></li>
+                    {{/if}}
+                {{/each}}
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+                {{#each this.testimonials}}
+
+                    <div class="item {{#if @first}}active{{/if}}">
+
+                        <img class="carousel-img" src="img/news-1.jpg" alt="...">
+                        <div class="carousel-caption">
+                            <!--<p>-->
+                            <a href="{{this.link}}" class="testimonial-headline">
+                                {{this.headline}}
+                            </a>
+                            <!--</p>-->
+                            <br/>
+                            <span class="testimonial-caption">
+                                — {{this.from}}, {{this.date}}
+                            </span>
+                            <br/>
+                            <a href="{{../pressButtonLink}}">
+                                <button class="btn btn-testimonials">
+                                    {{../pressButtonText}}
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+
+                {{/each}}
+            </div>
+
+            <!-- Controls -->
+            <a class="left carousel-control" href="#carousel-example-generic" role="button"
+               data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#carousel-example-generic" role="button"
+               data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </section>
+
+    <section class="row landing-page-section">
+        <div class="container">
+            <div class="col-xs-12" style="text-align: center">
+                <h3>{{this.sponsorsHeadline}}</h3>
+            </div>
+            <div class="row">
+                {{#each this.sponsors}}
+                    <div class="col-md-12">
+                        <a href="{{this.website}}">
+                            <img class="center-block img-responsive"
+                                 style="max-height: 300px !important;"
+                                 src="{{this.logo.fields.file.url}}">
+                        </a>
+                    </div>
+                {{/each}}
+            </div>
+            <div class="col-xs-12" style="text-align: center; padding-top: 20px">
+                <a href="{{this.sponsorsButtonLink}}">
+                    <button class="btn btn-primary">{{this.sponsorsButtonText}}</button>
+                </a>
+            </div>
+        </div>
+    </section>
+</div>
+
+{{> footer }}
+
+</body>
+</html>
