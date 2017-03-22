@@ -52,11 +52,11 @@ export default class Login extends React.Component {
   validate(elemId) {
 
     if (this.state.firstTry) {
-      return null;
+      return true;
     } else if (this.existsAndNotEmpty(elemId)) {
-      return null;
+      return true;
     } else {
-      return 'error';
+      return false;
     }
   }
 
@@ -212,7 +212,7 @@ export default class Login extends React.Component {
         <Modal.Body>
 
           <TextInput id='email'
-                     isValid={this.validate('email')}
+                     isValid={this.validate.bind(this)}
                      label={i18next.t('client.login.email_label')}
                      value={this.state.email || ''}
                      placeholder={i18next.t('client.login.email_placeholder')}
@@ -220,7 +220,7 @@ export default class Login extends React.Component {
                      onChange={this.handleChange.bind(this)}/>
 
           <PasswordInput id={'password'}
-                         isValid={this.validate('password')}
+                         isValid={this.validate.bind(this)}
                          label={i18next.t('client.login.password_label')}
                          value={this.state.password || ''}
                          placeholder={i18next.t('client.login.password_placeholder')}
