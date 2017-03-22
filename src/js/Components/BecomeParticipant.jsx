@@ -93,7 +93,7 @@ export default class BecomeParticipant extends React.Component {
     } catch (err) {
       this.setState({
         errorMessage: err.message
-      })
+      });
     }
   }
 
@@ -201,6 +201,12 @@ export default class BecomeParticipant extends React.Component {
 
               </FormGroup>
 
+              { this.state.errorMessage &&
+              <div className="alert alert-warning" style={{textAlign: 'left'}}>
+                {this.state.errorMessage}
+              </div>
+              }
+
               <Row>
                 <Col xs={12} style={{textAlign: 'center'}}>
                   <Button bsStyle="primary" onClick={this.register.bind(this)}>
@@ -212,11 +218,6 @@ export default class BecomeParticipant extends React.Component {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          { this.state.errorMessage &&
-          <div className="alert alert-warning" style={{textAlign: 'left'}}>
-            {this.state.errorMessage}
-          </div>
-          }
         </Modal.Footer>
       </Modal>
     );
