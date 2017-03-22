@@ -84,7 +84,7 @@ export default class BecomeParticipant extends React.Component {
 
     let api = await BreakoutApi.initFromServer();
 
-    api.setAccessToken(store.get('accessToken'));
+    api.setAccessToken(store.get('tokens').access_token);
 
     try {
       await api.becomeParticipant(store.get('userId'), userData);
