@@ -30,10 +30,19 @@ const FullWidthButton = (props) => {
   );
 };
 
+const CenterButton = (props) => {
+  const style = {
+    display: 'flex',
+    justifyContent: 'center',
+    width: '100%'
+  };
+
+  return <span style={style}>{ButtonBig(props)}</span>;
+};
+
 const ButtonBig = (props) => {
 
   const transparent = {
-    width: '100%',
     backgroundColor: 'transparent',
     color: '#BDBDBD',
     fontSize: 'small',
@@ -42,7 +51,6 @@ const ButtonBig = (props) => {
   };
 
   const defaultStyle = {
-    width: '100%',
     marginBottom: '10px',
     height: '44px',
     borderRadius: '50px',
@@ -53,7 +61,6 @@ const ButtonBig = (props) => {
   };
 
   const primary = {
-    width: '100%',
     height: '44px',
     borderRadius: '50px',
     textTransform: 'uppercase',
@@ -90,4 +97,4 @@ const ButtonBig = (props) => {
   );
 };
 
-export {FullWidthButton, ButtonBig}
+export {FullWidthButton, ButtonBig, CenterButton}

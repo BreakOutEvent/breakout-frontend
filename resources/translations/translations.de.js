@@ -26,6 +26,36 @@ module.exports = {
       sponsor_text: 'Unterstütze ein oder mehrere Teams mit Kilometerspenden oder indem du ihnen eine Challenge stellst.',
       description: 'Wähle deine Account Rolle, die du bei BreakOut einnehmen möchtest. Du kannst diese später jederzeit wechseln!',
       headline: 'Rolle wählen'
+    },
+    participate: {
+      title: 'Persönliche Daten',
+      description: '',
+      male: 'Männlich',
+      female: 'Weiblich',
+      enter_full_data: 'Bitte gib deine Daten vollständig an',
+      firstname: {
+        label: 'Vorname',
+        placeholder: 'Gib deinen Vornamen ein',
+      },
+      lastname: {
+        label: 'Nachname',
+        placeholder: 'Gib deinen Nachnamen ein'
+      },
+      tshirtsize: {
+        label: 'Tshirtgröße'
+      },
+      contactnumber: {
+        label: 'Handynummer',
+        placeholder: 'Gib eine Handynummer an'
+      },
+      emergencynumber: {
+        label: 'Notfallnummer',
+        placeholder: 'Gib die Nummer eines Notfallkontakts an'
+      },
+      accept_tos: 'Hiermit akzeptiere ich die <a href="Lalal">Teilnahmebedingungen</a>',
+      accept_code_of_honour: 'Hiermit akzeptiere ich den Code of Honour',
+      is_18: 'Ich bin mindestens 18 Jahre alt',
+      next_step: 'Nächster Schritt'
     }
   },
   'SELECTION': {

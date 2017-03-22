@@ -7,8 +7,10 @@ import {
 } from 'react-bootstrap';
 
 const TextInput = (props) => {
+  const validationState = props.isValid(props.id) ? null : 'error';
+  console.log(props.id + ' ' +props.isValid(props.id) + ' ' +validationState);
   return (
-    <FormGroup controlId={props.id} validationState={props.isValid}>
+    <FormGroup controlId={props.id} validationState={validationState}>
       <ControlLabel>
         {props.label}
       </ControlLabel>
@@ -22,8 +24,9 @@ const TextInput = (props) => {
 };
 
 const PasswordInput = (props) => {
+  const validationState = props.isValid(props.id) ? null : 'error';
   return (
-    <FormGroup controlId={props.id} validationState={props.isValid}>
+    <FormGroup controlId={props.id} validationState={validationState}>
       <ControlLabel>
         {props.label}
       </ControlLabel>
@@ -36,7 +39,24 @@ const PasswordInput = (props) => {
   );
 };
 
+const OptionsInput = (props) => {
+  const validationState = props.isValid(props.id) ? null : 'error';
+  return (
+    <FormGroup controlId={props.id} validationState={validationState}>
+      <ControlLabel>
+        {props.label}
+      </ControlLabel>
+      <FormControl componentClass="select"
+                   placeholder=""
+                   onChange={props.onChange}>
+        {props.values.map(value => <option key={value} value={value}>{value}</option>)}
+      </FormControl>
+    </FormGroup>
+  );
+};
+
 export {
   TextInput,
-  PasswordInput
+  PasswordInput,
+  OptionsInput
 };

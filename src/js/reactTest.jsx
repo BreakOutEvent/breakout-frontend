@@ -78,7 +78,7 @@ class App extends React.Component {
       case this.steps.becomeParticipant:
         return <BecomeParticipant onHide={this.hide.bind(this)}
                                   visible={this.isActive(this.steps.becomeParticipant)}
-                                  next={this.transitionTo.bind(this)}
+                                  transitionTo={this.transitionTo.bind(this)}
                                   steps={this.steps}
                                   context={this.state.context}/>;
       case this.steps.done:
