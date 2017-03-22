@@ -171,7 +171,9 @@ export default class CreateOrJoinTeam extends React.Component {
                         isValid={this.isValid.bind(this)}
                         label={i18next.t('client.create_or_join_team.select_event')}
                         onChange={this.handleChange.bind(this)}
-                        values={this.state.events.map(e => e.title)}/>
+                        values={this.state.events.map(event => {
+                          return {key: event.id, value: event.title};
+                        })}/>
 
           <TextInput id='teamName'
                      isValid={this.isValid.bind(this)}

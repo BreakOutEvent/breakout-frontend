@@ -48,7 +48,8 @@ const OptionsInput = (props) => {
       <FormControl componentClass="select"
                    placeholder=""
                    onChange={props.onChange}>
-        {props.values.map(value => <option key={value} value={value}>{value}</option>)}
+        {props.values.map(value => <option key={value.key}
+                                           value={value.key}>{value.value}</option>)}
       </FormControl>
     </FormGroup>
   );

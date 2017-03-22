@@ -170,7 +170,7 @@ export default class BecomeParticipant extends React.Component {
   }
 
   getTshirtSizes() {
-    return ['Select size', 'S', 'M', 'L', 'XL'];
+    return ['S', 'M', 'L', 'XL'];
   }
 
   render() {
@@ -209,7 +209,10 @@ export default class BecomeParticipant extends React.Component {
 
           <OptionsInput id='tshirtSize' isValid={this.isValid.bind(this)}
                         label={i18next.t('client.participate.tshirtsize.label')}
-                        onChange={this.handleChange.bind(this)} values={this.getTshirtSizes()}/>
+                        onChange={this.handleChange.bind(this)}
+                        values={this.getTshirtSizes().map(size => {
+                          return {key: size, value: size};
+                        })}/>
 
           <TextInput id='contactNumber' isValid={this.isValid.bind(this)}
                      value={this.state.contactNumber || ''}
