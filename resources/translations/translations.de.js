@@ -14,7 +14,8 @@ module.exports = {
       registration_error_bad_request: 'Gib eine gültige Emailadresse ein',
       registration_error_exists: 'Es existiert bereits ein Account mit dieser Emailadresse',
       request_reset_success: 'Wir haben dir eine Email mit Anleitung zum zurücksetzen deines Passworts geschickt',
-      request_reset_not_registered: 'Diese Emailadresse existiert nicht'
+      request_reset_not_registered: 'Diese Emailadresse existiert nicht',
+      request_reset_enter_email: 'Bitte gib eine gültige Emailadresse ein'
     },
     role_select: {
       visitor_title: 'Zuschauer',
