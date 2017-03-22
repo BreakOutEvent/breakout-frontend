@@ -167,6 +167,12 @@ export default class CreateOrJoinTeam extends React.Component {
           description={i18next.t('client.create_or_join_team.description')}/>
         <Modal.Body>
 
+          <div className="row">
+            <div className="col-lg-12" style={{textAlign: 'center'}}>
+              <b>Team erstellen</b>
+            </div>
+          </div>
+
           <OptionsInput id='selectedEvent'
                         isValid={this.isValid.bind(this)}
                         label={i18next.t('client.create_or_join_team.select_event')}
@@ -190,15 +196,33 @@ export default class CreateOrJoinTeam extends React.Component {
                      onChange={this.handleChange.bind(this)}
                      placeholder={i18next.t('client.create_or_join_team.partner_email.placeholder')}/>
 
+          <FullscreenCenteredButton bsStyle="primary" onClick={this.createTeam.bind(this)}>
+            Team erstellen & Anmeldung abschließen
+          </FullscreenCenteredButton>
+
+
+          { this.state.invitations.length > 0 &&
+          <span>
+            <hr style={{backgroundColor: '#e6823c', height: '2px'}}/>
+          <div className="row">
+            <div className="col-lg-12" style={{textAlign: 'center'}}>
+              <b>Team beitreten</b>
+            </div>
+          </div>
           <InvitationInfo invitations={this.state.invitations}
                           onSubmit={this.joinTeam.bind(this)}
                           selectTeam={this.selectTeam.bind(this)}
                           selectedTeam={this.state.selectedTeam || null}/>
 
-          <FullscreenCenteredButton bsStyle="primary" onClick={this.createTeam.bind(this)}>
-            Team erstellen und Anmeldung abschließen
-          </FullscreenCenteredButton>
-
+            <FullscreenCenteredButton onClick={this.createTeam.bind(this)}>
+            Team beitreten & Anmeldung abschließen
+            </FullscreenCenteredButton>
+          </span>
+          } { this.state.invitations.length < 0 &&
+        <div className="alert alert-warning">
+          Du hast aktuell noch keine Einladungen
+        </div>
+        }
         </Modal.Body>
         <Modal.Footer>
 
@@ -209,29 +233,18 @@ export default class CreateOrJoinTeam extends React.Component {
 }
 
 const InvitationInfo = (props) => {
-  if (props.invitations.length > 0) {
-
-    return (
-      <span>
+  return (
+    <span>
     <div className="alert alert-info">
     Du wurdest zu {props.invitations.length} Teams eingeladen
     </div>
-        {props.invitations.map(invitation => <Invitation key={invitation.team}
-                                                         data={invitation}
-                                                         selectTeam={props.selectTeam}
-                                                         checked={invitation.team == props.selectedTeam}/>)}
+      {props.invitations.map(invitation =>
+        <Invitation key={invitation.team}
+                    data={invitation}
+                    selectTeam={props.selectTeam}
+                    checked={invitation.team == props.selectedTeam}/>)}
     </span>
-    );
-
-  } else {
-
-    return (
-      <div className="alert alert-warning">
-        Du hast aktuell noch keine Einladungen
-      </div>
-    );
-
-  }
+  );
 };
 
 const Invitation = (props) => {
