@@ -22,7 +22,7 @@ module.exports = {
       participant_title: 'Teilnehmer',
       participant_text: 'Hier kannst du bei BreakOut 2017 teilnehmen und ein Team erstellen oder einem Team beitreten.',
       sponsor_title: 'Sponsor',
-      sponsor_text: 'Unterstütze ein oder mehrere Team mit Kilometerspenden oder indem du ihnen eine Challenge stellst.',
+      sponsor_text: 'Unterstütze ein oder mehrere Teams mit Kilometerspenden oder indem du ihnen eine Challenge stellst.',
       description: 'Wähle deine Account Rolle, die du bei BreakOut einnehmen möchtest. Du kannst diese später jederzeit wechseln!',
       headline: 'Rolle wählen'
     }
