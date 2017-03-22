@@ -8,7 +8,6 @@ import {
 
 const TextInput = (props) => {
   const validationState = props.isValid(props.id) ? null : 'error';
-  console.log(props.id + ' ' +props.isValid(props.id) + ' ' +validationState);
   return (
     <FormGroup controlId={props.id} validationState={validationState}>
       <ControlLabel>
