@@ -193,7 +193,6 @@ class BreakoutApi {
 
   async joinTeam(teamId) {
 
-
     const me = await this.getMe();
 
     // This hack is needed because request needs some sort of eventId, no matter which one
@@ -222,7 +221,6 @@ class BreakoutApi {
     const data = {
       email: email
     };
-    console.log(data);
     const response = await this.instance.post(`/event/${event}/team/${teamId}/invitation/`, data);
     return response.data;
   }
