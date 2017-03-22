@@ -56,6 +56,19 @@ module.exports = {
       accept_code_of_honour: 'Hiermit akzeptiere ich den Code of Honour',
       is_18: 'Ich bin mindestens 18 Jahre alt',
       next_step: 'Nächster Schritt'
+    },
+    create_or_join_team: {
+      title: 'Team erstellen oder beitreten',
+      description: 'Du kannst jetzt entweder (1) ein neues Team erstellen und deinen Teampartner einladen, oder (2) einem der Teams, zu denen du eingeladen wurdest, beitreten',
+      team_name: {
+        label: 'Teamname',
+        placeholder: 'Wähle einen Teamnamen'
+      },
+      select_event: 'Wähle von welcher Stadt ihr starten wollt',
+      partner_email: {
+        label: 'Emailadresse des Teampartners',
+        placeholder: 'Die Emailadresse deinen Teampartners'
+      }
     }
   },
   'SELECTION': {

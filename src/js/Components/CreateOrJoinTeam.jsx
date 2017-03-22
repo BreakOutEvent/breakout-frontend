@@ -2,19 +2,27 @@ import BreakoutApi from '../BreakoutApi';
 
 import React from 'react';
 import {
-  FormGroup,
-  FormControl,
-  ControlLabel,
-  Button,
-  Col,
-  Row,
-  Modal,
-  Radio
+  Button, Col, Row, Modal, Radio
 } from 'react-bootstrap';
-
+import {TextInput, OptionsInput} from './Inputs.jsx';
 import Promise from 'bluebird';
 import store from 'store';
+import i18next from 'i18next';
+import de from '../../../resources/translations/translations.de.js';
+import en from '../../../resources/translations/translations.en.js';
 
+i18next.init({
+  lng: window.getBoUserLang(),
+  fallbackLng: 'de',
+  resources: {
+    de: {
+      translation: de
+    },
+    en: {
+      translation: en
+    }
+  }
+});
 import RegistrationHeader from './RegistrationHeader.jsx';
 
 export default class CreateOrJoinTeam extends React.Component {
@@ -139,43 +147,30 @@ export default class CreateOrJoinTeam extends React.Component {
     return (
       <Modal show={this.props.visible} onHide={this.props.onHide}>
         <RegistrationHeader
-          title="Ein Team erstellen"
-          description="Erstelle ein neues Team und lade deinen Teampartner per Email ein, oder trete unten einem Team bei, falls du eingeladen wurdest!"
-        />
+          title={i18next.t('client.create_or_join_team.title')}
+          description={i18next.t('client.create_or_join_team.description')}/>
         <Modal.Body>
 
-          <FormGroup controlId="teamName" validationState={'error'}>
-            <ControlLabel>
-              Teamname
-            </ControlLabel>
-            <FormControl type="text"
-                         value={this.state.teamName || ''}
-                         placeholder="Gib einen Teamnamen an"
-                         onChange={this.handleChange.bind(this)}/>
-          </FormGroup>
+          <OptionsInput id='selectedEvent'
+                        isValid={() => true}
+                        label={i18next.t('client.create_or_join_team.select_event')}
+                        onChange={this.handleChange.bind(this)}
+                        values={this.state.events.map(e => e.title)}/>
 
-          <FormGroup controlId="selectedEvent" validationState={'error'}>
-            <ControlLabel>
-              Event
-            </ControlLabel>
-            <FormControl componentClass="select"
-                         placeholder="Wähle aus, von welchem Standort du starten möchtest"
-                         onChange={this.handleChange.bind(this)}>
+          <TextInput id='teamName'
+                     isValid={() => true}
+                     label={i18next.t('client.create_or_join_team.team_name.label')}
+                     value={this.state.teamName || ''}
+                     placeholder={i18next.t('client.create_or_join_team.team_name.placeholder')}
+                     glyph={null}
+                     onChange={this.handleChange.bind(this)}/>
 
-              {this.state.events.map((event) => <option key={event.id}
-                                                        value={event.id}>{event.title}</option>)}
-
-            </FormControl>
-          </FormGroup>
-          <FormGroup controlId="partnerEmail" validationState={'error'}>
-            <ControlLabel>
-              Email deines Teampartners
-            </ControlLabel>
-            <FormControl type="text"
-                         value={this.state.partnerEmail || ''}
-                         placeholder="Gib die Emailadresse deines Teampartners an"
-                         onChange={this.handleChange.bind(this)}/>
-          </FormGroup>
+          <TextInput id='partnerEmail'
+                     isValid={() => true}
+                     label={i18next.t('client.create_or_join_team.partner_email.label')}
+                     value={this.state.partnerEmail || ''}
+                     onChange={this.handleChange.bind(this)}
+                     placeholder={i18next.t('client.create_or_join_team.partner_email.placeholder')}/>
 
           <InvitationInfo invitations={this.state.invitations}
                           onSubmit={this.joinTeam.bind(this)}
@@ -200,14 +195,14 @@ const InvitationInfo = (props) => {
 
     return (
       <span>
-        <div className="alert alert-info">
-          Du wurdest zu {props.invitations.length} Teams eingeladen
-        </div>
+    <div className="alert alert-info">
+    Du wurdest zu {props.invitations.length} Teams eingeladen
+    </div>
         {props.invitations.map(invitation => <Invitation key={invitation.team}
                                                          data={invitation}
                                                          selectTeam={props.selectTeam}
                                                          checked={invitation.team == props.selectedTeam}/>)}
-      </span>
+    </span>
     );
 
   } else {
