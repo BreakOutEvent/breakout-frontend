@@ -205,7 +205,7 @@ export default class Login extends React.Component {
   render() {
 
     return (
-      <Modal show={this.props.visible} onHide={this.props.hide} bsSize="small">
+      <Modal show={this.props.visible} onHide={this.props.onHide} bsSize="small">
 
         <RegistrationHeader title={i18next.t('client.login.button_login_headline')}/>
 

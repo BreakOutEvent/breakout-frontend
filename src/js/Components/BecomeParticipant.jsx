@@ -175,7 +175,7 @@ export default class BecomeParticipant extends React.Component {
 
   render() {
     return (
-      <Modal show={this.props.visible} onHide={this.props.hide}>
+      <Modal show={this.props.visible} onHide={this.props.onHide} bsSize="small">
         <RegistrationHeader title={i18next.t('client.participate.title')}
                             description={i18next.t('client.participate.description')}/>
         <Modal.Body>

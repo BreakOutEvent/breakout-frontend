@@ -31,7 +31,7 @@ class App extends React.Component {
     }));
   }
 
-  hide() {
+  onHide() {
     this.setState({
       currentStep: null
     });
@@ -55,28 +55,28 @@ class App extends React.Component {
         return null;
 
       case this.steps.login:
-        return <Login onHide={this.hide.bind(this)}
+        return <Login onHide={this.onHide.bind(this)}
                       visible={this.isActive(this.steps.login)}
                       next={this.transitionTo.bind(this)}
                       steps={this.steps}
                       context={this.state.context}/>;
 
       case this.steps.createOrJoinTeam:
-        return <CreateOrJoinTeam onHide={this.hide.bind(this)}
+        return <CreateOrJoinTeam onHide={this.onHide.bind(this)}
                                  visible={this.isActive(this.steps.createOrJoinTeam)}
                                  next={this.transitionTo.bind(this)}
                                  steps={this.steps}
                                  context={this.state.context}/>;
 
       case this.steps.selectRole:
-        return <RoleSelector onHide={this.hide.bind(this)}
+        return <RoleSelector onHide={this.onHide.bind(this)}
                              visible={this.isActive(this.steps.selectRole)}
                              next={this.transitionTo.bind(this)}
                              steps={this.steps}
                              context={this.state.context}/>;
 
       case this.steps.becomeParticipant:
-        return <BecomeParticipant onHide={this.hide.bind(this)}
+        return <BecomeParticipant onHide={this.onHide.bind(this)}
                                   visible={this.isActive(this.steps.becomeParticipant)}
                                   transitionTo={this.transitionTo.bind(this)}
                                   steps={this.steps}

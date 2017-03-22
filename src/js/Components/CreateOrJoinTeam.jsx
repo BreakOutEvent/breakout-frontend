@@ -137,7 +137,7 @@ export default class CreateOrJoinTeam extends React.Component {
 
   render() {
     return (
-      <Modal show={this.props.visible} onHide={this.props.hide}>
+      <Modal show={this.props.visible} onHide={this.props.onHide}>
         <RegistrationHeader
           title="Ein Team erstellen"
           description="Erstelle ein neues Team und lade deinen Teampartner per Email ein, oder trete unten einem Team bei, falls du eingeladen wurdest!"
