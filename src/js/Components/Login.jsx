@@ -173,11 +173,11 @@ export default class Login extends React.Component {
   toggleLoading(operation) {
     if (operation === 'registration') {
       this.setState({
-        isRegistrationLoading: true
+        isRegistrationLoading: !this.state.isRegistrationLoading
       });
     } else if (operation === 'login') {
       this.setState({
-        isLoginLoading: true
+        isLoginLoading: !this.state.isLoginLoading
       });
     }
   }
