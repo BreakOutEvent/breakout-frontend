@@ -97,4 +97,17 @@ const ButtonBig = (props) => {
   );
 };
 
-export {FullWidthButton, ButtonBig, CenterButton}
+const FullscreenCenteredButton = (props) => {
+  return (
+    <div className="row">
+      <div className="col-sm-12" style={{textAlign: 'center'}}>
+        <button className="btn btn-primary"
+                onClick={props.onClick}>
+          {props.children}
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export {FullWidthButton, ButtonBig, CenterButton, FullscreenCenteredButton};

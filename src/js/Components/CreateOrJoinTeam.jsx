@@ -10,6 +10,7 @@ import store from 'store';
 import i18next from 'i18next';
 import de from '../../../resources/translations/translations.de.js';
 import en from '../../../resources/translations/translations.en.js';
+import {FullscreenCenteredButton} from './Buttons.jsx';
 
 i18next.init({
   lng: window.getBoUserLang(),
@@ -226,18 +227,4 @@ const Invitation = (props) => {
         <b>{props.data.team} {props.data.name}</b>
       </Radio>
     </div>);
-};
-
-const FullscreenCenteredButton = (props) => {
-  return (
-    <Row>
-      <Col xs={12}
-           style={{textAlign: 'center'}}>
-        <Button bsStyle={props.bsStyle}
-                onClick={props.onClick}>
-          {props.children}
-        </Button>
-      </Col>
-    </Row>
-  );
 };
