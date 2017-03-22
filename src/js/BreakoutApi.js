@@ -182,6 +182,15 @@ class BreakoutApi {
     return this.instance.get('/me/').then(resp => resp.data);
   }
 
+  async isUserParticipant() {
+    const me = await this.getMe();
+    if (!me.participant) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   async joinTeam(teamId) {
 
 
