@@ -4,11 +4,18 @@ import {
   FormGroup,
   ControlLabel,
 } from 'react-bootstrap';
-
+import RegistrationHeader from './RegistrationHeader.jsx';
 import React from 'react';
 import BreakoutApi from '../BreakoutApi';
 import i18next from 'i18next';
 import store from 'store';
+import {
+  FullWidthButton
+} from './Buttons.jsx';
+import {
+  TextInput,
+  PasswordInput
+} from './Inputs.jsx';
 
 import de from '../../../resources/translations/translations.de.js';
 import en from '../../../resources/translations/translations.en.js';
@@ -25,7 +32,6 @@ i18next.init({
     }
   }
 });
-
 
 export default class Login extends React.Component {
 
@@ -64,24 +70,47 @@ export default class Login extends React.Component {
     }
   }
 
-  onHide() {
+  hide() {
     this.setState({
       firstTry: true,
-      errorMessage: null
+      errorMessage: null,
+      visible: false
     });
-    this.props.onHide();
+  }
+
+  inputValidForLogin() {
+    return this.state.email && this.state.password;
+  }
+
+  inputValidForRegistration() {
+    return this.inputValidForLogin();
+  }
+
+  inputValidForReset() {
+    return this.state.email;
+  }
+
+  displayError(message) {
+    this.setState({
+      errorMessage: message,
+      firstTry: false
+    });
+  }
+
+  displaySuccess(message) {
+    this.setState({
+      successMessage: message
+    });
   }
 
   async login() {
 
-    if (!this.state.email || !this.state.password) {
-      this.setState({
-        errorMessage: i18next.t('client.login.enter_email_or_password'),
-        firstTry: false
-      });
-
-      return Promise.reject();
+    if (!this.inputValidForLogin()) {
+      this.displayError(i18next.t('client.login.enter_email_or_password'));
+      return;
     }
+
+    this.toggleLoading('login');
 
     const api = await BreakoutApi.initFromServer();
 
@@ -94,151 +123,113 @@ export default class Login extends React.Component {
       });
 
       store.set('tokens', tokens);
-      this.props.onHide();
-
+      this.next();
     } catch (err) {
       if (err.response.status === 400) {
-        this.setState({
-          errorMessage: i18next.t('client.login.error_login')
-        });
+        this.displayError(i18next.t('client.login.error_login'));
       } else {
-        this.setState({
-          errorMessage: JSON.stringify(err)
-        });
+        this.displayError(err.message);
       }
+    } finally {
+      this.toggleLoading('login');
     }
+  }
+
+  next() {
+    this.props.next(this.props.steps.selectRole);
   }
 
   async register() {
 
-    if (!this.state.email || !this.state.password) {
-      this.setState({
-        errorMessage: i18next.t('client.login.enter_email_or_password'),
-        firstTry: false
-      });
-      return Promise.reject();
+    if (!this.inputValidForRegistration()) {
+      this.displayError(i18next.t('client.login.enter_email_or_password'));
+      return;
     }
+
+    this.toggleLoading('registration');
 
     const api = await BreakoutApi.initFromServer();
     try {
       await api.createAccount(this.state.email, this.state.password);
+      await this.login();
+
       this.setState({
         errorMessage: false
       });
+      this.next();
     } catch (err) {
       if (err.response.status === 409) {
-        this.setState({
-          errorMessage: i18next.t('client.login.registration_error_exists'),
-        });
+        this.displayError(i18next.t('client.login.registration_error_exists'));
       } else if (err.response.status === 400) {
-        this.setState({
-          errorMessage: i18next.t('client.login.registration_error_bad_request')
-        });
+        this.displayError(i18next.t('client.login.registration_error_bad_request'));
       } else {
-        this.setState({
-          errorMessage: JSON.stringify(err)
-        });
+        this.displayError(err.message);
       }
+    } finally {
+      this.toggleLoading('registration');
+    }
+  }
+
+  toggleLoading(operation) {
+    if (operation === 'registration') {
+      this.setState({
+        isRegistrationLoading: true
+      });
+    } else if (operation === 'login') {
+      this.setState({
+        isLoginLoading: true
+      });
     }
   }
 
   async requestReset() {
     const api = await BreakoutApi.initFromServer();
 
-    if (this.state.email === null) {
-      this.setState({
-        errorMessage: i18next.t('client.login.request_reset_enter_email')
-      });
-
-      return Promise.reject();
+    if (!this.inputValidForReset()) {
+      this.displayError(i18next.t('client.login.request_reset_enter_email'));
+      return;
     }
 
     try {
       await api.requestPasswordReset(this.state.email);
-      this.setState({
-        successMessage: i18next.t('client.login.request_reset_success')
-      });
+      this.displaySuccess(i18next.t('client.login.request_reset_success'));
     } catch (err) {
       if (err.response.status === 404) {
-        this.setState({
-          errorMessage: i18next.t('client.login.request_reset_not_registered')
-        });
+        this.displayError(i18next.t('client.login.request_reset_not_registered'));
+      } else {
+        this.displayError(err.message);
       }
     }
   }
 
   render() {
 
-    const forgotPasswordStyle = {
-      width: '100%',
-      backgroundColor: 'transparent',
-      color: '#BDBDBD',
-      fontSize: 'small',
-      border: 'none',
-      marginTop: '-8px'
-    };
-
-    const styleLogin = {
-      width: '100%',
-      marginBottom: '10px',
-      height: '44px',
-      borderRadius: '50px',
-      backgroundColor: 'transparent',
-      color: '#e6823c',
-      borderWidth: '2px',
-      textTransform: 'uppercase'
-    };
-
-    const styleRegister = {
-      width: '100%',
-      height: '44px',
-      borderRadius: '50px',
-      textTransform: 'uppercase'
-    };
-
     return (
-      <Modal
-        show={this.props.visible}
-        onHide={this.onHide.bind(this)}
-        bsSize="small">
-        <Modal.Header style={{paddingTop: '10px', paddingBottom: '0px'}} closeButton>
-          <h1 style={{textAlign: 'center', fontSize: 'xx-large'}}>
-            {i18next.t('client.login.button_login_headline')}
-          </h1>
-        </Modal.Header>
+      <Modal show={this.props.visible} onHide={this.props.hide} bsSize="small">
+
+        <RegistrationHeader title={i18next.t('client.login.button_login_headline')}/>
+
         <Modal.Body>
 
-          <FormGroup controlId="email" validationState={this.validate('email')}>
-            <ControlLabel>
-              {i18next.t('client.login.email_label')}
-            </ControlLabel>
-            <FormControl type="text"
-                         value={this.state.email || ''}
-                         placeholder={i18next.t('client.login.email_placeholder')}
-                         onChange={this.handleChange.bind(this)}>
-            </FormControl>
-          </FormGroup>
+          <TextInput id='email'
+                     isValid={this.validate('email')}
+                     label={i18next.t('client.login.email_label')}
+                     value={this.state.email || ''}
+                     placeholder={i18next.t('client.login.email_placeholder')}
+                     glyph={null}
+                     onChange={this.handleChange.bind(this)}/>
 
-          <FormGroup controlId="password" validationState={this.validate('password')}>
-            <ControlLabel>
-              {i18next.t('client.login.password_label')}
-            </ControlLabel>
-            <FormControl type="password"
+          <PasswordInput id={'password'}
+                         isValid={this.validate('password')}
+                         label={i18next.t('client.login.password_label')}
                          value={this.state.password || ''}
                          placeholder={i18next.t('client.login.password_placeholder')}
-                         onChange={this.handleChange.bind(this)}>
-            </FormControl>
-          </FormGroup>
+                         glyph={null}
+                         onChange={this.handleChange.bind(this)}/>
 
-          <div className="row">
-            <div className="col-sm-12">
-              <button className="btn btn-primary"
-                      style={forgotPasswordStyle}
-                      onClick={this.requestReset.bind(this)}>
-                {i18next.t('client.login.password_reset_text')}
-              </button>
-            </div>
-          </div>
+          <FullWidthButton style='transparent' onClick={this.requestReset.bind(this)}>
+            {i18next.t('client.login.password_reset_text')}
+          </FullWidthButton>
 
 
         </Modal.Body>
@@ -257,25 +248,16 @@ export default class Login extends React.Component {
           </div>
           }
 
-          <div className="row">
-            <div className="col-sm-12">
-              <button className="btn btn-primary"
-                      style={styleLogin}
-                      onClick={this.login.bind(this)}>
-                {i18next.t('client.login.button_login_text')}
-              </button>
-            </div>
-          </div>
+          <FullWidthButton style="default"
+                           onClick={this.login.bind(this)}
+                           loading={this.state.isLoginLoading}>
+            {i18next.t('client.login.button_login_text')}
+          </FullWidthButton>
 
-          <div className="row">
-            <div className="col-sm-12">
-              <button className="btn btn-primary"
-                      style={styleRegister}
-                      onClick={this.register.bind(this)}>
-                {i18next.t('client.login.button_register_text')}
-              </button>
-            </div>
-          </div>
+          <FullWidthButton style="primary" onClick={this.register.bind(this)}
+                           loading={this.state.isRegistrationLoading}>
+            {i18next.t('client.login.button_register_text')}
+          </FullWidthButton>
 
         </Modal.Footer>
       </Modal>
