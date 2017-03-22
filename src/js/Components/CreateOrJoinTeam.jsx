@@ -8,12 +8,14 @@ import {
   Button,
   Col,
   Row,
-  Checkbox,
+  Modal,
   Radio
 } from 'react-bootstrap';
 
 import Promise from 'bluebird';
 import store from 'store';
+
+import RegistrationHeader from './RegistrationHeader.jsx';
 
 export default class CreateOrJoinTeam extends React.Component {
 
@@ -21,9 +23,16 @@ export default class CreateOrJoinTeam extends React.Component {
     super(props);
     this.state = {
       events: [],
-      invitations: []
+      invitations: [],
+      visible: true
     };
 
+  }
+
+  hide() {
+    this.setState({
+      visible: false
+    });
   }
 
   handleChange(event) {
@@ -49,9 +58,8 @@ export default class CreateOrJoinTeam extends React.Component {
 
   async componentDidMount() {
     const api = await BreakoutApi.initFromServer();
-    const token = store.get('accessToken');
-    console.log(token);
-    // TODO: Implement!
+    const token = store.get('tokens').access_token;
+
     if (!token) {
       throw Error('No token in store. Needs login!');
     }
@@ -69,7 +77,7 @@ export default class CreateOrJoinTeam extends React.Component {
   async createTeam() {
 
     const api = await BreakoutApi.initFromServer();
-    const token = store.get('accessToken');
+    const token = store.get('tokens').access_token;
     console.log(token);
 
     if (!token) {
@@ -129,61 +137,60 @@ export default class CreateOrJoinTeam extends React.Component {
 
   render() {
     return (
-      <div>
-        Erstelle ein neues Team und lade deinen Teampartner per Email ein, oder trete unten einem
-        Team bei, falls du eingeladen wurdest!
+      <Modal show={this.props.visible} onHide={this.props.hide}>
+        <RegistrationHeader
+          title="Ein Team erstellen"
+          description="Erstelle ein neues Team und lade deinen Teampartner per Email ein, oder trete unten einem Team bei, falls du eingeladen wurdest!"
+        />
+        <Modal.Body>
 
-        {/* TODO: Make this clean!*/}
-        <br />
-        <br />
+          <FormGroup controlId="teamName" validationState={'error'}>
+            <ControlLabel>
+              Teamname
+            </ControlLabel>
+            <FormControl type="text"
+                         value={this.state.teamName || ''}
+                         placeholder="Gib einen Teamnamen an"
+                         onChange={this.handleChange.bind(this)}/>
+          </FormGroup>
 
-        <FormGroup controlId="teamName" validationState={'error'}>
-          <ControlLabel>
-            Teamname
-          </ControlLabel>
-          <FormControl type="text"
-                       value={this.state.teamName || ''}
-                       placeholder="Gib einen Teamnamen an"
-                       onChange={this.handleChange.bind(this)}/>
-        </FormGroup>
+          <FormGroup controlId="selectedEvent" validationState={'error'}>
+            <ControlLabel>
+              Event
+            </ControlLabel>
+            <FormControl componentClass="select"
+                         placeholder="Wähle aus, von welchem Standort du starten möchtest"
+                         onChange={this.handleChange.bind(this)}>
 
-        <FormGroup controlId="selectedEvent" validationState={'error'}>
-          <ControlLabel>
-            Event
-          </ControlLabel>
-          <FormControl componentClass="select"
-                       placeholder="Wähle aus, von welchem Standort du starten möchtest"
-                       onChange={this.handleChange.bind(this)}>
+              {this.state.events.map((event) => <option key={event.id}
+                                                        value={event.id}>{event.title}</option>)}
 
-            {this.state.events.map((event) => <option key={event.id}
-                                                      value={event.id}>{event.title}</option>)}
+            </FormControl>
+          </FormGroup>
+          <FormGroup controlId="partnerEmail" validationState={'error'}>
+            <ControlLabel>
+              Email deines Teampartners
+            </ControlLabel>
+            <FormControl type="text"
+                         value={this.state.partnerEmail || ''}
+                         placeholder="Gib die Emailadresse deines Teampartners an"
+                         onChange={this.handleChange.bind(this)}/>
+          </FormGroup>
 
-          </FormControl>
-        </FormGroup>
-        <FormGroup controlId="partnerEmail" validationState={'error'}>
-          <ControlLabel>
-            Email deines Teampartners
-          </ControlLabel>
-          <FormControl type="text"
-                       value={this.state.partnerEmail || ''}
-                       placeholder="Gib die Emailadresse deines Teampartners an"
-                       onChange={this.handleChange.bind(this)}/>
-        </FormGroup>
+          <InvitationInfo invitations={this.state.invitations}
+                          onSubmit={this.joinTeam.bind(this)}
+                          selectTeam={this.selectTeam.bind(this)}
+                          selectedTeam={this.state.selectedTeam || null}/>
 
-        <br />
+          <FullscreenCenteredButton bsStyle="primary" onClick={this.createTeam.bind(this)}>
+            Team erstellen und Anmeldung abschließen
+          </FullscreenCenteredButton>
 
-        <FullscreenCenteredButton bsStyle="primary" onClick={this.createTeam.bind(this)}>
-          Team erstellen und Anmeldung abschließen
-        </FullscreenCenteredButton>
+        </Modal.Body>
+        <Modal.Footer>
 
-        <hr/>
-
-        <InvitationInfo invitations={this.state.invitations}
-                        onSubmit={this.joinTeam.bind(this)}
-                        selectTeam={this.selectTeam.bind(this)}
-                        selectedTeam={this.state.selectedTeam || null}/>
-
-      </div>
+        </Modal.Footer>
+      </Modal>
     );
   }
 }
@@ -200,9 +207,6 @@ const InvitationInfo = (props) => {
                                                          data={invitation}
                                                          selectTeam={props.selectTeam}
                                                          checked={invitation.team == props.selectedTeam}/>)}
-        <FullscreenCenteredButton bsStyle="primary" onClick={props.onSubmit}>
-          Dem ausgewählten Team beitreten
-        </FullscreenCenteredButton>
       </span>
     );
 

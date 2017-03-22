@@ -4,6 +4,7 @@ import {
 
 import React from 'react';
 import i18next from 'i18next';
+import RegistrationHeader from './RegistrationHeader.jsx';
 
 import de from '../../../resources/translations/translations.de.js';
 import en from '../../../resources/translations/translations.en.js';
@@ -33,10 +34,17 @@ export default class RoleSelector extends React.Component {
     this.setState({
       selectedRole: e.currentTarget.id
     });
+    this.next(e.currentTarget.id);
   }
 
-  onHide() {
-    this.props.onHide();
+  next(selectedRole) {
+    if (selectedRole === 'visitor') {
+      this.props.next(this.props.steps.done)
+    } else if (selectedRole === 'participant') {
+      this.props.next(this.props.steps.becomeParticipant)
+    } else if (selectedRole === 'sponsor') {
+      alert("Not implemented yet!");
+    }
   }
 
   render() {
@@ -44,14 +52,12 @@ export default class RoleSelector extends React.Component {
     return (
       <Modal
         show={this.props.visible}
-        onHide={this.onHide.bind(this)}
+        onHide={this.props.onHide}
         bsSize="small">
-        <Modal.Header style={{paddingTop: '10px', paddingBottom: '0px'}} closeButton>
-          <h1 style={{textAlign: 'center', fontSize: 'xx-large'}}>
-            {i18next.t('client.role_select.headline')}
-          </h1>
-          <p style={{textAlign: 'center'}}>{i18next.t('client.role_select.description')}</p>
-        </Modal.Header>
+        <RegistrationHeader
+          title={i18next.t('client.role_select.headline')}
+          description={i18next.t('client.role_select.description')}/>
+
         <Modal.Body>
 
           <Selector roleTitle={i18next.t('client.role_select.visitor_title')}
@@ -79,7 +85,7 @@ export default class RoleSelector extends React.Component {
 const Selector = (props) => {
 
   const style = `
-    .btn-primary {
+    .roleSelector .btn-primary {
       width: 100%;
       background: transparent;
       color: #000000;
@@ -89,26 +95,27 @@ const Selector = (props) => {
       text-align: left;
       margin-bottom: 10px;
       white-space: normal;
-      }
-    .btn-primary:hover {
+    }
+    
+    .roleSelector .btn-primary:hover {
       background-color: transparent;
       border-color: #e6823c;
       color: #000000;
     }
     
-    .btn-primary:active {
+    .roleSelector .btn-primary:active {
       background-color: transparent;
       border-color: #e6823c;
       color: #000000;
     }
     
-    .btn-primary:focus {
+    .roleSelector .btn-primary:focus {
       background-color: transparent;
       border-color: #e6823c;
       color: #000000;
     }
     
-    .btn-primary h3 {
+    .roleSelector .btn-primary h3 {
        margin-bottom: 10px;
        margin-top: 4px;
        font-size: large;
