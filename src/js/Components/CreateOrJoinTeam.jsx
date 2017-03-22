@@ -144,6 +144,21 @@ export default class CreateOrJoinTeam extends React.Component {
     });
   }
 
+  isValid(elem) {
+    const notNull = (elem) => !!elem;
+    const notEmpty = (elem) => elem !== '';
+    const and = (f1, f2) => (elem) => (f1(elem) && f2(elem));
+
+    const validations = {
+      selectedEvent: notNull,
+      teamName: and(notNull, notEmpty),
+      partnerEmail: and(notNull, notEmpty)
+    };
+
+    return validations[elem](this.state[elem]);
+  }
+
+
   render() {
     return (
       <Modal show={this.props.visible} onHide={this.props.onHide}>
@@ -153,13 +168,13 @@ export default class CreateOrJoinTeam extends React.Component {
         <Modal.Body>
 
           <OptionsInput id='selectedEvent'
-                        isValid={() => true}
+                        isValid={this.isValid.bind(this)}
                         label={i18next.t('client.create_or_join_team.select_event')}
                         onChange={this.handleChange.bind(this)}
                         values={this.state.events.map(e => e.title)}/>
 
           <TextInput id='teamName'
-                     isValid={() => true}
+                     isValid={this.isValid.bind(this)}
                      label={i18next.t('client.create_or_join_team.team_name.label')}
                      value={this.state.teamName || ''}
                      placeholder={i18next.t('client.create_or_join_team.team_name.placeholder')}
@@ -167,7 +182,7 @@ export default class CreateOrJoinTeam extends React.Component {
                      onChange={this.handleChange.bind(this)}/>
 
           <TextInput id='partnerEmail'
-                     isValid={() => true}
+                     isValid={this.isValid.bind(this)}
                      label={i18next.t('client.create_or_join_team.partner_email.label')}
                      value={this.state.partnerEmail || ''}
                      onChange={this.handleChange.bind(this)}
