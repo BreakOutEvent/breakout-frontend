@@ -12,6 +12,8 @@ import de from '../../../resources/translations/translations.de.js';
 import en from '../../../resources/translations/translations.en.js';
 import {FullscreenCenteredButton} from './Buttons.jsx';
 
+import {isUserLoggedIn, getAccessToken} from './helpers';
+
 i18next.init({
   lng: window.getBoUserLang(),
   fallbackLng: 'de',
@@ -66,52 +68,95 @@ export default class CreateOrJoinTeam extends React.Component {
   }
 
   async componentDidMount() {
-    const api = await BreakoutApi.initFromServer();
-    const token = store.get('tokens').access_token;
 
-    if (!token) {
-      throw Error('No token in store. Needs login!');
+    if (!isUserLoggedIn()) {
+      this.props.transitionTo(this.props.steps.login);
+    } else {
+
+      const api = await BreakoutApi.initFromServer();
+      api.setAccessToken(getAccessToken());
+      const isUserParticipant = await api.isUserParticipant();
+      if (!isUserParticipant) {
+        this.props.transitionTo(this.props.steps.becomeParticipant);
+      } else {
+        try {
+          const {events, invitations} = await this.loadDataForComponent();
+          this.updateState(events, invitations);
+        } catch (err) {
+          this.displayError(err.message);
+        }
+      }
     }
+  }
 
-    api.setAccessToken(token);
+  async loadDataForComponent() {
+    const api = await BreakoutApi.initFromServer();
+    api.setAccessToken(getAccessToken());
     const events = await api.getAllEvents();
     const invitations = await Promise.all(events.map(event => api.getInvitations(event.id)));
+    return {events, invitations};
+  }
+
+  updateState(events, invitations) {
     this.setState({
       events: events,
       invitations: invitations.reduce((a, b) => a.concat(b))
     });
   }
 
+  handleError(err) {
+    if (!err.response) {
+      this.displayError(err.message);
+    }
+
+    switch (err.response.status) {
+      case 400:
+        this.displayError('Error: ' + err.response.data.message);
+        break;
+      default:
+        this.displayError(err.message);
+    }
+  }
+
+  displayError(message) {
+    this.setState({
+      createTeamErrorMessage: message
+    });
+  }
 
   async createTeam() {
 
-    const api = await BreakoutApi.initFromServer();
-    const token = store.get('tokens').access_token;
-    console.log(token);
+    if (!isUserLoggedIn()) {
+      this.props.transitionTo('login');
+    } else {
 
-    if (!token) {
-      // TODO: Make useful
-      this.props.onError('Du bist nicht angemeldet. Bitte melde dich an!');
+      if (!this.isValid('selectedEvent')) {
+        this.displayError('Bitte wähle ein Event aus');
+        return Promise.resolve();
+      } else if (!this.isValid('teamName')) {
+        this.displayError('Bitte gib deinem Team einen Namen');
+        return Promise.resolve();
+      } else if (!this.isValid('partnerEmail')) {
+        this.displayError('Bitte gib die Emailadresse deines Teampartners an');
+        return Promise.resolve();
+      }
+
+      const api = await BreakoutApi.initFromServer();
+      api.setAccessToken(getAccessToken());
+
+      try {
+        const createdTeam = await api.createTeam(this.state.selectedEvent, {
+          name: this.state.teamName,
+          description: ''
+        });
+
+        await api.inviteToTeam(createdTeam.id, this.state.partnerEmail);
+        this.props.transitionTo(this.props.steps.done);
+
+      } catch (err) {
+        this.handleError(err);
+      }
     }
-
-
-    api.setAccessToken(token);
-
-    try {
-
-      const createdTeam = await api.createTeam(this.state.selectedEvent, {
-        name: this.state.teamName,
-        description: ''
-      });
-
-      await api.inviteToTeam(createdTeam.id, this.state.partnerEmail);
-      this.props.nextStep();
-
-    } catch (err) {
-      // TODO!!
-      throw err;
-    }
-
   }
 
   async joinTeam() {
@@ -195,6 +240,12 @@ export default class CreateOrJoinTeam extends React.Component {
                      value={this.state.partnerEmail || ''}
                      onChange={this.handleChange.bind(this)}
                      placeholder={i18next.t('client.create_or_join_team.partner_email.placeholder')}/>
+
+          { this.state.createTeamErrorMessage &&
+          <div className="alert alert-warning" style={{textAlign: 'left'}}>
+            {this.state.createTeamErrorMessage}
+          </div>
+          }
 
           <FullscreenCenteredButton bsStyle="primary" onClick={this.createTeam.bind(this)}>
             Team erstellen & Anmeldung abschließen
