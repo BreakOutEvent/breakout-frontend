@@ -50,13 +50,16 @@ export default class LoginForm extends React.Component {
             uiSchema={uiSchema}
             showErrorList={false}
             transformErrors={this.transformErrors}
-            onChange={() => {
-            }}
-            onSubmit={(data) => {
-              console.log(data);
-            }}
-            onError={() => {
-            }}>
+            onChange={this.props.onChange}
+            onSubmit={this.props.onSubmit}
+            onError={this.props.onError}>
+
+        { this.props.loginError &&
+        <div className="alert alert-danger">
+          {this.props.loginError}
+        </div>
+        }
+
         <button id='login' className="btn btn-primary"
                 type="submit">{i18next.t('client.login.password_reset_text')}</button>
         <button id='login' className="btn btn-primary"

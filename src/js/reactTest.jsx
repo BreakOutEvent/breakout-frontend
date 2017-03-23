@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import LoginForm from './Components/LoginForm.jsx';
+
+import Login from './Components/Login/Login.jsx';
+import BreakoutApi from './BreakoutApi';
 import RegistrationForm from './Components/RegistrationForm.jsx';
 import TeamCreationForm from './Components/TeamCreationForm.jsx';
 import ParticipationForm from './Components/ParticipationForm.jsx';
@@ -220,26 +222,60 @@ const refinedInvites = invitations.map(invitation => {
   return invitation;
 });
 
-i18next.init({
-  lng: window.getBoUserLang(),
-  fallbackLng: 'de',
-  resources: {
-    de: {
-      translation: de
-    },
-    en: {
-      translation: en
-    }
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      api: null
+    };
   }
-});
+
+  componentWillMount() {
+
+    i18next.init({
+      lng: window.getBoUserLang(),
+      fallbackLng: 'de',
+      resources: {
+        de: {
+          translation: de
+        },
+        en: {
+          translation: en
+        }
+      }
+    });
+
+    this.setState({i18next: i18next});
+
+    // TODO: This should be sync and never throw an error!
+    const api = BreakoutApi.initFromServer()
+      .then(api => {
+        this.setState({
+          api: api
+        });
+      }).catch(console.error);
+  }
+
+  render() {
+    return (
+      <span>
+        <FormContainer><Login api={this.state.api} i18next={this.state.i18next}/></FormContainer>
+
+        <FormContainer><RegistrationForm i18next={this.state.i18next}/></FormContainer>
+
+        <FormContainer><ParticipationForm i18next={this.state.i18next}/></FormContainer>
+
+        <FormContainer><TeamCreationForm events={testEvents}
+                                         i18next={this.state.i18next}/></FormContainer>
+
+        <FormContainer><JoinTeamForm invitations={refinedInvites}
+                                     i18next={this.state.i18next}/></FormContainer>
+      </span>
+    );
+  }
+}
 
 ReactDOM.render(
-  <span>
-    <FormContainer><LoginForm i18next={i18next}/></FormContainer>
-    <FormContainer><RegistrationForm i18next={i18next}/></FormContainer>
-    <FormContainer><ParticipationForm i18next={i18next}/></FormContainer>
-    <FormContainer><TeamCreationForm events={testEvents} i18next={i18next}/></FormContainer>
-    <FormContainer><JoinTeamForm invitations={refinedInvites} i18next={i18next}/></FormContainer>
-  </span>,
+  <App />,
   document.getElementById('react-root')
 );
