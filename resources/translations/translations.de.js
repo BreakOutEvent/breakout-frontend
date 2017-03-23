@@ -3,6 +3,7 @@ module.exports = {
     login: {
       enter_email_or_password: 'Bitte gib deine Email und Passwort ein',
       button_login_headline: 'Login',
+      button_registration_headline: 'Registrieren',
       email_label: 'Emailadresse',
       email_placeholder: 'Gib eine Emailadresse ein',
       password_label: 'Passwort',
@@ -30,6 +31,7 @@ module.exports = {
     participate: {
       title: 'Persönliche Daten',
       description: '',
+      gender: 'Geschlecht',
       male: 'Männlich',
       female: 'Weiblich',
       enter_full_data: 'Bitte gib deine Daten vollständig an',
@@ -68,7 +70,16 @@ module.exports = {
       partner_email: {
         label: 'Emailadresse des Teampartners',
         placeholder: 'Die Emailadresse deinen Teampartners'
-      }
+      },
+      button_create_text: 'Team erstellen',
+      button_join_text: 'Dem ausgewähltem Team beitreten',
+      select_team_to_join: 'Wähle ein Team, dem du beitreten möchtest'
+    },
+    create_team: {
+      title: 'Team erstellen',
+    },
+    join_team: {
+      title: 'Team beitreten'
     }
   },
   'SELECTION': {
