@@ -14,6 +14,7 @@ import CreateOrJoinTeam from './Components/CreateOrJoinTeam.jsx';
 import de from '../../resources/translations/translations.de';
 import en from '../../resources/translations/translations.de';
 import i18next from 'i18next';
+import $ from 'jquery';
 
 import {getAccessToken} from './Components/helpers';
 
@@ -45,7 +46,8 @@ class VisibleModal extends React.Component {
       marginRight: '10px',
       borderRadius: '5px',
       padding: '40px',
-      minWidth: '300px'
+      minWidth: '300px',
+      paddingBottom: '10px'
     };
 
     return (

@@ -45,7 +45,9 @@ export default class LoginForm extends React.Component {
       }
     };
 
+    const style = {width: '100%', display: 'flex', justifyContent: 'center'};
     return (
+
       <Form schema={schema}
             uiSchema={uiSchema}
             showErrorList={false}
@@ -54,18 +56,28 @@ export default class LoginForm extends React.Component {
             onSubmit={this.props.onSubmit}
             onError={this.props.onError}>
 
+        <span style={style}>
         { this.props.loginError &&
         <div className="alert alert-danger">
           {this.props.loginError}
         </div>
         }
+        </span>
 
-        <button id='login' className="btn btn-primary"
+        <span style={style}>
+        <button id='password-reset-btn' className="btn btn-primary"
                 type="submit">{i18next.t('client.login.password_reset_text')}</button>
-        <button id='login' className="btn btn-primary"
+        </span>
+
+        <span style={style}>
+        <button id='login-btn' className="btn btn-primary"
                 type="submit">{i18next.t('client.login.button_login_text')}</button>
-        <button id='register' className="btn btn-primary"
+        </span>
+
+        <span style={style}>
+        <button id='register-btn' className="btn btn-primary"
                 type="submit">{i18next.t('client.login.button_register_text')}</button>
+        </span>
       </Form>
     );
   }
