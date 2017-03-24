@@ -73,7 +73,10 @@ module.exports = {
       },
       button_create_text: 'Team erstellen',
       button_join_text: 'Dem ausgewähltem Team beitreten',
-      select_team_to_join: 'Wähle ein Team, dem du beitreten möchtest'
+      select_team_to_join: 'Wähle ein Team, dem du beitreten möchtest',
+      team_description: {
+        label: 'Gib eine Beschreibung für dein Team ein'
+      }
     },
     create_team: {
       title: 'Team erstellen',
