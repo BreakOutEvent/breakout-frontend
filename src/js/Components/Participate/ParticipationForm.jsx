@@ -1,7 +1,7 @@
 import Form from 'react-jsonschema-form';
 import React from 'react';
 
-export default class LoginForm extends React.Component {
+export default class ParticipationForm extends React.Component {
 
   constructor(props) {
     super(props);
@@ -75,13 +75,15 @@ export default class LoginForm extends React.Component {
             uiSchema={uiSchema}
             showErrorList={false}
             transformErrors={this.transformErrors}
-            onChange={() => {
-            }}
-            onSubmit={(data) => {
-              console.log(data);
-            }}
-            onError={() => {
-            }}>
+            onChange={this.props.onChange}
+            onSubmit={this.props.onSubmit}
+            onError={this.props.onError}>
+
+        { this.props.participationError &&
+        <div className="alert alert-danger">
+          {this.props.participationError}
+        </div>
+        }
         <button id='register' className="btn btn-primary"
                 type="submit">{i18next.t('client.participate.next_step')}</button>
       </Form>
