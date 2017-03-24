@@ -1,7 +1,7 @@
-import Form from 'react-jsonschema-form';
+import Form from '../Form.jsx';
 import React from 'react';
 
-export default class LoginForm extends React.Component {
+export default class TeamCreationForm extends React.Component {
 
   constructor(props) {
     super(props);

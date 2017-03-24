@@ -6,9 +6,10 @@ const InviteOption = (props) => {
       <span>
       <input type="radio" name={props.label.team.id} required=""
              value={parseInt(props.label.team.id)}/>
-      <div>
-        <div>{props.label.team.name}</div>
-        <div>{props.label.team.members[0].firstname || ''} {props.label.team.members[0].lastname || ''}</div>
+      <div className="radio-team">
+        <div className="radio-team-name">{props.label.team.name}</div>
+        <div
+          className="radio-team-description">{props.label.team.members[0].firstname || ''} {props.label.team.members[0].lastname || ''}</div>
       </div>
       </span>
     </label>
@@ -19,10 +20,6 @@ const InvitationWidget = (props) => {
   return (
     <div className="form-group field field-string invitation-widget"
          onChange={e => props.onChange(e.target.value)}>
-
-      <label className="control-label" htmlFor={props.id}>
-        {props.options.label}
-      </label>
 
       <div></div>
       <div className="field-radio-group">

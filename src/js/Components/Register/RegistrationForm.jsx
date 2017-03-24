@@ -1,4 +1,4 @@
-import Form from 'react-jsonschema-form';
+import Form from '../Form.jsx';
 import React from 'react';
 
 export default class LoginForm extends React.Component {

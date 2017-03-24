@@ -1,4 +1,4 @@
-import Form from 'react-jsonschema-form';
+import Form from '../Form.jsx';
 import React from 'react';
 import InvitationWidget from './InvitationWidget.jsx';
 
