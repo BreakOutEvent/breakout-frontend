@@ -77,6 +77,8 @@ module.exports = {
     },
     create_team: {
       title: 'Team erstellen',
+      participant_already_has_team_for_event: 'Du bist für dieses Event bereits Teil eines Teams. Du kannst dieses Team auf deinem Profil unter Teameinstellungen verlassen und außerdem andere Teilnehmer zu diesem Team einladen',
+      invalid_invite_email: 'Dein Team wurde erstellt, aber du hast keine gültige Emailadresse für deinen Teampartner eingegeben. Du kannst jederzeit auf deinem Profil unter Teameinstellungen weitere Einladungen zu deinem Team versenden'
     },
     join_team: {
       title: 'Team beitreten'

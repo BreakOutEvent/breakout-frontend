@@ -53,13 +53,15 @@ export default class LoginForm extends React.Component {
             uiSchema={uiSchema}
             showErrorList={false}
             transformErrors={this.transformErrors}
-            onChange={() => {
-            }}
-            onSubmit={(data) => {
-              console.log(data);
-            }}
-            onError={() => {
-            }}>
+            onChange={this.props.onChange}
+            onSubmit={this.props.onSubmit}
+            onError={this.props.onError}>
+
+        { this.props.teamCreationError &&
+        <div className="alert alert-danger">
+          {this.props.teamCreationError}
+        </div>
+        }
         <button id='register' className="btn btn-primary"
                 type="submit">{i18next.t('client.create_or_join_team.button_create_text')}</button>
       </Form>

@@ -3,9 +3,11 @@ import ReactDOM from 'react-dom';
 
 import Login from './Components/Login/Login.jsx';
 import BreakoutApi from './BreakoutApi';
+
 import Registration from './Components/Register/Registration.jsx';
-import TeamCreationForm from './Components/TeamCreationForm.jsx';
 import Participation from './Components/Participate/Participation.jsx';
+import TeamCreation from './Components/TeamCreation/TeamCreation.jsx';
+
 import JoinTeamForm from './Components/JoinTeamForm.jsx';
 import de from '../../resources/translations/translations.de';
 import en from '../../resources/translations/translations.de';
@@ -262,8 +264,8 @@ class App extends React.Component {
           api={this.state.api}
           i18next={this.state.i18next}/></FormContainer>
 
-        <FormContainer><TeamCreationForm events={testEvents}
-                                         i18next={this.state.i18next}/></FormContainer>
+        <FormContainer><TeamCreation api={this.state.api}
+                                     i18next={this.state.i18next}/></FormContainer>
 
         <FormContainer><JoinTeamForm invitations={refinedInvites}
                                      i18next={this.state.i18next}/></FormContainer>
