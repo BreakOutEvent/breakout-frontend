@@ -17,7 +17,7 @@ export default class Participation extends React.Component {
   }
 
   onGetMeError(error) {
-    // TODO: Redirect
+    this.props.show('login');
   }
 
   onSubmit(data) {
@@ -39,7 +39,7 @@ export default class Participation extends React.Component {
   }
 
   onParticipationSuccess(data) {
-    // TODO: Redirect
+    this.props.show('createOrJoinTeam');
   }
 
   onParticipationError(error) {

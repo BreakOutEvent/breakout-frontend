@@ -1,27 +1,4 @@
-import {
-  Modal,
-} from 'react-bootstrap';
-
 import React from 'react';
-import i18next from 'i18next';
-import RegistrationHeader from './RegistrationHeader.jsx';
-
-import de from '../../../resources/translations/translations.de.js';
-import en from '../../../resources/translations/translations.en.js';
-
-i18next.init({
-  lng: window.getBoUserLang(),
-  fallbackLng: 'de',
-  resources: {
-    de: {
-      translation: de
-    },
-    en: {
-      translation: en
-    }
-  }
-});
-
 
 export default class RoleSelector extends React.Component {
 
@@ -39,45 +16,40 @@ export default class RoleSelector extends React.Component {
 
   next(selectedRole) {
     if (selectedRole === 'visitor') {
-      this.props.next(this.props.steps.done)
+      this.props.show(null);
     } else if (selectedRole === 'participant') {
-      this.props.next(this.props.steps.becomeParticipant)
+      this.props.show('participate');
     } else if (selectedRole === 'sponsor') {
-      alert("Not implemented yet!");
+      alert('Not implemented yet!');
+      this.props.show(null);
     }
   }
 
   render() {
-
+    const i18next = this.props.i18next;
     return (
-      <Modal
-        show={this.props.visible}
-        onHide={this.props.onHide}
-        bsSize="small">
-        <RegistrationHeader
-          title={i18next.t('client.role_select.headline')}
-          description={i18next.t('client.role_select.description')}/>
+      <form>
 
-        <Modal.Body>
+        <legend>{i18next.t('client.role_select.headline')}</legend>
+        <p>{i18next.t('client.role_select.description')}</p>
 
-          <Selector roleTitle={i18next.t('client.role_select.visitor_title')}
-                    roleText={i18next.t('client.role_select.visitor_text')}
-                    role="visitor"
-                    onClick={this.onClick.bind(this)}/>
+        <Selector roleTitle={i18next.t('client.role_select.visitor_title')}
+                  roleText={i18next.t('client.role_select.visitor_text')}
+                  role="visitor"
+                  onClick={this.onClick.bind(this)}/>
 
-          <Selector roleTitle={i18next.t('client.role_select.participant_title')}
-                    roleText={i18next.t('client.role_select.participant_text')}
-                    role="participant"
-                    onClick={this.onClick.bind(this)}/>
+        <Selector roleTitle={i18next.t('client.role_select.participant_title')}
+                  roleText={i18next.t('client.role_select.participant_text')}
+                  role="participant"
+                  onClick={this.onClick.bind(this)}/>
 
-          <Selector roleTitle={i18next.t('client.role_select.sponsor_title')}
-                    roleText={i18next.t('client.role_select.sponsor_text')}
-                    role="sponsor"
-                    onClick={this.onClick.bind(this)}/>
+        <Selector roleTitle={i18next.t('client.role_select.sponsor_title')}
+                  roleText={i18next.t('client.role_select.sponsor_text')}
+                  role="sponsor"
+                  onClick={this.onClick.bind(this)}/>
 
-        </Modal.Body>
 
-      </Modal>
+      </form>
     );
   }
 }

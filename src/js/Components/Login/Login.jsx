@@ -22,6 +22,7 @@ export default class Login extends React.Component {
 
   onLoginSuccess(tokens) {
     storeTokens(tokens);
+    this.props.show('selectRole');
   }
 
   onLoginError(err) {
