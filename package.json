@@ -73,7 +73,8 @@
     "socket.io": "^1.4.6",
     "sticky-cluster": "^0.1.2",
     "store": "^2.0.4",
-    "winston": "^2.3.0"
+    "winston": "^2.3.0",
+    "react-responsive-modal": "1.4.1"
   },
   "devDependencies": {
     "ansi2html-extended": "0.0.4",

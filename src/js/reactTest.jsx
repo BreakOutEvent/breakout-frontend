@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import BreakoutApi from './BreakoutApi';
 
-import {Modal} from 'react-bootstrap';
+import Modal from 'react-responsive-modal';
 
 import Login from './Components/Login/Login.jsx';
 import Registration from './Components/Register/Registration.jsx';
@@ -34,12 +34,27 @@ class VisibleModal extends React.Component {
   }
 
   render() {
+    const overlayStyle = {
+      zIndex: 10000,
+      backgroundColor: 'rgba(0,0,0,0.5)'
+    };
+
+    const modalStyle = {
+      marginTop: '150px',
+      marginLeft: '10px',
+      marginRight: '10px',
+      borderRadius: '5px',
+      padding: '40px',
+      minWidth: '300px'
+    };
+
     return (
-      <Modal {...this.props} show={this.state.show} onHide={this.close.bind(this)}>
-        <Modal.Header closeButton/>
-        <Modal.Body>
-          {this.props.children}
-        </Modal.Body>
+      <Modal {...this.props}
+             open={this.state.show}
+             onClose={this.close.bind(this)}
+             overlayStyle={overlayStyle}
+             modalStyle={modalStyle}>
+        {this.props.children}
       </Modal>
     );
   }
@@ -79,7 +94,17 @@ class App extends React.Component {
   }
 
   registerJQueryListeners() {
+
+    // login / register link in navbar on large screens
     $('#bo-login-btn').click(() => {
+      this.setState({
+        activeModal: 'login'
+      });
+    });
+
+    // login / register link in dropdown
+    $('#bo-btn-login-sm').click(() => {
+      $('.navbar-toggle').click();
       this.setState({
         activeModal: 'login'
       });
