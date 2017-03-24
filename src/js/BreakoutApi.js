@@ -2,6 +2,7 @@
 
 const axios = require('axios');
 const qs = require('qs');
+const Promise = require('bluebird');
 
 class BreakoutApi {
 
@@ -145,6 +146,22 @@ class BreakoutApi {
   getAllEvents() {
     return this.instance.get('/event/').then(resp => resp.data);
   }
+
+  async getAllInvitations() {
+    const events = await this.getAllEvents();
+    let invitations = await Promise.all(events.map(event => this.getInvitations(event.id)));
+
+    // Flatten arrays
+    invitations = [].concat.apply([], invitations);
+
+    const teams = await Promise.all(invitations.map(invite => this.getTeamById(invite.team)));
+
+    return invitations.map(invitation => {
+      invitation.team = teams.filter(team => (team.id === invitation.team))[0];
+      return invitation;
+    });
+  }
+
 
   /**
    * Get all invitations for the authenticated user for a specific event

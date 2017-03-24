@@ -2,7 +2,7 @@ import Form from 'react-jsonschema-form';
 import React from 'react';
 import InvitationWidget from './InvitationWidget.jsx';
 
-export default class LoginForm extends React.Component {
+export default class JoinTeamForm extends React.Component {
 
   constructor(props) {
     super(props);
@@ -14,7 +14,6 @@ export default class LoginForm extends React.Component {
 
   render() {
     const i18next = this.props.i18next;
-
     const schema = {
       type: 'object',
       title: i18next.t('client.join_team.title'),
@@ -41,13 +40,15 @@ export default class LoginForm extends React.Component {
             showErrorList={false}
             transformErrors={this.transformErrors}
             noValidate={false}
-            onChange={() => {
-            }}
-            onSubmit={(data) => {
-              console.log(data);
-            }}
-            onError={() => {
-            }}>
+            onChange={this.props.onChange}
+            onSubmit={this.props.onSubmit}
+            onError={this.props.onChange}>
+
+        { this.props.joinTeamError &&
+        <div className="alert alert-danger">
+          {this.props.joinTeamError}
+        </div>
+        }
         <button id='register' className="btn btn-primary"
                 type="submit">{i18next.t('client.create_or_join_team.button_join_text')}</button >
       </Form>
