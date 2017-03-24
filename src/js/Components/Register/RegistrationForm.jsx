@@ -77,13 +77,16 @@ export default class LoginForm extends React.Component {
             showErrorList={false}
             transformErrors={this.transformErrors.bind(this)}
             validate={this.validate.bind(this)}
-            onChange={() => {
-            }}
-            onSubmit={(data) => {
-              console.log(data);
-            }}
-            onError={() => {
-            }}>
+            onChange={this.props.onChange}
+            onSubmit={this.props.onSubmit}
+            onError={this.props.onError}>
+
+        { this.props.registrationError &&
+        <div className="alert alert-danger">
+          {this.props.registrationError}
+        </div>
+        }
+
         <button id='register' className="btn btn-primary"
                 type="submit">{i18next.t('client.login.button_register_text')}</button>
       </Form>
