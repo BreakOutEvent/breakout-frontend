@@ -1,6 +1,20 @@
 import Form from '../Form.jsx';
 import React from 'react';
 
+const BooleanWithInnerHtml = (props) => {
+  return (
+    <span className="checkbox">
+              <input type="checkbox"
+                     className="Checkbox with inner html"
+                     style={{display: 'inline'}}
+                     value={props.value}
+                     required={props.required}
+                     onChange={(event) => props.onChange((event.target.value === 'checked'))}/>
+              <label className="customLabel" dangerouslySetInnerHTML={{__html: props.label}}/>
+            </span>
+  );
+};
+
 export default class ParticipationForm extends React.Component {
 
   constructor(props) {
@@ -67,6 +81,14 @@ export default class ParticipationForm extends React.Component {
         'ui:options': {
           inline: true
         },
+      },
+      acceptToS: {
+        'ui:widget': BooleanWithInnerHtml,
+        classNames: 'boolean-with-inner-html'
+      },
+      acceptCoH: {
+        'ui:widget': BooleanWithInnerHtml,
+        classNames: 'boolean-with-inner-html'
       }
     };
 
