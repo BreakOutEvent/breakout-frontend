@@ -56,36 +56,29 @@ export default class LoginForm extends React.Component {
             onSubmit={this.props.onSubmit}
             onError={this.props.onError}>
 
-        <span style={style}>
         { this.props.loginError &&
         <div className="alert alert-danger">
           {this.props.loginError}
         </div>
         }
-        </span>
 
-        <span style={style}>
         <button id='password-reset-btn'
                 className="btn btn-primary"
                 onClick={this.props.onPasswordReset}>
-          {i18next.t('client.login.password_reset_text')}</button>
-        </span>
+          {i18next.t('client.login.password_reset_text')}
+        </button>
 
-        <span style={style}>
         <button id='login-btn'
                 className="btn btn-primary"
                 type="submit">
           {i18next.t('client.login.button_login_text')}
-          </button>
-        </span>
+        </button>
 
-        <span style={style}>
         <button id='register-btn'
                 className="btn btn-primary"
                 onClick={this.props.onRegister}>
           {i18next.t('client.login.button_register_text')}
-          </button>
-        </span>
+        </button>
       </Form>
     );
   }
