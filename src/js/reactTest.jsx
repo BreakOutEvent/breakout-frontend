@@ -9,10 +9,11 @@ import Login from './Components/Login/Login.jsx';
 import Registration from './Components/Register/Registration.jsx';
 import Participation from './Components/Participate/Participation.jsx';
 import SelectRole from './Components/SelectRole/SelectRole.jsx';
+import ResetPassword from './Components/ResetPassword/ResetPassword.jsx';
 import CreateOrJoinTeam from './Components/CreateOrJoinTeam.jsx';
 
 import de from '../../resources/translations/translations.de';
-import en from '../../resources/translations/translations.de';
+import en from '../../resources/translations/translations.en';
 import i18next from 'i18next';
 import $ from 'jquery';
 
@@ -120,6 +121,7 @@ class App extends React.Component {
       createOrJoinTeam: CreateOrJoinTeam,
       participate: Participation,
       selectRole: SelectRole,
+      resetPassword: ResetPassword
     };
 
     this.setState({

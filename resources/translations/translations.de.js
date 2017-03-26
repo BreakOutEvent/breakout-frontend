@@ -85,6 +85,12 @@ module.exports = {
     },
     join_team: {
       title: 'Team beitreten'
+    },
+    reset_password: {
+      headline: 'Passwort zurücksetzen',
+      email_label: 'Emailadresse',
+      reset_password_button: 'Passwort jetzt zurücksetzen',
+      request_success: 'Wir haben dir eine Email mit einer Anleitung zum Zurücksetzen deines Passworts geschickt!'
     }
   },
   'SELECTION': {

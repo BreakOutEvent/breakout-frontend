@@ -37,7 +37,7 @@ export default class Login extends React.Component {
                  onSubmit={this.onSubmit.bind(this)}
                  loginError={this.state.loginError}
                  onRegister={() => this.props.show('register')}
-                 onPasswordReset={() => alert('Not implemented yet')}
+                 onPasswordReset={() => this.props.show('resetPassword')}
                  onError={() => {
                  }}
                  onChange={() => {
