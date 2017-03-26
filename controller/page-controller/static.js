@@ -70,10 +70,15 @@ class StaticController {
 
   static *renderFAQPage(req, res) {
 
-    let faqs = yield contentful.getFieldsForContentType('faq', req.contentfulLocale);
+    const faqs = yield contentful.getFieldsForContentType('faq', req.contentfulLocale);
+    const aspects = yield contentful.getFieldsForContentType('aspectsOfBreakOut', req.contentfulLocale);
+    const pages = yield contentful.getFieldsForContentType('aboutBreakoutPage', req.contentfulLocale);
+    const page = pages[0];
 
     const options = extendDefaultOptions(req, {
-      title: 'FAQ',
+      title: page.title,
+      headerImage: page.headerImage,
+      aspects: aspects.sort((a, b) => a.order > b.order),
       faqs: faqs,
     });
 

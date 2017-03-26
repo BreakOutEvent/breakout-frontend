@@ -12,6 +12,9 @@ const md = new Remarkable({
   html: true
 });
 
+exports.toId = (input) => {
+  return input.replace(/ /g,'');
+};
 /**
  * Concatenates first and second.
  * @param first
