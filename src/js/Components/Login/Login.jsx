@@ -36,6 +36,8 @@ export default class Login extends React.Component {
       <LoginForm i18next={this.props.i18next}
                  onSubmit={this.onSubmit.bind(this)}
                  loginError={this.state.loginError}
+                 onRegister={() => this.props.show('register')}
+                 onPasswordReset={() => alert('Not implemented yet')}
                  onError={() => {
                  }}
                  onChange={() => {
