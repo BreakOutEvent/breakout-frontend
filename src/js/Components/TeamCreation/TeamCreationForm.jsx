@@ -40,7 +40,7 @@ export default class TeamCreationForm extends React.Component {
     };
 
     const uiSchema = {
-      email: {
+      partneremail: {
         'ui:widget': 'email'
       },
       teamdescription: {

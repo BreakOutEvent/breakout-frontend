@@ -56,12 +56,7 @@ export default class LoginForm extends React.Component {
 
     const uiSchema = {
       email: {
-        type: 'object',
-        properties: {
-          email: {
-            'ui:widget': 'email'
-          }
-        }
+        'ui:widget': 'email'
       },
       password1: {
         'ui:widget': 'password',
