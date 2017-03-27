@@ -5,9 +5,9 @@ const Button = (props) => {
     return (
       <button {...props} className="btn btn-primary">
         <div className="spinner">
-          <div className="bounce1"></div>
-          <div className="bounce2"></div>
-          <div className="bounce3"></div>
+          <div className="bounce1" style={{backgroundColor: props.indicatorColor || 'white'}}></div>
+          <div className="bounce2" style={{backgroundColor: props.indicatorColor || 'white'}}></div>
+          <div className="bounce3" style={{backgroundColor: props.indicatorColor || 'white'}}></div>
         </div>
       </button >);
   } else {
