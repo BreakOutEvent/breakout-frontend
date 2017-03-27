@@ -1,6 +1,5 @@
 import React from 'react';
 import ResetPasswordForm from './ResetPasswordForm.jsx';
-import {storeTokens} from '../helpers';
 
 export default class ResetPassword extends React.Component {
 
@@ -8,16 +7,35 @@ export default class ResetPassword extends React.Component {
     super(props);
     this.state = {
       resetPasswordError: null,
-      resetPasswordSuccess: null
+      resetPasswordSuccess: null,
+      isSubmitting: false
     };
   }
 
-  onSubmit(data) {
+  async onSubmit(data) {
+    this.onBeginSubmit();
+    await this.onSubmitImpl(data);
+    this.onEndSubmit();
+  }
+
+  onSubmitImpl(data) {
     const email = data.formData.email;
 
-    this.props.api.requestPasswordReset(email)
+    return this.props.api.requestPasswordReset(email)
       .then(this.onRequestResetSuccess.bind(this))
       .catch(this.onRequestResetError.bind(this));
+  }
+
+  onBeginSubmit() {
+    this.setState({
+      submitting: true
+    });
+  }
+
+  onEndSubmit() {
+    this.setState({
+      submitting: false
+    });
   }
 
   onRequestResetSuccess() {
@@ -38,6 +56,7 @@ export default class ResetPassword extends React.Component {
       <ResetPasswordForm i18next={this.props.i18next}
                          resetPasswordError={this.state.resetPasswordError}
                          resetPasswordSuccess={this.state.resetPasswordSuccess}
+                         isSubmitting={this.state.isSubmitting}
                          onSubmit={this.onSubmit.bind(this)}
                          onError={() => {
                          }}

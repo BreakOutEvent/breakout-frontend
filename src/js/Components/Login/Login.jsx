@@ -7,11 +7,30 @@ export default class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loginError: null
+      loginError: null,
+      isSubmitting: false
     };
   }
 
+  onBeginSubmit() {
+    this.setState({
+      isSubmitting: true
+    });
+  }
+
+  onEndSubmit() {
+    this.setState({
+      isSubmitting: false
+    });
+  }
+
   async onSubmit(data) {
+    this.onBeginSubmit();
+    await this.onSubmitImpl(data);
+    this.onEndSubmit();
+  }
+
+  async onSubmitImpl(data) {
     const email = data.formData.email;
     const pw = data.formData.password;
 
@@ -47,6 +66,7 @@ export default class Login extends React.Component {
       <LoginForm i18next={this.props.i18next}
                  onSubmit={this.onSubmit.bind(this)}
                  loginError={this.state.loginError}
+                 isSubmitting={this.state.isSubmitting}
                  onRegister={() => this.props.show('register')}
                  onPasswordReset={() => this.props.show('resetPassword')}
                  onError={() => {

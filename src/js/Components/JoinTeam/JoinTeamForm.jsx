@@ -1,6 +1,7 @@
 import Form from '../Form.jsx';
 import React from 'react';
 import InvitationWidget from './InvitationWidget.jsx';
+import Button from '../Button.jsx';
 
 export default class JoinTeamForm extends React.Component {
 
@@ -50,8 +51,12 @@ export default class JoinTeamForm extends React.Component {
           {this.props.joinTeamError}
         </div>
         }
-        <button id='register' className="btn btn-primary"
-                type="submit">{i18next.t('client.create_or_join_team.button_join_text')}</button >
+        <Button id='register'
+                className="btn btn-primary"
+                type="submit"
+                isLoading={this.props.isSubmitting}>
+          {i18next.t('client.create_or_join_team.button_join_text')}
+        </Button>
       </Form>
     );
   }

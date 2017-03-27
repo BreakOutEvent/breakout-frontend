@@ -7,7 +7,8 @@ export default class JoinTeam extends React.Component {
     super(props);
     this.state = {
       joinTeamError: null,
-      invitations: []
+      invitations: [],
+      isSubmitting: false
     };
   }
 
@@ -39,14 +40,33 @@ export default class JoinTeam extends React.Component {
     // TODO: Handle error
   }
 
-  onSubmit(data) {
+  onBeginSubmit() {
+    this.setState({
+      isSubmitting: true
+    });
+  }
+
+  onEndSubmit() {
+    this.setState({
+      isSubmitting: true
+    });
+  }
+
+  async onSubmit(data) {
+    this.onBeginSubmit();
+    await this.onSubmitImpl(data);
+    this.onEndSubmit();
+  }
+
+  onSubmitImpl(data) {
     const selectedTeamId = data.formData.selectedTeam;
-    this.props.api.joinTeam(selectedTeamId)
+    return this.props.api.joinTeam(selectedTeamId)
       .then(this.onJoinSuccess.bind(this))
       .catch(this.onJoinError.bind(this));
   }
 
   onJoinSuccess(data) {
+    // TODO
     console.log("Success!");
   }
 
@@ -74,6 +94,7 @@ export default class JoinTeam extends React.Component {
                     teamCreationError={this.state.joinTeamError}
                     invitations={this.state.invitations}
                     joinTeamError={this.state.joinTeamError}
+                    isSubmitting={this.state.isSubmitting}
                     onError={() => {
                     }}
                     onChange={() => {

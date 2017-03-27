@@ -1,5 +1,6 @@
 import Form from '../Form.jsx';
 import React from 'react';
+import Button from '../Button.jsx';
 
 const BooleanWithInnerHtml = (props) => {
   return (
@@ -107,8 +108,12 @@ export default class ParticipationForm extends React.Component {
           {this.props.participationError}
         </div>
         }
-        <button id='register' className="btn btn-primary"
-                type="submit">{i18next.t('client.participate.next_step')}</button>
+        <Button id='register'
+                className="btn btn-primary"
+                type="submit"
+                isLoading={this.props.isSubmitting}>
+          {i18next.t('client.participate.next_step')}
+        </Button>
       </Form>
     );
   }

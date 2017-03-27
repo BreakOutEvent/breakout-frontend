@@ -6,15 +6,34 @@ export default class Registration extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      registrationError: null
+      registrationError: null,
+      isSubmitting: false
     };
   }
 
-  onSubmit(data) {
+  async onSubmit(data) {
+    this.onBeginSubmit();
+    await this.onSubmitImpl(data);
+    this.onEndSubmit();
+  }
+
+  onBeginSubmit() {
+    this.setState({
+      isSubmitting: true
+    });
+  }
+
+  onEndSubmit() {
+    this.setState({
+      isSubmitting: false
+    });
+  }
+
+  onSubmitImpl(data) {
     const email = data.formData.email;
     const pw = data.formData.password1;
 
-    this.props.api.createAccount(email, pw)
+    return this.props.api.createAccount(email, pw)
       .then(this.onRegistrationSuccess.bind(this))
       .catch(this.onRegistrationError.bind(this));
   }
@@ -33,6 +52,7 @@ export default class Registration extends React.Component {
     return (
       <RegistrationForm i18next={this.props.i18next}
                         onSubmit={this.onSubmit.bind(this)}
+                        isSubmitting={this.state.isSubmitting}
                         registrationError={this.state.registrationError}
                         onError={() => {
                         }}

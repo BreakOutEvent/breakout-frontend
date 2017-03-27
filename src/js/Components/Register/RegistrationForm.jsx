@@ -1,5 +1,6 @@
 import Form from '../Form.jsx';
 import React from 'react';
+import Button from '../Button.jsx';
 
 export default class LoginForm extends React.Component {
 
@@ -83,8 +84,12 @@ export default class LoginForm extends React.Component {
         </div>
         }
 
-        <button id='register' className="btn btn-primary"
-                type="submit">{i18next.t('client.register.button')}</button>
+        <Button id='register'
+                className="btn btn-primary"
+                type="submit"
+                isLoading={this.props.isSubmitting}>
+          {i18next.t('client.register.button')}
+        </Button>
       </Form>
     );
   }

@@ -6,7 +6,8 @@ export default class Participation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      participationError: null
+      participationError: null,
+      isSubmitting: false
     };
   }
 
@@ -20,8 +21,25 @@ export default class Participation extends React.Component {
     this.props.show('login');
   }
 
-  onSubmit(data) {
+  onBeginSubmit() {
+    this.setState({
+      isSubmitting: true
+    });
+  }
 
+  onEndSubmit() {
+    this.setState({
+      isSubmitting: true
+    });
+  }
+
+  async onSubmit(data) {
+    this.onBeginSubmit();
+    await this.onSubmitImpl(data);
+    this.onEndSubmit();
+  }
+
+  async onSubmitImpl(data) {
     const participantData = {
       firstname: data.formData.firstname,
       lastname: data.formData.lastname,
@@ -33,7 +51,7 @@ export default class Participation extends React.Component {
       }
     };
 
-    this.props.api.becomeParticipant(this.me.id, participantData)
+    return this.props.api.becomeParticipant(this.me.id, participantData)
       .then(this.onParticipationSuccess.bind(this))
       .catch(this.onParticipationError.bind(this));
   }
@@ -52,6 +70,7 @@ export default class Participation extends React.Component {
     return (
       <ParticipationForm i18next={this.props.i18next}
                          onSubmit={this.onSubmit.bind(this)}
+                         isSubmitting={this.state.isSubmitting}
                          participationError={this.state.registrationError}
                          onError={() => {
                          }}

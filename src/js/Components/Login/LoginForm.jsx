@@ -1,5 +1,6 @@
 import Form from '../Form.jsx';
 import React from 'react';
+import Button from '../Button.jsx';
 
 export default class LoginForm extends React.Component {
 
@@ -63,11 +64,13 @@ export default class LoginForm extends React.Component {
           {i18next.t('client.login.password_reset_text')}
         </button>
 
-        <button id='login-btn'
+        <Button id='login-btn'
                 className="btn btn-primary"
-                type="submit">
+                type="submit"
+                indicatorColor="#e6823c"
+                isLoading={this.props.isSubmitting}>
           {i18next.t('client.login.button_login_text')}
-        </button>
+        </Button>
 
         <button id='register-btn'
                 className="btn btn-primary"

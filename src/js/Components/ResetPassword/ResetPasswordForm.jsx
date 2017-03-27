@@ -1,5 +1,6 @@
 import Form from '../Form.jsx';
 import React from 'react';
+import Button from '../Button.jsx';
 
 export default class ResetPasswordForm extends React.Component {
 
@@ -58,11 +59,12 @@ export default class ResetPasswordForm extends React.Component {
         </span>
 
         <span style={style}>
-        <button id='resetpassword-btn'
+        <Button id='resetpassword-btn'
                 className="btn btn-primary"
+                isLoading={this.props.isSubmitting}
                 type="submit">
           {i18next.t('client.reset_password.reset_password_button')}
-          </button>
+          </Button>
         </span>
       </Form>
     );
