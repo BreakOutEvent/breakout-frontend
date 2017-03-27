@@ -34,6 +34,7 @@ export default class LoginForm extends React.Component {
     const schema = {
       type: 'object',
       title: i18next.t('client.login.button_registration_headline'),
+      description: i18next.t('client.register.description'),
       required: ['email', 'password1', 'password2'],
       properties: {
         email: {
@@ -83,7 +84,7 @@ export default class LoginForm extends React.Component {
         }
 
         <button id='register' className="btn btn-primary"
-                type="submit">{i18next.t('client.login.button_register_text')}</button>
+                type="submit">{i18next.t('client.register.button')}</button>
       </Form>
     );
   }

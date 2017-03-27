@@ -30,6 +30,7 @@ export default class ParticipationForm extends React.Component {
     const schema = {
       type: 'object',
       title: i18next.t('client.participate.title'),
+      description: i18next.t('client.participate.description'),
       required: ['gender', 'firstname', 'lastname', 'tshirtSize', 'phonenumber', 'emergencynumber',
         'acceptToS', 'acceptCoH', 'is18'],
       properties: {

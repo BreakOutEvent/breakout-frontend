@@ -13,6 +13,7 @@ export default class ResetPasswordForm extends React.Component {
 
     const schema = {
       type: 'object',
+      description: i18next.t('client.reset_password.description'),
       title: i18next.t('client.reset_password.headline'),
       required: ['email'],
       properties: {

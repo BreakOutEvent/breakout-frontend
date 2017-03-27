@@ -17,6 +17,7 @@ export default class JoinTeamForm extends React.Component {
     const schema = {
       type: 'object',
       title: i18next.t('client.join_team.title'),
+      description: i18next.t('client.join_team.description'),
       required: ['selectedTeam'],
       properties: {
         selectedTeam: {

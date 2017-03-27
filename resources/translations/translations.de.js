@@ -3,14 +3,14 @@ module.exports = {
     login: {
       enter_email_or_password: 'Bitte gib deine Email und Passwort ein',
       button_login_headline: 'Login',
-      button_registration_headline: 'Registrieren',
+      button_registration_headline: 'Account erstellen',
       email_label: 'Emailadresse',
       email_placeholder: 'Gib eine Emailadresse ein',
       password_label: 'Passwort',
       password_placeholder: 'Gib ein Passwort ein',
       password_reset_text: 'Passwort vergessen?',
       button_login_text: 'Einloggen',
-      button_register_text: 'Registrieren',
+      button_register_text: 'Account erstellen',
       error_login: 'Falsche Emailadresse oder Passwort',
       registration_error_bad_request: 'Gib eine gültige Emailadresse ein',
       repeat_password_label: 'Wiederhole das Passwort',
@@ -18,6 +18,10 @@ module.exports = {
       request_reset_success: 'Wir haben dir eine Email mit Anleitung zum zurücksetzen deines Passworts geschickt',
       request_reset_not_registered: 'Diese Emailadresse existiert nicht',
       request_reset_enter_email: 'Bitte gib eine gültige Emailadresse ein'
+    },
+    register: {
+      description: 'Erstelle einen Account auf break-out.org. Damit kannst du mit Posts der Teilnehmer interagieren, selbst zum Teilnehmer werden oder als Sponsor ein Team unterstützen',
+      button: 'Jetzt Account erstellen'
     },
     role_select: {
       visitor_title: 'Zuschauer',
@@ -31,7 +35,7 @@ module.exports = {
     },
     participate: {
       title: 'Persönliche Daten',
-      description: '',
+      description: 'Gib alle die folgenden Daten an, um Teilnehmer bei BreakOut zu werden. Wir verwenden diese Daten z.B. um Tshirts zu drucken oder dich und dein Team während des Events einfach kontaktieren zu können',
       gender: 'Geschlecht',
       male: 'Männlich',
       female: 'Weiblich',
@@ -58,7 +62,7 @@ module.exports = {
       accept_tos: 'Hiermit akzeptiere ich die <a href="Lalal">Teilnahmebedingungen</a>',
       accept_code_of_honour: 'Hiermit akzeptiere ich den Code of Honour',
       is_18: 'Ich bin mindestens 18 Jahre alt',
-      next_step: 'Nächster Schritt'
+      next_step: 'Zum Teilnehmer werden'
     },
     create_or_join_team: {
       title: 'Team erstellen oder beitreten',
@@ -81,17 +85,20 @@ module.exports = {
     },
     create_team: {
       title: 'Team erstellen',
+      description: 'Erstelle ein Team und lade deinen Teampartner dazu ein',
       participant_already_has_team_for_event: 'Du bist für dieses Event bereits Teil eines Teams. Du kannst dieses Team auf deinem Profil unter Teameinstellungen verlassen und außerdem andere Teilnehmer zu diesem Team einladen',
       invalid_invite_email: 'Dein Team wurde erstellt, aber du hast keine gültige Emailadresse für deinen Teampartner eingegeben. Du kannst jederzeit auf deinem Profil unter Teameinstellungen weitere Einladungen zu deinem Team versenden'
     },
     join_team: {
-      title: 'Team beitreten'
+      title: 'Team beitreten',
+      description: 'Hier siehst du alle Teams, zu denen du eingeladen wurdest. Du kannst ein Team auswählen, dem du beitreten möchtest.'
     },
     reset_password: {
       headline: 'Passwort zurücksetzen',
       email_label: 'Emailadresse',
       reset_password_button: 'Passwort jetzt zurücksetzen',
-      request_success: 'Wir haben dir eine Email mit einer Anleitung zum Zurücksetzen deines Passworts geschickt!'
+      request_success: 'Wir haben dir eine Email mit einer Anleitung zum Zurücksetzen deines Passworts geschickt!',
+      description: 'Gib eine Emailadresse ein, an die wir dir eine Anleitung zum Zurücksetzen des Passworts schicken.'
     }
   },
   'SELECTION': {
