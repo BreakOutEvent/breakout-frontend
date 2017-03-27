@@ -1,5 +1,6 @@
 import Form from '../Form.jsx';
 import React from 'react';
+import Button from '../Button.jsx';
 
 export default class TeamCreationForm extends React.Component {
 
@@ -63,8 +64,12 @@ export default class TeamCreationForm extends React.Component {
           {this.props.teamCreationError}
         </div>
         }
-        <button id='register' className="btn btn-primary"
-                type="submit">{i18next.t('client.create_or_join_team.button_create_text')}</button>
+        <Button id='register'
+                className="btn btn-primary"
+                isLoading={this.props.isSubmitting}
+                type="submit">
+          {i18next.t('client.create_or_join_team.button_create_text')}
+        </Button>
       </Form>
     );
   }

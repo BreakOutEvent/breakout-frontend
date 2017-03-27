@@ -7,15 +7,21 @@ export default class TeamCreation extends React.Component {
     super(props);
     this.state = {
       teamCreationError: null,
+      isSubmitting: false,
       events: []
     };
   }
 
-  componentDidMount() {
-    // TODO: Redirect if user is no participant
-    this.props.api.getAllEvents()
-      .then(events => this.setState({events: events}))
-      .catch(this.onGetAllEventsError.bind(this));
+  async componentDidMount() {
+    const isParticipant = await this.props.api.isUserParticipant();
+
+    if (!isParticipant) {
+      this.props.show('participate');
+    } else {
+      this.props.api.getAllEvents()
+        .then(events => this.setState({events: events}))
+        .catch(this.onGetAllEventsError.bind(this));
+    }
   }
 
   onGetAllEventsError(error) {
@@ -23,7 +29,24 @@ export default class TeamCreation extends React.Component {
     console.error(error);
   }
 
+  onStartSubmit() {
+    this.setState({
+      isSubmitting: true,
+      teamCreationError: null
+    });
+  }
+
+  onEndSubmit() {
+    this.setState({isSubmitting: false});
+  }
+
   async onSubmit(data) {
+    this.onStartSubmit();
+    await this.onSubmitImpl(data);
+    this.onEndSubmit();
+  }
+
+  async onSubmitImpl(data) {
 
     const eventId = this.state.events
       .filter(event => event.title === data.formData.city)[0].id;
@@ -96,6 +119,7 @@ export default class TeamCreation extends React.Component {
                         onSubmit={this.onSubmit.bind(this)}
                         teamCreationError={this.state.teamCreationError}
                         events={this.state.events}
+                        isSubmitting={this.state.isSubmitting}
                         onError={() => {
                         }}
                         onChange={() => {
