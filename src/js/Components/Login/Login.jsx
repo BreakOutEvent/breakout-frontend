@@ -11,13 +11,24 @@ export default class Login extends React.Component {
     };
   }
 
-  onSubmit(data) {
+  async onSubmit(data) {
     const email = data.formData.email;
     const pw = data.formData.password;
 
-    this.props.api.login(email, pw)
-      .then(this.onLoginSuccess.bind(this))
-      .catch(this.onLoginError.bind(this));
+    let tokens;
+    try {
+      tokens = await this.props.api.login(email, pw);
+    } catch (err) {
+      this.onLoginError(err);
+      return Promise.resolve();
+    }
+
+    try {
+      await this.props.api.frontendLogin(email, pw);
+      this.onLoginSuccess(tokens);
+    } catch (err) {
+      this.onLoginError(err);
+    }
   }
 
   onLoginSuccess(tokens) {
