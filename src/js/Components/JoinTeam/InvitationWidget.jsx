@@ -4,8 +4,7 @@ const InviteOption = (props) => {
   return (
     <label key={props.label.team.id} className="radio-inline ">
       <span>
-      <input type="radio" name={props.label.team.id} isRequired=""
-             value={parseInt(props.label.team.id)}/>
+      <input type="radio" name={props.label.team.id} value={parseInt(props.label.team.id)}/>
       <div className="radio-team">
         <div className="radio-team-name">{props.label.team.name}</div>
         <div

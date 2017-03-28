@@ -17,7 +17,6 @@ export default class JoinTeamForm extends React.Component {
     const i18next = this.props.i18next;
     const schema = {
       type: 'object',
-      title: i18next.t('client.join_team.title'),
       description: i18next.t('client.join_team.description'),
       required: ['selectedTeam'],
       properties: {
@@ -36,29 +35,36 @@ export default class JoinTeamForm extends React.Component {
       }
     };
 
-    return (
-      <Form schema={schema}
-            uiSchema={uiSchema}
-            showErrorList={false}
-            transformErrors={this.transformErrors}
-            noValidate={false}
-            onChange={this.props.onChange}
-            onSubmit={this.props.onSubmit}
-            onError={this.props.onChange}>
+    if (this.props.invitations.length > 0) {
+      return (
 
-        { this.props.joinTeamError &&
-        <div className="alert alert-danger">
-          {this.props.joinTeamError}
-        </div>
-        }
-        <Button id='register'
-                className="btn btn-primary"
-                type="submit"
-                isLoading={this.props.isSubmitting}>
-          {i18next.t('client.create_or_join_team.button_join_text')}
-        </Button>
-      </Form>
-    );
+        <Form schema={schema}
+              uiSchema={uiSchema}
+              showErrorList={false}
+              transformErrors={this.transformErrors}
+              noValidate={false}
+              onChange={this.props.onChange}
+              onSubmit={this.props.onSubmit}
+              onError={this.props.onChange}>
+
+          { this.props.joinTeamError &&
+          <div className="alert alert-danger">
+            {this.props.joinTeamError}
+          </div>
+          }
+          <Button id='register'
+                  className="btn btn-primary"
+                  type="submit"
+                  isLoading={this.props.isSubmitting}>
+            {i18next.t('client.create_or_join_team.button_join_text')}
+          </Button>
+        </Form>
+      );
+    } else {
+      return (
+        <div className="alert alert-info">Es sind leider keine Einladungen vorhanden</div>
+      );
+    }
   }
 }
 
