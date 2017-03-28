@@ -43,8 +43,12 @@ export default class Registration extends React.Component {
   }
 
   onRegistrationError(error) {
+    let message = error.message;
+    if (error.response && error.response.status === 409) {
+      message = this.props.i18next.t('client.login.registration_error_exists');
+    }
     this.setState({
-      registrationError: error.message
+      registrationError: message
     });
   }
 
@@ -54,6 +58,7 @@ export default class Registration extends React.Component {
                         onSubmit={this.onSubmit.bind(this)}
                         isSubmitting={this.state.isSubmitting}
                         registrationError={this.state.registrationError}
+                        history={this.props.history}
                         onError={() => {
                         }}
                         onChange={() => {

@@ -1,6 +1,7 @@
 import Form from '../Form.jsx';
 import React from 'react';
 import Button from '../Button.jsx';
+import {Link}from 'react-router-dom';
 
 export default class LoginForm extends React.Component {
 
@@ -90,6 +91,16 @@ export default class LoginForm extends React.Component {
                 isLoading={this.props.isSubmitting}>
           {i18next.t('client.register.button')}
         </Button>
+
+        {
+          this.props.registrationError &&
+          <span>
+            <br/>
+            <Link to="/r/login">{i18next.t('client.register.back_to_login')}</Link>
+          </span>
+        }
+
+
       </Form>
     );
   }

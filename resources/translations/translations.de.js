@@ -21,7 +21,8 @@ module.exports = {
     },
     register: {
       description: 'Erstelle einen Account auf break-out.org. Damit kannst du mit Posts der Teilnehmer interagieren, selbst zum Teilnehmer werden oder als Sponsor ein Team unterstützen',
-      button: 'Jetzt Account erstellen'
+      button: 'Jetzt Account erstellen',
+      back_to_login: 'Zurück zum Login'
     },
     role_select: {
       visitor_title: 'Zuschauer',
