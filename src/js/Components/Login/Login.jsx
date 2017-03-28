@@ -38,6 +38,7 @@ export default class Login extends React.Component {
       tokens = await this.props.api.login(email, pw);
     } catch (err) {
       this.onLoginError(err);
+      this.onEndSubmit();
       return Promise.resolve();
     }
 
@@ -57,8 +58,12 @@ export default class Login extends React.Component {
   }
 
   onLoginError(err) {
+    let message = err.message;
+    if (err.response && err.response.status === 400) {
+      message = this.props.i18next.t('client.login.error_login');
+    }
     this.setState({
-      loginError: err.message
+      loginError: message
     });
   }
 
