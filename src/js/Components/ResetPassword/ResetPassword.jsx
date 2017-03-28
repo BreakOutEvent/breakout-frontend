@@ -51,18 +51,33 @@ export default class ResetPassword extends React.Component {
     });
   }
 
+  renderResetForm() {
+    return <ResetPasswordForm i18next={this.props.i18next}
+                              resetPasswordError={this.state.resetPasswordError}
+                              resetPasswordSuccess={this.state.resetPasswordSuccess}
+                              isSubmitting={this.state.isSubmitting}
+                              onSubmit={this.onSubmit.bind(this)}
+                              onError={() => {
+                              }}
+                              onChange={() => {
+                              }}/>;
+  }
+
+  renderResetSuccessMessage() {
+    return <div>
+      <h3 style={{textAlign: 'center'}}>Passwort zurücksetzen</h3>
+      <div className="alert alert-info" style={{marginTop: '10px'}}>
+        {this.state.resetPasswordSuccess}
+      </div>
+    </div>;
+  }
+
   render() {
-    return (
-      <ResetPasswordForm i18next={this.props.i18next}
-                         resetPasswordError={this.state.resetPasswordError}
-                         resetPasswordSuccess={this.state.resetPasswordSuccess}
-                         isSubmitting={this.state.isSubmitting}
-                         onSubmit={this.onSubmit.bind(this)}
-                         onError={() => {
-                         }}
-                         onChange={() => {
-                         }}/>
-    );
+    if (this.state.resetPasswordSuccess) {
+      return this.renderResetSuccessMessage();
+    } else {
+      return this.renderResetForm();
+    }
   }
 }
 

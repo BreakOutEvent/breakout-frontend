@@ -51,14 +51,6 @@ export default class ResetPasswordForm extends React.Component {
         </span>
 
         <span style={style}>
-        { this.props.resetPasswordSuccess &&
-        <div className="alert alert-success">
-          {this.props.resetPasswordSuccess}
-        </div>
-        }
-        </span>
-
-        <span style={style}>
         <Button id='resetpassword-btn'
                 className="btn btn-primary"
                 isLoading={this.props.isSubmitting}
