@@ -39,7 +39,7 @@ export default class Registration extends React.Component {
   }
 
   onRegistrationSuccess(data) {
-    this.props.show('selectRole');
+    this.props.history.push('/r/select-role');
   }
 
   onRegistrationError(error) {

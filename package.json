@@ -74,7 +74,8 @@
     "sticky-cluster": "^0.1.2",
     "store": "^2.0.4",
     "winston": "^2.3.0",
-    "react-responsive-modal": "1.4.1"
+    "react-responsive-modal": "1.4.1",
+    "react-router-dom": "latest"
   },
   "devDependencies": {
     "ansi2html-extended": "0.0.4",

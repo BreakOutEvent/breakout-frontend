@@ -52,7 +52,7 @@ export default class Login extends React.Component {
 
   onLoginSuccess(tokens) {
     storeTokens(tokens);
-    this.props.show('selectRole');
+    this.props.history.push('/r/select-role');
   }
 
   onLoginError(err) {
@@ -67,8 +67,8 @@ export default class Login extends React.Component {
                  onSubmit={this.onSubmit.bind(this)}
                  loginError={this.state.loginError}
                  isSubmitting={this.state.isSubmitting}
-                 onRegister={() => this.props.show('register')}
-                 onPasswordReset={() => this.props.show('resetPassword')}
+                 onRegister={() => this.props.history.push('/r/register')}
+                 onPasswordReset={() => this.props.history.push('/r/reset-password')}
                  onError={() => {
                  }}
                  onChange={() => {

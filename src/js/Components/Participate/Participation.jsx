@@ -18,7 +18,7 @@ export default class Participation extends React.Component {
   }
 
   onGetMeError(error) {
-    this.props.show('login');
+    this.props.history.push('/r/login');
   }
 
   onBeginSubmit() {
@@ -56,8 +56,8 @@ export default class Participation extends React.Component {
       .catch(this.onParticipationError.bind(this));
   }
 
-  onParticipationSuccess(data) {
-    this.props.show('createOrJoinTeam');
+  onParticipationSuccess() {
+    this.props.history.push('/r/create-join-team');
   }
 
   onParticipationError(error) {

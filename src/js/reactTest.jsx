@@ -3,65 +3,20 @@ import ReactDOM from 'react-dom';
 
 import BreakoutApi from './BreakoutApi';
 
-import Modal from 'react-responsive-modal';
-
 import Login from './Components/Login/Login.jsx';
 import Registration from './Components/Register/Registration.jsx';
 import Participation from './Components/Participate/Participation.jsx';
 import SelectRole from './Components/SelectRole/SelectRole.jsx';
 import ResetPassword from './Components/ResetPassword/ResetPassword.jsx';
 import CreateOrJoinTeam from './Components/CreateOrJoinTeam.jsx';
-
 import de from '../../resources/translations/translations.de';
 import en from '../../resources/translations/translations.en';
 import i18next from 'i18next';
-import $ from 'jquery';
-
-import {getAccessToken} from './Components/helpers';
-
-class VisibleModal extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      show: this.props.show
-    };
-  }
-
-  close() {
-    this.props.onHide();
-    this.setState({
-      show: false
-    });
-  }
-
-  render() {
-    const overlayStyle = {
-      zIndex: 10000,
-      backgroundColor: 'rgba(0,0,0,0.5)'
-    };
-
-    const modalStyle = {
-      marginTop: '150px',
-      marginLeft: '10px',
-      marginRight: '10px',
-      borderRadius: '5px',
-      padding: '40px',
-      minWidth: '300px',
-      paddingBottom: '10px'
-    };
-
-    return (
-      <Modal {...this.props}
-             open={this.state.show}
-             onClose={this.close.bind(this)}
-             overlayStyle={overlayStyle}
-             modalStyle={modalStyle}>
-        {this.props.children}
-      </Modal>
-    );
-  }
-}
+import Modal from './Components/Modal.jsx';
+import {
+  BrowserRouter as Router,
+  Route,
+} from 'react-router-dom';
 
 class App extends React.Component {
 
@@ -91,90 +46,43 @@ class App extends React.Component {
     this.setState({i18next: i18next});
   }
 
-  componentDidMount() {
-    this.registerModals();
-    this.registerJQueryListeners();
-  }
-
-  registerJQueryListeners() {
-
-    // login / register link in navbar on large screens
-    $('#bo-login-btn').click(() => {
-      this.setState({
-        activeModal: 'login'
-      });
-    });
-
-    // login / register link in dropdown
-    $('#bo-btn-login-sm').click(() => {
-      $('.navbar-toggle').click();
-      this.setState({
-        activeModal: 'login'
-      });
-    });
-  }
-
-  registerModals() {
-    this.modals = {
-      login: Login,
-      register: Registration,
-      createOrJoinTeam: CreateOrJoinTeam,
-      participate: Participation,
-      selectRole: SelectRole,
-      resetPassword: ResetPassword
-    };
-
-    this.setState({
-      activeModal: null
-    });
-  }
-
   onHide() {
-    this.setState({
-      activeModal: null
-    });
+    location.replace('/');
   }
 
-  renderActiveModal() {
-    if (this.state.activeModal && this.modals[this.state.activeModal]) {
-      const activeM = this.modals[this.state.activeModal];
+  showModalFor(Comp) {
+    return (props) => {
       return (
-        <VisibleModal show={true} onHide={this.onHide.bind(this)}>
-          {React.createElement(activeM, {
-            i18next: this.state.i18next,
-            api: this.state.api,
-            show: this.show.bind(this)
-          })
-          }
-        </VisibleModal>
+        <Modal show={true} onHide={this.onHide.bind(this)}>
+          <Comp {...props} api={this.props.api} i18next={this.state.i18next}/>
+        </Modal>
       );
-    } else {
-      return null;
-    }
-  }
-
-  show(modalId) {
-    // TODO: Error handling
-    this.setState({
-      activeModal: modalId
-    });
+    };
   }
 
   render() {
     return (
-      <span>
-        {this.renderActiveModal()}
-      </span>
+      <Router>
+        <div>
+          <Route exact path="/r/login" component={this.showModalFor(Login)}/>
+          <Route exact path="/r/register" component={this.showModalFor(Registration)}/>
+          <Route exact path="/r/reset-password" component={this.showModalFor(ResetPassword)}/>
+          <Route exact path="/r/select-role" component={this.showModalFor(SelectRole)}/>
+          <Route exact path="/r/participate" component={this.showModalFor(Participation)}/>
+          <Route exact path="/r/create-join-team" component={this.showModalFor(CreateOrJoinTeam)}/>
+        </div>
+      </Router>
     );
   }
 }
 
-BreakoutApi.initFromServer()
-  .then(api => {
-    api.setAccessToken(getAccessToken());
-    ReactDOM.render(
-      <App api={api}/>,
-      document.getElementById('react-root')
-    );
+const createReactApp = (api) => {
+  ReactDOM.render(
+    <App api={api}/>,
+    document.getElementById('react-root')
+  );
+};
 
-  }).catch(console.error);
+BreakoutApi.initFromServer()
+  .then(createReactApp)
+  .catch(console.error);

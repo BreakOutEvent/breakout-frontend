@@ -16,12 +16,12 @@ export default class RoleSelector extends React.Component {
 
   next(selectedRole) {
     if (selectedRole === 'visitor') {
-      this.props.show(null);
+      this.props.history.push('/');
     } else if (selectedRole === 'participant') {
-      this.props.show('participate');
+      this.props.history.push('/r/participate');
     } else if (selectedRole === 'sponsor') {
       alert('Not implemented yet!');
-      this.props.show(null);
+      this.props.history.push('/');
     }
   }
 
