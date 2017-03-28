@@ -9,6 +9,7 @@ import Participation from './Components/Participate/Participation.jsx';
 import SelectRole from './Components/SelectRole/SelectRole.jsx';
 import ResetPassword from './Components/ResetPassword/ResetPassword.jsx';
 import CreateOrJoinTeam from './Components/CreateOrJoinTeam.jsx';
+import {VisitorSuccess} from './Components/Success.jsx';
 import de from '../../resources/translations/translations.de';
 import en from '../../resources/translations/translations.en';
 import i18next from 'i18next';
@@ -48,13 +49,23 @@ class App extends React.Component {
   }
 
   onHide() {
+    document.body.className = '';
     location.replace('/');
   }
 
-  showModalFor(Comp) {
+  showModalFor(Comp, size) {
+
+    const OnShowHack = () => {
+      document.body.className += ' ReactModal__Body--open';
+      return null;
+    };
+
     return (props) => {
       return (
-        <Modal show={true} onHide={this.onHide.bind(this)}>
+        <Modal show={true}
+               onHide={this.onHide.bind(this)}
+               modalClassName={'modal-size-' + size}>
+          <OnShowHack></OnShowHack>
           <Comp {...props} api={this.props.api} i18next={this.state.i18next}/>
         </Modal>
       );
@@ -65,12 +76,16 @@ class App extends React.Component {
     return (
       <Router>
         <div>
-          <Route exact path="/r/login" component={this.showModalFor(Login)}/>
-          <Route exact path="/r/register" component={this.showModalFor(Registration)}/>
-          <Route exact path="/r/reset-password" component={this.showModalFor(ResetPassword)}/>
-          <Route exact path="/r/select-role" component={this.showModalFor(SelectRole)}/>
-          <Route exact path="/r/participate" component={this.showModalFor(Participation)}/>
-          <Route exact path="/r/create-join-team" component={this.showModalFor(CreateOrJoinTeam)}/>
+          <Route exact path="/r/login" component={this.showModalFor(Login, 's')}/>
+          <Route exact path="/r/register" component={this.showModalFor(Registration, 's')}/>
+          <Route exact path="/r/reset-password" component={this.showModalFor(ResetPassword, 's')}/>
+          <Route exact path="/r/select-role" component={this.showModalFor(SelectRole, 's')}/>
+          <Route exact path="/r/participate" component={this.showModalFor(Participation, 'm')}/>
+
+          <Route exact path="/r/create-join-team"
+                 component={this.showModalFor(CreateOrJoinTeam, 'm')}/>
+
+          <Route exact path="/r/visitor-success" component={this.showModalFor(VisitorSuccess, 's')}/>
         </div>
       </Router>
     );
