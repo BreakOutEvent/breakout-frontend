@@ -333,6 +333,7 @@ module.exports = {
   },
   'TEAM-DETAIL': {'SAVEPOST': 'POST SPEICHERN', 'NEWPOSTCONTENT': 'Hello World... :)'},
   'MASTER': {
+    'BACK_TO_REGISTER': 'Zurück zur Anmeldung',
     'LIVE_BLOG': 'Live Blog',
     'LIVE_BLOG_LINK': '/live',
     'ABOUT': 'Worum gehts',
