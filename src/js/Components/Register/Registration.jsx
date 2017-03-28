@@ -29,13 +29,18 @@ export default class Registration extends React.Component {
     });
   }
 
-  onSubmitImpl(data) {
+  async onSubmitImpl(data) {
     const email = data.formData.email;
     const pw = data.formData.password1;
 
-    return this.props.api.createAccount(email, pw)
-      .then(this.onRegistrationSuccess.bind(this))
-      .catch(this.onRegistrationError.bind(this));
+    try {
+      await this.props.api.createAccount(email, pw);
+      await this.props.api.login(email, pw);
+      await this.props.api.frontendLogin(email, pw);
+      this.onRegistrationSuccess();
+    } catch (err) {
+      this.onRegistrationError(err);
+    }
   }
 
   onRegistrationSuccess() {
