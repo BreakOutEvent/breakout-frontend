@@ -60,8 +60,8 @@ module.exports = {
         label: 'Notfallnummer',
         placeholder: 'Gib die Nummer eines Notfallkontakts an'
       },
-      accept_tos: 'Hiermit akzeptiere ich die <a href="Lalal">Teilnahmebedingungen</a>',
-      accept_code_of_honour: 'Hiermit akzeptiere ich den Code of Honour',
+      accept_tos: 'Hiermit akzeptiere ich die <a target="_blank" href="/terms-and-conditions">Teilnahmebedingungen</a>',
+      accept_code_of_honour: 'Hiermit akzeptiere ich den <a target="_blank" href="/code-of-honour">Code of Honour</a>',
       is_18: 'Ich bin mindestens 18 Jahre alt',
       next_step: 'Zum Teilnehmer werden'
     },
