@@ -1,4 +1,5 @@
 import React from 'react';
+import Breadcrumbs from '../Breadcrumb.jsx';
 
 export default class RoleSelector extends React.Component {
 
@@ -29,9 +30,14 @@ export default class RoleSelector extends React.Component {
 
   render() {
     const i18next = this.props.i18next;
+    const entries = [{
+      title: i18next.t('client.breadcrumbs.role_select'),
+      isActive: true,
+      link: '#'
+    }];
     return (
       <form>
-
+        <Breadcrumbs entries={entries}/>
         <legend>{i18next.t('client.role_select.headline')}</legend>
         <p>{i18next.t('client.role_select.description')}</p>
 

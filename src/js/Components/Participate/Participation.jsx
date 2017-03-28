@@ -68,15 +68,29 @@ export default class Participation extends React.Component {
   }
 
   render() {
+
+    const entries = [{
+      title: this.props.i18next.t('client.breadcrumbs.role_select'),
+      isActive: false,
+      link: '/r/select-role'
+    }, {
+      title: this.props.i18next.t('client.breadcrumbs.participate'),
+      isActive: true,
+      link: '#'
+    }];
+
     return (
-      <ParticipationForm i18next={this.props.i18next}
-                         onSubmit={this.onSubmit.bind(this)}
-                         isSubmitting={this.state.isSubmitting}
-                         participationError={this.state.registrationError}
-                         onError={() => {
-                         }}
-                         onChange={() => {
-                         }}/>
+      <div>
+        <Breadcrumbs entries={entries}/>
+        <ParticipationForm i18next={this.props.i18next}
+                           onSubmit={this.onSubmit.bind(this)}
+                           isSubmitting={this.state.isSubmitting}
+                           participationError={this.state.registrationError}
+                           onError={() => {
+                           }}
+                           onChange={() => {
+                           }}/>
+      </div>
     );
   }
 }

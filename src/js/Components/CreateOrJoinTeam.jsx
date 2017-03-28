@@ -1,7 +1,8 @@
 import React from 'react';
 import TeamCreation from './TeamCreation/TeamCreation.jsx';
 import JoinTeam from './JoinTeam/JoinTeam.jsx';
-import {isUserLoggedIn} from "./helpers";
+import {isUserLoggedIn} from './helpers';
+import Breadcrumbs from './Breadcrumb.jsx';
 
 const SelectionSwitcher = (props) => {
   return (
@@ -75,8 +76,24 @@ class CreateOrJoinTeam extends React.Component {
       isActive: this.state.selectedOption === 'joinTeam'
     }];
 
+    const entries = [{
+      title: this.props.i18next.t('client.breadcrumbs.role_select'),
+      isActive: false,
+      link: '/r/select-role'
+    }, {
+      title: this.props.i18next.t('client.breadcrumbs.participate'),
+      isActive: false,
+      link: '/r/participate'
+    }, {
+      title: this.props.i18next.t('client.breadcrumbs.create_join_team'),
+      isActive: true,
+      link: '#'
+    }];
+
+
     return (
       <span>
+        <Breadcrumbs entries={entries}/>
         <h3 style={{textAlign: 'center'}}>Team erstellen oder beitreten</h3>
         <SelectionSwitcher options={options} onClick={this.onClick.bind(this)}/>
         <div style={{marginBottom: '20px'}}></div>

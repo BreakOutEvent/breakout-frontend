@@ -101,6 +101,11 @@ module.exports = {
       reset_password_button: 'Passwort jetzt zurücksetzen',
       request_success: 'Wir haben dir eine Email mit einer Anleitung zum Zurücksetzen deines Passworts geschickt!',
       description: 'Gib eine Emailadresse ein, an die wir dir eine Anleitung zum Zurücksetzen des Passworts schicken.'
+    },
+    breadcrumbs: {
+      role_select: 'Rolle auswählen',
+      participate: 'Persönliche Daten',
+      create_join_team: 'Team erstellen oder beitreten'
     }
   },
   'SELECTION': {
