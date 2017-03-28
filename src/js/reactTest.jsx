@@ -17,7 +17,7 @@ import {
   BrowserRouter as Router,
   Route,
 } from 'react-router-dom';
-import {getAccessToken} from './Components/helpers';
+import {getAccessToken, isUserLoggedIn} from './Components/helpers';
 
 class App extends React.Component {
 
@@ -82,7 +82,9 @@ App.propTypes = {
 };
 
 const createReactApp = (api) => {
-  api.setAccessToken(getAccessToken());
+  if (isUserLoggedIn()) {
+    api.setAccessToken(getAccessToken());
+  }
   ReactDOM.render(
     <App api={api}/>,
     document.getElementById('react-root')
