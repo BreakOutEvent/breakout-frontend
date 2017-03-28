@@ -1,6 +1,7 @@
 import React from 'react';
 import TeamCreation from './TeamCreation/TeamCreation.jsx';
 import JoinTeam from './JoinTeam/JoinTeam.jsx';
+import {isUserLoggedIn} from "./helpers";
 
 const SelectionSwitcher = (props) => {
   return (
@@ -29,12 +30,19 @@ const Selection = (props) => {
 };
 
 class CreateOrJoinTeam extends React.Component {
+
   constructor(props) {
     super(props);
     // TODO: Set selectedOption based on whether user has invite or not
     this.state = {
       selectedOption: 'createTeam'
     };
+  }
+
+  componentWillMount() {
+    if (!isUserLoggedIn()) {
+      this.props.history.push('/r/login');
+    }
   }
 
   onClick(e) {
@@ -53,6 +61,10 @@ class CreateOrJoinTeam extends React.Component {
 
   render() {
 
+    if (!isUserLoggedIn()) {
+      return null;
+    }
+
     const options = [{
       text: 'Ein Team erstellen',
       key: 'createTeam',
@@ -62,7 +74,6 @@ class CreateOrJoinTeam extends React.Component {
       key: 'joinTeam',
       isActive: this.state.selectedOption === 'joinTeam'
     }];
-
 
     return (
       <span>

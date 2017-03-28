@@ -1,5 +1,6 @@
 import React from 'react';
 import ParticipationForm from './ParticipationForm.jsx';
+import Breadcrumbs from '../Breadcrumb.jsx';
 
 export default class Participation extends React.Component {
 

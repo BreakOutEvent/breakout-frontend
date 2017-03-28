@@ -92,7 +92,8 @@ module.exports = {
     },
     join_team: {
       title: 'Team beitreten',
-      description: 'Hier siehst du alle Teams, zu denen du eingeladen wurdest. Du kannst ein Team auswählen, dem du beitreten möchtest.'
+      description: 'Hier siehst du alle Teams, zu denen du eingeladen wurdest. Du kannst ein Team auswählen, dem du beitreten möchtest.',
+      loading: 'Deine Einladungen werden geladen...'
     },
     reset_password: {
       headline: 'Passwort zurücksetzen',

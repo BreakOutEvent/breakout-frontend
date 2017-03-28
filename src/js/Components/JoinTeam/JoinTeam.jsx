@@ -8,32 +8,22 @@ export default class JoinTeam extends React.Component {
     this.state = {
       joinTeamError: null,
       invitations: [],
-      isSubmitting: false
+      isSubmitting: false,
+      isLoadingInvitations: true
     };
   }
 
   async componentDidMount() {
-
-    let me;
-    try {
-      me = await this.api.getMe();
-    } catch (err) {
-      this.onUserNotLoggedIn(err);
-    }
-
     try {
       let invitations = await this.props.api.getAllInvitations();
       invitations = invitations.filter(invitation => invitation.team.members.length >= 1);
       this.setState({
-        invitations: invitations
+        invitations: invitations,
+        isLoadingInvitations: false
       });
     } catch (err) {
       this.onLoadingInvitationsError(err);
     }
-  }
-
-  onUserNotLoggedIn(err) {
-    // TODO: Redirect;
   }
 
   onLoadingInvitationsError(err) {
@@ -87,18 +77,25 @@ export default class JoinTeam extends React.Component {
 
 
   render() {
-    return (
-      <JoinTeamForm i18next={this.props.i18next}
-                    onSubmit={this.onSubmit.bind(this)}
-                    teamCreationError={this.state.joinTeamError}
-                    invitations={this.state.invitations}
-                    joinTeamError={this.state.joinTeamError}
-                    isSubmitting={this.state.isSubmitting}
-                    onError={() => {
-                    }}
-                    onChange={() => {
-                    }}/>
-    );
+    if (this.state.isLoadingInvitations) {
+      return (
+        <div className="alert alert-info">{this.props.i18next.t('client.join_team.loading')}</div>
+      );
+    } else {
+      return (
+        <JoinTeamForm i18next={this.props.i18next}
+                      onSubmit={this.onSubmit.bind(this)}
+                      teamCreationError={this.state.joinTeamError}
+                      invitations={this.state.invitations}
+                      joinTeamError={this.state.joinTeamError}
+                      isSubmitting={this.state.isSubmitting}
+                      onError={() => {
+                      }}
+                      onChange={() => {
+                      }}/>
+      );
+    }
+
   }
 }
 
