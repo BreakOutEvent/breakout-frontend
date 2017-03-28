@@ -4,7 +4,7 @@ const InviteOption = (props) => {
   return (
     <label key={props.label.team.id} className="radio-inline ">
       <span>
-      <input type="radio" name={props.label.team.id} required=""
+      <input type="radio" name={props.label.team.id} isRequired=""
              value={parseInt(props.label.team.id)}/>
       <div className="radio-team">
         <div className="radio-team-name">{props.label.team.name}</div>
@@ -14,6 +14,10 @@ const InviteOption = (props) => {
       </span>
     </label>
   );
+};
+
+InviteOption.propTypes = {
+  label: React.PropTypes.object.isRequired
 };
 
 const InvitationWidget = (props) => {
@@ -29,6 +33,11 @@ const InvitationWidget = (props) => {
       <div></div>
     </div>
   );
+};
+
+InvitationWidget.propTypes = {
+  onChange: React.PropTypes.func.isRequired,
+  options: React.PropTypes.object.isRequired
 };
 
 export default InvitationWidget;

@@ -81,3 +81,14 @@ export default class LoginForm extends React.Component {
     );
   }
 }
+
+LoginForm.propTypes = {
+  i18next: React.PropTypes.object.isRequired,
+  onChange: React.PropTypes.func.isRequired,
+  onError: React.PropTypes.func.isRequired,
+  onSubmit: React.PropTypes.func.isRequired,
+  onPasswordReset: React.PropTypes.func.isRequired,
+  onRegister: React.PropTypes.func.isRequired,
+  isSubmitting: React.PropTypes.bool.isRequired,
+  loginError: React.PropTypes.string
+};

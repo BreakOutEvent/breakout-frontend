@@ -38,7 +38,7 @@ export default class Registration extends React.Component {
       .catch(this.onRegistrationError.bind(this));
   }
 
-  onRegistrationSuccess(data) {
+  onRegistrationSuccess() {
     this.props.history.push('/r/select-role');
   }
 
@@ -61,3 +61,9 @@ export default class Registration extends React.Component {
     );
   }
 }
+
+Registration.propTypes = {
+  api: React.PropTypes.object.isRequired,
+  history: React.PropTypes.object.isRequired,
+  i18next: React.PropTypes.object.isRequired,
+};

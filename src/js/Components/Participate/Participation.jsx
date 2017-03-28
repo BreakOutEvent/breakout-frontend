@@ -79,3 +79,9 @@ export default class Participation extends React.Component {
     );
   }
 }
+
+Participation.propTypes = {
+  api: React.PropTypes.object.isRequired,
+  history: React.PropTypes.object.isRequired,
+  i18next: React.PropTypes.object.isRequired,
+};

@@ -21,7 +21,6 @@ module.exports = {
     ],
     'no-console': 0,
     'no-unused-vars': 1,
-    'react/prop-types': 0,
   },
   'globals': {
     'google': true,

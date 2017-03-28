@@ -70,3 +70,13 @@ export default class ResetPasswordForm extends React.Component {
     );
   }
 }
+
+ResetPasswordForm.propTypes = {
+  i18next: React.PropTypes.object.isRequired,
+  onChange: React.PropTypes.func.isRequired,
+  onSubmit: React.PropTypes.func.isRequired,
+  onError: React.PropTypes.func.isRequired,
+  resetPasswordError: React.PropTypes.string,
+  resetPasswordSuccess: React.PropTypes.string,
+  isSubmitting: React.PropTypes.bool.isRequired
+};

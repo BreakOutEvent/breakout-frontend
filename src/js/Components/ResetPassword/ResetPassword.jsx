@@ -65,3 +65,8 @@ export default class ResetPassword extends React.Component {
     );
   }
 }
+
+ResetPassword.propTypes = {
+  i18next: React.PropTypes.object.isRequired,
+  api: React.PropTypes.object.isRequired
+};

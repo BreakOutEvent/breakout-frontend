@@ -61,3 +61,12 @@ export default class JoinTeamForm extends React.Component {
     );
   }
 }
+
+JoinTeamForm.propTypes = {
+  invitations: React.PropTypes.array.isRequired,
+  i18next: React.PropTypes.object.isRequired,
+  onChange: React.PropTypes.func.isRequired,
+  onSubmit: React.PropTypes.func.isRequired,
+  joinTeamError: React.PropTypes.string,
+  isSubmitting: React.PropTypes.bool.isRequired
+};

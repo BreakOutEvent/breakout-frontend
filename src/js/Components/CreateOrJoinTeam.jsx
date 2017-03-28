@@ -18,4 +18,8 @@ const CreateOrJoinTeam = (props) => {
   );
 };
 
+CreateOrJoinTeam.propTypes = {
+  children: React.PropTypes.any
+};
+
 export default CreateOrJoinTeam;

@@ -76,6 +76,10 @@ class App extends React.Component {
   }
 }
 
+App.propTypes = {
+  api: React.PropTypes.object
+};
+
 const createReactApp = (api) => {
   ReactDOM.render(
     <App api={api}/>,

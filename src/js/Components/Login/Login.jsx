@@ -27,7 +27,6 @@ export default class Login extends React.Component {
   async onSubmit(data) {
     this.onBeginSubmit();
     await this.onSubmitImpl(data);
-    this.onEndSubmit();
   }
 
   async onSubmitImpl(data) {
@@ -44,8 +43,10 @@ export default class Login extends React.Component {
 
     try {
       await this.props.api.frontendLogin(email, pw);
+      this.onEndSubmit();
       this.onLoginSuccess(tokens);
     } catch (err) {
+      this.onEndSubmit();
       this.onLoginError(err);
     }
   }
@@ -76,3 +77,9 @@ export default class Login extends React.Component {
     );
   }
 }
+
+Login.propTypes = {
+  history: React.PropTypes.object.isRequired,
+  i18next: React.PropTypes.object.isRequired,
+  api: React.PropTypes.object.isRequired,
+};

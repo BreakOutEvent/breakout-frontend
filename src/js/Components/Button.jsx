@@ -3,7 +3,7 @@ import React from 'react';
 const Button = (props) => {
   if (props.isLoading || false) {
     return (
-      <button {...props} className="btn btn-primary">
+      <button className={props.className} id={props.id} type={props.type}>
         <div className="spinner">
           <div className="bounce1" style={{backgroundColor: props.indicatorColor || 'white'}}></div>
           <div className="bounce2" style={{backgroundColor: props.indicatorColor || 'white'}}></div>
@@ -11,8 +11,19 @@ const Button = (props) => {
         </div>
       </button >);
   } else {
-    return <button {...props}>{props.children}</button>;
+    return <button className={props.className} id={props.id} type={props.type}>
+      {props.children}
+    </button>;
   }
+};
+
+Button.propTypes = {
+  className: React.PropTypes.string.isRequired,
+  id: React.PropTypes.string,
+  type: React.PropTypes.string,
+  isLoading: React.PropTypes.bool,
+  indicatorColor: React.PropTypes.string,
+  children: React.PropTypes.any
 };
 
 export default Button;

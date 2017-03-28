@@ -54,6 +54,11 @@ export default class RoleSelector extends React.Component {
   }
 }
 
+RoleSelector.propTypes = {
+  history: React.PropTypes.object.isRequired,
+  i18next: React.PropTypes.object.isRequired
+};
+
 const Selector = (props) => {
 
   const style = `
@@ -106,5 +111,12 @@ const Selector = (props) => {
       </div>
     </div>
   );
+};
+
+Selector.propTypes = {
+  roleTitle: React.PropTypes.string.isRequired,
+  roleText: React.PropTypes.string.isRequired,
+  onClick: React.PropTypes.func.isRequired,
+  role: React.PropTypes.string.isRequired
 };
 

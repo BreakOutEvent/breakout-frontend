@@ -1,5 +1,6 @@
 import React from 'react';
 import ImportedModal from 'react-responsive-modal';
+
 export default class Modal extends React.Component {
 
   constructor(props) {
@@ -43,3 +44,9 @@ export default class Modal extends React.Component {
     );
   }
 }
+
+Modal.propTypes = {
+  show: React.PropTypes.bool.isRequired,
+  onHide: React.PropTypes.func.isRequired,
+  children: React.PropTypes.any
+};

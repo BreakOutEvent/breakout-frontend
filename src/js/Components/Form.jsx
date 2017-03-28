@@ -14,4 +14,8 @@ const Form = (props) => {
   );
 };
 
+Form.propTypes = {
+  children: React.PropTypes.array
+};
+
 export default Form;

@@ -74,3 +74,13 @@ export default class TeamCreationForm extends React.Component {
     );
   }
 }
+
+TeamCreationForm.propTypes = {
+  i18next: React.PropTypes.object.isRequired,
+  events: React.PropTypes.array.isRequired,
+  onChange: React.PropTypes.func.isRequired,
+  onSubmit: React.PropTypes.func.isRequired,
+  onError: React.PropTypes.func.isRequired,
+  teamCreationError: React.PropTypes.string,
+  isSubmitting: React.PropTypes.bool.isRequired
+};
