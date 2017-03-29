@@ -21,9 +21,8 @@ export default class RoleSelector extends React.Component {
     } else if (selectedRole === 'participant') {
       this.props.history.push('/r/participate');
     } else if (selectedRole === 'sponsor') {
-      alert('Not implemented yet!');
-      this.props.history.push('/');
-      window.location.reload();
+      this.props.history.push('/sponsor');
+      window.location = '/sponsor';
     }
   }
 
