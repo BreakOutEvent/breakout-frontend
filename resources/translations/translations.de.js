@@ -108,6 +108,30 @@ module.exports = {
       create_join_team: 'Team erstellen oder beitreten'
     }
   },
+  BECOME_SPONSOR: {
+    HEADLINE: 'Jetzt Sponsor werden',
+    GENDER: 'Geschlecht',
+    MALE: 'Männlich',
+    FEMALE: 'Weiblich',
+    FIRSTNAME_LABEL: 'Vorname',
+    FIRSTNAME_PLACEHOLDER: 'Maxi',
+    LASTNAME_LABEL: 'Nachname',
+    LASTNAME_PLACEHOLDER: 'Mustermann',
+    OPTIONAL_COMPANY_LABEL: 'Firma (optional)',
+    OPTIONAL_COMPANY_PLACEHOLDER: 'Testfirma',
+    STREET_LABEL: 'Straße',
+    STREET_PLACEHOLDER: 'Straße',
+    HOUSENUMBER_LABEL: 'Hausnummer',
+    HOUSENUMBER_PLACEHOLDER: '123',
+    CITY_LABEL: 'Stadt',
+    CITY_PLACEHOLDER: 'München',
+    PLZ_LABEL: 'Postleitzahl',
+    PLZ_PLACEHOLDER: '80333',
+    COUNTRY_LABEL: 'Land',
+    COUNTRY_PLACEHOLDER: 'Deutschland',
+    ACCEPT_SPONSOR_TOS: 'Ich stimme den <a href="//static.break-out.org/Teilnahmebedingungen_Sponsoren_2016_deutsch.pdf">Teilnahmebedingungen für Sponsoren</a> und insbesondere den dort aufgeführten Datenschutzregelungen zu.',
+    BUTTON_NEXT: 'Jetzt Sponsor werden!'
+  },
   'SELECTION': {
     'HEADLINE': 'Erfolgreich Registriert',
     'DESCRIPTION_1': 'Du hast den ersten Schritt geschafft! Wir haben Dir eine E-Mail mit einem Link geschickt, mit dem Du Deine E-Mail Adresse bestätigen kannst. Dieser Schritt ist notwendig, damit wir überprüfen können, ob Du wirklich der Inhaber der E-Mail Adresse bist.',

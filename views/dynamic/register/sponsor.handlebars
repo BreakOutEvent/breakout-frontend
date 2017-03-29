@@ -2,13 +2,16 @@
     <div class="col-md-6 registration-box-border div-align-mid">
         <form id="sponsorForm">
             <div class="row registration-margin">
+
                 <div class="col-md-6">
-                    <img class="bo-modal-logo" alt="BreakOut" src="/img/logos/BreakOut-Logo_Header.svg">
+                    <h3 style="text-align: center">{{__ 'BECOME_SPONSOR.HEADLINE'}}</h3>
                 </div>
+
                 <div class="col-md-6">
 
                     <div class="bo-reg-uploadInputWrapper" style="height: 100px; width: 100px;">
-                        <input class="bo-reg-fileInput bo-reg-hiddenInput" type="file" name="profilePic"
+                        <input class="bo-reg-fileInput bo-reg-hiddenInput" type="file"
+                               name="profilePic"
                                id="profilePic"/>
                         <i class="material-icons registration-picture-icon">camera_alt</i>
                     </div>
@@ -24,14 +27,16 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6 col-md-push-6">
-                        <label>Geschlecht</label>
+                        <label>{{__ 'BECOME_SPONSOR.GENDER'}}</label>
                         <div class="text-center">
                             <div class="btn-group">
-                                <button class="btn btn-default bo-reg-buttons" name="gender" value="male"
-                                        id="male" type="button">Herr
+                                <button class="btn btn-default bo-reg-buttons" name="gender"
+                                        value="male"
+                                        id="male" type="button">{{__ 'BECOME_SPONSOR.MALE'}}
                                 </button>
-                                <button class="btn btn-default bo-reg-buttons" name="gender" value="female"
-                                        id="female" type="button">Frau
+                                <button class="btn btn-default bo-reg-buttons" name="gender"
+                                        value="female"
+                                        id="female" type="button">{{__ 'BECOME_SPONSOR.FEMALE'}}
                                 </button>
                             </div>
                         </div>
@@ -39,9 +44,13 @@
                     <div class="col-md-6 col-md-pull-6">
                         <div class="form-group has-feedback has-feedback-left">
                             <div class="form-group has-feedback has-feedback-left">
-                                <label for="firstname">Vorname</label>
-                                <input type="text" class="form-control" name="firstname" id="firstname"
-                                       placeholder="Maxi" required="required">
+                                <label for="firstname">
+                                    {{__ 'BECOME_SPONSOR.FIRSTNAME_LABEL'}}
+                                </label>
+                                <input type="text" class="form-control" name="firstname"
+                                       id="firstname"
+                                       placeholder="{{__ 'BECOME_SPONSOR.FIRSTNAME_PLACEHOLDER'}}"
+                                       required="required">
                                 <i class="form-control-feedback material-icons">perm_identity</i>
 
                             </div>
@@ -49,55 +58,66 @@
                     </div>
                 </div>
                 <div class="row">
+
                     <div class="col-md-6">
                         <div class="form-group has-feedback has-feedback-left">
-                            <label for="lastname">Nachname</label>
+                            <label for="lastname">{{__ 'BECOME_SPONSOR.LASTNAME_LABEL'}}</label>
                             <input type="text" class="form-control" id="lastname" name="lastname"
-                                   placeholder="Muster" required="required">
+                                   placeholder="{{__ 'BECOME_SPONSOR.LASTNAME_PLACEHOLDER'}}"
+                                   required="required">
                             <i class="form-control-feedback material-icons">perm_identity</i>
                         </div>
                     </div>
+
                     <div class="col-md-6">
                         <div class="form-group has-feedback has-feedback-left">
-                            <label for="company">Firma (optional)</label>
+                            <label for="company">
+                                {{__ 'BECOME_SPONSOR.OPTIONAL_COMPANY_LABEL'}}</label>
                             <input type="text" class="form-control" id="company" name="company"
-                                   placeholder="Testfirma">
+                                   placeholder="{{__
+                                           'BECOME_SPONSOR.OPTIONAL_COMPANY_PLACEHOLDER'}}">
                             <i class="form-control-feedback material-icons">business</i>
                         </div>
                     </div>
+
                 </div>
                 <div class="row">
                     <div class="col-md-8 ">
                         <div class="form-group has-feedback has-feedback-left">
-                            <label for="street">Straße</label>
+                            <label for="street">{{__ 'BECOME_SPONSOR.STREET_LABEL'}}</label>
                             <input type="text" class="form-control" id="street" name="street"
-                                   placeholder="Straße" required="required">
+                                   placeholder="{{__ 'BECOME_SPONSOR.STREET_PLACEHOLDER'}}"
+                                   required="required">
                             <i class="form-control-feedback material-icons">person_pin_circle</i>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label>Hausnummer</label>
-                            <input type="text" class="form-control" id="housenumber" name="housenumber"
-                                   placeholder="Nr" required="required">
+                            <label>{{__ 'BECOME_SPONSOR.HOUSENUMBER_LABEL'}}</label>
+                            <input type="text" class="form-control" id="housenumber"
+                                   name="housenumber"
+                                   placeholder="{{__ 'BECOME_SPONSOR.HOUSENUMBER_PLACEHOLDER'}}"
+                                   required="required">
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group has-feedback has-feedback-left">
-                            <label for="city">Stadt</label>
+                            <label for="city">{{__ 'BECOME_SPONSOR.CITY_LABEL'}}</label>
                             <input type="text" class="form-control" id="city" name="city"
-                                   placeholder="München" required="required">
+                                   placeholder="{{__ 'BECOME_SPONSOR.CITY_PLACEHOLDER'}}"
+                                   required="required">
                             <i class="form-control-feedback material-icons">person_pin_circle
                             </i>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group has-feedback has-feedback-left">
-                            <label for="zipcode">PLZ</label>
+                            <label for="zipcode">{{__ 'BECOME_SPONSOR.PLZ_LABEL'}}</label>
                             <input type="text" class="form-control" id="zipcode" name="zipcode"
-                                   placeholder="80333" required="required">
+                                   placeholder="{{__ 'BECOME_SPONSOR.PLZ_PLACEHOLDER'}}"
+                                   required="required">
                             <i class="form-control-feedback material-icons">person_pin_circle
                             </i>
                         </div>
@@ -105,20 +125,25 @@
 
                     <div class="col-md-12">
                         <div class="form-group has-feedback has-feedback-left">
-                            <label for="country">Land</label>
+                            <label for="country">{{__ 'BECOME_SPONSOR.COUNTRY_LABEL'}}</label>
                             <input type="text" class="form-control" id="country" name="country"
-                                   placeholder="Deutschland" required="required">
+                                   placeholder="{{__ 'BECOME_SPONSOR.COUNTRY_PLACEHOLDER'}}"
+                                   required="required">
                             <i class="form-control-feedback material-icons">person_pin_circle</i>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-12 registration-margin">
-                    <input type="checkbox" id="terms_accepted" required="required" class="bo-reg-checkbox"/>
-                    <label for="terms_accepted" class="bo-reg-label">Ich stimme den
-                        <a href="//static.break-out.org/Teilnahmebedingungen_Sponsoren_2016_deutsch.pdf">Teilnahmebedingungen für Sponsoren</a>  und insbesondere den dort aufgeführten Datenschutzregelungen zu.</label>
+                    <input type="checkbox" id="terms_accepted" required="required"
+                           class="bo-reg-checkbox"/>
+                    <label for="terms_accepted" class="bo-reg-label">
+                        {{{__ 'BECOME_SPONSOR.ACCEPT_SPONSOR_TOS'}}}
+                    </label>
                 </div>
                 <div class="registration-margin">
-                    <button type="submit" id="mainCTA" class="btn btn-primary btn-block">WEITER</button>
+                    <button type="submit" id="mainCTA" class="btn btn-primary btn-block">
+                        {{__ 'BECOME_SPONSOR.BUTTON_NEXT'}}
+                    </button>
                 </div>
             </div>
         </form>
