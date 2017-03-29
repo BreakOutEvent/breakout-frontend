@@ -19,18 +19,61 @@ const Success = (props) => {
         marginTop: '20px',
         marginBottom: '20px'
       }}>
-        <a href="/">
-          <div className="btn btn-primary">{props.button}</div>
-        </a>
+        {props.children}
       </div>
     </div>
   );
 };
 
-const VisitorSuccess = (props) => {
-  return <Success title={props.i18next.t('SPECTATOR-SUCCESS.HEADLINE')}
-                  description={props.i18next.t('SPECTATOR-SUCCESS.DESCRIPTION')}
-                  button={props.i18next.t('SPECTATOR-SUCCESS.LINK_DESCRIPTION')}/>;
+Success.propTypes = {
+  title: React.PropTypes.string.isRequired,
+  description: React.PropTypes.string.isRequired,
+  children: React.PropTypes.any
 };
 
-export {Success, VisitorSuccess};
+const VisitorSuccess = (props) => {
+  return (
+    <Success title={props.i18next.t('SPECTATOR-SUCCESS.HEADLINE')}
+             description={props.i18next.t('SPECTATOR-SUCCESS.DESCRIPTION')}>
+    </Success>);
+};
+
+VisitorSuccess.propTypes = {
+  i18next: React.PropTypes.object.isRequired
+};
+
+const JoinTeamSuccess = (props) => {
+  return (
+    <Success title="Erfolgreich" description="Team erfolgreich beigetreten">
+      <a href="/">
+        <div className="btn btn-primary">
+          {props.i18next.t('SPECTATOR-SUCCESS.LINK_DESCRIPTION')}
+        </div>
+      </a>
+    </Success>
+  );
+};
+
+JoinTeamSuccess.propTypes = {
+  i18next: React.PropTypes.object.isRequired
+};
+
+const CreateTeamSuccess = (props) => {
+  return (
+    <Success title={props.i18next.t('client.create_team_success.title')}
+             description={props.i18next.t('client.create_team_success.description')}>
+      <a href="/">
+        <div className="btn btn-primary">
+          {props.i18next.t('client.create_team_success.button_text')}
+        </div>
+      </a>
+    </Success>
+  );
+};
+
+
+CreateTeamSuccess.propTypes = {
+  i18next: React.PropTypes.object.isRequired
+};
+
+export {Success, VisitorSuccess, JoinTeamSuccess, CreateTeamSuccess};

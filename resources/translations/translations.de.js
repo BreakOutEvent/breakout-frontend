@@ -106,6 +106,11 @@ module.exports = {
       role_select: 'Rolle auswählen',
       participate: 'Persönliche Daten',
       create_join_team: 'Team erstellen oder beitreten'
+    },
+    create_team_success: {
+      button_text: 'Zur Startseite',
+      title: 'Team erfolgreich erstellt',
+      description: 'Du hast Dein Team erfolreich registriert. Sobald Dein Teampartner die Einladung angenommen hat, erhaltet Ihr beide eine E-Mail mit dem Zahlungslink, den Ihr benötigt um eure Registrierung bei BreakOut abzuschließen. Bei Fragen steht unser Support jederzeit zu Deiner Verfügung.'
     }
   },
   BECOME_SPONSOR: {

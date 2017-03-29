@@ -68,16 +68,14 @@ export default class TeamCreation extends React.Component {
 
     try {
       await this.props.api.inviteToTeam(team.id, data.formData.partneremail);
-      // TODO: Redirect
+      this.onCreateTeamSuccess();
     } catch (err) {
       this.onInviteToTeamError(err);
     }
   }
 
-  onCreateTeamSuccess(data) {
-    // TODO: Redirect
-    console.log(data);
-    return data;
+  onCreateTeamSuccess() {
+    this.props.history.push('/r/create-team-success');
   }
 
   onCreateTeamError(error) {
