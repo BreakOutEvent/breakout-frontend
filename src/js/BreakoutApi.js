@@ -61,6 +61,10 @@ class BreakoutApi {
       .then(resp => resp.data);
   }
 
+  frontendLogout() {
+    return this.instance.get(`${BreakoutApi.getClientSideUrl()}/logout`)
+  }
+
   /**
    * Perform login for user with email and password
    *
@@ -240,6 +244,10 @@ class BreakoutApi {
     };
     const response = await this.instance.post(`/event/${event}/team/${teamId}/invitation/`, data);
     return response.data;
+  }
+
+  async getInvoiceForTeam(teamId) {
+    return this.instance.get(`/team/${teamId}/startingfee`).then(resp => resp.data);
   }
 
   isUserLoggedInAtFrontend() {
