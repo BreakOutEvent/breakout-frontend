@@ -12,13 +12,7 @@ const Success = (props) => {
         {props.title}
       </h3>
       <p>{props.description}</p>
-      <div style={{
-        width: '100%',
-        display: 'flex',
-        justifyContent: 'center',
-        marginTop: '20px',
-        marginBottom: '20px'
-      }}>
+      <div>
         {props.children}
       </div>
     </div>
@@ -42,17 +36,46 @@ VisitorSuccess.propTypes = {
   i18next: React.PropTypes.object.isRequired
 };
 
-const JoinTeamSuccess = (props) => {
-  return (
-    <Success title="Erfolgreich" description="Team erfolgreich beigetreten">
-      <a href="/">
-        <div className="btn btn-primary">
-          {props.i18next.t('SPECTATOR-SUCCESS.LINK_DESCRIPTION')}
-        </div>
-      </a>
-    </Success>
-  );
-};
+class JoinTeamSuccess extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  async componentDidMount() {
+    const me = await this.props.api.getMe();
+    console.log(me);
+    const invoice = await this.props.api.getInvoiceForTeam(me.participant.teamId);
+    console.log(invoice);
+    this.setState({
+      invoice: invoice
+    });
+  }
+
+  invoiceText() {
+    if (this.state.invoice) {
+      return `Überweisungszweck: ${this.state.invoice.purposeOfTransfer}`;
+    } else {
+      return 'Euer Überweisungszweck wird geladen...';
+    }
+  }
+
+  render() {
+    return (
+      <Success title={this.props.i18next.t('client.join_team_success.title')}
+               description={this.props.i18next.t('client.join_team_success.description')}>
+
+        <p>{this.invoiceText()}</p>
+        <a href="/">
+          <div className="btn btn-primary">
+            {this.props.i18next.t('SPECTATOR-SUCCESS.LINK_DESCRIPTION')}
+          </div>
+        </a>
+      </Success>
+    );
+  }
+}
 
 JoinTeamSuccess.propTypes = {
   i18next: React.PropTypes.object.isRequired
