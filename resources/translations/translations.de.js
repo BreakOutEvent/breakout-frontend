@@ -111,6 +111,10 @@ module.exports = {
       button_text: 'Zur Startseite',
       title: 'Team erfolgreich erstellt',
       description: 'Du hast Dein Team erfolreich registriert. Sobald Dein Teampartner die Einladung angenommen hat, erhaltet Ihr beide eine E-Mail mit dem Zahlungslink, den Ihr benötigt um eure Registrierung bei BreakOut abzuschließen. Bei Fragen steht unser Support jederzeit zu Deiner Verfügung.'
+    },
+    join_team_success: {
+      title: 'Team erfolgreich beigetreten',
+      description: 'Herzlichen Glückwunsch. Du und dein Teampartner habt euch erfolgreich für BreakOut registriert. Bitte überweist nun die Teilnahmegebühr mit dem unten stehenden Verwendungszweck bis zum ABC an XYZ'
     }
   },
   BECOME_SPONSOR: {
