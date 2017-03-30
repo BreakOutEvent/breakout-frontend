@@ -27,7 +27,7 @@ export default class JoinTeam extends React.Component {
   }
 
   onLoadingInvitationsError(err) {
-    // TODO: Handle error
+    throw err;
   }
 
   onBeginSubmit() {
@@ -55,8 +55,8 @@ export default class JoinTeam extends React.Component {
       .catch(this.onJoinError.bind(this));
   }
 
-  onJoinSuccess(data) {
-    // TODO
+  onJoinSuccess() {
+    this.props.history.push('/r/join-team-success');
   }
 
   onJoinError(error) {
