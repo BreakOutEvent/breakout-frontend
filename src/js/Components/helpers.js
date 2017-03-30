@@ -9,8 +9,12 @@ function getAccessToken() {
   return store.get('tokens').access_token;
 }
 
+function clearAccessTokens() {
+  return store.remove('tokens')
+}
+
 function storeTokens(tokens) {
   return store.set('tokens', tokens);
 }
 
-export {isUserLoggedIn, getAccessToken, storeTokens};
+export {isUserLoggedIn, getAccessToken, storeTokens, clearAccessTokens};
