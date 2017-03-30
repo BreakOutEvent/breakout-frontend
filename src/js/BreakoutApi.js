@@ -242,6 +242,11 @@ class BreakoutApi {
     return response.data;
   }
 
+  isUserLoggedInAtFrontend() {
+    return this.instance.get(`${BreakoutApi.getClientSideUrl()}/isLoggedIn`)
+      .then(resp => resp.data.isLoggedIn);
+  }
+
 }
 
 module.exports = BreakoutApi;

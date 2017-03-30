@@ -53,6 +53,7 @@ router.get('/payment', session.hasTeam, DynamicController.showTransactionPurpose
 router.get('/join/:token', DynamicController.showInvitesByToken);
 
 router.get('/team-invite', session.isParticipant, registration.lock, DynamicController.showInvites);
+router.get('/isLoggedIn', DynamicController.isLoggedIn);
 
 router.get('/team-create', session.isParticipant, registration.lock, DynamicController.showCreateTeamPage);
 
