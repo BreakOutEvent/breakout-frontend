@@ -71,14 +71,12 @@ class StaticController {
   static *renderFAQPage(req, res) {
 
     const faqs = yield contentful.getFieldsForContentType('faq', req.contentfulLocale);
-    const aspects = yield contentful.getFieldsForContentType('aspectsOfBreakOut', req.contentfulLocale);
-    const pages = yield contentful.getFieldsForContentType('aboutBreakoutPage', req.contentfulLocale);
+    const pages = yield contentful.getFieldsForContentType('faqPage', req.contentfulLocale);
     const page = pages[0];
 
     const options = extendDefaultOptions(req, {
       title: page.title,
       headerImage: page.headerImage,
-      aspects: aspects.sort((a, b) => a.order > b.order),
       faqs: faqs,
     });
 
@@ -150,7 +148,17 @@ class StaticController {
 
   static *renderNextSteps(req, res) {
 
-    let fields = yield contentful.getFieldsForContentType('nextSteps', req.contentfulLocale);
+    let response = yield Promise.all([
+      contentful.getFieldsForContentType('nextSteps', req.contentfulLocale),
+      contentful.getFieldsForContentType('aspectsOfBreakOut', req.contentfulLocale),
+      contentful.getFieldsForContentType('aboutBreakoutPage', req.contentfulLocale),
+    ]);
+
+    let fields = response[0];
+    const aspects = response[1];
+    const pages = response[2];
+
+    const page = pages[0];
     fields = fields[0];
 
     let videoUrl;
@@ -173,7 +181,10 @@ class StaticController {
       prepare: fields.prepare,
       downloadApps: fields.downloadApps,
       explanationVideo: videoUrl,
-      hasVideo: hasVideo
+      hasVideo: hasVideo,
+      aspects: aspects.sort((a, b) => a.order > b.order),
+      explanationImage: page.explanationImage,
+      aspectsHeadline: page.aspectsHeadline
     });
 
     res.render('static/content/nextSteps', options);

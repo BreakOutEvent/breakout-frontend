@@ -1,13 +1,68 @@
-<div class="bo-header-info"></div>
-<div class="container">
+<header class="img-bg-header" style="
+    background: url(../img/header-faq.jpg);
+    /* max-height: 300px; */
+    height: 400px;
+    padding-top: 0;
+    margin-top: -70px;
+    margin-bottom: -1px;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center">
+    <h1 style="color: white;text-shadow: 2px 2px rgba(93, 93, 93, 0.74);">{{this.title}}</h1>
+</header>
 
-    <!-- Heading -->
-    <div class="row">
-        <div class="col-md-12">
-            <h1>{{this.headline}}</h1>
-            <hr>
+<div class="container-fluid">
+    <div class="row" id="bo-explanation-image">
+        <div class="container">
+            <div class="col-sm-7">
+                <img style="width: 100%;" src="{{this.explanationImage.fields.file.url}}"/>
+            </div>
+
+            <div class="visible-xs" style="height: 25px;">
+            </div>
+            <div class="col-md-4 col-md-offset-1 col-sm-5">
+                <div class="visible-xs top30"></div>
+                <h3>{{this.aspectsHeadline}}</h3>
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+                    {{#each this.aspects}}
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="heading-{{toId this.title}}">
+                                <h4 class="panel-title">
+
+                                    <a role="button"
+                                       data-toggle="collapse"
+                                       data-parent="#accordion"
+                                       href="#{{toId this.title}}"
+                                       aria-expanded="true"
+                                       aria-controls="collapseOne"
+                                       class="accordion-toggle">
+                                        {{this.title}}
+                                    </a>
+
+                                </h4>
+                            </div>
+                            <div id="{{toId this.title}}"
+                                {{#if @first}}class="panel-collapse collapse in"
+                                 {{else}}class="panel-collapse collapse"{{/if}}
+                                 role="tabpanel"
+                                 aria-labelledby="{{toId this.title}}">
+                                <div class="panel-body">
+                                    {{{md this.description}}}
+                                </div>
+                            </div>
+                        </div>
+                    {{/each}}
+
+                </div>
+            </div>
         </div>
     </div>
+</div>
+
+<div id="next-steps-text" class="container">
 
     <div class="row top30">
         <div class="col-md-6">
