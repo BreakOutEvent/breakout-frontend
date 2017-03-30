@@ -5,10 +5,13 @@
   margin-bottom: 30px;
   max-width: 160px;
   .bo-member-photo {
-    width: 80%;
-    height: 80%;
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
     background-size: cover;
     background-repeat: no-repeat;
+    background-position: center;
   }
 }
 
@@ -50,4 +53,32 @@
 
 .bo-member-divider {
   margin: 40px 0;
+}
+
+.bo-opening {
+  width: 100%;
+  height: 50px;
+  display: block;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 16px;
+  border: solid 1px rgba(0, 0, 0, 0.2);
+  font-size: 1.3em;
+  text-decoration: none;
+  color: black;
+  margin-left: 0px;
+}
+
+.bo-opening div {
+  display: inline-block;
+}
+
+.bo-opening:hover {
+  border: solid 1px #e6823c;
+  text-decoration: none;
+  color: black;
+}
+
+.download {
+  float: right;
 }

@@ -1,32 +1,3 @@
-<style>
-.bo-opening{
-  width: 100%;
-  height: 50px;
-  display: block;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 16px;
-  border: solid 1px rgba(0,0,0,0.2);
-  font-size: 1.3em;
-  text-decoration: none;
-  color: black;
-}
-
-.bo-opening div{
-  display: inline-block;
-}
-
-.bo-opening:hover{
-  border: solid 1px #e6823c;
-  text-decoration: none;
-  color: black;
-}
-
-.download{
-  float: right;
-}
-
-</style>
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
@@ -90,7 +61,7 @@
             <div class="col-xs-6 col-sm-3 col-md-2">
                 <div class="bo-member-photo-wrap">
                     <div class="bo-member-photo"
-                         style="background-image: url('{{this.profilImage.fields.file.url}}')"></div>
+                         style="background-image: url('{{this.profilImage.fields.file.url}}?w=134&h=134')"></div>
                     <div class="bo-member-info-wrap">
                         <div class="bo-member-info-name">{{this.firstname}}</div>
                         <div class="bo-member-info-role">{{this.team}}</div>
