@@ -1,6 +1,6 @@
 import React from 'react';
 import LoginForm from './LoginForm.jsx';
-import {storeTokens} from '../helpers';
+import {storeTokens, isUserLoggedIn} from '../helpers';
 
 export default class Login extends React.Component {
 
@@ -10,6 +10,12 @@ export default class Login extends React.Component {
       loginError: null,
       isSubmitting: false
     };
+  }
+
+  componentWillMount() {
+    if (isUserLoggedIn()) {
+      this.props.history.push('/r/select-role');
+    }
   }
 
   onBeginSubmit() {
@@ -54,6 +60,7 @@ export default class Login extends React.Component {
 
   onLoginSuccess(tokens) {
     storeTokens(tokens);
+    this.props.api.setAccessToken(tokens);
     this.props.history.push('/r/select-role');
   }
 
