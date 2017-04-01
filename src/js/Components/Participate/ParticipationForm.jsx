@@ -59,7 +59,7 @@ export default class ParticipationForm extends React.Component {
         tshirtSize: {
           type: 'string',
           title: i18next.t('client.participate.tshirtsize.label'),
-          enum: ['S', 'M', 'L', 'XL']
+          enum: this.props.tshirtSizes
         },
         phonenumber: {
           type: 'string',
@@ -108,7 +108,8 @@ export default class ParticipationForm extends React.Component {
             transformErrors={this.transformErrors}
             onChange={this.props.onChange}
             onSubmit={this.props.onSubmit}
-            onError={this.props.onError}>
+            onError={this.props.onError}
+            formData={this.props.formData}>
 
         { this.props.participationError &&
         <div className="alert alert-danger">
@@ -133,4 +134,6 @@ ParticipationForm.propTypes = {
   onError: React.PropTypes.func.isRequired,
   participationError: React.PropTypes.string,
   isSubmitting: React.PropTypes.bool.isRequired,
+  tshirtSizes: React.PropTypes.array.isRequired,
+  formData: React.PropTypes.object
 };

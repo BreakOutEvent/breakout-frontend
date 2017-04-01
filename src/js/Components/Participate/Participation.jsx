@@ -8,7 +8,9 @@ export default class Participation extends React.Component {
     super(props);
     this.state = {
       participationError: null,
-      isSubmitting: false
+      isSubmitting: false,
+      tshirtSizes: [],
+      formData: null
     };
   }
 
@@ -67,6 +69,20 @@ export default class Participation extends React.Component {
     });
   }
 
+  onChange(data) {
+    if (data.formData.gender === 'male') {
+      this.setState({
+        formData: data.formData,
+        tshirtSizes: ['S', 'M', 'L', 'XL', '2XL', '3XL']
+      });
+    } else if (data.formData.gender === 'female') {
+      this.setState({
+        formData: data.formData,
+        tshirtSizes: ['XS', 'S', 'M', 'L', 'XL', '2XL']
+      });
+    }
+  }
+
   render() {
 
     const entries = [{
@@ -86,10 +102,11 @@ export default class Participation extends React.Component {
                            onSubmit={this.onSubmit.bind(this)}
                            isSubmitting={this.state.isSubmitting}
                            participationError={this.state.registrationError}
+                           tshirtSizes={this.state.tshirtSizes}
+                           formData={this.state.formData}
                            onError={() => {
                            }}
-                           onChange={() => {
-                           }}/>
+                           onChange={this.onChange.bind(this)}/>
       </div>
     );
   }
