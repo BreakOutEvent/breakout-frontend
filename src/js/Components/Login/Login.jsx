@@ -53,7 +53,7 @@ export default class Login extends React.Component {
 
   onLoginError(err) {
     let message = err.message;
-    if (err.response && err.response.status === 400) {
+    if (err.response && err.response.status === 401) {
       message = this.props.i18next.t('client.login.error_login');
     }
     this.setState({

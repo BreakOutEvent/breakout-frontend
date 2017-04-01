@@ -9,17 +9,15 @@ class AuthenticationController {
         return next(err);
       }
       if (!user) {
-        req.flash('error', 'Ungültige Kombination aus Email und Passwort');
-        return res.redirect('/login');
+        return res.sendStatus(401).send({
+          message: 'Bad credentials'
+        });
       }
       req.login(user, function (err) {
         if (err) {
           return next(err);
         }
-        let url = req.flash('url');
-        if (Array.isArray(url)) url = url[url.length - 1];
-        if (url) return res.redirect(url);
-        return res.redirect('/');
+        return res.sendStatus(200);
       });
     })(req, res, next);
   }
