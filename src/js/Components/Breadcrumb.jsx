@@ -2,21 +2,14 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 const Breadcrumbs = (props) => {
-
-  const style = {
-    marginTop: '-29px',
-    background: 'transparent'
-  };
-
   return (
-    <ul className="breadcrumb" style={(props.style || style)}>
+    <ul className="breadcrumb">
       {props.entries.map(entry => <BreadcrumbEntry key={entry.title} {...entry}/>)}
     </ul>
   );
 };
 
 Breadcrumbs.propTypes = {
-  style: React.PropTypes.object,
   entries: React.PropTypes.array.isRequired
 };
 

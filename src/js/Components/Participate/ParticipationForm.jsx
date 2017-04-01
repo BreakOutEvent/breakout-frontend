@@ -4,10 +4,9 @@ import Button from '../Button.jsx';
 
 const BooleanWithInnerHtml = (props) => {
   return (
-    <span className="checkbox">
+    <span className="checkbox boolean-with-inner-html">
               <input type="checkbox"
                      className="Checkbox with inner html"
-                     style={{display: 'inline'}}
                      value={props.value}
                      required={props.required}
                      onChange={(event) => props.onChange((event.target.value === 'checked'))}/>

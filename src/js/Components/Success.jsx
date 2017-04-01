@@ -2,13 +2,12 @@ import React from 'react';
 
 const Success = (props) => {
   return (
-    <div>
-      <div style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
+    <div className="success-message">
+      <div className="logobox">
         <img src="/img/logo.svg"
-             className="img-responsive"
-             style={{maxWidth: '125px', marginTop: '-34px'}}/>
+             className="img-responsive"/>
       </div>
-      <h3 style={{textAlign: 'center'}}>
+      <h3>
         {props.title}
       </h3>
       <p>{props.description}</p>

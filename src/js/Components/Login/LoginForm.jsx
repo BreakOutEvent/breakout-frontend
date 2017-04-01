@@ -41,7 +41,6 @@ export default class LoginForm extends React.Component {
       }
     };
 
-    const style = {width: '100%', display: 'flex', justifyContent: 'center'};
     return (
 
       <Form schema={schema}

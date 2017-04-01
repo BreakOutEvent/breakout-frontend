@@ -67,50 +67,10 @@ RoleSelector.propTypes = {
 
 const Selector = (props) => {
 
-  const style = `
-    .roleSelector .btn-primary {
-      width: 100%;
-      background: transparent;
-      color: #000000;
-      border-radius: 9px;
-      border-width: 2px;
-      border-color: grey;
-      text-align: left;
-      margin-bottom: 10px;
-      white-space: normal;
-    }
-    
-    .roleSelector .btn-primary:hover {
-      background-color: transparent;
-      border-color: #e6823c;
-      color: #000000;
-    }
-    
-    .roleSelector .btn-primary:active {
-      background-color: transparent;
-      border-color: #e6823c;
-      color: #000000;
-    }
-    
-    .roleSelector .btn-primary:focus {
-      background-color: transparent;
-      border-color: #e6823c;
-      color: #000000;
-    }
-    
-    .roleSelector .btn-primary h3 {
-       margin-bottom: 10px;
-       margin-top: 4px;
-       font-size: large;
-       font-weight: bold; 
-    }`;
   return (
     <div className="row roleSelector">
-      <style>
-        {style}
-      </style>
       <div className="col-sm-12">
-        <button className="btn btn-primary" id={props.role} onClick={props.onClick}>
+        <button className="roleSelectOne btn btn-primary" id={props.role} onClick={props.onClick}>
           <h3>{props.roleTitle}</h3>
           <p>{props.roleText}</p>
         </button>

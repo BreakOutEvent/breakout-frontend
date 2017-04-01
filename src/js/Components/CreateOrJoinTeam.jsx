@@ -5,7 +5,7 @@ import Breadcrumbs from './Breadcrumb.jsx';
 
 const SelectionSwitcher = (props) => {
   return (
-    <div className="btn-group" style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
+    <div className="btn-group selection-switcher">
       {props.options.map(option => <Selection key={option.key}
                                               option={option}
                                               onClick={props.onClick}/>)}
@@ -81,9 +81,9 @@ class CreateOrJoinTeam extends React.Component {
 
 
     return (
-      <span>
+      <span className="create-or-join-team">
         <Breadcrumbs entries={entries}/>
-        <h3 style={{textAlign: 'center'}}>Team erstellen oder beitreten</h3>
+        <h3>Team erstellen oder beitreten</h3>
         <SelectionSwitcher options={options} onClick={this.onClick.bind(this)}/>
         <div style={{marginBottom: '20px'}}></div>
         {this.renderSelectedOption()}

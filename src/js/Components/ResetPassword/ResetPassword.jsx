@@ -64,9 +64,9 @@ export default class ResetPassword extends React.Component {
   }
 
   renderResetSuccessMessage() {
-    return <div>
-      <h3 style={{textAlign: 'center'}}>Passwort zurücksetzen</h3>
-      <div className="alert alert-info" style={{marginTop: '10px'}}>
+    return <div className="password-reset-success">
+      <h3>Passwort zurücksetzen</h3>
+      <div className="alert alert-info">
         {this.state.resetPasswordSuccess}
       </div>
     </div>;

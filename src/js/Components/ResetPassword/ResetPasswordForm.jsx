@@ -31,8 +31,6 @@ export default class ResetPasswordForm extends React.Component {
       }
     };
 
-    const style = {width: '100%', display: 'flex', justifyContent: 'center'};
-
     return (
 
       <Form schema={schema}
@@ -42,7 +40,7 @@ export default class ResetPasswordForm extends React.Component {
             onSubmit={this.props.onSubmit}
             onError={this.props.onError}>
 
-        <span style={style}>
+        <span className="fullwidth-center">
         { this.props.resetPasswordError &&
         <div className="alert alert-danger">
           {this.props.resetPasswordError}
@@ -50,7 +48,7 @@ export default class ResetPasswordForm extends React.Component {
         }
         </span>
 
-        <span style={style}>
+        <span className="fullwidth-center">
         <Button id='resetpassword-btn'
                 className="btn btn-primary"
                 isLoading={this.props.isSubmitting}

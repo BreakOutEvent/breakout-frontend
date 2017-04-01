@@ -2,7 +2,7 @@ import React from 'react';
 
 const InviteOption = (props) => {
   return (
-    <div className="field-radio-group" style={{marginTop: '20px'}}>
+    <div className="invite-option field-radio-group">
       <label key={props.label.team.id} className="radio-inline ">
       <span>
       <input type="radio"
