@@ -1,7 +1,6 @@
 import React from 'react';
 import TeamCreation from './TeamCreation/TeamCreation.jsx';
 import JoinTeam from './JoinTeam/JoinTeam.jsx';
-import {isUserLoggedIn} from './helpers';
 import Breadcrumbs from './Breadcrumb.jsx';
 
 const SelectionSwitcher = (props) => {
@@ -40,12 +39,6 @@ class CreateOrJoinTeam extends React.Component {
     };
   }
 
-  componentWillMount() {
-    if (!isUserLoggedIn()) {
-      this.props.history.push('/r/login');
-    }
-  }
-
   onClick(e) {
     this.setState({
       selectedOption: e.currentTarget.id
@@ -61,10 +54,6 @@ class CreateOrJoinTeam extends React.Component {
   }
 
   render() {
-
-    if (!isUserLoggedIn()) {
-      return null;
-    }
 
     const options = [{
       text: 'Ein Team erstellen',

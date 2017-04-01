@@ -23,15 +23,6 @@ class BreakoutApi {
     return `${window.location.protocol}//${window.location.hostname}:${window.location.port || 80}`;
   }
 
-  static initFromServer() {
-    const url = `${BreakoutApi.getClientSideUrl()}/client-config`;
-    return axios.get(url)
-      .then(resp => resp.data)
-      .then(data => {
-        return new BreakoutApi(data.baseUrl, data.clientId, data.clientSecret, true);
-      });
-  }
-
   registerDebugInterceptor() {
     this.instance.interceptors.request.use(config => {
       // TODO: use logger

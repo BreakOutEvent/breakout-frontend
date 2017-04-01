@@ -1,6 +1,7 @@
 import React from 'react';
 import LoginForm from './LoginForm.jsx';
-import {storeTokens, isUserLoggedIn} from '../helpers';
+import {Redirect} from 'react-router-dom';
+import routes from '../routes';
 
 export default class Login extends React.Component {
 
@@ -8,14 +9,9 @@ export default class Login extends React.Component {
     super(props);
     this.state = {
       loginError: null,
-      isSubmitting: false
+      isSubmitting: false,
+      loginSuccess: false
     };
-  }
-
-  componentWillMount() {
-    if (isUserLoggedIn()) {
-      this.props.history.push('/r/select-role');
-    }
   }
 
   onBeginSubmit() {
@@ -39,29 +35,20 @@ export default class Login extends React.Component {
     const email = data.formData.email;
     const pw = data.formData.password;
 
-    let tokens;
-    try {
-      tokens = await this.props.api.login(email, pw);
-    } catch (err) {
-      this.onLoginError(err);
-      this.onEndSubmit();
-      return Promise.resolve();
-    }
-
     try {
       await this.props.api.frontendLogin(email, pw);
       this.onEndSubmit();
-      this.onLoginSuccess(tokens);
+      this.onLoginSuccess();
     } catch (err) {
       this.onEndSubmit();
       this.onLoginError(err);
     }
   }
 
-  onLoginSuccess(tokens) {
-    storeTokens(tokens);
-    this.props.api.setAccessToken(tokens);
-    this.props.history.push('/r/select-role');
+  onLoginSuccess() {
+    this.setState({
+      loginSuccess: true
+    });
   }
 
   onLoginError(err) {
@@ -75,6 +62,9 @@ export default class Login extends React.Component {
   }
 
   render() {
+    if (this.state.loginSuccess) {
+      return <Redirect to={routes.selectRole}/>;
+    }
     return (
       <LoginForm i18next={this.props.i18next}
                  onSubmit={this.onSubmit.bind(this)}

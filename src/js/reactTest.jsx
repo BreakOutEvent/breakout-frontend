@@ -17,8 +17,10 @@ import Modal from './Components/Modal.jsx';
 import {
   BrowserRouter as Router,
   Route,
+  Redirect
 } from 'react-router-dom';
-import {getAccessToken, isUserLoggedIn} from './Components/helpers';
+
+import routes from './Components/routes';
 
 class App extends React.Component {
 
@@ -27,6 +29,7 @@ class App extends React.Component {
     this.state = {
       api: this.props.api,
       activeModal: null,
+      isLoggedIn: !!window.boUserData
     };
   }
 
@@ -45,8 +48,20 @@ class App extends React.Component {
       }
     });
 
-    this.setState({i18next: i18next});
+    const url = window.boClientConfig.baseUrl;
+    const clientId = window.boClientConfig.clientId;
+    const clientSecret = window.boClientConfig.clientSecret;
+    const api = new BreakoutApi(url, clientId, clientSecret);
+
+    const isLoggedIn = window.boUserData;
+
+    if (isLoggedIn) {
+      api.setAccessToken(window.boUserData.access_token);
+    }
+
+    this.setState({i18next: i18next, api: api});
   }
+
 
   onHide() {
     document.body.className = '';
@@ -66,33 +81,65 @@ class App extends React.Component {
                onHide={this.onHide.bind(this)}
                modalClassName={'modal-size-' + size}>
           <OnShowHack></OnShowHack>
-          <Comp {...props} api={this.props.api} i18next={this.state.i18next}/>
+          <Comp {...props} api={this.state.api} i18next={this.state.i18next}/>
         </Modal>
       );
     };
   }
 
+  isLoggedIn() {
+    console.log('Checking if logged in');
+    return true;
+  }
+
   render() {
+
+    const PrivateRoute = (props) => {
+
+      const render = (componentProps) => {
+        if (this.state.isLoggedIn) {
+          return React.createElement(props.component, componentProps);
+        } else {
+          return <Redirect to={{pathname: routes.login, state: {from: props.location}}}/>;
+        }
+      };
+
+      let propsCopy = Object.assign({}, props);
+      delete propsCopy.component;
+      return <Route {...propsCopy} render={render}/>;
+    };
+
     return (
       <Router>
         <div>
-          <Route exact path="/r/login" component={this.showModalFor(Login, 's')}/>
-          <Route exact path="/r/register" component={this.showModalFor(Registration, 's')}/>
-          <Route exact path="/r/reset-password" component={this.showModalFor(ResetPassword, 's')}/>
-          <Route exact path="/r/select-role" component={this.showModalFor(SelectRole, 'm')}/>
-          <Route exact path="/r/participate" component={this.showModalFor(Participation, 'm')}/>
 
-          <Route exact path="/r/create-join-team"
-                 component={this.showModalFor(CreateOrJoinTeam, 'm')}/>
+          <Route exact path={routes.login}
+                 component={this.showModalFor(Login, 's')}/>
 
-          <Route exact path="/r/visitor-success"
-                 component={this.showModalFor(VisitorSuccess, 's')}/>
+          <Route exact path="/r/register"
+                 component={this.showModalFor(Registration, 's')}/>
 
-          <Route exact path="/r/join-team-success"
-                 component={this.showModalFor(JoinTeamSuccess, 's')}/>
+          <Route exact path="/r/reset-password"
+                 component={this.showModalFor(ResetPassword, 's')}/>
 
-          <Route exact path="/r/create-team-success"
-                 component={this.showModalFor(CreateTeamSuccess, 's')}/>
+          <PrivateRoute exact path={routes.selectRole}
+                        component={this.showModalFor(SelectRole, 'm')}/>
+
+          <PrivateRoute exact path="/r/participate"
+                        component={this.showModalFor(Participation, 'm')}/>
+
+          <PrivateRoute exact path="/r/create-join-team"
+                        component={this.showModalFor(CreateOrJoinTeam, 'm')}/>
+
+          <PrivateRoute exact path="/r/visitor-success"
+                        component={this.showModalFor(VisitorSuccess, 's')}/>
+
+          <PrivateRoute exact path="/r/join-team-success"
+                        component={this.showModalFor(JoinTeamSuccess, 's')}/>
+
+          <PrivateRoute exact path="/r/create-team-success"
+                        component={this.showModalFor(CreateTeamSuccess, 's')}/>
+
         </div>
       </Router>
     );
@@ -103,16 +150,6 @@ App.propTypes = {
   api: React.PropTypes.object
 };
 
-const createReactApp = (api) => {
-  if (isUserLoggedIn()) {
-    api.setAccessToken(getAccessToken());
-  }
-  ReactDOM.render(
-    <App api={api}/>,
-    document.getElementById('react-root')
-  );
-};
-
-BreakoutApi.initFromServer()
-  .then(createReactApp)
-  .catch(console.error);
+ReactDOM.render(
+  <App />
+  , document.getElementById('react-root'));
