@@ -10,7 +10,6 @@ export default class Login extends React.Component {
     this.state = {
       loginError: null,
       isSubmitting: false,
-      loginSuccess: false
     };
   }
 
@@ -46,9 +45,7 @@ export default class Login extends React.Component {
   }
 
   onLoginSuccess() {
-    this.setState({
-      loginSuccess: true
-    });
+    window.location = routes.selectRole;
   }
 
   onLoginError(err) {
@@ -62,7 +59,7 @@ export default class Login extends React.Component {
   }
 
   render() {
-    if (this.state.loginSuccess) {
+    if (this.props.isLoggedIn) {
       return <Redirect to={routes.selectRole}/>;
     }
     return (

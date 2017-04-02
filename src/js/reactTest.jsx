@@ -81,15 +81,11 @@ class App extends React.Component {
                onHide={this.onHide.bind(this)}
                modalClassName={'modal-size-' + size}>
           <OnShowHack></OnShowHack>
-          <Comp {...props} api={this.state.api} i18next={this.state.i18next}/>
+          <Comp {...props} api={this.state.api} i18next={this.state.i18next}
+                isLoggedIn={!!window.boUserData}/>
         </Modal>
       );
     };
-  }
-
-  isLoggedIn() {
-    console.log('Checking if logged in');
-    return true;
   }
 
   render() {
