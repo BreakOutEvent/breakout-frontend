@@ -1,5 +1,8 @@
 .invite-option {
   margin-top: 20px;
+  &:first-child {
+    margin-top: 03;
+  }
 }
 
 .boolean-with-inner-html {
@@ -25,6 +28,26 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+
+  @media all and (max-width: 380px) {
+    .btn {
+      width: 180px;
+      &:first-child {
+        border-top-right-radius: 5px !important;
+        border-top-left-radius: 5px !important;
+        border-bottom-right-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+
+      }
+      &:nth-child(2) {
+        border-top-right-radius: 0 !important;
+        border-top-left-radius: 0 !important;
+        border-bottom-right-radius: 5px !important;
+        border-bottom-left-radius: 5px !important;
+      }
+    }
+  }
 }
 
 .create-or-join-team {
@@ -107,4 +130,8 @@
   margin-top: 4px;
   font-size: large;
   font-weight: bold;
+}
+
+.field-description {
+  padding-bottom: 20px;
 }

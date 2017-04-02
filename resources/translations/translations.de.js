@@ -50,7 +50,8 @@ module.exports = {
         placeholder: 'Gib deinen Nachnamen ein'
       },
       tshirtsize: {
-        label: 'Tshirtgröße'
+        label: 'Tshirtgröße',
+        placeholder: 'Bitte Tshirtgröße auswählen'
       },
       contactnumber: {
         label: 'Handynummer',

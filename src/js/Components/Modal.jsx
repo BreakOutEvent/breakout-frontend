@@ -25,10 +25,11 @@ export default class Modal extends React.Component {
 
     const modalStyle = {
       marginTop: '150px',
-      marginLeft: '10px',
-      marginRight: '10px',
+      marginLeft: '0px',
+      marginRight: '0px',
       borderRadius: '5px',
-      padding: '40px',
+      padding: '30px',
+      paddingTop: '40px',
       minWidth: '300px',
       paddingBottom: '10px'
     };

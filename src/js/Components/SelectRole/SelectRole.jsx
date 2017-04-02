@@ -37,7 +37,7 @@ export default class RoleSelector extends React.Component {
       <form>
         <Breadcrumbs entries={entries}/>
         <legend>{i18next.t('client.role_select.headline')}</legend>
-        <p>{i18next.t('client.role_select.description')}</p>
+        <p className="field-description">{i18next.t('client.role_select.description')}</p>
 
         <Selector roleTitle={i18next.t('client.role_select.visitor_title')}
                   roleText={i18next.t('client.role_select.visitor_text')}
