@@ -16,6 +16,8 @@ const funnelTemplate = renderTemplate('dynamic', 'register', 'funnel');
 
 // router.get('/', redirectOnLogin, funnelTemplate('register'));
 
+router.get('/refresh', session.refreshSession, (req, res) => res.redirect('/'));
+
 router.get('/register', redirectOnLogin, funnelTemplate('register'));
 
 router.get('/selection', session.isUser, funnelTemplate('selection'));
