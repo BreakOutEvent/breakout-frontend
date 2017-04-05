@@ -32,14 +32,24 @@ export default class Registration extends React.Component {
   async onSubmitImpl(data) {
     const email = data.formData.email;
     const pw = data.formData.password1;
-
+    let account;
     try {
-      await this.props.api.createAccount(email, pw);
+      account = await this.props.api.createAccount(email, pw);
       await this.props.api.login(email, pw);
       await this.props.api.frontendLogin(email, pw);
-      this.onRegistrationSuccess();
     } catch (err) {
       this.onRegistrationError(err);
+      return;
+    }
+
+    try {
+      await this.props.api.updateUserData(account.id, {
+        preferredLanguage: window.boUserLang
+      });
+      this.onRegistrationSuccess();
+    } catch (err) {
+      console.warn('Failed to set preferredLanguage: ' + err.message);
+      this.onRegistrationSuccess();
     }
   }
 

@@ -194,6 +194,10 @@ class BreakoutApi {
     return this.instance.get('/me/').then(resp => resp.data);
   }
 
+  updateUserData(userId, data) {
+    return this.instance.put(`/user/${userId}/`, data).then(resp => resp.data);
+  }
+
   async isUserParticipant() {
     const me = await this.getMe();
     if (!me.participant) {
