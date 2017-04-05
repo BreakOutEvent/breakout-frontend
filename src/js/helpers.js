@@ -29,7 +29,7 @@ exports.sanityCheck = function(id) {
     }
   });
 
-  if ($('#registrationForm') && !window.gender) {
+  if ($('#registrationForm').length && !window.gender) {
     $('button[name=gender]').addClass('bo-reg-form-error');
     alert('Bitte wählen Sie Ihre Anrede aus!');
   } else {
