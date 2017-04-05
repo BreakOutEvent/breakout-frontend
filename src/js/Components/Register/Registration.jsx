@@ -1,5 +1,6 @@
 import React from 'react';
 import RegistrationForm from './RegistrationForm.jsx';
+import routes from '../routes';
 
 export default class Registration extends React.Component {
 
@@ -54,7 +55,7 @@ export default class Registration extends React.Component {
   }
 
   onRegistrationSuccess() {
-    this.props.history.push('/r/select-role');
+    window.location = routes.selectRole;
   }
 
   onRegistrationError(error) {
