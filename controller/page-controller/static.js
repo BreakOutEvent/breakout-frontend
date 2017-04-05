@@ -62,6 +62,10 @@ class StaticController {
       sponsorsButtonLink: landingPage[0].sponsorsButtonLink,
       sponsorsButtonText: landingPage[0].sponsorsButtonText,
       sponsorsHeadline: landingPage[0].sponsorsHeadline,
+      selectedTestimonialHeadline: landingPage[0].selectedTestimonialHeadline,
+      selectedTestimonialImage: landingPage[0].selectedTestimonialImage,
+      selectedTestimonialText: landingPage[0].selectedTestimonialText,
+      selectedTestimonialAuthor: landingPage[0].selectedTestimonialAuthor,
       sponsors: sponsors,
       testimonials: testimonials,
       layout: '', // Needs to be here, overwrites 'master' from default options!

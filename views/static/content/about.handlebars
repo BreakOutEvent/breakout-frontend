@@ -71,6 +71,36 @@
         </div>
     </section>
 
+    <section id="selected-testimonial" class="row landing-page-section">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="history-headline">
+                        <span class="history-headline-text">
+                            {{this.selectedTestimonialHeadline}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <blockquote id="selected-testimonial-text">
+                        &quot;{{{this.selectedTestimonialText}}}&quot;<br/>
+                    </blockquote>
+                    <p id="selected-testimonial-source">
+                        <span class="headshot"
+                              style="background-image: url({{this.selectedTestimonialImage.fields.file.url}})!important;"></span>
+                        {{this.selectedTestimonialAuthor}}
+                    </p>
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+
     <section id="instafeed" class="row landing-page-section">
         <!-- Instagram feed get's injected here by landingpage.js -->
     </section>
