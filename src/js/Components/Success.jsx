@@ -28,6 +28,9 @@ const VisitorSuccess = (props) => {
   return (
     <Success title={props.i18next.t('SPECTATOR-SUCCESS.HEADLINE')}
              description={props.i18next.t('SPECTATOR-SUCCESS.DESCRIPTION')}>
+
+      Support: <a href="mailto:event@break-out.org">event@break-out.org</a>
+      <br />
     </Success>);
 };
 
