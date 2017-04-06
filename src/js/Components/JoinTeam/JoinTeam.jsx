@@ -1,5 +1,6 @@
 import React from 'react';
 import JoinTeamForm from './JoinTeamForm.jsx';
+import routes from '../routes';
 
 export default class JoinTeam extends React.Component {
 
@@ -56,7 +57,7 @@ export default class JoinTeam extends React.Component {
   }
 
   onJoinSuccess() {
-    this.props.history.push('/r/join-team-success');
+    this.props.history.push(routes.joinTeamSuccess);
   }
 
   onJoinError(error) {

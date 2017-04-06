@@ -9,8 +9,6 @@ const session = require('../controller/session');
 
 const StaticController = require('../controller/page-controller/static.js');
 
-router.get('/r/*', StaticController.renderLandingpage);
-
 router.get('/members', StaticController.renderMemberPage);
 
 router.get('/press', StaticController.renderPressPage);

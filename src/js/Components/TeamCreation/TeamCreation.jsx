@@ -1,5 +1,6 @@
 import React from 'react';
 import TeamCreationForm from './TeamCreationForm.jsx';
+import routes from '../routes';
 
 export default class TeamCreation extends React.Component {
 
@@ -75,7 +76,7 @@ export default class TeamCreation extends React.Component {
   }
 
   onCreateTeamSuccess() {
-    this.props.history.push('/r/create-team-success');
+    this.props.history.push(routes.createTeamSuccess);
   }
 
   onCreateTeamError(error) {

@@ -1,5 +1,6 @@
 import React from 'react';
 import Breadcrumbs from '../Breadcrumb.jsx';
+import routes from '../routes';
 
 export default class RoleSelector extends React.Component {
 
@@ -17,9 +18,9 @@ export default class RoleSelector extends React.Component {
 
   next(selectedRole) {
     if (selectedRole === 'visitor') {
-      this.props.history.push('/r/visitor-success');
+      this.props.history.push(routes.visitorSuccess);
     } else if (selectedRole === 'participant') {
-      this.props.history.push('/r/participate');
+      this.props.history.push(routes.participate);
     } else if (selectedRole === 'sponsor') {
       this.props.history.push('/sponsor');
       window.location = '/sponsor';

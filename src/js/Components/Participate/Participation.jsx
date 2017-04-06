@@ -1,6 +1,7 @@
 import React from 'react';
 import ParticipationForm from './ParticipationForm.jsx';
 import Breadcrumbs from '../Breadcrumb.jsx';
+import routes from '../routes';
 
 export default class Participation extends React.Component {
 
@@ -21,7 +22,7 @@ export default class Participation extends React.Component {
   }
 
   onGetMeError(error) {
-    this.props.history.push('/r/login');
+    this.props.history.push(routes.login);
   }
 
   onBeginSubmit() {
@@ -60,7 +61,7 @@ export default class Participation extends React.Component {
   }
 
   onParticipationSuccess() {
-    this.props.history.push('/r/create-join-team');
+    this.props.history.push(routes.createOrJoinTeam);
   }
 
   onParticipationError(error) {
@@ -88,7 +89,7 @@ export default class Participation extends React.Component {
     const entries = [{
       title: this.props.i18next.t('client.breadcrumbs.role_select'),
       isActive: false,
-      link: '/r/select-role'
+      link: routes.selectRole
     }, {
       title: this.props.i18next.t('client.breadcrumbs.participate'),
       isActive: true,

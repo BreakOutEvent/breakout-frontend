@@ -67,8 +67,8 @@ export default class Login extends React.Component {
                  onSubmit={this.onSubmit.bind(this)}
                  loginError={this.state.loginError}
                  isSubmitting={this.state.isSubmitting}
-                 onRegister={() => this.props.history.push('/r/register')}
-                 onPasswordReset={() => this.props.history.push('/r/reset-password')}
+                 onRegister={() => this.props.history.push(routes.register)}
+                 onPasswordReset={() => this.props.history.push(routes.resetPassword)}
                  onError={() => {
                  }}
                  onChange={() => {

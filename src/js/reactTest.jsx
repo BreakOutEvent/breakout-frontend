@@ -112,28 +112,28 @@ class App extends React.Component {
           <Route exact path={routes.login}
                  component={this.showModalFor(Login, 's')}/>
 
-          <Route exact path="/r/register"
+          <Route exact path={routes.register}
                  component={this.showModalFor(Registration, 's')}/>
 
-          <Route exact path="/r/reset-password"
+          <Route exact path={routes.resetPassword}
                  component={this.showModalFor(ResetPassword, 's')}/>
 
           <PrivateRoute exact path={routes.selectRole}
                         component={this.showModalFor(SelectRole, 'm')}/>
 
-          <PrivateRoute exact path="/r/participate"
+          <PrivateRoute exact path={routes.participate}
                         component={this.showModalFor(Participation, 'm')}/>
 
-          <PrivateRoute exact path="/r/create-join-team"
+          <PrivateRoute exact path={routes.createOrJoinTeam}
                         component={this.showModalFor(CreateOrJoinTeam, 'm')}/>
 
-          <PrivateRoute exact path="/r/visitor-success"
+          <PrivateRoute exact path={routes.visitorSuccess}
                         component={this.showModalFor(VisitorSuccess, 's')}/>
 
-          <PrivateRoute exact path="/r/join-team-success"
+          <PrivateRoute exact path={routes.joinTeamSuccess}
                         component={this.showModalFor(JoinTeamSuccess, 's')}/>
 
-          <PrivateRoute exact path="/r/create-team-success"
+          <PrivateRoute exact path={routes.createTeamSuccess}
                         component={this.showModalFor(CreateTeamSuccess, 's')}/>
 
         </div>

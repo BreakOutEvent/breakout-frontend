@@ -2,6 +2,7 @@ import React from 'react';
 import TeamCreation from './TeamCreation/TeamCreation.jsx';
 import JoinTeam from './JoinTeam/JoinTeam.jsx';
 import Breadcrumbs from './Breadcrumb.jsx';
+import routes from './routes';
 
 const SelectionSwitcher = (props) => {
   return (
@@ -68,11 +69,11 @@ class CreateOrJoinTeam extends React.Component {
     const entries = [{
       title: this.props.i18next.t('client.breadcrumbs.role_select'),
       isActive: false,
-      link: '/r/select-role'
+      link: routes.selectRole
     }, {
       title: this.props.i18next.t('client.breadcrumbs.participate'),
       isActive: false,
-      link: '/r/participate'
+      link: routes.participate
     }, {
       title: this.props.i18next.t('client.breadcrumbs.create_join_team'),
       isActive: true,
