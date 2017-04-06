@@ -5,7 +5,7 @@ var path = require('path');
 module.exports = {
   entry: ['babel-polyfill', './src/js/reactTest.jsx'],
   output: {
-    path: './public/js',
+    path: path.resolve(__dirname, 'public/js'),
     filename: 'reactTest.js'
   },
   module: {
