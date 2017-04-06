@@ -22,7 +22,9 @@ const InviteOption = (props) => {
 };
 
 InviteOption.propTypes = {
-  label: React.PropTypes.object.isRequired
+  label: React.PropTypes.object.isRequired,
+  onClick: React.PropTypes.func.isRequired,
+  selected: React.PropTypes.bool.isRequired
 };
 
 class InvitationWidget extends React.Component {

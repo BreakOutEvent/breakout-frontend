@@ -53,7 +53,7 @@ class BreakoutApi {
   }
 
   frontendLogout() {
-    return this.instance.get(`${BreakoutApi.getClientSideUrl()}/logout`)
+    return this.instance.get(`${BreakoutApi.getClientSideUrl()}/logout`);
   }
 
   /**

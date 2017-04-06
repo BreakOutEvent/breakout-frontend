@@ -102,5 +102,6 @@ export default class JoinTeam extends React.Component {
 
 JoinTeam.propTypes = {
   api: React.PropTypes.object.isRequired,
-  i18next: React.PropTypes.object.isRequired
+  i18next: React.PropTypes.object.isRequired,
+  history: React.PropTypes.object.isRequired,
 };

@@ -129,5 +129,6 @@ export default class TeamCreation extends React.Component {
 
 TeamCreation.propTypes = {
   i18next: React.PropTypes.object.isRequired,
-  api: React.PropTypes.object.isRequired
+  api: React.PropTypes.object.isRequired,
+  history: React.PropTypes.object.isRequired
 };

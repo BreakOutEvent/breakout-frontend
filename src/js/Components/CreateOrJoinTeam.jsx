@@ -14,6 +14,11 @@ const SelectionSwitcher = (props) => {
   );
 };
 
+SelectionSwitcher.propTypes = {
+  options: React.PropTypes.array.isRequired,
+  onClick: React.PropTypes.func.isRequired
+};
+
 const Selection = (props) => {
   if (props.option.isActive) {
     return (
@@ -28,6 +33,11 @@ const Selection = (props) => {
       </label>
     );
   }
+};
+
+Selection.propTypes = {
+  option: React.PropTypes.object.isRequired,
+  onClick: React.PropTypes.func.isRequired
 };
 
 class CreateOrJoinTeam extends React.Component {
@@ -94,7 +104,8 @@ class CreateOrJoinTeam extends React.Component {
 }
 
 CreateOrJoinTeam.propTypes = {
-  children: React.PropTypes.any
+  children: React.PropTypes.any,
+  i18next: React.PropTypes.object.isRequired
 };
 
 export default CreateOrJoinTeam;

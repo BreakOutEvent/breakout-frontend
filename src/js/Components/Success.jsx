@@ -92,7 +92,8 @@ class JoinTeamSuccess extends React.Component {
 }
 
 JoinTeamSuccess.propTypes = {
-  i18next: React.PropTypes.object.isRequired
+  i18next: React.PropTypes.object.isRequired,
+  api: React.PropTypes.object.isRequired
 };
 
 const CreateTeamSuccess = (props) => {

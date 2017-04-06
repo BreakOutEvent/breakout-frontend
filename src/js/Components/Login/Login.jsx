@@ -81,4 +81,5 @@ Login.propTypes = {
   history: React.PropTypes.object.isRequired,
   i18next: React.PropTypes.object.isRequired,
   api: React.PropTypes.object.isRequired,
+  isLoggedIn: React.PropTypes.bool.isRequired
 };
