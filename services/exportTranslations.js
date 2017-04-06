@@ -34,9 +34,11 @@ for (let entry of germanKeymap) {
   const englishValue = lookupValueFromKeymap(path, englishKeymap);
   const germanValue = entry.value;
 
-  const escapedPath = path.slice(1, path.length).replace('"', '""');
-  const escapedEn = englishValue.replace('"', '""');
-  const escapedDe = germanValue.replace('"', '""');
+  const escapedPath = path.slice(1, path.length).replace(/"/g, '""');
+  const escapedEn = englishValue.replace(/"/g, '""');
+  const escapedDe = germanValue.replace(/"/g, '""');
+
+  // eslint-disable-next-line no-console
   console.log(`"${escapedPath}","${escapedDe}" ,"${escapedEn}"`);
 }
 
@@ -47,6 +49,6 @@ function lookupValueFromKeymap(path, keymap) {
   } else if (matches.length === 1) {
     return matches[0].value;
   } else {
-    throw Error("More than one element for path " + path);
+    throw Error('More than one element for path ' + path);
   }
 }
