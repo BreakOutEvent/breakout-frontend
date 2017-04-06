@@ -32,9 +32,9 @@ const sendErr = (res, errMsg, err) => {
 const parseAmount = (rawAmount) => {
   let rawAmountString = String(rawAmount);
   let amountArray = rawAmountString.match(/(\d+)[\.|,]?(\d*)/);
-  if(amountArray.length === 3) {
+  if (amountArray.length === 3) {
     return amountArray[1] + '.' + amountArray[2];
-  } else if(amountArray[2] === '') {
+  } else if (amountArray[2] === '') {
     return amountArray[1];
   } else {
     throw 'could not parse amount';
@@ -70,7 +70,7 @@ sponsoring.showSponsorings = function*(req, res) {
   }
 
 
-  const teams = yield sponsoring.getAllTeams(req);
+  const teams = yield sponsoring.getAllTeamsSummary(req);
 
 
   res.render('dynamic/sponsoring/sponsoring', {
@@ -140,7 +140,7 @@ sponsoring.create = (req, res, next) => co(function*() {
 
       body.challenges = yield req.body.selfChallengeDescription.map(
         (e, i) => {
-          if(e.length > 0) {
+          if (e.length > 0) {
             let currBody = {
               amount: parseAmount(req.body.selfChallengeAmount[i]),
               description: e,
@@ -199,6 +199,13 @@ sponsoring.getAllTeams = (req) => co(function*() {
 
 }).catch(ex => {
   throw ex;
+});
+
+sponsoring.getAllTeamsSummary = (req) => co(function*() {
+  let teams = yield api.getModel('/team/', req.user);
+  return _.sortBy(teams, t => t.name);
+}).catch(err => {
+  throw err;
 });
 
 sponsoring.getByTeam = (req) => co(function*() {
@@ -352,7 +359,7 @@ sponsoring.invoice = {};
 
 sponsoring.invoice.getByTeam = (req) => co(function*() {
 
-  let rawInvoices =  yield api.invoice.getByTeam(req.user, req.user.me.participant.teamId);
+  let rawInvoices = yield api.invoice.getByTeam(req.user, req.user.me.participant.teamId);
 
   let invoices = rawInvoices.map(i => {
     if (i.payments.length) {
@@ -372,9 +379,9 @@ sponsoring.invoice.getByTeam = (req) => co(function*() {
   confirmedDonations.invoices = invoices;
   confirmedDonations.totalSum = invoices.reduce((curr, next) => {
     return curr + next.payed;
-  },0);
+  }, 0);
 
-  confirmedDonations.totalCount = invoices.filter(i => i.payed > 0 ).length;
+  confirmedDonations.totalCount = invoices.filter(i => i.payed > 0).length;
 
 
   return confirmedDonations;

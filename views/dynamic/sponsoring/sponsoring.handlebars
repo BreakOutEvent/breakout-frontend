@@ -365,13 +365,11 @@
                         <div class="col-xs-12">
                             <div class="form-group">
                                 <select name="team" id="team_select" class="form-control" required="required">
+                                    <!-- TODO: l10n -->
                                     <option disabled="disabled">Team auswählen</option>
                                     {{#each teams}}
-                                        <option value='{"team": "{{id}}", "event": "{{event}}"}'>
-                                            {{name}} ({{id}}) ({{city}})
-                                            ({{#each members}}
-                                            {{#unless @first}} & {{/unless}}{{firstname}}
-                                        {{/each}})
+                                        <option value='{"team": "{{teamId}}", "event": "{{eventId}}"}'>
+                                            {{teamName}} ({{teamId}}) ({{eventTitle}})
                                         </option>
                                     {{/each}}
 
@@ -451,11 +449,8 @@
                                         required="required">
                                     <option disabled="disabled">Team auswählen</option>
                                     {{#each teams}}
-                                        <option value='{"team": "{{id}}", "event": "{{event}}"}'>
-                                            {{name}} ({{city}})
-                                            ({{#each members}}
-                                            {{#unless @first}} & {{/unless}}{{firstname}}
-                                        {{/each}})
+                                        <option value='{"team": "{{teamId}}", "event": "{{eventId}}"}'>
+                                            {{teamName}} ({{teamId}}) ({{eventTitle}})
                                         </option>
                                     {{/each}}
                                 </select>
