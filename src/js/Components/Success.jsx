@@ -57,7 +57,16 @@ class JoinTeamSuccess extends React.Component {
 
   invoiceText() {
     if (this.state.invoice) {
-      return `Überweisungszweck: ${this.state.invoice.purposeOfTransfer}`;
+      return <div id="invoice-text">
+        <div className="label label-default">IBAN</div>
+        <div className="content"> 12345678910</div>
+        <div className="label label-default">BIC</div>
+        <div className="content"> 12345678910</div>
+        <div className="label label-default">Zahlungsempfänger</div>
+        <div className="content">Daria Brauner</div>
+        <div className="label label-default">Überweisungszweck</div>
+        <div className="content">{this.state.invoice.purposeOfTransfer}</div>
+      </div>;
     } else {
       return 'Euer Überweisungszweck wird geladen...';
     }
@@ -68,12 +77,15 @@ class JoinTeamSuccess extends React.Component {
       <Success title={this.props.i18next.t('client.join_team_success.title')}
                description={this.props.i18next.t('client.join_team_success.description')}>
 
-        <p>{this.invoiceText()}</p>
-        <a href="/">
-          <div className="btn btn-primary">
-            {this.props.i18next.t('SPECTATOR-SUCCESS.LINK_DESCRIPTION')}
-          </div>
-        </a>
+        {this.invoiceText()}
+        <div id="success-btn-container">
+          <a href="/">
+            <div className="btn btn-primary">
+              {this.props.i18next.t('SPECTATOR-SUCCESS.LINK_DESCRIPTION')}
+            </div>
+          </a>
+        </div>
+        <div id="success-btn-container"><a href="/">Hier entlang, um Sponsoren einzutragen</a></div>
       </Success>
     );
   }
@@ -87,11 +99,13 @@ const CreateTeamSuccess = (props) => {
   return (
     <Success title={props.i18next.t('client.create_team_success.title')}
              description={props.i18next.t('client.create_team_success.description')}>
-      <a href="/">
-        <div className="btn btn-primary">
-          {props.i18next.t('client.create_team_success.button_text')}
-        </div>
-      </a>
+      <div id="success-btn-container">
+        <a href="/">
+          <div className="btn btn-primary">
+            {props.i18next.t('client.create_team_success.button_text')}
+          </div>
+        </a>
+      </div>
     </Success>
   );
 };

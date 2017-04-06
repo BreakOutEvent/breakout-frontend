@@ -14,7 +14,15 @@ module.exports = {
       registration_error_bad_request: 'Enter a valid email address',
       registration_error_exists: 'An account with this email address already exists',
       request_reset_success: 'An email with instructions to reset your password was sent to you',
-      request_reset_not_registered: 'This email address does not exist'
+      request_reset_not_registered: 'This email address does not exist',
+      button_registration_headline: 'Create Account',
+      repeat_password_label: 'Repeat password',
+      request_reset_enter_email: 'Please enter a valid email address'
+    },
+    register: {
+      description: 'Create an account on break-out.org. With it, you can interact with posts of participants, become a participant yourself or support a team as their sponsor',
+      button: 'Create account now',
+      back_to_login: 'Back to Login',
     },
     role_select: {
       visitor_title: 'Visitor',
@@ -25,28 +33,59 @@ module.exports = {
       sponsor_text: 'Support one or more teams with kilometer donations or by proposing challenges to them.',
       description: 'Select an account role. You can change this role at any time',
       headline: 'Select Role'
+    },
+    participate: {
+      title: 'Personal information',
+      description: 'Please enter the following information to become a participant at BreakOut. We will use this information e.g. to print t-shirts or to contact you and your team during the event',
+      gender: 'Gender',
+      male: 'male',
+      female: 'female',
+      enter_full_data: 'Please enter all the required information',
+      firstname: {
+        label: 'Firstname',
+        placeholder: 'Please enter your firstname'
+      },
+      lastname: {
+        label: 'Lastname',
+        placeholder: 'Please enter your lastname'
+      },
+      tshirtsize: {
+        label: 'T-Shirt size',
+        placeholder: 'Please select a t-shirt size'
+      },
+      contactnumber: {
+        label: 'Contact Phonenumber',
+        placeholder: 'Please enter a mobile phone number'
+      },
+      emergencynumber: {
+        label: 'Emergencynumber',
+        placeholder: 'Please enter a number where we can your emergency contact'
+      },
+      accept_tos: 'I hereby accept the <a target="_blank" href="/terms-and-conditions">terms and conditions</a>',
+      accept_code_of_honour: 'I hereby accept the <a target="_blank" href="/code-of-honour">code of honour</a>',
+      is_18: 'I am at least 18 years old'
     }
   },
-  'SELECTION': {
-    'HEADLINE': 'Registration successful',
-    'DESCRIPTION_1': 'You have completed the first step! We have sent you an email with a link to verify your email address. This important step allows us to confirm that the email address is actually yours.',
-    'DESCRIPTION_OBSERVER': 'Your current status is: <Strong>Observer</Strong>. With this you can not only see all of the posts and updates from participating teams, but also interact with them by liking and commenting on their posts.',
-    'DESCRIPTION_PARTICIPANT': 'Your current status is: <strong>Participant</strong>. You can not only comment all posts and updates of participating teams, but collect sponsors and publish posts yourself. And of couse you can look forward to an unforgettable 36 hour adventure.',
-    'DESCRIPTION_SPONSOR': 'Your current status is: <strong>Sponsor</strong>. You can support teams per kilometer or challenge them with unforgettable tasks.',
-    'DESCRIPTION_3': 'That\'s not enough? On our platform we also offer other accounts:',
-    'PARTICIPANT_H': 'Become a participant',
-    'PARTICIPANT': 'You would like to take part in BreakOut 2016 and embark on your own adventure? Follow these steps to sign up',
-    'SPONSOR_H': 'Sponsor',
-    'SPONSOR': 'You want to support your favorite team during BreakOut 2016 and thereby do something good? Click here to sign up as a sponsor.',
-    'OBSERVER': 'Are you happy with your status for now? (You can come back to this page at any time!)',
-    'NOTEAM': 'You are registered as a participant, but you are not yet part of a team. Click here to see if you have received inviations or to create a team.',
-    'NOTEAM_H': 'Join / Create a team',
-    'PROFILE_H': 'Profile Settings',
-    'PROFILE': 'Here you can change your data and upload a profile picture.',
-    'SPONSORING_H': 'Sponsoring Overview',
-    'SPONSORING': 'Here you can see and manage all incoming and outgoing sponsorings. Please stop by regurlary to accept or decline sponsorings.',
-    'TEAMOVERVIEW_H': 'Teams',
-    'TEAMOVERVIEW': 'Not yet decided who gets your donation this year or just curios who participates? You can view a full team list here.'
+  SELECTION: {
+    HEADLINE: 'Registration successful',
+    DESCRIPTION_1: 'You have completed the first step! We have sent you an email with a link to verify your email address. This important step allows us to confirm that the email address is actually yours.',
+    DESCRIPTION_OBSERVER: 'Your current status is: <Strong>Observer</Strong>. With this you can not only see all of the posts and updates from participating teams, but also interact with them by liking and commenting on their posts.',
+    DESCRIPTION_PARTICIPANT: 'Your current status is: <strong>Participant</strong>. You can not only comment all posts and updates of participating teams, but collect sponsors and publish posts yourself. And of couse you can look forward to an unforgettable 36 hour adventure.',
+    DESCRIPTION_SPONSOR: 'Your current status is: <strong>Sponsor</strong>. You can support teams per kilometer or challenge them with unforgettable tasks.',
+    DESCRIPTION_3: 'That\'s not enough? On our platform we also offer other accounts:',
+    PARTICIPANT_H: 'Become a participant',
+    PARTICIPANT: 'You would like to take part in BreakOut 2016 and embark on your own adventure? Follow these steps to sign up',
+    SPONSOR_H: 'Sponsor',
+    SPONSOR: 'You want to support your favorite team during BreakOut 2016 and thereby do something good? Click here to sign up as a sponsor.',
+    OBSERVER: 'Are you happy with your status for now? (You can come back to this page at any time!)',
+    NOTEAM: 'You are registered as a participant, but you are not yet part of a team. Click here to see if you have received inviations or to create a team.',
+    NOTEAM_H: 'Join / Create a team',
+    PROFILE_H: 'Profile Settings',
+    PROFILE: 'Here you can change your data and upload a profile picture.',
+    SPONSORING_H: 'Sponsoring Overview',
+    SPONSORING: 'Here you can see and manage all incoming and outgoing sponsorings. Please stop by regurlary to accept or decline sponsorings.',
+    TEAMOVERVIEW_H: 'Teams',
+    TEAMOVERVIEW: 'Not yet decided who gets your donation this year or just curios who participates? You can view a full team list here.'
   },
   'TEAM-CREATE': {
     'HEADLINE': 'Almost there!',

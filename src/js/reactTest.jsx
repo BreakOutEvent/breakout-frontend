@@ -131,7 +131,7 @@ class App extends React.Component {
                         component={this.showModalFor(VisitorSuccess, 's')}/>
 
           <PrivateRoute exact path={routes.joinTeamSuccess}
-                        component={this.showModalFor(JoinTeamSuccess, 's')}/>
+                        component={this.showModalFor(JoinTeamSuccess, 'm')}/>
 
           <PrivateRoute exact path={routes.createTeamSuccess}
                         component={this.showModalFor(CreateTeamSuccess, 's')}/>
