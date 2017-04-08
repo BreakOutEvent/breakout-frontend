@@ -48,8 +48,7 @@ team.getTeamByUrl = (teamId, token) => co(function*() {
   tempTeam.challenges = allChallenges.filter(s => s.status === 'ACCEPTED' || s.status === 'WITH_PROOF' || s.status === 'PROOF_ACCEPTED');
   tempTeam.openChallenges = allChallenges.filter(s => s.status === 'ACCEPTED');
 
-  let postingIds = yield api.team.getPostingIds(teamId);
-  tempTeam.postings = yield api.posting.getPostingsByIds(postingIds, token);
+  tempTeam.postings = yield api.team.getPostings(token,teamId, 0);
 
   let locations = _.map(
     _.sortBy(

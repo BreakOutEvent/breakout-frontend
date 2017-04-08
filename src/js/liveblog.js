@@ -90,6 +90,12 @@ $(document).ready(function () {
               setTimeout(function () {
                 window.msnry.layout();
               }, 200);
+              setTimeout(function () {
+                window.msnry.layout();
+              }, 500);
+              setTimeout(function () {
+                window.msnry.layout();
+              }, 2000);
               loading = false;
             }
           }).error(function () {
