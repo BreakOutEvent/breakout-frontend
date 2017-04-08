@@ -15,6 +15,24 @@ const md = new Remarkable({
 exports.toId = (input) => {
   return input.replace(/ /g,'');
 };
+
+exports.clientConfig = () => {
+  return JSON.stringify({
+    baseUrl: process.env.REACT_BASEURL,
+    clientSecret: process.env.REACT_CLIENT_SECRET,
+    clientId: process.env.REACT_CLIENT_ID
+  });
+};
+
+exports.stringify = (obj) => {
+
+  if (!obj) {
+    return false;
+  }
+
+  return JSON.stringify(obj);
+};
+
 /**
  * Concatenates first and second.
  * @param first

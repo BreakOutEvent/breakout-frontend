@@ -52,6 +52,11 @@ module.exports = function (grunt) {
         }
       },
       dist: {
+        options: {
+          transform: [
+            ['babelify', {presets: ['es2015', 'react']}],
+          ]
+        },
         files: {
           'public/js/bundle.js': ['src/js/main.js'],
           'public/js/registration.js': ['src/js/registration.js'],
@@ -62,25 +67,7 @@ module.exports = function (grunt) {
           'public/js/messages.js': ['src/js/messages.js'],
           'public/js/team.js': ['src/js/team.js'],
           'public/js/liveblog.js': ['src/js/liveblog.js'],
-          'public/js/landingpage.js': ['src/js/landingpage.js']
-        }
-      }
-    },
-    babel: {
-      options: {
-        sourceMap: true,
-        presets: ['es2015']
-      },
-      dist: {
-        files: {
-          'public/js/bundle.js': ['public/js/bundle.js'],
-          'public/js/registration.js': ['public/js/registration.js'],
-          'public/js/profile.js': ['public/js/profile.js'],
-          'public/js/admin.js': ['public/js/admin.js'],
-          'public/js/sponsoring.js': ['public/js/sponsoring.js'],
-          'public/js/map.js': ['public/js/map.js'],
-          'public/js/messages.js': ['public/js/messages.js'],
-          'public/js/team.js': ['public/js/team.js']
+          'public/js/landingpage.js': ['src/js/landingpage.js'],
         }
       }
     },
@@ -97,10 +84,9 @@ module.exports = function (grunt) {
         tasks: ['less', 'autoprefixer']
       },
       js: {
-        files: '<%= files.js %>',
+        files: 'src/js/**/*.js*',
         tasks: [
           'browserify',
-          'babel'
         ]
       }
     }
@@ -118,7 +104,6 @@ module.exports = function (grunt) {
   grunt.registerTask('default',
     [
       'browserify',
-      'babel',
       'less',
       'uglify',
       'autoprefixer',

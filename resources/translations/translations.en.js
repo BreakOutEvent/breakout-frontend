@@ -1,296 +1,427 @@
+/* eslint-disable quotes */
 module.exports = {
-  'SELECTION': {
-    'HEADLINE': 'Registration successful',
-    'DESCRIPTION_1': 'You have completed the first step! We have sent you an email with a link to verify your email address. This important step allows us to confirm that the email address is actually yours.',
-    'DESCRIPTION_OBSERVER': 'Your current status is: <Strong>Observer</Strong>. With this you can not only see all of the posts and updates from participating teams, but also interact with them by liking and commenting on their posts.',
-    'DESCRIPTION_PARTICIPANT': 'Your current status is: <strong>Participant</strong>. You can not only comment all posts and updates of participating teams, but collect sponsors and publish posts yourself. And of couse you can look forward to an unforgettable 36 hour adventure.',
-    'DESCRIPTION_SPONSOR': 'Your current status is: <strong>Sponsor</strong>. You can support teams per kilometer or challenge them with unforgettable tasks.',
-    'DESCRIPTION_3': 'That\'s not enough? On our platform we also offer other accounts:',
-    'PARTICIPANT_H': 'Become a participant',
-    'PARTICIPANT': 'You would like to take part in BreakOut 2016 and embark on your own adventure? Follow these steps to sign up',
-    'SPONSOR_H': 'Sponsor',
-    'SPONSOR': 'You want to support your favorite team during BreakOut 2016 and thereby do something good? Click here to sign up as a sponsor.',
-    'OBSERVER': 'Are you happy with your status for now? (You can come back to this page at any time!)',
-    'NOTEAM': 'You are registered as a participant, but you are not yet part of a team. Click here to see if you have received inviations or to create a team.',
-    'NOTEAM_H': 'Join / Create a team',
-    'PROFILE_H': 'Profile Settings',
-    'PROFILE': 'Here you can change your data and upload a profile picture.',
-    'SPONSORING_H': 'Sponsoring Overview',
-    'SPONSORING': 'Here you can see and manage all incoming and outgoing sponsorings. Please stop by regurlary to accept or decline sponsorings.',
-    'TEAMOVERVIEW_H': 'Teams',
-    'TEAMOVERVIEW': 'Not yet decided who gets your donation this year or just curios who participates? You can view a full team list here.'
+  "client": {
+    "login": {
+      "enter_email_or_password": "Please enter your email and password",
+      "button_login_headline": "Login",
+      "button_registration_headline": "Create Account",
+      "email_label": "Email Address",
+      "email_placeholder": "Please enter your email address",
+      "password_label": "Password",
+      "password_placeholder": "Please enter your password",
+      "password_reset_text": "Forgot your password?",
+      "button_login_text": "Login",
+      "button_register_text": "Register",
+      "error_login": "Wrong email address or password",
+      "registration_error_bad_request": "Enter a valid email address",
+      "repeat_password_label": "Repeat password",
+      "registration_error_exists": "An account with this email address already exists",
+      "request_reset_success": "An email with instructions to reset your password was sent to you",
+      "request_reset_not_registered": "This email address does not exist",
+      "request_reset_enter_email": "Please enter a valid email address"
+    },
+    "register": {
+      "description": "Create an account on break-out.org. With it, you can interact with posts of participants, become a participant yourself or support a team as their sponsor. Great having you on board!",
+      "button": "Create account now",
+      "back_to_login": "Back to Login"
+    },
+    "role_select": {
+      "visitor_title": "Visitor",
+      "visitor_text": "As a visitor you can comment on postings and view your friends travel.",
+      "participant_title": "Participant",
+      "participant_text": "Here you can participate at BreakOut 2017 and create or join a team. A fee of 60€ per team is required after registration.  ",
+      "sponsor_title": "Sponsor",
+      "sponsor_text": "Support one or more teams with kilometer donations or by setting challenges for them.",
+      "description": "Select an account type for the event. You can change this at any time!",
+      "headline": "Select Type"
+    },
+    "participate": {
+      "title": "Personal information",
+      "description": "Please enter the following information to become a participant at BreakOut. We will use this information e.g. to print t-shirts or to contact you and your team during the event.",
+      "gender": "Gender",
+      "male": "Male",
+      "female": "Female",
+      "enter_full_data": "Please enter all required information",
+      "firstname": {
+        "label": "Firstname",
+        "placeholder": "Please enter your firstname"
+      },
+      "lastname": {
+        "label": "Lastname",
+        "placeholder": "Please enter your lastname"
+      },
+      "tshirtsize": {
+        "label": "T-Shirt size",
+        "placeholder": "Please select a t-shirt size"
+      },
+      "contactnumber": {
+        "label": "Contact phone number",
+        "placeholder": "Please enter a mobile phone number"
+      },
+      "emergencynumber": {
+        "label": "Emergency number",
+        "placeholder": "Please enter a number which we can contact in case of emergency"
+      },
+      "accept_tos": "I hereby accept the <a target=\"_blank\" href=\"/terms-and-conditions\">terms and conditions</a>",
+      "accept_code_of_honour": "I hereby accept the <a target=\"_blank\" href=\"/code-of-honour\">code of honour</a>",
+      "is_18": "I am at least 18 years old",
+      "next_step": "Become a participant"
+    },
+    "create_or_join_team": {
+      "title": "Create or join a team",
+      "description": "You can create a new team and invite your team member or join an existing team.",
+      "team_name": {
+        "label": "team name",
+        "placeholder": "Choose a team name"
+      },
+      "select_event": "Choose a starting city",
+      "partner_email": {
+        "label": "Team partner's email address ",
+        "placeholder": "Your team partner's email address "
+      },
+      "button_create_text": "Create a team",
+      "button_join_text": "Join an existing team",
+      "select_team_to_join": "Choose a team you would like to join",
+      "team_description": {
+        "label": "Enter your team description "
+      }
+    },
+    "create_team": {
+      "title": "Create a team",
+      "description": "Create a team and invite your team partner",
+      "participant_already_has_team_for_event": "You are already part of an existing team. You can choose to leave this team and invite other participants in your team settings. ",
+      "invalid_invite_email": "You have created your team but your team partner's email address is invalid. Upps! You can send more invitations for your team in your team settings at any time.  "
+    },
+    "join_team": {
+      "title": "Join a team",
+      "description": "Here you can see all of the teams you have been invited to. Choose the team you would like to join.  ",
+      "loading": "Your invitations are loading..."
+    },
+    "reset_password": {
+      "headline": "Reset password",
+      "email_label": "Email address",
+      "reset_password_button": "Reset password now",
+      "request_success": "We have sent you an email to reset your password. ",
+      "description": "Please enter a valid email address for resetting your password."
+    },
+    "breadcrumbs": {
+      "role_select": "Select a type",
+      "participate": "Personal information",
+      "create_join_team": "Create or join a team"
+    },
+    "create_team_success": {
+      "button_text": "Back to homepage",
+      "title": "Team was successfully created! Let the adventure begin!",
+      "description": "You have sucessfully registered your team. As soon as your team partner has accepted the invitation, you will both receive an email with a link to the payment site. This you need to complete your registration for BreakOut. If you have any questions, please no not hesitate to contact us!"
+    },
+    "join_team_success": {
+      "title": "Team sucessfully joined",
+      "description": "You and your team partner have sucessfully registered for BreakOut 2017! Please transfer the participation fee with the aforementioned purpose before 8th of May."
+    }
   },
-  'TEAM-CREATE': {
-    'HEADLINE': 'Almost there!',
-    'DESCRIPTION': 'To participate in the event, you must create a team. Invite your partner per email and add a photo now or later',
-    'CTA': 'CREATE A TEAM',
-    'LABEL_TEAMNAME': 'Your team name',
-    'PLACEHOLDER_TEAMNAME': 'Winner of Hearts',
-    'LABEL_EMAIL': 'Your partner\'s email',
-    'PLACEHOLDER_EMAIL': 'travelcompanion@adventure.eu',
-    'LABEL_CITY': 'Starting city'
+  "BECOME_SPONSOR": {
+    "HEADLINE": "Become a sponsor",
+    "GENDER": "Gender",
+    "MALE": "Male",
+    "FEMALE": "Female",
+    "FIRSTNAME_LABEL": "First name",
+    "FIRSTNAME_PLACEHOLDER": "Jon",
+    "LASTNAME_LABEL": "Last name",
+    "LASTNAME_PLACEHOLDER": "Snow",
+    "OPTIONAL_COMPANY_LABEL": "Company(optional)",
+    "OPTIONAL_COMPANY_PLACEHOLDER": "Test company",
+    "STREET_LABEL": "Street",
+    "STREET_PLACEHOLDER": "Street",
+    "HOUSENUMBER_LABEL": "Address",
+    "HOUSENUMBER_PLACEHOLDER": "123",
+    "CITY_LABEL": "City",
+    "CITY_PLACEHOLDER": "Munich",
+    "PLZ_LABEL": "Zipcode",
+    "PLZ_PLACEHOLDER": "80333",
+    "COUNTRY_LABEL": "Country",
+    "COUNTRY_PLACEHOLDER": "Germany",
+    "BUTTON_NEXT": "Become a sponsor!"
   },
-  'PARTICIPANT': {
-    'GENDER': 'Gender',
-    'MALE': 'Male',
-    'FEMALE': 'Female',
-    'FIRST_NAME': 'First Name',
-    'LAST_NAME': 'Last Name',
-    'TSHIRT': 'T-Shirt Size',
-    'CELL': 'Cell Phone Number',
-    'EMERGENCY': 'Emergency Contact Number',
-    'ACCEPT': 'I hereby accept ',
-    'TERMS': 'the terms and conditions',
-    'CODE': 'the Code of Honor',
-    'AGE': 'I am at least 18 years old.',
-    'CONTINUE': 'CONTINUE'
+  "SELECTION": {
+    "HEADLINE": "Registration successful",
+    "DESCRIPTION_1": "You have completed the first step! We have sent you an email with a link to verify your email address. This important step allows us to confirm that the email address is actually yours.",
+    "DESCRIPTION_OBSERVER": "Your current status is: <Strong>Observer</Strong>. With this you can not only see all of the posts and updates from participating teams, but also interact with them by liking and commenting on their posts.",
+    "DESCRIPTION_PARTICIPANT": "Your current status is: <strong>Participant</strong>. You can not only comment on all posts and updates of participating teams, but collect sponsors and publish posts yourself. And of couse you can look forward to an unforgettable 36 hour adventure.",
+    "DESCRIPTION_SPONSOR": "Your current status is: <strong>Sponsor</strong>. You can support teams per kilometer or challenge them with unforgettable tasks.",
+    "DESCRIPTION_3": "That's not enough? On our platform we also offer other accounts:",
+    "PARTICIPANT_H": "Become a participant",
+    "PARTICIPANT": "You would like to take part in BreakOut 2017 and embark on your own adventure? Follow these steps to sign up",
+    "SPONSOR_H": "Sponsor",
+    "SPONSOR": "You want to support your favorite team during BreakOut 2017 and thereby do something good? Click here to sign up as a sponsor.",
+    "OBSERVER": "Are you happy with your status for now? (You can come back to this page at any time!)",
+    "NOTEAM": "You are registered as a participant, but you are not yet part of a team. Click here to see if you have received inviations or to create a team.",
+    "NOTEAM_H": "Join / Create a team",
+    "PROFILE_H": "Profile Settings",
+    "PROFILE": "Here you can change your data and upload a profile picture.",
+    "SPONSORING_H": "Sponsoring Overview",
+    "SPONSORING": "Here you can see and manage all incoming and outgoing donations. Please stop by regurlary to accept or decline challenges.",
+    "TEAMOVERVIEW_H": "Teams",
+    "TEAMOVERVIEW": "Not yet decided who gets your donation this year or just curios who participates? You can view a full team list here."
   },
-  'LOGIN': {
-    'LABEL_PASSWORD': 'Password',
-    'MAIN_CTA': 'LOGIN',
-    'SECONDARY_CTA': 'SIGN UP',
-    'FORGOT_PW': 'Forgot password?'
+  "TEAM-CREATE": {
+    "HEADLINE": "Almost there!",
+    "DESCRIPTION": "To participate in the event, you must create a team. Invite your partner per email and add a photo now or later",
+    "CTA": "CREATE A TEAM",
+    "LABEL_TEAMNAME": "Your team name",
+    "PLACEHOLDER_TEAMNAME": "Winner of Hearts",
+    "LABEL_EMAIL": "Your partner's email",
+    "PLACEHOLDER_EMAIL": "travelcompanion@adventure.eu",
+    "LABEL_CITY": "Starting city"
   },
-  'RESET-PW': {
-    'HEADLINE': 'Reset password',
-    'LABEL_PASSWORD': 'Password',
-    'LABEL_PASSWORD_REPEAT': 'Repeat Password',
-    'MAIN_CTA': 'SET NEW PASSWORD'
+  "PARTICIPANT": {
+    "GENDER": "Gender",
+    "MALE": "Male",
+    "FEMALE": "Female",
+    "FIRST_NAME": "First Name",
+    "LAST_NAME": "Last Name",
+    "TSHIRT": "T-Shirt Size",
+    "CELL": "Cell Phone Number",
+    "EMERGENCY": "Emergency Contact Number",
+    "ACCEPT": "I hereby accept ",
+    "TERMS": "the terms and conditions",
+    "CODE": "the Code of Honor",
+    "AGE": "I am at least 18 years old.",
+    "CONTINUE": "CONTINUE"
   },
-  'REGISTER': {
-    'HEADLINE': 'Sign Up',
-    'HEADLINE_INVITED': 'Invited!',
-    'LABEL_EMAIL': 'Email address',
-    'PLACEHOLDER_EMAIL': 'adventure@break-out.org',
-    'LABEL_PASSWORD': 'Password',
-    'LABEL_PASSWORD_REPEAT': 'Repeat Password',
-    'SECONDARY_CTA': 'LOGIN',
-    'MAIN_CTA': 'SIGN UP',
-    'INVITE_TEXT_1': '',
-    'INVITE_TEXT_2': ' invited you to be part of BreakOut. Register now and you are both on the same team ',
-    'INVITE_TEXT_3': '.',
-    'NOTICE': 'Please create an account to become a sponsor at the BreakOut event or just to connect with the teams.'
+  "LOGIN": {
+    "HEADLINE": "LOGIN",
+    "LABEL_EMAIL": "Email address",
+    "PLACEHOLDER_EMAIL": "adventure@break-out.org",
+    "LABEL_PASSWORD": "Password",
+    "MAIN_CTA": "LOGIN",
+    "SECONDARY_CTA": "SIGN UP",
+    "FORGOT_PW": "Forgot password?"
   },
-  'TEAM-SUCCESS': {
-    'HEADLINE': 'Made it!',
-    'DESCRIPTION': 'You have successfully registered your team. As soon as your team partner has accepted the invitation, you will both receive an email with the link to the payment site. Please pay your participance fee in order to complete your registration. If you have any questions, do not hesitate to contact our support.',
-    'LINK_DESCRIPTION': 'BACK TO THE HOMEPAGE',
-    'INVITE_DESCRIPTION': 'INVITE FURTHER TEAM PARTNERS'
+  "RESET-PW": {
+    "HEADLINE": "Reset password",
+    "LABEL_PASSWORD": "Password",
+    "LABEL_PASSWORD_REPEAT": "Repeat Password",
+    "MAIN_CTA": "SET NEW PASSWORD"
   },
-  'SPONSOR-SUCCESS': {
-    'HEADLINE': 'Made it!',
-    'DESCRIPTION': 'You have successfully signed up as a BreakOut sponsor. Thank you for your participation! For further clips and news go back to the homepage. Feel free to contact us with any further questions.',
-    'LINK_DESCRIPTION': 'BACK TO THE HOMEPAGE',
-    'LINK_TO_SETTINGS': 'FILL IN SPONSORING'
+  "REGISTER": {
+    "HEADLINE": "Sign Up",
+    "HEADLINE_INVITED": "Invited!",
+    "LABEL_EMAIL": "Email address",
+    "PLACEHOLDER_EMAIL": "adventure@break-out.org",
+    "LABEL_PASSWORD": "Password",
+    "LABEL_PASSWORD_REPEAT": "Repeat Password",
+    "SECONDARY_CTA": "LOGIN",
+    "MAIN_CTA": "SIGN UP",
+    "INVITE_TEXT_2": "(BLANK) has invited you have been to be part of BreakOut. Register now to be on the same team. ",
+    "INVITE_TEXT_3": ".",
+    "NOTICE": "Please create an account to become a sponsor at the BreakOut event or just to connect with the teams."
   },
-  'INVITE-SUCCESS': {
-    'HEADLINE': 'Made it!',
-    'DESCRIPTION': 'You have accepted the invitation and thereby successfully registered as a participant in BreakOut. You will both receive an email with the link to the payment site. To finish your registration you have to pay the participant fee. If you have any questions, our support is happy to help you anytime.',
-    'LINK_DESCRIPTION': 'BACK TO THE HOMEPAGE'
+  "TEAM-SUCCESS": {
+    "HEADLINE": "Made it!",
+    "DESCRIPTION": "You have successfully registered your team. As soon as your team partner has accepted the invitation, you will both receive an email with the link to the payment site. Please pay your participation fee in order to complete your registration. If you have any questions, please do not hesitate to contact us.",
+    "LINK_DESCRIPTION": "BACK TO THE HOMEPAGE",
+    "INVITE_DESCRIPTION": "INVITE FURTHER TEAM PARTNERS"
   },
-  'SPECTATOR-SUCCESS': {
-    'HEADLINE': 'Made it!',
-    'DESCRIPTION': 'You have successfully signed up as a viewer for BreakOut. Thank you for your participation! For further clips and news go back to the homepage. Feel free to contact us with any further questions.',
-    'LINK_DESCRIPTION': 'BACK TO THE HOMEPAGE'
+  "SPONSOR-SUCCESS": {
+    "HEADLINE": "Made it!",
+    "DESCRIPTION": "You have successfully signed up as a BreakOut sponsor. Thank you for your participation! For further clips and news go back to the homepage. Feel free to contact us with any further questions.",
+    "LINK_DESCRIPTION": "BACK TO THE HOMEPAGE",
+    "LINK_TO_SETTINGS": "FILL IN SPONSORING"
   },
-  'PAYMENT-SUCCESS': {
-    'HEADLINE': 'Made it!',
-    'DESCRIPTION': 'Thank you for your participation. As soon as your payment has reached us, you will get a confirmation via email. For travel tipps and BreakOut news go back to the website. If you have any questions our support is happy to help you any time.',
-    'LINK_DESCRIPTION': 'BACK TO THE HOMEPAGE'
+  "INVITE-SUCCESS": {
+    "HEADLINE": "Made it!",
+    "DESCRIPTION": "You have accepted the invitation and thereby successfully registered as a participant in BreakOut. You will receive an email with the link to the payment site. To finish your registration you have to pay the participation fee. If you have any questions, our support is happy to help you anytime.",
+    "LINK_DESCRIPTION": "BACK TO THE HOMEPAGE"
   },
-  'TEAM-INVITE': {
-    'HEADLINE': 'You have already been invited',
-    'DESCRIPTION_1': 'To take part in the event you must be on a team. You have already received an invitation to join',
-    'DESCRIPTION_2': 'team(s). Select a team to join or create a new one:',
-    'CTA': 'CREATE A NEW TEAM'
+  "SPECTATOR-SUCCESS": {
+    "HEADLINE": "Made it!",
+    "DESCRIPTION": "You have successfully signed up as a viewer for BreakOut. Thank you for your participation! For further clips and news go back to the homepage. Feel free to contact us with any further questions.",
+    "LINK_DESCRIPTION": "BACK TO THE HOMEPAGE"
   },
-  'PROFILE': {
-    'NAVIGATION_PROFILE': 'Profile settings',
-    'NAVIGATION_PARTICIPANT': 'Participant settings',
-    'NAVIGATION_TEAM': 'Team settings',
-    'NAVIGATION_SPONSOR': 'Sponsor settings',
-    'LABEL_FIRSTNAME': 'First name',
-    'LABEL_NAME': 'Last name',
-    'LABEL_GENDER': 'Gender',
-    'LABEL_SHIRT': 'T-Shirt size',
-    'LABEL_CITY': 'Hometown',
-    'LABEL_PHONE': 'Cell phone number',
-    'LABEL_PHONE_EMERGENCY': 'Emergency contact number',
-    'LABEL_TEAMNAME': 'Team name',
-    'LABEL_TEAMID': 'Team number',
-    'LABEL_LOCATION': 'Starting location',
-    'LABEL_DESCRIPTION': 'Description',
-    'OPTION_GENDER_1': 'Male',
-    'OPTION_GENDER_2': 'Female',
-    'OPTION_SHIRT_1': 'Size S',
-    'OPTION_SHIRT_2': 'Size M',
-    'OPTION_SHIRT_3': 'Size L',
-    'OPTION_SHIRT_4': 'Size XL',
-    'PAYMENT_INFO': 'The payment of your participance fee (30,-€) has not yet reached us. Please transfer the amount by 18 May to participate in the event.',
-    'BUTTON_SAVE': 'Save changes',
-    'BUTTON_PAY': 'Pay the participance fee',
-    'LABEL_SPONSORSTREET': 'Street',
-    'LABEL_SPONSORHOUSENUMBER': 'House number',
-    'LABEL_SPONSORZIPCODE': 'Zipcode',
-    'LABEL_SPONSORCITY': 'City',
-    'LABEL_SPONSORCOUNTRY': 'Country',
-    'LABEL_SPONSORCOMPANY': 'Company',
-    'LABEL_SPONSORURL': 'Your website'
+  "PAYMENT-SUCCESS": {
+    "HEADLINE": "Made it!",
+    "DESCRIPTION": "Thank you for your participation. As soon as your payment has reached us, you will get a confirmation via email. For travel tips and BreakOut news go back to the website. If you have any questions, we are happy to help you any time.",
+    "LINK_DESCRIPTION": "BACK TO THE HOMEPAGE"
   },
-  'PAYMENT': {
-    'HEADLINE': 'Payment',
-    'DESCRIPTION_1': 'To finish your registration, you have to pay the participance fee. It consists of the following:',
-    'ELEMENT_1': 'Your T-Shirts',
-    'DESCRIPTION_2': 'All of these come back to you directly or indirectly. Your safety is very important to us, that is why the BreakOut Hotline will be reachable the full 36 hours.',
-    'DESCRIPTION_3': 'Since the idea behind BreakOut is to give to the DAFI-Programm, we want to make sure that every team takes part in that. Therefore you are required to leave a deposit of 20€. You will get it back after the event, if your team has generated more than 100€ in donations. Otherwise the 20€ will go directly to the DAFI-Programm in your name.',
-    'DESCRIPTION_4': 'So the total amount per term is 60,-€ (20€ Registration + 20€ Registration + 20€ Deposit). Please consult with your teampartner whether you want to pay the 60€ together or 30€ each. For a succesful registration the total amount has to be transferred by 18 May 2016. Please use the <strong>mentioned purpose</strong> and the following bank account.',
-    'SUBHEADLINE_1': 'Transfer',
-    'OWNER': 'Owner',
-    'PURPOSE': 'Purpose',
-    'CONTINUE': 'CONTINUE'
+  "TEAM-INVITE": {
+    "HEADLINE": "You have already been invited",
+    "DESCRIPTION_1": "To take part in the event you must be on a team. You have already received an invitation to join",
+    "DESCRIPTION_2": "team(s). Select a team to join or create a new one:",
+    "CTA": "CREATE A NEW TEAM"
   },
-  'ACTIVATION': {
-    'HEADLINE': 'Activation successful',
-    'DESCRIPTION': 'Your email adress has been successfully confirmed',
-    'CTA': 'CONTINUE TO LOGIN'
+  "PROFILE": {
+    "NAVIGATION_PROFILE": "Profile settings",
+    "NAVIGATION_PARTICIPANT": "Participant settings",
+    "NAVIGATION_TEAM": "Team settings",
+    "NAVIGATION_SPONSOR": "Sponsor settings",
+    "LABEL_FIRSTNAME": "First name",
+    "LABEL_NAME": "Last name",
+    "LABEL_EMAIL": "Email",
+    "LABEL_GENDER": "Gender",
+    "LABEL_SHIRT": "T-Shirt size",
+    "LABEL_CITY": "Hometown",
+    "LABEL_PHONE": "Cell phone number",
+    "LABEL_PHONE_EMERGENCY": "Emergency contact number",
+    "LABEL_TEAMNAME": "Team name",
+    "LABEL_TEAMID": "Team number",
+    "LABEL_LOCATION": "Starting location",
+    "LABEL_DESCRIPTION": "Description",
+    "OPTION_GENDER_1": "Male",
+    "OPTION_GENDER_2": "Female",
+    "OPTION_SHIRT_1": "Size S",
+    "OPTION_SHIRT_2": "Size M",
+    "OPTION_SHIRT_3": "Size L",
+    "OPTION_SHIRT_4": "Size XL",
+    "PAYMENT_INFO": "The payment of your participation fee (30,-€) has not yet reached us. Please transfer the amount by 8th of May to participate in the event.",
+    "BUTTON_SAVE": "Save changes",
+    "BUTTON_PAY": "Pay the participation fee",
+    "LABEL_SPONSORSTREET": "Street",
+    "LABEL_SPONSORHOUSENUMBER": "House number",
+    "LABEL_SPONSORZIPCODE": "Zipcode",
+    "LABEL_SPONSORCITY": "City",
+    "LABEL_SPONSORCOUNTRY": "Country",
+    "LABEL_SPONSORCOMPANY": "Company",
+    "LABEL_SPONSORURL": "Your website"
   },
-  'MAINTENANCE': {
-    'HEADLINE': 'Maintenance',
-    'DESCRIPTION': 'We are currently conducting some planned maintenance. Please try again later. Thank you for your understanding.'
+  "PAYMENT": {
+    "HEADLINE": "Payment",
+    "DESCRIPTION_1": "To finish your registration, you have to pay the participation fee. It consists of the following:",
+    "ELEMENT_1": "Your T-Shirts",
+    "ELEMENT_2": "Starter-kit",
+    "ELEMENT_3": "BreakOut Hotline",
+    "DESCRIPTION_2": "All of these come back to you directly or indirectly. Your safety is of utmost importance to us, that is why the BreakOut Hotline will be availible throughout the entire 36 hours.",
+    "DESCRIPTION_3": "Since the idea behind BreakOut is to give donations to Jambo Bukoba, we want to make sure that every team supports this social idea. Therefore you are required to give a deposit of 20€. You will get it back after the event, if your team has generated more than 100€ in donations. Otherwise the 20€ will go directly to Jambo Bukoba in your name. But don't worry, the goal is easily reached! <3",
+    "DESCRIPTION_4": "So the total amount per term is 60€ (20€ Registration per person + 20€ Deposit). Please consult with your teampartner whether you want to pay the 60€ together or 30€ each. For a succesful registration the total amount has to be transferred by 8th May 2017. Please use the <strong>mentioned purpose</strong> and the following bank account.",
+    "SUBHEADLINE_1": "Transfer",
+    "ACCNUMBER": "IBAN",
+    "BANKNUMBER": "BIC",
+    "OWNER": "Banc account owner",
+    "PURPOSE": "Purpose",
+    "MAIL": "Email",
+    "CONTINUE": "CONTINUE"
   },
-  'FOOTER': {
-    'H_SPONSOR': 'BreakOut Partner',
-    'H_SUPPORT': 'supported by',
-    'H_FRIENDS': 'Our friends'
+  "ACTIVATION": {
+    "HEADLINE": "Activation successful!",
+    "DESCRIPTION": "Your email adress has been successfully confirmed",
+    "CTA": "CONTINUE TO LOGIN"
   },
-  'SPONSORING': {
-    'NAVIGATION_TEAM': 'Incoming sponsorings',
-    'NAVIGATION_SPONSOR': 'Outgoing sponsorings',
-    'NAVIGATION_RESULT': 'Recorded donations',
-    'LINK_SPONSOR': 'Become a sponsor',
-    'LINK_TEAM': 'Join the team',
-    'BTN_DELETE': 'delete',
-    'BTN_EDIT': 'edit',
-    'BTN_ACCEPT': 'accept',
-    'BTN_DECLINE': 'decline',
-    'BTN_ADD': 'Add Sponsoring',
-    'ADD_MODAL_CONTENT': 'In this dialogue you can create a new sponsoring per kilometer',
-    'EDIT_MODAL_CONTENT': 'In this dialogue you can edit a sponsoring per kilometer',
-    'LABEL_AMOUNT_KM': 'Euro per Kilometer',
-    'BTN_ABORT': 'abort',
-    'BTN_SAVE': 'save',
-    'HEADER_SELF_SPONSORING': 'Add offline sponsoring',
-    'SELF_MODAL_TEXT': 'Here you can add those sponsors who do not have internet access. Please upload the Sponsorship Contract',
-    'LABEL_STREET': 'Street',
-    'LABEL_HOUSENUMBER': 'House number',
-    'LABEL_ZIPCODE': 'Zipcode',
-    'LABEL_CITY': 'City',
-    'LABEL_COUNTRY': 'Country',
-    'LABEL_CONTRACT': 'Sponsorship Contract',
-    'LABEL_COMPANY': 'Company',
-    'STATUS_ACCEPTED': 'ACCEPTED',
-    'STATUS_REJECTED': 'REJECTED',
-    'LABEL_GENDER': 'title',
-    'LABEL_URL': 'Your website',
-    'ADD_CHALLENGE_MODAL_CONTENT': 'Here you can give teams tasks and set a monetary award when they are fulfilled',
-    'LABEL_CHALLENGE_DESCRIPTION': 'Description of the task',
-    'LABEL_CHALLENGE_AMOUNT': 'Amount',
-    'ADD_ANOTHER_CHALLENGE': 'Add another challenge',
-    'BTN_ADD_CHALLENGE': 'Add challenge',
-    'STATUS_WITHDRAWN': 'Withdrawn'
+  "MAINTENANCE": {
+    "HEADLINE": "Maintenance",
+    "DESCRIPTION": "Oopsi! We are currently conducting some planned maintenance. Please try again later. Muchas Gracias for your understanding."
   },
-  'CLOSED': {
-    'HEADLINE': 'Registration closed',
-    'DESCRIPTION': 'The registration for BreakOut 2016 is closed :( You can still register as a sponsor. Sign up for our newsletter to make sure not to miss the next BreakOut',
-    'LINK_DESCRIPTION': 'BACK TO THE WEBSITE'
+  "FOOTER": {
+    "H_SPONSOR": "BreakOut Partner",
+    "SPONSOR": "BreakOut is supported by STA Travel, a global provider of airline ticketing, hotels, hostels, and work & travel programs. The Social Entrepreneurship Academy in Munich, which supports social start-up projects is also supporting us this year.",
+    "H_SUPPORT": "Supported by",
+    "H_FRIENDS": "Our friends"
   },
-  'MESSAGE': {
-    'HEADLINE': 'Messages',
-    'BTN_ADD': 'Create new group message',
-    'BTN_ADD_SMALL': 'New Message',
-    'BTN_ABORT': 'Abort',
-    'ADD_CONTENT': 'Choose users you want to communicate with',
-    'LABEL_SEARCH': 'Search',
-    'PLACEHOLDER_SEARCH': 'Search users...',
-    'FOUND_USERS': 'Search results',
-    'SELECTED_USERS': 'Selected Users',
-    'SEND': 'Send'
+  "SPONSORING": {
+    "NAVIGATION_TEAM": "Your sponsors",
+    "NAVIGATION_SPONSOR": "Teams you sponsor",
+    "NAVIGATION_RESULT": "Recorded donations",
+    "LINK_SPONSOR": "Become a sponsor",
+    "LINK_TEAM": "Join the team",
+    "BTN_DELETE": "delete",
+    "BTN_EDIT": "edit",
+    "BTN_ACCEPT": "accept",
+    "BTN_DECLINE": "decline",
+    "BTN_ADD": "Add Sponsoring",
+    "ADD_MODAL_CONTENT": "In this dialogue you can create a new sponsoring per kilometer",
+    "EDIT_MODAL_CONTENT": "In this dialogue you can edit a sponsoring per kilometer",
+    "LABEL_AMOUNT_KM": "Euros per kilometer",
+    "LABEL_LIMIT": "Limit",
+    "BTN_ABORT": "Cancel",
+    "BTN_SAVE": "Save",
+    "HEADER_SELF_SPONSORING": "Add offline sponsoring",
+    "SELF_MODAL_TEXT": "Here you can add sponsors who do not have internet access. Please upload the sponsorship contract.",
+    "LABEL_STREET": "Street",
+    "LABEL_HOUSENUMBER": "House number",
+    "LABEL_ZIPCODE": "Zipcode",
+    "LABEL_CITY": "City",
+    "LABEL_COUNTRY": "Country",
+    "LABEL_CONTRACT": "Sponsorship contract",
+    "LABEL_COMPANY": "Company",
+    "OPTIONAL": "Optional",
+    "STATUS_ACCEPTED": "ACCEPTED",
+    "STATUS_REJECTED": "REJECTED",
+    "LABEL_GENDER": "Title",
+    "LABEL_URL": "Your website",
+    "ADD_CHALLENGE_MODAL_CONTENT": "Here you can set challenges for favourite teams and set a monetary award when they are fulfilled.",
+    "LABEL_CHALLENGE_DESCRIPTION": "Description of the challenge",
+    "LABEL_CHALLENGE_AMOUNT": "Amount",
+    "ADD_ANOTHER_CHALLENGE": "Add another challenge",
+    "BTN_ADD_CHALLENGE": "Add challenge",
+    "STATUS_WITHDRAWN": "Withdrawn"
   },
-  'TEAM-DETAIL': {'SAVEPOST': 'SAVE POST'},
-  'MASTER': {
-    'LIVE_BLOG': 'Live Blog',
-    'LIVE_BLOG_LINK': '/live',
-    'ABOUT': 'About BreakOut',
-    'NEXT_STEPS': 'Next Steps',
-    'PARTNER': 'Partners',
-    'PRESS': 'Press',
-    'ABOUTUS': 'About us',
-    'JOIN': 'Join us',
-    'LOGIN': 'Login',
-    'LOGIN_OR_REGISTER': 'Login or register',
-    'TERMS': 'Terms and Conditions',
-    'MY_TEAM_PROFILE': 'My Teamprofile',
-    'ACCOUNT_SETTINGS': 'Account Settings',
-    'SPONSORINGS': 'Sponsorings',
-    'MESSAGES': 'Messages',
-    'LOGOUT': 'Log Out',
-    'MY_ACCOUNT': 'My Account'
+  "CLOSED": {
+    "HEADLINE": "Registration closed",
+    "DESCRIPTION": "The registration for BreakOut 2017 is closed :( You can still register as a sponsor and support Jambo Bukoba. Sign up for our newsletter to make sure you don't miss the next BreakOut.",
+    "LINK_DESCRIPTION": "BACK TO THE WEBSITE"
   },
-  'LIVEBLOG': {
-    'HEADLINE': 'What is BreakOut?',
-    'TIME_H': 'BreakOut Event',
-    'TIME_PRE': 'until the event begins',
-    'TIME_DURING': 'until the event ends',
-    'TIME_POST': 'since the event',
-    'DONATIONS': 'Donations',
-    'DISTANCE': 'Distance',
-    'MUNICH': 'Munich',
-    'BERLIN': 'Berlin',
-    'POSTS_HEADLINE': 'Posts from participating teams',
-    'BTN': 'Become a sponsor now!',
-    'NEWSLETTER': 'Be part of BreakOut 2017...'
+  "MESSAGE": {
+    "HEADLINE": "Messages",
+    "BTN_ADD": "Create new group message",
+    "BTN_ADD_SMALL": "New Message",
+    "BTN_ABORT": "Cancel",
+    "ADD_CONTENT": "Choose users you would like to contact.",
+    "LABEL_SEARCH": "Search",
+    "PLACEHOLDER_SEARCH": "Search users...",
+    "FOUND_USERS": "Search results",
+    "SELECTED_USERS": "Selected Users",
+    "SEND": "Send"
   },
-  'HOWTOSPONSOR': {
-    'HEADLINE': 'Become a Sponsor',
-    'SECTION1_H': 'How does it work?',
-    'SECTION1_TEXT': 'As sponsor of a <a href="/Team">BreakOut-team</a> you have got two options. Either you agree to donate a certain amount per kilometer they travel, or you give them tasks (challenges), e.g. “do a handstand on the beach” and give a predefined sum each time they complete one. During the event your team will post where the currently are and which challenges they have completed through the BreakOut-App. - You can follow them live at <a href="/">Liveblog</a>.',
-    'BTN_TEXT': 'Become a sponsor',
-    'SECTION2_H': 'Where does the money go?',
-    'SECTION2_TEXT': 'Your donation goes directly to <a href="https://www.uno-fluechtlingshilfe.de/breakout">UNHCR’s DAFI-Programm</a> and gives refugees the opportunity of a university education. Our patner, the UNO-Flüchtlingshilfe e.V., is a non profit organisation certified to be particularly efficient and transparent in handling donations. - If you are interested, they can provide you with a “Spendenbescheinigung” which can be used for tax reductions in Germany.',
-    'SECTION3_H': 'What is in it for me?',
-    'SECTION3_TEXT': 'Besides being sure to be doing something good, you can get a tax reduction in Germany. Furhtermore, your team can e.g. be named after you or your company, carry your promotion material, …- Possibly your logo will make it to the podium?',
-    'SECTION4_H': 'What should I do?',
-    'SECTION4_TEXT': '<a href="/sponsor">Register as a sponsor</a> now and support your favorite team. Give them challenges and kilometer-sponsorings right until the end of BreakOut, Saturday 4 June at 9pm. Follow the event live at <a href="/">https://event.break-out.org/</a>. After the event, we will calculate the sum of you kilometer-sponsorings and fulfilled challenges. Then we will ask you to transfer this amount <strong>until 10 June</strong>. We will provide you with an individual reference. Please use exactly that to help us track your donation!',
-    'PURPOSE_TITLE': 'Reference',
-    'PURPOSE': 'Will be provided by email.',
-    'SECTION5_H': 'Can I support BreakOut directly?',
-    'SECTION5_TEXT': 'BreakOut is currently registering as a non profit organisation. If you would like to support us, feel free to contact <a href="mailto:event@break-out.org">event@break-out.org</a>.',
-    'SECTION6_TEXT': 'Any questions? - Feel free to contact <a href="mailto:event@break-out.org">event@break-out.org</a>'
+  "TEAM-DETAIL": {
+    "SAVEPOST": "SAVE POST",
+    "NEWPOSTCONTENT": "Hello World... :)"
   },
-  'ABOUT': {
-    'ABOUT_BREAKOUT_HEADING': 'What is BreakOut about',
-    'DESCRIPTION_1': '<em>Break</em>Out – As far away as possible. Two people. No money. 36 hours. – For the UNHCR.',
-    'DESCRIPTION_2': '',
-    'DESCRIPTION_VIDEO': '',
-    'GOAL_HEADING': 'The Goal',
-    'GOAL_CONTENT': 'You want to get as far away as possible from the starting point (Munich or Berlin). Direction and means of transport are your choice. However, <em>Break</em>Out is more than a simple competition: While travelling you raise money for <a title="The Charity" href="http://www.unhcr.org/pages/49e4a2dd6.html" target="_blank">charity.</a>',
-    'WAY_HEADING': 'The way to go',
-    'WAY_CONTENT': '<ul><li>Find a team-mate</li><li><a title="Register" href="/register">Register</a></li><li>Find sponsors for your team (e.g. small shops, companies, friends family etc.)</li><li><em>Break</em>Out</li></ul><p>Your journey starts on Thursday, June 4th, at 9 am on Geschwister-Scholl-Platz, Munich. During the following 36 hours you will try to get as far away as possible without spending money for transport, e.g. by hitch-hiking. By creative and negotiate! Your commitment may well make the difference between Pasing and Paris! – Last year all teams together travelled around half the world.</p><p>Through our app the progess of all BreakOut-teams can be seen live during the event.</p>',
-    'CHARITY_HEADING': 'The charity',
-    'CHARITY_CONTENT': '<p>Apart from having a lot fun travelling, with BreakOut your are doing something good. For each kilometer a team travels, their sponsors give a certain amount to charity: e.g. 1€/km. This money goes 100% directly to <a title="The Charity" href="http://www.unhcr.org/pages/49e4a2dd6.html" target="_blank">DAFI</a>. DAFI is a scholarship-program managed by the UNHCR. It gives young refugees access to higher eduction by financing their university studies.</p><p>Our motto: From students to students.</p>',
-    'WINNERS_HEADING': 'The winners',
-    'WINNERS_CONTENT': '<p><em>Break</em> offers several chances to win: First of all you win an amazing experience. Additionally there will be several prices:</p><ul><li>Largest distance from Munich (as the crow flies)</li><li>Most money raised</li><li>Most countries visited</li><li>Best documentation (e.g. video)</li></ul><p>Infinitely honoured will be those who reach another continent, go further than 10,000 km or travel by camel, unicorn or ship.</p>',
-    'WINNERS_BUTTON': 'Challenge accepted? – Register here!'
+  "MASTER": {
+    "BACK_TO_REGISTER": "Back to registration",
+    "LIVE_BLOG": "Live Blog",
+    "LIVE_BLOG_LINK": "/live",
+    "ABOUT": "About BreakOut",
+    "ABOUT_LINK": "/",
+    "TEAMS": "Teams",
+    "TEAMS_LINK": "/team",
+    "HOWTO": "How to BreakOut",
+    "NEXT_STEPS": "Next Steps",
+    "NEXT_STEPS_LINK": "/next-steps",
+    "FAQ": "FAQ",
+    "FAQ_LINK": "/faq",
+    "CODE": "Code of Honour",
+    "CODE_LINK": "/code-of-honour",
+    "TERMS": "Terms and Conditions",
+    "TERMS_LINK": "/terms-and-conditions",
+    "PARTNER": "Partners",
+    "PARTNER_LINK": "/partner",
+    "PRESS": "Press",
+    "PRESS_LINK": "/press",
+    "ABOUTUS": "About us",
+    "ABOUTUS_LINK": "/members",
+    "JOIN": "Join our BreakOut Family",
+    "JOIN_LINK": "/get-involved",
+    "LOGIN": "Login",
+    "LOGIN_LINK": "/login",
+    "LOGIN_OR_REGISTER": "Login or register",
+    "MY_TEAM_PROFILE": "My team profile",
+    "ACCOUNT_SETTINGS": "Account Settings",
+    "SPONSORINGS": "Sponsorings",
+    "MESSAGES": "Messages",
+    "LOGOUT": "Log Out",
+    "MY_ACCOUNT": "My Account"
   },
-  'PRESS': {'PRESS_HEADING': 'PRESS'},
-  'PARTNER': {
-    'POWERED_BY_HEADING': 'We are powered by',
-    'PARTNER_HEADING': 'Partners',
-    'PARTNER_TITLE': 'Our Partners:',
-    'SUPPORTER_TITLE': 'Our Supporters:',
-    'FRIENDS_TITLE': 'Our Friends:'
-  },
-  'NEXTSTEPS': {},
-  'IMPRINT': {},
-  'CODEOFHONOUR': {}
+  "LIVEBLOG": {
+    "HEADLINE": "What is BreakOut?",
+    "DESCRIPTION": "BreakOut challenges the participants to travel in teams of two as far away as possible without spending money on transportation from Munich, Berlin or Barcelona. Each team collects donations from their team sponsors for every kilometer traveled and each challenge accomplished. 100% of these donations are going to the charity organization Jambo Bukoba e.V.",
+    "TIME_H": "BreakOut Event",
+    "TIME_PRE": "Until BreakOut starts",
+    "TIME_DURING": "Until BreakOut ends",
+    "TIME_POST": "Since BreakOut",
+    "DONATIONS": "Donations",
+    "DISTANCE": "Distance",
+    "MUNICH": "Munich",
+    "BERLIN": "Berlin",
+    "POSTS_HEADLINE": "Posts from participating teams",
+    "BTN": "Become a sponsor now!",
+    "NEWSLETTER": "Be part of BreakOut 2017..."
+  }
 };

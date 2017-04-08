@@ -15,9 +15,15 @@ let ses = {};
  * Refreshes the session if it is expired.
  * @param req
  */
-ses.refreshSession = (req) => co(function*() {
+ses.refreshSession = (req, res, next) => co(function*() {
+
+  if (!req.user) {
+    next();
+  }
+
   req.login(yield passport.createSession(req.user.email, req.user), (error) => {
-    if (error) throw error;
+    if (error) next(error);
+    if (next) next();
   });
 }).catch(ex => {
   throw ex;

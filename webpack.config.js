@@ -3,20 +3,22 @@ var webpack = require('webpack');
 var path = require('path');
 
 module.exports = {
-  entry: path.resolve(__dirname, 'src/js/main.js'),
+  entry: ['babel-polyfill', './src/js/reactTest.jsx'],
   output: {
     path: path.resolve(__dirname, 'public/js'),
-    filename: 'bundle.js'
+    filename: 'reactTest.js'
   },
   module: {
-    loaders: [
-      { 
-        test: /\.js$/, 
-        include: [
-          path.resolve(__dirname, 'src/js')
-        ],
-        exclude: /node_modules/, 
-        loader: 'babel-loader' 
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        include: path.resolve(__dirname, 'src/js/'),
+        use: {
+          loader: 'babel-loader',
+          options: {
+            cacheDirectory: true
+          }
+        }
       }
     ]
   }

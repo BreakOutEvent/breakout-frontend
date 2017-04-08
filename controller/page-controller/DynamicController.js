@@ -60,7 +60,13 @@ class DynamicController {
   static *logout(req, res) {
     req.logout();
     req.flash('success', 'Successfully logged out!');
-    res.redirect('/login');
+    res.redirect('/');
+  }
+
+  static *isLoggedIn(req, res) {
+    res.send({
+      isLoggedIn: req.isAuthenticated()
+    });
   }
 
   static *showTransactionPurpose(req, res) {

@@ -357,8 +357,100 @@ body {
   }
 }
 
+form {
+  legend {
+    text-align: center;
+    padding-top: 0px;
+    padding-bottom: 8px;
+    border: none;
+    font-size: xx-large;
+    font-weight: 300;
+  }
+
+  .invitation-widget {
+    .field-radio-group {
+      padding: 10px;
+      border-radius: 5px;
+      border-color: gray;
+      border-style: solid;
+      border-width: 2px;
+
+      &:active, &:hover {
+        border-color: @brand-primary;
+      }
+
+      input[type="radio"] {
+        margin-top: 18px;
+        margin-right: 10px;
+        margin-left: -14px;
+      }
+    }
+
+    .radio-team {
+      margin-left: 10px;
+    }
+    .radio-team-name {
+      font-weight: 900;
+      color: black;
+      font-size: 1.8em;
+    }
+
+    .radio-team-description {
+      color: black;
+    }
+  }
+
+  .field-string {
+    input[type="text"] {
+      border-color: #999
+    }
+  }
+
+  .form-children {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .modal-header {
+    height: 0px;
+    margin: 0px;
+    padding: 25px 30px 0px 0px;
+
+    button {
+
+    }
+  }
+}
+
 #bo-explanation-image {
   padding-top: 100px;
   padding-bottom: 60px;
   background-color: #eae79e;
+}
+
+#password-reset-btn {
+  border: none;
+  background: transparent;
+  color: rgba(0, 0, 0, 0.8);
+  margin-top: -20px;
+  margin-bottom: 20px;
+}
+
+#login-btn {
+  border-radius: 20px;
+  height: 40px;
+  width: 100%;
+  background: transparent;
+  color: @brand-primary;
+  border-width: 2px;
+  margin-bottom: 10px;
+}
+
+#register-btn {
+  border-radius: 20px;
+  height: 40px;
+  width: 100%;
+  border-width: 2px;
+  margin-bottom: 10px;
 }

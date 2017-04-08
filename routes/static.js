@@ -5,6 +5,7 @@
  */
 const Router = require('co-router');
 const router = new Router();
+const session = require('../controller/session');
 
 const StaticController = require('../controller/page-controller/static.js');
 
@@ -12,7 +13,7 @@ router.get('/members', StaticController.renderMemberPage);
 
 router.get('/press', StaticController.renderPressPage);
 
-router.get('/', StaticController.renderLandingpage);
+router.get('/', session.refreshSession, StaticController.renderLandingpage);
 
 router.get('/partner', StaticController.renderPartnerPage);
 

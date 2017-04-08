@@ -6,12 +6,28 @@
   }
 }
 
-.form-control{
+.form-control {
   box-shadow: none;
   &:focus {
     box-shadow: none;
     padding-bottom: 5px;
   }
+}
+
+.has-error,
+.has-warning {
+  .form-control {
+    box-shadow: none;
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+// Remove rounded corners
+select {
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
 }
 
 .btn {

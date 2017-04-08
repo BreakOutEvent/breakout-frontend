@@ -29,9 +29,6 @@ bower_components
 # WebStorm Folder
 .idea
 
-# Images
-public/images
-
 # files are build and bundled via browserify
 public/js/*
 public/css/*

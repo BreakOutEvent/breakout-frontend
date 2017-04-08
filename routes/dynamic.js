@@ -2,6 +2,8 @@
 
 const DynamicController = require('../controller/page-controller/DynamicController');
 const AuthenticationController = require('../controller/page-controller/AuthenticationController');
+const StaticController = require('../controller/page-controller/static.js');
+
 const Router = require('co-router');
 const multer = require('multer');
 
@@ -16,23 +18,27 @@ const funnelTemplate = renderTemplate('dynamic', 'register', 'funnel');
 
 // router.get('/', redirectOnLogin, funnelTemplate('register'));
 
-router.get('/register', redirectOnLogin, funnelTemplate('register'));
+router.get('/refresh', session.refreshSession, (req, res) => res.redirect('/'));
 
-router.get('/selection', session.isUser, funnelTemplate('selection'));
+router.get('/register', StaticController.renderLandingpage); // client-side routing
 
-router.get('/participant', session.isUser, registration.lock, funnelTemplate('participant'));
+router.get('/select-role', StaticController.renderLandingpage); // client-side routing
 
-router.get('/team-success', session.hasTeam, registration.lock, funnelTemplate('team-success'));
+router.get('/participate', StaticController.renderLandingpage); // client-side routing
 
-router.get('/invite-success', session.hasTeam, registration.lock, funnelTemplate('invite-success'));
+router.get('/create-team-success', StaticController.renderLandingpage); // client-side routing
 
-router.get('/payment-success', session.hasTeam, funnelTemplate('payment-success'));
+// router.get('/invite-success', session.hasTeam, registration.lock, funnelTemplate('invite-success'));
+
+router.get('/join-team-success', StaticController.renderLandingpage); // client-side routing
 
 router.get('/sponsor-success', session.isSponsor, funnelTemplate('sponsor-success'));
 
-router.get('/spectator-success', session.isUser, funnelTemplate('spectator-success'));
+router.get('/visitor-success', StaticController.renderLandingpage); // client-side routing
 
 router.get('/invite', session.hasTeam, registration.lock, funnelTemplate('invite'));
+
+router.get('/reset-password', StaticController.renderLandingpage); // client-side routing
 
 router.get('/reset/:email/:token', funnelTemplate('reset-pw'));
 
@@ -40,7 +46,7 @@ router.get('/closed', funnelTemplate('closed'));
 
 router.get('/sponsor', session.isUser, redirectIfSponsor, funnelTemplate('sponsor'));
 
-router.get('/login', redirectOnLogin, flashIfReturn, funnelTemplate('login'));
+router.get('/login', StaticController.renderLandingpage); // client-side routing
 
 router.get('/live', DynamicController.showLiveBlog);
 
@@ -48,20 +54,21 @@ router.get('/profile', session.isUser, DynamicController.showUserProfile);
 
 router.get('/logout', session.isUser, DynamicController.logout);
 
-router.get('/payment', session.hasTeam, DynamicController.showTransactionPurpose);
+router.get('/join-team-success', StaticController.renderLandingpage); // client-side routing
 
 router.get('/join/:token', DynamicController.showInvitesByToken);
 
 router.get('/team-invite', session.isParticipant, registration.lock, DynamicController.showInvites);
 
-router.get('/team-create', session.isParticipant, registration.lock, DynamicController.showCreateTeamPage);
+router.get('/isLoggedIn', DynamicController.isLoggedIn);
+
+router.get('/create-join-team', StaticController.renderLandingpage); // client-side routing
 
 router.get('/activation/:token', DynamicController.activateAccount);
 
 router.get('/sponsoring', DynamicController.showHowToSponsor);
 
 router.get('/highscore', DynamicController.showHighscores);
-
 
 router.post('/liveblog/posting/', liveblog.returnPostings);
 

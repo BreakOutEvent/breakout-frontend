@@ -24,6 +24,13 @@
     <iframe src="//www.googletagmanager.com/ns.html?id=GTM-KH8FMS"
             height="0" width="0" style="display:none;visibility:hidden"></iframe>
 </noscript>
+
+<script>
+
+    window.boClientConfig = {{{clientConfig}}};
+    window.boUserData = {{{stringify isLoggedIn}}};
+
+</script>
 <script>(function (w, d, s, l, i) {
     w[l] = w[l] || [];
     w[l].push({
@@ -36,9 +43,20 @@
             '//www.googletagmanager.com/gtm.js?id=' + i + dl;
     f.parentNode.insertBefore(j, f);
 })(window, document, 'script', 'dataLayer', 'GTM-KH8FMS');</script>
+
+<script>
+
+    window.boUserLang = '{{language}}';
+    window.getBoUserLang = function () {
+        return window.boUserLang || 'en';
+    }
+</script>
+
 <!-- End Google Tag Manager -->
 {{#each requirements}}
     <script type="text/javascript" src="/js/{{this}}.js"></script>
 {{/each}}
+
+<script type="text/javascript" src="/js/reactTest.js" defer></script>
 
 <script type="text/javascript" src="/js/bundle.js" defer></script>
