@@ -62,6 +62,8 @@ module.exports = {
         "label": "Emergency number",
         "placeholder": "Please enter a number which we can contact in case of emergency"
       },
+      "accept_tos": "I hereby accept the <a target=\"_blank\" href=\"/terms-and-conditions\">terms and conditions</a>",
+      "accept_code_of_honour": "I hereby accept the <a target=\"_blank\" href=\"/code-of-honour\">code of honour</a>",
       "is_18": "I am at least 18 years old",
       "next_step": "Become a participant"
     },
@@ -244,6 +246,7 @@ module.exports = {
   "TEAM-INVITE": {
     "HEADLINE": "You have already been invited",
     "DESCRIPTION_1": "To take part in the event you must be on a team. You have already received an invitation to join",
+    "DESCRIPTION_2": "team(s). Select a team to join or create a new one:",
     "CTA": "CREATE A NEW TEAM"
   },
   "PROFILE": {
@@ -313,6 +316,8 @@ module.exports = {
     "H_FRIENDS": "Our friends"
   },
   "SPONSORING": {
+    "NAVIGATION_TEAM": "Your sponsors",
+    "NAVIGATION_SPONSOR": "Teams you sponsor",
     "NAVIGATION_RESULT": "Recorded donations",
     "LINK_SPONSOR": "Become a sponsor",
     "LINK_TEAM": "Join the team",
@@ -321,6 +326,8 @@ module.exports = {
     "BTN_ACCEPT": "accept",
     "BTN_DECLINE": "decline",
     "BTN_ADD": "Add Sponsoring",
+    "ADD_MODAL_CONTENT": "In this dialogue you can create a new sponsoring per kilometer",
+    "EDIT_MODAL_CONTENT": "In this dialogue you can edit a sponsoring per kilometer",
     "LABEL_AMOUNT_KM": "Euros per kilometer",
     "LABEL_LIMIT": "Limit",
     "BTN_ABORT": "Cancel",
@@ -358,6 +365,7 @@ module.exports = {
     "BTN_ABORT": "Cancel",
     "ADD_CONTENT": "Choose users you would like to contact.",
     "LABEL_SEARCH": "Search",
+    "PLACEHOLDER_SEARCH": "Search users...",
     "FOUND_USERS": "Search results",
     "SELECTED_USERS": "Selected Users",
     "SEND": "Send"
@@ -373,16 +381,26 @@ module.exports = {
     "ABOUT": "About BreakOut",
     "ABOUT_LINK": "/",
     "TEAMS": "Teams",
+    "TEAMS_LINK": "/team",
     "HOWTO": "How to BreakOut",
     "NEXT_STEPS": "Next Steps",
+    "NEXT_STEPS_LINK": "/next-steps",
     "FAQ": "FAQ",
+    "FAQ_LINK": "/faq",
     "CODE": "Code of Honour",
+    "CODE_LINK": "/code-of-honour",
     "TERMS": "Terms and Conditions",
+    "TERMS_LINK": "/terms-and-conditions",
     "PARTNER": "Partners",
+    "PARTNER_LINK": "/partner",
     "PRESS": "Press",
+    "PRESS_LINK": "/press",
     "ABOUTUS": "About us",
+    "ABOUTUS_LINK": "/members",
     "JOIN": "Join our BreakOut Family",
+    "JOIN_LINK": "/get-involved",
     "LOGIN": "Login",
+    "LOGIN_LINK": "/login",
     "LOGIN_OR_REGISTER": "Login or register",
     "MY_TEAM_PROFILE": "My team profile",
     "ACCOUNT_SETTINGS": "Account Settings",

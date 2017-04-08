@@ -62,6 +62,8 @@ module.exports = {
         "label": "Notfallnummer",
         "placeholder": "Gib die Nummer eines Notfallkontakts an"
       },
+      "accept_tos": "Hiermit akzeptiere ich die <a target=\"_blank\" href=\"/terms-and-conditions\">Teilnahmebedingungen</a>",
+      "accept_code_of_honour": "Hiermit akzeptiere ich den <a target=\"_blank\" href=\"/code-of-honour\">Code of Honour</a>",
       "is_18": "Ich bin mindestens 18 Jahre alt",
       "next_step": "Zum Teilnehmer werden"
     },
@@ -244,6 +246,7 @@ module.exports = {
   "TEAM-INVITE": {
     "HEADLINE": "Du wurdest bereits eingeladen",
     "DESCRIPTION_1": "Um am Event teilzunehmen musst Du in einem Team sein. Du hast bereits von",
+    "DESCRIPTION_2": "Team(s) eine Einladung zum Beitreten bekommen. Wähle ein Team zum Beitreten aus oder erstelle ein Neues:",
     "CTA": "NEUES TEAM ERSTELLEN"
   },
   "PROFILE": {
@@ -313,6 +316,8 @@ module.exports = {
     "H_FRIENDS": "Unsere Freunde"
   },
   "SPONSORING": {
+    "NAVIGATION_TEAM": "Deine Sponsoren",
+    "NAVIGATION_SPONSOR": "Von dir gesponserte Teams",
     "NAVIGATION_RESULT": "Erfasste Spenden",
     "LINK_SPONSOR": "Sponsor werden",
     "LINK_TEAM": "Mitreisen",
@@ -321,6 +326,8 @@ module.exports = {
     "BTN_ACCEPT": "Annehmen",
     "BTN_DECLINE": "Ablehnen",
     "BTN_ADD": "Sponsoring hinzufügen",
+    "ADD_MODAL_CONTENT": "In diesem Dialog können Sie ein neues Sponsoring pro Kilometer anlegen.",
+    "EDIT_MODAL_CONTENT": "In diesem Dialog können Sie ein Sponsoring pro Kilometer bearbeiten.",
     "LABEL_AMOUNT_KM": "Euro pro Kilometer",
     "LABEL_LIMIT": "Limit",
     "BTN_ABORT": "Abbrechen",
@@ -358,6 +365,7 @@ module.exports = {
     "BTN_ABORT": "Abbrechen",
     "ADD_CONTENT": "Wähle die Nutzer aus, denen Du schreiben möchtest.",
     "LABEL_SEARCH": "Suche",
+    "PLACEHOLDER_SEARCH": "Nach Nutzern suchen...",
     "FOUND_USERS": "Suchergebnisse",
     "SELECTED_USERS": "Ausgewählte Nutzer",
     "SEND": "Senden"
@@ -373,16 +381,26 @@ module.exports = {
     "ABOUT": "Worum gehts",
     "ABOUT_LINK": "/",
     "TEAMS": "Teams",
+    "TEAMS_LINK": "/team",
     "HOWTO": "How to BreakOut",
     "NEXT_STEPS": "Nächste Schritte",
+    "NEXT_STEPS_LINK": "/next-steps",
     "FAQ": "FAQ",
+    "FAQ_LINK": "/faq",
     "CODE": "Code of Honour",
+    "CODE_LINK": "/code-of-honour",
     "TERMS": "Teilnahmebedingungen",
+    "TERMS_LINK": "/terms-and-conditions",
     "PARTNER": "Partner",
+    "PARTNER_LINK": "/partner",
     "PRESS": "Presse",
+    "PRESS_LINK": "/press",
     "ABOUTUS": "Über uns",
+    "ABOUTUS_LINK": "/members",
     "JOIN": "Mitorganisieren",
+    "JOIN_LINK": "/get-involved",
     "LOGIN": "Einloggen",
+    "LOGIN_LINK": "/login",
     "LOGIN_OR_REGISTER": "Anmelden oder registrieren",
     "MY_TEAM_PROFILE": "Mein Teamprofil",
     "ACCOUNT_SETTINGS": "Accounteinstellungen",
