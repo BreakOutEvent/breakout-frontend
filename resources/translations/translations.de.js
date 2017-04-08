@@ -1,4 +1,4 @@
-// eslint-disable quotes
+/* eslint-disable quotes */
 module.exports = {
   "client": {
     "login": {
