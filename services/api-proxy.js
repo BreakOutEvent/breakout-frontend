@@ -547,7 +547,7 @@ API.posting.createPosting = (token, text, uploadMediaTypes, latitude, longitude)
   });
 };
 
-API.posting.getAllPostings = (token, offset, limit) => {
+API.posting.getAllPostings = (token, page) => {
   logger.info('Getting all postings ');
 
   let options = {
@@ -558,9 +558,8 @@ API.posting.getAllPostings = (token, offset, limit) => {
   if (token) options.auth = {bearer: token.access_token};
 
   if (token)options.qs.userid = token.me.id;
-  if (offset) options.qs.offset = offset;
-  if (limit) options.qs.limit = limit;
-  
+  if (page) options.qs.page = page;
+
   return new Promise((resolve, reject) => {
     request.get(options, handleResponse(resolve, reject, 'Successfully got all postings'));
   });

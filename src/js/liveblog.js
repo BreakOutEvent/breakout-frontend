@@ -76,8 +76,7 @@ $(document).ready(function () {
         if (!loading && !finished) {
           loading = true;
           $.post('/liveblog/posting/', {
-            limit: 30,
-            offset: current + 1
+            page: current + 1
           }).success(function (postingsHTML) {
             var $postings = $(postingsHTML);
             if ($postings.length === 0) {

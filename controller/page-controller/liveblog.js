@@ -57,10 +57,9 @@ liveblog.getCounterInfos = (events) => co(function *() {
 liveblog.returnPostings = (req, res, next) => co(function *() {
 
   var token = req.isAuthenticated() ? req.user : null;
-  var offset = req.body.offset ? req.body.offset : null;
-  var limit = req.body.limit ? req.body.limit : null;
+  var page = req.body.page ? req.body.page : null;
 
-  let postings = yield api.posting.getAllPostings(token, offset, limit);
+  let postings = yield api.posting.getAllPostings(token, page);
 
   return res.render('dynamic/liveblog/postings', {
     layout: false,
