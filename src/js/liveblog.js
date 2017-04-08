@@ -158,7 +158,6 @@ $(document).ready(function () {
     var socket = io('/');
 
     socket.on('newPostings', function (data) {
-      console.log(data);
       var $postings = $(data.postings);
       var $teamPosts = $('#teamPosts');
       //console.log($postings);

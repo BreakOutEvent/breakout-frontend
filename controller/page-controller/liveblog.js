@@ -82,7 +82,7 @@ liveblog.getMapData = () => co(function *() {
   locationsEvents.forEach(e => {
     e.forEach(tl => {
       locations.push(tl);
-    })
+    });
   });
 
   let teams = [];
@@ -94,10 +94,8 @@ liveblog.getMapData = () => co(function *() {
         return e.id == tl.event;
       }),
       locations: tl.locations
-    }
+    };
   });
-
-  console.log(teams);
 
   return teams;
 
