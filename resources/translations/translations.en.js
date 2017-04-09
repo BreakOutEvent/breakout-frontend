@@ -116,7 +116,13 @@ module.exports = {
     },
     "join_team_success": {
       "title": "Team sucessfully joined",
-      "description": "You and your team partner have sucessfully registered for BreakOut 2017! Please transfer the participation fee with the aforementioned purpose before 8th of May."
+      "description": "You and your team partner have sucessfully registered for BreakOut 2017! Please transfer the participation fee with the aforementioned purpose before 8th of May.",
+      "loading_purpose_of_transfer": "Loading purpose of transfer...",
+      "IBAN": "IBAN",
+      "BIC": "BIC",
+      "payment_reciever": "Payment recipient",
+      "purpose_of_transaction": "Purpose of transaction",
+      "add_sponsorings_link_text": "Click here to add challenges and sponsors"
     }
   },
   "BECOME_SPONSOR": {
@@ -289,9 +295,9 @@ module.exports = {
     "ELEMENT_1": "Your T-Shirts",
     "ELEMENT_2": "Starter-kit",
     "ELEMENT_3": "BreakOut Hotline",
-    "DESCRIPTION_2": "All of these come back to you directly or indirectly. Your safety is of utmost importance to us, that is why the BreakOut Hotline will be availible throughout the entire 36 hours.",
+    "DESCRIPTION_2": "All of these come back to you directly or indirectly. Your safety is of utmost importance to us, that is why the BreakOut Hotline will be available throughout the entire 36 hours.",
     "DESCRIPTION_3": "Since the idea behind BreakOut is to give donations to Jambo Bukoba, we want to make sure that every team supports this social idea. Therefore you are required to give a deposit of 20€. You will get it back after the event, if your team has generated more than 100€ in donations. Otherwise the 20€ will go directly to Jambo Bukoba in your name. But don't worry, the goal is easily reached! <3",
-    "DESCRIPTION_4": "So the total amount per term is 60€ (20€ Registration per person + 20€ Deposit). Please consult with your teampartner whether you want to pay the 60€ together or 30€ each. For a succesful registration the total amount has to be transferred by 8th May 2017. Please use the <strong>mentioned purpose</strong> and the following bank account.",
+    "DESCRIPTION_4": "So the total amount per term is 60€ (20€ Registration per person + 20€ Deposit). For a succesful registration the total amount has to be transferred by 8th May 2017. Please use the <strong>mentioned purpose</strong> and the following bank account:",
     "SUBHEADLINE_1": "Transfer",
     "ACCNUMBER": "IBAN",
     "BANKNUMBER": "BIC",

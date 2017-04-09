@@ -116,7 +116,13 @@ module.exports = {
     },
     "join_team_success": {
       "title": "Team erfolgreich beigetreten",
-      "description": "Herzlichen Glückwunsch. Du und dein Teampartner habt euch erfolgreich für BreakOut 2017 registriert. Bitte überweist nun die Teilnahmegebühr mit dem unten stehenden Verwendungszweck bis zum 8. Mai 2017."
+      "description": "Herzlichen Glückwunsch. Du und dein Teampartner habt euch erfolgreich für BreakOut 2017 registriert. Bitte überweist nun die Teilnahmegebühr mit dem unten stehenden Verwendungszweck bis zum 8. Mai 2017.",
+      "loading_purpose_of_transfer": "Euer Überweisungszweck wird geladen...",
+      "IBAN": "IBAN",
+      "BIC": "BIC",
+      "payment_reciever": "Zahlungsempfänger",
+      "purpose_of_transaction": "Überweisungszweck",
+      "add_sponsorings_link_text": "Hier entlang, um neue Sponsoren einzutragen"
     }
   },
   "BECOME_SPONSOR": {
@@ -291,7 +297,7 @@ module.exports = {
     "ELEMENT_3": "BreakOut Hotline",
     "DESCRIPTION_2": "Alle diese Posten fließen direkt oder indirekt wieder an Euch zurück. Eure Sicherheit steht für uns an erster Stelle, weshalb die BreakOut Hotline die ganzen 36 Stunden für Euch erreichbar sein wird.",
     "DESCRIPTION_3": "Da der Grundgedanke von BreakOut das Spenden an Jambo Bukoba ist, möchten wir sicherstellen, dass jedes Team diesen sozialen Gedanken unterstützt. Wir erheben deshalb 20€ Kaution pro Team. Diese überweisen wir Euch nach dem Event zurück, wenn Ihr über 100€ an Spenden generiert habt. Andernfalls gehen die 20€ in Eurem Namen direkt an Jambo Bukoba. Aber keine Panik, das kriegt Ihr locker hin! <3",
-    "DESCRIPTION_4": "Das heißt die Gesamtkosten pro Team betragen 60,-€ (20€ Anmeldegebühr pro Person + 20€ Spendendeposit). Bitte sprich Dich mit Deinem Teampartner ab, ob Ihr die Summe von 60€ insgesamt zusammen bezahlt oder, ob jeder seinen Anteil von 30€ einzeln überweist. Für eine erfolreiche Anmeldung muss der Gesamtbetrag bis zum 8.05.2017 überwiesen worden sein. Nutzt hierfür den <strong>angegebenen Verwendungszweck</strong> und folgende Kontoverbindung.",
+    "DESCRIPTION_4": "Das heißt die Gesamtkosten pro Team betragen 60,-€ (20€ Anmeldegebühr pro Person + 20€ Spendendeposit). Für eine erfolreiche Anmeldung muss der Gesamtbetrag bis zum 8.05.2017 überwiesen worden sein. Nutzt hierfür den <strong>angegebenen Verwendungszweck</strong> und folgende Kontoverbindung:",
     "SUBHEADLINE_1": "Überweisung",
     "ACCNUMBER": "IBAN",
     "BANKNUMBER": "BIC",
