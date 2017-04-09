@@ -73,6 +73,7 @@ module.exports = {
     "create_or_join_team": {
       "title": "Create or join a team",
       "description": "You can create a new team and invite your team member or join an existing team.",
+      "no_invitations": "There are no team invitations for you.",
       "team_name": {
         "label": "team name",
         "placeholder": "Choose a team name"

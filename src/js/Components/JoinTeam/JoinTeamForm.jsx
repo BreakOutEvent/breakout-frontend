@@ -62,7 +62,7 @@ export default class JoinTeamForm extends React.Component {
       );
     } else {
       return (
-        <div className="alert alert-info">Es sind leider keine Einladungen vorhanden</div>
+        <div className="alert alert-info">{i18next.t('client.create_or_join_team.no_invitations')}</div>
       );
     }
   }
