@@ -10,7 +10,7 @@ const Success = (props) => {
       <h3>
         {props.title}
       </h3>
-      <p>{props.description}</p>
+      <div>{props.description}</div>
       <div>
         {props.children}
       </div>
@@ -20,7 +20,7 @@ const Success = (props) => {
 
 Success.propTypes = {
   title: React.PropTypes.string.isRequired,
-  description: React.PropTypes.string.isRequired,
+  description: React.PropTypes.any.isRequired,
   children: React.PropTypes.any
 };
 
@@ -47,9 +47,7 @@ class JoinTeamSuccess extends React.Component {
 
   async componentDidMount() {
     const me = await this.props.api.getMe();
-    console.log(me);
     const invoice = await this.props.api.getInvoiceForTeam(me.participant.teamId);
-    console.log(invoice);
     this.setState({
       invoice: invoice
     });
@@ -58,34 +56,52 @@ class JoinTeamSuccess extends React.Component {
   invoiceText() {
     if (this.state.invoice) {
       return <div id="invoice-text">
-        <div className="label label-default">IBAN</div>
-        <div className="content"> 12345678910</div>
-        <div className="label label-default">BIC</div>
-        <div className="content"> 12345678910</div>
-        <div className="label label-default">Zahlungsempfänger</div>
+        <div
+          className="label label-default">{this.props.i18next.t('client.join_team_success.IBAN')}</div>
+        <div className="content">DE60700222000072708326</div>
+        <div
+          className="label label-default">{this.props.i18next.t('client.join_team_success.BIC')}</div>
+        <div className="content">FDDODEMMXXX</div>
+        <div
+          className="label label-default">{this.props.i18next.t('client.join_team_success.payment_reciever')}</div>
         <div className="content">Daria Brauner</div>
-        <div className="label label-default">Überweisungszweck</div>
+        <div
+          className="label label-default">{this.props.i18next.t('client.join_team_success.purpose_of_transaction')}</div>
         <div className="content">{this.state.invoice.purposeOfTransfer}</div>
       </div>;
     } else {
-      return 'Euer Überweisungszweck wird geladen...';
+      return this.props.i18next.t('client.join_team_success.loading_purpose_of_transfer');
     }
   }
 
   render() {
+
+    const description = <div>
+      {this.props.i18next.t('PAYMENT.DESCRIPTION_1')}
+      <ul style={{marginTop: '10px'}}>
+        <li>{this.props.i18next.t('PAYMENT.ELEMENT_1')}</li>
+        <li>{this.props.i18next.t('PAYMENT.ELEMENT_2')}</li>
+        <li>{this.props.i18next.t('PAYMENT.ELEMENT_3')}</li>
+      </ul>
+      <span dangerouslySetInnerHTML={{__html: this.props.i18next.t('PAYMENT.DESCRIPTION_2')}}/> <br/><br/>
+      <span dangerouslySetInnerHTML={{__html: this.props.i18next.t('PAYMENT.DESCRIPTION_3')}}/> <br/><br/>
+      <span dangerouslySetInnerHTML={{__html: this.props.i18next.t('PAYMENT.DESCRIPTION_4')}}/> <br/><br/>
+    </div>;
+
     return (
       <Success title={this.props.i18next.t('client.join_team_success.title')}
-               description={this.props.i18next.t('client.join_team_success.description')}>
+               description={description}>
 
         {this.invoiceText()}
         <div id="success-btn-container">
-          <a href="/">
+          <a href="/settings/sponsoring">
             <div className="btn btn-primary">
-              {this.props.i18next.t('SPECTATOR-SUCCESS.LINK_DESCRIPTION')}
+              {this.props.i18next.t('client.join_team_success.add_sponsorings_link_text')}
             </div>
           </a>
         </div>
-        <div id="success-btn-container"><a href="/">Hier entlang, um Sponsoren einzutragen</a></div>
+        <div id="success-btn-container"><a
+          href="/">{this.props.i18next.t('SPECTATOR-SUCCESS.LINK_DESCRIPTION')}</a></div>
       </Success>
     );
   }
