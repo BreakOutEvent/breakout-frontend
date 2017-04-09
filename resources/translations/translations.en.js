@@ -7,6 +7,7 @@ module.exports = {
       "button_registration_headline": "Create Account",
       "email_label": "Email Address",
       "email_placeholder": "Please enter your email address",
+      "passwords_dont_match": "The passwords you entered did not match",
       "password_label": "Password",
       "password_placeholder": "Please enter your password",
       "password_reset_text": "Forgot your password?",
