@@ -25,9 +25,15 @@
                     <li class="dropdown visible-lg">
                         <a id="userDropDown" class="dropdown-toggle" data-toggle="dropdown"
                            href="#">
+                           {{#if isLoggedIn.me.profilePic.sizes.0.url}}
                             <div style="background-image: url({{isLoggedIn.me.profilePic.sizes.0.url}}); height: 30px; width: 30px;"
-                                 class="bo-profile-image pull-left"></div>
+                                 class="bo-profile-image pull-left" id="navbar-profile-pic"></div>
                             <i class="material-icons">expand_more</i>
+                            {{else}}
+                            <div style="background-image: url('/img/placeholder_profile_pic.jpg'); height: 30px; width: 30px;"
+                                 class="bo-profile-image pull-left" id="navbar-profile-pic"></div>
+                            <i class="material-icons">expand_more</i>
+                            {{/if}}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-right"
                             aria-labelledby="userDropDown">
