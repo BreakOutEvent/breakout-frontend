@@ -7,7 +7,6 @@ module.exports = {
       "button_registration_headline": "Account erstellen",
       "email_label": "Emailadresse",
       "email_placeholder": "Gib eine Emailadresse ein",
-      "passwords_dont_match": "Die eingegebenen Passwörter müssen übereinstimmen",
       "password_label": "Passwort",
       "password_placeholder": "Gib ein Passwort ein",
       "password_reset_text": "Passwort vergessen?",
@@ -20,6 +19,9 @@ module.exports = {
       "request_reset_success": "Wir haben dir eine Email mit Anleitung zum zurücksetzen deines Passworts geschickt",
       "request_reset_not_registered": "Diese Emailadresse existiert nicht",
       "request_reset_enter_email": "Bitte gib eine gültige Emailadresse ein"
+    },
+    "registration": {
+      "passwords_dont_match": "Die eingegebenen Passwörter müssen übereinstimmen",
     },
     "register": {
       "description": "Erstelle einen Account auf break-out.org. Damit kannst du mit Posts der Teilnehmer interagieren, selbst zum Teilnehmer werden oder als Sponsor ein Team unterstützen. Wir freuen uns auf Dich! ",

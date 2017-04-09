@@ -7,7 +7,6 @@ module.exports = {
       "button_registration_headline": "Create Account",
       "email_label": "Email Address",
       "email_placeholder": "Please enter your email address",
-      "passwords_dont_match": "The passwords you entered did not match",
       "password_label": "Password",
       "password_placeholder": "Please enter your password",
       "password_reset_text": "Forgot your password?",
@@ -20,6 +19,9 @@ module.exports = {
       "request_reset_success": "An email with instructions to reset your password was sent to you",
       "request_reset_not_registered": "This email address does not exist",
       "request_reset_enter_email": "Please enter a valid email address"
+    },
+    "registration": {
+      "passwords_dont_match": "The passwords you entered did not match"
     },
     "register": {
       "description": "Create an account on break-out.org. With it, you can interact with posts of participants, become a participant yourself or support a team as their sponsor. Great having you on board!",
