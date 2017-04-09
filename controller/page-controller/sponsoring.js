@@ -47,7 +47,7 @@ sponsoring.showSponsorings = function*(req, res) {
   //CHECK IF USER IS SPONSOR OR PARTICIPANT
   if (!req.user.status.is.team && !req.user.status.is.sponsor) {
     req.flash('error', 'Um diese Seite aufzurufen, musst Du entweder Teil eines Teams oder ein Sponsor sein.');
-    return res.redirect('/selection');
+    return res.redirect('/select-role');
   }
 
   let incSponsoring = [];
