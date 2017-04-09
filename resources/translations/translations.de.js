@@ -35,7 +35,7 @@ module.exports = {
       "participant_text": "Hier kannst du bei BreakOut 2017 teilnehmen und ein Team erstellen oder einem Team beitreten. Als Teilnehmer wird pro Team eine Startgebühr von 60€ fällig.",
       "sponsor_title": "Sponsor",
       "sponsor_text": "Unterstütze ein oder mehrere Teams mit Kilometerspenden oder indem du ihnen eine Challenge stellst.",
-      "description": "Wähle deine Account Rolle, die du bei BreakOut einnehmen möchtest. Du kannst diese später jederzeit wechseln!",
+      "description": "Herzlich Willkommen bei BreakOut! Wir freuen uns, dich als Teil von BreakOut bei uns zu sehen. Du kannst nun eine Rolle auswählen. Du kannst jederzeit über dein Profilmenü hierher zurückkommen. Du kannst auch gleichzeitig Teilnehmer und Sponsor sein!",
       "headline": "Rolle wählen"
     },
     "participate": {

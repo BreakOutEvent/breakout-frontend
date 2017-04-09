@@ -35,7 +35,7 @@ module.exports = {
       "participant_text": "Here you can participate at BreakOut 2017 and create or join a team. A fee of 60€ per team is required after registration.  ",
       "sponsor_title": "Sponsor",
       "sponsor_text": "Support one or more teams with kilometer donations or by setting challenges for them.",
-      "description": "Select an account type for the event. You can change this at any time!",
+      "description": "Welcome to BreakOut! We are happy to see that you want to be a part of BreakOut! You can now select an account type. You can come back here from your profile menu and can change this at any time! You can also be a participant and a sponsor at the same time.",
       "headline": "Select Type"
     },
     "participate": {
