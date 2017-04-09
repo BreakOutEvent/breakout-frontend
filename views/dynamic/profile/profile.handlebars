@@ -78,27 +78,48 @@
             </form>
         </div>
     </div>
+
     <div role="tabpanel" class="tab-pane" id="participant">
         <div class="container bo-profile-form bo-single-row">
             <div id="result_participant"></div>
             <form role="form" id="participant_form">
                 <div class="form-group has-feedback has-feedback-left">
                     <label for="tshirtsize">{{__ 'LABEL_SHIRT'}}</label>
-                    <select class="form-control" id="tshirtsize" name="tshirtsize" readonly>
-                        <option value="xs" {{#ifCond me.participant.tshirtsize "xs"}}selected="selected"{{/ifCond}}>XS
-                        </option>
-                        <option value="s" {{#ifCond me.participant.tshirtsize "s"}}selected="selected"{{/ifCond}}>S
-                        </option>
-                        <option value="m" {{#ifCond me.participant.tshirtsize "m"}}selected="selected"{{/ifCond}}>M
-                        </option>
-                        <option value="l" {{#ifCond me.participant.tshirtsize "l"}}selected="selected"{{/ifCond}}>L
-                        </option>
-                        <option value="xl" {{#ifCond me.participant.tshirtsize "xl"}}selected="selected"{{/ifCond}}>XL
-                        </option>
-                        <option value="xxl" {{#ifCond me.participant.tshirtsize "xxl"}}selected="selected"{{/ifCond}}>
-                            XXL
-                        </option>
-                    </select>
+
+                    {{#ifCond me.gender "male"}}
+                        <select class="form-control" id="tshirtsize" name="tshirtsize" readonly>
+                            <option value="S" {{#ifCond me.participant.tshirtsize "S"}}selected="selected"{{/ifCond}}>S
+                            </option>
+                            <option value="M" {{#ifCond me.participant.tshirtsize "M"}}selected="selected"{{/ifCond}}>M
+                            </option>
+                            <option value="L" {{#ifCond me.participant.tshirtsize "L"}}selected="selected"{{/ifCond}}>L
+                            </option>
+                            <option value="XL" {{#ifCond me.participant.tshirtsize "XL"}}selected="selected"{{/ifCond}}>XL
+                            </option>
+                            <option value="2XL" {{#ifCond me.participant.tshirtsize "2XL"}}selected="selected"{{/ifCond}}>2XL
+                            </option>
+                            <option value="3XL" {{#ifCond me.participant.tshirtsize "3XL"}}selected="selected"{{/ifCond}}>3XL
+                            </option>
+                        </select>
+                    {{/ifCond}}
+
+                    {{#ifCond me.gender "female"}}
+                        <select class="form-control" id="tshirtsize" name="tshirtsize" readonly>
+                            <option value="XS" {{#ifCond me.participant.tshirtsize "XS"}}selected="selected"{{/ifCond}}>XS
+                            </option>
+                            <option value="S" {{#ifCond me.participant.tshirtsize "S"}}selected="selected"{{/ifCond}}>S
+                            </option>
+                            <option value="M" {{#ifCond me.participant.tshirtsize "M"}}selected="selected"{{/ifCond}}>M
+                            </option>
+                            <option value="L" {{#ifCond me.participant.tshirtsize "L"}}selected="selected"{{/ifCond}}>L
+                            </option>
+                            <option value="XL" {{#ifCond me.participant.tshirtsize "XL"}}selected="selected"{{/ifCond}}>XL
+                            </option>
+                            <option value="2XL" {{#ifCond me.participant.tshirtsize "2XL"}}selected="selected"{{/ifCond}}>2XL
+                            </option>
+                        </select>
+                    {{/ifCond}}
+
                     <i class="form-control-feedback material-icons">accessibility</i>
                 </div>
                 <div class="form-group has-feedback has-feedback-left">
@@ -151,11 +172,8 @@
                 </div>
                 <div class="form-group has-feedback has-feedback-left">
                     <label for="location">{{__ 'LABEL_LOCATION'}}</label>
-                    <select class="form-control" id="location" readonly>
-                        <option value="1" {{#ifCond team.event 1}}selected="selected"{{/ifCond}}>Berlin
-                        </option>
-                        <option value="2" {{#ifCond team.event 2}}selected="selected"{{/ifCond}}>München
-                        </option>
+                    <select class="form-control" id="location" disabled>
+                        <option value="{{me.participant.eventCity}}" selected="selected">{{me.participant.eventCity}}</option>
                     </select>
                     <i class="form-control-feedback material-icons">near_me</i>
                 </div>

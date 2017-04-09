@@ -7,9 +7,27 @@ body {
   padding-top: 40px;
   padding-bottom: 40px;
   margin-top: -40px;
-  .image-background("../img/header2.jpg");
+  .image-background("../img/header-faq.jpg");
   min-height: 200px;
   background-size: cover;
+
+  .bo-secondary-nav {
+    li[role="presentation"] {
+      a {
+        color: white;
+      }
+    }
+    .active {
+      a {
+        color: black !important;
+      }
+    }
+  }
+
+  .bo-profile-image {
+    border-width: 2px !important;
+    border-color: white !important;
+  }
 }
 
 .bo-content-header {

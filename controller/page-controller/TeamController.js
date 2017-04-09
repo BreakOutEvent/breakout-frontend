@@ -47,14 +47,6 @@ class TeamController {
 
     const currTeam = yield team.getTeamByUrl(req.params.teamId, req.user);
 
-    if (!currTeam.hasFullyPaid) {
-      res.status(404);
-      return res.render('error', {
-        code: 404,
-        message: `Team ${req.params.teamId} could not be found on this server`
-      });
-    }
-
     let currentUser = null;
     let isUserOfTeam = false;
     let isUserAdmin = false;

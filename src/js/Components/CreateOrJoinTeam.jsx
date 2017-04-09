@@ -67,11 +67,11 @@ class CreateOrJoinTeam extends React.Component {
   render() {
 
     const options = [{
-      text: 'Ein Team erstellen',
+      text: this.props.i18next.t('client.create_team.title'),
       key: 'createTeam',
       isActive: this.state.selectedOption === 'createTeam'
     }, {
-      text: 'Einem Team beitreten',
+      text: this.props.i18next.t('client.join_team.title'),
       key: 'joinTeam',
       isActive: this.state.selectedOption === 'joinTeam'
     }];
