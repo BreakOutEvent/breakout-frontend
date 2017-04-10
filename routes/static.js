@@ -21,7 +21,7 @@ router.get('/next-steps', StaticController.renderNextSteps);
 
 router.get('/imprint', StaticController.renderImprint);
 
-router.get('/statravel', StaticController.renderStatravelPage);
+// router.get('/statravel', StaticController.renderStatravelPage);
 
 router.get('/code-of-honour', StaticController.renderCodeOfHonour);
 

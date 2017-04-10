@@ -256,8 +256,6 @@ class StaticController {
 
     const fields = data[0][0];
 
-    console.log(fields);
-
     let options = extendDefaultOptions(req, {
       PageTitle: fields.PageTitle,
       about: fields.about,
