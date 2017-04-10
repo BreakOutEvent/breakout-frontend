@@ -239,6 +239,31 @@ class StaticController {
     res.render('static/content/imprint', options);
   }
 
+  static *renderStatravelPage(req, res) {
+
+    const data = yield Promise.all([
+      contentful.getFieldsForContentType('staPage', req.contentfulLocale),
+    ]);
+
+    const fields = data[0][0];
+
+    console.log(fields);
+
+    let options = extendDefaultOptions(req, {
+      PageTitle: fields.PageTitle,
+      about: fields.about,
+      description: fields.description,
+      logo: fields.logo,
+      heading: fields.title
+
+    });
+
+    res.render('static/content/statravel', options);
+
+  }
+
+
+
 }
 
 function parseYoutubeUrl(url) {
