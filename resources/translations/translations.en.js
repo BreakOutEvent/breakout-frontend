@@ -65,8 +65,8 @@ module.exports = {
         "label": "Emergency number",
         "placeholder": "Please enter a number which we can contact in case of emergency"
       },
-      "accept_tos": "I hereby accept the <a target=\"_blank\" href=\"/terms-and-conditions\">terms and conditions</a>",
-      "accept_code_of_honour": "I hereby accept the <a target=\"_blank\" href=\"/code-of-honour\">code of honour</a>",
+      "accept_tos": "I hereby accept the <a target=\"_blank\" href=\"/terms-and-conditions\">terms and conditions</a> and the <a target=\"_blank\" href=\"/code-of-honour\">code of honour</a>",
+      "accept_code_of_honour": "I hereby accept the <a target=\"_blank\" href=\"/privacy-policy\">privacy policy</a>",
       "is_18": "I am at least 18 years old",
       "next_step": "Become a participant"
     },

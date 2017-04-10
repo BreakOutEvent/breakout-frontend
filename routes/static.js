@@ -29,6 +29,8 @@ router.get('/terms-and-conditions', StaticController.renderTermsAndConditions);
 
 router.get('/faq', StaticController.renderFAQPage);
 
+router.get('/privacy-policy', StaticController.renderPrivacyPolicy);
+
 router.get('/newsletter', StaticController.render('newsletter', 'Newsletter'));
 
 module.exports = router;

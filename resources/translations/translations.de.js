@@ -65,8 +65,8 @@ module.exports = {
         "label": "Notfallnummer",
         "placeholder": "Gib die Nummer eines Notfallkontakts an"
       },
-      "accept_tos": "Hiermit akzeptiere ich die <a target=\"_blank\" href=\"/terms-and-conditions\">Teilnahmebedingungen</a>",
-      "accept_code_of_honour": "Hiermit akzeptiere ich den <a target=\"_blank\" href=\"/code-of-honour\">Code of Honour</a>",
+      "accept_tos": "Hiermit akzeptiere ich die <a target=\"_blank\" href=\"/terms-and-conditions\">Teilnahmebedingungen</a> und den <a target=\"_blank\" href=\"/code-of-honour\">Code of Honour</a>",
+      "accept_code_of_honour": "Hiermit akzeptiere ich die <a target=\"_blank\" href=\"/privacy-policy\">Datenschutzerklärung</a>",
       "is_18": "Ich bin mindestens 18 Jahre alt",
       "next_step": "Zum Teilnehmer werden"
     },
@@ -433,5 +433,8 @@ module.exports = {
     "POSTS_HEADLINE": "Aktuelle Posts von reisenden Teams",
     "BTN": "Jetzt Sponsor werden!",
     "NEWSLETTER": "Sei bei BreakOut 2017 dabei..."
+  },
+  "CODEOFHONOUR": {
+    "CODE_HEADING": "Code of Honour"
   }
 };

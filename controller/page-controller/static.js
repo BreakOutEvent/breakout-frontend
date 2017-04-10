@@ -24,6 +24,15 @@ class StaticController {
     return masterStaticTemplate(template, title);
   }
 
+  static *renderPrivacyPolicy(req, res) {
+    const data = yield contentful.getFieldsForContentType('privacyPolicy', req.contentfulLocale);
+
+    res.render('static/content/privacyPolicy', extendDefaultOptions(req, {
+      title: data[0].title,
+      textContent: data[0].content
+    }));
+  }
+
   static *renderLandingpage(req, res) {
 
     const data = yield Promise.all([
