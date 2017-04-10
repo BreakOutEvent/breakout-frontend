@@ -20,7 +20,11 @@ class BreakoutApi {
   }
 
   static getClientSideUrl() {
-    return `${window.location.protocol}//${window.location.hostname}:${window.location.port || 80}`;
+    if (window.location.port) {
+      return `${window.location.protocol}//${window.location.hostname}:${window.location.port || 80}`;
+    } else {
+      return `${window.location.protocol}//${window.location.hostname}`;
+    }
   }
 
   registerDebugInterceptor() {
