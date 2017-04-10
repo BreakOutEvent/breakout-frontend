@@ -150,7 +150,8 @@ module.exports = {
     "PLZ_PLACEHOLDER": "80333",
     "COUNTRY_LABEL": "Land",
     "COUNTRY_PLACEHOLDER": "Deutschland",
-    "BUTTON_NEXT": "Jetzt Sponsor werden!"
+    "BUTTON_NEXT": "Jetzt Sponsor werden!",
+    "ACCEPT_SPONSOR_TOS": "Hiermit akzeptiere ich die <a target=\"_blank\" href=\"/sponsor-tos\">Teilnahmebedingungen für Sponsoren</a>"
   },
   "SELECTION": {
     "HEADLINE": "Erfolgreich Registriert",

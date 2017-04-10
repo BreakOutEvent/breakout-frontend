@@ -150,7 +150,8 @@ module.exports = {
     "PLZ_PLACEHOLDER": "80333",
     "COUNTRY_LABEL": "Country",
     "COUNTRY_PLACEHOLDER": "Germany",
-    "BUTTON_NEXT": "Become a sponsor!"
+    "BUTTON_NEXT": "Become a sponsor!",
+    "ACCEPT_SPONSOR_TOS": "I hereby accept the <a target=\"_blank\" href=\"/sponsor-tos\">Terms of Participation for Sponsors</a>"
   },
   "SELECTION": {
     "HEADLINE": "Registration successful",

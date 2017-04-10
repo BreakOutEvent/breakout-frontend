@@ -27,6 +27,8 @@ router.get('/code-of-honour', StaticController.renderCodeOfHonour);
 
 router.get('/terms-and-conditions', StaticController.renderTermsAndConditions);
 
+router.get('/sponsor-tos', StaticController.renderSponsorTermsAndConditions);
+
 router.get('/faq', StaticController.renderFAQPage);
 
 router.get('/privacy-policy', StaticController.renderPrivacyPolicy);
