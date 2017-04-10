@@ -11,9 +11,9 @@ const session = require('../controller/session');
 const upload = multer({inMemory: true});
 const router = new Router();
 
-router.get('/sponsoring', session.isUser, sponsoring.showSponsorings);
+router.get('/sponsoring', session.refreshSession, session.isUser, sponsoring.showSponsorings);
 
-router.get('/profile', session.isUser, ProfileController.showProfile);
+router.get('/profile', session.refreshSession, session.isUser, ProfileController.showProfile);
 
 router.post('/sponsoring/create', session.isUser, upload.single('contract'), sponsoring.create);
 
