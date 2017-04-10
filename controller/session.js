@@ -8,6 +8,7 @@ const co = require('co');
 
 const api = require('../services/api-proxy');
 const passport = require('../services/auth');
+const logger = require('../services/logger.js');
 
 let ses = {};
 
@@ -19,13 +20,17 @@ ses.refreshSession = (req, res, next) => co(function*() {
 
   if (!req.user) {
     next();
+  } else {
+    const session = yield passport.createSession(req.user.email, req.user);
+
+    req.login(session, (error) => {
+      if (error) next(error);
+      if (next) next();
+    });
   }
 
-  req.login(yield passport.createSession(req.user.email, req.user), (error) => {
-    if (error) next(error);
-    if (next) next();
-  });
 }).catch(ex => {
+  logger.error('Rethrowing error: ' + ex);
   throw ex;
 });
 
