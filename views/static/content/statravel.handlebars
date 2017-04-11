@@ -1,0 +1,32 @@
+<!--<div class="bo-header-info"></div>-->
+<header class="img-bg-header" style="
+        background: url({{headerImage.fields.file.url}});
+        /* max-height: 300px; */
+        height: 400px;
+        padding-top: 0;
+        margin-top: -70px;
+        margin-bottom: -1px;
+        background-position: center;
+        background-size: cover;
+        display: flex;
+        align-items: center;
+        justify-content: center">
+    <h1 style="color: white;text-shadow: 2px 2px rgba(93, 93, 93, 0.74);">{{pageTitle}}</h1>
+</header>
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-4 hidden-sm hidden-xs">
+            <img class="media-object media-middle" width="300px;"
+                 src="{{logo.fields.file.url}}"/>
+        </div>
+
+        <div class="col-md-8 top15">
+            <h1>{{heading}}</h1>
+            <p>{{{md text}}}</p>
+        </div>
+    </div>
+</div>
+

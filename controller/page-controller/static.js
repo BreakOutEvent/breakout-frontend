@@ -266,14 +266,13 @@ class StaticController {
     const fields = data[0][0];
 
     let options = extendDefaultOptions(req, {
-      PageTitle: fields.PageTitle,
-      about: fields.about,
-      description: fields.description,
+      pageTitle: fields.PageTitle,
+      headerImage: fields.headerImage,
+      text: fields.description,
       logo: fields.logo,
       heading: fields.title
 
     });
-
     res.render('static/content/statravel', options);
 
   }
