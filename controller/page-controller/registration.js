@@ -111,6 +111,7 @@ registration.createParticipant = (req, res, next) => co(function*() {
   if (req.body.emergencynumber) participant.emergencynumber = req.body.emergencynumber;
   if (req.body.phonenumber) participant.phonenumber = req.body.phonenumber;
   if (req.body.tshirtsize) participant.tshirtsize = req.body.tshirtsize;
+  if (req.body.hometown) participant.hometown = req.body.hometown;
 
   if (Object.keys(participant).length > 0) {
     updateBody.participant = participant;
