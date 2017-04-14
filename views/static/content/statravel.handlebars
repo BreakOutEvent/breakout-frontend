@@ -16,16 +16,19 @@
 
 <div class="container">
 
-    <div class="row">
+    <div class="top30">&nbsp;</div>
+    <div class="row top30">
 
-        <div class="col-md-4 hidden-sm hidden-xs">
-            <img class="media-object media-middle" width="300px;"
+        <div class="col-md-5 top15 hidden-sm hidden-xs">
+            <img class="img-responsive"
                  src="{{logo.fields.file.url}}"/>
         </div>
 
-        <div class="col-md-8 top15">
+        <div class="col-md-7 top15">
             <h1>{{heading}}</h1>
             <p>{{{md text}}}</p>
+            Mit eurer Bewerbung akzeptiert ihr die
+            <a href="{{{termsOfParticipation.fields.file.url}}}">Teilnahmebedingungen</a>
         </div>
     </div>
 </div>

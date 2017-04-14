@@ -270,9 +270,10 @@ class StaticController {
       headerImage: fields.headerImage,
       text: fields.description,
       logo: fields.logo,
-      heading: fields.title
-
+      heading: fields.title,
+      termsOfParticipation: fields.termsOfParticipation
     });
+
     res.render('static/content/statravel', options);
 
   }
