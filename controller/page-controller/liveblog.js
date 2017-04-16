@@ -10,7 +10,7 @@ let liveblog = {};
 
 liveblog.getEventInfos = () => co(function *() {
   let allEvents = yield api.event.all();
-  let events = yield allEvents.map(e => {
+  let events = yield allEvents.filter(e => new Date(e.date * 1000).getFullYear() === 2016).map(e => {
     e.distance = api.event.getDistance(e.id);
     e.donatesum = api.event.getDonateSum(e.id);
     return e;
