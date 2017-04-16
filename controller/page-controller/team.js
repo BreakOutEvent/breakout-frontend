@@ -31,11 +31,16 @@ const sendErr = (res, errMsg, err) => {
 team.getTeamByUrl = (teamId, token) => co(function*() {
   let tempTeam = yield api.team.get(teamId);
 
-  //ONLY VIEW FULLY PAID TEAMS
-  if (!tempTeam.hasFullyPaid) return tempTeam;
 
   let events = yield api.event.all();
   tempTeam.event = events.filter((event) => event.id === tempTeam.event).pop();
+
+  tempTeam.max = {};
+  tempTeam.max.distance = 0;
+  tempTeam.max.donations = 0;
+
+  //ONLY VIEW FULLY PAID TEAMS
+  if (!tempTeam.hasFullyPaid) return tempTeam;
 
   let allSponsors = yield api.sponsoring.getByTeam(tempTeam.event.id, tempTeam.id);
   allSponsors = allSponsors.filter(s => (s.status === 'ACCEPTED' || s.status === 'PAYED') && !s.sponsorIsHidden);
@@ -62,10 +67,8 @@ team.getTeamByUrl = (teamId, token) => co(function*() {
     api.team.getDonations(teamId)
   ];
 
-  tempTeam.max = {};
-  tempTeam.max.distance = distances[0];
-  tempTeam.max.donations = distances[1];
-
+  tempTeam.max.distance = distances[0].distance;
+  tempTeam.max.donations = distances[1].fullSum;
 
   tempTeam.mapData = [{
     id: teamId,

@@ -53,7 +53,7 @@ class TeamController {
 
     if (req.user && req.user.me) {
       currentUser = req.user.me;
-      isUserOfTeam = _.findIndex(currTeam.members, m => m.id == currentUser.id) > -1;
+      isUserOfTeam = _.findIndex(currTeam.members, m => m.id === currentUser.id) > -1;
       isUserAdmin = _.findIndex(req.user.me.roles, r => r === 'ADMIN') > -1;
     }
 
