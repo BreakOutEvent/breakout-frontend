@@ -67,8 +67,8 @@ team.getTeamByUrl = (teamId, token) => co(function*() {
     api.team.getDonations(teamId)
   ];
 
-  tempTeam.max.distance = distances[0].distance;
-  tempTeam.max.donations = distances[1].fullSum;
+  tempTeam.max.distance = distances[0].distance.toFixed(0);
+  tempTeam.max.donations = distances[1].fullSum.toFixed(2);
 
   tempTeam.mapData = [{
     id: teamId,
