@@ -13,7 +13,7 @@ const de = require('../resources/translations/translations.de.js');
 const en = require('../resources/translations/translations.en.js');
 
 i18next.init({
-  fallbackLng: 'de',
+  fallbackLng: 'en',
   resources: {
     de: {
       translation: de
@@ -24,7 +24,7 @@ i18next.init({
   }
 });
 
-const FALLBACK = 'de';
+const FALLBACK = 'en';
 
 let i18n = {};
 

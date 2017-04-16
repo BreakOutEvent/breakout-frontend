@@ -37,7 +37,7 @@ class App extends React.Component {
 
     i18next.init({
       lng: window.getBoUserLang(),
-      fallbackLng: 'de',
+      fallbackLng: 'en',
       resources: {
         de: {
           translation: de
