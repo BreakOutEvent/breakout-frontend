@@ -386,7 +386,7 @@ module.exports = {
     "NEWPOSTCONTENT": "Hello World... :)"
   },
   "MASTER": {
-    "BACK_TO_REGISTER": "Zurück zur Anmeldung",
+    "BACK_TO_REGISTER": "Rolle auswählen",
     "LIVE_BLOG": "Live Blog",
     "LIVE_BLOG_LINK": "/live",
     "ABOUT": "Worum gehts",
