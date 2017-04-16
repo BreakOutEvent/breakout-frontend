@@ -432,7 +432,7 @@ module.exports = {
     "MUNICH": "München",
     "BERLIN": "Berlin",
     "POSTS_HEADLINE": "Aktuelle Posts von reisenden Teams",
-    "BTN": "Jetzt Sponsor werden!",
+    "BTN": "Zur Anmeldung",
     "NEWSLETTER": "Sei bei BreakOut 2017 dabei..."
   },
   "CODEOFHONOUR": {
