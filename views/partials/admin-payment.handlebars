@@ -2,17 +2,21 @@
     <thead>
     <tr>
         <th>Team ID</th>
-        <th>Stadt</th>
+        <th>Invoice ID</th>
+        <th>Teamname</th>
+        <th>Event</th>
         <th>Mitglieder</th>
-        <th>Betrag Offen</th>
-        <th>Zahlungslinks</th>
+        <th>Offener Betrag</th>
+        <th>Zahlungen eintragen</th>
     </tr>
     </thead>
     <tbody>
     {{#each this}}
         <tr>
-            <td>{{team}}</td>
-            <td>{{event}}</td>
+            <td>{{teamId}}</td>
+            <td>{{id}}</td>
+            <td>{{teamName}}</td>
+            <td>{{event.title}}</td>
             <td>
                 {{#each members}}
                     {{firstname}} {{lastname}}{{#if @first}}<br/>{{/if}}

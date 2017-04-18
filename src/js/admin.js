@@ -26,7 +26,7 @@ $(document).ready(() => {
           '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
           'Eintragen von ' + $(button).attr('data-amount') + '€ zu Team ' +
           $(button).attr('data-team') + ' fehlgeschlagen: ' +
-          err.responseJson.message + ' </div>');
+          err.responseJSON.message + ' </div>');
     }).always(() => {
       toggleLoading(this);
     });
@@ -51,7 +51,7 @@ $(document).ready(() => {
         .append('<div class="alert alert-danger alert-dismissable">' +
           '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
           'Eintragen von Team ' + $(button).attr('data-team') + ' fehlgeschlagen: ' +
-          err.responseJson.message + ' </div>');
+          err.responseJSON.message + ' </div>');
     }).always(() => {
       toggleLoading(this);
     });
@@ -79,7 +79,7 @@ $(document).ready(() => {
           '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
           'Eintragen von ' + $('#amount-' + invoiceId).val() + '€ zu Invoice ' +
           invoiceId + ' fehlgeschlagen: ' +
-          err.responseJson + ' </div>');
+          err.responseJSON + ' </div>');
     }).always(() => {
       toggleLoading(this);
     });

@@ -39,6 +39,10 @@ admin.showDashboardPayment = function* (req, res) {
   let options = defaultOptions(req);
   options.view = 'admin-payment';
   options.data = yield admin.getInvoices(req);
+  options.data = options.data
+    .filter(invoice => invoice.event.isCurrent)
+    .sort(invoice => invoice.event.id)
+    .reverse();
   res.render('static/admin/dashboard', options);
 };
 
@@ -56,18 +60,22 @@ admin.showDashboardInvoice = function* (req, res) {
   res.render('static/admin/dashboard', options);
 };
 
-admin.addPayment = function *(req, res, next) {
+admin.addPayment = function *(req, res) {
   logger.info(`Trying to add payment for invoice ${req.body.invoice}`);
 
-  let payment = yield api.postModel(
-    `invoice/${req.body.invoice}/payment/`,
-    req.user,
-    { amount: req.body.amount }
-  );
+  try {
+    let payment = yield api.postModel(`invoice/${req.body.invoice}/payment/`, req.user, {amount: req.body.amount});
+    res.sendStatus(200);
+  } catch (err) {
+    res.status(500);
+    logger.error(`An error occured while trying to add a payment to invoice ${req.body.invoice}: `, err);
+    if (err.message) {
+      res.json({message: err.message});
+    } else {
+      res.json({message: 'An unknown error occured'});
+    }
 
-  if (!payment) return res.sendStatus(500);
-
-  return res.sendStatus(200);
+  }
 };
 
 admin.getInvoices = (req) => co(function*() {
@@ -82,9 +90,11 @@ admin.getInvoices = (req) => co(function*() {
     let t = allTeams[i];
     if(t.members.length > 1) {
       let invoice = yield api.getModel('invoice/teamfee', req.user, t.invoiceId);
-      invoice.event = events[t.event -1].city;
+      invoice.event = events[t.event - 1];
       invoice.members = t.members;
+      invoice.teamName = t.name;
       invoice.id = t.invoiceId;
+      invoice.teamId = t.id;
       if (invoice.payments.length) {
         invoice.open = invoice.amount - invoice.payments.reduce((prev, curr) => {
           return prev + curr.amount;
