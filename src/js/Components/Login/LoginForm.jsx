@@ -59,6 +59,7 @@ export default class LoginForm extends React.Component {
 
         <button id='password-reset-btn'
                 className="btn btn-primary"
+                type="button"
                 onClick={this.props.onPasswordReset}>
           {i18next.t('client.login.password_reset_text')}
         </button>
@@ -73,6 +74,7 @@ export default class LoginForm extends React.Component {
 
         <button id='register-btn'
                 className="btn btn-primary"
+                type="button"
                 onClick={this.props.onRegister}>
           {i18next.t('client.login.button_register_text')}
         </button>
