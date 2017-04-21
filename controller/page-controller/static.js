@@ -116,7 +116,7 @@ class StaticController {
 
     const options = extendDefaultOptions(req, {
       title: 'Press',
-      testimonials: data[0],
+      testimonials: data[0].sort((a, b) => new Date(b.publishedDate) - new Date(a.publishedDate)),
       pressMaterials: data[1],
       pressReviews: data[2],
       pressPage: data[3][0]
