@@ -29,7 +29,7 @@ class TeamController {
       eventsInfo: teamInfo.eventsInfo,
       searchData: searchData,
       isLoggedIn: req.user,
-      title: 'Team Übersicht'
+      title: 'Teams'
     });
   }
 

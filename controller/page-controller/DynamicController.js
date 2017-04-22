@@ -132,24 +132,24 @@ class DynamicController {
 
   static *showHighscores(req, res) {
 
-    let map = yield liveblog.getMapData();
-    let allTeams = yield team.getAll();
+    let teamInfo = yield team.getAll();
+    let map = yield liveblog.getMapData(teamInfo.eventsInfo.activeEvents);
 
-    let sortedTeamsbyDistance = ( _.sortBy(allTeams, t => t.distance.distance)).reverse();
-
-    let sortedTeamsbyMoney = (_.sortBy(allTeams, y => y.donateSum.fullSum)).reverse();
+    let sortedTeamsbyDistance = ( _.sortBy(teamInfo.allTeams, t => t.distance)).reverse();
+    let sortedTeamsbyMoney = (_.sortBy(teamInfo.allTeams, t => t.donateSum.fullSum)).reverse();
 
     let slicedDistance = sortedTeamsbyDistance.slice(0, 5);
     let slicedMoney = sortedTeamsbyMoney.slice(0, 5);
-
 
     res.render('dynamic/liveblog/highscore', {
       error: null,
       layout: 'master',
       language: req.language,
       mapData: map,
+      eventsInfo: teamInfo.eventsInfo,
       teamDistanceData: slicedDistance,
-      teamMoneyData: slicedMoney
+      teamMoneyData: slicedMoney,
+      title: 'Highscore'
     });
   }
 

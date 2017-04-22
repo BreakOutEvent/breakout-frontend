@@ -107,7 +107,7 @@ team.getAll = (sort) => co(function*() {
   let allTeams = _.flatten(allTeamsWithEvent);
   allTeams = allTeams.filter(t => {
     let showTeam = t.event.date * 1000 > new Date().getTime() || t.hasFullyPaid;
-    return showTeam && t.id !== 1
+    return showTeam && t.id !== 1;
   });
 
   if (sort) {
