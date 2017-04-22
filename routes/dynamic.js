@@ -50,6 +50,8 @@ router.get('/login', StaticController.renderLandingpage); // client-side routing
 
 router.get('/live', DynamicController.showLiveBlog);
 
+router.get('/map', DynamicController.showMap);
+
 router.get('/profile', session.isUser, DynamicController.showUserProfile);
 
 router.get('/logout', session.isUser, DynamicController.logout);

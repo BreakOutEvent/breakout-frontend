@@ -42,6 +42,22 @@ class DynamicController {
 
   }
 
+  static *showMap(req, res) {
+    let events = yield liveblog.getEventInfos(req.session.activeEvents);
+
+    let options = yield {
+      layout: 'master',
+      language: req.language,
+      mapData: liveblog.getMapData(events.activeEvents),
+      isLoggedIn: req.user,
+      title: 'Liveblog'
+    };
+
+    options.counter = yield liveblog.getCounterInfos(events.individual);
+
+    res.render('dynamic/liveblog/map', options);
+  }
+
   static *showUserProfile(req, res) {
 
     let team = null;

@@ -11,6 +11,10 @@ var exportsMap = {
 var markers_list = [];
 
 exportsMap.init = function (id, teams) {
+  if (window.fullheight) {
+    $('#' + id).height($(window).height() - 60 - 50);
+  }
+
   var munich = new google.maps.LatLng(48.150676, 11.580984);
   var berlin = new google.maps.LatLng(52.512643, 13.321876);
   var barcelona = new google.maps.LatLng(41.3947688, 2.0787279);
@@ -24,7 +28,7 @@ exportsMap.init = function (id, teams) {
     styles: mapstyle(),
     zoom: maximum_zoom,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
-    scrollwheel: false
+    scrollwheel: window.scrollwheel | false
   };
 
   exportsMap.map = new google.maps.Map(document.getElementById(id), mapOptions);
