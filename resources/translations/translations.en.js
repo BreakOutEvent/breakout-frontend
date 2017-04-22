@@ -427,11 +427,12 @@ module.exports = {
     "TIME_PRE": "Until BreakOut starts",
     "TIME_DURING": "Until BreakOut ends",
     "TIME_POST": "Since BreakOut",
+    "TIME_DAYS": "Days",
     "DONATIONS": "Donations",
     "DISTANCE": "Distance",
     "MUNICH": "Munich",
     "BERLIN": "Berlin",
-    "POSTS_HEADLINE": "Posts from participating teams",
+    "POSTS_HEADLINE": "Posts from teams",
     "BTN": "Become a sponsor now!",
     "NEWSLETTER": "Be part of BreakOut 2017..."
   },

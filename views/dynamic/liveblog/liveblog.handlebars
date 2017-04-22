@@ -3,23 +3,26 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
-            <h1 class="text-center">BreakOut 2016 - Liveblog</h1>
+            <h1 class="text-center">BreakOut {{events.eventString}}{{#if events.allCurrent}} - Liveblog {{/if}}</h1>
         </div>
     </div>
     <div class="row bo-lb-counter-wrap">
         <div class="col-xs-12">
-            <!--<div class="col-md-4 text-center">
+            {{#if counter}}
+                <div class="col-md-4 text-center">
                 <span class="bo-lb-counter" id="boLBCounter" data-start="{{counter.start}}" data-end="{{counter.end}}"
                       data-status="{{counter.status}}"></span>
-                <p id="boLbCounterDescription"></p>
-                <h3>{{__ 'TIME_H'}}</h3>
-            </div>
-            -->
-            <div class="col-md-offset-2 col-md-4 text-center">
+                    <h3 id="boLbCounterDescription"></h3>
+                </div>
+            {{/if}}
+            <div class="{{#unless counter}}col-md-offset-2 {{/unless}} col-md-4 text-center">
                 <span class="bo-lb-counter"><span id="bo-donate-sum">{{round events.global.donatesum}}</span> €</span>
                 <p>
                     {{#each events.individual}}
-                        {{#unless @first}} & {{/unless}}<span class="bo-donate-sum" data-id="{{id}}">{{round donatesum.fullSum}}</span>€ {{city}}
+                        {{#unless @first}} & {{/unless}}
+                        <span class="bo-donate-sum" data-id="{{id}}">
+                            {{round donatesum.fullSum}}
+                        </span>€ {{city}} {{#unless ../events.allSameYear}} {{year}} {{/unless}}
                     {{/each}}
                 </p>
                 <h3>{{__ 'DONATIONS'}}</h3>
@@ -28,7 +31,10 @@
                 <span class="bo-lb-counter"><span id="bo-distance-sum">{{round events.global.distance}}</span> km</span>
                 <p>
                     {{#each events.individual}}
-                        {{#unless @first}} & {{/unless}}<span class="bo-distance-sum" data-id="{{id}}">{{round distance.distance}}</span> km {{city}}
+                        {{#unless @first}} & {{/unless}}
+                        <span class="bo-distance-sum" data-id="{{id}}">
+                            {{round distance.distance}}
+                        </span> km {{city}} {{#unless ../events.allSameYear}} {{year}} {{/unless}}
                     {{/each}}
                 </p>
                 <h3>{{__ 'DISTANCE'}}</h3>
@@ -62,7 +68,7 @@
     </div>
     <div class="row">
         <div class="col-xs-12">
-            <h2>{{__ 'POSTS_HEADLINE'}}</h2>
+            <h2>{{__ 'POSTS_HEADLINE'}} {{events.eventString}}</h2>
         </div>
         <div class="clearfix"></div>
         <div id="teamPosts">
@@ -76,7 +82,9 @@
     </div>
 </div>
 <script>
+    window.activeEvents = {{{json activeEvents}}};
     window.mapData = {{{json mapData}}};
+    window.days = '{{__ 'TIME_DAYS'}}';
     window.states = {
         pre: '{{__ 'TIME_PRE'}}',
         during: '{{__ 'TIME_DURING'}}',

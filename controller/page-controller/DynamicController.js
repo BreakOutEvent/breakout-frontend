@@ -20,13 +20,17 @@ class DynamicController {
       isUserAdmin = _.findIndex(req.user.me.roles, r => r === 'ADMIN') > -1;
     }
 
+    let events = yield liveblog.getEventInfos(null);
+    let activeEvents = events.activeEvents;
+
     let options = yield {
+      activeEvents: activeEvents,
       error: req.flash('error'),
       layout: 'master',
       language: req.language,
-      events: liveblog.getEventInfos(),
-      postings: liveblog.getAllPostings(token),
-      mapData: liveblog.getMapData(),
+      events: events,
+      postings: liveblog.getAllPostings(activeEvents, token),
+      mapData: liveblog.getMapData(activeEvents),
       isLoggedIn: req.user,
       isUserAdmin: isUserAdmin,
       title: 'Liveblog'

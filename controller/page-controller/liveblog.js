@@ -8,16 +8,44 @@ const api = require('../../services/api-proxy');
 
 let liveblog = {};
 
-liveblog.getEventInfos = () => co(function *() {
+liveblog.getEventInfos = (activeEvents) => co(function *() {
   let allEvents = yield api.event.all();
-  let events = yield allEvents.filter(e => new Date(e.date * 1000).getFullYear() === 2016).map(e => {
+  if (!activeEvents) activeEvents = allEvents.filter(e => e.isCurrent).map(e => e.id);
+
+  let filteredEvents = allEvents.filter(e => activeEvents.includes(e.id)).map(e => {
+    e.year = new Date(e.date * 1000).getFullYear();
+    return e;
+  });
+  let events = yield filteredEvents.map(e => {
     e.distance = api.event.getDistance(e.id);
     e.donatesum = api.event.getDonateSum(e.id);
     return e;
   });
 
+  let countEvents = { 2016: 2, 2017: 3 };
+
+  let allSameYear = filteredEvents.every(e => e.year === filteredEvents[0].year);
+  let allOfYear = allSameYear && filteredEvents.length === countEvents[filteredEvents[0].year];
+  let allCurrent = filteredEvents.every(e => e.isCurrent);
+
+  var eventString = events.map(e => {
+    return `${e.city} ${e.year}`;
+  }).join(' & ');
+
+  if (allSameYear) {
+    let eventCities = events.map(e => e.city).join(' & ');
+    eventString = `${filteredEvents[0].year} ${eventCities}`;
+  }
+
+  if (allOfYear) eventString = filteredEvents[0].year;
+
   return {
+    activeEvents: activeEvents,
+    allSameYear: allSameYear,
+    allOfYear: allOfYear,
+    allCurrent: allCurrent,
     individual: events,
+    eventString: eventString,
     global: {
       donatesum: events.reduce((prev, curr) => {
         return prev + curr.donatesum.fullSum;
@@ -32,23 +60,24 @@ liveblog.getEventInfos = () => co(function *() {
   throw ex;
 });
 
-liveblog.getAllPostings = (token) => co(function *() {
-  return api.posting.getAllPostings(token, 0, 30);
+liveblog.getAllPostings = (activeEvents, token) => co(function *() {
+  let postings = yield api.posting.getAllPostings(token, 0);
+  return postings.filter(p => activeEvents.includes(p.user.participant.eventId));
 }).catch(ex => {
   throw ex;
 });
 
 liveblog.getCounterInfos = (events) => co(function *() {
 
-  if (events[0].date !== events[1].date) {
-    throw 'Business logic missing!';
+  if (events.every(e => e.date === events[0].date && e.isCurrent)) {
+    return {
+      start: events[0].date * 1000,
+      end: events[0].date * 1000 + (events[0].duration * 60 * 60 * 1000),
+      current: Date.now()
+    };
+  } else {
+    return null;
   }
-
-  return {
-    start: events[0].date * 1000,
-    end: events[0].date * 1000 + (events[0].duration * 60 * 60 * 1000),
-    current: Date.now()
-  };
 
 }).catch(ex => {
   throw ex;
@@ -58,12 +87,14 @@ liveblog.returnPostings = (req, res, next) => co(function *() {
 
   var token = req.isAuthenticated() ? req.user : null;
   var page = req.body.page ? req.body.page : null;
+  var activeEvents = req.body.activeEvents ? req.body.activeEvents.map(e => parseInt(e)) : null;
 
   let postings = yield api.posting.getAllPostings(token, page);
+  let filteredPostings = postings.filter(p => activeEvents.includes(p.user.participant.eventId));
 
   return res.render('dynamic/liveblog/postings', {
     layout: false,
-    postings: postings
+    postings: filteredPostings
   });
 
 
@@ -71,10 +102,11 @@ liveblog.returnPostings = (req, res, next) => co(function *() {
   throw ex;
 });
 
-liveblog.getMapData = () => co(function *() {
+liveblog.getMapData = (activeEvents) => co(function *() {
 
   let allEvents = yield api.event.all();
-  let locationsEvents = yield allEvents.map(e => {
+  let filteredEvents = allEvents.filter(e => activeEvents.includes(e.id));
+  let locationsEvents = yield filteredEvents.map(e => {
     return api.location.getByEvent(e.id);
   });
 
