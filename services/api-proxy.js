@@ -687,6 +687,46 @@ API.event.all = function () {
   return API.general.get('/event/');
 };
 
+API.event.allActiveInfo = (activeEvents) => co(function *() {
+  let allEvents = yield API.event.all();
+  if (!activeEvents) activeEvents = allEvents.filter(e => e.isCurrent).map(e => e.id);
+
+  let filteredEvents = allEvents.filter(e => activeEvents.includes(e.id)).map(e => {
+    e.year = new Date(e.date * 1000).getFullYear();
+    return e;
+  });
+
+  let countEvents = { 2016: 2, 2017: 3 };
+
+  let allSameYear = filteredEvents.every(e => e.year === filteredEvents[0].year);
+  let allOfYear = allSameYear && filteredEvents.length === countEvents[filteredEvents[0].year];
+  let allCurrent = filteredEvents.every(e => e.isCurrent);
+  let hasAfterCurrentStart = filteredEvents.filter(e => e.isCurrent && e.date * 1000 < new Date().getTime()).length > 0;
+
+  var eventString = filteredEvents.map(e => {
+    return `${e.city} ${e.year}`;
+  }).join(' & ');
+
+  if (allSameYear) {
+    let eventCities = filteredEvents.map(e => e.city).join(' & ');
+    eventString = `${filteredEvents[0].year} ${eventCities}`;
+  }
+
+  if (allOfYear) eventString = filteredEvents[0].year;
+
+  return {
+    activeEvents: activeEvents,
+    allSameYear: allSameYear,
+    allOfYear: allOfYear,
+    allCurrent: allCurrent,
+    hasAfterCurrentStart: hasAfterCurrentStart,
+    events: filteredEvents,
+    eventString: eventString
+  };
+}).catch(ex => {
+  throw ex;
+});
+
 API.event.getDonateSum = function (eventId) {
   return API.general.get(`/event/${eventId}/donatesum/`);
 };

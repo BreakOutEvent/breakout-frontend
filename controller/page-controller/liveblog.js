@@ -9,43 +9,21 @@ const api = require('../../services/api-proxy');
 let liveblog = {};
 
 liveblog.getEventInfos = (activeEvents) => co(function *() {
-  let allEvents = yield api.event.all();
-  if (!activeEvents) activeEvents = allEvents.filter(e => e.isCurrent).map(e => e.id);
+  let eventsInfo = yield api.event.allActiveInfo(activeEvents);
 
-  let filteredEvents = allEvents.filter(e => activeEvents.includes(e.id)).map(e => {
-    e.year = new Date(e.date * 1000).getFullYear();
-    return e;
-  });
-  let events = yield filteredEvents.map(e => {
+  let events = yield eventsInfo.events.map(e => {
     e.distance = api.event.getDistance(e.id);
     e.donatesum = api.event.getDonateSum(e.id);
     return e;
   });
 
-  let countEvents = { 2016: 2, 2017: 3 };
-
-  let allSameYear = filteredEvents.every(e => e.year === filteredEvents[0].year);
-  let allOfYear = allSameYear && filteredEvents.length === countEvents[filteredEvents[0].year];
-  let allCurrent = filteredEvents.every(e => e.isCurrent);
-
-  var eventString = events.map(e => {
-    return `${e.city} ${e.year}`;
-  }).join(' & ');
-
-  if (allSameYear) {
-    let eventCities = events.map(e => e.city).join(' & ');
-    eventString = `${filteredEvents[0].year} ${eventCities}`;
-  }
-
-  if (allOfYear) eventString = filteredEvents[0].year;
-
   return {
-    activeEvents: activeEvents,
-    allSameYear: allSameYear,
-    allOfYear: allOfYear,
-    allCurrent: allCurrent,
+    activeEvents: eventsInfo.activeEvents,
+    allSameYear: eventsInfo.allSameYear,
+    allOfYear: eventsInfo.allOfYear,
+    allCurrent: eventsInfo.allCurrent,
     individual: events,
-    eventString: eventString,
+    eventString: eventsInfo.eventString,
     global: {
       donatesum: events.reduce((prev, curr) => {
         return prev + curr.donatesum.fullSum;

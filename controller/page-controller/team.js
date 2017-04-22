@@ -33,7 +33,10 @@ team.getTeamByUrl = (teamId, token) => co(function*() {
 
 
   let events = yield api.event.all();
-  tempTeam.event = events.filter((event) => event.id === tempTeam.event).pop();
+  tempTeam.event = events.filter((event) => event.id === tempTeam.event).map(e => {
+    e.year = new Date(e.date * 1000).getFullYear();
+    return e;
+  }).pop();
 
   tempTeam.max = {};
   tempTeam.max.distance = 0;
@@ -53,7 +56,7 @@ team.getTeamByUrl = (teamId, token) => co(function*() {
   tempTeam.challenges = allChallenges.filter(s => s.status === 'ACCEPTED' || s.status === 'WITH_PROOF' || s.status === 'PROOF_ACCEPTED');
   tempTeam.openChallenges = allChallenges.filter(s => s.status === 'ACCEPTED');
 
-  tempTeam.postings = yield api.team.getPostings(token,teamId, 0);
+  tempTeam.postings = yield api.team.getPostings(token, teamId, 0);
 
   let locations = _.map(
     _.sortBy(
@@ -91,28 +94,32 @@ team.getTeamByUrl = (teamId, token) => co(function*() {
 
 team.getAll = (sort) => co(function*() {
 
-  const events = yield api.event.all();
+  let eventsInfo = yield api.event.allActiveInfo(null);
 
-  let teamsByEvent = yield events.map((e) => api.team.getAllByEvent(e.id));
-
-  let allTeams = teamsByEvent.map((teams, index) => {
-    return teams.map(team => {
-      team.city = events[index].city;
-      team.event = events[index].id;
+  let allTeamsEvents = yield eventsInfo.events.map((e) => api.team.getAllByEvent(e.id));
+  let allTeamsWithEvent = allTeamsEvents.map(events => {
+    return events.map(team => {
+      team.event = eventsInfo.events.filter(e => e.id === team.event).pop();
       return team;
     });
   });
 
-  allTeams = _.flatten(allTeams);
-  allTeams = allTeams.filter(t => t.hasFullyPaid && t.id !== 1);
+  let allTeams = _.flatten(allTeamsWithEvent);
+  allTeams = allTeams.filter(t => {
+    let showTeam = t.event.date * 1000 > new Date().getTime() || t.hasFullyPaid;
+    return showTeam && t.id !== 1
+  });
+
   if (sort) {
     allTeams = _.sortBy(allTeams, t => t[sort]);
   } else {
     allTeams = _.shuffle(allTeams);
   }
 
-  return allTeams;
-
+  return {
+    allTeams: allTeams,
+    eventsInfo: eventsInfo
+  };
 }).catch((ex) => {
   throw ex;
 });
