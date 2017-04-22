@@ -1,10 +1,15 @@
 <div class="container">
-    <div class="row" id="boLiveblogHeadline">
+    <div class="row">
         <div class="col-md-9">
             <h1>BreakOut {{events.eventString}}{{#if events.allCurrent}} - Liveblog {{/if}}</h1>
         </div>
         <div class="col-md-3">
             {{> choose-event events}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <hr class="bo-lb-divider"/>
         </div>
     </div>
     <div class="row bo-lb-counter-wrap">
