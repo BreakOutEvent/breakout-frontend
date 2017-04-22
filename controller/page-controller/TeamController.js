@@ -6,7 +6,7 @@ const _ = require('lodash');
 class TeamController {
 
   static *showTeamOverview(req, res) {
-    const teamInfo = yield team.getAll();
+    const teamInfo = yield team.getAll(req.session.activeEvents);
     const searchData = teamInfo.allTeams.map(t => {
       let members = t.members.map(m => {
         return {

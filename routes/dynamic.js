@@ -72,6 +72,8 @@ router.get('/highscore', DynamicController.showHighscores);
 
 router.post('/liveblog/posting/', liveblog.returnPostings);
 
+router.post('/liveblog/chooseEvent/', liveblog.chooseEvent);
+
 router.post('/participant', session.isUser, upload.single('profilePic'), registration.createParticipant);
 
 router.post('/register', registration.createUser);

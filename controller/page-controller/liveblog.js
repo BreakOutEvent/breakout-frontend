@@ -23,6 +23,7 @@ liveblog.getEventInfos = (activeEvents) => co(function *() {
     allOfYear: eventsInfo.allOfYear,
     allCurrent: eventsInfo.allCurrent,
     individual: events,
+    allByYear: eventsInfo.allByYear,
     eventString: eventsInfo.eventString,
     global: {
       donatesum: events.reduce((prev, curr) => {
@@ -60,6 +61,33 @@ liveblog.getCounterInfos = (events) => co(function *() {
 }).catch(ex => {
   throw ex;
 });
+
+liveblog.chooseEvent = (req, res, next) => co(function *() {
+  if (!req.session.activeEvents) req.session.activeEvents = [];
+
+  let eventId = parseInt(req.body.eventId);
+  let activate = req.body.activate === 'true';
+
+  if (activate) {
+    if (!req.session.activeEvents.includes(eventId)) {
+      req.session.activeEvents.push(eventId);
+      req.session.save();
+      res.send('activated event ' + eventId);
+    }
+  } else {
+    req.session.activeEvents = req.session.activeEvents.filter(id => id !== eventId);
+    if (req.session.activeEvents.length === 0) {
+      let events = yield liveblog.getEventInfos(req.session.activeEvents);
+      req.session.activeEvents = events.activeEvents;
+    }
+    req.session.save();
+    res.send('deactivated event ' + eventId);
+  }
+  res.status(400).send('not working ' + eventId);
+}).catch(ex => {
+  throw ex;
+});
+
 
 liveblog.returnPostings = (req, res, next) => co(function *() {
 
@@ -100,9 +128,7 @@ liveblog.getMapData = (activeEvents) => co(function *() {
     teams[tl.id] = {
       id: tl.id,
       name: tl.name,
-      event: allEvents.find(e => {
-        return e.id == tl.event;
-      }),
+      event: allEvents.find(e => e.id === tl.event),
       locations: tl.locations
     };
   });

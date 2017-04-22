@@ -1,9 +1,12 @@
 <div class="bo-header-info bo-team-header">
 </div>
 <div class="container">
-    <div class="row">
-        <div class="col-xs-12">
-            <h1 class="text-center">BreakOut {{events.eventString}}{{#if events.allCurrent}} - Liveblog {{/if}}</h1>
+    <div class="row" id="boLiveblogHeadline">
+        <div class="col-md-9">
+            <h1>BreakOut {{events.eventString}}{{#if events.allCurrent}} - Liveblog {{/if}}</h1>
+        </div>
+        <div class="col-md-3">
+            {{> choose-event events}}
         </div>
     </div>
     <div class="row bo-lb-counter-wrap">

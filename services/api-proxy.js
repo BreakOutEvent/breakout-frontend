@@ -689,19 +689,35 @@ API.event.all = function () {
 
 API.event.allActiveInfo = (activeEvents) => co(function *() {
   let allEvents = yield API.event.all();
-  if (!activeEvents) activeEvents = allEvents.filter(e => e.isCurrent).map(e => e.id);
-
-  let filteredEvents = allEvents.filter(e => activeEvents.includes(e.id)).map(e => {
+  allEvents = allEvents.map(e => {
     e.year = new Date(e.date * 1000).getFullYear();
+
+    if (!activeEvents || activeEvents.length === 0) {
+      e.isActive = e.isCurrent;
+    } else {
+      e.isActive = activeEvents.includes(e.id);
+    }
+
     return e;
   });
 
-  let countEvents = { 2016: 2, 2017: 3 };
+  activeEvents = allEvents.filter(e => e.isActive).map(e => e.id);
+  let filteredEvents = allEvents.filter(e => activeEvents.includes(e.id));
+
+  let allByYear = {};
+  allEvents.forEach(e => {
+    let key = e.year;
+    allByYear[key] = allByYear[key] || [];
+    allByYear[key].push(e);
+  });
+
+  let countEvents = {};
+  Object.keys(allByYear).map(year => countEvents[year] = allByYear[year].length);
 
   let allSameYear = filteredEvents.every(e => e.year === filteredEvents[0].year);
   let allOfYear = allSameYear && filteredEvents.length === countEvents[filteredEvents[0].year];
   let allCurrent = filteredEvents.every(e => e.isCurrent);
-  let hasAfterCurrentStart = filteredEvents.filter(e => e.isCurrent && e.date * 1000 < new Date().getTime()).length > 0;
+  let hasActiveAfterStart = filteredEvents.filter(e => e.isActive && e.date * 1000 < new Date().getTime()).length > 0;
 
   var eventString = filteredEvents.map(e => {
     return `${e.city} ${e.year}`;
@@ -716,10 +732,11 @@ API.event.allActiveInfo = (activeEvents) => co(function *() {
 
   return {
     activeEvents: activeEvents,
+    allByYear: allByYear,
     allSameYear: allSameYear,
     allOfYear: allOfYear,
     allCurrent: allCurrent,
-    hasAfterCurrentStart: hasAfterCurrentStart,
+    hasActiveAfterStart: hasActiveAfterStart,
     events: filteredEvents,
     eventString: eventString
   };

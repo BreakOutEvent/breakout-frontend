@@ -20,7 +20,7 @@ class DynamicController {
       isUserAdmin = _.findIndex(req.user.me.roles, r => r === 'ADMIN') > -1;
     }
 
-    let events = yield liveblog.getEventInfos(null);
+    let events = yield liveblog.getEventInfos(req.session.activeEvents);
     let activeEvents = events.activeEvents;
 
     let options = yield {
@@ -132,7 +132,7 @@ class DynamicController {
 
   static *showHighscores(req, res) {
 
-    let teamInfo = yield team.getAll();
+    let teamInfo = yield team.getAll(req.session.activeEvents);
     let map = yield liveblog.getMapData(teamInfo.eventsInfo.activeEvents);
 
     let sortedTeamsbyDistance = ( _.sortBy(teamInfo.allTeams, t => t.distance)).reverse();

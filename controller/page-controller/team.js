@@ -92,9 +92,9 @@ team.getTeamByUrl = (teamId, token) => co(function*() {
   throw ex;
 });
 
-team.getAll = (sort) => co(function*() {
+team.getAll = (activeEvents, sort) => co(function*() {
 
-  let eventsInfo = yield api.event.allActiveInfo(null);
+  let eventsInfo = yield api.event.allActiveInfo(activeEvents);
 
   let allTeamsEvents = yield eventsInfo.events.map((e) => api.team.getAllByEvent(e.id));
   let allTeamsWithEvent = allTeamsEvents.map(events => {
