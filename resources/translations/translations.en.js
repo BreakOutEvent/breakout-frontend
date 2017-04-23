@@ -434,5 +434,8 @@ module.exports = {
     "POSTS_HEADLINE": "Posts from participating teams",
     "BTN": "Become a sponsor now!",
     "NEWSLETTER": "Be part of BreakOut 2017..."
+  },
+  "CODEOFHONOUR": {
+    "CODE_HEADING": "Code of Honour"
   }
 };
