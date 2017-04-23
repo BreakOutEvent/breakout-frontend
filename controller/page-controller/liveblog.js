@@ -41,7 +41,7 @@ liveblog.getEventInfos = (activeEvents) => co(function *() {
 
 liveblog.getAllPostings = (activeEvents, token) => co(function *() {
   let postings = yield api.posting.getAllPostings(token, 0);
-  return postings.filter(p => activeEvents.includes(p.user.participant.eventId));
+  return postings.filter(p => _.includes(activeEvents, p.user.participant.eventId));
 }).catch(ex => {
   throw ex;
 });
@@ -69,7 +69,7 @@ liveblog.chooseEvent = (req, res, next) => co(function *() {
   let activate = req.body.activate === 'true';
 
   if (activate) {
-    if (!req.session.activeEvents.includes(eventId)) {
+    if (!_.includes(req.session.activeEvents, eventId)) {
       req.session.activeEvents.push(eventId);
       req.session.save();
       res.send('activated event ' + eventId);
@@ -96,7 +96,7 @@ liveblog.returnPostings = (req, res, next) => co(function *() {
   var activeEvents = req.body.activeEvents ? req.body.activeEvents.map(e => parseInt(e)) : null;
 
   let postings = yield api.posting.getAllPostings(token, page);
-  let filteredPostings = postings.filter(p => activeEvents.includes(p.user.participant.eventId));
+  let filteredPostings = postings.filter(p => _.includes(activeEvents, p.user.participant.eventId));
 
   return res.render('dynamic/liveblog/postings', {
     layout: false,
@@ -111,7 +111,7 @@ liveblog.returnPostings = (req, res, next) => co(function *() {
 liveblog.getMapData = (activeEvents) => co(function *() {
 
   let allEvents = yield api.event.all();
-  let filteredEvents = allEvents.filter(e => activeEvents.includes(e.id));
+  let filteredEvents = allEvents.filter(e => _.includes(activeEvents, e.id));
   let locationsEvents = yield filteredEvents.map(e => {
     return api.location.getByEvent(e.id);
   });

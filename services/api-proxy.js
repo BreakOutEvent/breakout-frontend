@@ -11,6 +11,7 @@ const crequest = require('co-request');
 const config = require('../config/config.js');
 const url = `${config.api.protocol}://${config.api.url}`;
 const logger = require('../services/logger');
+const _ = require('lodash');
 
 Object.keys(config).forEach(k => {
   if (!config[k])
@@ -695,14 +696,14 @@ API.event.allActiveInfo = (activeEvents) => co(function *() {
     if (!activeEvents || activeEvents.length === 0) {
       e.isActive = e.isCurrent;
     } else {
-      e.isActive = activeEvents.includes(e.id);
+      e.isActive = _.includes(activeEvents, e.id);
     }
 
     return e;
   });
 
   activeEvents = allEvents.filter(e => e.isActive).map(e => e.id);
-  let filteredEvents = allEvents.filter(e => activeEvents.includes(e.id));
+  let filteredEvents = allEvents.filter(e => _.includes(activeEvents, e.id));
 
   let allByYear = {};
   allEvents.forEach(e => {
