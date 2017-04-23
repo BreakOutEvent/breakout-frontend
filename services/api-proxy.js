@@ -11,6 +11,7 @@ const crequest = require('co-request');
 const config = require('../config/config.js');
 const url = `${config.api.protocol}://${config.api.url}`;
 const logger = require('../services/logger');
+const _ = require('lodash');
 
 Object.keys(config).forEach(k => {
   if (!config[k])
@@ -686,6 +687,63 @@ API.event.get = function (eventId) {
 API.event.all = function () {
   return API.general.get('/event/');
 };
+
+API.event.allActiveInfo = (activeEvents) => co(function *() {
+  let allEvents = yield API.event.all();
+  allEvents = allEvents.map(e => {
+    e.year = new Date(e.date * 1000).getFullYear();
+
+    if (!activeEvents || activeEvents.length === 0) {
+      e.isActive = e.isCurrent;
+    } else {
+      e.isActive = _.includes(activeEvents, e.id);
+    }
+
+    return e;
+  });
+
+  activeEvents = allEvents.filter(e => e.isActive).map(e => e.id);
+  let filteredEvents = allEvents.filter(e => _.includes(activeEvents, e.id));
+
+  let allByYear = {};
+  allEvents.forEach(e => {
+    let key = e.year;
+    allByYear[key] = allByYear[key] || [];
+    allByYear[key].push(e);
+  });
+
+  let countEvents = {};
+  Object.keys(allByYear).map(year => countEvents[year] = allByYear[year].length);
+
+  let allSameYear = filteredEvents.every(e => e.year === filteredEvents[0].year);
+  let allOfYear = allSameYear && filteredEvents.length === countEvents[filteredEvents[0].year];
+  let allCurrent = filteredEvents.every(e => e.isCurrent);
+  let hasActiveAfterStart = filteredEvents.filter(e => e.isActive && e.date * 1000 < new Date().getTime()).length > 0;
+
+  var eventString = filteredEvents.map(e => {
+    return `${e.city} ${e.year}`;
+  }).join(' & ');
+
+  if (allSameYear) {
+    let eventCities = filteredEvents.map(e => e.city).join(' & ');
+    eventString = `${filteredEvents[0].year} ${eventCities}`;
+  }
+
+  if (allOfYear) eventString = filteredEvents[0].year;
+
+  return {
+    activeEvents: activeEvents,
+    allByYear: allByYear,
+    allSameYear: allSameYear,
+    allOfYear: allOfYear,
+    allCurrent: allCurrent,
+    hasActiveAfterStart: hasActiveAfterStart,
+    events: filteredEvents,
+    eventString: eventString
+  };
+}).catch(ex => {
+  throw ex;
+});
 
 API.event.getDonateSum = function (eventId) {
   return API.general.get(`/event/${eventId}/donatesum/`);

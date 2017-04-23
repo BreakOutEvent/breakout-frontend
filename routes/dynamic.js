@@ -50,6 +50,8 @@ router.get('/login', StaticController.renderLandingpage); // client-side routing
 
 router.get('/live', DynamicController.showLiveBlog);
 
+router.get('/map', DynamicController.showMap);
+
 router.get('/profile', session.isUser, DynamicController.showUserProfile);
 
 router.get('/logout', session.isUser, DynamicController.logout);
@@ -71,6 +73,8 @@ router.get('/sponsoring', DynamicController.showHowToSponsor);
 router.get('/highscore', DynamicController.showHighscores);
 
 router.post('/liveblog/posting/', liveblog.returnPostings);
+
+router.post('/liveblog/chooseEvent/', liveblog.chooseEvent);
 
 router.post('/participant', session.isUser, upload.single('profilePic'), registration.createParticipant);
 

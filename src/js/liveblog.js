@@ -44,7 +44,7 @@ $(document).ready(function () {
       - (counter.time.minutes * 60 * 1000)) / 1000);
 
     if (counter.time.days > 1) {
-      $counter.html(leftPad(counter.time.days) + ':' + leftPad(counter.time.hours) + ':' + leftPad(counter.time.minutes) + ':' + leftPad(counter.time.seconds));
+      $counter.html(leftPad(counter.time.days) + ' ' + window.days + ' ' + leftPad(counter.time.hours) + ':' + leftPad(counter.time.minutes) + ':' + leftPad(counter.time.seconds));
     } else {
       $counter.html(leftPad(counter.time.hours + (counter.time.days * 24)) + ':' + leftPad(counter.time.minutes) + ':' + leftPad(counter.time.seconds));
     }
@@ -76,6 +76,7 @@ $(document).ready(function () {
         if (!loading && !finished) {
           loading = true;
           $.post('/liveblog/posting/', {
+            activeEvents: window.activeEvents,
             page: current + 1
           }).success(function (postingsHTML) {
             var $postings = $(postingsHTML);

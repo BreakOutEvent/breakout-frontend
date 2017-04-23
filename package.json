@@ -34,6 +34,7 @@
     "babel-polyfill": "^6.23.0",
     "bluebird": "^3.5.0",
     "body-parser": "^1.14.2",
+    "bootstrap-select": "^1.12.2",
     "bunyan": "^1.8.0",
     "co": "^4.6.0",
     "co-fs-extra": "^1.2.1",
@@ -68,14 +69,14 @@
     "react-bootstrap": "^0.30.8",
     "react-dom": "^15.4.2",
     "react-jsonschema-form": "^0.44.0",
+    "react-responsive-modal": "1.4.1",
+    "react-router-dom": "latest",
     "remarkable": "^1.7.1",
     "request": "^2.67.0",
     "socket.io": "^1.4.6",
     "sticky-cluster": "^0.1.2",
     "store": "^2.0.4",
-    "winston": "^2.3.0",
-    "react-responsive-modal": "1.4.1",
-    "react-router-dom": "latest"
+    "winston": "^2.3.0"
   },
   "devDependencies": {
     "ansi2html-extended": "0.0.4",

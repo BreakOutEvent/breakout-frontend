@@ -427,11 +427,12 @@ module.exports = {
     "TIME_PRE": "Bis BreakOut startet",
     "TIME_DURING": "Bis BreakOut endet",
     "TIME_POST": "Seit BreakOut",
+    "TIME_DAYS": "Tage",
     "DONATIONS": "Spenden",
     "DISTANCE": "Entfernung",
     "MUNICH": "München",
     "BERLIN": "Berlin",
-    "POSTS_HEADLINE": "Aktuelle Posts von reisenden Teams",
+    "POSTS_HEADLINE": "Aktuelle Posts von Teams",
     "BTN": "Zur Anmeldung",
     "NEWSLETTER": "Sei bei BreakOut 2017 dabei..."
   },

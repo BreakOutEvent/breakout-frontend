@@ -6,8 +6,8 @@ const _ = require('lodash');
 class TeamController {
 
   static *showTeamOverview(req, res) {
-    const allTeams = yield team.getAll();
-    const searchData = allTeams.map(t => {
+    const teamInfo = yield team.getAll(req.session.activeEvents);
+    const searchData = teamInfo.allTeams.map(t => {
       let members = t.members.map(m => {
         return {
           firstname: m.firstname,
@@ -25,10 +25,11 @@ class TeamController {
       error: req.flash('error'),
       layout: 'master',
       language: req.language,
-      teams: allTeams,
+      teams: teamInfo.allTeams,
+      eventsInfo: teamInfo.eventsInfo,
       searchData: searchData,
       isLoggedIn: req.user,
-      title: 'Team Übersicht'
+      title: 'Teams'
     });
   }
 

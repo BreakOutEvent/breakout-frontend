@@ -20,13 +20,17 @@ class DynamicController {
       isUserAdmin = _.findIndex(req.user.me.roles, r => r === 'ADMIN') > -1;
     }
 
+    let events = yield liveblog.getEventInfos(req.session.activeEvents);
+    let activeEvents = events.activeEvents;
+
     let options = yield {
+      activeEvents: activeEvents,
       error: req.flash('error'),
       layout: 'master',
       language: req.language,
-      events: liveblog.getEventInfos(),
-      postings: liveblog.getAllPostings(token),
-      mapData: liveblog.getMapData(),
+      events: events,
+      postings: liveblog.getAllPostings(activeEvents, token),
+      mapData: liveblog.getMapData(activeEvents),
       isLoggedIn: req.user,
       isUserAdmin: isUserAdmin,
       title: 'Liveblog'
@@ -36,6 +40,22 @@ class DynamicController {
 
     res.render('dynamic/liveblog/liveblog', options);
 
+  }
+
+  static *showMap(req, res) {
+    let events = yield liveblog.getEventInfos(req.session.activeEvents);
+
+    let options = yield {
+      layout: 'master',
+      language: req.language,
+      mapData: liveblog.getMapData(events.activeEvents),
+      isLoggedIn: req.user,
+      title: 'Liveblog'
+    };
+
+    options.counter = yield liveblog.getCounterInfos(events.individual);
+
+    res.render('dynamic/liveblog/map', options);
   }
 
   static *showUserProfile(req, res) {
@@ -128,24 +148,24 @@ class DynamicController {
 
   static *showHighscores(req, res) {
 
-    let map = yield liveblog.getMapData();
-    let allTeams = yield team.getAll();
+    let teamInfo = yield team.getAll(req.session.activeEvents);
+    let map = yield liveblog.getMapData(teamInfo.eventsInfo.activeEvents);
 
-    let sortedTeamsbyDistance = ( _.sortBy(allTeams, t => t.distance.distance)).reverse();
-
-    let sortedTeamsbyMoney = (_.sortBy(allTeams, y => y.donateSum.fullSum)).reverse();
+    let sortedTeamsbyDistance = ( _.sortBy(teamInfo.allTeams, t => t.distance)).reverse();
+    let sortedTeamsbyMoney = (_.sortBy(teamInfo.allTeams, t => t.donateSum.fullSum)).reverse();
 
     let slicedDistance = sortedTeamsbyDistance.slice(0, 5);
     let slicedMoney = sortedTeamsbyMoney.slice(0, 5);
-
 
     res.render('dynamic/liveblog/highscore', {
       error: null,
       layout: 'master',
       language: req.language,
       mapData: map,
+      eventsInfo: teamInfo.eventsInfo,
       teamDistanceData: slicedDistance,
-      teamMoneyData: slicedMoney
+      teamMoneyData: slicedMoney,
+      title: 'Highscore'
     });
   }
 

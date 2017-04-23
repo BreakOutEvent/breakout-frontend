@@ -1,19 +1,26 @@
-<div class="bo-header-info bo-team-header"></div>
 <div class="container">
     <div class="row">
-        <div class="col-xs-12"><h1>Teilnehmende Teams 2016</h1></div>
-    </div>
+
+        <div class="col-md-9">
+            <h1>Teilnehmende Teams {{eventsInfo.eventString}}</h1>
+        </div>
+        <div class="col-md-3">
+            {{> choose-event eventsInfo}}
+        </div>
     <div class="row">
         <div class="col-xs-12">
             <input type="text" placeholder="Suche nach Name, Team ..." id="boTeamSearch"
                    class="form-control bo-team-profile-search"/>
         </div>
     </div>
+
+    {{#if eventsInfo.hasActiveAfterStart}}
     <div class="row" style="margin-top: 20px; margin-bottom: 20px;">
         <div class="col-xs-12">
             <a href="/highscore"> <img src="/img/highscore_banner.jpg" class="img-responsive"></div>
         </a>
     </div>
+    {{/if}}
 
     <div class="row" id="teamProfiles">
         {{#each teams}}

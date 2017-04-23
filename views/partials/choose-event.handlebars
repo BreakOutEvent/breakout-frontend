@@ -1,0 +1,13 @@
+<div id="boSelectEvents">
+    <select class="selectpicker" multiple>
+        {{#each allByYear}}
+            <optgroup label="{{@key}}">
+                {{#each this}}
+                    <option title="{{city}}" {{#if isActive}}selected{{/if}} data-tokens="{{id}}" class="boSelectCity">
+                        {{city}} {{year}}
+                    </option>
+                {{/each}}
+            </optgroup>
+        {{/each}}
+    </select>
+</div>

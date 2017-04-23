@@ -1,12 +1,14 @@
 <div class="col-md-4 col-sm-6 col-xs-12 bo-team-profile" data-id="{{id}}">
     <a class="bo-team-profile-link" href="/team/{{id}}">
         <div class=" bo-team-card">
+            {{#if profilePic.sizes}}
             <div class="bo-card-media bo-card-media-ov">
-                {{#if profilePic.sizes}}<img class="bo-card-media-image" src="{{getImageByWidth 360 profilePic.sizes}}"/>{{/if}}
+                <img class="bo-card-media-image" src="{{getImageByWidth 360 profilePic.sizes}}"/>
             </div>
+            {{/if}}
             <div class="bo-card-info">
                 <div class="bo-card-info-name">
-                    <span class="bo-card-info-headline">{{name}} ({{city}})</span>
+                    <span class="bo-card-info-headline">{{name}} ({{event.city}} {{event.year}})</span>
                 <span class="bo-card-info-sub">
                     {{#each members}}
                         {{#unless @first}}&{{/unless}} {{firstname}}
