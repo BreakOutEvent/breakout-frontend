@@ -207,16 +207,23 @@ $(window).on('load', function () {
   });
 
   $('.bo-admin-delete').on('click', function () {
-    var type = $(this).attr('data-type');
+    var type = $(this).attr('data-delete-type');
     var id = parseInt($(this).attr('data-id'));
+    var postingId =$(this).attr('data-posting-id');
 
     if (confirm('Magst du wirklich ' + type + ' mit Id: ' + id + 'unwiederruflich löschen?')) {
       $.ajax({
         url: '/team/' + type + '/' + id,
         type: 'DELETE',
+        data: {
+          posting: postingId
+        },
         success: function () {
           alert('DELETED!');
           window.location.reload();
+        },
+        error: function () {
+          alert('Es ist ein Fehler beim Löschen aufgetreten');
         }
       });
     }

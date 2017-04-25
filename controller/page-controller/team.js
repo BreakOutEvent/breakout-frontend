@@ -200,16 +200,15 @@ team.deleteMedia = (req, res, next) => co(function*() {
   throw ex;
 });
 
-team.deleteComment = (req, res, next) => co(function*() {
+team.deleteComment = function *(req, res) {
   if (req.params.commentId && req.params.commentId !== '') {
-    yield api.admin.deleteComment(req.user, req.params.commentId);
+    const postingId = req.body.posting;
+    yield api.admin.deleteComment(req.user, req.params.commentId, postingId);
     return res.sendStatus(200);
   }
   return res.sendStatus(500);
 
-}).catch((ex) => {
-  throw ex;
-});
+};
 
 team.isAuth = (req, res) => {
   if (req.isAuthenticated()) return res.sendStatus(200);

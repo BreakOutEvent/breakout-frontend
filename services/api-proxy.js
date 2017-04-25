@@ -808,14 +808,18 @@ API.admin.deleteMedia = (token, mediaId) => {
   });
 };
 
-API.admin.deleteComment = (token, commentId) => {
+API.admin.deleteComment = (token, commentId, postingId) => {
 
-  logger.info('Deleting Comment with Id: ', commentId);
+  if(!postingId) {
+    return Promise.reject('Missing postingID');
+  }
+
+  logger.info(`Deleting comment with id ${commentId} and postingId ${postingId}`);
 
   return new Promise((resolve, reject) => {
     request
       .delete({
-        url: `${url}/posting/1/comment/${commentId}/`,
+        url: `${url}/posting/${postingId}/comment/${commentId}/`,
         auth: { bearer: token.access_token }
       }, handleResponse(resolve, reject, 'Successfully deleted Comment: ' + commentId));
   });

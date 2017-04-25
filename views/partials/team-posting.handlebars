@@ -17,7 +17,7 @@
             </div>
         </div>
         {{#if isUserAdmin}}
-            <div class="bo-admin-delete" data-type="posting" data-id="{{id}}">
+            <div class="bo-admin-delete" data-delete-type="posting" data-id="{{id}}" data-posting-id="{{id}}">
                 <i class="material-icons bo-card-actions-icon">delete forever</i>
             </div>
         {{/if}}
@@ -50,7 +50,7 @@
                 </div>
             {{/ifCond}}
             {{#if isUserAdmin}}
-                <div class="bo-admin-delete" data-type="media" data-id="{{media.0.id}}">
+                <div class="bo-admin-delete" data-delete-type="media" data-id="{{media.0.id}}" data-posting-id="{{id}}">
                     <i class="material-icons bo-card-actions-icon">delete forever</i>
                 </div>
             {{/if}}
@@ -78,7 +78,7 @@
     </div>
     <div class="bo-card-comments">
         {{#each comments}}
-            {{> team-comment isUserAdmin=../isUserAdmin}}
+            {{> team-comment isUserAdmin=../isUserAdmin posting-id=../id}}
         {{/each}}
         <div class="bo-card-comment-new">
             <form class="newComment">
