@@ -79,7 +79,7 @@ class App extends React.Component {
       return (
         <Modal show={true}
                onHide={this.onHide.bind(this)}
-               modalClassName={'modal-size-' + size}>
+               modalClassName={'modal-size-' + size + ' react-modal'}>
           <OnShowHack></OnShowHack>
           <Comp {...props} api={this.state.api} i18next={this.state.i18next}
                 isLoggedIn={!!window.boUserData}/>

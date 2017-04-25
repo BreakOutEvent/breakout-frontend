@@ -375,68 +375,71 @@ body {
   }
 }
 
-form {
-  legend {
-    text-align: center;
-    padding-top: 0px;
-    padding-bottom: 8px;
-    border: none;
-    font-size: xx-large;
-    font-weight: 300;
-  }
+.react-modal {
 
-  .invitation-widget {
-    .field-radio-group {
-      padding: 10px;
-      border-radius: 5px;
-      border-color: gray;
-      border-style: solid;
-      border-width: 2px;
+  form {
+    legend {
+      text-align: center;
+      padding-top: 0px;
+      padding-bottom: 8px;
+      border: none;
+      font-size: xx-large;
+      font-weight: 300;
+    }
 
-      &:active, &:hover {
-        border-color: @brand-primary;
+    .invitation-widget {
+      .field-radio-group {
+        padding: 10px;
+        border-radius: 5px;
+        border-color: gray;
+        border-style: solid;
+        border-width: 2px;
+
+        &:active, &:hover {
+          border-color: @brand-primary;
+        }
+
+        input[type="radio"] {
+          margin-top: 18px;
+          margin-right: 10px;
+          margin-left: -14px;
+        }
       }
 
-      input[type="radio"] {
-        margin-top: 18px;
-        margin-right: 10px;
-        margin-left: -14px;
+      .radio-team {
+        margin-left: 10px;
+      }
+      .radio-team-name {
+        font-weight: 900;
+        color: black;
+        font-size: 1.8em;
+      }
+
+      .radio-team-description {
+        color: black;
       }
     }
 
-    .radio-team {
-      margin-left: 10px;
-    }
-    .radio-team-name {
-      font-weight: 900;
-      color: black;
-      font-size: 1.8em;
+    .field-string {
+      input[type="text"] {
+        border-color: #999
+      }
     }
 
-    .radio-team-description {
-      color: black;
+    .form-children {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
     }
-  }
 
-  .field-string {
-    input[type="text"] {
-      border-color: #999
-    }
-  }
+    .modal-header {
+      height: 0px;
+      margin: 0px;
+      padding: 25px 30px 0px 0px;
 
-  .form-children {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
+      button {
 
-  .modal-header {
-    height: 0px;
-    margin: 0px;
-    padding: 25px 30px 0px 0px;
-
-    button {
-
+      }
     }
   }
 }
