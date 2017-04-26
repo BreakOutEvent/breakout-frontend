@@ -20,6 +20,9 @@ import {
   Redirect
 } from 'react-router-dom';
 
+import ReactGA from 'react-ga';
+ReactGA.initialize('UA-59857227-3');
+
 import routes from './Components/routes';
 
 class App extends React.Component {
@@ -72,6 +75,13 @@ class App extends React.Component {
 
     const OnShowHack = () => {
       document.body.className += ' ReactModal__Body--open';
+      try {
+        ReactGA.set({page: window.location.pathname});
+        ReactGA.pageview(window.location.pathname);
+      } catch (err) {
+        console.error('Error logging react view', err);
+      }
+
       return null;
     };
 
