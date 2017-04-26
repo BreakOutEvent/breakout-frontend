@@ -52,11 +52,8 @@ const sendErr = (res, errMsg, err) => {
  * @param res
  * @param next
  */
-
+// TODO: Improve me, use check on whether there is any active event
 registration.lock = (req, res, next) => {
-  if(Date.now() > 1463468400000) {
-    return res.redirect('/closed');
-  }
   next();
 };
 
