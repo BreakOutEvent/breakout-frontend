@@ -51,8 +51,8 @@ ses.generalAuth = (failURL, role, auth) => (req, res, next) => {
 };
 
 ses.isUser = ses.generalAuth('/login', 'eingeloggt', (status) => status.is.user);
-ses.isParticipant = ses.generalAuth('/selection', 'ein Teilnehmer', (status) => status.is.participant);
-ses.isSponsor = ses.generalAuth('/selection', 'ein Sponsor', (status) => status.is.sponsor);
+ses.isParticipant = ses.generalAuth('/select-role', 'ein Teilnehmer', (status) => status.is.participant);
+ses.isSponsor = ses.generalAuth('/select-role', 'ein Sponsor', (status) => status.is.sponsor);
 ses.hasTeam = ses.generalAuth('/team-invite', 'Teil eines Teams', (status) => status.is.team);
 ses.isAdmin = ses.generalAuth('/login', 'Administrator', (status) => status.is.admin);
 
