@@ -28,14 +28,14 @@ admin.showDashboard = (req, res) => {
   res.render('static/admin/dashboard', options);
 };
 
-admin.showDashboardEmails =  (req, res) => {
+admin.showDashboardEmails = (req, res) => {
   let options = defaultOptions(req);
   options.view = 'admin-emails';
   options.data = {};
   res.render('static/admin/dashboard', options);
 };
 
-admin.showDashboardPayment = function* (req, res) {
+admin.showDashboardPayment = function*(req, res) {
   let options = defaultOptions(req);
   options.view = 'admin-payment';
   options.data = yield admin.getInvoices(req);
@@ -46,14 +46,14 @@ admin.showDashboardPayment = function* (req, res) {
   res.render('static/admin/dashboard', options);
 };
 
-admin.showDashboardCheckin = function* (req, res) {
+admin.showDashboardCheckin = function*(req, res) {
   let options = defaultOptions(req);
   options.view = 'admin-checkin';
   options.data = yield admin.getAllTeams(req);
   res.render('static/admin/dashboard', options);
 };
 
-admin.showOverview = function* (req, res) {
+admin.showOverview = function*(req, res) {
   let options = defaultOptions(req);
   options.view = 'admin-teamoverview';
   options.data = yield admin.getTeamOverview(req);
@@ -61,7 +61,7 @@ admin.showOverview = function* (req, res) {
   res.render('static/admin/dashboard', options);
 };
 
-admin.showDashboardInvoice = function* (req, res) {
+admin.showDashboardInvoice = function*(req, res) {
   let options = defaultOptions(req);
   options.view = 'admin-invoice';
   options.data = yield admin.getAllInvoices(req);
@@ -96,7 +96,7 @@ admin.getInvoices = (req) => co(function*() {
 
   for (let i = 0; i < allTeams.length; i++) {
     let t = allTeams[i];
-    if(t.members.length > 1) {
+    if (t.members.length > 1) {
       let invoice = yield api.getModel('invoice/teamfee', req.user, t.invoiceId);
       invoice.event = events[t.event - 1];
       invoice.members = t.members;
@@ -119,115 +119,115 @@ admin.getInvoices = (req) => co(function*() {
   throw ex;
 });
 
-admin.getAllTeams = function() {
+admin.getAllTeams = function () {
   return Promise.resolve(api.event.all())
     .map(event => api.team.getAllByEvent(event.id))
     .reduce((a, b) => a.concat(b), [])
     .filter(team => team.hasFullyPaid);
 };
 
-admin.getTeamOverview = function() {
+admin.getTeamOverview = function () {
   let fakeData = [{
-	teamId: 100,
-	teamName: "JetztoderNie",
-	members: [{
-		id: "101",
-		name: "Florian Schmidt",
-		emergencyPhone: "0928144444",
-		contactPhone: "11111"
-	}, {
-		id: "102",
-		name: "Max Mustermann",
-		emergencyPhone: "0928166666",
-		contactPhone: "2222"
-	}],
-	event: {
-		name: "BreakOut München 2017",
-	},
-	lastPosting: {
-		timestamp: 1493028234169,
-		id: 1274
-	},
-	lastLocation: {
-		coord: {
-			lat: 53.2,
-			lon: 14.4
-		},
-		id: 9357
-	},
-	lastContactWithHeadquarters: {
-		timestamp: 1493028236493,
-		comment: "Alles easy, läuft gut bei denen"
-	}
-},
-{
-teamId: 100,
-teamName: "Berlinberlin",
-members: [{
-  id: "101",
-  name: "Florian S.",
-  emergencyPhone: "0928144444",
-  contactPhone: "11111"
-}, {
-  id: "102",
-  name: "Max Hipstermann",
-  emergencyPhone: "0928166666",
-  contactPhone: "2222"
-}],
-event: {
-  name: "BreakOut Berlin 2017",
-},
-lastPosting: {
-  timestamp: 1493028234169,
-  id: 1274
-},
-lastLocation: {
-  coord: {
-    lat: 53.2,
-    lon: 14.4
+    teamId: 100,
+    teamName: 'JetztoderNie',
+    members: [{
+      id: '101',
+      name: 'Florian Schmidt',
+      emergencyPhone: '0928144444',
+      contactPhone: '11111'
+    }, {
+      id: '102',
+      name: 'Max Mustermann',
+      emergencyPhone: '0928166666',
+      contactPhone: '2222'
+    }],
+    event: {
+      name: 'BreakOut München 2017',
+    },
+    lastPosting: {
+      timestamp: 1493028234169,
+      id: 1274
+    },
+    lastLocation: {
+      coord: {
+        lat: 53.2,
+        lon: 14.4
+      },
+      id: 9357
+    },
+    lastContactWithHeadquarters: {
+      timestamp: 1493028236493,
+      comment: 'Alles easy, läuft gut bei denen'
+    }
   },
-  id: 9357
-},
-lastContactWithHeadquarters: {
-  timestamp: 1493028236493,
-  comment: "Berlin ist besser als München"
-}
-},
-{
-teamId: 200,
-teamName: "Nie0derJetzt",
-members: [{
-  id: "101",
-  name: "Felix Schmidt",
-  emergencyPhone: "0928144444",
-  contactPhone: "11111"
-}, {
-  id: "102",
-  name: "Peter partnerPage",
-  emergencyPhone: "0928166666",
-  contactPhone: "2222"
-}],
-event: {
-  name: "BreakOut Berlin 2017",
-},
-lastPosting: {
-  timestamp: 1493028234169,
-  id: 1274
-},
-lastLocation: {
-  coord: {
-    lat: 53.2,
-    lon: 14.4
+  {
+    teamId: 100,
+    teamName: 'Berlinberlin',
+    members: [{
+      id: '101',
+      name: 'Florian S.',
+      emergencyPhone: '0928144444',
+      contactPhone: '11111'
+    }, {
+      id: '102',
+      name: 'Max Hipstermann',
+      emergencyPhone: '0928166666',
+      contactPhone: '2222'
+    }],
+    event: {
+      name: 'BreakOut Berlin 2017',
+    },
+    lastPosting: {
+      timestamp: 1493028234169,
+      id: 1274
+    },
+    lastLocation: {
+      coord: {
+        lat: 53.2,
+        lon: 14.4
+      },
+      id: 9357
+    },
+    lastContactWithHeadquarters: {
+      timestamp: 1493028236493,
+      comment: 'Berlin ist besser als München'
+    }
   },
-  id: 9357
-},
-lastContactWithHeadquarters: {
-  timestamp: 1493028236493,
-  comment: "OMG"
-}
-}]
+  {
+    teamId: 200,
+    teamName: 'Nie0derJetzt',
+    members: [{
+      id: '101',
+      name: 'Felix Schmidt',
+      emergencyPhone: '0928144444',
+      contactPhone: '11111'
+    }, {
+      id: '102',
+      name: 'Peter partnerPage',
+      emergencyPhone: '0928166666',
+      contactPhone: '2222'
+    }],
+    event: {
+      name: 'BreakOut Berlin 2017',
+    },
+    lastPosting: {
+      timestamp: 1493028234169,
+      id: 1274
+    },
+    lastLocation: {
+      coord: {
+        lat: 53.2,
+        lon: 14.4
+      },
+      id: 9357
+    },
+    lastContactWithHeadquarters: {
+      timestamp: 1493028236493,
+      comment: 'OMG'
+    }
+  }];
 
-  return Promise.resolve(fakeData)
+  return Promise.resolve(fakeData);
 };
 
 admin.checkinTeam = function *(req, res) {
@@ -235,7 +235,7 @@ admin.checkinTeam = function *(req, res) {
   let checkin = yield api.putModel(
     `event/${req.body.event}/team/`, req.body.team,
     req.user,
-    { hasStarted: true }
+    {hasStarted: true}
   );
 
   if (!checkin) return res.sendStatus(500);
@@ -246,10 +246,9 @@ admin.checkinTeam = function *(req, res) {
 
 admin.getAllInvoices = (req) => co(function*() {
 
-  let rawInvoices =  yield api.invoice.getAll(req.user);
+  let rawInvoices = yield api.invoice.getAll(req.user);
 
   var teams = [];
-
 
 
   var invoices = rawInvoices.map(i => {
@@ -268,13 +267,13 @@ admin.getAllInvoices = (req) => co(function*() {
 
 
   invoices.forEach(i => {
-    if(!teams[i.teamId]) teams[i.teamId] = 0;
+    if (!teams[i.teamId]) teams[i.teamId] = 0;
     teams[i.teamId] += i.payed;
   });
 
   // TODO: This is unused, what is the reason?
   var depositTeams = teams.map((t, index) => {
-    if(t > 100) {
+    if (t > 100) {
       return {
         teamId: index,
         amount: t
@@ -283,7 +282,6 @@ admin.getAllInvoices = (req) => co(function*() {
   });
 
   return invoices;
-
 
 
 }).catch((ex) => {
