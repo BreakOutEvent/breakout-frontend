@@ -20,6 +20,8 @@ router.get('/checkin', session.isAdmin, admin.showDashboardCheckin);
 
 router.get('/invoice', session.isAdmin, admin.showDashboardInvoice);
 
+router.get('/teamoverview', session.isAdmin, admin.showOverview);
+
 
 router.post('/payment/add', session.isAdmin, admin.addPayment);
 
@@ -28,5 +30,6 @@ router.post('/invoice/amount/add', session.isAdmin, admin.addAmountToInvoice);
 router.post('/invoice/add', session.isAdmin, admin.addInvoice);
 
 router.post('/team/checkin', session.isAdmin, admin.checkinTeam);
+
 
 module.exports = router;

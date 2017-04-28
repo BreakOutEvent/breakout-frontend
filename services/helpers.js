@@ -90,6 +90,10 @@ exports.markdown = function renderMarkdown(mdFileName, context) {
   return html;
 };
 
+exports.date = function makeDate(timestamp, context) {
+  return new Date(timestamp);
+};
+
 exports.md = function renderMarkdown(rawMd, context) {
   const html = md.render(rawMd);
   return html;

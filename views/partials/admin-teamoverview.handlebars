@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col-xs-12">
+        <input type="search" class="form-control" placeholder="Suche...">
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Team ID</th>
+                <th>Team-Name</th>
+                <th>Event</th>
+                <th>Mitglieder</th>
+                <th>Letzter Post</th>
+                <th>Letzter Ort</th>
+                <th>Letzter Kontakt mit HQ</th>
+            </tr>
+            </thead>
+            <tbody id="list">
+            {{#each this}}
+                <tr>
+                    <td>{{teamId}}</td>
+                    <td>{{teamName}}</td>
+                    <td>{{event.name}}</td>
+                    <td>
+                        {{#each members}}
+                            <b>{{name}}</b> (ID: {{id}})<br>
+                            Kontakt: {{contactPhone}}<br>
+                            Notfall: {{emergencyPhone}}<br>
+                            <br>
+                        {{/each}}
+                    </td>
+                    <td>{{date lastPosting.timestamp}}</td>
+                    <td>({{lastLocation.coord.lat}} , {{lastLocation.coord.lon}})</td>
+                    <td>{{lastContactWithHeadquarters.timestamp}}:{{lastContactWithHeadquarters.comment}} </td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
