@@ -22,9 +22,10 @@ liveblog.getEventInfos = (activeEvents) => co(function *() {
     allSameYear: eventsInfo.allSameYear,
     allOfYear: eventsInfo.allOfYear,
     allCurrent: eventsInfo.allCurrent,
-    individual: events,
+    allOfCurrent: eventsInfo.allOfCurrent,
     allByYear: eventsInfo.allByYear,
     eventString: eventsInfo.eventString,
+    individual: events,
     global: {
       donatesum: events.reduce((prev, curr) => {
         return prev + curr.donatesum.fullSum;

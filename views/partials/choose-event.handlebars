@@ -1,4 +1,4 @@
-<div id="boSelectEvents">
+<div id="boSelectEvents" {{#unless allOfCurrent}}class="boEventsNotAllCurrent"{{/unless}}>
     <select class="selectpicker" multiple>
         {{#each allByYear}}
             <optgroup label="{{@key}}">

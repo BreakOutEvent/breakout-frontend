@@ -21,16 +21,17 @@ class DynamicController {
     }
 
     let events = yield liveblog.getEventInfos(req.session.activeEvents);
-    let activeEvents = events.activeEvents;
+    req.session.activeEvents = events.activeEvents;
+    req.session.save();
 
     let options = yield {
-      activeEvents: activeEvents,
+      activeEvents: events.activeEvents,
       error: req.flash('error'),
       layout: 'master',
       language: req.language,
       events: events,
-      postings: liveblog.getAllPostings(activeEvents, token),
-      mapData: liveblog.getMapData(activeEvents),
+      postings: liveblog.getAllPostings(events.activeEvents, token),
+      mapData: liveblog.getMapData(events.activeEvents),
       isLoggedIn: req.user,
       isUserAdmin: isUserAdmin,
       title: 'Liveblog'

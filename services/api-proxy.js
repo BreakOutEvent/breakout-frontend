@@ -719,6 +719,7 @@ API.event.allActiveInfo = (activeEvents) => co(function *() {
   let allOfYear = allSameYear && filteredEvents.length === countEvents[filteredEvents[0].year];
   let allCurrent = filteredEvents.every(e => e.isCurrent);
   let hasActiveAfterStart = filteredEvents.filter(e => e.isActive && e.date * 1000 < new Date().getTime()).length > 0;
+  let allOfCurrent = allOfYear && allCurrent;
 
   var eventString = filteredEvents.map(e => {
     return `${e.city} ${e.year}`;
@@ -737,6 +738,7 @@ API.event.allActiveInfo = (activeEvents) => co(function *() {
     allSameYear: allSameYear,
     allOfYear: allOfYear,
     allCurrent: allCurrent,
+    allOfCurrent: allOfCurrent,
     hasActiveAfterStart: hasActiveAfterStart,
     events: filteredEvents,
     eventString: eventString
@@ -810,7 +812,7 @@ API.admin.deleteMedia = (token, mediaId) => {
 
 API.admin.deleteComment = (token, commentId, postingId) => {
 
-  if(!postingId) {
+  if (!postingId) {
     return Promise.reject('Missing postingID');
   }
 
