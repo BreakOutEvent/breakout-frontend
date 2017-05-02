@@ -255,10 +255,12 @@ function server(callback) {
   }
 }
 
-if (!IS_TEST) {
-  sticky(server, {
-    port: 3000
-  });
-}
+// if (!IS_TEST) {
+//   sticky(server, {
+//     port: 3000
+//   });
+// }
+
+server();
 
 module.exports = server;

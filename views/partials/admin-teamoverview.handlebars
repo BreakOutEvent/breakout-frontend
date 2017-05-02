@@ -33,7 +33,10 @@
                     </td>
                     <td>{{date lastPosting.timestamp}}</td>
                     <td>({{lastLocation.coord.lat}} , {{lastLocation.coord.lon}})</td>
-                    <td>{{lastContactWithHeadquarters.timestamp}}:{{lastContactWithHeadquarters.comment}} </td>
+                    <td>
+                      {{lastContactWithHeadquarters.timestamp}}:{{lastContactWithHeadquarters.comment}}
+                      <input type="text"></input>
+                    </td>
                 </tr>
             {{/each}}
             </tbody>
