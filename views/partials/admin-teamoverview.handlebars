@@ -25,14 +25,14 @@
                     <td>{{event.name}}</td>
                     <td>
                         {{#each members}}
-                            <b>{{name}}</b> (ID: {{id}})<br>
+                            <b>{{firstname}}{{lastname}}</b> (ID: {{id}})<br>
                             Kontakt: {{contactPhone}}<br>
                             Notfall: {{emergencyPhone}}<br>
                             <br>
                         {{/each}}
                     </td>
                     <td>{{date lastPosting.timestamp}}</td>
-                    <td>({{lastLocation.coord.lat}} , {{lastLocation.coord.lon}})</td>
+                    <td>({{lastLocation.coord.latitude}} , {{lastLocation.coord.longitude}})</td>
                     <td>
                       {{lastContactWithHeadquarters.timestamp}}:{{lastContactWithHeadquarters.comment}}
                       <input type="text"></input>
