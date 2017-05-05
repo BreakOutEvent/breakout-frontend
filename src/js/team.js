@@ -196,14 +196,12 @@ $(window).on('load', function () {
   }
 
   $('.bo-replace-hashtags').each(function () {
-    var hashtags = JSON.parse($(this).attr('data-hashtags'));
-    var text = $(this).text();
-
-    for (var i = 0; i < hashtags.length; i++) {
-      text = text.replace('#' + hashtags[i], '<a href=\'/post/hashtag/' + hashtags[i] + '\'>#' + hashtags[i] + '</a>');
-    }
-
-    $(this).html(text);
+    const text = $(this).text();
+    let wrapped = `<span>${text}</span>`;
+    wrapped = $(wrapped).text();
+    wrapped = wrapped.replace(/(#[\S]*)/g, (a, b) =>
+      `<a href='/post/hashtag/${b.slice(1)}'>${b}</a>`);
+    $(this).html(wrapped);
   });
 
   $('.bo-admin-delete').on('click', function () {
