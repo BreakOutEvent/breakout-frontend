@@ -115,8 +115,13 @@
             <h3 class="bo-team-sub-headline">Challenges</h3>
             <ul>
                 {{#each team.challenges}}
-                    <li class="bo-sponsor-list-item {{#if (challengeHasProof status)}}bo-challenge-with-proof{{/if}}">({{amount}}
+                  <li class="bo-sponsor-list-item {{#if (challengeHasProof status)}}bo-challenge-with-proof{{/if}}">({{amount}}
                         €) {{description}}</li>
+                    {{#if unregisteredSponsor.company}}
+                      {{#if unregisteredSponsor.url}}
+                        von <a href="{{unregisteredSponsor.url}}">{{unregisteredSponsor.company}}</a>
+                      {{/if}}
+                    {{/if}}
                 {{/each}}
 
             </ul>
@@ -128,9 +133,13 @@
             <ul>
                 {{#each team.sponsors}}
                     {{#if company}}
+                      {{#if url}}
+                        <a href="{{url}}"><li class="bo-sponsor-list-item">{{company}}</li></a>
+                      {{else}}
                         <li class="bo-sponsor-list-item">{{company}}</li>
+                      {{/if}}
                     {{else}}
-                        <li class="bo-sponsor-list-item">{{firstname}} {{lastname}}</li>
+                      <li class="bo-sponsor-list-item">{{firstname}} {{lastname}}</li>
                     {{/if}}
                 {{/each}}
             </ul>
