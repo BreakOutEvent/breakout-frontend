@@ -48,23 +48,24 @@ class TeamController {
 
     const currTeam = yield team.getTeamByUrl(req.params.teamId, req.user);
 
-    // replace all empty string urls by undefined, so that handlebars can use them as falsy values
-    for(var i = 0; i < currTeam.challenges.length; i++){
-      if(currTeam.challenges[i].unregisteredSponsor){
-        if(currTeam.challenges[i].unregisteredSponsor.url == ''){
-          currTeam.challenges[i].unregisteredSponsor.url = undefined;
+    currTeam.challenges = (typeof currTeam.challenges === 'undefined') ? [] : currTeam.challenges;
+    currTeam.sponsors = (typeof currTeam.sponsors === 'undefined') ? [] : currTeam.sponsors;
+
+    currTeam.challenges = currTeam.challenges.map((challenge) => {
+      if(challenge.unregisteredSponsor){
+        if(challenge.unregisteredSponsor.url == ''){
+          challenge.unregisteredSponsor.url = undefined;
         }
       }
-    }
+      return challenge;
+    });
 
-    for(var j = 0; j < currTeam.sponsors.length; j++){
-      if(currTeam.sponsors[i]){
-        if(currTeam.sponsors[i].url == ''){
-          currTeam.sponsors[i].url = undefined;
-        }
+    currTeam.sponsors = currTeam.sponsors.map((sponsor) => {
+      if(sponsor.url == ''){
+        sponsor.url = undefined;
       }
-    }
-
+      return sponsor;
+    });
 
     let currentUser = null;
     let isUserOfTeam = false;
