@@ -54,7 +54,7 @@ const sendErr = (res, errMsg, err) => {
  */
 // TODO: Improve me, use check on whether there is any active event
 registration.lock = (req, res, next) => {
-  if (Date.now() > new Date('Tue May 09 2017 00:05:00 GMT+0200 (CEST)')) {
+  if (Date.now() > new Date('Tue May 09 2017 05:00:00 GMT+0200 (CEST)')) {
     res.redirect('/closed');
   } else {
     next();

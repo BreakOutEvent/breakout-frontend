@@ -198,7 +198,7 @@ class App extends React.Component {
 }
 
 function registrationIsLocked() {
-  return Date.now() > new Date('Tue May 09 2017 00:05:00 GMT+0200 (CEST)');
+  return Date.now() > new Date('Tue May 09 2017 05:00:00 GMT+0200 (CEST)');
 }
 
 App.propTypes = {
