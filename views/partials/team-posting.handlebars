@@ -6,6 +6,8 @@
                     <div class="bo-card-profilePic"
                         {{#if user.profilePic.sizes}}
                          style="background-image: url({{getImageByWidth 70 user.profilePic.sizes}});"
+                        {{else}}
+                         style="background-image: url('../img/placeholder_profile_pic.jpg');"
                         {{/if}}></div>
                 </a>
             </div>

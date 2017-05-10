@@ -10,9 +10,8 @@
                     {{#if team.profilePic.sizes}}
                     background-image:url({{getImageByWidth 200 team.profilePic.sizes}})
                     {{else}}
-                    background-color:#ccc;
-                    {{/if}}
-                        "></div>
+                    background-image:url('../img/placeholder_profile_pic.jpg')
+                    {{/if}}"></div>
             </a>
         </div>
         <div class="col-sm-8 col-md-9">
@@ -48,7 +47,12 @@
                                 <div class="bo-card-info">
                                     <div class="col-xs-3">
                                         <div class="bo-card-profilePic"
-                                             style="background-image: url({{user.profilePic.sizes.0.url}});"></div>
+                                             style="background-image: url(
+                                                 {{#if user.profilePic.sizes.0.url}}
+                                                     {{user.profilePic.sizes.0.url}}
+                                                 {{else}}
+                                                 '../img/placeholder_profile_pic.jpg'
+                                                 {{/if}});"></div>
                                     </div>
                                     <div class="col-xs-9">
                                         <div class="bo-card-info-name">
