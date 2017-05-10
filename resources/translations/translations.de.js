@@ -385,7 +385,9 @@ module.exports = {
   },
   "TEAM-DETAIL": {
     "SAVEPOST": "POST SPEICHERN",
-    "NEWPOSTCONTENT": "Hello World... :)"
+    "NEWPOSTCONTENT": "Hello World... :)",
+    "MEDIA_LOADING": "Medien verarbeiten noch",
+    "MEDIA_ABORTED": "Medien hochladen fehlgeschlagen"
   },
   "MASTER": {
     "BACK_TO_REGISTER": "Rolle auswählen",
@@ -436,7 +438,13 @@ module.exports = {
     "BERLIN": "Berlin",
     "POSTS_HEADLINE": "Aktuelle Posts von Teams",
     "BTN": "Zur Anmeldung",
-    "NEWSLETTER": "Sei bei BreakOut 2017 dabei..."
+    "NEWSLETTER": "Sei bei BreakOut 2017 dabei...",
+    "MEDIA_LOADING": "Medien verarbeiten noch",
+    "MEDIA_ABORTED": "Medien hochladen fehlgeschlagen"
+  },
+  "POSTINGS": {
+    "MEDIA_LOADING": "Medien verarbeiten noch",
+    "MEDIA_ABORTED": "Medien hochladen fehlgeschlagen"
   },
   "CODEOFHONOUR": {
     "CODE_HEADING": "Code of Honour"

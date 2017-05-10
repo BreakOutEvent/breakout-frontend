@@ -385,7 +385,9 @@ module.exports = {
   },
   "TEAM-DETAIL": {
     "SAVEPOST": "SAVE POST",
-    "NEWPOSTCONTENT": "Hello World... :)"
+    "NEWPOSTCONTENT": "Hello World... :)",
+    "MEDIA_LOADING": "Media still processing",
+    "MEDIA_ABORTED": "Media upload failed"
   },
   "MASTER": {
     "BACK_TO_REGISTER": "Select role",
@@ -436,7 +438,13 @@ module.exports = {
     "BERLIN": "Berlin",
     "POSTS_HEADLINE": "Posts from teams",
     "BTN": "Become a sponsor now!",
-    "NEWSLETTER": "Be part of BreakOut 2017..."
+    "NEWSLETTER": "Be part of BreakOut 2017...",
+    "MEDIA_LOADING": "Media still processing",
+    "MEDIA_ABORTED": "Media upload failed"
+  },
+  "POSTINGS": {
+    "MEDIA_LOADING": "Media still processing",
+    "MEDIA_ABORTED": "Media upload failed"
   },
   "CODEOFHONOUR": {
     "CODE_HEADING": "Code of Honour"

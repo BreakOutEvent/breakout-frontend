@@ -23,10 +23,27 @@
         {{/if}}
     </div>
     <div class="bo-card-media">
+        {{#if media.0.type}}
+            {{#unless media.0.sizes.length}}
+                <div class="bo-card-media-processing">
+                    {{#isNewerTenMinutes ../date}}
+                        <div class="spinner">
+                            <div class="bounce1"></div>
+                            <div class="bounce2"></div>
+                            <div class="bounce3"></div>
+                        </div>
+                        <span>{{__ 'MEDIA_LOADING'}}</span>
+                    {{/isNewerTenMinutes}}
+                    {{#isOlderTenMinutes ../date}}
+                        <span>{{__ 'MEDIA_ABORTED'}}</span>
+                    {{/isOlderTenMinutes}}
+                </div>
+            {{/unless}}
+        {{/if}}
         {{#if media.0.sizes}}
             {{#ifCond media.0.type 'IMAGE'}}
                 <a href="{{getImageByWidth 800 media.0.sizes}}" data-lightbox="image-{{id}}" data-title="{{text}}">
-                  <img class="bo-card-media-image" src="{{getImageByWidth 400 media.0.sizes}}"  />
+                    <img class="bo-card-media-image" src="{{getImageByWidth 400 media.0.sizes}}"/>
                 </a>
             {{/ifCond}}
             {{#ifCond media.0.type 'AUDIO'}}

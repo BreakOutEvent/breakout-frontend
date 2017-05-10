@@ -13,7 +13,7 @@ const md = new Remarkable({
 });
 
 exports.toId = (input) => {
-  return input.replace(/ /g,'');
+  return input.replace(/ /g, '');
 };
 
 exports.clientConfig = () => {
@@ -368,4 +368,20 @@ exports.challengeHasProof = (status) => {
   }
 
   return false;
+};
+
+exports.isOlderTenMinutes = (date, context) => {
+  if ((new Date(date * 1000 + 10 * 60 * 1000).getTime() < new Date().getTime())) {
+    return context.fn(this);
+  } else {
+    return context.inverse(this);
+  }
+};
+
+exports.isNewerTenMinutes = (date, context) => {
+  if ((new Date(date * 1000 + 10 * 60 * 1000).getTime() > new Date().getTime())) {
+    return context.fn(this);
+  } else {
+    return context.inverse(this);
+  }
 };

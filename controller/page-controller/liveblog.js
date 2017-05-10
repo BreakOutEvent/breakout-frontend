@@ -101,7 +101,8 @@ liveblog.returnPostings = (req, res, next) => co(function *() {
 
   return res.render('dynamic/liveblog/postings', {
     layout: false,
-    postings: filteredPostings
+    postings: filteredPostings,
+    language: req.language
   });
 
 
