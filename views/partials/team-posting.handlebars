@@ -40,7 +40,7 @@
                 </div>
             {{/ifCond}}
             {{#ifCond media.0.type 'VIDEO'}}
-                <div class="plyr">
+                <div class="plyr" data-fullscreen-webm="{{getWebmVideoByWidth 1080 media.0.sizes}}" data-fullscreen-h264="{{getH264VideoByWidth 1080 media.0.sizes}}">
                     <video poster="{{getImageByWidth 400 media.0.sizes}}" controls preload="none">
 
                         <source src="{{getWebmVideoByWidth 400 media.0.sizes}}" type="video/webm">
