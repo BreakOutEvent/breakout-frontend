@@ -367,7 +367,7 @@
                                 <select name="team" id="team_select" class="form-control"
                                         required="required">
                                     <!-- TODO: l10n -->
-                                    <option disabled="disabled">Team auswählen</option>
+                                    <option disabled selected>{{__ 'SELECT_TEAM'}}</option>
                                     {{#each teams}}
                                         <option value='{"team": "{{teamId}}", "event": "{{eventId}}"}'>
                                             {{teamName}} ({{teamId}}) ({{eventTitle}})
@@ -446,9 +446,8 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="form-group">
-                                <select name="addChallengeTeam" id="addChallengeTeam" class="form-control"
-                                        required="required">
-                                    <option disabled="disabled">Team auswählen</option>
+                                <select name="addChallengeTeam" id="addChallengeTeam" class="form-control" required="required">
+                                    <option disabled selected>{{__ 'SELECT_TEAM'}}</option>
                                     {{#each teams}}
                                         <option value='{"team": "{{teamId}}", "event": "{{eventId}}"}'>
                                             {{teamName}} ({{teamId}}) ({{eventTitle}})

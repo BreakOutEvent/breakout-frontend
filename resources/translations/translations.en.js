@@ -364,7 +364,8 @@ module.exports = {
     "BTN_ADD_CHALLENGE": "Add challenge",
     "STATUS_WITHDRAWN": "Withdrawn",
     "LABEL_EMAIL": "Email address of sponsor (optional)",
-    "ESTIMATED_DONATE_PROMISE": "Estimated donate promise"
+    "ESTIMATED_DONATE_PROMISE": "Estimated donate promise",
+    "SELECT_TEAM": "Select team"
   },
   "CLOSED": {
     "HEADLINE": "Registration closed",
