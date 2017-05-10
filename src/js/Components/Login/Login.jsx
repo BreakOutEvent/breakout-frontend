@@ -44,8 +44,27 @@ export default class Login extends React.Component {
     }
   }
 
+  getQueryValues() {
+    let qd = {};
+    if (location.search) location.search.substr(1).split('&').forEach(item => {
+      let [k, v] = item.split('=');
+      v = v && decodeURIComponent(v);
+      (qd[k] = qd[k] || []).push(v);
+    });
+
+    return qd;
+  }
+
+  redirectToReferrer() {
+    if (this.getQueryValues().refer) {
+      window.location = this.getQueryValues().refer;
+    } else {
+      window.location = '/';
+    }
+  }
+
   onLoginSuccess() {
-    window.location = routes.selectRole;
+    this.redirectToReferrer();
   }
 
   onLoginError(err) {
@@ -60,14 +79,17 @@ export default class Login extends React.Component {
 
   render() {
     if (this.props.isLoggedIn) {
-      return <Redirect to={routes.selectRole}/>;
+      this.redirectToReferrer();
     }
+
+    const registerRoute = routes.register + window.location.search;
+
     return (
       <LoginForm i18next={this.props.i18next}
                  onSubmit={this.onSubmit.bind(this)}
                  loginError={this.state.loginError}
                  isSubmitting={this.state.isSubmitting}
-                 onRegister={() => this.props.history.push(routes.register)}
+                 onRegister={() => this.props.history.push(registerRoute)}
                  onPasswordReset={() => this.props.history.push(routes.resetPassword)}
                  onError={() => {
                  }}
