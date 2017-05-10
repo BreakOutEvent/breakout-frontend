@@ -387,7 +387,11 @@ module.exports = {
     "SAVEPOST": "POST SPEICHERN",
     "NEWPOSTCONTENT": "Hello World... :)",
     "MEDIA_LOADING": "Medien verarbeiten noch",
-    "MEDIA_ABORTED": "Medien hochladen fehlgeschlagen"
+    "MEDIA_ABORTED": "Medien hochladen fehlgeschlagen",
+    "COMMENTS": "Kommentare",
+    "SEND": "SENDEN",
+    "I_LIKE": "Gefällt mir",
+    "DO_COMMENT": "Kommentieren..."
   },
   "MASTER": {
     "BACK_TO_REGISTER": "Rolle auswählen",
@@ -440,11 +444,19 @@ module.exports = {
     "BTN": "Zur Anmeldung",
     "NEWSLETTER": "Sei bei BreakOut 2017 dabei...",
     "MEDIA_LOADING": "Medien verarbeiten noch",
-    "MEDIA_ABORTED": "Medien hochladen fehlgeschlagen"
+    "MEDIA_ABORTED": "Medien hochladen fehlgeschlagen",
+    "COMMENTS": "Kommentare",
+    "SEND": "SENDEN",
+    "I_LIKE": "Gefällt mir",
+    "DO_COMMENT": "Kommentieren..."
   },
   "POSTINGS": {
     "MEDIA_LOADING": "Medien verarbeiten noch",
-    "MEDIA_ABORTED": "Medien hochladen fehlgeschlagen"
+    "MEDIA_ABORTED": "Medien hochladen fehlgeschlagen",
+    "COMMENTS": "Kommentare",
+    "SEND": "SENDEN",
+    "I_LIKE": "Gefällt mir",
+    "DO_COMMENT": "Kommentieren..."
   },
   "CODEOFHONOUR": {
     "CODE_HEADING": "Code of Honour"

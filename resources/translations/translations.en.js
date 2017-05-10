@@ -387,7 +387,11 @@ module.exports = {
     "SAVEPOST": "SAVE POST",
     "NEWPOSTCONTENT": "Hello World... :)",
     "MEDIA_LOADING": "Media still processing",
-    "MEDIA_ABORTED": "Media upload failed"
+    "MEDIA_ABORTED": "Media upload failed",
+    "COMMENTS": "Comments",
+    "SEND": "SEND",
+    "I_LIKE": "Like",
+    "DO_COMMENT": "Comment..."
   },
   "MASTER": {
     "BACK_TO_REGISTER": "Select role",
@@ -440,11 +444,19 @@ module.exports = {
     "BTN": "Become a sponsor now!",
     "NEWSLETTER": "Be part of BreakOut 2017...",
     "MEDIA_LOADING": "Media still processing",
-    "MEDIA_ABORTED": "Media upload failed"
+    "MEDIA_ABORTED": "Media upload failed",
+    "COMMENTS": "Comments",
+    "SEND": "SEND",
+    "I_LIKE": "Like",
+    "DO_COMMENT": "Comment..."
   },
   "POSTINGS": {
     "MEDIA_LOADING": "Media still processing",
-    "MEDIA_ABORTED": "Media upload failed"
+    "MEDIA_ABORTED": "Media upload failed",
+    "COMMENTS": "Comments",
+    "SEND": "SEND",
+    "I_LIKE": "Like",
+    "DO_COMMENT": "Comment..."
   },
   "CODEOFHONOUR": {
     "CODE_HEADING": "Code of Honour"

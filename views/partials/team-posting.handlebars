@@ -88,10 +88,9 @@
     </div>
     <div class="bo-card-actions">
         <a href="#" class="bo-card-actions-like {{#if hasLiked}}active{{/if}}" data-id="{{id}}"><i
-                class="material-icons bo-card-actions-icon">favorite</i>{{#if likes}}<span class="bo-like-count">{{likes}}</span> Likes{{else}}Gefällt
-            mir{{/if}}</a>
+                class="material-icons bo-card-actions-icon">favorite</i>{{#if likes}}<span class="bo-like-count">{{likes}}</span> Likes{{else}}{{__ 'I_LIKE'}}{{/if}}</a>
         <a href="#" class="bo-card-actions-comment"><i
-                class="material-icons bo-card-actions-icon">comment</i> {{length comments}} Kommentare</a>
+                class="material-icons bo-card-actions-icon">comment</i> {{length comments}} {{__ 'COMMENTS'}}</a>
     </div>
     <div class="bo-card-comments">
         {{#each comments}}
@@ -101,11 +100,11 @@
             <form class="newComment">
                 <div class="col-xs-9">
                         <textarea name="newCommentText" rows="1" class="form-control bo-card-comment-input"
-                                  placeholder="Kommentieren..."></textarea>
+                                  placeholder="{{__ 'DO_COMMENT'}}"></textarea>
                     <input type="hidden" name="newCommentId" style="display: none;" value="{{id}}"/>
                 </div>
                 <div class="col-xs-3">
-                    <button class="btn btn-block btn-default" type="submit">SEND</button>
+                    <button class="btn btn-block btn-default" type="submit">{{__ 'SEND'}}</button>
                 </div>
                 <div class="clearfix"></div>
             </form>
