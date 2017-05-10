@@ -392,7 +392,18 @@ module.exports = {
     "COMMENTS": "Comments",
     "SEND": "SEND",
     "I_LIKE": "Like",
-    "DO_COMMENT": "Comment..."
+    "DO_COMMENT": "Comment...",
+    "ABOUT_US": "About us",
+    "NO_CHALLENGES_YET": "This team has no challenges yet.",
+    "PROPOSE_CHALLENGE_NOW": "Propose challenges now!",
+    "CHALLENGES": "Challenges",
+    "SPONSORS": "Sponsors",
+    "NO_SPONSORS_YET": "This team has no sponsors yet.",
+    "SUPPORT_NOW": "Support now!",
+    "NO_POSITION": "No position",
+    "SELECT_A_CHALLENGE": "Select a challenge",
+    "WANT_TO_FULFILL_CHALLENGE": "Do you want to fulfill a challenge with this posting?",
+    "NOW": "Now?"
   },
   "MASTER": {
     "BACK_TO_REGISTER": "Select role",
