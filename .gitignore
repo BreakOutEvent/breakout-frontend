@@ -38,3 +38,5 @@ rendered/*/*.json
 .brackets.json
 
 config-*
+id_rsa_breakout_deploy
+secrets.zip
