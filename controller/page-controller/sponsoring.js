@@ -129,6 +129,7 @@ sponsoring.create = (req, res, next) => co(function*() {
     body.unregisteredSponsor.lastname = req.body.lastname;
     body.unregisteredSponsor.company = req.body.company;
     body.unregisteredSponsor.gender = req.body.gender;
+    body.unregisteredSponsor.email = req.body.email;
 
     if (!req.body.url) body.unregisteredSponsor.url = '';
     else body.unregisteredSponsor.url = req.body.url;

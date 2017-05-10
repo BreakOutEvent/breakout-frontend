@@ -362,7 +362,9 @@ module.exports = {
     "LABEL_CHALLENGE_AMOUNT": "Betrag",
     "ADD_ANOTHER_CHALLENGE": "Weitere Challenge hinzufügen",
     "BTN_ADD_CHALLENGE": "Challenge hinzufügen",
-    "STATUS_WITHDRAWN": "Zurückgezogen"
+    "STATUS_WITHDRAWN": "Zurückgezogen",
+    "LABEL_EMAIL": "Emailadresse des Sponsors (optional)",
+    "ESTIMATED_DONATE_PROMISE": "Geschätztes Spendenversprechen",
   },
   "CLOSED": {
     "HEADLINE": "Anmeldung geschlossen",
