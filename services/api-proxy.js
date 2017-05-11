@@ -292,6 +292,10 @@ API.sponsoring.getByTeam = (eventId, teamId) => {
   return API.general.get(`/event/${eventId}/team/${teamId}/sponsoring/`);
 };
 
+API.sponsoring.getOverviewForTeamProfile = (teamId) => {
+  return API.general.get(`/team/${teamId}/sponsoring/`);
+};
+
 API.sponsoring.getBySponsor = (token, userId) => {
   logger.info('Trying to get sponsorings from user', userId);
 

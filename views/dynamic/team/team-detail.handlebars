@@ -121,10 +121,16 @@
                         €) {{description}}
                     {{#if sponsor}}
                         <br> von {{sponsor.firstname}} {{sponsor.lastname}}
+                        {{#if sponsor.company}}
+                            &ndash;
+                        {{/if}}
                         {{#if sponsor.url}}
                             <a href="{{sponsor.url}}">
                         {{/if}}
-                        {{sponsor.company}}
+                        {{#if sponsor.company}}
+                            {{sponsor.company}}
+                        {{/if}}
+
                         {{#if sponsor.url}}
                             </a>
                         {{/if}}
@@ -142,9 +148,9 @@
                 {{#each team.sponsors}}
                     {{#if company}}
                       {{#if url}}
-                        <a href="{{url}}"><li class="bo-sponsor-list-item">{{company}}</li></a>
+                        <li class="bo-sponsor-list-item">{{firstname}} {{lastname}} &ndash; <a href="{{url}}">{{company}}</a></li>
                       {{else}}
-                        <li class="bo-sponsor-list-item">{{company}}</li>
+                        <li class="bo-sponsor-list-item">{{firstname}} {{lastname}} &ndash; {{company}}</li>
                       {{/if}}
                     {{else}}
                       <li class="bo-sponsor-list-item">{{firstname}} {{lastname}}</li>
