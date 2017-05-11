@@ -118,12 +118,18 @@
             <ul>
                 {{#each team.challenges}}
                   <li class="bo-sponsor-list-item {{#if (challengeHasProof status)}}bo-challenge-with-proof{{/if}}">({{amount}}
-                        €) {{description}}</li>
-                    {{#if unregisteredSponsor.company}}
-                      {{#if unregisteredSponsor.url}}
-                        von <a href="{{unregisteredSponsor.url}}">{{unregisteredSponsor.company}}</a>
-                      {{/if}}
+                        €) {{description}}
+                    {{#if sponsor}}
+                        <br> von {{sponsor.firstname}} {{sponsor.lastname}}
+                        {{#if sponsor.url}}
+                            <a href="{{sponsor.url}}">
+                        {{/if}}
+                        {{sponsor.company}}
+                        {{#if sponsor.url}}
+                            </a>
+                        {{/if}}
                     {{/if}}
+                  </li>
                 {{/each}}
 
             </ul>

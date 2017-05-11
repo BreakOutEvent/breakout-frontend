@@ -28,11 +28,20 @@ const sendErr = (res, errMsg, err) => {
   res.status(500).send({ error: errMsg });
 };
 
+function shouldSponsoringBeDisplayed(s) {
+  return (s.status === 'ACCEPTED' || s.status === 'PAYED') && !s.sponsorIsHidden;
+}
+
+function shouldChallengeBeDisplayed(c) {
+  return c.status === 'ACCEPTED' || c.status === 'WITH_PROOF' || c.status === 'PROOF_ACCEPTED';
+}
+
 team.getTeamByUrl = (teamId, token) => co(function*() {
+
   let tempTeam = yield api.team.get(teamId);
-
-
   let events = yield api.event.all();
+  let allChallenges = yield api.challenge.getOverviewForTeamProfile(tempTeam.id);
+
   tempTeam.event = events.filter((event) => event.id === tempTeam.event).map(e => {
     e.year = new Date(e.date * 1000).getFullYear();
     return e;
@@ -46,14 +55,15 @@ team.getTeamByUrl = (teamId, token) => co(function*() {
   if (!tempTeam.hasFullyPaid) return tempTeam;
 
   let allSponsors = yield api.sponsoring.getByTeam(tempTeam.event.id, tempTeam.id);
-  allSponsors = allSponsors.filter(s => (s.status === 'ACCEPTED' || s.status === 'PAYED') && !s.sponsorIsHidden);
+
+  allSponsors = allSponsors.filter(shouldSponsoringBeDisplayed);
+
   tempTeam.sponsors = yield allSponsors.map(sponsor => {
     if (sponsor.userId) return api.user.get(sponsor.userId);
     return sponsor.unregisteredSponsor;
   });
 
-  let allChallenges = yield api.challenge.getByTeam(tempTeam.event.id, tempTeam.id);
-  tempTeam.challenges = allChallenges.filter(s => s.status === 'ACCEPTED' || s.status === 'WITH_PROOF' || s.status === 'PROOF_ACCEPTED');
+  tempTeam.challenges = allChallenges.filter(shouldChallengeBeDisplayed);
   tempTeam.openChallenges = allChallenges.filter(s => s.status === 'ACCEPTED');
 
   tempTeam.postings = yield api.team.getPostings(token, teamId, 0);

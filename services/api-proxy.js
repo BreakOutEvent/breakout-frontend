@@ -354,6 +354,10 @@ API.sponsoring.delete = (token, eventId, teamId, sponsoringId) => {
 
 API.challenge = {};
 
+API.challenge.getOverviewForTeamProfile = (teamId) => {
+  return API.general.get(`/team/${teamId}/challenge/`);
+};
+
 API.challenge.create = (token, eventId, teamId, body) => {
   return new Promise(function (resolve, reject) {
     request
