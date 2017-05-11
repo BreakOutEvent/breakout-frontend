@@ -30,6 +30,26 @@ export default class Registration extends React.Component {
     });
   }
 
+  getQueryValues() {
+    let qd = {};
+    if (location.search) location.search.substr(1).split('&').forEach(item => {
+      let [k, v] = item.split('=');
+      v = v && decodeURIComponent(v);
+      (qd[k] = qd[k] || []).push(v);
+    });
+
+    return qd;
+  }
+
+  redirectToReferrer() {
+    console.log(this.getQueryValues().refer);
+    if (this.getQueryValues().refer) {
+      window.location = this.getQueryValues().refer;
+    } else {
+      window.location = routes.selectRole;
+    }
+  }
+
   async onSubmitImpl(data) {
     const email = data.formData.email;
     const pw = data.formData.password1;
@@ -55,7 +75,7 @@ export default class Registration extends React.Component {
   }
 
   onRegistrationSuccess() {
-    window.location = routes.selectRole;
+    this.redirectToReferrer();
   }
 
   onRegistrationError(error) {

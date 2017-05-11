@@ -32,7 +32,8 @@ class App extends React.Component {
     this.state = {
       api: this.props.api,
       activeModal: null,
-      isLoggedIn: !!window.boUserData
+      isLoggedIn: !!window.boUserData,
+      registrationIsClosed: true
     };
   }
 
@@ -115,8 +116,17 @@ class App extends React.Component {
       return <Route {...propsCopy} render={render}/>;
     };
 
-    return (
-      <Router>
+    const RedirectRegistrationLock = (props) => {
+      const render = (componentProps) => {
+        window.location.href = '/closed';
+      };
+      let propsCopy = Object.assign({}, props);
+      delete propsCopy.component;
+      return <Route {...propsCopy} render={render}/>;
+    };
+
+    if(registrationIsLocked()) {
+      return (<Router>
         <div>
 
           <Route exact path={routes.login}
@@ -131,25 +141,64 @@ class App extends React.Component {
           <PrivateRoute exact path={routes.selectRole}
                         component={this.showModalFor(SelectRole, 'm')}/>
 
-          <PrivateRoute exact path={routes.participate}
+          <RedirectRegistrationLock exact path={routes.participate}
                         component={this.showModalFor(Participation, 'm')}/>
 
-          <PrivateRoute exact path={routes.createOrJoinTeam}
+          <RedirectRegistrationLock exact path={routes.createOrJoinTeam}
                         component={this.showModalFor(CreateOrJoinTeam, 'm')}/>
 
           <PrivateRoute exact path={routes.visitorSuccess}
                         component={this.showModalFor(VisitorSuccess, 's')}/>
 
-          <PrivateRoute exact path={routes.joinTeamSuccess}
+          <RedirectRegistrationLock exact path={routes.joinTeamSuccess}
                         component={this.showModalFor(JoinTeamSuccess, 'm')}/>
 
-          <PrivateRoute exact path={routes.createTeamSuccess}
+          <RedirectRegistrationLock exact path={routes.createTeamSuccess}
                         component={this.showModalFor(CreateTeamSuccess, 's')}/>
 
         </div>
-      </Router>
-    );
+      </Router>);
+    } else {
+      return (
+        <Router>
+          <div>
+
+            <Route exact path={routes.login}
+                   component={this.showModalFor(Login, 's')}/>
+
+            <Route exact path={routes.register}
+                   component={this.showModalFor(Registration, 's')}/>
+
+            <Route exact path={routes.resetPassword}
+                   component={this.showModalFor(ResetPassword, 's')}/>
+
+            <PrivateRoute exact path={routes.selectRole}
+                          component={this.showModalFor(SelectRole, 'm')}/>
+
+            <PrivateRoute exact path={routes.participate}
+                          component={this.showModalFor(Participation, 'm')}/>
+
+            <PrivateRoute exact path={routes.createOrJoinTeam}
+                          component={this.showModalFor(CreateOrJoinTeam, 'm')}/>
+
+            <PrivateRoute exact path={routes.visitorSuccess}
+                          component={this.showModalFor(VisitorSuccess, 's')}/>
+
+            <PrivateRoute exact path={routes.joinTeamSuccess}
+                          component={this.showModalFor(JoinTeamSuccess, 'm')}/>
+
+            <PrivateRoute exact path={routes.createTeamSuccess}
+                          component={this.showModalFor(CreateTeamSuccess, 's')}/>
+
+          </div>
+        </Router>
+      );
+    }
   }
+}
+
+function registrationIsLocked() {
+  return Date.now() > new Date('Tue May 09 2017 05:00:00 GMT+0200 (CEST)');
 }
 
 App.propTypes = {

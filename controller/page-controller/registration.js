@@ -54,7 +54,11 @@ const sendErr = (res, errMsg, err) => {
  */
 // TODO: Improve me, use check on whether there is any active event
 registration.lock = (req, res, next) => {
-  next();
+  if (Date.now() > new Date('Tue May 09 2017 05:00:00 GMT+0200 (CEST)')) {
+    res.redirect('/closed');
+  } else {
+    next();
+  }
 };
 
 /**
@@ -200,7 +204,7 @@ registration.createSponsor = (req, res, next) => co(function*() {
     }
   };
 
-  if(req.body.company) updateBody.sponsor.company = req.body.company;
+  if (req.body.company) updateBody.sponsor.company = req.body.company;
 
   const sponsor = yield api.putModel('user', req.user.me.id, req.user, updateBody);
 
@@ -216,7 +220,7 @@ registration.createSponsor = (req, res, next) => co(function*() {
     'for event',
     req.body.event);
 
-  if(!sponsor) return sendErr(res, 'Sponsor creation failed!');
+  if (!sponsor) return sendErr(res, 'Sponsor creation failed!');
 
   yield session.refreshSession(req);
 
@@ -407,9 +411,9 @@ registration.requestPwReset = (req, res) => co(function*() {
   const reset = yield api.pwreset.requestPwReset(req.body.email);
 
   if (reset) {
-    res.send({ error: '' });
+    res.send({error: ''});
   } else {
-    return res.status(500).send({ error: 'Request password reset failed!' });
+    return res.status(500).send({error: 'Request password reset failed!'});
   }
 
 }).catch(err => {
@@ -429,7 +433,7 @@ registration.resetPassword = (req, res) => co(function*() {
       success: 'Successfully reset password, you are now able to login with your new password.<br><a href="' + URLS.LOGIN + '">Login Now!</a>'
     });
   } else {
-    return res.status(500).send({ error: 'Password reset failed!' });
+    return res.status(500).send({error: 'Password reset failed!'});
   }
 
 }).catch(err => {

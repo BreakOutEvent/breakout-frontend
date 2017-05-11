@@ -362,7 +362,10 @@ module.exports = {
     "LABEL_CHALLENGE_AMOUNT": "Betrag",
     "ADD_ANOTHER_CHALLENGE": "Weitere Challenge hinzufügen",
     "BTN_ADD_CHALLENGE": "Challenge hinzufügen",
-    "STATUS_WITHDRAWN": "Zurückgezogen"
+    "STATUS_WITHDRAWN": "Zurückgezogen",
+    "LABEL_EMAIL": "Emailadresse des Sponsors (optional)",
+    "ESTIMATED_DONATE_PROMISE": "Geschätztes Spendenversprechen",
+    "SELECT_TEAM": "Team auswählen"
   },
   "CLOSED": {
     "HEADLINE": "Anmeldung geschlossen",
@@ -383,7 +386,24 @@ module.exports = {
   },
   "TEAM-DETAIL": {
     "SAVEPOST": "POST SPEICHERN",
-    "NEWPOSTCONTENT": "Hello World... :)"
+    "NEWPOSTCONTENT": "Hello World... :)",
+    "MEDIA_LOADING": "Medien verarbeiten noch",
+    "MEDIA_ABORTED": "Medien hochladen fehlgeschlagen",
+    "COMMENTS": "Kommentare",
+    "SEND": "SENDEN",
+    "I_LIKE": "Gefällt mir",
+    "DO_COMMENT": "Kommentieren...",
+    "ABOUT_US": "Über uns",
+    "NO_CHALLENGES_YET": "Dieses Team hat bisher keine Challenges. ",
+    "PROPOSE_CHALLENGE_NOW": "Jetzt Challenges stellen!",
+    "CHALLENGES": "Challenges",
+    "SPONSORS": "Sponsoren",
+    "NO_SPONSORS_YET": "Dieses Team hat bisher keine Sponsoren.",
+    "SUPPORT_NOW": "Jetzt unterstützen!",
+    "NO_POSITION": "Keine Position",
+    "SELECT_A_CHALLENGE": "Eine Challenge auswählen",
+    "WANT_TO_FULFILL_CHALLENGE": "Du willst damit eine Challenge erfüllen?",
+    "NOW": "Jetzt?"
   },
   "MASTER": {
     "BACK_TO_REGISTER": "Rolle auswählen",
@@ -434,7 +454,29 @@ module.exports = {
     "BERLIN": "Berlin",
     "POSTS_HEADLINE": "Aktuelle Posts von Teams",
     "BTN": "Zur Anmeldung",
-    "NEWSLETTER": "Sei bei BreakOut 2017 dabei..."
+    "NEWSLETTER": "Sei bei BreakOut 2017 dabei...",
+    "MEDIA_LOADING": "Medien verarbeiten noch",
+    "MEDIA_ABORTED": "Medien hochladen fehlgeschlagen",
+    "COMMENTS": "Kommentare",
+    "SEND": "SENDEN",
+    "I_LIKE": "Gefällt mir",
+    "DO_COMMENT": "Kommentieren..."
+  },
+  "POSTINGS": {
+    "MEDIA_LOADING": "Medien verarbeiten noch",
+    "MEDIA_ABORTED": "Medien hochladen fehlgeschlagen",
+    "COMMENTS": "Kommentare",
+    "SEND": "SENDEN",
+    "I_LIKE": "Gefällt mir",
+    "DO_COMMENT": "Kommentieren..."
+  },
+  "POSTING": {
+    "MEDIA_LOADING": "Medien verarbeiten noch",
+    "MEDIA_ABORTED": "Medien hochladen fehlgeschlagen",
+    "COMMENTS": "Kommentare",
+    "SEND": "SENDEN",
+    "I_LIKE": "Gefällt mir",
+    "DO_COMMENT": "Kommentieren..."
   },
   "CODEOFHONOUR": {
     "CODE_HEADING": "Code of Honour"

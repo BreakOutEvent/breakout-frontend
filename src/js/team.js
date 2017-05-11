@@ -7,7 +7,7 @@ window.msnry = null;
 const $ = require('jquery');
 $(window).on('load', function () {
 
-  Plyr.setup();
+  var players = Plyr.setup();
 
   if ($('#teamPosts').length > 0) {
     window.msnry = new Masonry('#teamPosts', {
@@ -123,7 +123,7 @@ $(window).on('load', function () {
         return window.location.href = '/login?return=' + window.location.pathname;
       }
 
-      $.post('/team/like', {postingId: $button.data('id')})
+      $.post('/team/like', { postingId: $button.data('id') })
         .success(function (data) {
           $button.toggleClass('active');
           var $likeCount = $button.find('.bo-like-count');
@@ -207,7 +207,7 @@ $(window).on('load', function () {
   $('.bo-admin-delete').on('click', function () {
     var type = $(this).attr('data-delete-type');
     var id = parseInt($(this).attr('data-id'));
-    var postingId =$(this).attr('data-posting-id');
+    var postingId = $(this).attr('data-posting-id');
 
     if (confirm('Magst du wirklich ' + type + ' mit Id: ' + id + 'unwiederruflich löschen?')) {
       $.ajax({
@@ -231,6 +231,22 @@ $(window).on('load', function () {
     'resizeDuration': 200,
     'wrapAround': true
   });
+
+  if (players) {
+    players.forEach(function (instance) {
+      instance.on('enterfullscreen', function (event) {
+        instance.source({
+          sources: [{
+            src: event.srcElement.firstChild.parentNode.parentElement.attributes.getNamedItem('data-fullscreen-webm').value,
+            type: 'video/webm'
+          }, {
+            src: event.srcElement.firstChild.parentNode.parentElement.attributes.getNamedItem('data-fullscreen-h264').value,
+            type: 'video/mp4'
+          }]
+        });
+      });
+    });
+  }
 
 });
 

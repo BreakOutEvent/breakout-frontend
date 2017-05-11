@@ -36,6 +36,25 @@
     min-height: 150px;
     background: #F5F5F5;
   }
+
+  .bo-card-media-processing {
+    text-align: center;
+    padding-top: 15px;
+    margin-bottom: -10px;
+
+    span {
+      color: @brand-primary-light;
+      padding-left: 10px;
+    }
+
+    .spinner {
+      display: inline;
+      text-align: left;
+      & > div {
+        background-color: @brand-primary-light;
+      }
+    }
+  }
 }
 
 .bo-card-media-upload {

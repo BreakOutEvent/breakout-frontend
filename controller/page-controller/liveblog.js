@@ -41,8 +41,8 @@ liveblog.getEventInfos = (activeEvents) => co(function *() {
 });
 
 liveblog.getAllPostings = (activeEvents, token) => co(function *() {
-  let postings = yield api.posting.getAllPostings(token, 0);
-  return postings.filter(p => _.includes(activeEvents, p.user.participant.eventId));
+  const page = 0;
+  return yield api.posting.getPostingsForEvent(activeEvents, token, page);
 }).catch(ex => {
   throw ex;
 });
@@ -96,12 +96,12 @@ liveblog.returnPostings = (req, res, next) => co(function *() {
   var page = req.body.page ? req.body.page : null;
   var activeEvents = req.body.activeEvents ? req.body.activeEvents.map(e => parseInt(e)) : null;
 
-  let postings = yield api.posting.getAllPostings(token, page);
-  let filteredPostings = postings.filter(p => _.includes(activeEvents, p.user.participant.eventId));
+  let postings = yield api.posting.getPostingsForEvent(activeEvents, token, page);
 
   return res.render('dynamic/liveblog/postings', {
     layout: false,
-    postings: filteredPostings
+    postings: postings,
+    language: req.language
   });
 
 

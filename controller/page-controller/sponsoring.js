@@ -47,7 +47,7 @@ sponsoring.showSponsorings = function*(req, res) {
   //CHECK IF USER IS SPONSOR OR PARTICIPANT
   if (!req.user.status.is.team && !req.user.status.is.sponsor) {
     req.flash('error', 'Um diese Seite aufzurufen, musst Du entweder Teil eines Teams oder ein Sponsor sein.');
-    return res.redirect('/select-role');
+    return res.redirect('/sponsor');
   }
 
   let incSponsoring = [];
@@ -129,6 +129,7 @@ sponsoring.create = (req, res, next) => co(function*() {
     body.unregisteredSponsor.lastname = req.body.lastname;
     body.unregisteredSponsor.company = req.body.company;
     body.unregisteredSponsor.gender = req.body.gender;
+    body.unregisteredSponsor.email = req.body.email;
 
     if (!req.body.url) body.unregisteredSponsor.url = '';
     else body.unregisteredSponsor.url = req.body.url;

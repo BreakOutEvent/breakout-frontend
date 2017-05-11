@@ -362,7 +362,10 @@ module.exports = {
     "LABEL_CHALLENGE_AMOUNT": "Amount",
     "ADD_ANOTHER_CHALLENGE": "Add another challenge",
     "BTN_ADD_CHALLENGE": "Add challenge",
-    "STATUS_WITHDRAWN": "Withdrawn"
+    "STATUS_WITHDRAWN": "Withdrawn",
+    "LABEL_EMAIL": "Email address of sponsor (optional)",
+    "ESTIMATED_DONATE_PROMISE": "Estimated donate promise",
+    "SELECT_TEAM": "Select team"
   },
   "CLOSED": {
     "HEADLINE": "Registration closed",
@@ -383,7 +386,24 @@ module.exports = {
   },
   "TEAM-DETAIL": {
     "SAVEPOST": "SAVE POST",
-    "NEWPOSTCONTENT": "Hello World... :)"
+    "NEWPOSTCONTENT": "Hello World... :)",
+    "MEDIA_LOADING": "Media still processing",
+    "MEDIA_ABORTED": "Media upload failed",
+    "COMMENTS": "Comments",
+    "SEND": "SEND",
+    "I_LIKE": "Like",
+    "DO_COMMENT": "Comment...",
+    "ABOUT_US": "About us",
+    "NO_CHALLENGES_YET": "This team has no challenges yet.",
+    "PROPOSE_CHALLENGE_NOW": "Propose challenges now!",
+    "CHALLENGES": "Challenges",
+    "SPONSORS": "Sponsors",
+    "NO_SPONSORS_YET": "This team has no sponsors yet.",
+    "SUPPORT_NOW": "Support now!",
+    "NO_POSITION": "No position",
+    "SELECT_A_CHALLENGE": "Select a challenge",
+    "WANT_TO_FULFILL_CHALLENGE": "Do you want to fulfill a challenge with this posting?",
+    "NOW": "Now?"
   },
   "MASTER": {
     "BACK_TO_REGISTER": "Select role",
@@ -434,7 +454,29 @@ module.exports = {
     "BERLIN": "Berlin",
     "POSTS_HEADLINE": "Posts from teams",
     "BTN": "Become a sponsor now!",
-    "NEWSLETTER": "Be part of BreakOut 2017..."
+    "NEWSLETTER": "Be part of BreakOut 2017...",
+    "MEDIA_LOADING": "Media still processing",
+    "MEDIA_ABORTED": "Media upload failed",
+    "COMMENTS": "Comments",
+    "SEND": "SEND",
+    "I_LIKE": "Like",
+    "DO_COMMENT": "Comment..."
+  },
+  "POSTINGS": {
+    "MEDIA_LOADING": "Media still processing",
+    "MEDIA_ABORTED": "Media upload failed",
+    "COMMENTS": "Comments",
+    "SEND": "SEND",
+    "I_LIKE": "Like",
+    "DO_COMMENT": "Comment..."
+  },
+  "POSTING": {
+    "MEDIA_LOADING": "Media still processing",
+    "MEDIA_ABORTED": "Media upload failed",
+    "COMMENTS": "Comments",
+    "SEND": "SEND",
+    "I_LIKE": "Like",
+    "DO_COMMENT": "Comment..."
   },
   "CODEOFHONOUR": {
     "CODE_HEADING": "Code of Honour"

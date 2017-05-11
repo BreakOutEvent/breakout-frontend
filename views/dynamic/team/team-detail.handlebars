@@ -10,9 +10,8 @@
                     {{#if team.profilePic.sizes}}
                     background-image:url({{getImageByWidth 200 team.profilePic.sizes}})
                     {{else}}
-                    background-color:#ccc;
-                    {{/if}}
-                        "></div>
+                    background-image:url('../img/placeholder_profile_pic.jpg')
+                    {{/if}}"></div>
             </a>
         </div>
         <div class="col-sm-8 col-md-9">
@@ -48,12 +47,17 @@
                                 <div class="bo-card-info">
                                     <div class="col-xs-3">
                                         <div class="bo-card-profilePic"
-                                             style="background-image: url({{user.profilePic.sizes.0.url}});"></div>
+                                             style="background-image: url(
+                                                 {{#if user.profilePic.sizes.0.url}}
+                                                     {{user.profilePic.sizes.0.url}}
+                                                 {{else}}
+                                                 '../img/placeholder_profile_pic.jpg'
+                                                 {{/if}});"></div>
                                     </div>
                                     <div class="col-xs-9">
                                         <div class="bo-card-info-name">
                                             <span class="bo-card-info-headline">{{user.participant.teamName}}</span>
-                                            <span class="bo-card-info-sub">Jetzt?</span>
+                                            <span class="bo-card-info-sub">{{__ 'NOW'}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -71,11 +75,9 @@
                                         <textarea class="form-control" name="postText"
                                                   placeholder="{{__ 'NEWPOSTCONTENT'}}" required="required"></textarea>
                                         {{#if team.openChallenges}}
-                                            <p class="bo-team-select-challenge">Du willst damit eine Challenge
-                                                beweisen?</p>
+                                            <p class="bo-team-select-challenge">{{__ 'WANT_TO_FULFILL_CHALLENGE'}}</p>
                                             <select class="form-control" name="challenge">
-                                                <option disabled="disabled" selected="selected">Eine Challenge
-                                                    auswählen
+                                                <option disabled="disabled" selected="selected">{{__ 'SELECT_A_CHALLENGE'}}
                                                 </option>
                                                 {{#each team.openChallenges}}
                                                     <option value="{{id}}">{{description}}</option>
@@ -83,7 +85,7 @@
                                             </select>
                                         {{/if}}
 
-                                        <p id="bo-team-location">Keine Position</p>
+                                        <p id="bo-team-location">{{__ 'NO_POSITION'}}</p>
                                         <input type="hidden" name="latitude" id="bo-team-latitude" value=""/>
                                         <input type="hidden" name="longitude" id="bo-team-longitude" value=""/>
                                         <div id="bo-post-result"></div>
@@ -108,11 +110,11 @@
         <!-- / main panel -->
         <!-- side panel -->
         <div class="col-sm-4 col-md-3 col-sm-pull-8 col-md-pull-9">
-            <h3 style="margin-bottom: 10px">Über uns</h3>
+            <h3 style="margin-bottom: 10px">{{__ 'ABOUT_US'}}</h3>
             <p class="bo-text">
                 {{team.description}}
             </p>
-            <h3 class="bo-team-sub-headline">Challenges</h3>
+            <h3 class="bo-team-sub-headline">{{__ 'CHALLENGES'}}</h3>
             <ul>
                 {{#each team.challenges}}
                   <li class="bo-sponsor-list-item {{#if (challengeHasProof status)}}bo-challenge-with-proof{{/if}}">({{amount}}
@@ -126,10 +128,10 @@
 
             </ul>
             {{#unless team.challenges}}
-                <i class="bo-text">Dieses Team hat bisher keine Challenges. <br/></i>
+                <i class="bo-text">{{__ 'NO_CHALLENGES_YET'}}<br/></i>
             {{/unless}}
-            <a href="/settings/sponsoring">Jetzt Challenges stellen!</a>
-            <h3 class="bo-team-sub-headline">Sponsoren</h3>
+            <a href="/settings/sponsoring">{{__ 'PROPOSE_CHALLENGE_NOW'}}</a>
+            <h3 class="bo-team-sub-headline">{{__ 'SPONSORS'}}</h3>
             <ul>
                 {{#each team.sponsors}}
                     {{#if company}}
@@ -144,9 +146,9 @@
                 {{/each}}
             </ul>
             {{#unless team.sponsors}}
-                <i class="bo-text">Dieses Team hat bisher keine Sponsoren. <br/></i>
+                <i class="bo-text">{{__ 'NO_SPONSORS_YET'}}<br/></i>
             {{/unless}}
-            <a href="/settings/sponsoring">Jetzt unterstützen!</a>
+            <a href="/settings/sponsoring">{{__ 'SUPPORT_NOW'}}</a>
         </div>
         <!-- / side panel -->
     </div>

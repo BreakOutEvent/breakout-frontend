@@ -364,9 +364,10 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="form-group">
-                                <select name="team" id="team_select" class="form-control" required="required">
+                                <select name="team" id="team_select" class="form-control"
+                                        required="required">
                                     <!-- TODO: l10n -->
-                                    <option disabled="disabled">Team auswählen</option>
+                                    <option disabled selected>{{__ 'SELECT_TEAM'}}</option>
                                     {{#each teams}}
                                         <option value='{"team": "{{teamId}}", "event": "{{eventId}}"}'>
                                             {{teamName}} ({{teamId}}) ({{eventTitle}})
@@ -410,7 +411,7 @@
                             <div class="well" id="output">
 
                             </div>
-                            <h4 class="text-right">Geschätzes Spendenversprechen: <strong><span
+                            <h4 class="text-right">{{__ 'ESTIMATED_DONATE_PROMISE'}}: <strong><span
                                     id="estimate"></span>€</strong></h4>
                         </div>
                     </div>
@@ -445,9 +446,8 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="form-group">
-                                <select name="addChallengeTeam" id="addChallengeTeam" class="form-control"
-                                        required="required">
-                                    <option disabled="disabled">Team auswählen</option>
+                                <select name="addChallengeTeam" id="addChallengeTeam" class="form-control" required="required">
+                                    <option disabled selected>{{__ 'SELECT_TEAM'}}</option>
                                     {{#each teams}}
                                         <option value='{"team": "{{teamId}}", "event": "{{eventId}}"}'>
                                             {{teamName}} ({{teamId}}) ({{eventTitle}})
@@ -574,7 +574,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">{{__ 'BTN_ABORT'}}</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{__
+        'BTN_ABORT'}}</button>
                     <button type="submit" class="btn btn-primary" id="bo-edit-cta">{{__ 'BTN_SAVE'}}</button>
                 </div>
             </form>
@@ -603,27 +604,35 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="form-group">
-                                <input name="team" id="bo-self-id" hidden="hidden" style="display: none;"
+                                <input name="team" id="bo-self-id" hidden="hidden"
+                                       style="display: none;"
                                        required="required"
                                        value='{"team": "{{me.participant.teamId}}", "event": "{{me.participant.eventId}}"}'/>
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="form-group has-feedback has-feedback-left">
-                                <label for="bo-self-company">{{__ 'LABEL_COMPANY'}} ({{__ 'OPTIONAL'}})</label>
+                                <label for="bo-self-company">{{__ 'LABEL_COMPANY'}} ({{__
+                                        'OPTIONAL'}})</label>
                                 <input id="bo-self-company" type="text" name="company"
                                        class="form-control">
                                 <!-- TODO add proper icon -->
                                 <i class="form-control-feedback material-icons">business</i>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
                             <div class="form-group has-feedback has-feedback-left">
                                 <label for="bo-self-gender">{{__ 'LABEL_GENDER'}}</label>
-                                <select id="bo-self-gender" class="form-control" required="required" name="gender">
-                                    <option disabled="disabled" selected="selected">{{__ 'LABEL_GENDER'}}</option>
+                                <select id="bo-self-gender" class="form-control" required="required"
+                                        name="gender">
+                                    <option disabled="disabled" selected="selected">{{__
+                                            'LABEL_GENDER'}}</option>
                                     <option value="male">Herr</option>
                                     <option value="female">Frau</option>
                                 </select>
@@ -632,16 +641,22 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="form-group has-feedback has-feedback-left">
-                                <label for="bo-self-firstname">{{__ 'PROFILE.LABEL_FIRSTNAME'}}</label>
+                                <label for="bo-self-firstname">{{__
+                                        'PROFILE.LABEL_FIRSTNAME'}}</label>
                                 <input id="bo-self-firstname" type="text" name="firstname"
                                        class="form-control" required="required">
                                 <i class="form-control-feedback material-icons">person_outline</i>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-12">
                             <div class="form-group has-feedback has-feedback-left">
                                 <label for="bo-self-lastname">{{__ 'PROFILE.LABEL_NAME'}}</label>
                                 <input id="bo-self-lastname" type="text" name="lastname"
@@ -650,8 +665,9 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-12">
                             <div class="form-group has-feedback has-feedback-left">
                                 <label for="bo-self-street">{{__ 'LABEL_STREET'}}</label>
                                 <input id="bo-self-street" type="text" name="street"
@@ -659,7 +675,10 @@
                                 <i class="form-control-feedback material-icons">pin_drop</i>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
                             <div class="form-group has-feedback has-feedback-left">
                                 <label for="bo-self-housenumber">{{__ 'LABEL_HOUSENUMBER'}}</label>
                                 <input id="bo-self-housenumber" type="text" name="housenumber"
@@ -668,8 +687,9 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="form-group has-feedback has-feedback-left">
                                 <label for="bo-self-zipcode">{{__ 'LABEL_ZIPCODE'}}</label>
                                 <input id="bo-self-zipcode" type="text" name="zipcode"
@@ -677,7 +697,10 @@
                                 <i class="form-control-feedback material-icons">pin_drop</i>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
                             <div class="form-group has-feedback has-feedback-left">
                                 <label for="bo-self-city">{{__ 'LABEL_CITY'}}</label>
                                 <input id="bo-self-city" type="text" name="city"
@@ -686,8 +709,9 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="form-group has-feedback has-feedback-left">
                                 <label for="bo-self-country">{{__ 'LABEL_COUNTRY'}}</label>
                                 <input id="bo-self-country" type="text" name="country"
@@ -695,7 +719,21 @@
                                 <i class="form-control-feedback material-icons">pin_drop</i>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label for="bo-self-email">{{__ 'LABEL_EMAIL'}}</label>
+                                <input id="bo-self-email" type="email" name="email"
+                                       class="form-control">
+                                <i class="form-control-feedback material-icons">email</i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
                             <div class="form-group has-feedback has-feedback-left">
                                 <label for="bo-self-contract">{{__ 'LABEL_CONTRACT'}}</label>
                                 <input id="bo-self-contract" type="file" name="contract"
@@ -704,10 +742,12 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="form-group has-feedback has-feedback-left">
-                                <label for="bo-self-contract">{{__ 'LABEL_URL'}} ({{__ 'OPTIONAL'}})</label>
+                                <label for="bo-self-contract">{{__ 'LABEL_URL'}} ({{__ 'OPTIONAL'}}
+                                    )</label>
                                 <input id="bo-self-contract" type="url" name="url"
                                        class="form-control">
                                 <i class="form-control-feedback material-icons">pageview</i>
@@ -715,11 +755,13 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row" style="margin-top: 10px; margin-bottom: 10px;">
                         <div class="col-sm-8 hidden-xs">
                             <div class="form-group">
-                                <label for="bo-self-amountPerKm-range">{{__ 'LABEL_AMOUNT_KM'}}</label>
-                                <input id="bo-self-amountPerKm-range" type="range" name="amountPerKm_range"
+                                <label for="bo-self-amountPerKm-range">{{__
+                                        'LABEL_AMOUNT_KM'}}</label>
+                                <input id="bo-self-amountPerKm-range" type="range"
+                                       name="amountPerKm_range"
                                        class="form-control"
                                        min="0" max="2" step="0.01"
                                        value="0.3" required="required">
@@ -727,14 +769,18 @@
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group has-feedback has-feedback-left">
-                                <label for="bo-self-amountPerKm-text">{{__ 'LABEL_AMOUNT_KM'}}</label>
+                                <label for="bo-self-amountPerKm-text">{{__
+                                        'LABEL_AMOUNT_KM'}}</label>
                                 <input type="text" class="form-control" name="amountPerKm_text"
-                                       id="bo-self-amountPerKm-text" required="required" value="0.30"
+                                       id="bo-self-amountPerKm-text" required="required"
+                                       value="0.30"
                                        placeholder="{{__ 'LABEL_AMOUNT_KM'}}">
                                 <i class="form-control-feedback material-icons">euro_symbol</i>
                             </div>
                         </div>
                     </div>
+
+
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="form-group has-feedback has-feedback-left">
@@ -751,23 +797,26 @@
                             <div class="well" id="bo-self-output">
 
                             </div>
-                            <h4 class="text-right">Geschätzes Spendenversprechen: <strong><span
+                            <h4 class="text-right">{{__ 'ESTIMATED_DONATE_PROMISE'}}: <strong><span
                                     id="bo-self-estimate"></span>€</strong></h4>
                         </div>
                     </div>
                     <div class="row" id="selfChallengeRow">
                         <div class="col-sm-9">
                             <div class="form-group has-feedback has-feedback-left">
-                                <label for="selfChallengeDescription">{{__ 'LABEL_CHALLENGE_DESCRIPTION'}}</label>
+                                <label for="selfChallengeDescription">{{__
+                                        'LABEL_CHALLENGE_DESCRIPTION'}}</label>
                                 <textarea class="form-control" name="selfChallengeDescription[]"
                                           id="selfChallengeDescription"
-                                          placeholder="{{__ 'LABEL_CHALLENGE_DESCRIPTION'}}"></textarea>
+                                          placeholder="{{__
+                                                  'LABEL_CHALLENGE_DESCRIPTION'}}"></textarea>
                                 <i class="form-control-feedback material-icons">description</i>
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group has-feedback has-feedback-left">
-                                <label for="selfChallengeAmount">{{__ 'LABEL_CHALLENGE_AMOUNT'}}</label>
+                                <label for="selfChallengeAmount">{{__
+                                        'LABEL_CHALLENGE_AMOUNT'}}</label>
                                 <input type="text" class="form-control" name="selfChallengeAmount[]"
                                        id="selfChallengeAmount"
                                        placeholder="{{__ 'LABEL_CHALLENGE_AMOUNT'}}">
@@ -777,15 +826,18 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
-                            <button type="button" id="selfChallengeExtend" class="btn btn-block btn-default">
+                            <button type="button" id="selfChallengeExtend"
+                                    class="btn btn-block btn-default">
                                 {{__ 'ADD_ANOTHER_CHALLENGE'}}
                             </button>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">{{__ 'BTN_ABORT'}}</button>
-                    <button type="submit" class="btn btn-primary" id="bo-self-cta">{{__ 'BTN_SAVE'}}</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{__
+                            'BTN_ABORT'}}</button>
+                    <button type="submit" class="btn btn-primary" id="bo-self-cta">{{__
+                            'BTN_SAVE'}}</button>
                 </div>
             </form>
         </div>
