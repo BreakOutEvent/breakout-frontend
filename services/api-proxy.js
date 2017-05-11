@@ -571,6 +571,29 @@ API.posting.getAllPostings = (token, page) => {
    */
 };
 
+API.posting.getPostingsForEvent = (events, token, page) => {
+
+  // request.debug = true;
+  logger.info(`Requesting postings for events ${events} and page ${page}`);
+
+  let options = {
+    url: `${url}/posting/`,
+    qs: {
+      event: events
+    },
+    useQuerystring: true
+  };
+
+  if (token) options.auth = { bearer: token.access_token };
+  if (token) options.qs.userid = token.me.id;
+  if (page) options.qs.page = page;
+
+  return new Promise((resolve, reject) => {
+    request.get(options, handleResponse(resolve, reject, `Got postings for events ${events} and page ${page}`));
+  });
+
+};
+
 API.posting.getPosting = (postingId, token) => {
   let options = {
     url: `${url}/posting/${postingId}/`
