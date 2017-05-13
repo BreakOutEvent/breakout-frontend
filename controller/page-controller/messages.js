@@ -52,8 +52,9 @@ messages.getById = function *(req, res) {
 };
 
 messages.getAll = (req) => co(function*() {
-  if (req.user.me.groupMessageIds.length === 0) return [];
-  return yield req.user.me.groupMessageIds.map(gMId => api.messaging.getGroupMessage(req.user, gMId));
+  const me = yield api.getCurrentUser(req.user);
+  if (me.groupMessageIds.length === 0) return [];
+  return yield me.groupMessageIds.map(gMId => api.messaging.getGroupMessage(req.user, gMId));
 }).catch((ex) => {
   throw ex;
 });
