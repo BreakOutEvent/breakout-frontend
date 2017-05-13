@@ -8,7 +8,6 @@ const co = require('co');
 const _ = require('lodash');
 const fs = require('fs');
 const logger = require('../../services/logger');
-const Promise = require('bluebird');
 
 const api = require('../../services/api-proxy');
 
@@ -26,43 +25,18 @@ const sendErr = (res, errMsg, err) => {
   if (err) logger.error(errMsg, err);
   else logger.error(errMsg);
 
-  res.status(500).send({error: errMsg});
+  res.status(500).send({ error: errMsg });
 };
 
-function shouldSponsoringBeDisplayed(s) {
-  return (s.status === 'ACCEPTED' || s.status === 'PAYED') && !s.sponsorIsHidden;
-}
-
-function shouldChallengeBeDisplayed(c) {
-  return c.status === 'ACCEPTED' || c.status === 'WITH_PROOF' || c.status === 'PROOF_ACCEPTED';
-}
-
-function transformEventAddYear(e) {
-  e.year = new Date(e.date * 1000).getFullYear();
-  return e;
-}
-
 team.getTeamByUrl = (teamId, token) => co(function*() {
+  let tempTeam = yield api.team.get(teamId);
 
-  let responses = yield Promise.all([
-    api.team.get(teamId),
-    api.event.all(),
-    api.challenge.getOverviewForTeamProfile(teamId),
-    api.sponsoring.getOverviewForTeamProfile(teamId),
-    api.team.getPostings(token, teamId, 0),
-  ]);
 
-  let tempTeam = responses[0];
-  let events = responses[1];
-  let allChallenges = responses[2];
-  let allSponsors = responses[3];
-  let postings = responses[4];
-
-  tempTeam.postings = postings;
-
-  tempTeam.event = events
-    .filter((event) => event.id === tempTeam.event)
-    .map(transformEventAddYear).pop();
+  let events = yield api.event.all();
+  tempTeam.event = events.filter((event) => event.id === tempTeam.event).map(e => {
+    e.year = new Date(e.date * 1000).getFullYear();
+    return e;
+  }).pop();
 
   tempTeam.max = {};
   tempTeam.max.distance = 0;
@@ -71,12 +45,18 @@ team.getTeamByUrl = (teamId, token) => co(function*() {
   //ONLY VIEW FULLY PAID TEAMS
   if (!tempTeam.hasFullyPaid) return tempTeam;
 
-  tempTeam.sponsors = allSponsors
-    .filter(shouldSponsoringBeDisplayed)
-    .map(sponsoring => sponsoring.sponsor);
+  let allSponsors = yield api.sponsoring.getByTeam(tempTeam.event.id, tempTeam.id);
+  allSponsors = allSponsors.filter(s => (s.status === 'ACCEPTED' || s.status === 'PAYED') && !s.sponsorIsHidden);
+  tempTeam.sponsors = yield allSponsors.map(sponsor => {
+    if (sponsor.userId) return api.user.get(sponsor.userId);
+    return sponsor.unregisteredSponsor;
+  });
 
-  tempTeam.challenges = allChallenges.filter(shouldChallengeBeDisplayed);
+  let allChallenges = yield api.challenge.getByTeam(tempTeam.event.id, tempTeam.id);
+  tempTeam.challenges = allChallenges.filter(s => s.status === 'ACCEPTED' || s.status === 'WITH_PROOF' || s.status === 'PROOF_ACCEPTED');
   tempTeam.openChallenges = allChallenges.filter(s => s.status === 'ACCEPTED');
+
+  tempTeam.postings = yield api.team.getPostings(token, teamId, 0);
 
   let locations = _.map(
     _.sortBy(
