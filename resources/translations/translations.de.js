@@ -390,7 +390,7 @@ module.exports = {
     "MEDIA_LOADING": "Medien verarbeiten noch",
     "MEDIA_ABORTED": "Medien hochladen fehlgeschlagen",
     "COMMENTS": "Kommentare",
-    "SEND": "SENDEN",
+    "SEND": "SEND",
     "I_LIKE": "Gefällt mir",
     "DO_COMMENT": "Kommentieren...",
     "ABOUT_US": "Über uns",
@@ -458,7 +458,7 @@ module.exports = {
     "MEDIA_LOADING": "Medien verarbeiten noch",
     "MEDIA_ABORTED": "Medien hochladen fehlgeschlagen",
     "COMMENTS": "Kommentare",
-    "SEND": "SENDEN",
+    "SEND": "SEND",
     "I_LIKE": "Gefällt mir",
     "DO_COMMENT": "Kommentieren..."
   },
@@ -466,7 +466,7 @@ module.exports = {
     "MEDIA_LOADING": "Medien verarbeiten noch",
     "MEDIA_ABORTED": "Medien hochladen fehlgeschlagen",
     "COMMENTS": "Kommentare",
-    "SEND": "SENDEN",
+    "SEND": "SEND",
     "I_LIKE": "Gefällt mir",
     "DO_COMMENT": "Kommentieren..."
   },
@@ -474,7 +474,7 @@ module.exports = {
     "MEDIA_LOADING": "Medien verarbeiten noch",
     "MEDIA_ABORTED": "Medien hochladen fehlgeschlagen",
     "COMMENTS": "Kommentare",
-    "SEND": "SENDEN",
+    "SEND": "SEND",
     "I_LIKE": "Gefällt mir",
     "DO_COMMENT": "Kommentieren..."
   },
