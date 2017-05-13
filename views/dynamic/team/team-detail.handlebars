@@ -142,7 +142,7 @@
             {{#unless team.challenges}}
                 <i class="bo-text">{{__ 'NO_CHALLENGES_YET'}}<br/></i>
             {{/unless}}
-            <a href="/settings/sponsoring">{{__ 'PROPOSE_CHALLENGE_NOW'}}</a>
+            <a href="/settings/sponsoring/?id={{team.id}}">{{__ 'PROPOSE_CHALLENGE_NOW'}}</a>
             <h3 class="bo-team-sub-headline">{{__ 'SPONSORS'}}</h3>
             <ul>
                 {{#each team.sponsors}}

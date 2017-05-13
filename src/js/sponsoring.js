@@ -2,7 +2,11 @@
 
 var sanityCheck = require('./helpers').sanityCheck;
 var toggleLoading = require('./helpers').toggleLoading;
-const $ = require('jquery');
+
+// In order to use bootstrap functions we have to access gloabal $-variable and require the bootstrap module. 
+const $ = window.$;
+const bootstrap = require('bootstrap')
+
 $(document).ready(() => {
 
   function output(text, limit, outputHTML, estimate) {
@@ -43,7 +47,9 @@ $(document).ready(() => {
       });
     };
   }
-
+  
+  $('*[data-showReferrer="true"]').modal('show')
+  
   const addText = $('#amountPerKm_text');
   const addLimit = $('#limit');
 

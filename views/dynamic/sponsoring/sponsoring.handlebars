@@ -332,7 +332,6 @@
                                 <br/>{{/if}}
                             {{/each}}
                         </td>
-
                     </tr>
                 {{/each}}
                 </tbody>
@@ -425,7 +424,7 @@
     </div>
 </div>
 
-<div class="modal" id="addChallenge" tabindex="-1" role="dialog" aria-labelledby="addChallengeTitle">
+<div class="modal" id="addChallenge" tabindex="-1" role="dialog" aria-labelledby="addChallengeTitle" {{#ifCond fromTeams 1}} data-showReferrer="true" {{/ifCond}}>
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <form class="form" id="addChallengeForm">
@@ -449,7 +448,7 @@
                                 <select name="addChallengeTeam" id="addChallengeTeam" class="form-control" required="required">
                                     <option disabled selected>{{__ 'SELECT_TEAM'}}</option>
                                     {{#each teams}}
-                                        <option value='{"team": "{{teamId}}", "event": "{{eventId}}"}'>
+                                        <option value='{"team": "{{teamId}}", "event": "{{eventId}}"}' {{#ifCond fromTeams teamId}} selected {{else}} selected="selected" {{/ifCond}} >
                                             {{teamName}} ({{teamId}}) ({{eventTitle}})
                                         </option>
                                     {{/each}}
