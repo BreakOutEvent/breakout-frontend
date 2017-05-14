@@ -72,9 +72,6 @@ sponsoring.showSponsorings = function*(req, res) {
 
   const teams = yield sponsoring.getAllTeamsSummary(req);
 
-  console.log(teams)
-  console.log(req.query.id)
-
   res.render('dynamic/sponsoring/sponsoring', {
     error: req.flash('error'),
     layout: 'master',
@@ -89,7 +86,8 @@ sponsoring.showSponsorings = function*(req, res) {
     teams: teams,
     isLoggedIn: req.user,
     title: 'Sponsorings',
-    fromTeam: req.query.id
+    fromTeam: req.query.id,
+    mode: req.query.mode
   });
 
 };
