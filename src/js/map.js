@@ -65,41 +65,53 @@ function zoom_in(markers_list, bounds, geocenter, maximum_zoom) {
 
 // Draw the route of each team
 var drawRoute = function (teams) {
-  teams.forEach(function (team) {
-    console.log(team);
+  var isSingleTeam = teams.length === 1;
 
+  teams.forEach(function (team) {
     if (!team) return;
     var startingposition = new google.maps.LatLng(team.event.startingLocation.latitude, team.event.startingLocation.longitude);
     markers_list.push(startingposition);
-
+    var route = [startingposition];
     var priorLocation = null;
-    for (var i = 0; i < team.locations.length; i++) {
-      var loc = new google.maps.LatLng(team.locations[i].latitude, team.locations[i].longitude);
-      //markers_list.push(loc);
 
+    team.locations.forEach(function (location) {
+      var loc = new google.maps.LatLng(location.latitude, location.longitude);
 
-      if (priorLocation) {
-        var route = [priorLocation, loc];
-        var color = getColor(team.locations[i].speedToLocation | 0);
-      } else {
-        var route = [startingposition, loc];
+      if (isSingleTeam) {
+        route = [startingposition, loc];
         var color = '#919191';
-      }
 
-      console.log(getColor(team.locations[i].speedToLocation));
+        if (priorLocation) {
+          route = [priorLocation, loc];
+          color = getHeatMapColor(location.speed | 0);
+        }
+
+        var flightPath = new google.maps.Polyline({
+          path: route,
+          strokeColor: color,
+          strokeOpacity: 1.0,
+          strokeWeight: 5
+        });
+
+        marker(route, team, exportsMap.map, flightPath, false);
+        flightPath.setMap(exportsMap.map);
+        priorLocation = loc;
+      } else {
+        route.push(loc);
+        markers_list.push(loc);
+      }
+    });
+
+    if (!isSingleTeam) {
       var flightPath = new google.maps.Polyline({
         path: route,
-        strokeColor: color,
+        strokeColor: getCityColor(team),
         strokeOpacity: 1.0,
-        strokeWeight: 5
+        strokeWeight: 3
       });
 
-      marker(route, team, exportsMap.map, flightPath);
-
+      marker(route, team, exportsMap.map, flightPath, true);
       flightPath.setMap(exportsMap.map);
-
-
-      priorLocation = loc;
     }
 
   });
@@ -107,7 +119,7 @@ var drawRoute = function (teams) {
 
 
 //Marker on last position
-function marker(route, team, map, flightPath) {
+function marker(route, team, map, flightPath, visible) {
   var marker;
   marker = new google.maps.Marker({
     position: route[route.length - 1],
@@ -115,7 +127,7 @@ function marker(route, team, map, flightPath) {
   });
   //Hide all Starting Markers
   if (route.length) {
-    marker.setVisible(false); //but still keep them in the array
+    marker.setVisible(visible); //but still keep them in the array
   }
 
   //Adds the last position to the markers_list for autofit
@@ -149,7 +161,7 @@ function makeContent(team) {
   return contentstring;
 }
 
-function pickHex(color1, color2, weight) {
+function colorGradientByWeight(color1, color2, weight) {
   var p = weight;
   var w = p * 2 - 1;
   var w1 = (w / 1 + 1) / 2;
@@ -160,41 +172,30 @@ function pickHex(color1, color2, weight) {
   return rgb;
 }
 
+//Select Teamcolor for Event
+function getCityColor(team) {
+  var colorlist = {
+    'München': '#F7931D',
+    'Berlin': '#5AACA5',
+    'Barcelona': '#415dac'
+  };
+
+  return colorlist[team.event.city];
+}
+
 //Select Teamcolor for Munich/Berlin
-function getColor(speed) {
+function getHeatMapColor(speed) {
 
   var normSpeed = Math.log(Math.log(speed + 11.8)) - 0.9;
   console.log(speed, normSpeed);
   //[255, 128, 0],[106, 185, 255]
-  var rgb = pickHex([0, 255, 0], [255, 0, 0], normSpeed);
+  var rgb = colorGradientByWeight([0, 255, 0], [255, 0, 0], normSpeed);
   var rgbToHex = (r, g, b) => '#' + [r, g, b].map(x => {
     const hex = x.toString(16);
     return hex.length === 1 ? '0' + hex : hex;
   }).join('');
 
   return rgbToHex(rgb[0], rgb[1], rgb[2]);
-  /*
-   console.log(color);
-
-   return color;
-   if (!speed) {
-   return '#cacaca';
-   } else if (speed < 20) {
-   return '#6ab9ff';
-   } else if (speed < 50) {
-   return '#0061b5';
-   } else if (speed < 100) {
-   return '#00b52a';
-   } else if (speed < 200) {
-   return '#bfc500';
-   } else if (speed < 500) {
-   return '#ffc921';
-   } else if (speed < 1000) {
-   return '#ff3f00';
-   } else {
-   return '#000000';
-   }
-   */
 }
 
 
