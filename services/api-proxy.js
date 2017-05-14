@@ -701,6 +701,10 @@ API.team.getDistance = function (teamId) {
   return API.general.get(`/event/1/team/${teamId}/distance/`);
 };
 
+API.team.getLocations = function (teamId) {
+  return API.general.get(`/event/1/team/${teamId}/location/?perTeam=100`);
+};
+
 API.team.getDonations = function (teamId) {
   return API.general.get(`/event/1/team/${teamId}/donatesum/`);
 };

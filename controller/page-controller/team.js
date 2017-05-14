@@ -50,6 +50,7 @@ team.getTeamByUrl = (teamId, token) => co(function*() {
     api.challenge.getOverviewForTeamProfile(teamId),
     api.sponsoring.getOverviewForTeamProfile(teamId),
     api.team.getPostings(token, teamId, 0),
+    api.team.getLocations(teamId)
   ]);
 
   let tempTeam = responses[0];
@@ -57,6 +58,7 @@ team.getTeamByUrl = (teamId, token) => co(function*() {
   let allChallenges = responses[2];
   let allSponsors = responses[3];
   let postings = responses[4];
+  let locations = responses[5];
 
   tempTeam.postings = postings;
 
@@ -77,13 +79,6 @@ team.getTeamByUrl = (teamId, token) => co(function*() {
 
   tempTeam.challenges = allChallenges.filter(shouldChallengeBeDisplayed);
   tempTeam.openChallenges = allChallenges.filter(s => s.status === 'ACCEPTED');
-
-  let locations = _.map(
-    _.sortBy(
-      _.filter(tempTeam.postings, p => p.postingLocation && p.postingLocation.duringEvent),
-      p => p.date),
-    p => _.pick(p.postingLocation, ['latitude', 'longitude'])
-  );
 
   const distances = yield [
     api.team.getDistance(teamId),
