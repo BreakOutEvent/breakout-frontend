@@ -104,7 +104,7 @@ function redirectIfSponsor(req, res, next) {
   if (req.user.status.is.sponsor) {
     return res.redirect('/settings/sponsoring');
   }
-  next();
+  next()
 }
 
 function renderTemplate(type, folder, layout) {

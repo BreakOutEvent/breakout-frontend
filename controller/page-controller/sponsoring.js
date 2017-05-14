@@ -42,12 +42,12 @@ const parseAmount = (rawAmount) => {
 };
 
 sponsoring.showSponsorings = function*(req, res) {
-
-
+  let question_mark_split = req.headers.referer.split('?')
+  let query_string = question_mark_split[question_mark_split.length-1]
   //CHECK IF USER IS SPONSOR OR PARTICIPANT
   if (!req.user.status.is.team && !req.user.status.is.sponsor) {
     req.flash('error', 'Um diese Seite aufzurufen, musst Du entweder Teil eines Teams oder ein Sponsor sein.');
-    return res.redirect('/sponsor');
+    return res.redirect('/sponsor'+ '?' + query_string);
   }
 
   let incSponsoring = [];
