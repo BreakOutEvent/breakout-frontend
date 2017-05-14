@@ -3,6 +3,7 @@
 // Load modules
 const i18n = require('../services/i18n');
 const fs = require('fs');
+var dateFormat = require('dateformat');
 const Remarkable = require('remarkable');
 const path = require('path');
 const logger = require('../services/logger');
@@ -92,6 +93,12 @@ exports.markdown = function renderMarkdown(mdFileName, context) {
 
 exports.date = function makeDate(timestamp, context) {
   return new Date(timestamp);
+};
+
+exports.beautifuldate = function makeDate(timestamp, context) {
+  let date = new Date(timestamp);
+  let beautifuldate = dateFormat(date, "dddd, h:MM TT");
+  return beautifuldate;
 };
 
 exports.md = function renderMarkdown(rawMd, context) {

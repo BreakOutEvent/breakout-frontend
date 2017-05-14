@@ -54,9 +54,24 @@ admin.showDashboardCheckin = function*(req, res) {
 };
 
 admin.showOverview = function*(req, res) {
+
+  function compare(a,b) {
+    if (a[req.query.sortBy].timestamp > b[req.query.sortBy].timestamp)
+      return -1;
+    if (a[req.query.sortBy].timestamp > b[req.query.sortBy].timestamp)
+      return 1;
+    return 0;
+  }
+
+
   let options = defaultOptions(req);
   options.view = 'admin-teamoverview';
   options.data = yield api.getTeamOverview(getAccessTokenFromRequest(req)).then(resp => resp.data);
+
+
+  if(req.query.sortBy){
+    options.data = options.data.sort(compare);
+  }
 
   res.render('static/admin/dashboard', options);
 };
@@ -89,6 +104,25 @@ admin.addPayment = function *(req, res) {
 
   }
 };
+
+admin.updateLastContact = function *(req, res) {
+
+
+  try {
+    let comment = yield api.postModel(`/teamoverview/${req.body.teamid}/lastContactWithHeadquarters/`, req.user, {comment: req.body.update});
+    res.sendStatus(200);
+  } catch (err) {
+    res.status(500);
+    logger.error(`An error occured while trying to update the last contact ${req.body.update}: `, err);
+    if (err.message) {
+      res.json({message: err.message});
+    } else {
+      res.json({message: 'An unknown error occured'});
+    }
+
+  }
+};
+
 
 admin.getInvoices = (req) => co(function*() {
   const events = yield api.getModel('event', req.user);
@@ -214,5 +248,6 @@ admin.addInvoice = function *(req, res) {
   return res.status(200).send(addAmount);
 
 };
+
 
 module.exports = admin;
