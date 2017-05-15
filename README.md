@@ -10,12 +10,12 @@ For related applications check the organization: https://github.com/BreakOutEven
 3. Start mongodb using docker: `docker run --name breakout-mongo -p "27017:27017" -d mongo`
 4. Optional: start an instance of breakout-backend (requires further documenation)
 5. Run `npm run build` to build project (e.g less -> css, jsx -> js, ...)
-6. Run `npm start` to start frontend
+6. Run `NODE_ENVIRONMENT=yourenv npm start` to start frontend
 7. Your application will be running at localhost:3000
 
 # How to develop with breakout-frontend
 1. Execute steps 1 - 4 from above
 2. Run `npm run build-watch`. This watches for changes in client-side `*.js` `*.jsx` and `*.less` files and
 builds the respective compiled files (which then can be found in `/public`). Keep this running during development!
-3. Run `npm start` to start frontend
+3. Run `NODE_ENVIRONMENT=yourenv npm start` to start frontend
 4. Your application will be running at localhost:3000
