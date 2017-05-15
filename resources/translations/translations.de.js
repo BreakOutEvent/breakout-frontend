@@ -480,6 +480,14 @@ module.exports = {
     "I_LIKE": "Gefällt mir",
     "DO_COMMENT": "Kommentieren..."
   },
+  "HASHTAG": {
+    "MEDIA_LOADING": "Medien verarbeiten noch",
+    "MEDIA_ABORTED": "Medien hochladen fehlgeschlagen",
+    "COMMENTS": "Kommentare",
+    "SEND": "SEND",
+    "I_LIKE": "Gefällt mir",
+    "DO_COMMENT": "Kommentieren..."
+  },
   "CODEOFHONOUR": {
     "CODE_HEADING": "Code of Honour"
   }
