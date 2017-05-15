@@ -13,11 +13,6 @@ const url = `${config.api.protocol}://${config.api.url}`;
 const logger = require('../services/logger');
 const _ = require('lodash');
 
-Object.keys(config).forEach(k => {
-  if (!config[k])
-    throw new Error(`No config entry found for ${k}`);
-});
-
 var API = {};
 
 API.authenticate = (username, password) => {

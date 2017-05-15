@@ -13,12 +13,6 @@ function buildMongoUrl(user, password, database, host) {
   }
 }
 
-Object.keys(config.db).forEach((key) => {
-  if (config.db[key] === undefined) {
-    throw new Error(`No config entry found for ${key}`);
-  }
-});
-
 const MONGO_HOST = `${config.db.url}:${config.db.port}`;
 const URL = buildMongoUrl(config.db.user, config.db.password, config.db.name, MONGO_HOST);
 

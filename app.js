@@ -279,10 +279,10 @@ function server(callback) {
   }
 }
 
-if (!IS_TEST) {
-  sticky(server, {
-    port: 3000
-  });
+if (config.cluster) {
+  sticky(server, {port: 3000});
+} else {
+  server();
 }
 
 module.exports = server;

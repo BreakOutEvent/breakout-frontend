@@ -4,7 +4,7 @@
 /* eslint no-console: 0 */
 
 if (!process.env.NODE_ENVIRONMENT) {
-  console.error('NODE_ENVIRONEMNT is not specified');
+  console.error('NODE_ENVIRONMENT is not specified: Use NODE_ENVIRONMENT=yourenv and provide config file config-yourenv.json');
   process.exit(1);
 }
 
