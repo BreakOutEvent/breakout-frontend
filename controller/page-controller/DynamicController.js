@@ -150,10 +150,13 @@ class DynamicController {
   static *showHighscores(req, res) {
 
     let teamInfo = yield team.getAll(req.session.activeEvents);
-    let map = yield liveblog.getMapData(teamInfo.eventsInfo.activeEvents);
+    let map = yield liveblog.getMapData(req.session.activeEvents);
 
-    let sortedTeamsbyDistance = ( _.sortBy(teamInfo.allTeams, t => t.distance)).reverse();
-    let sortedTeamsbyMoney = (_.sortBy(teamInfo.allTeams, t => t.donateSum.fullSum)).reverse();
+    const requests = req.session.activeEvents.map(event => liveblog.getHighscores(event));
+    const highscores = yield Promise.all(requests);
+    const allTeams = [].concat.apply([], highscores);
+    let sortedTeamsbyDistance = ( _.sortBy(allTeams, t => t.distance)).reverse();
+    let sortedTeamsbyMoney = (_.sortBy(allTeams, t => t.donatedSum.fullSum)).reverse();
 
     let slicedDistance = sortedTeamsbyDistance.slice(0, 5);
     let slicedMoney = sortedTeamsbyMoney.slice(0, 5);

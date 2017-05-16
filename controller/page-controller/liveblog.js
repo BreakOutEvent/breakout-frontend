@@ -40,6 +40,10 @@ liveblog.getEventInfos = (activeEvents) => co(function *() {
   throw ex;
 });
 
+liveblog.getHighscores = (eventId) =>{
+  return api.general.get(`/event/${eventId}/highscore/`);
+};
+
 liveblog.getAllPostings = (activeEvents, token) => co(function *() {
   const page = 0;
   return yield api.posting.getPostingsForEvent(activeEvents, token, page);

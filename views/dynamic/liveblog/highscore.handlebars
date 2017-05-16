@@ -31,7 +31,7 @@
                     <tr>
                         <td>{{addOne @index}}</td>
                         <td>
-                            <a href="/team/{{id}}">{{name}}</a></td>
+                            <a href="/team/{{teamId}}">{{teamName}}</a></td>
                         <td>{{round distance}} km</td>
                     </tr>
                 {{/each}}
@@ -55,8 +55,8 @@
                     <tr>
                         <td>{{addOne @index}}</td>
                         <td>
-                            <a href="/team/{{id}}">{{name}}</a></td>
-                        <td>{{round donateSum.fullSum}} €</td>
+                            <a href="/team/{{teamId}}">{{teamName}}</a></td>
+                        <td>{{round donatedSum.fullSum}} €</td>
                     </tr>
                 {{/each}}
                 </tbody>
