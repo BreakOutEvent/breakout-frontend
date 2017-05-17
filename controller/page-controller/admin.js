@@ -56,7 +56,7 @@ admin.showDashboardCheckin = function*(req, res) {
 admin.showOverview = function*(req, res) {
 
   function compare(a,b) {
-    if (a[req.query.sortBy].timestamp > b[req.query.sortBy].timestamp)
+    if (a[req.query.sortBy].timestamp< b[req.query.sortBy].timestamp)
       return -1;
     if (a[req.query.sortBy].timestamp > b[req.query.sortBy].timestamp)
       return 1;
@@ -110,7 +110,7 @@ admin.updateLastContact = function *(req, res) {
 
   try {
     let comment = yield api.postModel(`/teamoverview/${req.body.teamid}/lastContactWithHeadquarters/`, req.user, {comment: req.body.update});
-    res.sendStatus(200);
+    res.redirect('/admin/teamoverview/');
   } catch (err) {
     res.status(500);
     logger.error(`An error occured while trying to update the last contact ${req.body.update}: `, err);

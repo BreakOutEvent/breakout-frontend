@@ -53,8 +53,9 @@
                     <td>{{event.name}}</td>
                     <td>
                         {{#each members}}
-                            <b>{{firstname}} {{lastname}}</b> (ID: {{id}})<br>
+                            <b class="member">{{firstname}} {{lastname}}</b></br>
                             <div class="moreinfo">
+                              ID: {{id}} <br>
                               Kontakt: {{contactPhone}}<br>
                               Notfall: {{emergencyPhone}}<br>
                             </div>
