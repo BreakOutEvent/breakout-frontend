@@ -97,7 +97,7 @@ exports.date = function makeDate(timestamp, context) {
 
 exports.beautifuldate = function makeDate(timestamp, context) {
   let date = new Date(timestamp);
-  let beautifuldate = dateFormat(date, "dddd, h:MM TT");
+  let beautifuldate = dateFormat(date, 'dddd, h:MM TT');
   return beautifuldate;
 };
 
