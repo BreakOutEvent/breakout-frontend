@@ -22,8 +22,9 @@ router.get('/invoice', session.isAdmin, admin.showDashboardInvoice);
 
 router.get('/teamoverview', session.isAdmin, admin.showOverview);
 
-
 router.post('/payment/add', session.isAdmin, admin.addPayment);
+
+router.post('/lastcontact', session.isAdmin, admin.updateLastContact);
 
 router.post('/invoice/amount/add', session.isAdmin, admin.addAmountToInvoice);
 

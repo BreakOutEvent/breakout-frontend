@@ -7,6 +7,7 @@
 
 const co = require('co');
 const request = require('request');
+const axios = require('axios');
 const crequest = require('co-request');
 const config = require('../config/config.js');
 const url = `${config.api.protocol}://${config.api.url}`;
@@ -14,6 +15,12 @@ const logger = require('../services/logger');
 const _ = require('lodash');
 
 var API = {};
+
+API.getTeamOverview = (accessToken) => {
+  return axios.get(`${url}/teamoverview/`, {
+    headers: { 'Authorization': `Bearer ${accessToken}`}
+  });
+};
 
 API.authenticate = (username, password) => {
   logger.info('Trying to login user', username);

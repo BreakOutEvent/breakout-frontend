@@ -54,12 +54,31 @@ admin.showDashboardCheckin = function*(req, res) {
 };
 
 admin.showOverview = function*(req, res) {
+
+  function compare(a,b) {
+    if (a[req.query.sortBy].timestamp< b[req.query.sortBy].timestamp)
+      return -1;
+    if (a[req.query.sortBy].timestamp > b[req.query.sortBy].timestamp)
+      return 1;
+    return 0;
+  }
+
+
   let options = defaultOptions(req);
   options.view = 'admin-teamoverview';
-  options.data = yield admin.getTeamOverview(req);
+  options.data = yield api.getTeamOverview(getAccessTokenFromRequest(req)).then(resp => resp.data);
+
+
+  if(req.query.sortBy){
+    options.data = options.data.sort(compare);
+  }
 
   res.render('static/admin/dashboard', options);
 };
+
+function getAccessTokenFromRequest(req) {
+  return req.user.access_token;
+}
 
 admin.showDashboardInvoice = function*(req, res) {
   let options = defaultOptions(req);
@@ -85,6 +104,25 @@ admin.addPayment = function *(req, res) {
 
   }
 };
+
+admin.updateLastContact = function *(req, res) {
+
+
+  try {
+    let comment = yield api.postModel(`/teamoverview/${req.body.teamid}/lastContactWithHeadquarters/`, req.user, {comment: req.body.update});
+    res.redirect('/admin/teamoverview/');
+  } catch (err) {
+    res.status(500);
+    logger.error(`An error occured while trying to update the last contact ${req.body.update}: `, err);
+    if (err.message) {
+      res.json({message: err.message});
+    } else {
+      res.json({message: 'An unknown error occured'});
+    }
+
+  }
+};
+
 
 admin.getInvoices = (req) => co(function*() {
   const events = yield api.getModel('event', req.user);
@@ -124,110 +162,6 @@ admin.getAllTeams = function () {
     .map(event => api.team.getAllByEvent(event.id))
     .reduce((a, b) => a.concat(b), [])
     .filter(team => team.hasFullyPaid);
-};
-
-admin.getTeamOverview = function () {
-  let fakeData = [{
-    teamId: 100,
-    teamName: 'JetztoderNie',
-    members: [{
-      id: '101',
-      name: 'Florian Schmidt',
-      emergencyPhone: '0928144444',
-      contactPhone: '11111'
-    }, {
-      id: '102',
-      name: 'Max Mustermann',
-      emergencyPhone: '0928166666',
-      contactPhone: '2222'
-    }],
-    event: {
-      name: 'BreakOut München 2017',
-    },
-    lastPosting: {
-      timestamp: 1493028234169,
-      id: 1274
-    },
-    lastLocation: {
-      coord: {
-        lat: 53.2,
-        lon: 14.4
-      },
-      id: 9357
-    },
-    lastContactWithHeadquarters: {
-      timestamp: 1493028236493,
-      comment: 'Alles easy, läuft gut bei denen'
-    }
-  },
-  {
-    teamId: 100,
-    teamName: 'Berlinberlin',
-    members: [{
-      id: '101',
-      name: 'Florian S.',
-      emergencyPhone: '0928144444',
-      contactPhone: '11111'
-    }, {
-      id: '102',
-      name: 'Max Hipstermann',
-      emergencyPhone: '0928166666',
-      contactPhone: '2222'
-    }],
-    event: {
-      name: 'BreakOut Berlin 2017',
-    },
-    lastPosting: {
-      timestamp: 1493028234169,
-      id: 1274
-    },
-    lastLocation: {
-      coord: {
-        lat: 53.2,
-        lon: 14.4
-      },
-      id: 9357
-    },
-    lastContactWithHeadquarters: {
-      timestamp: 1493028236493,
-      comment: 'Berlin ist besser als München'
-    }
-  },
-  {
-    teamId: 200,
-    teamName: 'Nie0derJetzt',
-    members: [{
-      id: '101',
-      name: 'Felix Schmidt',
-      emergencyPhone: '0928144444',
-      contactPhone: '11111'
-    }, {
-      id: '102',
-      name: 'Peter partnerPage',
-      emergencyPhone: '0928166666',
-      contactPhone: '2222'
-    }],
-    event: {
-      name: 'BreakOut Berlin 2017',
-    },
-    lastPosting: {
-      timestamp: 1493028234169,
-      id: 1274
-    },
-    lastLocation: {
-      coord: {
-        lat: 53.2,
-        lon: 14.4
-      },
-      id: 9357
-    },
-    lastContactWithHeadquarters: {
-      timestamp: 1493028236493,
-      comment: 'OMG'
-    }
-  }];
-
-  return Promise.resolve(fakeData);
 };
 
 admin.checkinTeam = function *(req, res) {
@@ -314,5 +248,6 @@ admin.addInvoice = function *(req, res) {
   return res.status(200).send(addAmount);
 
 };
+
 
 module.exports = admin;
