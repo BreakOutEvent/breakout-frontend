@@ -138,8 +138,10 @@ module.exports = {
     "FIRSTNAME_PLACEHOLDER": "Jon",
     "LASTNAME_LABEL": "Last name",
     "LASTNAME_PLACEHOLDER": "Snow",
-    "OPTIONAL_COMPANY_LABEL": "Company(optional)",
-    "OPTIONAL_COMPANY_PLACEHOLDER": "Test company",
+    "OPTIONAL_COMPANY_LABEL": "Company (optional)",
+    "OPTIONAL_URL_LABEL": "URL (optional)",
+    "OPTIONAL_COMPANY_PLACEHOLDER": "My Company",
+    "OPTIONAL_URL_PLACEHOLDER": "www.mycompany.com",
     "STREET_LABEL": "Street",
     "STREET_PLACEHOLDER": "Street",
     "HOUSENUMBER_LABEL": "Address",
@@ -471,6 +473,14 @@ module.exports = {
     "DO_COMMENT": "Comment..."
   },
   "POSTING": {
+    "MEDIA_LOADING": "Media still processing",
+    "MEDIA_ABORTED": "Media upload failed",
+    "COMMENTS": "Comments",
+    "SEND": "SEND",
+    "I_LIKE": "Like",
+    "DO_COMMENT": "Comment..."
+  },
+  "HASHTAG": {
     "MEDIA_LOADING": "Media still processing",
     "MEDIA_ABORTED": "Media upload failed",
     "COMMENTS": "Comments",

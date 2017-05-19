@@ -6,6 +6,7 @@
 
 'use strict';
 
+
 global.IS_TEST = process.env.FRONTEND_RUN_TESTS === 'true';
 global.ROOT = require('path').resolve(__dirname);
 
@@ -123,6 +124,25 @@ function maintenanceView(req, res, next) {
   }
 }
 
+function emergencyView(req, res, next) {
+  if (req.app.get('emergency')) {
+
+    contentful.getFieldsForContentType('notfallSeite', req.contentfulLocale).then(function(data){
+      let options = {
+        titel: data[0].titlel,
+        description: data[0].beschreibung,
+        layout: 'funnel'
+      };
+
+      res.render('dynamic/register/emergency', options);
+    });
+
+  } else {
+    next();
+  }
+}
+
+
 function contentfulLocale(req, res, next) {
   var preferredLanguage = req.acceptsLanguages()[0];
 
@@ -221,6 +241,7 @@ function server(callback) {
   app.use(require('./services/i18n').init); //Set language header correctly including fallback option.
   app.use(sessionHandler);
   app.use(maintenanceView);
+  app.use(emergencyView);
 
   app.use(contentfulLocale);
 
@@ -237,6 +258,9 @@ function server(callback) {
   // ENV specific setup
   if (process.env.FRONTEND_MAINTENANCE) app.enable('maintenance');
   else app.disable('maintenance');
+
+  if (process.env.FRONTEND_EMERGENCY) app.enable('emergency');
+  else app.disable('emergency');
 
   var server = http.createServer(app);
   const io = socketio(server);
@@ -255,10 +279,10 @@ function server(callback) {
   }
 }
 
-if (!IS_TEST) {
-  sticky(server, {
-    port: 3000
-  });
+if (config.cluster) {
+  sticky(server, {port: 3000});
+} else {
+  server();
 }
 
 module.exports = server;

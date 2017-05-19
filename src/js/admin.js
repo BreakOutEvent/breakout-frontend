@@ -4,6 +4,13 @@ const $ = require('jquery');
 var toggleLoading = require('./helpers').toggleLoading;
 
 $(document).ready(() => {
+
+  $('.moreinfo').hide();
+
+  $('.member').click(function(){
+    $(this).siblings('.moreinfo').toggle();
+  });
+
   $('.btn-payment').click(function () {
 
     toggleLoading(this, true);

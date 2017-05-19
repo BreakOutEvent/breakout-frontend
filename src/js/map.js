@@ -28,7 +28,8 @@ exportsMap.init = function (id, teams) {
     styles: mapstyle(),
     zoom: maximum_zoom,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
-    scrollwheel: window.scrollwheel | false
+    scrollwheel: window.scrollwheel | false,
+    fullscreenControl: true
   };
 
   exportsMap.map = new google.maps.Map(document.getElementById(id), mapOptions);
@@ -64,42 +65,69 @@ function zoom_in(markers_list, bounds, geocenter, maximum_zoom) {
 
 // Draw the route of each team
 var drawRoute = function (teams) {
+  var isSingleTeam = teams.length === 1;
+
   teams.forEach(function (team) {
     if (!team) return;
     var startingposition = new google.maps.LatLng(team.event.startingLocation.latitude, team.event.startingLocation.longitude);
-    var route = [startingposition];
     markers_list.push(startingposition);
-    var i;
+    var route = [startingposition];
+    var priorLocation = null;
 
-    for (i = 0; i < team.locations.length; i++) {
-      var loc = new google.maps.LatLng(team.locations[i].latitude, team.locations[i].longitude);
-      route.push(loc);
-      markers_list.push(loc);
+    team.locations.forEach(function (location) {
+      var loc = new google.maps.LatLng(location.latitude, location.longitude);
+
+      if (isSingleTeam) {
+        route = [startingposition, loc];
+        var color = '#919191';
+
+        if (priorLocation) {
+          route = [priorLocation, loc];
+          color = getHeatMapColor(location.speed | 0);
+        }
+
+        var flightPath = new google.maps.Polyline({
+          path: route,
+          strokeColor: color,
+          strokeOpacity: 1.0,
+          strokeWeight: 5
+        });
+
+        marker(route, team, exportsMap.map, flightPath, false);
+        flightPath.setMap(exportsMap.map);
+        priorLocation = loc;
+      } else {
+        route.push(loc);
+        markers_list.push(loc);
+      }
+    });
+
+    if (!isSingleTeam) {
+      var flightPath = new google.maps.Polyline({
+        path: route,
+        strokeColor: getCityColor(team),
+        strokeOpacity: 1.0,
+        strokeWeight: 3
+      });
+
+      marker(route, team, exportsMap.map, flightPath, true);
+      flightPath.setMap(exportsMap.map);
     }
 
-    var flightPath = new google.maps.Polyline({
-      path: route,
-      strokeColor: getColor(team),
-      strokeOpacity: 1.0,
-      strokeWeight: 3
-    });
-    marker(route, team, exportsMap.map, flightPath);
-
-    flightPath.setMap(exportsMap.map);
   });
 };
 
 
 //Marker on last position
-function marker(route, team, map, flightPath) {
+function marker(route, team, map, flightPath, visible) {
   var marker;
   marker = new google.maps.Marker({
     position: route[route.length - 1],
     map: map
   });
   //Hide all Starting Markers
-  if (route.length == 1) {
-    marker.setVisible(false); //but still keep them in the array
+  if (route.length) {
+    marker.setVisible(visible); //but still keep them in the array
   }
 
   //Adds the last position to the markers_list for autofit
@@ -133,15 +161,43 @@ function makeContent(team) {
   return contentstring;
 }
 
+function colorGradientByWeight(color1, color2, weight) {
+  var p = weight;
+  var w = p * 2 - 1;
+  var w1 = (w / 1 + 1) / 2;
+  var w2 = 1 - w1;
+  var rgb = [Math.round(color1[0] * w1 + color2[0] * w2),
+    Math.round(color1[1] * w1 + color2[1] * w2),
+    Math.round(color1[2] * w1 + color2[2] * w2)];
+  return rgb;
+}
 
-//Select Teamcolor for Munich/Berlin
-function getColor(team) {
+//Select Teamcolor for Event
+function getCityColor(team) {
   var colorlist = {
     'München': '#F7931D',
-    'Berlin': '#5AACA5'
+    'Berlin': '#5AACA5',
+    'Barcelona': '#415dac'
   };
+
   return colorlist[team.event.city];
 }
+
+//Select Teamcolor for Munich/Berlin
+function getHeatMapColor(speed) {
+
+  var normSpeed = Math.log(Math.log(speed + 11.8)) - 0.9;
+  console.log(speed, normSpeed);
+  //[255, 128, 0],[106, 185, 255]
+  var rgb = colorGradientByWeight([0, 255, 0], [255, 0, 0], normSpeed);
+  var rgbToHex = (r, g, b) => '#' + [r, g, b].map(x => {
+    const hex = x.toString(16);
+    return hex.length === 1 ? '0' + hex : hex;
+  }).join('');
+
+  return rgbToHex(rgb[0], rgb[1], rgb[2]);
+}
+
 
 //Map Night-Daystyle -> only Day_style
 //Only Select one Style
@@ -152,141 +208,141 @@ function mapstyle() {
   var day_map = [{
     "featureType": "landscape.natural",
     "elementType": "geometry.fill",
-    "stylers": [{ "visibility": "on" }, { "color": "#e0efef" }]
+    "stylers": [{"visibility": "on"}, {"color": "#e0efef"}]
   }, {
     "featureType": "poi",
     "elementType": "geometry.fill",
-    "stylers": [{ "visibility": "on" }, { "hue": "#1900ff" }, { "color": "#c0e8e8" }]
+    "stylers": [{"visibility": "on"}, {"hue": "#1900ff"}, {"color": "#c0e8e8"}]
   }, {
     "featureType": "road",
     "elementType": "geometry",
-    "stylers": [{ "lightness": 100 }, { "visibility": "simplified" }]
+    "stylers": [{"lightness": 100}, {"visibility": "simplified"}]
   }, {
     "featureType": "road",
     "elementType": "labels",
-    "stylers": [{ "visibility": "off" }]
+    "stylers": [{"visibility": "off"}]
   }, {
     "featureType": "transit.line",
     "elementType": "geometry",
-    "stylers": [{ "visibility": "on" }, { "lightness": 700 }]
-  }, { "featureType": "water", "elementType": "all", "stylers": [{ "color": "#7dcdcd" }] }];
+    "stylers": [{"visibility": "on"}, {"lightness": 700}]
+  }, {"featureType": "water", "elementType": "all", "stylers": [{"color": "#7dcdcd"}]}];
   var night_map = [{
     "featureType": "all",
     "elementType": "labels.text.fill",
-    "stylers": [{ "color": "#ffffff" }]
+    "stylers": [{"color": "#ffffff"}]
   }, {
     "featureType": "all",
     "elementType": "labels.text.stroke",
-    "stylers": [{ "color": "#000000" }, { "lightness": 13 }]
+    "stylers": [{"color": "#000000"}, {"lightness": 13}]
   }, {
     "featureType": "administrative",
     "elementType": "geometry.fill",
-    "stylers": [{ "color": "#000000" }]
+    "stylers": [{"color": "#000000"}]
   }, {
     "featureType": "administrative",
     "elementType": "geometry.stroke",
-    "stylers": [{ "color": "#144b53" }, { "lightness": 14 }, { "weight": 1.4 }]
-  }, { "featureType": "landscape", "elementType": "all", "stylers": [{ "color": "#08304b" }] }, {
+    "stylers": [{"color": "#144b53"}, {"lightness": 14}, {"weight": 1.4}]
+  }, {"featureType": "landscape", "elementType": "all", "stylers": [{"color": "#08304b"}]}, {
     "featureType": "poi",
     "elementType": "geometry",
-    "stylers": [{ "color": "#0c4152" }, { "lightness": 5 }]
+    "stylers": [{"color": "#0c4152"}, {"lightness": 5}]
   }, {
     "featureType": "road.highway",
     "elementType": "geometry.fill",
-    "stylers": [{ "color": "#000000" }]
+    "stylers": [{"color": "#000000"}]
   }, {
     "featureType": "road.highway",
     "elementType": "geometry.stroke",
-    "stylers": [{ "color": "#0b434f" }, { "lightness": 25 }]
+    "stylers": [{"color": "#0b434f"}, {"lightness": 25}]
   }, {
     "featureType": "road.arterial",
     "elementType": "geometry.fill",
-    "stylers": [{ "color": "#000000" }]
+    "stylers": [{"color": "#000000"}]
   }, {
     "featureType": "road.arterial",
     "elementType": "geometry.stroke",
-    "stylers": [{ "color": "#0b3d51" }, { "lightness": 16 }]
+    "stylers": [{"color": "#0b3d51"}, {"lightness": 16}]
   }, {
     "featureType": "road.local",
     "elementType": "geometry",
-    "stylers": [{ "color": "#000000" }]
-  }, { "featureType": "transit", "elementType": "all", "stylers": [{ "color": "#146474" }] }, {
+    "stylers": [{"color": "#000000"}]
+  }, {"featureType": "transit", "elementType": "all", "stylers": [{"color": "#146474"}]}, {
     "featureType": "water",
     "elementType": "all",
-    "stylers": [{ "color": "#021019" }]
+    "stylers": [{"color": "#021019"}]
   }];
   var breakout_map_2015 = [{
     featureType: "administrative",
     elementType: "labels.text",
-    stylers: [{ visibility: "on" }]
+    stylers: [{visibility: "on"}]
   }, {
     featureType: "administrative",
     elementType: "labels.icon",
-    stylers: [{ visibility: "simplified" }]
+    stylers: [{visibility: "simplified"}]
   }, {
     featureType: "administrative.country",
     elementType: "geometry.stroke",
-    stylers: [{ color: "#ababab" }]
+    stylers: [{color: "#ababab"}]
   }, {
     featureType: "administrative.province",
     elementType: "geometry.stroke",
-    stylers: [{ visibility: "off" }]
+    stylers: [{visibility: "off"}]
   }, {
     featureType: "administrative.locality",
     elementType: "all",
-    stylers: [{ visibility: "on" }]
+    stylers: [{visibility: "on"}]
   }, {
     featureType: "administrative.locality",
     elementType: "labels.text",
-    stylers: [{ visibility: "on" }]
+    stylers: [{visibility: "on"}]
   }, {
     featureType: "administrative.locality",
     elementType: "labels.text.fill",
-    stylers: [{ color: "#404041" }]
+    stylers: [{color: "#404041"}]
   }, {
     featureType: "landscape",
     elementType: "geometry",
-    stylers: [{ visibility: "on" }, { color: "#e3e3e3" }]
-  }, { featureType: "poi", elementType: "all", stylers: [{ visibility: "off" }] }, {
+    stylers: [{visibility: "on"}, {color: "#e3e3e3"}]
+  }, {featureType: "poi", elementType: "all", stylers: [{visibility: "off"}]}, {
     featureType: "road",
     elementType: "geometry.fill",
-    stylers: [{ color: "#cccccc" }]
+    stylers: [{color: "#cccccc"}]
   }, {
     featureType: "road",
     elementType: "geometry.stroke",
-    stylers: [{ color: "#cccccc" }, { weight: "0.50" }]
-  }, { featureType: "road", elementType: "labels.icon", stylers: [{ saturation: "-100" }] }, {
+    stylers: [{color: "#cccccc"}, {weight: "0.50"}]
+  }, {featureType: "road", elementType: "labels.icon", stylers: [{saturation: "-100"}]}, {
     featureType: "road.highway",
     elementType: "all",
-    stylers: [{ visibility: "simplified" }]
+    stylers: [{visibility: "simplified"}]
   }, {
     featureType: "road.highway",
     elementType: "labels",
-    stylers: [{ visibility: "off" }]
-  }, { featureType: "road.arterial", elementType: "all", stylers: [{ visibility: "on" }] }, {
+    stylers: [{visibility: "off"}]
+  }, {featureType: "road.arterial", elementType: "all", stylers: [{visibility: "on"}]}, {
     featureType: "road.local",
     elementType: "all",
-    stylers: [{ visibility: "on" }]
-  }, { featureType: "transit", elementType: "labels.icon", stylers: [{ visibility: "off" }] }, {
+    stylers: [{visibility: "on"}]
+  }, {featureType: "transit", elementType: "labels.icon", stylers: [{visibility: "off"}]}, {
     featureType: "transit.line",
     elementType: "geometry",
-    stylers: [{ visibility: "off" }]
+    stylers: [{visibility: "off"}]
   }, {
     featureType: "transit.line",
     elementType: "labels.text",
-    stylers: [{ visibility: "off" }]
+    stylers: [{visibility: "off"}]
   }, {
     featureType: "transit.station.airport",
     elementType: "geometry",
-    stylers: [{ visibility: "off" }]
+    stylers: [{visibility: "off"}]
   }, {
     featureType: "transit.station.airport",
     elementType: "labels",
-    stylers: [{ visibility: "off" }]
-  }, { featureType: "water", elementType: "geometry", stylers: [{ color: "#b1b1b1" }] }, {
+    stylers: [{visibility: "off"}]
+  }, {featureType: "water", elementType: "geometry", stylers: [{color: "#b1b1b1"}]}, {
     featureType: "water",
     elementType: "labels",
-    stylers: [{ visibility: "off" }]
+    stylers: [{visibility: "off"}]
   }];
   /* eslint-enable */
 

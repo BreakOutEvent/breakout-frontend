@@ -54,7 +54,7 @@ const sendErr = (res, errMsg, err) => {
  */
 // TODO: Improve me, use check on whether there is any active event
 registration.lock = (req, res, next) => {
-  if (Date.now() > new Date('Tue May 09 2017 05:00:00 GMT+0200 (CEST)')) {
+  if (Date.now() > new Date('Tue May 09 2018 05:00:00 GMT+0200 (CEST)')) {
     res.redirect('/closed');
   } else {
     next();
@@ -192,8 +192,8 @@ registration.createSponsor = (req, res, next) => co(function*() {
     firstname: req.body.firstname,
     lastname: req.body.lastname,
     gender: req.body.gender,
-    url: req.body.url,
     sponsor: {
+      url: req.body.url,
       address: {
         street: req.body.street,
         housenumber: req.body.housenumber,

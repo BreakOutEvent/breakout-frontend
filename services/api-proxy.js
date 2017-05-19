@@ -7,18 +7,20 @@
 
 const co = require('co');
 const request = require('request');
+const axios = require('axios');
 const crequest = require('co-request');
 const config = require('../config/config.js');
 const url = `${config.api.protocol}://${config.api.url}`;
 const logger = require('../services/logger');
 const _ = require('lodash');
 
-Object.keys(config).forEach(k => {
-  if (!config[k])
-    throw new Error(`No config entry found for ${k}`);
-});
-
 var API = {};
+
+API.getTeamOverview = (accessToken) => {
+  return axios.get(`${url}/teamoverview/`, {
+    headers: { 'Authorization': `Bearer ${accessToken}`}
+  });
+};
 
 API.authenticate = (username, password) => {
   logger.info('Trying to login user', username);
@@ -699,6 +701,10 @@ API.team.getPostings = function (token, teamId, page) {
 
 API.team.getDistance = function (teamId) {
   return API.general.get(`/event/1/team/${teamId}/distance/`);
+};
+
+API.team.getLocations = function (teamId) {
+  return API.general.get(`/event/1/team/${teamId}/location/?perTeam=100`);
 };
 
 API.team.getDonations = function (teamId) {

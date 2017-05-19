@@ -3,6 +3,7 @@
 const DynamicController = require('../controller/page-controller/DynamicController');
 const AuthenticationController = require('../controller/page-controller/AuthenticationController');
 const StaticController = require('../controller/page-controller/static.js');
+const TeamController = require('../controller/page-controller/TeamController');
 
 const Router = require('co-router');
 const multer = require('multer');
@@ -17,6 +18,11 @@ const router = new Router();
 const funnelTemplate = renderTemplate('dynamic', 'register', 'funnel');
 
 // router.get('/', redirectOnLogin, funnelTemplate('register'));
+
+router.get('/honig', function (req, res, next) {
+  req.params.teamId = 278;
+  next();
+}, TeamController.showTeamById);
 
 router.get('/refresh', session.refreshSession, (req, res) => res.redirect('/'));
 

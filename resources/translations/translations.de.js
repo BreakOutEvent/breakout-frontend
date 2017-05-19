@@ -139,7 +139,9 @@ module.exports = {
     "LASTNAME_LABEL": "Nachname",
     "LASTNAME_PLACEHOLDER": "Snow",
     "OPTIONAL_COMPANY_LABEL": "Firma (optional)",
+    "OPTIONAL_URL_LABEL": "URL (optional)",
     "OPTIONAL_COMPANY_PLACEHOLDER": "Testfirma",
+    "OPTIONAL_EMAIL_PLACEHOLDER": "www.ich@meinefirma.com",
     "STREET_LABEL": "Straße",
     "STREET_PLACEHOLDER": "Straße",
     "HOUSENUMBER_LABEL": "Hausnummer",
@@ -471,6 +473,14 @@ module.exports = {
     "DO_COMMENT": "Kommentieren..."
   },
   "POSTING": {
+    "MEDIA_LOADING": "Medien verarbeiten noch",
+    "MEDIA_ABORTED": "Medien hochladen fehlgeschlagen",
+    "COMMENTS": "Kommentare",
+    "SEND": "SEND",
+    "I_LIKE": "Gefällt mir",
+    "DO_COMMENT": "Kommentieren..."
+  },
+  "HASHTAG": {
     "MEDIA_LOADING": "Medien verarbeiten noch",
     "MEDIA_ABORTED": "Medien hochladen fehlgeschlagen",
     "COMMENTS": "Kommentare",

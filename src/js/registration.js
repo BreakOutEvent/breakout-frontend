@@ -271,7 +271,6 @@ $(document).ready(() => {
         var data = new FormData($('#sponsorForm')[0]);
         data.append('gender', window.gender);
 
-
         toggleLoading('#mainCTA');
         $.ajax({
           url: '/sponsor',
