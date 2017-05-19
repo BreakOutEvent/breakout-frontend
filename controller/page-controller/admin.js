@@ -56,17 +56,30 @@ admin.showDashboardCheckin = function*(req, res) {
 admin.showOverview = function*(req, res) {
 
   function compare(a,b) {
-    if (a[req.query.sortBy].timestamp< b[req.query.sortBy].timestamp)
-      return -1;
-    if (a[req.query.sortBy].timestamp > b[req.query.sortBy].timestamp)
-      return 1;
-    return 0;
+
+    if(req.query.direction === 'up'){
+      if (a[req.query.sortBy].timestamp< b[req.query.sortBy].timestamp)
+        return -1;
+      if (a[req.query.sortBy].timestamp > b[req.query.sortBy].timestamp)
+        return 1;
+      return 0;
+    }
+    else if(req.query.direction === 'down'){
+      if (a[req.query.sortBy].timestamp> b[req.query.sortBy].timestamp)
+        return -1;
+      if (a[req.query.sortBy].timestamp < b[req.query.sortBy].timestamp)
+        return 1;
+      return 0;
+    }
+
   }
 
 
   let options = defaultOptions(req);
   options.view = 'admin-teamoverview';
   options.data = yield api.getTeamOverview(getAccessTokenFromRequest(req)).then(resp => resp.data);
+
+
 
 
   if(req.query.sortBy){

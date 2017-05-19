@@ -5,6 +5,19 @@ var toggleLoading = require('./helpers').toggleLoading;
 
 $(document).ready(() => {
 
+  var $_GET = {};
+
+  document.location.search.replace(/\??(?:([^=]+)=([^&]*)&?)/g, function () {
+    function decode(s) {
+      return decodeURIComponent(s.split('+').join(' '));
+    }
+    $_GET[decode(arguments[1])] = decode(arguments[2]);
+  });
+  if($_GET['direction'] === 'up'){
+    $('input.swap').attr('value', 'down');
+  }
+
+
   $('.moreinfo').hide();
 
   $('.member').click(function(){

@@ -1,7 +1,9 @@
 <style>
 
   .lastComment{
-    font-size: 1.4em;
+    display: flex;
+    font-size: 1em;
+    max-width: 50px;
   }
 
   .inputfield{
@@ -31,17 +33,23 @@
                 <th>Event</th>
                 <th>Mitglieder</th>
                 <th>
+                  Letzer Post
                   <form action="/admin/teamoverview" method="get">
-                    <input class="invisible" name="sortBy" value="lastPosting">
-                    <button type="submit" class="btn-link">Letzter Post</button>
+                    <input class="invisible " name="sortBy" value="lastPosting">
+                    <input class="invisible swap" name="direction" value="up">
+                    <button type="submit" class="btn-link"><i class="material-icons">swap_vert</i></button>
                   </form>
                 </th>
-                <th>Letzter Ort</th>
                 <th>
                   <form action="/admin/teamoverview" method="get">
-                    <input class="invisible" name="sortBy" value="lastContactWithHeadquarters">
-                    <button type="submit" class="btn-link">Letzter Kontakt mit HQ</button>
+                    <input class="invisible" name="sortBy" value="lastLocation">
+                    Letzer Ort
+                    <input class="invisible swap" name="direction" value="up">
+                    <button type="submit" class="btn-link"><i class="material-icons">swap_vert</i></button>
                   </form>
+                </th>
+                <th>
+                    Letzter Kontakt mit HQ
                 </th>
             </tr>
             </thead>
@@ -65,7 +73,7 @@
                     <td>
                       {{beautifuldate lastPosting.timestamp}}
                     </td>
-                    <td><a href="https://www.google.com/maps/place/{{lastLocation.coord.latitude}},{{lastLocation.coord.longitude}}">Map</a></td>
+                    <td><a target="_blank" href="https://www.google.com/maps/place/{{lastLocation.coord.latitude}},{{lastLocation.coord.longitude}}">{{lastLocation.locationData.LOCALITY}}, {{lastLocation.locationData.POLITICAL}}</a></td>
                     <td>
                       {{beautifuldate lastContactWithHeadquarters.timestamp}}</br></br>
                       <p class="lastComment">
