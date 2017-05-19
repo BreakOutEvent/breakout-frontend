@@ -129,6 +129,7 @@ registration.createParticipant = (req, res, next) => co(function*() {
   logger.info('Created / updated a participant', updateBody);
 
   yield session.refreshSession(req);
+
   return res.send({
     nextURL: URLS.INVITE
   });
@@ -223,18 +224,9 @@ registration.createSponsor = (req, res, next) => co(function*() {
 
   yield session.refreshSession(req);
 
-  let question_mark_split = req.headers.referer.split('?');
-  let query_string = question_mark_split[question_mark_split.length-1];
-
-  if (query_string) {
-    console.log('/settings/sponsoring?'+query_string);
-    return res.redirect('/settings/sponsoring?' + query_string);
-  }
-  else {
-      return res.send({
-    nextURL: URLS.SPONSOR_SUCCESS 
+  return res.send({
+    nextURL: URLS.SPONSOR_SUCCESS
   });
-  }
 }).catch(err => {
   sendErr(res, err.message, err);
 });

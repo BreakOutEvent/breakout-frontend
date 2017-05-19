@@ -342,7 +342,7 @@
 <!-- Button trigger modal -->
 
 <!-- Modal -->
-<div class="modal" id="addSponsoring" tabindex="-1" role="dialog" aria-labelledby="addModalTitle" {{#ifCond mode 2}} data-showReferrer="true" {{/ifCond}}>
+<div class="modal" id="addSponsoring" tabindex="-1" role="dialog" aria-labelledby="addModalTitle" {{#weakIfCond mode 2}} data-showReferrer="true" {{/weakIfCond}}>
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <form class="form" id="addSponsoringModal">
@@ -368,7 +368,7 @@
                                     <!-- TODO: l10n -->
                                     <option disabled selected>{{__ 'SELECT_TEAM'}}</option>
                                     {{#each teams}}
-                                        <option value='{"team": "{{teamId}}", "event": "{{eventId}}"}' {{#ifCond ../fromTeam teamId}} selected {{else}} selected="selected" {{/ifCond}}>
+                                        <option value='{"team": "{{teamId}}", "event": "{{eventId}}"}' {{#weakIfCond ../fromTeam teamId}} selected="selected" {{/weakIfCond}}>
                                             {{teamName}} ({{teamId}}) ({{eventTitle}})
                                         </option>
                                     {{/each}}
@@ -424,7 +424,7 @@
     </div>
 </div>
 
-<div class="modal" id="addChallenge" tabindex="-1" role="dialog" aria-labelledby="addChallengeTitle" {{#ifCond mode 1}} data-showReferrer="true" {{/ifCond}}>
+<div class="modal" id="addChallenge" tabindex="-1" role="dialog" aria-labelledby="addChallengeTitle" {{#weakIfCond mode 1}} data-showReferrer="true" {{/weakIfCond}}>
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <form class="form" id="addChallengeForm">
@@ -448,7 +448,7 @@
                                 <select name="addChallengeTeam" id="addChallengeTeam" class="form-control" required="required">
                                     <option disabled selected>{{__ 'SELECT_TEAM'}}</option>
                                     {{#each teams}}
-                                        <option value='{"team": "{{teamId}}", "event": "{{eventId}}"}' {{#ifCond ../fromTeam teamId}} selected {{else}} selected="selected" {{/ifCond}} >
+                                        <option value='{"team": "{{teamId}}", "event": "{{eventId}}"}' {{#weakIfCond ../fromTeam teamId}} selected="selected" {{/weakIfCond}} >
                                             {{teamName}} ({{teamId}}) ({{eventTitle}})
                                         </option>
                                     {{/each}}
