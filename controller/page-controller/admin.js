@@ -74,13 +74,16 @@ admin.showOverview = function*(req, res) {
 
   }
 
-
   let options = defaultOptions(req);
   options.view = 'admin-teamoverview';
   options.data = yield api.getTeamOverview(getAccessTokenFromRequest(req)).then(resp => resp.data);
 
-
-
+  options.data = options.data.map(function(team){
+    let newTeam = team;
+    newTeam.lastContact = {};
+    newTeam.lastContact.timestamp = Math.min(team.lastContactWithHeadquarters.timestamp, team.lastPosting.timestamp, team.lastLocation.timestamp);
+    return newTeam;
+  });
 
   if(req.query.sortBy){
     options.data = options.data.sort(compare);

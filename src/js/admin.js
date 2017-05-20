@@ -16,10 +16,13 @@ $(document).ready(() => {
   if($_GET['direction'] === 'up'){
     $('input.swap').attr('value', 'down');
   }
+  else{
+    $('input.swap').attr('value', 'up');
+  }
 
 
   $('.moreinfo').hide();
-
+  $('.member').css('cursor','pointer');
   $('.member').click(function(){
     $(this).siblings('.moreinfo').toggle();
   });
