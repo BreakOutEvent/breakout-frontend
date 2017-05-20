@@ -75,7 +75,7 @@ admin.showOverview = function*(req, res) {
   }
 
   let options = defaultOptions(req);
-  options.view = 'admin-teamoverview';
+  options.view = 'admin-teamoverview';                 // TODO: .then should be moved to api layer
   options.data = yield api.getTeamOverview(getAccessTokenFromRequest(req)).then(resp => resp.data);
 
   options.data = options.data.map(function(team){
