@@ -117,25 +117,27 @@
             <h3 class="bo-team-sub-headline">{{__ 'CHALLENGES'}}</h3>
             <ul>
                 {{#each team.challenges}}
-                  <li class="bo-sponsor-list-item {{#if (challengeHasProof status)}}bo-challenge-with-proof{{/if}}">({{amount}}
+                    <li class="bo-sponsor-list-item {{#if (challengeHasProof status)}}bo-challenge-with-proof{{/if}}">({{amount}}
                         €) {{description}}
-                    {{#if sponsor}}
-                        <br> von {{sponsor.firstname}} {{sponsor.lastname}}
-                        {{#if sponsor.company}}
-                            &ndash;
-                        {{/if}}
-                        {{#if sponsor.url}}
-                            <a href="{{sponsor.url}}">
-                        {{/if}}
-                        {{#if sponsor.company}}
-                            {{sponsor.company}}
-                        {{/if}}
+                        {{#if sponsor}}
+                            {{#unless sponsor.sponsorIsHidden}}
+                                <br> von {{sponsor.firstname}} {{sponsor.lastname}}
+                                {{#if sponsor.company}}
+                                    &ndash;
+                                {{/if}}
+                                {{#if sponsor.url}}
+                                <a href="{{sponsor.url}}">
+                                {{/if}}
+                                {{#if sponsor.company}}
+                                    {{sponsor.company}}
+                                {{/if}}
 
-                        {{#if sponsor.url}}
-                            </a>
+                                {{#if sponsor.url}}
+                                </a>
+                                {{/if}}
+                            {{/unless}}
                         {{/if}}
-                    {{/if}}
-                  </li>
+                    </li>
                 {{/each}}
 
             </ul>
@@ -147,13 +149,13 @@
             <ul>
                 {{#each team.sponsors}}
                     {{#if company}}
-                      {{#if url}}
-                        <li class="bo-sponsor-list-item">{{firstname}} {{lastname}} &ndash; <a href="{{url}}">{{company}}</a></li>
-                      {{else}}
-                        <li class="bo-sponsor-list-item">{{firstname}} {{lastname}} &ndash; {{company}}</li>
-                      {{/if}}
+                        {{#if url}}
+                            <li class="bo-sponsor-list-item">{{firstname}} {{lastname}} &ndash; <a href="{{url}}">{{company}}</a></li>
+                        {{else}}
+                            <li class="bo-sponsor-list-item">{{firstname}} {{lastname}} &ndash; {{company}}</li>
+                        {{/if}}
                     {{else}}
-                      <li class="bo-sponsor-list-item">{{firstname}} {{lastname}}</li>
+                        <li class="bo-sponsor-list-item">{{firstname}} {{lastname}}</li>
                     {{/if}}
                 {{/each}}
             </ul>

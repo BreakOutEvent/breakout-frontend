@@ -52,17 +52,18 @@ class TeamController {
     currTeam.sponsors = (typeof currTeam.sponsors === 'undefined') ? [] : currTeam.sponsors;
 
     currTeam.challenges = currTeam.challenges.map((challenge) => {
-      if(challenge.unregisteredSponsor){
-        if(challenge.unregisteredSponsor.url == ''){
-          challenge.unregisteredSponsor.url = undefined;
-        }
+      if (challenge.unregisteredSponsor && challenge.unregisteredSponsor.url.trim() === '') {
+        challenge.unregisteredSponsor.url = undefined;
       }
       return challenge;
     });
 
     currTeam.sponsors = currTeam.sponsors.map((sponsor) => {
-      if(sponsor.url == ''){
+      if (!sponsor.url || sponsor.url.trim() === '') {
         sponsor.url = undefined;
+      }
+      if (!sponsor.company || sponsor.company.trim() === '') {
+        sponsor.company = undefined;
       }
       return sponsor;
     });

@@ -29,12 +29,12 @@ const sendErr = (res, errMsg, err) => {
   res.status(500).send({error: errMsg});
 };
 
-function shouldSponsoringBeDisplayed(s) {
-  return (s.status === 'ACCEPTED' || s.status === 'PAYED') && !s.sponsorIsHidden;
+function shouldSponsoringBeDisplayed(sponsoring) {
+  return (sponsoring.status === 'ACCEPTED' || sponsoring.status === 'PAYED') && !sponsoring.sponsor.sponsorIsHidden;
 }
 
-function shouldChallengeBeDisplayed(c) {
-  return c.status === 'ACCEPTED' || c.status === 'WITH_PROOF' || c.status === 'PROOF_ACCEPTED';
+function shouldChallengeBeDisplayed(challenge) {
+  return challenge.status === 'ACCEPTED' || challenge.status === 'WITH_PROOF' || challenge.status === 'PROOF_ACCEPTED';
 }
 
 function transformEventAddYear(e) {
