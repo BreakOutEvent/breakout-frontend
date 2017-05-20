@@ -78,7 +78,6 @@ registration.createUser = (req, res) => co(function*() {
   req.login(session, (error) => {
     if (error) throw error;
   });
-
   return res.send({
     nextUrl: URLS.SELECTION
   });
@@ -130,6 +129,7 @@ registration.createParticipant = (req, res, next) => co(function*() {
   logger.info('Created / updated a participant', updateBody);
 
   yield session.refreshSession(req);
+
   return res.send({
     nextURL: URLS.INVITE
   });
@@ -227,7 +227,6 @@ registration.createSponsor = (req, res, next) => co(function*() {
   return res.send({
     nextURL: URLS.SPONSOR_SUCCESS
   });
-
 }).catch(err => {
   sendErr(res, err.message, err);
 });

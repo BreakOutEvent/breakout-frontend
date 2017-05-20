@@ -49,7 +49,17 @@ exports.concat = (first, second) => first + second;
  * @returns {*}
  */
 exports.ifCond = function (v1, v2, options) {
+  
   if (v1 === v2) {
+    return options.fn(this);
+  }
+
+  return options.inverse(this);
+};
+
+exports.weakIfCond = function (v1, v2, options) {
+  
+  if (v1 == v2) {
     return options.fn(this);
   }
 

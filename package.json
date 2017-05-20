@@ -29,6 +29,7 @@
     "babel-polyfill": "^6.23.0",
     "bluebird": "^3.5.0",
     "body-parser": "^1.14.2",
+    "bootstrap": "^3.3.7",
     "bootstrap-select": "^1.12.2",
     "bunyan": "^1.8.0",
     "co": "^4.6.0",

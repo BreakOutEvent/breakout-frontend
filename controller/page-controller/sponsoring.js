@@ -43,7 +43,6 @@ const parseAmount = (rawAmount) => {
 
 sponsoring.showSponsorings = function*(req, res) {
 
-
   //CHECK IF USER IS SPONSOR OR PARTICIPANT
   if (!req.user.status.is.team && !req.user.status.is.sponsor) {
     req.flash('error', 'Um diese Seite aufzurufen, musst Du entweder Teil eines Teams oder ein Sponsor sein.');
@@ -72,7 +71,6 @@ sponsoring.showSponsorings = function*(req, res) {
 
   const teams = yield sponsoring.getAllTeamsSummary(req);
 
-
   res.render('dynamic/sponsoring/sponsoring', {
     error: req.flash('error'),
     layout: 'master',
@@ -86,7 +84,9 @@ sponsoring.showSponsorings = function*(req, res) {
     confirmedDonations: confirmedDonations,
     teams: teams,
     isLoggedIn: req.user,
-    title: 'Sponsorings'
+    title: 'Sponsorings',
+    fromTeam: req.query.id,
+    mode: req.query.mode
   });
 
 };
