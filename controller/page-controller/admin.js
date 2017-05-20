@@ -81,7 +81,22 @@ admin.showOverview = function*(req, res) {
   options.data = options.data.map(function(team){
     let newTeam = team;
     newTeam.lastContact = {};
-    newTeam.lastContact.timestamp = Math.min(team.lastContactWithHeadquarters.timestamp, team.lastPosting.timestamp, team.lastLocation.timestamp);
+
+    let tsLastContactHeadquarters = Number.MAX_VALUE;
+    let tsLastPosting = Number.MAX_VALUE;
+    let tsLastLocation = Number.MAX_VALUE;
+
+    if(team.lastContactWithHeadquarters) {
+      tsLastContactHeadquarters = team.lastContactWithHeadquarters.timestamp;
+    }
+    if(team.lastPosting) {
+      tsLastPosting = team.lastPosting.timestamp;
+    }
+    if(team.lastLocation) {
+      tsLastLocation = team.lastLocation.timestamp;
+    }
+    newTeam.lastContact.timestamp = Math.min(tsLastContactHeadquarters, tsLastLocation, tsLastPosting);
+
     return newTeam;
   });
 
