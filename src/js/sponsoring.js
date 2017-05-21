@@ -3,9 +3,7 @@
 var sanityCheck = require('./helpers').sanityCheck;
 var toggleLoading = require('./helpers').toggleLoading;
 
-// In order to use bootstrap functions we have to access gloabal $-variable and require the bootstrap module. 
 const $ = window.$;
-const bootstrap = require('bootstrap');
 
 $(document).ready(() => {
 
