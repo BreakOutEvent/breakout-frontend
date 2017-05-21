@@ -293,6 +293,7 @@ module.exports = {
     "LABEL_SPONSORZIPCODE": "Postleitzahl",
     "LABEL_SPONSORCITY": "Ort",
     "LABEL_SPONSORCOUNTRY": "Land",
+    "LABEL_SPONSORHIDE": "Profil öffentlich verstecken",
     "LABEL_SPONSORCOMPANY": "Firma",
     "LABEL_SPONSORURL": "Ihre Webseite"
   },

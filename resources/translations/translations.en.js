@@ -294,6 +294,7 @@ module.exports = {
     "LABEL_SPONSORCITY": "City",
     "LABEL_SPONSORCOUNTRY": "Country",
     "LABEL_SPONSORCOMPANY": "Company",
+    "LABEL_SPONSORHIDE": "Hide profile publicly",
     "LABEL_SPONSORURL": "Your website"
   },
   "PAYMENT": {

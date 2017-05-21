@@ -43,7 +43,7 @@ const sendErr = (res, errMsg, err) => {
   if (err) logger.error(errMsg, err);
   else logger.error(errMsg);
 
-  res.status(500).send({error: errMsg});
+  res.status(500).send({ error: errMsg });
 };
 
 /**
@@ -157,10 +157,10 @@ registration.joinTeamAPI = (req, res, next) => co(function*() {
   const team = yield api.postModel(
     `/event/${req.body.event}/team/${req.body.team}/member/`,
     req.user,
-    {email: me.email}
+    { email: me.email }
   );
 
-  if (!team) return res.status(500).send({error: 'Could not join team.'});
+  if (!team) return res.status(500).send({ error: 'Could not join team.' });
 
   yield session.refreshSession(req);
 
@@ -194,6 +194,7 @@ registration.createSponsor = (req, res, next) => co(function*() {
     gender: req.body.gender,
     sponsor: {
       url: req.body.url,
+      hidden: false,
       address: {
         street: req.body.street,
         housenumber: req.body.housenumber,
@@ -204,6 +205,7 @@ registration.createSponsor = (req, res, next) => co(function*() {
     }
   };
 
+  if (req.body.isHidden && req.body.isHidden === 'on') updateBody.sponsor.hidden = true;
   if (req.body.company) updateBody.sponsor.company = req.body.company;
 
   const sponsor = yield api.putModel('user', req.user.me.id, req.user, updateBody);
@@ -287,16 +289,16 @@ registration.inviteUser = (req, res) => co(function*() {
   const me = yield api.getCurrentUser(req.user);
 
   if (!me.participant) {
-    return res.status(500).send({error: 'User is not a participant!'});
+    return res.status(500).send({ error: 'User is not a participant!' });
   }
 
   const invite =
     yield api.inviteUser(req.user, me.participant.eventId, me.participant.teamId, req.body.email);
 
   if (invite) {
-    res.send({error: ''});
+    res.send({ error: '' });
   } else {
-    return res.status(500).send({error: 'Invite creation failed!'});
+    return res.status(500).send({ error: 'Invite creation failed!' });
   }
 
 }).catch(err => {
@@ -410,9 +412,9 @@ registration.requestPwReset = (req, res) => co(function*() {
   const reset = yield api.pwreset.requestPwReset(req.body.email);
 
   if (reset) {
-    res.send({error: ''});
+    res.send({ error: '' });
   } else {
-    return res.status(500).send({error: 'Request password reset failed!'});
+    return res.status(500).send({ error: 'Request password reset failed!' });
   }
 
 }).catch(err => {
@@ -432,7 +434,7 @@ registration.resetPassword = (req, res) => co(function*() {
       success: 'Successfully reset password, you are now able to login with your new password.<br><a href="' + URLS.LOGIN + '">Login Now!</a>'
     });
   } else {
-    return res.status(500).send({error: 'Password reset failed!'});
+    return res.status(500).send({ error: 'Password reset failed!' });
   }
 
 }).catch(err => {
