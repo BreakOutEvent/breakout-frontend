@@ -52,7 +52,7 @@ const websocket = require('./services/websocket');
 function setupLogger(app) {
   if (IS_TEST) return;
 
-  app.use(morgan(':method :url :status :response-time ms - :res[content-length]', {
+  app.use(morgan(':remote-addr :method :url :status :response-time ms - :res[content-length]', {
     stream: {
       write: function (message) {
         logger.info(message.trim('\n'));
