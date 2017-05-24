@@ -95,6 +95,23 @@ admin.showOverview = function*(req, res) {
   options.data = options.data.map(function(team){
     team.lastContact = {};
 
+    let validInfo = [team.lastContactWithHeadquarters, team.lastPosting, team.lastLocation].filter(function(elem){
+      return elem;
+    });
+
+    let validTimestamps = validInfo.map(function(info){
+      return info.timestamp;
+    }).filter(function(elem){
+      return elem;
+    });
+
+    if(validTimestamps.length != 0){
+      team.lastContact.timestamp = Math.max.apply(Math, validTimestamps);
+    }
+    else{
+      team.lastContact.timestamp = defaultValue;
+    }
+
     if(!team.lastContactWithHeadquarters) {
       team.lastContactWithHeadquarters = {};
       team.lastContactWithHeadquarters.timestamp = defaultValue;
@@ -109,8 +126,6 @@ admin.showOverview = function*(req, res) {
       team.lastLocation = {};
       team.lastLocation.timestamp = defaultValue;
     }
-
-    team.lastContact.timestamp = Math.min(team.lastContactWithHeadquarters.timestamp, team.lastLocation.timestamp, team.lastPosting.timestamp);
 
     return team;
   });
