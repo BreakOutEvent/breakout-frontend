@@ -78,26 +78,41 @@ admin.showOverview = function*(req, res) {
   options.view = 'admin-teamoverview';                 // TODO: .then should be moved to api layer
   options.data = yield api.getTeamOverview(getAccessTokenFromRequest(req)).then(resp => resp.data);
 
+  let defaultValue;
+  if(req.query.direction) {
+    if(req.query.direction === 'up') {
+      defaultValue = Number.MAX_VALUE;
+    } else if (req.query.direction === 'down') {
+      defaultValue = 0;
+    } else {
+      throw new Error('invalid sort criteria '+req.query.direction);
+    }
+  } else {
+    defaultValue = 0;
+    req.query.direction = 'up';
+  }
+
   options.data = options.data.map(function(team){
-    let newTeam = team;
-    newTeam.lastContact = {};
+    team.lastContact = {};
 
-    let tsLastContactHeadquarters = Number.MAX_VALUE;
-    let tsLastPosting = Number.MAX_VALUE;
-    let tsLastLocation = Number.MAX_VALUE;
+    if(!team.lastContactWithHeadquarters) {
+      team.lastContactWithHeadquarters = {};
+      team.lastContactWithHeadquarters.timestamp = defaultValue;
+    }
 
-    if(team.lastContactWithHeadquarters) {
-      tsLastContactHeadquarters = team.lastContactWithHeadquarters.timestamp;
+    if(!team.lastPosting) {
+      team.lastPosting = {};
+      team.lastPosting.timestamp = defaultValue;
     }
-    if(team.lastPosting) {
-      tsLastPosting = team.lastPosting.timestamp;
-    }
-    if(team.lastLocation) {
-      tsLastLocation = team.lastLocation.timestamp;
-    }
-    newTeam.lastContact.timestamp = Math.min(tsLastContactHeadquarters, tsLastLocation, tsLastPosting);
 
-    return newTeam;
+    if(!team.lastLocation) {
+      team.lastLocation = {};
+      team.lastLocation.timestamp = defaultValue;
+    }
+
+    team.lastContact.timestamp = Math.min(team.lastContactWithHeadquarters.timestamp, team.lastLocation.timestamp, team.lastPosting.timestamp);
+
+    return team;
   });
 
   if(req.query.sortBy){

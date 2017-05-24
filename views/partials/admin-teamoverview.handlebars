@@ -29,9 +29,7 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>Team ID</th>
                 <th>Team-Name</th>
-                <th>Event</th>
                 <th>Mitglieder</th>
                 <th>
                   Letzer Post
@@ -70,9 +68,7 @@
             <tbody id="list">
             {{#each this}}
                 <tr>
-                    <td>{{teamId}}</td>
-                    <td>{{teamName}}</td>
-                    <td>{{event.name}}</td>
+                    <td>{{teamName}} {{teamId}}<br>{{event.name}}</td>
                     <td>
                         {{#each members}}
                             <b class="member">{{firstname}} {{lastname}}</b></br>
@@ -87,7 +83,18 @@
                     <td>
                       {{beautifuldate lastPosting.timestamp}}
                     </td>
-                    <td><a target="_blank" href="https://www.google.com/maps/place/{{lastLocation.coord.latitude}},{{lastLocation.coord.longitude}}">{{lastLocation.locationData.LOCALITY}}, {{lastLocation.locationData.POLITICAL}}</a></td>
+                    <td>
+                        Maps: <a target="_blank" href="https://www.google.com/maps/place/{{lastLocation.coord.latitude}},{{lastLocation.coord.longitude}}">
+                            {{#if lastLocation.locationData.LOCALITY}}
+                                {{lastLocation.locationData.LOCALITY}}, {{lastLocation.locationData.POLITICAL}}
+                            {{else}}
+                                Link
+                            </a><br/>
+                            {{/if}}
+                        Latitude: {{lastLocation.coord.latitude}}
+                        Longitude: {{lastLocation.coord.longitude}}
+                        Datum: {{ beautifuldate lastLocation.timestamp}}
+                    </td>
                     <td>
                       {{beautifuldate lastContactWithHeadquarters.timestamp}}</br></br>
                       <p class="lastComment">

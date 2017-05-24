@@ -106,8 +106,14 @@ exports.date = function makeDate(timestamp, context) {
 };
 
 exports.beautifuldate = function makeDate(timestamp, context) {
+  if(timestamp === Number.MAX_VALUE) {
+    return 'Kein Datum vorhanden';
+  } else if (timestamp === 0) {
+    return 'Kein Datum vorhanden';
+  }
+
   let date = new Date(timestamp);
-  let beautifuldate = dateFormat(date, 'dddd, h:MM TT');
+  let beautifuldate = dateFormat(date, 'dS mmmm, h:MM TT');
   return beautifuldate;
 };
 
