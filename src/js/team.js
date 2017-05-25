@@ -109,9 +109,10 @@ $(window).on('load', function () {
       }
     });
 
+    console.log($('#newPost'));
     if ($('#newPost').length > 0) {
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
+        navigator.geolocation.getCurrentPosition(showPosition, handleError);
       }
     }
 
@@ -314,4 +315,9 @@ function showPosition(position) {
     }
     $('#bo-team-location').html('lat: ' + position.coords.latitude + ', long: ' + position.coords.longitude);
   }
+}
+
+function handleError(error) {
+  $.get( '/location-not-enabled');
+  alert('Es scheint, Dein Browser darf Dich nicht orten. Bitte erlaube das Deinem Browser, damit BreakOut die Kilometerspenden berechnen kann und alle Euren Fortschritt sehen können :-). Liebe Grüße aus der BreakOut Zentrale!');
 }
