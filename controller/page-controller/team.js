@@ -9,6 +9,8 @@ const _ = require('lodash');
 const fs = require('fs');
 const logger = require('../../services/logger');
 const Promise = require('bluebird');
+const request = require('request');
+const config = require('../../config/config');
 
 const api = require('../../services/api-proxy');
 
@@ -151,15 +153,22 @@ team.createPost = (req, res, next) => co(function*() {
     req.body.longitude);
 
   if (req.body.mediaType !== '' && req.file) {
-    yield post.media.map(m => api.uploadPicture(req.file, m));
+    try {
+      yield post.media.map(m => uploadPicture(req.file, m));
+    } catch (err) {
+      logger.error('error uploading file : ' + err);
+    }
   }
 
   if (req.body.challenge) {
     yield api.challenge.proof(req.user, req.body.challenge, post.id);
   }
+
   res.sendStatus(200);
 
+
 }).catch((ex) => {
+  logger.error('Error uploading file: ' + ex);
   sendErr(res, ex.message, ex);
 });
 
@@ -229,5 +238,30 @@ team.isAuth = (req, res) => {
   if (req.isAuthenticated()) return res.sendStatus(200);
   return res.sendStatus(401);
 };
+
+function uploadPicture(file, mediaObj) {
+  logger.info('Trying to upload file with id', mediaObj.id);
+  return new Promise(function (resolve, reject) {
+    request.post({
+      url: `${config.media_url}`,
+      headers: {'X-UPLOAD-TOKEN': mediaObj.uploadToken},
+      formData: {
+        id: mediaObj.id,
+        file: {
+          value: file.buffer,
+          options: {
+            filename: file.originalname,
+            encoding: file.encoding,
+            'Content-Type': file.mimetype,
+            knownLength: file.size
+          }
+        }
+      }
+    }, function (err, httpRes, body) {
+      if (err) reject(err);
+      else resolve(body);
+    });
+  });
+}
 
 module.exports = team;
