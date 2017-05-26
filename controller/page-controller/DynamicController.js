@@ -149,6 +149,10 @@ class DynamicController {
 
   static *showHighscores(req, res) {
 
+    if(!req.session.activeEvents) {
+      req.session.activeEvents = [3,4,5];
+    }
+
     let teamInfo = yield team.getAll(req.session.activeEvents);
     let map = yield liveblog.getMapData(req.session.activeEvents);
 
