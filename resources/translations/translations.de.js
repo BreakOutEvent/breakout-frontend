@@ -406,7 +406,8 @@ module.exports = {
     "NO_POSITION": "Keine Position",
     "SELECT_A_CHALLENGE": "Eine Challenge auswählen",
     "WANT_TO_FULFILL_CHALLENGE": "Du willst damit eine Challenge erfüllen?",
-    "NOW": "Jetzt?"
+    "NOW": "Jetzt?",
+    "SERVER_PROCESSING_REQUEST":"Medium wird vom Server verarbeitet, gib uns einen kurzen Moment!"
   },
   "MASTER": {
     "BACK_TO_REGISTER": "Rolle auswählen",

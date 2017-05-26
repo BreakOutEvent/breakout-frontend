@@ -26,6 +26,9 @@ $(window).on('load', function () {
 
       var data = new FormData($('#newPost')[0]);
 
+      $('.bo-team-upload-progress-wrap').show();
+      window.msnry.layout();
+
       toggleLoading('#bo-post-cta');
       $.ajax({
         url: '/team/post/create',
@@ -33,7 +36,26 @@ $(window).on('load', function () {
         cache: false,
         processData: false,
         contentType: false,
-        data: data
+        data: data,
+        // Custom XMLHttpRequest
+        xhr: function () {
+          var theXhr = $.ajaxSettings.xhr();
+          //Only trigger when we actually upload anything
+          if (theXhr.upload) {
+            // For handling the progress of the upload
+            theXhr.upload.addEventListener('progress', function (e) {
+              if (e.lengthComputable) {
+                var progress = Math.round((e.loaded * 100) / e.total);
+                $('.bo-team-upload-progress-bar').css('left', '-' + (100 - progress) + '%');
+                if (progress >= 100) {
+                  $('.bo-team-upload-server-processing').show();
+                  window.msnry.layout();
+                }
+              }
+            }, false);
+          }
+          return theXhr;
+        }
       }).success(function () {
         window.location.reload();
       }).error(function (err) {
@@ -71,20 +93,40 @@ $(window).on('load', function () {
         var reader = new FileReader();
         var file = this.files[0];
         var type = file.type.split('/')[0];
+
+        // PROGRESS START
+
+        $('.bo-team-upload-progress-wrap').show();
+
+        reader.onprogress = function (event) {
+          if (event.lengthComputable) {
+            var progress = Math.round((event.loaded * 100) / event.total);
+            $('.bo-team-upload-progress-bar').css('left', '-' + (100 - progress) + '%');
+          }
+        };
+
+        //PROGRESS END
+
         reader.onload = function (e) {
+
+          //RESET PROGRESS
+          $('.bo-team-upload-progress-bar').css('left', '-100%');
+          $('.bo-team-upload-progress-wrap').hide();
 
           var image = new Image();
           image.src = e.target.result;
 
           image.onload = function () {
             // access image size here
-            $('.bo-team-upload-wrapper').css('background-image', 'url(' + e.target.result + ')');
+            $('.bo-team-upload-wrapper').css('backgroundImage', 'url(' + e.target.result + ')');
             $('.bo-team-upload-wrapper').css('height', +(this.height / this.width) * $('.bo-team-upload-wrapper').width() + 'px');
             $('#bo-team-media-type').val('IMAGE');
             $('.bo-team-post-icon').hide();
             $('.bo-team-post-upload-text').hide();
             window.msnry.layout();
           };
+
+
         };
         switch (type) {
           case 'image':
@@ -124,7 +166,7 @@ $(window).on('load', function () {
         return window.location.href = '/login?return=' + window.location.pathname;
       }
 
-      $.post('/team/like', { postingId: $button.data('id') })
+      $.post('/team/like', {postingId: $button.data('id')})
         .success(function (data) {
           $button.toggleClass('active');
           var $likeCount = $button.find('.bo-like-count');
@@ -318,6 +360,6 @@ function showPosition(position) {
 }
 
 function handleError(error) {
-  $.get( '/location-not-enabled');
+  $.get('/location-not-enabled');
   alert('Es scheint, Dein Browser darf Dich nicht orten. Bitte erlaube das Deinem Browser, damit BreakOut die Kilometerspenden berechnen kann und alle Euren Fortschritt sehen können :-). Liebe Grüße aus der BreakOut Zentrale!');
 }

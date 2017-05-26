@@ -406,7 +406,8 @@ module.exports = {
     "NO_POSITION": "No position",
     "SELECT_A_CHALLENGE": "Select a challenge",
     "WANT_TO_FULFILL_CHALLENGE": "Do you want to fulfill a challenge with this posting?",
-    "NOW": "Now?"
+    "NOW": "Now?",
+    "SERVER_PROCESSING_REQUEST":"Medium is being processed by the server, give us a moment!"
   },
   "MASTER": {
     "BACK_TO_REGISTER": "Select role",
