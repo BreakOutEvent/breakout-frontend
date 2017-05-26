@@ -152,6 +152,15 @@ team.createPost = (req, res, next) => co(function*() {
     req.body.latitude,
     req.body.longitude);
 
+  try {
+    if (req.body.challenge) {
+      logger.info('Trying to add proof to challenge');
+      yield api.challenge.proof(req.user, req.body.challenge, post.id);
+    }
+  } catch (err) {
+    logger.error('Failed to add challenge to posting' + err);
+  }
+
   if (req.body.mediaType !== '' && req.file) {
     try {
       yield post.media.map(m => uploadPicture(req.file, m));
@@ -160,12 +169,7 @@ team.createPost = (req, res, next) => co(function*() {
     }
   }
 
-  if (req.body.challenge) {
-    yield api.challenge.proof(req.user, req.body.challenge, post.id);
-  }
-
   res.sendStatus(200);
-
 
 }).catch((ex) => {
   logger.error('Error uploading file: ' + ex);
