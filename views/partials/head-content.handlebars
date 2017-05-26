@@ -60,6 +60,12 @@
 </script>
 
 <!-- End Google Tag Manager -->
+
+<script src="https://cdn.ravenjs.com/3.15.0/raven.min.js"></script>
+<script type="text/javascript">
+    Raven.config('https://1571b6796c7e44c2b85449d4a329c38a@sentry.io/172597').install()
+</script>
+
 {{#each requirements}}
     <script type="text/javascript" src="/js/{{this}}.js"></script>
 {{/each}}
