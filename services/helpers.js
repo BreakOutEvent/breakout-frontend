@@ -196,8 +196,10 @@ exports.relativeTime = function (timestamp) {
   }
 
   const MONTHS = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
-  let dO = new Date(timestamp * 1000);
-  let now = Date.now();
+  let dO = new Date((timestamp+(60*60*2)) * 1000);
+
+  // TODO: Hack for timezone! Fix this in 2018
+  let now = new Date(Date.now() + 60*60*2*1000);
   let difference = now - dO.getTime();
   if (difference < 60 * 1000) {
     return 'Gerade eben';
