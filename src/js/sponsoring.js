@@ -111,6 +111,23 @@ $(document).ready(() => {
 
   });
 
+  $('#bo-add-challenge-model-btn').click((e) => {
+    alert('Eintragen von Sponsoren ist nach dem Event nicht mehr möglich');
+    e.stopImmediatePropagation();
+  });
+
+
+  $('#bo-add-sponsoring-model-btn').click((e) => {
+    alert('Eintragen von Challenges ist nach dem Event nicht mehr möglich');
+    e.stopImmediatePropagation();
+  });
+
+  $('#bo-add-offline-sponsoring-model-btn').click((e) => {
+    alert('Eintragen von Sponsoren ist nach dem Event nicht mehr möglich');
+    e.stopImmediatePropagation();
+  });
+
+
   $('#editSponsoringModal').submit(function (e) {
     e.preventDefault();
     if (sanityCheck('editSponsoringModal')) {
