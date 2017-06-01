@@ -49,7 +49,7 @@ exports.concat = (first, second) => first + second;
  * @returns {*}
  */
 exports.ifCond = function (v1, v2, options) {
-  
+
   if (v1 === v2) {
     return options.fn(this);
   }
@@ -58,7 +58,7 @@ exports.ifCond = function (v1, v2, options) {
 };
 
 exports.weakIfCond = function (v1, v2, options) {
-  
+
   if (v1 == v2) {
     return options.fn(this);
   }
@@ -106,7 +106,7 @@ exports.date = function makeDate(timestamp, context) {
 };
 
 exports.beautifuldate = function makeDate(timestamp, context) {
-  if(timestamp === Number.MAX_VALUE) {
+  if (timestamp === Number.MAX_VALUE) {
     return 'Kein Datum vorhanden';
   } else if (timestamp === 0) {
     return 'Kein Datum vorhanden';
@@ -185,7 +185,7 @@ exports.ifOr = function (v1, v2, options) {
 };
 
 /* eslint-disable no-console */
-exports.debug = function(optionalValue) {
+exports.debug = function (optionalValue) {
   console.log('Current Context');
   console.log('====================');
   console.log(this);
@@ -202,6 +202,32 @@ exports.json = function (context) {
   return JSON.stringify(context);
 };
 
+/**
+ * Calculate a 32 bit FNV-1a hash
+ * Found here: https://gist.github.com/vaiorabbit/5657561
+ * Ref.: http://isthe.com/chongo/tech/comp/fnv/
+ *
+ * @param {string} str the input value
+ * @param {boolean} [asString=false] set to true to return the hash value as
+ *     8-digit hex string instead of an integer
+ * @param {integer} [seed] optionally pass the hash of the previous chunk
+ * @returns {integer | string}
+ */
+exports.hash = (str, seed) => {
+  /*jshint bitwise:false */
+  var i, l,
+    hval = (seed === undefined) ? 0x811c9dc5 : seed;
+
+  for (i = 0, l = str.length; i < l; i++) {
+    hval ^= str.charCodeAt(i);
+    hval += (hval << 1) + (hval << 4) + (hval << 7) + (hval << 8) + (hval << 24);
+  }
+
+  // Convert to 8 digit hex string
+  return ('0000000' + (hval >>> 0).toString(16)).substr(-8);
+
+};
+
 exports.relativeTime = function (timestamp) {
 
   function leftPad(zahlen) {
@@ -210,10 +236,10 @@ exports.relativeTime = function (timestamp) {
   }
 
   const MONTHS = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
-  let dO = new Date((timestamp+(60*60*2)) * 1000);
+  let dO = new Date((timestamp + (60 * 60 * 2)) * 1000);
 
   // TODO: Hack for timezone! Fix this in 2018
-  let now = new Date(Date.now() + 60*60*2*1000);
+  let now = new Date(Date.now() + 60 * 60 * 2 * 1000);
   let difference = now - dO.getTime();
   if (difference < 60 * 1000) {
     return 'Gerade eben';
@@ -231,7 +257,7 @@ exports.length = function (array) {
 };
 
 exports.strColor = (str) => {
-  if(!str) {
+  if (!str) {
     return 'gray';
   }
 
