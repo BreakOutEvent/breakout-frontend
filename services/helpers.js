@@ -184,6 +184,18 @@ exports.ifOr = function (v1, v2, options) {
   return options.inverse(this);
 };
 
+exports.debug = function(optionalValue) {
+  console.log("Current Context");
+  console.log("====================");
+  console.log(this);
+
+  if (optionalValue) {
+    console.log("Value");
+    console.log("====================");
+    console.log(optionalValue);
+  }
+};
+
 exports.json = function (context) {
   return JSON.stringify(context);
 };
