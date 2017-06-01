@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/BreakOutEvent/breakout-frontend#readme",
   "dependencies": {
-    "axios": "latest",
+    "axios": "^0.16.1",
     "babel-polyfill": "^6.23.0",
     "bluebird": "^3.5.0",
     "body-parser": "^1.14.2",

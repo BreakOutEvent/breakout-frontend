@@ -1,1 +1,26 @@
-<span>WIP</span>
+<div class="well">
+    <form method="get" class="form-inline">
+        <div class="form-group">
+            <input type="text" class="form-control" id="emailAddress" name="emailAddress"
+                   placeholder="Emailadresse">
+            <button class="btn btn-primary" type="submit">Jetzt suchen</button>
+        </div>
+    </form>
+</div>
+
+
+<div>
+    {{#each emails}}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <b>Am</b> {{beautifuldate create_date}} (Achtung mögliche Zeitverschiebung!)<br>
+                <b>An</b> {{#each tos}}
+                <a href="mailto:{{email}}>">{{email}}</a>
+            {{/each}}<br>
+                <b>Mit Betreff</b> {{subject}}<br>
+            </div>
+            <div class="panel-body" style="overflow: scroll">{{{body}}}</div>
+        </div>
+        <hr>
+    {{/each}}
+</div>

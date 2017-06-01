@@ -8,6 +8,8 @@ const _ = require('lodash');
 const api = require('../../services/api-proxy');
 const Promise = require('bluebird');
 const logger = require('../../services/logger');
+const config = require('../../config/config');
+const axios = require('axios');
 
 let admin = {};
 
@@ -28,10 +30,16 @@ admin.showDashboard = (req, res) => {
   res.render('static/admin/dashboard', options);
 };
 
-admin.showDashboardEmails = (req, res) => {
+admin.showDashboardEmails = function*(req, res) {
   let options = defaultOptions(req);
   options.view = 'admin-emails';
-  options.data = {};
+  let emailAddress = req.query.emailAddress;
+
+  if(emailAddress) {
+    options.data = {};
+    options.data.emails = yield admin.getAllEmailsTo(emailAddress);
+  }
+
   res.render('static/admin/dashboard', options);
 };
 
@@ -184,6 +192,13 @@ admin.updateLastContact = function *(req, res) {
   }
 };
 
+admin.getAllEmailsTo = function(emailAddress) {
+  return axios.get(`https://mail.break-out.org/get/to/${emailAddress}`, {
+    headers: {
+      'X-AUTH-TOKEN': config.mailer.x_auth_token
+    }
+  }).then(resp => resp.data);
+};
 
 admin.getInvoices = (req) => co(function*() {
   const events = yield api.getModel('event', req.user);
