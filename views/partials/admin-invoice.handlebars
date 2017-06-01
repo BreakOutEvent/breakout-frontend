@@ -1,88 +1,59 @@
+<div class="well">
+    <form method="get" class="form-inline">
+        <div class="form-group">
+            <input type="text" class="form-control" id="eventId" name="eventId"
+                   placeholder="eventId">
+            <button class="btn btn-primary" type="submit">Jetzt suchen</button>
+        </div>
+    </form>
+    <span>
+        <br>
+        3 = München 17<br>
+        4 = Berlin 17<br>
+        5 = Barcelona 17<br>
+    </span>
+</div>
+
 <div class="row">
     <div class="col-xs-12">
         <input type="search" class="form-control" placeholder="Suche...">
     </div>
 </div>
+
 <div class="row">
     <div class="col-xs-12">
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>Team ID</th>
-                <th>Soll</th>
-                <th>Ist</th>
+                <th>Invoice ID</th>
                 <th>Sponsor</th>
-                <th>Offen</th>
-                <th>Aktion</th>
+                <th>Betrag</th>
+                <th>Bezahlt</th>
             </tr>
             </thead>
             <tbody id="list">
-            <tr>
-                <td><input class="form-control" type="number" id="teamId" placeholder="TeamNr" required="required"/></td>
-                <td colspan="2"><input class="form-control" type="text" id="company" placeholder="Firma" /></td>
-                <td><input class="form-control" type="text" id="firstname" placeholder="Vorname" required="required" />
-                <input class="form-control" type="text" id="lastname" placeholder="Nachname" required="required" /></td>
-                <td><input class="form-control" type="number" id="amount" placeholder="€" required="required" /></td>
-                <td><button id="btn-addNewPayment" class="btn btn-primary" type="submit">ADD</button></td>
-            </tr>
             {{#each this}}
                 <tr>
-                    <td>{{teamId}}</td>
-                    <td>{{amount}} €</td>
-                    <td>{{payed}} €</td>
+                    <td>{{id}}</td>
                     <td>
-                        {{#if firstname}}
-                            {{#if company}}
-                                {{company}} -
-                            {{/if}}
-                            {{firstname}}
-                            {{lastname}}
-                        {{else}}
-                            {{#if sponsorings}}
-                                {{#if sponsorings.0.unregisteredSponsor}}
-                                    {{#if sponsorings.0.unregisteredSponsor.company}}
-                                        {{sponsorings.0.unregisteredSponsor.company}} -
-                                    {{/if}}
-                                    {{sponsorings.0.unregisteredSponsor.firstname}}
-                                    {{sponsorings.0.unregisteredSponsor.lastname}}
-                                {{else}}
-                                    {{#if sponsorings.0.company}}
-                                        {{sponsorings.0.company}} -
-                                    {{/if}}
-                                    {{sponsorings.0.firstname}}
-                                    {{sponsorings.0.lastname}}
-                                {{/if}}
+                        {{sponsor.firstname}} {{sponsor.lastname}} {{#if sponsor.company}} - Firma: {{sponsor.company}}{{/if}}<br>
+                        {{#if sponsor.email}}
+                            <a href="/admin/emails?emailAddress={{sponsor.email}}" target="_blank">{{sponsor.email}}</a><br>
                             {{else}}
-                                {{#if challenges.0.unregisteredSponsor}}
-                                    {{#if challenges.0.unregisteredSponsor.company}}
-                                        {{challenges.0.unregisteredSponsor.company}} -
-                                    {{/if}}
-                                    {{challenges.0.unregisteredSponsor.firstname}}
-                                    {{challenges.0.unregisteredSponsor.lastname}}
-                                {{else}}
-                                    {{#if challenges.0.company}}
-                                        {{challenges.0.company}} -
-                                    {{/if}}
-                                    {{challenges.0.firstname}}
-                                    {{challenges.0.lastname}}
-                                {{/if}}
-                            {{/if}}
+                            Keine Email angegeben. Emails sind an Teammitglieder versendet worden<br>
                         {{/if}}
 
-                        {{#each members}}
-                            {{firstname}} {{lastname}} ({{gender}} - {{participant.tshirtSize}}){{#if @first}}
-                            <br/>{{/if}}
-                        {{/each}}
+                        {{purposeOfTransfer}}<br>
+                        <a href="javascript:void(0)" data-toggle="collapse" data-target="#invoice-address-{{id}}">mehr...</a><br>
+                        <span id="invoice-address-{{id}}" class="collapse">
+                            {{sponsor.address.street}} {{sponsor.address.housenumber}}<br>
+                            {{sponsor.address.zipcode}} {{sponsor.address.city}} <br>
+                            {{sponsor.address.country}}<br>
+                            {{sponsor.url}}
+                        </span>
                     </td>
-                    <td>
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="amount" id="amount-{{id}}"
-                                   value="{{open}}"/>
-                        </div>
-                    </td>
-                    <td>
-                        <button class="btn btn-primary btn-addamount" data-invoice="{{id}}">EINTRAGEN</button>
-                    </td>
+                    <td>{{amount}}</td>
+                    <td>{{payed}}</td>
                 </tr>
             {{/each}}
             </tbody>

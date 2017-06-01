@@ -158,8 +158,15 @@ function getAccessTokenFromRequest(req) {
 admin.showDashboardInvoice = function*(req, res) {
   let options = defaultOptions(req);
   options.view = 'admin-invoice';
-  options.data = yield admin.getAllInvoices(req);
+  if(req.query.eventId) {
+    options.data = yield admin.getSponsoringInvoicesByEventId(req.user, req.query.eventId);
+  }
+
   res.render('static/admin/dashboard', options);
+};
+
+admin.getSponsoringInvoicesByEventId = function(tokens, eventId) {
+  return api.getModel(`/sponsoringinvoice/${eventId}/`, tokens);
 };
 
 admin.addPayment = function *(req, res) {
