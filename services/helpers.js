@@ -184,17 +184,19 @@ exports.ifOr = function (v1, v2, options) {
   return options.inverse(this);
 };
 
+/* eslint-disable no-console */
 exports.debug = function(optionalValue) {
-  console.log("Current Context");
-  console.log("====================");
+  console.log('Current Context');
+  console.log('====================');
   console.log(this);
 
   if (optionalValue) {
-    console.log("Value");
-    console.log("====================");
+    console.log('Value');
+    console.log('====================');
     console.log(optionalValue);
   }
 };
+/*eslint-enable no-console */
 
 exports.json = function (context) {
   return JSON.stringify(context);
