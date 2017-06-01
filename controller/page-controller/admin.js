@@ -37,7 +37,13 @@ admin.showDashboardEmails = function*(req, res) {
 
   if(emailAddress) {
     options.data = {};
-    options.data.emails = yield admin.getAllEmailsTo(emailAddress);
+    const emails = yield admin.getAllEmailsTo(emailAddress);
+
+    // Date in JS is in ms but api response is in s
+    options.data.emails = emails.map(email => {
+      email.create_date = email.create_date * 1000;
+      return email;
+    });
   }
 
   res.render('static/admin/dashboard', options);
