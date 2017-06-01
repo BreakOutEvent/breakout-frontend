@@ -14,9 +14,11 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <b>Am</b> {{beautifuldate create_date}} (Achtung mögliche Zeitverschiebung!)<br>
-                <b>An</b> {{#each tos}}
-                <a href="mailto:{{email}}>">{{email}}</a>
-            {{/each}}<br>
+                {{#each tos}}
+                <b>An</b>
+                    <a href="javascript:void(0)" data-toggle="collapse" data-target="#email-to-{{hash email}}">{{email}}</a><br>
+                    <span class="collapse" id="email-to-{{hash email}}">{{json this}}</span>
+            {{/each}}
                 <b>Mit Betreff</b> {{subject}}<br>
             </div>
             <div class="panel-body" style="overflow: scroll">{{{body}}}</div>
