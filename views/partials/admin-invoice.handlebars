@@ -29,6 +29,7 @@
                 <th>Sponsor</th>
                 <th>Betrag</th>
                 <th>Bezahlt</th>
+                <th>Betrag eintragen</th>
             </tr>
             </thead>
             <tbody id="list">
@@ -54,6 +55,16 @@
                     </td>
                     <td>{{amount}}</td>
                     <td>{{payed}}</td>
+                    <td>
+                        <form class="btn-sponsor-payment" data-invoice="{{id}}">
+                            <input type="number"
+                                   step="any"
+                                   class="form-control"
+                                   placeholder="Amount"
+                                   name="add-to-invoice-amount">
+                            <button type="submit" class="btn btn-primary">Eintragen</button>
+                        </form>
+                    </td>
                 </tr>
             {{/each}}
             </tbody>

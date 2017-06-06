@@ -55,6 +55,37 @@ $(document).ready(() => {
     });
   });
 
+
+  $('.btn-sponsor-payment').submit(handleInvoicePaymentSubmit);
+
+  function handleInvoicePaymentSubmit(e) {
+    e.preventDefault();
+    const amount = $(this).serializeArray()
+      .filter(elem => elem.name === 'add-to-invoice-amount')[0].value;
+
+    const invoiceId = parseInt($(this).attr('data-invoice'));
+
+    addPaymentToInvoice(invoiceId, amount,
+      () => onAddPaymentToInvoiceSuccess(invoiceId, amount),
+      onAddPaymentToInvoiceError);
+
+  }
+
+  function onAddPaymentToInvoiceSuccess(invoiceId, amount) {
+    displaySuccess(`Added ${amount} to invoice ${invoiceId}`);
+  }
+
+  function onAddPaymentToInvoiceError(e) {
+    displayError(`Error adding payment to invoice. Reason: ${e.responseText}`);
+  }
+
+  function addPaymentToInvoice(invoiceId, amount, onSuccess, onError) {
+    $.post('/admin/payment/add', {
+      amount: amount,
+      invoice: invoiceId
+    }).success(onSuccess).error(onError);
+  }
+
   $('.btn-checkin').click(function () {
 
     toggleLoading(this, true);
