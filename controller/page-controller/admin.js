@@ -172,8 +172,13 @@ admin.getSponsoringInvoicesByEventId = function(tokens, eventId) {
 admin.addPayment = function *(req, res) {
   logger.info(`Trying to add payment for invoice ${req.body.invoice}`);
 
+  let body = {
+    amount: req.body.amount,
+    fidorId: req.body.fidorId
+  };
+
   try {
-    let payment = yield api.postModel(`invoice/${req.body.invoice}/payment/`, req.user, {amount: req.body.amount});
+    yield api.postModel(`invoice/${req.body.invoice}/payment/`, req.user, body);
     res.sendStatus(200);
   } catch (err) {
     res.status(500);

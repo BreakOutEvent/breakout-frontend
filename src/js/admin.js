@@ -63,9 +63,19 @@ $(document).ready(() => {
     const amount = $(this).serializeArray()
       .filter(elem => elem.name === 'add-to-invoice-amount')[0].value;
 
+    const fidorIdProvided = $(this).serializeArray()
+      .filter(elem => elem.name === 'add-to-invoice-fidorid').length === 1;
+
+    let fidorId = null;
+    if(fidorIdProvided) {
+      fidorId = $(this).serializeArray()
+        .filter(elem => elem.name === 'add-to-invoice-fidorid')[0].value;
+    }
+
+
     const invoiceId = parseInt($(this).attr('data-invoice'));
 
-    addPaymentToInvoice(invoiceId, amount,
+    addPaymentToInvoice(invoiceId, amount, fidorId,
       () => onAddPaymentToInvoiceSuccess(invoiceId, amount),
       onAddPaymentToInvoiceError);
 
@@ -79,10 +89,11 @@ $(document).ready(() => {
     displayError(`Error adding payment to invoice. Reason: ${e.responseText}`);
   }
 
-  function addPaymentToInvoice(invoiceId, amount, onSuccess, onError) {
+  function addPaymentToInvoice(invoiceId, amount, fidorId, onSuccess, onError) {
     $.post('/admin/payment/add', {
       amount: amount,
-      invoice: invoiceId
+      invoice: invoiceId,
+      fidorId: fidorId
     }).success(onSuccess).error(onError);
   }
 
