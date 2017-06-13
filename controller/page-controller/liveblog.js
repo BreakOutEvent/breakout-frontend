@@ -85,24 +85,20 @@ const chooseEvent = (req, res, next) => co(function *() {
 });
 
 
-const returnPostings = (req, res, next) => co(function *() {
+async function returnPostings(req, res, next) {
 
-  var token = req.isAuthenticated() ? req.user : null;
-  var page = req.body.page ? req.body.page : null;
-  var activeEvents = req.body.activeEvents ? req.body.activeEvents.map(e => parseInt(e)) : null;
+  const token = req.isAuthenticated() ? req.user : null;
+  const page = req.body.page ? req.body.page : null;
+  const activeEvents = req.body.activeEvents ? req.body.activeEvents.map(e => parseInt(e)) : null;
 
-  let postings = yield api.posting.getPostingsForEvent(activeEvents, token, page);
+  const postings = await api.posting.getPostingsForEvent(activeEvents, token, page);
 
   return res.render('dynamic/liveblog/postings', {
     layout: false,
     postings: postings,
     language: req.language
   });
-
-
-}).catch(ex => {
-  throw ex;
-});
+}
 
 
 async function getMapData(activeEvents) {
