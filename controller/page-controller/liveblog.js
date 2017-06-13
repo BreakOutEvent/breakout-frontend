@@ -8,7 +8,7 @@ const api = require('../../services/api-proxy');
 
 let liveblog = {};
 
-liveblog.getEventInfos = (activeEvents) => co(function *() {
+const getEventInfos = (activeEvents) => co(function *() {
   let eventsInfo = yield api.event.allActiveInfo(activeEvents);
 
   let events = yield eventsInfo.events.map(e => {
@@ -35,39 +35,30 @@ liveblog.getEventInfos = (activeEvents) => co(function *() {
       }, 0)
     }
   };
-
-}).catch(ex => {
-  throw ex;
 });
 
-liveblog.getHighscores = (eventId) =>{
+function getHighscores(eventId) {
   return api.general.get(`/event/${eventId}/highscore/`);
-};
+}
 
-liveblog.getAllPostings = (activeEvents, token) => co(function *() {
+function getAllPostings(activeEvents, token) {
   const page = 0;
-  return yield api.posting.getPostingsForEvent(activeEvents, token, page);
-}).catch(ex => {
-  throw ex;
-});
+  return api.posting.getPostingsForEvent(activeEvents, token, page);
+}
 
-liveblog.getCounterInfos = (events) => co(function *() {
-
+function getCounterInfos(events) {
   if (events.every(e => e.date === events[0].date && e.isCurrent)) {
-    return {
+    return Promise.resolve({
       start: events[0].date * 1000,
       end: events[0].date * 1000 + (events[0].duration * 60 * 60 * 1000),
       current: Date.now()
-    };
+    });
   } else {
-    return null;
+    return Promise.resolve(null);
   }
+}
 
-}).catch(ex => {
-  throw ex;
-});
-
-liveblog.chooseEvent = (req, res, next) => co(function *() {
+const chooseEvent = (req, res, next) => co(function *() {
   if (!req.session.activeEvents) req.session.activeEvents = [];
 
   let eventId = parseInt(req.body.eventId);
@@ -94,7 +85,7 @@ liveblog.chooseEvent = (req, res, next) => co(function *() {
 });
 
 
-liveblog.returnPostings = (req, res, next) => co(function *() {
+const returnPostings = (req, res, next) => co(function *() {
 
   var token = req.isAuthenticated() ? req.user : null;
   var page = req.body.page ? req.body.page : null;
@@ -113,7 +104,7 @@ liveblog.returnPostings = (req, res, next) => co(function *() {
   throw ex;
 });
 
-liveblog.getMapData = (activeEvents) => co(function *() {
+const getMapData = (activeEvents) => co(function *() {
 
   let allEvents = yield api.event.all();
   let filteredEvents = allEvents.filter(e => _.includes(activeEvents, e.id));
@@ -145,4 +136,12 @@ liveblog.getMapData = (activeEvents) => co(function *() {
 });
 
 
-module.exports = liveblog;
+module.exports = {
+  getMapData,
+  returnPostings,
+  chooseEvent,
+  getCounterInfos,
+  getAllPostings,
+  getHighscores,
+  getEventInfos
+};
