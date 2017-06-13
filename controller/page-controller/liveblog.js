@@ -104,13 +104,14 @@ const returnPostings = (req, res, next) => co(function *() {
   throw ex;
 });
 
-const getMapData = (activeEvents) => co(function *() {
 
-  let allEvents = yield api.event.all();
+async function getMapData(activeEvents) {
+
+  let allEvents = await api.event.all();
   let filteredEvents = allEvents.filter(e => _.includes(activeEvents, e.id));
-  let locationsEvents = yield filteredEvents.map(e => {
+  let locationsEvents = await Promise.all(filteredEvents.map(e => {
     return api.location.getByEvent(e.id);
-  });
+  }));
 
   let locations = [];
   locationsEvents.forEach(e => {
@@ -130,11 +131,7 @@ const getMapData = (activeEvents) => co(function *() {
   });
 
   return teams;
-
-}).catch(ex => {
-  throw ex;
-});
-
+}
 
 module.exports = {
   getMapData,
