@@ -51,13 +51,13 @@ messages.getById = function *(req, res) {
   });
 };
 
-messages.getAll = (req) => co(function*() {
-  const me = yield api.getCurrentUser(req.user);
+async function getAll(req) {
+  const me = await api.getCurrentUser(req.user);
   if (me.groupMessageIds.length === 0) return [];
-  return yield me.groupMessageIds.map(gMId => api.messaging.getGroupMessage(req.user, gMId));
-}).catch((ex) => {
-  throw ex;
-});
+  return Promise.all(me.groupMessageIds.map(gMId => api.messaging.getGroupMessage(req.user, gMId)));
+}
+
+messages.getAll = getAll;
 
 messages.searchUser = (req, res, next) => co(function*() {
   let user = yield api.user.search(req.params.string);
