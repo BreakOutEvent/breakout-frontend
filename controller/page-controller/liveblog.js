@@ -58,7 +58,7 @@ function getCounterInfos(events) {
   }
 }
 
-const chooseEvent = (req, res, next) => co(function *() {
+async function chooseEvent(req, res) {
   if (!req.session.activeEvents) req.session.activeEvents = [];
 
   let eventId = parseInt(req.body.eventId);
@@ -73,16 +73,14 @@ const chooseEvent = (req, res, next) => co(function *() {
   } else {
     req.session.activeEvents = req.session.activeEvents.filter(id => id !== eventId);
     if (req.session.activeEvents.length === 0) {
-      let events = yield liveblog.getEventInfos(req.session.activeEvents);
+      let events = await liveblog.getEventInfos(req.session.activeEvents);
       req.session.activeEvents = events.activeEvents;
     }
     req.session.save();
     res.send('deactivated event ' + eventId);
   }
   res.status(400).send('not working ' + eventId);
-}).catch(ex => {
-  throw ex;
-});
+};
 
 
 async function returnPostings(req, res, next) {
