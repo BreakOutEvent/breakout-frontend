@@ -12,22 +12,6 @@ const logger = require('../../services/logger');
 
 let messages = {};
 
-
-/**
- * Sends the occurred error back to the client, and logs it to the bunyan global logger.
- * @param res
- * @param errMsg
- * @param err
- * @returns {*}
- */
-const sendErr = (res, errMsg, err) => {
-
-  if (err) logger.error(errMsg, err);
-  else logger.error(errMsg);
-
-  res.status(500).send({ error: errMsg });
-};
-
 messages.getById = function *(req, res) {
 
   let threads = yield messages.getAll(req);
@@ -66,17 +50,23 @@ function *searchUser(req, res) {
 
 messages.searchUser = searchUser;
 
-messages.createNew = (req, res, next) => co(function *() {
-  let msg = yield api.messaging.createGroupMessage(req.user, req.body);
+function *createNew(req, res) {
+  const msg = yield api.messaging.createGroupMessage(req.user, req.body);
   yield session.refreshSession(req);
   res.send(msg);
-}).catch((ex) => {
-  return sendErr(res, ex.message, ex);
-});
+}
 
-messages.send = (req, res, next) => co(function *() {
-  return res.send(yield api.messaging.addMessageToGroupMessage(req.user, req.params.id, req.body.text));
-}).catch((ex) => {
-  return sendErr(res, ex.message, ex);
-});
+messages.createNew = createNew;
+
+function *send(req, res) {
+  const response = yield api.messaging.addMessageToGroupMessage(
+    req.user,
+    req.params.id,
+    req.body.text);
+
+  return res.send(response);
+}
+
+messages.send = send;
+
 module.exports = messages;
