@@ -11,6 +11,8 @@ let liveblog = {};
 const getEventInfos = (activeEvents) => co(function *() {
   let eventsInfo = yield api.event.allActiveInfo(activeEvents);
 
+  // TODO: Transforming this to async / await is tricky, as co() allows us to yield objects,
+  // which does not seem to be possible with await
   let events = yield eventsInfo.events.map(e => {
     e.distance = api.event.getDistance(e.id);
     e.donatesum = api.event.getDonateSum(e.id);

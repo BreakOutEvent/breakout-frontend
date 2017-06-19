@@ -59,12 +59,12 @@ async function getAll(req) {
 
 messages.getAll = getAll;
 
-messages.searchUser = (req, res, next) => co(function*() {
+function *searchUser(req, res) {
   let user = yield api.user.search(req.params.string);
   res.send(user.filter(obj => obj.firstname || obj.lastname));
-}).catch((ex) => {
-  return sendErr(res, ex.message, ex);
-});
+}
+
+messages.searchUser = searchUser;
 
 messages.createNew = (req, res, next) => co(function *() {
   let msg = yield api.messaging.createGroupMessage(req.user, req.body);
