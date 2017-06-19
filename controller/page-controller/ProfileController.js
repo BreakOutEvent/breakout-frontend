@@ -9,7 +9,9 @@ class ProfileController {
     let team = null;
 
     if (req.user.status.is.team) {
-      team = yield profile.getTeam(req);
+      const userEventId = req.user.me.participant.eventId;
+      const userTeamId = req.user.me.participant.teamId;
+      team = yield profile.getTeam(userEventId, req.user, userTeamId);
     }
 
     res.render('dynamic/profile/profile', {

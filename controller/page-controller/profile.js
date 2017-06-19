@@ -1,25 +1,17 @@
 'use strict';
 
-/**
- * Controller for the profile page.
- */
-
-const co = require('co');
 const logger = require('../../services/logger');
-
 const session = require('../../controller/session');
 const api = require('../../services/api-proxy');
 
-let profile = {};
-
-profile.putTeam = (req, res, next) => co(function*() {
+function *updateTeam(req, res) {
 
   let update = {
     name: req.body.teamName
   };
-  
-  if(req.body.teamDescription) update.description = req.body.teamDescription;
-  
+
+  if (req.body.teamDescription) update.description = req.body.teamDescription;
+
   logger.info('Trying to update a team', update);
 
   const backendUser = yield api.putModel(`event/${req.user.me.participant.eventId}/team`, req.user.me.participant.teamId, req.user, update);
@@ -32,16 +24,14 @@ profile.putTeam = (req, res, next) => co(function*() {
 
   yield session.refreshSession(req);
   return res.send({});
-}).catch(ex => {
-  logger.error(ex);
-  return res.sendStatus(500);
-});
+}
 
-profile.getTeam = (req) => co(function*() {
-  return yield api.getModel(`event/${req.user.me.participant.eventId}/team`, req.user, req.user.me.participant.teamId);
-}).catch(ex => {
-  logger.error(ex);
-  return null;
-});
+// TODO: Belongs in api wrapper or isn't really needed at all
+function getTeam(eventId, tokens, teamId) {
+  return api.getModel(`event/${eventId}/team`, tokens, teamId);
+}
 
-module.exports = profile;
+module.exports = {
+  getTeam,
+  putTeam: updateTeam
+};
