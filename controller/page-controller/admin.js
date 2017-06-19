@@ -271,51 +271,6 @@ admin.checkinTeam = function *(req, res) {
   return res.sendStatus(200);
 };
 
-
-admin.getAllInvoices = (req) => co(function*() {
-
-  let rawInvoices = yield api.invoice.getAll(req.user);
-
-  var teams = [];
-
-
-  var invoices = rawInvoices.map(i => {
-    if (i.payments.length) {
-      i.payed = i.payments.reduce((prev, curr) => {
-        return prev + curr.amount;
-      }, 0);
-      i.open = i.amount - i.payed;
-      if (i.open < 0) i.open = 0;
-    } else {
-      i.payed = 0;
-      i.open = i.amount;
-    }
-    return i;
-  });
-
-
-  invoices.forEach(i => {
-    if (!teams[i.teamId]) teams[i.teamId] = 0;
-    teams[i.teamId] += i.payed;
-  });
-
-  // TODO: This is unused, what is the reason?
-  var depositTeams = teams.map((t, index) => {
-    if (t > 100) {
-      return {
-        teamId: index,
-        amount: t
-      };
-    }
-  });
-
-  return invoices;
-
-
-}).catch((ex) => {
-  throw ex;
-});
-
 admin.addAmountToInvoice = function *(req, res) {
 
   let addAmount = yield api.invoice.addAmount(req.user, req.body.invoiceId, req.body.amount);
