@@ -44,9 +44,8 @@ function transformEventAddYear(e) {
   return e;
 }
 
-team.getTeamByUrl = (teamId, token) => co(function*() {
-
-  let responses = yield Promise.all([
+async function fetchProfileData(teamId, token) {
+  let responses = await Promise.all([
     api.team.get(teamId),
     api.event.all(),
     api.challenge.getOverviewForTeamProfile(teamId),
@@ -82,10 +81,10 @@ team.getTeamByUrl = (teamId, token) => co(function*() {
   tempTeam.challenges = allChallenges.filter(shouldChallengeBeDisplayed);
   tempTeam.openChallenges = allChallenges.filter(s => s.status === 'ACCEPTED');
 
-  const distances = yield [
+  const distances = await Promise.all([
     api.team.getDistance(teamId),
     api.team.getDonations(teamId)
-  ];
+  ]);
 
   tempTeam.max.distance = distances[0].distance.toFixed(0);
   tempTeam.max.donations = distances[1].fullSum.toFixed(2);
@@ -105,9 +104,9 @@ team.getTeamByUrl = (teamId, token) => co(function*() {
   });
 
   return tempTeam;
-}).catch((ex) => {
-  throw ex;
-});
+}
+
+team.fetchProfileData = fetchProfileData;
 
 team.getAll = (activeEvents, sort) => co(function*() {
 

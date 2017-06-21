@@ -46,7 +46,7 @@ class TeamController {
       });
     }
 
-    const currTeam = yield team.getTeamByUrl(req.params.teamId, req.user);
+    const currTeam = yield team.fetchProfileData(req.params.teamId, req.user);
 
     currTeam.challenges = (typeof currTeam.challenges === 'undefined') ? [] : currTeam.challenges;
     currTeam.sponsors = (typeof currTeam.sponsors === 'undefined') ? [] : currTeam.sponsors;
