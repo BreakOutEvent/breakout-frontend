@@ -106,13 +106,11 @@ async function fetchProfileData(teamId, token) {
   return tempTeam;
 }
 
-team.fetchProfileData = fetchProfileData;
+async function fetchTeamOverview(activeEvents, sort) {
 
-team.getAll = (activeEvents, sort) => co(function*() {
+  let eventsInfo = await api.event.allActiveInfo(activeEvents);
 
-  let eventsInfo = yield api.event.allActiveInfo(activeEvents);
-
-  let allTeamsEvents = yield eventsInfo.events.map((e) => api.team.getAllByEvent(e.id));
+  let allTeamsEvents = await Promise.all(eventsInfo.events.map((e) => api.team.getAllByEvent(e.id)));
   let allTeamsWithEvent = allTeamsEvents.map(events => {
     return events.map(team => {
       team.event = eventsInfo.events.filter(e => e.id === team.event).pop();
@@ -136,9 +134,7 @@ team.getAll = (activeEvents, sort) => co(function*() {
     allTeams: allTeams,
     eventsInfo: eventsInfo
   };
-}).catch((ex) => {
-  throw ex;
-});
+}
 
 team.createPost = (req, res, next) => co(function*() {
 
@@ -267,4 +263,9 @@ function uploadPicture(file, mediaObj) {
   });
 }
 
-module.exports = team;
+// Use this Object.assign syntax until no
+// more functions are exported via team.funcName
+module.exports = Object.assign({}, team, {
+  fetchProfileData,
+  getAll: fetchTeamOverview
+});
