@@ -105,6 +105,16 @@ class StaticController {
     res.render('static/content/faq', options);
   }
 
+  static *renderDonationSumPage(req, res) {
+    const donationSumContent = yield contentful.getFieldsForContentType('donationOverview', req.contentfulLocale);
+
+    const options = extendDefaultOptions(req, {
+      page: donationSumContent[0]
+    })
+    console.log(options)
+    res.render('static/content/donationSum', options);
+  }
+
   static *renderPressPage(req, res) {
 
     const data = yield Promise.all([
