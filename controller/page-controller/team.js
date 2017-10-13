@@ -44,9 +44,8 @@ function transformEventAddYear(e) {
   return e;
 }
 
-team.getTeamByUrl = (teamId, token) => co(function*() {
-
-  let responses = yield Promise.all([
+async function fetchProfileData(teamId, token) {
+  let responses = await Promise.all([
     api.team.get(teamId),
     api.event.all(),
     api.challenge.getOverviewForTeamProfile(teamId),
@@ -82,10 +81,10 @@ team.getTeamByUrl = (teamId, token) => co(function*() {
   tempTeam.challenges = allChallenges.filter(shouldChallengeBeDisplayed);
   tempTeam.openChallenges = allChallenges.filter(s => s.status === 'ACCEPTED');
 
-  const distances = yield [
+  const distances = await Promise.all([
     api.team.getDistance(teamId),
     api.team.getDonations(teamId)
-  ];
+  ]);
 
   tempTeam.max.distance = distances[0].distance.toFixed(0);
   tempTeam.max.donations = distances[1].fullSum.toFixed(2);
@@ -105,15 +104,13 @@ team.getTeamByUrl = (teamId, token) => co(function*() {
   });
 
   return tempTeam;
-}).catch((ex) => {
-  throw ex;
-});
+}
 
-team.getAll = (activeEvents, sort) => co(function*() {
+async function fetchTeamOverview(activeEvents, sort) {
 
-  let eventsInfo = yield api.event.allActiveInfo(activeEvents);
+  let eventsInfo = await api.event.allActiveInfo(activeEvents);
 
-  let allTeamsEvents = yield eventsInfo.events.map((e) => api.team.getAllByEvent(e.id));
+  let allTeamsEvents = await Promise.all(eventsInfo.events.map((e) => api.team.getAllByEvent(e.id)));
   let allTeamsWithEvent = allTeamsEvents.map(events => {
     return events.map(team => {
       team.event = eventsInfo.events.filter(e => e.id === team.event).pop();
@@ -137,9 +134,7 @@ team.getAll = (activeEvents, sort) => co(function*() {
     allTeams: allTeams,
     eventsInfo: eventsInfo
   };
-}).catch((ex) => {
-  throw ex;
-});
+}
 
 team.createPost = (req, res, next) => co(function*() {
 
@@ -268,4 +263,9 @@ function uploadPicture(file, mediaObj) {
   });
 }
 
-module.exports = team;
+// Use this Object.assign syntax until no
+// more functions are exported via team.funcName
+module.exports = Object.assign({}, team, {
+  fetchProfileData,
+  getAll: fetchTeamOverview
+});

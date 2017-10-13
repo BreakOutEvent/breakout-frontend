@@ -8,9 +8,11 @@ const api = require('../../services/api-proxy');
 
 let liveblog = {};
 
-liveblog.getEventInfos = (activeEvents) => co(function *() {
+const getEventInfos = (activeEvents) => co(function *() {
   let eventsInfo = yield api.event.allActiveInfo(activeEvents);
 
+  // TODO: Transforming this to async / await is tricky, as co() allows us to yield objects,
+  // which does not seem to be possible with await
   let events = yield eventsInfo.events.map(e => {
     e.distance = api.event.getDistance(e.id);
     e.donatesum = api.event.getDonateSum(e.id);
@@ -35,39 +37,30 @@ liveblog.getEventInfos = (activeEvents) => co(function *() {
       }, 0)
     }
   };
-
-}).catch(ex => {
-  throw ex;
 });
 
-liveblog.getHighscores = (eventId) =>{
+function getHighscores(eventId) {
   return api.general.get(`/event/${eventId}/highscore/`);
-};
+}
 
-liveblog.getAllPostings = (activeEvents, token) => co(function *() {
+function getAllPostings(activeEvents, token) {
   const page = 0;
-  return yield api.posting.getPostingsForEvent(activeEvents, token, page);
-}).catch(ex => {
-  throw ex;
-});
+  return api.posting.getPostingsForEvent(activeEvents, token, page);
+}
 
-liveblog.getCounterInfos = (events) => co(function *() {
-
+function getCounterInfos(events) {
   if (events.every(e => e.date === events[0].date && e.isCurrent)) {
-    return {
+    return Promise.resolve({
       start: events[0].date * 1000,
       end: events[0].date * 1000 + (events[0].duration * 60 * 60 * 1000),
       current: Date.now()
-    };
+    });
   } else {
-    return null;
+    return Promise.resolve(null);
   }
+}
 
-}).catch(ex => {
-  throw ex;
-});
-
-liveblog.chooseEvent = (req, res, next) => co(function *() {
+async function chooseEvent(req, res) {
   if (!req.session.activeEvents) req.session.activeEvents = [];
 
   let eventId = parseInt(req.body.eventId);
@@ -82,44 +75,39 @@ liveblog.chooseEvent = (req, res, next) => co(function *() {
   } else {
     req.session.activeEvents = req.session.activeEvents.filter(id => id !== eventId);
     if (req.session.activeEvents.length === 0) {
-      let events = yield liveblog.getEventInfos(req.session.activeEvents);
+      let events = await liveblog.getEventInfos(req.session.activeEvents);
       req.session.activeEvents = events.activeEvents;
     }
     req.session.save();
     res.send('deactivated event ' + eventId);
   }
   res.status(400).send('not working ' + eventId);
-}).catch(ex => {
-  throw ex;
-});
+};
 
 
-liveblog.returnPostings = (req, res, next) => co(function *() {
+async function returnPostings(req, res, next) {
 
-  var token = req.isAuthenticated() ? req.user : null;
-  var page = req.body.page ? req.body.page : null;
-  var activeEvents = req.body.activeEvents ? req.body.activeEvents.map(e => parseInt(e)) : null;
+  const token = req.isAuthenticated() ? req.user : null;
+  const page = req.body.page ? req.body.page : null;
+  const activeEvents = req.body.activeEvents ? req.body.activeEvents.map(e => parseInt(e)) : null;
 
-  let postings = yield api.posting.getPostingsForEvent(activeEvents, token, page);
+  const postings = await api.posting.getPostingsForEvent(activeEvents, token, page);
 
   return res.render('dynamic/liveblog/postings', {
     layout: false,
     postings: postings,
     language: req.language
   });
+}
 
 
-}).catch(ex => {
-  throw ex;
-});
+async function getMapData(activeEvents) {
 
-liveblog.getMapData = (activeEvents) => co(function *() {
-
-  let allEvents = yield api.event.all();
+  let allEvents = await api.event.all();
   let filteredEvents = allEvents.filter(e => _.includes(activeEvents, e.id));
-  let locationsEvents = yield filteredEvents.map(e => {
+  let locationsEvents = await Promise.all(filteredEvents.map(e => {
     return api.location.getByEvent(e.id);
-  });
+  }));
 
   let locations = [];
   locationsEvents.forEach(e => {
@@ -139,10 +127,14 @@ liveblog.getMapData = (activeEvents) => co(function *() {
   });
 
   return teams;
+}
 
-}).catch(ex => {
-  throw ex;
-});
-
-
-module.exports = liveblog;
+module.exports = {
+  getMapData,
+  returnPostings,
+  chooseEvent,
+  getCounterInfos,
+  getAllPostings,
+  getHighscores,
+  getEventInfos
+};

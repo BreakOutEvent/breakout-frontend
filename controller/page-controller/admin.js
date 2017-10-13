@@ -52,7 +52,7 @@ admin.showDashboardEmails = function*(req, res) {
 admin.showDashboardPayment = function*(req, res) {
   let options = defaultOptions(req);
   options.view = 'admin-payment';
-  options.data = yield admin.getInvoices(req);
+  options.data = yield admin.getInvoices(req.user);
   options.data = options.data
     .filter(invoice => invoice.event.isCurrent)
     .sort(invoice => invoice.event.id)
@@ -218,10 +218,12 @@ admin.getAllEmailsTo = function(emailAddress) {
   }).then(resp => resp.data);
 };
 
-admin.getInvoices = (req) => co(function*() {
-  const events = yield api.getModel('event', req.user);
+admin.getInvoices = getInvoices;
 
-  let teamsByEvent = yield events.map((e) => api.getModel(`event/${e.id}/team`, req.user));
+async function getInvoices(tokens) {
+  const events = await api.getModel('event', tokens);
+
+  let teamsByEvent = await Promise.all(events.map((e) => api.getModel(`event/${e.id}/team`, tokens)));
   let allTeams = _.flatten(teamsByEvent);
 
   let allInvoices = [];
@@ -229,7 +231,7 @@ admin.getInvoices = (req) => co(function*() {
   for (let i = 0; i < allTeams.length; i++) {
     let t = allTeams[i];
     if (t.members.length > 1) {
-      let invoice = yield api.getModel('invoice/teamfee', req.user, t.invoiceId);
+      let invoice = await api.getModel('invoice/teamfee', tokens, t.invoiceId);
       invoice.event = events[t.event - 1];
       invoice.members = t.members;
       invoice.teamName = t.name;
@@ -247,9 +249,7 @@ admin.getInvoices = (req) => co(function*() {
   }
 
   return allInvoices;
-}).catch((ex) => {
-  throw ex;
-});
+}
 
 admin.getAllTeams = function () {
   return Promise.resolve(api.event.all())
@@ -270,51 +270,6 @@ admin.checkinTeam = function *(req, res) {
 
   return res.sendStatus(200);
 };
-
-
-admin.getAllInvoices = (req) => co(function*() {
-
-  let rawInvoices = yield api.invoice.getAll(req.user);
-
-  var teams = [];
-
-
-  var invoices = rawInvoices.map(i => {
-    if (i.payments.length) {
-      i.payed = i.payments.reduce((prev, curr) => {
-        return prev + curr.amount;
-      }, 0);
-      i.open = i.amount - i.payed;
-      if (i.open < 0) i.open = 0;
-    } else {
-      i.payed = 0;
-      i.open = i.amount;
-    }
-    return i;
-  });
-
-
-  invoices.forEach(i => {
-    if (!teams[i.teamId]) teams[i.teamId] = 0;
-    teams[i.teamId] += i.payed;
-  });
-
-  // TODO: This is unused, what is the reason?
-  var depositTeams = teams.map((t, index) => {
-    if (t > 100) {
-      return {
-        teamId: index,
-        amount: t
-      };
-    }
-  });
-
-  return invoices;
-
-
-}).catch((ex) => {
-  throw ex;
-});
 
 admin.addAmountToInvoice = function *(req, res) {
 
