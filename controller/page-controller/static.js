@@ -111,7 +111,6 @@ class StaticController {
     const options = extendDefaultOptions(req, {
       page: donationSumContent[0]
     })
-    console.log(options)
     res.render('static/content/donationSum', options);
   }
 

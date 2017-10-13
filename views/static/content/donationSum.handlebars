@@ -1,20 +1,55 @@
 <div class="bo-header-info"></div>
 <div class="container">
 
-    <hr>
+    <hr />
 
-        <div class="row top30">
-            
-            
-            <img src="{{page.sumImage.fields.file.url}}"
-                class="center-block img-responsive img-rounded"
-                style="vertical-align: bottom; max-height: 300px;">
-            
-            <div class="row" style="text-align: center; margin-top:20px">
-                
-                    <h4>{{page.sumText}}</h4>
-            </div>
+    <div class="row top30">
+
+        <img src="{{page.sumImage.fields.file.url}}"
+             class="center-block img-responsive img-rounded"
+             style="vertical-align: bottom; max-height: 300px;">
+
+        <div class="row" style="text-align: center; margin-top:20px">
+
+            <h4>{{{md page.sumText}}}</h4>
         </div>
+    </div>
+
+    <div class="row" >
+        <div  class="col-sm-6 top30">
+
+            <h4>{{page.listingHeading}}</h4>
+        </div>
+        <div  class="col-sm-6 top30">
+            <ul>
+                {{#each page.listingCalculation}}
+
+                    <li>{{this}}</li>
+
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-xs-12" style="height: 40px"></div>
+
+    <div class="row">
+
+        <div class="col-md-6" >
+            <h4>{{page.partnerHeading}}</h4>
+
+            <p>{{{md page.partnerText}}}</p>
+        </div>
+
+        <div class="col-md-6" >
+            <h4>{{page.callHeading}}</h4>
+
+            <p>{{{md page.callText}}}</p>
+        </div>
+
+    </div>
+
+
     <hr>
 
 </div>
