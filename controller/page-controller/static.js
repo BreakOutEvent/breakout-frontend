@@ -110,7 +110,7 @@ class StaticController {
 
     const options = extendDefaultOptions(req, {
       page: donationSumContent[0]
-    })
+    });
     res.render('static/content/donationSum', options);
   }
 
