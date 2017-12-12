@@ -59,6 +59,12 @@ function setupLogger(app) {
   }));
 }
 
+function formatStackTrace(unformatted) {
+  return unformatted
+    .replace(/\n/g, '<br/>')
+    .replace(/at /g, '&nbsp;&nbsp;&nbsp;&nbsp;at ');
+}
+
 // TODO: eslint ignore unused
 // next may be unused but must be here in order to be work properly!
 function genericErrorHandler(err, req, res, next) {
@@ -67,18 +73,19 @@ function genericErrorHandler(err, req, res, next) {
 
   res.status(err.status || 500);
 
-  if (process.env.NODE_ENVIRONMENT === 'dev' || process.env.SHOW_ERROR === 'true') {
-    res.render('layouts/error', {
-      code: err.status,
-      message: err.message,
-      error: err
-    });
-  } else {
-    res.render('layouts/error', {
-      code: err.status,
-      message: 'Internal Server error'
-    });
+  const code = err.status;
+  const message = 'Internal Server Error';
+  let stacktrace = undefined;
+
+  if (config.debug && config.debug.displayStackTrace) {
+    stacktrace = formatStackTrace(err.stack);
   }
+
+  res.render('layouts/error', {
+    code,
+    message,
+    stacktrace
+  });
 }
 
 function notFoundHandler(req, res) {
@@ -90,7 +97,7 @@ function notFoundHandler(req, res) {
 }
 
 function sessionHandler(req, res, next) {
-  co(function*() {
+  co(function* () {
     if (req.isAuthenticated()
       && req.user.expires_at
       && new Date() > new Date(req.user.expires_at)
@@ -125,7 +132,7 @@ function maintenanceView(req, res, next) {
 function emergencyView(req, res, next) {
   if (req.app.get('emergency')) {
 
-    contentful.getFieldsForContentType('notfallSeite', req.contentfulLocale).then(function(data){
+    contentful.getFieldsForContentType('notfallSeite', req.contentfulLocale).then(function (data) {
       let options = {
         titel: data[0].titlel,
         description: data[0].beschreibung,
@@ -188,7 +195,7 @@ function server(callback) {
     path.join(__dirname, 'views/templates')
   ];
 
-  app.set('views', path.join(__dirname ,'/views'));
+  app.set('views', path.join(__dirname, '/views'));
 
   const hbs = exphbs({
     layoutsDir: path.join(__dirname + '/views/layouts'),
