@@ -7,6 +7,7 @@ var dateFormat = require('dateformat');
 const Remarkable = require('remarkable');
 const path = require('path');
 const logger = require('../services/logger');
+const config = require('../config/config');
 
 // Setup
 const md = new Remarkable({
@@ -19,9 +20,9 @@ exports.toId = (input) => {
 
 exports.clientConfig = () => {
   return JSON.stringify({
-    baseUrl: process.env.REACT_BASEURL,
-    clientSecret: process.env.REACT_CLIENT_SECRET,
-    clientId: process.env.REACT_CLIENT_ID
+    baseUrl: process.env.REACT_BASEURL || config.react.baseUrl,
+    clientSecret: process.env.REACT_CLIENT_SECRET || config.react.clientSecret,
+    clientId: process.env.REACT_CLIENT_ID || config.react.clientId
   });
 };
 
