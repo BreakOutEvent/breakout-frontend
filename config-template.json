@@ -26,5 +26,10 @@
     "baseUrl": "localhost:8082",
     "clientId": "client_app",
     "clientSecret": "123456789"
+  },
+  "sentry": {
+    "enabled": false,
+    "key": "example-key-123",
+    "project": "1234"
   }
 }
