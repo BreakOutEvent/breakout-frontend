@@ -21,5 +21,10 @@
   "secret": "secret-cat",
   "media_url": "media_url",
   "jwt_secret": "jwt_secret",
-  "port": 3000
+  "port": 3000,
+  "react": {
+    "baseUrl": "localhost:8082",
+    "clientId": "client_app",
+    "clientSecret": "123456789"
+  }
 }
