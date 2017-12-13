@@ -8,6 +8,7 @@ const Remarkable = require('remarkable');
 const path = require('path');
 const logger = require('../services/logger');
 const config = require('../config/config');
+const _ = require('lodash');
 
 // Setup
 const md = new Remarkable({
@@ -453,5 +454,47 @@ exports.isNewerTenMinutes = (date, context) => {
     return context.fn(this);
   } else {
     return context.inverse(this);
+  }
+};
+
+/**
+ * This handlebars helper will render a block in the handlerbars file if the config value is true
+ *
+ * Example:
+ *
+ * {{#isEnabled 'printHeadline.enabled'}} <h1>I am a headline </h1> {{/isEnabled}}
+ *
+ * @param key The config key to look up
+ * @param context Handlebars context
+ * @returns {string} Either the block to be rendered or an empty string
+ */
+exports.isEnabled = function (key, context) {
+
+  const value = _.get(config, key);
+
+  if (value === true) {
+    return context.fn(this);
+  } else if (value === false) {
+    return '';
+  } else {
+    throw new Error(`Found value '${value}' for config key '${key}'. Expected boolean value`);
+  }
+};
+
+/**
+ * Returns the value for a key from the config file
+ *
+ * Example: {{config 'backend.accessToken'}} will render the accessToken into the handlebars file
+ *
+ * @param key The config key to look up
+ * @param context Handlebars context
+ * @returns {*} The value found for the given key
+ */
+exports.config = function (key, context) {
+  const value = _.get(config, key);
+  if (value) {
+    return value;
+  } else {
+    throw new Error(`Couldn't find value for key '${key}' in configuration`);
   }
 };
