@@ -35,4 +35,6 @@ router.get('/privacy-policy', StaticController.renderPrivacyPolicy);
 
 router.get('/newsletter', StaticController.render('newsletter', 'Newsletter'));
 
+router.get('/donations', StaticController.renderDonationSumPage);
+
 module.exports = router;

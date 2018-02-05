@@ -1,0 +1,79 @@
+<!--<div class="bo-header-info"></div>-->
+<header class="img-bg-header" style="
+        background: url({{page.headerImage.fields.file.url}});
+        /* max-height: 300px; */
+        height: 400px;
+        padding-top: 0;
+        margin-top: -70px;
+        margin-bottom: -1px;
+        background-position: center;
+        background-size: cover;
+        display: flex;
+        align-items: center;
+        justify-content: center">
+    <h1 style="color: white;text-shadow: 2px 2px rgba(93, 93, 93, 0.74);">{{page.headerText}}</h1>
+</header>
+
+
+
+<div class="container" style="margin-top: -123px">
+
+    <div class="row top30">
+
+        <img src="{{page.sumImage.fields.file.url}}"
+             class="center-block img-responsive img-rounded"
+             style="vertical-align: bottom; max-height: 300px;">
+
+        <div class="row" style="text-align: center; margin-top:20px">
+
+            <h4>{{{md page.sumText}}}</h4>
+        </div>
+    </div>
+
+    <div class="row" >
+
+
+
+            <div  class="col-md-4 top30">
+                <h4>{{page.listingHeading}}</h4>
+
+            </div>
+            <div  class="col-md-8 top30">
+                <ul>
+                    {{#each page.listingCalculation}}
+
+                        <li>{{this}}</li>
+
+                    {{/each}}
+                </ul>
+
+            </div>
+
+
+
+
+
+    </div>
+
+    <div class="col-xs-12" style="height: 40px"></div>
+
+    <div class="row">
+
+        <div class="col-md-6" >
+            <h4>{{page.partnerHeading}}</h4>
+
+            <p>{{{md page.partnerText}}}</p>
+        </div>
+
+        <div class="col-md-6" >
+            <h4>{{page.callHeading}}</h4>
+
+            <p>{{{md page.callText}}}</p>
+        </div>
+
+    </div>
+
+
+    <hr>
+
+</div>
