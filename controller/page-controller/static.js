@@ -237,10 +237,16 @@ class StaticController {
   }
 
   static *renderCodeOfHonour(req, res) {
-    let codeOfHonours = yield contentful.getFieldsForContentType('codeOfHonour', req.contentfulLocale);
+    const data = yield Promise.all([
+      contentful.getFieldsForContentType('codeOfHonourPage', req.contentfulLocale),
+      contentful.getFieldsForContentType('codeOfHonour', req.contentfulLocale),
+    ]);
 
-    let options = extendDefaultOptions(req, {
-      title: 'Code of Honour', // TODO: Add from page
+    const page = data[0][0];
+    const codeOfHonours = data[1];
+
+    const options = extendDefaultOptions(req, {
+      page: page,
       codeOfHonours: codeOfHonours
     });
 
