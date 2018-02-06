@@ -9,8 +9,8 @@
 const logger = require('../services/logger');
 const i18next = require('i18next');
 
-const de = require('../resources/translations/translations.de.js');
-const en = require('../resources/translations/translations.en.js');
+const de = require('../../common/resources/translations/translations.de.js');
+const en = require('../../common/resources/translations/translations.en.js');
 
 i18next.init({
   fallbackLng: 'en',

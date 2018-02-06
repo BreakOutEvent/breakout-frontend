@@ -10,8 +10,8 @@ import SelectRole from './Components/SelectRole/SelectRole.jsx';
 import ResetPassword from './Components/ResetPassword/ResetPassword.jsx';
 import CreateOrJoinTeam from './Components/CreateOrJoinTeam.jsx';
 import {VisitorSuccess, JoinTeamSuccess, CreateTeamSuccess} from './Components/Success.jsx';
-import de from '../../../resources/translations/translations.de';
-import en from '../../../resources/translations/translations.en';
+import de from '../../common/resources/translations/translations.de';
+import en from '../../common/resources/translations/translations.en';
 import i18next from 'i18next';
 import Modal from './Components/Modal.jsx';
 import {

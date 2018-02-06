@@ -68,13 +68,13 @@ function genericErrorHandler(err, req, res, next) {
   res.status(err.status || 500);
 
   if (process.env.NODE_ENVIRONMENT === 'dev' || process.env.SHOW_ERROR === 'true') {
-    res.render('error', {
+    res.render('layouts/error', {
       code: err.status,
       message: err.message,
       error: err
     });
   } else {
-    res.render('error', {
+    res.render('layouts/error', {
       code: err.status,
       message: 'Internal Server error'
     });
@@ -83,7 +83,7 @@ function genericErrorHandler(err, req, res, next) {
 
 function notFoundHandler(req, res) {
   res.status(404);
-  res.render('error', {
+  res.render('layouts/error', {
     code: 404,
     message: req.url + ' could not be found on this server'
   });
@@ -157,20 +157,6 @@ function contentfulLocale(req, res, next) {
   next();
 }
 
-
-function checkForDuplicates(partialsDirs) {
-// Read all files from the template directories and flatten them into one array
-  const readDirs = partialsDirs
-    .map(dir => fs.readdirSync(dir))
-    .reduce((first, second) => first.concat(second));
-
-  // If there are any duplicates in the list, they are different in length
-  const uniqueFiles = _.uniq(_.filter(readDirs, v => _.filter(readDirs, v1 => v1 === v).length > 1));
-  if (uniqueFiles.length) {
-    throw new Error('There are duplicate templates: ' + _.join(uniqueFiles));
-  }
-}
-
 function contentfulRawHtml(req, res, next) {
   contentful.getFieldsForContentType('rawHtml')
     .then(pages => {
@@ -193,26 +179,26 @@ function server(callback) {
 
   app.use(compression());
   // Register the static path here, to avoid getting them logged
-  app.use(express.static(path.join(__dirname, 'public')));
+  app.use(express.static(path.join(__dirname, '../../dist')));
   setupLogger(app);
 
   // All dirs containing templates
   const partialsDirs = [
-    'views/partials',
-    'views/templates'
+    path.join(__dirname, 'views/partials'),
+    path.join(__dirname, 'views/templates')
   ];
 
-  checkForDuplicates(partialsDirs); // TODO: Why do we need this??
+  app.set('views', path.join(__dirname ,'/views'));
 
-  // Handlebars setup
-  const hbs = exphbs.create({
-    helpers: require('./services/helpers'),
-    partialsDir: partialsDirs
+  const hbs = exphbs({
+    layoutsDir: path.join(__dirname + '/views/layouts'),
+    partialsDir: partialsDirs,
+    helpers: require('./services/helpers')
   });
 
   global.HBS = hbs;
 
-  app.engine('handlebars', hbs.engine);
+  app.engine('handlebars', hbs);
   app.set('view engine', 'handlebars');
 
   if (process.env.NODE_ENVIRONMENT === 'prod' && !config.jwt_secret) {

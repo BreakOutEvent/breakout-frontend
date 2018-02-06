@@ -23,7 +23,7 @@ module.exports = {
     styles: ['./src/client/less/styles.less']
   },
   output: {
-    path: path.resolve(__dirname, 'public/js'),
+    path: path.resolve(__dirname, 'dist/js'),
     filename: '[name].js'
   },
   module: {

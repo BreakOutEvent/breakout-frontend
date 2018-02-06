@@ -9,7 +9,7 @@ if (!process.env.NODE_ENVIRONMENT) {
 }
 
 const filename = `config-${process.env.NODE_ENVIRONMENT}.json`;
-const path = `../${filename}`;
+const path = `../../../${filename}`;
 
 try {
   module.exports = require(path);
