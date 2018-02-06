@@ -50,7 +50,9 @@ module.exports = {
         include: path.resolve(__dirname, 'src/less/'),
         use: extractLess.extract({
           use: [{
-            loader: 'css-loader'
+            loader: 'css-loader',
+          }, {
+            loader: 'postcss-loader'
           }, {
             loader: 'less-loader'
           }]
