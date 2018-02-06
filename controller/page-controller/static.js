@@ -260,10 +260,10 @@ class StaticController {
   }
 
   static *renderImprint(req, res) {
-    let data = yield contentful.getFieldsForContentType('imprint', req.contentfulLocale);
+    let data = yield contentful.getFieldsForContentType('imprintPage', req.contentfulLocale);
 
     let options = extendDefaultOptions(req, {
-      imprint: data[0].disclaimer
+      page: data[0]
     });
 
     res.render('static/content/imprint', options);
