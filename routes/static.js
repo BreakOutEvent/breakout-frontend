@@ -7,7 +7,7 @@ const Router = require('co-router');
 const router = new Router();
 const session = require('../controller/session');
 
-const StaticController = require('../controller/page-controller/static.js');
+const StaticController = require('../controller/static.js');
 
 router.get('/members', StaticController.renderMemberPage);
 

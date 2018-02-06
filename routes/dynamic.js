@@ -1,15 +1,15 @@
 'use strict';
 
-const DynamicController = require('../controller/page-controller/DynamicController');
-const AuthenticationController = require('../controller/page-controller/AuthenticationController');
-const StaticController = require('../controller/page-controller/static.js');
-const TeamController = require('../controller/page-controller/TeamController');
+const DynamicController = require('../controller/DynamicController');
+const AuthenticationController = require('../controller/AuthenticationController');
+const StaticController = require('../controller/static.js');
+const TeamController = require('../controller/TeamController');
 
 const Router = require('co-router');
 const multer = require('multer');
 
-const registration = require('../controller/page-controller/registration');
-const liveblog = require('../controller/page-controller/liveblog');
+const registration = require('../controller/registration');
+const liveblog = require('../controller/liveblog');
 const session = require('../controller/session');
 
 const upload = multer({inMemory: true});

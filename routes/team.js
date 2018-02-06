@@ -6,9 +6,9 @@
 
 const Router = require('co-router');
 const multer = require('multer');
-const TeamController = require('../controller/page-controller/TeamController');
+const TeamController = require('../controller/TeamController');
 
-const team = require('../controller/page-controller/team');
+const team = require('../controller/team');
 const session = require('../controller/session');
 
 const router = new Router();

@@ -7,12 +7,12 @@
 const co = require('co');
 const _ = require('lodash');
 const fs = require('fs');
-const logger = require('../../services/logger');
+const logger = require('../services/logger');
 const Promise = require('bluebird');
 const request = require('request');
-const config = require('../../config/config');
+const config = require('../config/config');
 
-const api = require('../../services/api-proxy');
+const api = require('../services/api-proxy');
 
 let team = {};
 

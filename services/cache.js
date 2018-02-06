@@ -1,7 +1,7 @@
 'use strict';
 
 const co = require('co');
-const mongoose = require('../controller/mongo.js');
+const mongoose = require('./mongo.js');
 const logger = require('../services/logger');
 
 const CacheObject = mongoose.model('cache', require('../schemas/cacheObject'));

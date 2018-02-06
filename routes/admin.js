@@ -4,7 +4,7 @@
  * Routes for the admin dashboard.
  */
 const session = require('../controller/session');
-const admin = require('../controller/page-controller/admin');
+const admin = require('../controller/admin');
 
 const Router = require('co-router');
 const router = new Router();

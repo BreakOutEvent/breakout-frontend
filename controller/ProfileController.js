@@ -1,6 +1,6 @@
 'use strict';
 
-const profile = require('../../controller/page-controller/profile');
+const profile = require('./profile');
 
 class ProfileController {
 

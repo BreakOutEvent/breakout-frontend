@@ -1,6 +1,6 @@
 'use strict';
 
-const contentful = require('../../services/contentful');
+const contentful = require('../services/contentful');
 
 const renderTemplate = (type, folder, layout) => (template, title) => (req, res) => {
   let options = {

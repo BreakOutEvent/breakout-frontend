@@ -5,10 +5,10 @@
 
 const co = require('co');
 const _ = require('lodash');
-const api = require('../../services/api-proxy');
+const api = require('../services/api-proxy');
 const Promise = require('bluebird');
-const logger = require('../../services/logger');
-const config = require('../../config/config');
+const logger = require('../services/logger');
+const config = require('../config/config');
 const axios = require('axios');
 
 let admin = {};

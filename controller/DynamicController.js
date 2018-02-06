@@ -5,7 +5,7 @@ const profile = require('./profile');
 const registration = require('./registration');
 const team = require('./team');
 const _ = require('lodash');
-const session = require('../session');
+const session = require('./session');
 
 class DynamicController {
 

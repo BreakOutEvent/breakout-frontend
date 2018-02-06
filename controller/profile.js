@@ -5,10 +5,10 @@
  */
 
 const co = require('co');
-const logger = require('../../services/logger');
+const logger = require('../services/logger');
 
-const session = require('../../controller/session');
-const api = require('../../services/api-proxy');
+const session = require('./session');
+const api = require('../services/api-proxy');
 
 let profile = {};
 

@@ -1,6 +1,6 @@
 'use strict';
 
-const api = require('../../services/api-proxy');
+const api = require('../services/api-proxy');
 
 let posting = {};
 

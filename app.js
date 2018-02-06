@@ -42,7 +42,7 @@ const http = require('http');
 const logger = require('./services/logger');
 const contentful = require('./services/contentful');
 
-const mongoose = require('./controller/mongo.js');
+const mongoose = require('./services/mongo.js');
 const passport = require('./services/auth.js');
 const API = require('./services/api-proxy');
 const websocket = require('./services/websocket');

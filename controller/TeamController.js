@@ -1,6 +1,6 @@
 'use strict';
 
-const team = require('../../controller/page-controller/team');
+const team = require('./team');
 const _ = require('lodash');
 
 class TeamController {

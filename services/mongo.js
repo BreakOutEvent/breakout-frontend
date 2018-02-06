@@ -1,7 +1,7 @@
 'use strict';
 
 const mongoose = require('mongoose');
-const logger = require('../services/logger');
+const logger = require('./logger');
 const config = require('../config/config.js');
 
 // Build connection URL dependent on whether a user is specified or not

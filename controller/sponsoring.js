@@ -2,9 +2,9 @@
 
 const co = require('co');
 const _ = require('lodash');
-const logger = require('../../services/logger');
+const logger = require('../services/logger');
 
-const api = require('../../services/api-proxy');
+const api = require('../services/api-proxy');
 
 const sponsoring = {};
 

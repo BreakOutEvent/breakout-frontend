@@ -4,7 +4,7 @@
  * Routes for all hashtag related requests
  */
 const Router = require('co-router');
-const posting = require('../controller/page-controller/posting');
+const posting = require('../controller/posting');
 
 const router = new Router();
 

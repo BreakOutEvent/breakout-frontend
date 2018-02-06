@@ -1,11 +1,11 @@
 'use strict';
 
 const multer = require('multer');
-const ProfileController = require('../controller/page-controller/ProfileController');
+const ProfileController = require('../controller/ProfileController');
 const Router = require('co-router');
 
-const sponsoring = require('../controller/page-controller/sponsoring');
-const profile = require('../controller/page-controller/profile');
+const sponsoring = require('../controller/sponsoring');
+const profile = require('../controller/profile');
 const session = require('../controller/session');
 
 const upload = multer({inMemory: true});
