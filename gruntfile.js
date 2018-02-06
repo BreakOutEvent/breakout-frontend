@@ -17,12 +17,6 @@ module.exports = function (grunt) {
         }
       }
     },
-    jshint: {
-      files: '<%= files.js %>',
-      options: {
-        jshintrc: true
-      }
-    },
     uglify: {
       build: {
         files: [{
