@@ -60,6 +60,13 @@
 
 <!-- End Google Tag Manager -->
 
+{{#isEnabled 'sentry.enabled'}}
+    <script src="https://cdn.ravenjs.com/3.15.0/raven.min.js"></script>
+    <script type="text/javascript">
+        Raven.config('https://{{config 'sentry.key'}}@sentry.io/{{config 'sentry.project'}}').install()
+    </script>
+{{/isEnabled}}
+
 {{#each requirements}}
     <script type="text/javascript" src="/js/{{this}}.js"></script>
 {{/each}}
