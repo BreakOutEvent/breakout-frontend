@@ -1,18 +1,20 @@
 'use strict';
-var webpack = require('webpack');
-var path = require('path');
+const webpack = require('webpack');
+const path = require('path');
 
 module.exports = {
-  entry: ['babel-polyfill', './src/js/reactTest.jsx'],
+  entry: {
+    reactApp: ['babel-polyfill', './src/client/react/App.jsx']
+  },
   output: {
     path: path.resolve(__dirname, 'public/js'),
-    filename: 'reactTest.js'
+    filename: '[name].js'
   },
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        include: path.resolve(__dirname, 'src/js/'),
+        include: path.resolve(__dirname, 'src/client/react/'),
         use: {
           loader: 'babel-loader',
           options: {

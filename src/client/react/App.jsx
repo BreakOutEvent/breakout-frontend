@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import BreakoutApi from './BreakoutApi';
+import BreakoutApi from '../../js/BreakoutApi';
 
 import Login from './Components/Login/Login.jsx';
 import Registration from './Components/Register/Registration.jsx';
@@ -10,8 +10,8 @@ import SelectRole from './Components/SelectRole/SelectRole.jsx';
 import ResetPassword from './Components/ResetPassword/ResetPassword.jsx';
 import CreateOrJoinTeam from './Components/CreateOrJoinTeam.jsx';
 import {VisitorSuccess, JoinTeamSuccess, CreateTeamSuccess} from './Components/Success.jsx';
-import de from '../../resources/translations/translations.de';
-import en from '../../resources/translations/translations.en';
+import de from '../../../resources/translations/translations.de';
+import en from '../../../resources/translations/translations.en';
 import i18next from 'i18next';
 import Modal from './Components/Modal.jsx';
 import {
