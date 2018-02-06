@@ -25,11 +25,10 @@ class StaticController {
   }
 
   static *renderPrivacyPolicy(req, res) {
-    const data = yield contentful.getFieldsForContentType('privacyPolicy', req.contentfulLocale);
+    const data = yield contentful.getFieldsForContentType('privacyPolicyPage', req.contentfulLocale);
 
     res.render('static/content/privacyPolicy', extendDefaultOptions(req, {
-      title: data[0].title,
-      textContent: data[0].content
+      page: data[0]
     }));
   }
 
