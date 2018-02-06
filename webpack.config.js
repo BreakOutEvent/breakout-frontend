@@ -20,7 +20,7 @@ module.exports = {
     team: ['./src/client/js/team.js'],
     liveblog: ['./src/client/js/liveblog.js'],
     landingpage: ['./src/client/js/landingpage.js'],
-    styles: ['./src/less/styles.less']
+    styles: ['./src/client/less/styles.less']
   },
   output: {
     path: path.resolve(__dirname, 'public/js'),
@@ -47,7 +47,7 @@ module.exports = {
       },
       {
         test: /\.(less)$/,
-        include: path.resolve(__dirname, 'src/less/'),
+        include: path.resolve(__dirname, 'src/client/less/'),
         use: extractLess.extract({
           use: [{
             loader: 'css-loader',
