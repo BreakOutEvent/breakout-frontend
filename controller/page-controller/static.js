@@ -127,11 +127,17 @@ class StaticController {
 
   static *renderTermsAndConditions(req, res) {
 
-    const page = yield contentful.getFieldsForContentType('termsAndConditions', req.contentfulLocale);
+    const data = yield Promise.all([
+      contentful.getFieldsForContentType('termsAndConditions', req.contentfulLocale),
+      contentful.getFieldsForContentType('termsAndConditionsPage', req.contentfulLocale)
+    ]);
+
+    const page = data[1][0];
+    const termsAndConditions = data[0][0].body;
 
     const options = extendDefaultOptions(req, {
-      title: page[0].title,
-      termsAndConditions: page[0].body
+      page,
+      termsAndConditions
     });
 
     res.render('static/content/termsAndConditions', options);
