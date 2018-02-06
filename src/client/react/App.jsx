@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import BreakoutApi from '../../js/BreakoutApi';
+import BreakoutApi from './BreakoutApi';
 
 import Login from './Components/Login/Login.jsx';
 import Registration from './Components/Register/Registration.jsx';
