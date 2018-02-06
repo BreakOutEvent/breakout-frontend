@@ -246,7 +246,6 @@ function server(callback) {
   app.use(contentfulLocale);
 
   // Routers
-  app.use('/', require('./routes/main'));
   app.use('/', require('./routes/dynamic'));
   app.use('/', require('./routes/static'));
   app.use('/team', require('./routes/team'));
