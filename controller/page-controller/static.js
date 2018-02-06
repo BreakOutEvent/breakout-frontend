@@ -157,6 +157,7 @@ class StaticController {
 
     let options = extendDefaultOptions(req, {
       titelAbout: fields.titelAbout,
+      page: fields,
       teambeschreibung: fields.teambeschreibung,
       beschreibungStellenausschreibung: fields.beschreibungStellenausschreibung,
       titeStellenausschreibungen: fields.titeStellenausschreibungen,
@@ -170,7 +171,7 @@ class StaticController {
       hasMembers: (members.length > 0)
     });
 
-    res.render('static/team/content', options);
+    res.render('static/content/members', options);
 
   }
 
