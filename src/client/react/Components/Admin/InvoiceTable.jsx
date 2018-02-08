@@ -1,6 +1,6 @@
 import React from 'react';
 import {Table, TableHeader, TableHeaderColumn, TableRow} from 'material-ui/Table';
-import {TableBody, TableRowColumn} from "material-ui/Table/index";
+import {TableBody, TableRowColumn} from 'material-ui/Table/index';
 
 export default class InvoiceTable extends React.Component {
 
