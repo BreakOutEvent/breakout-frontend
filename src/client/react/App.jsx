@@ -24,6 +24,8 @@ import ReactGA from 'react-ga';
 ReactGA.initialize('UA-59857227-3');
 
 import routes from './Components/routes';
+import AdminInvoicePanel from './Components/Admin/AdminInvoicePanel.jsx';
+import {MuiThemeProvider} from 'material-ui';
 
 class App extends React.Component {
 
@@ -208,3 +210,19 @@ App.propTypes = {
 ReactDOM.render(
   <App />
   , document.getElementById('react-root'));
+
+const url = window.boClientConfig.baseUrl;
+const clientId = window.boClientConfig.clientId;
+const clientSecret = window.boClientConfig.clientSecret;
+const api = new BreakoutApi(url, clientId, clientSecret);
+
+const isLoggedIn = window.boUserData;
+
+if (isLoggedIn) {
+  api.setAccessToken(window.boUserData.access_token);
+}
+
+const adminInvoiceRoot = document.getElementById('react-admin-invoice');
+if (adminInvoiceRoot) {
+  ReactDOM.render(<MuiThemeProvider><AdminInvoicePanel api={api}/></MuiThemeProvider>, adminInvoiceRoot);
+}

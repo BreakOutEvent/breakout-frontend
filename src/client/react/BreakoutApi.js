@@ -254,6 +254,10 @@ class BreakoutApi {
       .then(resp => resp.data.isLoggedIn);
   }
 
+  fetchInvoicesForEvent(eventId) {
+    return this.instance.get(`sponsoringinvoice/${eventId}/`)
+      .then(resp => resp.data);
+  }
 }
 
 module.exports = BreakoutApi;
