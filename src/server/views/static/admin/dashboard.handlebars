@@ -1,33 +1,29 @@
-<div class="container">
-    <div class="row">
-        <div class="col-xs-12">
-            <h1>Admin Dashboard</h1>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
-            <div class="list-group">
-                <a href="/admin/" class="list-group-item {{#ifCond view "admin-dashboard"}}active{{/ifCond}}">
-                    Dashboard
-                </a>
-                <a href="/admin/payment" class="list-group-item {{#ifCond view "admin-payment"}}active{{/ifCond}}">Startgebühren</a>
-                <a href="/admin/emails" class="list-group-item {{#ifCond view "admin-emails"}}active{{/ifCond}}">Versendete Emails</a>
-                <a href="/admin/checkin" class="list-group-item {{#ifCond view "admin-checkin"}}active{{/ifCond}}">CheckIn</a>
-                <a href="/admin/invoice" class="list-group-item {{#ifCond view "admin-invoice"}}active{{/ifCond}}">Spenden</a>
-                <a href="/admin/teamoverview" class="list-group-item {{#ifCond view "admin-overview"}}active{{/ifCond}}">Team-Überblick</a>
-            </div>
-            <div id="results">
+<header class="img-bg-header" style="
+        height: 200px;
+        padding-top: 0;
+        margin-top: -70px;
+        margin-bottom: -1px;
+        background-position: center;
+        background-size: cover;
+        display: flex;
+        align-items: center;
+        justify-content: center">
+    <h1 style="color: white;text-shadow: 2px 2px rgba(93, 93, 93, 0.74);">Admin Dashboard</h1>
+</header>
 
-            </div>
-        </div>
-        <div class="col-sm-9">
-            <div class="panel panel-default">
-                <div class="panel-heading">BreakOut Admin Backend</div>
-                <div class="panel-body">
-                    {{> (lookup . 'view') data}}
-                </div>
-            </div>
-        </div>
+<div class="container-fluid">
+    <div class="row top15">
+        <ul class="nav nav-tabs nav-justified">
+            <li role="presentation" class="{{#ifCond view "admin-dashboard"}}active{{/ifCond}}"><a href="/admin/"               >Dashboard</a></li>
+            <li role="presentation" class="{{#ifCond view "admin-payment"}}active{{/ifCond}}"><a href="/admin/payment"        >Startgebühren</a></li>
+            <li role="presentation" class="{{#ifCond view "admin-emails"}}active{{/ifCond}}"><a href="/admin/emails"         >Versendete Emails</a></li>
+            <li role="presentation" class="{{#ifCond view "admin-checkin"}}active{{/ifCond}}"><a href="/admin/checkin"        >CheckIn</a></li>
+            <li role="presentation" class="{{#ifCond view "admin-invoice"}}active{{/ifCond}}"><a href="/admin/invoice"        >Spenden</a></li>
+            <li role="presentation" class="{{#ifCond view "admin-overview"}}active{{/ifCond}}"><a href="/admin/teamoverview"   >Team-Überblick</a></li>
+        </ul>
+    </div>
+    <div class="panel-body">
+        {{> (lookup . 'view') data}}
     </div>
 </div>
 <script src="/js/admin.js" type="text/javascript" defer></script>
