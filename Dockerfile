@@ -1,8 +1,8 @@
 FROM mhart/alpine-node
 RUN apk add --no-cache git bash make gcc g++ python
 
-COPY . /src
-WORKDIR /src
+COPY . /frontend
+WORKDIR /frontend
 
 RUN npm install
 RUN npm run build
@@ -11,4 +11,4 @@ RUN npm install -g forever
 ENV NODE_ENVIRONMENT prod
 
 EXPOSE 3000
-CMD ["forever", "app.js"]
+CMD ["forever", "src/server/app.js"]
