@@ -9,7 +9,7 @@ export default class InvoiceTable extends React.Component {
   }
 
   render() {
-    if (!this.props.data ||this.props.data.length === 0) {
+    if (!this.props.data || this.props.data.length === 0) {
       return <div style={{padding: '10px'}}>Loading...</div>;
     }
 
@@ -34,17 +34,31 @@ export default class InvoiceTable extends React.Component {
   }
 }
 
+function checkNullEmptyOrUndefined(elem) {
+  if (!elem || elem === "") {
+    return "Keine";
+  } else {
+    return elem;
+  }
+}
+
 const InvoiceRow = (props) => {
 
   const emailLink = `/admin/emails?emailAddress=${props.sponsor.email}`;
   const name = (
     <span style={{fontSize: 'xx-small'}}>
-      {props.sponsor.firstname} {props.sponsor.lastname}<br/>
-      <a href={emailLink}>{props.sponsor.email}</a><br/>
-      {props.purposeOfTransfer}<br/>
+      <b>Name: </b> {props.sponsor.firstname} {props.sponsor.lastname}<br/>
+      <b>Email: </b><a href={emailLink}>{props.sponsor.email}</a><br/>
+      <b>Verwendungszweck: </b>{props.purposeOfTransfer}<br/>
+      <b>Link </b>{checkNullEmptyOrUndefined(props.sponsor.url)}<br/>
+      <b>Firma </b>{checkNullEmptyOrUndefined(props.sponsor.company)}
+      <br/>
+      <b>Adresse</b><br/>
       {props.sponsor.address.street} {props.sponsor.address.housenumber} <br/>
       {props.sponsor.address.zipcode} {props.sponsor.address.city} <br/>
       {props.sponsor.address.country}
+
+      <br/>
     </span>
   );
 
