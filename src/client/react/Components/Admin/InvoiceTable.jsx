@@ -35,8 +35,8 @@ export default class InvoiceTable extends React.Component {
 }
 
 function checkNullEmptyOrUndefined(elem) {
-  if (!elem || elem === "") {
-    return "Keine";
+  if (!elem || elem === '') {
+    return 'Keine';
   } else {
     return elem;
   }
