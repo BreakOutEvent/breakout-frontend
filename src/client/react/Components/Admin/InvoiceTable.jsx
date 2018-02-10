@@ -1,8 +1,8 @@
 import React from 'react';
-import {Table, TableHeader, TableHeaderColumn, TableRow} from 'material-ui/Table';
-import {TableBody, TableRowColumn} from 'material-ui/Table/index';
+import { withStyles } from 'material-ui/styles';
+import Table, {TableBody, TableCell, TableHead, TableRow} from 'material-ui/Table';
 
-export default class InvoiceTable extends React.Component {
+class InvoiceTable extends React.Component {
 
   constructor(props) {
     super(props);
@@ -14,18 +14,16 @@ export default class InvoiceTable extends React.Component {
     }
 
     return (
-      <Table height='900px'
-             showRowHover={true}
-             fixedHeader={false} style={{tableLayout: 'auto'}}>
-        <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+      <Table height='900px'>
+        <TableHead>
           <TableRow>
-            <TableHeaderColumn>Invoice-ID</TableHeaderColumn>
-            <TableHeaderColumn>Sponsor</TableHeaderColumn>
-            <TableHeaderColumn>Betrag</TableHeaderColumn>
-            <TableHeaderColumn>Bezahlt</TableHeaderColumn>
-            <TableHeaderColumn>Betrag eintragen</TableHeaderColumn>
+            <TableCell>Invoice-ID</TableCell>
+            <TableCell>Sponsor</TableCell>
+            <TableCell>Betrag</TableCell>
+            <TableCell>Bezahlt</TableCell>
+            <TableCell>Betrag eintragen</TableCell>
           </TableRow>
-        </TableHeader>
+        </TableHead>
         <TableBody>
           {this.props.data.map((row, index) => <InvoiceRow key={index} {...row}/>)}
         </TableBody>
@@ -64,11 +62,13 @@ const InvoiceRow = (props) => {
 
   return (
     <TableRow>
-      <TableRowColumn>{props.id}</TableRowColumn>
-      <TableRowColumn>{name}</TableRowColumn>
-      <TableRowColumn>{props.amount.toFixed(2)}€</TableRowColumn>
-      <TableRowColumn>{props.payed.toFixed(2)}€</TableRowColumn>
-      <TableRowColumn>Work in Progress</TableRowColumn>
+      <TableCell>{props.id}</TableCell>
+      <TableCell>{name}</TableCell>
+      <TableCell>{props.amount.toFixed(2)}€</TableCell>
+      <TableCell>{props.payed.toFixed(2)}€</TableCell>
+      <TableCell>Work in Progress</TableCell>
     </TableRow>
   );
 };
+
+export default withStyles({})(InvoiceTable);

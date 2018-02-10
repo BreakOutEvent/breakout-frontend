@@ -224,5 +224,5 @@ if (isLoggedIn) {
 
 const adminInvoiceRoot = document.getElementById('react-admin-invoice');
 if (adminInvoiceRoot) {
-  ReactDOM.render(<MuiThemeProvider><AdminInvoicePanel api={api}/></MuiThemeProvider>, adminInvoiceRoot);
+  ReactDOM.render(<AdminInvoicePanel api={api}/>, adminInvoiceRoot);
 }
