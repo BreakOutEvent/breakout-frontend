@@ -57,7 +57,7 @@
     "morgan": "^1.7.0",
     "multer": "^1.1.0",
     "newrelic": "^1.28.0",
-    "passport": "^0.2.2",
+    "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "plyr": "^1.6.19",
     "qs": "^6.4.0",
