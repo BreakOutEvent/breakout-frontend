@@ -4,9 +4,8 @@ const multer = require('multer');
 const ProfileController = require('../controller/ProfileController');
 const Router = require('co-router');
 
-const sponsoring = require('../controller/sponsoring');
-const profile = require('../controller/profile');
-const session = require('../controller/session');
+const sponsoring = require('../controller/SponsoringController');
+const session = require('../controller/SessionController');
 
 const upload = multer({inMemory: true});
 const router = new Router();
@@ -31,6 +30,6 @@ router.post('/challenge/reject', session.isUser, sponsoring.challenge.reject);
 
 router.post('/challenge/delete', session.isUser, sponsoring.challenge.delete);
 
-router.put('/profile/team', session.hasTeam, upload.single('teamPic'), profile.putTeam);
+router.put('/profile/team', session.hasTeam, upload.single('teamPic'), ProfileController.putTeam);
 
 module.exports = router;

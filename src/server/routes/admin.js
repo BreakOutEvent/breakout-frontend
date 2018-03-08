@@ -3,8 +3,8 @@
 /**
  * Routes for the admin dashboard.
  */
-const session = require('../controller/session');
-const admin = require('../controller/admin');
+const session = require('../controller/SessionController');
+const admin = require('../controller/AdminController');
 
 const Router = require('co-router');
 const router = new Router();

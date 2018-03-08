@@ -1,11 +1,11 @@
 'use strict';
 
-const liveblog = require('./liveblog');
-const profile = require('./profile');
-const registration = require('./registration');
-const team = require('./team');
+const liveblog = require('./LiveblogController');
+const registration = require('./RegistrationController');
+const TeamController = require('./TeamController');
 const _ = require('lodash');
-const session = require('./session');
+const session = require('./SessionController');
+const api = require('../services/api-proxy');
 
 class DynamicController {
 
@@ -64,7 +64,7 @@ class DynamicController {
     let team = null;
 
     if (req.user.status.is.team) {
-      team = yield profile.getTeam(req);
+      team = yield api.getModel(`event/${req.user.me.participant.eventId}/team`, req.user, req.user.me.participant.teamId);
     }
 
     res.render('dynamic/profile/profile', {
@@ -153,7 +153,7 @@ class DynamicController {
       req.session.activeEvents = [3,4,5];
     }
 
-    let teamInfo = yield team.getAll(req.session.activeEvents);
+    let teamInfo = yield TeamController.getAll(req.session.activeEvents);
     let map = yield liveblog.getMapData(req.session.activeEvents);
 
     const requests = req.session.activeEvents.map(event => liveblog.getHighscores(event));

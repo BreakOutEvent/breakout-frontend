@@ -5,8 +5,8 @@
  */
 const Router = require('co-router');
 
-const messages = require('../controller/messages');
-const session = require('../controller/session');
+const messages = require('../controller/MessagesController');
+const session = require('../controller/SessionController');
 
 const router = new Router();
 

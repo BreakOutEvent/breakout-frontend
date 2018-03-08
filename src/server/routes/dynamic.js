@@ -2,15 +2,15 @@
 
 const DynamicController = require('../controller/DynamicController');
 const AuthenticationController = require('../controller/AuthenticationController');
-const StaticController = require('../controller/static.js');
+const StaticController = require('../controller/StaticController.js');
 const TeamController = require('../controller/TeamController');
 
 const Router = require('co-router');
 const multer = require('multer');
 
-const registration = require('../controller/registration');
-const liveblog = require('../controller/liveblog');
-const session = require('../controller/session');
+const registration = require('../controller/RegistrationController');
+const liveblog = require('../controller/LiveblogController');
+const session = require('../controller/SessionController');
 
 const upload = multer({inMemory: true});
 const router = new Router();

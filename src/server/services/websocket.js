@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const co = require('co');
 
-const liveblog = require('../controller/liveblog');
+const liveblog = require('../controller/LiveblogController');
 const api = require('../services/api-proxy');
 
 var websocket = {};

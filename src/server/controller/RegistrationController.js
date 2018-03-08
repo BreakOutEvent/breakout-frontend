@@ -9,7 +9,7 @@ const _ = require('lodash');
 const logger = require('../services/logger');
 
 const passport = require('../services/auth');
-const session = require('./session');
+const session = require('./SessionController');
 const api = require('../services/api-proxy');
 
 /**

@@ -8,8 +8,7 @@ const Router = require('co-router');
 const multer = require('multer');
 const TeamController = require('../controller/TeamController');
 
-const team = require('../controller/team');
-const session = require('../controller/session');
+const session = require('../controller/SessionController');
 
 const router = new Router();
 const upload = multer({inMemory: true});
@@ -18,20 +17,20 @@ router.get('/', TeamController.showTeamOverview);
 
 router.get('/:teamId', TeamController.showTeamById);
 
-router.get('/likes/:postingId', team.getLikes);
+router.get('/likes/:postingId', TeamController.getLikes);
 
-router.post('/post/create', session.hasTeam, upload.single('postPic'), team.createPost);
+router.post('/post/create', session.hasTeam, upload.single('postPic'), TeamController.createPost);
 
-router.post('/comment/create', session.isUser, team.createComment);
+router.post('/comment/create', session.isUser, TeamController.createComment);
 
-router.post('/like', session.isUser, team.createLike);
+router.post('/like', session.isUser, TeamController.createLike);
 
-router.post('/authenticated', team.isAuth);
+router.post('/authenticated', TeamController.isAuth);
 
-router.delete('/posting/:postingId', session.isAdmin, team.deletePosting);
+router.delete('/posting/:postingId', session.isAdmin, TeamController.deletePosting);
 
-router.delete('/media/:mediaId', session.isAdmin, team.deleteMedia);
+router.delete('/media/:mediaId', session.isAdmin, TeamController.deleteMedia);
 
-router.delete('/comment/:commentId', session.isAdmin, team.deleteComment);
+router.delete('/comment/:commentId', session.isAdmin, TeamController.deleteComment);
 
 module.exports = router;

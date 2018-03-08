@@ -1,6 +1,8 @@
 'use strict';
 
-const profile = require('./profile');
+const logger = require('../services/logger');
+const api = require('../services/api-proxy');
+const session = require('./SessionController');
 
 class ProfileController {
 
@@ -9,7 +11,9 @@ class ProfileController {
     let team = null;
 
     if (req.user.status.is.team) {
-      team = yield profile.getTeam(req);
+      const userTeamId = req.user.me.participant.teamId;
+      const token = req.user;
+      team = yield api.getModel(`event/${req.user.me.participant.eventId}/team`, token, userTeamId);
     }
 
     res.render('dynamic/profile/profile', {
@@ -21,6 +25,27 @@ class ProfileController {
       isLoggedIn: req.user,
       title: 'Profile'
     });
+  }
+
+  static *putTeam(req, res, next) {
+    let update = {
+      name: req.body.teamName
+    };
+
+    if(req.body.teamDescription) update.description = req.body.teamDescription;
+
+    logger.info('Trying to update a team', update);
+
+    const backendUser = yield api.putModel(`event/${req.user.me.participant.eventId}/team`, req.user.me.participant.teamId, req.user, update);
+
+    if (req.file) {
+      yield api.uploadPicture(req.file, backendUser.profilePic);
+    }
+
+    logger.info('Updated a team', update);
+
+    yield session.refreshSession(req);
+    return res.send({});
   }
 }
 
