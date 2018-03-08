@@ -2,11 +2,11 @@
   "name": "breakout-frontend",
   "version": "1.0.0",
   "description": "Web Frontend",
-  "main": "app.js",
+  "main": "src/server/app.js",
   "scripts": {
     "build": "webpack",
     "build-watch": "webpack --watch",
-    "start": "node app.js",
+    "start": "node src/server/app.js",
     "test": "mocha tests/",
     "mocha": "mocha",
     "grunt": "grunt",
