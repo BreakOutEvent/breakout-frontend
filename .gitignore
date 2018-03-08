@@ -30,8 +30,7 @@ bower_components
 .idea
 
 # files are build and bundled via browserify
-dist/js/*
-dist/css/*
+dist/*
 rendered/*/*.html
 rendered/*/*.json
 .brackets.json

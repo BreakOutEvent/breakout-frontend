@@ -2,10 +2,16 @@
 const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const extractLess = new ExtractTextPlugin({
   filename: '[name].css'
 });
+
+const copyAssets = new CopyWebpackPlugin([{
+  from: 'src/client/assets/img',
+  to: '../img'
+}]);
 
 module.exports = {
   entry: {
@@ -66,5 +72,5 @@ module.exports = {
       }
     ]
   },
-  plugins: [extractLess]
+  plugins: [extractLess, copyAssets]
 };
