@@ -20,7 +20,7 @@ export default class TeamCreation extends React.Component {
       this.props.show('participate');
     } else {
       this.props.api.getAllEvents()
-        .then(events => this.setState({events: events}))
+        .then(events => this.setState({events: events.filter(event => event.openForRegistration)}))
         .catch(this.onGetAllEventsError.bind(this));
     }
   }
