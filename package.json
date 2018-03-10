@@ -7,6 +7,7 @@
     "build": "webpack",
     "build-watch": "webpack --watch",
     "start": "node src/server/app.js",
+    "dev": "nodemon src/server/app.js",
     "test": "mocha tests/",
     "mocha": "mocha",
     "grunt": "grunt",
