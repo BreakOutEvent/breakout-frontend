@@ -149,7 +149,9 @@ class App extends React.Component {
       return <Route {...propsCopy} render={render}/>;
     };
 
-    if(this.state.isRequestingOpenRegistration) { return null }
+    if(this.state.isRequestingOpenRegistration) {
+      return null;
+    }
 
     if(!this.state.isRegistrationOpen) {
       return (<Router>
