@@ -1,0 +1,481 @@
+html,
+body {
+  height: 100%;
+}
+
+.bo-header-info {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  margin-top: -40px;
+  .image-background("../assets/img/header-faq.jpg");
+  min-height: 200px;
+  background-size: cover;
+
+  .bo-secondary-nav {
+    li[role="presentation"] {
+      a {
+        color: white;
+      }
+    }
+    .active {
+      a {
+        color: black !important;
+      }
+    }
+  }
+
+  .bo-profile-image {
+    border-width: 2px !important;
+    border-color: white !important;
+  }
+}
+
+.bo-content-header {
+  .image-background("../assets/img/header-faq.jpg");
+  min-height: 200px;
+  border-bottom-width: 2px;
+  border-bottom-color: rgba(0, 0, 0, 0.1);
+  border-bottom-style: solid;
+}
+
+.bo-logo {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  @media (max-width: @screen-xs-min) {
+    img {
+      width: 250px;
+      height: auto;
+    }
+  }
+}
+
+.bo-main-content {
+  padding-top: 100px;
+  padding-bottom: 20px;
+}
+
+.bo-template-wrap {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.bo-highlight-container {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+.bo-highlight-container2 {
+  .image-background("../assets/img/header-faq.jpg");
+  color: #fff;
+  //min-height: 190px;
+  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+  .container {
+    height: 100%;
+  }
+  i.material-icons {
+    font-size: 88px;
+  }
+  blockquote {
+    font-size: @blockquote-font-size;
+    text-align: center;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+    border-width: 0;
+    footer {
+      color: #fff;
+      font-size: 60%;
+    }
+  }
+  @media screen and (min-width: @screen-sm-min) {
+    height: 400px;
+    blockquote {
+      font-size: @font-size-h2;
+    }
+  }
+  a {
+    color: #fff;
+  }
+  .videoTeaser {
+    position: relative;
+    a {
+      .verticalAlign();
+    }
+    div {
+      display: block;
+      position: relative;
+      margin-left: 100px;
+      top: 50%;
+      transform: translate(0, -50%);
+      h2:first-child {
+        margin-top: 0;
+      }
+      h2:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+  .quotes {
+    .row {
+      .verticalAlign();
+    }
+  }
+}
+
+@media screen and (min-width: @screen-sm-min) {
+  .bo-highlight-container {
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
+}
+
+.bo-news-teaser {
+  border: 1px solid @brand-primary;
+  border-radius: @border-radius-base @border-radius-base 0 0;
+  h3 {
+    background-color: @brand-primary;
+    color: #fff;
+    padding: 5px 0 5px 5px;
+  }
+  .bo-news-teaser-content {
+    border-color: @gray-base;
+    border-width: 1px;
+    padding: 0 10px;
+  }
+}
+
+.bo-img-circle {
+  border-radius: 50%;
+  border-color: @brand-primary;
+  border-style: solid;
+  color: @brand-primary;
+  width: 80px;
+  height: 80px;
+}
+
+.bo-result-icon {
+  margin-bottom: 40px;
+}
+
+.bo-teaser {
+  margin-left: 90px;
+}
+
+.bo-footer {
+  display: block;
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 25px;
+  background-color: @brand-secondary;
+  color: @gray-light;
+  font-size: @font-size-small;
+  a {
+    color: @gray-light;
+  }
+  hr {
+    margin: 50px -10px 25px -10px;
+    opacity: 0.1;
+  }
+  ul,
+  p {
+    margin-bottom: 0;
+  }
+  .list-inline li {
+    padding-left: 5px;
+    padding-right: 5px;
+    @media screen and (min-width: @screen-sm-min) {
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+  }
+  .list-inline li:first-child {
+    padding-left: 5px;
+  }
+  .list-inline li:last-child {
+    padding-right: 0;
+  }
+  .bo-copyright {
+    @media screen and (min-width: @screen-sm-min) {
+      float: right;
+    }
+  }
+}
+
+.bo-post-wrap {
+  width: 100%;
+  margin: 0 auto;
+  border-radius: 0;
+  margin-bottom: 15px;
+  @media screen and (min-width: @screen-md-min) {
+    width: 80%;
+  }
+  .bo-post-team-heading {
+    padding: 10px 15px 0 15px;
+    margin: 0;
+  }
+}
+
+.text-success {
+  color: green;
+}
+
+.text-danger {
+  color: red;
+}
+
+.text-warn {
+  color: yellow;
+}
+
+.bo-text {
+  font-size: 16px;
+  word-wrap: break-word;
+}
+
+.bo-profile-image {
+  border-radius: 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.bo-navbar-btn {
+  height: auto !important;
+  padding: 6px !important;
+}
+
+@media (max-width: 767px) {
+  .navbar-nav .open .dropdown-menu {
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+  }
+
+  .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+    color: #333;
+    &:hover {
+      color: #333;
+    }
+  }
+
+  .navbar-nav > li > .dropdown-menu-right::before {
+    display: none;
+  }
+
+  .navbar-nav > li > .dropdown-menu-right::after {
+    display: none;
+  }
+}
+
+.bo-tooltip {
+  display: inline;
+  position: relative;
+}
+
+.bo-tooltip:hover:after {
+  background: #222;
+  background: rgba(0, 0, 0, .85);
+  border-radius: 5px;
+  top: 28px;
+  color: #fff;
+  white-space: pre;
+  content: attr(data-tooltip);
+  left: -17%;
+  padding: 5px 15px;
+  position: absolute;
+  z-index: 98;
+  min-width: 120px;
+}
+
+.bo-tooltip:hover:before {
+  border: solid;
+  border-color: #222 transparent;
+  border-width: 0 6px 6px 6px;
+  top: 22px;
+  content: "";
+  left: 50%;
+  position: absolute;
+  z-index: 99;
+}
+
+//SPONSOR LANDINGPAGE
+.bo-main-cta {
+  font-size: 20px;
+  border-radius: 50px;
+  padding: 10px 0;
+  margin: 20px 0;
+}
+
+.table-borderless tbody tr td, .table-borderless tbody tr th, .table-borderless thead tr th {
+  border: none;
+}
+
+.bo-main-table {
+  font-size: 16px;
+}
+
+.bo-faq-question {
+  font-weight: 500;
+  margin-top: 20px;
+}
+
+#accordion {
+
+  .panel-heading {
+    .accordion-toggle {
+      padding-left: 10px;
+    }
+    .accordion-toggle:after {
+      font-family: 'Glyphicons Halflings';
+      content: "\e259";
+      font-size: 10px;
+    }
+    .accordion-toggle.collapsed:after {
+      content: "\e258";
+      font-size: 10px;
+    }
+  }
+
+  .panel {
+    background-color: #eae79e;
+    border: none;
+    box-shadow: none;
+  }
+
+  .panel-title {
+    font-weight: 500;
+    text-decoration: none;
+
+    a, a:active, a:hover, a:visited {
+      text-decoration: none;
+    }
+
+  }
+
+  .panel-heading {
+    background-color: transparent;
+    color: black;
+  }
+
+  .panel-collapse {
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
+    border-left: 2px solid @brand-primary;
+    margin-left: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    .panel-body {
+      border: none;
+    }
+
+    .collapse.in {
+      .glyphicon.glyphicon-menu-right {
+        display: none;
+      }
+    }
+  }
+}
+
+.react-modal {
+
+  form {
+    legend {
+      text-align: center;
+      padding-top: 0px;
+      padding-bottom: 8px;
+      border: none;
+      font-size: xx-large;
+      font-weight: 300;
+    }
+
+    .invitation-widget {
+      .field-radio-group {
+        padding: 10px;
+        border-radius: 5px;
+        border-color: gray;
+        border-style: solid;
+        border-width: 2px;
+
+        &:active, &:hover {
+          border-color: @brand-primary;
+        }
+
+        input[type="radio"] {
+          margin-top: 18px;
+          margin-right: 10px;
+          margin-left: -14px;
+        }
+      }
+
+      .radio-team {
+        margin-left: 10px;
+      }
+      .radio-team-name {
+        font-weight: 900;
+        color: black;
+        font-size: 1.8em;
+      }
+
+      .radio-team-description {
+        color: black;
+      }
+    }
+
+    .field-string {
+      input[type="text"] {
+        border-color: #999
+      }
+    }
+
+    .form-children {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .modal-header {
+      height: 0px;
+      margin: 0px;
+      padding: 25px 30px 0px 0px;
+
+      button {
+
+      }
+    }
+  }
+}
+
+#bo-explanation-image {
+  padding-top: 100px;
+  padding-bottom: 60px;
+  background-color: #eae79e;
+}
+
+#password-reset-btn {
+  border: none;
+  background: transparent;
+  color: rgba(0, 0, 0, 0.8);
+  margin-top: -20px;
+  margin-bottom: 20px;
+}
+
+#login-btn {
+  border-radius: 20px;
+  height: 40px;
+  width: 100%;
+  background: transparent;
+  color: @brand-primary;
+  border-width: 2px;
+  margin-bottom: 10px;
+}
+
+#register-btn {
+  border-radius: 20px;
+  height: 40px;
+  width: 100%;
+  border-width: 2px;
+  margin-bottom: 10px;
+}
+
+.modal-title {
+  text-align: center;
+}

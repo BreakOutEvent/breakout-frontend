@@ -1,6 +1,6 @@
 'use strict';
 
-const app = require('../app');
+const app = require('../src/server/app');
 
 let server = null;
 
