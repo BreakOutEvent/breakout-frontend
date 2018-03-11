@@ -35,8 +35,9 @@ class App extends React.Component {
       api: this.props.api,
       activeModal: null,
       isLoggedIn: !!window.boUserData,
-      registrationIsClosed: true
+      isRequestingOpenRegistration: true
     };
+    this.requestOpenRegistration = this.requestOpenRegistration.bind(this);
   }
 
   componentWillMount() {
@@ -59,6 +60,8 @@ class App extends React.Component {
     const clientSecret = window.boClientConfig.clientSecret;
     const api = new BreakoutApi(url, clientId, clientSecret);
 
+    this.requestOpenRegistration(api);
+
     const isLoggedIn = window.boUserData;
 
     if (isLoggedIn) {
@@ -68,6 +71,14 @@ class App extends React.Component {
     this.setState({i18next: i18next, api: api});
   }
 
+  async requestOpenRegistration(api) {
+    const events = await api.getAllEvents();
+
+    this.setState({
+      isRequestingOpenRegistration: false,
+      isRegistrationOpen: events.find(event => event.openForRegistration)
+    });
+  }
 
   onHide() {
     document.body.className = '';
@@ -127,7 +138,11 @@ class App extends React.Component {
       return <Route {...propsCopy} render={render}/>;
     };
 
-    if(registrationIsLocked()) {
+    if(this.state.isRequestingOpenRegistration) {
+      return null;
+    }
+
+    if(!this.state.isRegistrationOpen) {
       return (<Router>
         <div>
 
@@ -197,10 +212,6 @@ class App extends React.Component {
       );
     }
   }
-}
-
-function registrationIsLocked() {
-  return Date.now() > new Date('Tue May 09 2017 05:00:00 GMT+0200 (CEST)');
 }
 
 App.propTypes = {

@@ -52,12 +52,13 @@ const sendErr = (res, errMsg, err) => {
  * @param res
  * @param next
  */
-// TODO: Improve me, use check on whether there is any active event
-registration.lock = (req, res, next) => {
-  if (Date.now() > new Date('Tue May 09 2018 05:00:00 GMT+0200 (CEST)')) {
-    res.redirect('/closed');
-  } else {
+
+registration.lock = function*(req, res, next) {
+  const events = yield api.event.all();
+  if (events.find(event => event.openForRegistration)) {
     next();
+  } else {
+    res.redirect('/closed');
   }
 };
 
