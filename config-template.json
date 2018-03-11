@@ -31,5 +31,8 @@
     "enabled": false,
     "key": "example-key-123",
     "project": "1234"
+  },
+  "debug": {
+    "displayStackTrace": true
   }
 }

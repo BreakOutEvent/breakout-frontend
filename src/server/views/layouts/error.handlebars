@@ -77,8 +77,8 @@
 
     <h1>Error {{code}}</h1>
     <h4>{{message}}</h4>
-    {{#if error}}
-        <p>{{error}}</p>
+    {{#if stacktrace}}
+        <p style="font-family: monospace">{{{stacktrace}}}</p>
     {{/if}}
 
     <p>Sorry for that! Try <a href="/logout">logging out</a> and logging back in again. If this problem persists please contact our support at <a href="mailto:event@break-out.org">event@break-out.org</a>.</p>
