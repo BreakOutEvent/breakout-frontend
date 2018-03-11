@@ -53,16 +53,14 @@ const sendErr = (res, errMsg, err) => {
  * @param next
  */
 
-registration.lock = (req, res, next) => co(function*() {
-  const events = yield api.getAllEvents();
+registration.lock = function*(req,res,next) {
+  const events = yield api.event.all();
   if (events.find(event => event.openForRegistration)) {
     next();
   } else {
     res.redirect('/closed');
   }
-}).catch(err => {
-  sendErr(res, err.message, err);
-});
+}
 
 /**
  * POST route for /register

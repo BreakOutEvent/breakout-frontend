@@ -71,24 +71,13 @@ class App extends React.Component {
     this.setState({i18next: i18next, api: api});
   }
 
-  requestOpenRegistration(api) {
-    api.getAllEvents()
-      .then(events => {
-        if(events.find(event => event.openForRegistration)) {
-          this.setState({
-            isRequestingOpenRegistration: false,
-            isRegistrationOpen: true
-          });
-        } else {
-          this.setState({
-            isRequestingOpenRegistration: false,
-            isRegistrationOpen: false
-          });
-        }
-      })
-      .catch(err => {
-        console.error('Error getting events', err);
-      });
+  async requestOpenRegistration(api) {
+    const events = await api.getAllEvents();
+
+    this.setState({
+      isRequestingOpenRegistration: false,
+      isRegistrationOpen: events.find(event => event.openForRegistration)
+    })
   }
 
   onHide() {
