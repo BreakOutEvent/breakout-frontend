@@ -7,6 +7,7 @@
     "build": "webpack",
     "build-watch": "webpack --watch",
     "start": "node src/server/app.js",
+    "dev": "nodemon src/server/app.js",
     "test": "mocha tests/",
     "mocha": "mocha",
     "grunt": "grunt",
@@ -78,6 +79,10 @@
     "material-ui": "latest"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^3.3.12",
+    "@storybook/addon-links": "^3.3.12",
+    "@storybook/addons": "^3.3.12",
+    "@storybook/react": "^3.3.12",
     "babel-core": "^6.7.6",
     "babel-loader": "^7.X.X",
     "babel-plugin-transform-async-to-generator": "^6.22.0",
@@ -93,13 +98,10 @@
     "less-loader": "^4.0.5",
     "masonry-layout": "^4.1.1",
     "mocha": "^2.4.5",
+    "nodemon": "^1.17.1",
     "path": "^0.12.7",
     "postcss-loader": "^2.1.0",
     "webdriverio": "^4.0.7",
-    "@storybook/react": "^3.3.12",
-    "@storybook/addon-actions": "^3.3.12",
-    "@storybook/addon-links": "^3.3.12",
-    "@storybook/addons": "^3.3.12",
     "webpack": "^3.11.0"
   },
   "jscsConfig": {
