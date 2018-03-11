@@ -77,7 +77,7 @@ class App extends React.Component {
     this.setState({
       isRequestingOpenRegistration: false,
       isRegistrationOpen: events.find(event => event.openForRegistration)
-    })
+    });
   }
 
   onHide() {

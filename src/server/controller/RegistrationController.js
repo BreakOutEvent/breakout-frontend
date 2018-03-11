@@ -53,14 +53,14 @@ const sendErr = (res, errMsg, err) => {
  * @param next
  */
 
-registration.lock = function*(req,res,next) {
+registration.lock = function*(req, res, next) {
   const events = yield api.event.all();
   if (events.find(event => event.openForRegistration)) {
     next();
   } else {
     res.redirect('/closed');
   }
-}
+};
 
 /**
  * POST route for /register
