@@ -1,21 +1,33 @@
 language: node_js
 node_js:
   - '5.11'
-script:
-  - npm run eslint
-
-after_success:
-  - bash deploy-staging.sh
-env:
-  global:
-    - secure: D1mT9ix3wxDWNPSnlXZsIXMVE6i8FO1dOuy466vrxUepQZhVTFgS8y6TcLbzeWHSwFCxaPtzvOeTHeyGZtjxwe3L0uUNpyIolwNwrCmgscIqXrjPkXzT6Un39WMgKToG+FD9vGAthUDpSAC4PT1es48mOf2zsiSUq9VIbAv1ckNnQyj3smbGM/jp+k0cWyk8VR74pYIHlBV8UI+28W7WwSSrASSh0CINYtM1mPnMVnzy58SS4ZcYzV6fndi+t5iNZcL3x0AJ60ndKRQJYSvUqigwWeh77liSto25vEkx2Hbdj8EO9gaXMY0bJAQgiMiM1mvYoGhxcb+PY5eF3y8fQrXHW8SChIcOHvzJ4lW84w9pgXCNnojhe0DP9gnPws6hnImBsQYNYjFs95s0SNddD/aqcntueJ/T5hU29/YQT0ZnJdHM4kGfeGUM3t0SJ0VlVxpaBiQe24CfJb9r9IRU96H6TzJscTT+DCdqgSNv6cFzgA6V3RhA7p/JrIB550DzjkukSR6CQmoIgxXQbCGagOZvGdr+pOcjcV1BRHFq6OLDKyavx1WzP+bz73nyV95IZyKDNwABVUI8TSICozzu8ikUPZ+Kv6gjF8dXxexsFWYiy278EhO/DO2edwq5EH8gUVaDs5z36brA5bZ5uViOiXrxN/KVS5pTmV9is+npps0=
-    - secure: RXDVYtU971CrTEwAge7wCZ1IS2ePu0gckW1qOxYu11c1Pity+I35gkIvfxjYlIqJaDHNw69A71k/A7WRZfRfoLjC2NgKN9v83KAyVos+7Y5KzN4gkJHmDkFIWmnrKR5z91bWiVYGdRZx+BjuPJGrYOTLwcfx9d5DVFtOuLVL+fS/O6wLJC64fBoAlADuM1Jm7yGNhqrC+1/Jayt8LTrPC5ulpdszlVaThohs4VmoE0d0Hf9QBRqQ1V7ojEIkIi5fPi4Z1utr9ZsudcgKY1VmegM1FZgfqbiaY6ubH7YIt67h/NbjjqolcD7tO493rVYrgbIcIhtMyLwN2Oyl/lCyoOJwEk/zlOVfAZi73FJS9mm4M2ara9iDAkNjEdiEGEP8kCincjaldxrGSFTvHe68WwaOeXV7b/+nqefbSlyTFeqJ5SVR6BXevJz46RiaQe4eOOc3ptD2jSYWxGcgb6svIAo3FvQ8+lOHUMScJl2Ys2rOvTg0ey0edCIwLLr3dQTUlhd2LCAFK8wyaIVW3CRr0QexDab/ee7SFtzz5jc1BS6CRtroxk25XpTQPFmgDEC0X1O7qGES2RCk8F5FD3jo6ZOtpi0/HzRBtw0AFu9QvEMFtCPHGk3zyFn5oKzJQYVCMRw0xctEJy95y2zJ/75+ZvliTBtZhRZlIbxU2t90x/I=
-    - secure: pxJKhW3XFzLKZDOQjUxked6jZmULoHximmgbKi46aVWpNseRAENgXD4qqDWonlDDsUNyiDJYGuIP0hrp65QQ8Ht4Nx0d9crLurk2GNhXjWjaQqva0nglVQvmUNbrwD4kMx1E8iy6gJ6VftP7cb/9vbYIh5C8Vc28FdJX13qjwyATTy81yJXn6rCCkvYw7kOoHUsM177wJnUT8duQHBNkAN8yl2gbsh3jRKUQVjTN3do6uLjILRLvU3Bt4b3LzdL1Hg9OeZJKUUvEfB+34q6sprTrX5kh6MjEpQuBRStVxIS9sttrDGSv3+fPldpCTJSYcgsbIzDQoIskID78A9CqPFzRyH/wIcJLlIBil+OKb8vTk9a1nQQ8VIcH7WsguFz5tqNRwd092U7FkDyMiQXPegWJi5SJXVnmhOweZQTMfUzao8+TUU3pVyJWOXkOUmcRuJDehl3NQZm2ZHQKJ9Ud/z0Hgag1VPJp28m4xD4E2ARPJMNLUVaQZHpP4S0+alLxc2I8L3/N7KhIgYT/OH34vtIlqnZWXRVXDqooKHtQyTMAAvS9PWajePeuAbBQJZmABr2OVjG37RDot3XGWgV4qiD/PZ355X1p80jdOcpVbh6I8PVI1DmWAe0lVYyGAoYWYC8PNcE+RzcMIwGSO5jbseLLlAHwpB78WOLl/irKRwc=
-    - secure: S6PCBuPC/yP7/vNdw9NpjkAP57xxOzAmXFWULmdW++A78nUYKPcJUE6cPq3OzN65tuaytQN+DmJG+6A4w8bwz80jPk7MW0RMUQd4WhK2uqko6pa0fpOcXwdV3XOJzTejwHFzZzQvXsgMlaaOsqSbSyL9iSHWUPQ4Smf+L6GTWMz+N87a2vgvSAgCzrsfBtrYZ/w6WqcTxJ3q7SUq5GtTfvOYOTK32089eqU3AysW8YbDrEfyY2BX8hKVrtIPjO2RYYVf+4jvZmJQbxxSPniUVhvTmRAc/Wi0Ze4KHbX61mbxn4r3ewMdO0KX7tayYDQ7S26Gov0Po5ZeJu67GGVjhY+ZoJeOPn/hNMoJ/4YRyW8x69rZE6tmeXojMB+2EjGxPnoQ6HWgDLZQbZO3AriIOwn7FcplqLfVonJgxB/WUWB11mbVjU6r3+F1p8kYj4xQBT0OoJrS4IECD0vpkXRz6ZBasT+eqEFQ38Vbv+IrtwsaNbrOMG1NPceJW+svVQpArgW0jkZi3RRzy+lZ5lA6JYxLBmTvhJ00Phj+/4GW5lLuP8dZyhizzbVdSnyJrUJAaPmZQkOQBLzJyajvGUx4PDpGwMC0GkwPITKj2XfFmTiuw9DEa/oWDigOVsfDFvUVIc5z6P+raQ2N4HDcR+32KNBr6q59OKjVGErpQuzDxw4=
-    - secure: sT4q2N0LQZyP37osQCyZo33gipck7rIX0LKfiJca/CoAFZDHBDoYWgqcd9Ieuw+S1oISbUpccaW47mhPnL1dUW7cRRBa7r17S58hzeqcJNtagAjIyMcLP/6XdiWQS0kcKJS7ZABwS39BrIpk06cYyA3O+sIRTx+FE6IZFLX7eBfAHaorpaS0SyHqSNvRwKVCzCjE+/jMBfXz/JbAeXjr8/+RXYuFpQ+VceIxKPEn55BsxaCw0BXf3kKYRwnyQMx1S+bbBFYL+S9w/GhZceqtyE+UW/2TWYACZKZsSvY/CTkcW/WUxr2MvPijyjCCbksG10vJAKP14+I/tH+xN50GWjazJ45wicGQmT7Gpzq0nUadL5ZVvUu1UBQiSEQmRtXY4tgnhO9Z2YVXqDYdW0Kx6iXZYTC+5JCKY065lGc3OPWKsAcy6bC+TsmUSENk88YZdjlSrC7FTy7GOrowE67yxZliB18DXDsYSmKlEK8K0OHYTIE4X5TmV9WeHjBlqGOtQj+d++YHrOTm2pg91Zc1yk2y2OrAMDk8xcC+T5Digxk1kkZQnFzWAs1/YzXY111nucpy9X2tvRM5EMaDG/+O3dChKK3Cvi0G/HC7L6/h33L5aT0RBvW0TKGWtCCyYzmLdkT9Gn6OmPisJtnSxCgpiVTkB3qjJZXzgzD9I4gGJx0=
+dist: trusty
+sudo: required
+addons:
+  apt:
+    packages:
+      - unzip
 services:
   - docker
 notifications:
-  slack:
-    secure: Yc4UTNmINFGCeRKl52lFVPFPOshGtA95mfy+KWxhG/mhyIIgrkHun+LVpwR+A4jrD3gW0PrA0O23UBTmmdkWg8kbWGhuiJfaoguNOZczOFXh2lnlKfBX3mqe/v9t7wNFArNoftAxVz0j/VTkoEuJfTX/AoSMHZ3HxI9lWavZMybFCw6o7DtUEaSSbRd5B+mPzTIrUrOanXz22jP9VeigpX2DwhfFJhPYS4xfFZ31/yxkUl4u41JdMpP+lK+wLbMN0okJaGHXon/iqXiwvUZsHlLVlMUG8OQiBvVTrDCSt0BZMkYsxlKBwveJiSWo1b/WYyGRIamWtjgYY6crTT16Zns2lPx7pYZte2iww/xQvZuQ29t7wRqWFqvpOO2nK1vtZsMCk1fjIK1FBvhd/eaRdjvmpEqSDbAYgphtf7CBuftnSk3p0zw8tHjTJ32gym3JGnP8rFLqwplz5wJc6pgmfCrWOrfF2QEYH2x7FlgiEadr4Ckx5cKbo/OCx7sRUGXhKShqSFh9bAD1niXhyPrUCDo6c9MOv73zyLtc4QquB8dSD2veCok/TMPw53N6ggS3lSItxcaZXchYWQUd1SuGSs+zaDnOJ4qTmFDlxFJKOxFzTia6Wx0oG2naG5mqZeX7rNMztw3w43Qoy3C9djx9e62wnOvjSlT8kD8cv+xiXEk=
   email: false
+  slack:
+    on_success: always
+    on_failure: always
+    secure: Yc4UTNmINFGCeRKl52lFVPFPOshGtA95mfy+KWxhG/mhyIIgrkHun+LVpwR+A4jrD3gW0PrA0O23UBTmmdkWg8kbWGhuiJfaoguNOZczOFXh2lnlKfBX3mqe/v9t7wNFArNoftAxVz0j/VTkoEuJfTX/AoSMHZ3HxI9lWavZMybFCw6o7DtUEaSSbRd5B+mPzTIrUrOanXz22jP9VeigpX2DwhfFJhPYS4xfFZ31/yxkUl4u41JdMpP+lK+wLbMN0okJaGHXon/iqXiwvUZsHlLVlMUG8OQiBvVTrDCSt0BZMkYsxlKBwveJiSWo1b/WYyGRIamWtjgYY6crTT16Zns2lPx7pYZte2iww/xQvZuQ29t7wRqWFqvpOO2nK1vtZsMCk1fjIK1FBvhd/eaRdjvmpEqSDbAYgphtf7CBuftnSk3p0zw8tHjTJ32gym3JGnP8rFLqwplz5wJc6pgmfCrWOrfF2QEYH2x7FlgiEadr4Ckx5cKbo/OCx7sRUGXhKShqSFh9bAD1niXhyPrUCDo6c9MOv73zyLtc4QquB8dSD2veCok/TMPw53N6ggS3lSItxcaZXchYWQUd1SuGSs+zaDnOJ4qTmFDlxFJKOxFzTia6Wx0oG2naG5mqZeX7rNMztw3w43Qoy3C9djx9e62wnOvjSlT8kD8cv+xiXEk=
+jobs:
+  include:
+    - stage: build and test
+      script: npm run eslint
+    - stage: build docker image
+      script:
+        - |
+          openssl aes-256-cbc -K $encrypted_c2aec72b3ee3_key -iv $encrypted_c2aec72b3ee3_iv -in secrets.zip.enc -out secrets.zip -d && \
+          unzip secrets.zip && \
+          docker login -u $DOCKER_AZURE_USER -p $DOCKER_AZURE_PASS $DOCKER_REPO_AZURE && \
+          docker build -t $DOCKER_REPO_AZURE/breakout-frontend:$(basename $TRAVIS_BRANCH) . && \
+          docker push $DOCKER_REPO_AZURE/breakout-frontend:$(basename $TRAVIS_BRANCH) && \
+          rm "/home/${USER}/.docker/config.json"
+stages:
+  - build and test
+  - build docker image
