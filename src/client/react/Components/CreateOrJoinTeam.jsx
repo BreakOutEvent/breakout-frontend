@@ -114,12 +114,13 @@ class CreateOrJoinTeam extends React.Component {
           <div style={{marginBottom: '20px'}} />
           {this.renderSelectedOption()}
         </span>
-      );
+    );
   }
 }
 
 CreateOrJoinTeam.propTypes = {
   children: React.PropTypes.any,
+  api: React.PropTypes.object.isRequired,
   i18next: React.PropTypes.object.isRequired
 };
 
