@@ -74,12 +74,12 @@ export default class Participation extends React.Component {
     if (data.formData.gender === 'male') {
       this.setState({
         formData: data.formData,
-        tshirtSizes: ['S', 'M', 'L', 'XL', '2XL', '3XL']
+        tshirtSizes: ['S', 'M', 'L', 'XL']
       });
     } else if (data.formData.gender === 'female') {
       this.setState({
         formData: data.formData,
-        tshirtSizes: ['XS', 'S', 'M', 'L', 'XL', '2XL']
+        tshirtSizes: ['S', 'M', 'L', 'XL']
       });
     }
   }
