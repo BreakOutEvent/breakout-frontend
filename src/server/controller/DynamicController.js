@@ -139,14 +139,6 @@ class DynamicController {
     }
   }
 
-  static *showHowToSponsor(req, res) {
-    res.render('static/howtosponsor', {
-      error: null,
-      layout: 'master',
-      language: req.language
-    });
-  }
-
   static *showHighscores(req, res) {
 
     if(!req.session.activeEvents) {
