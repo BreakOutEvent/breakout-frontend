@@ -44,10 +44,25 @@ class CreateOrJoinTeam extends React.Component {
 
   constructor(props) {
     super(props);
-    // TODO: Set selectedOption based on whether user has invite or not
     this.state = {
-      selectedOption: 'createTeam'
+      selectedOption: undefined,
+      isLoadingInvitations: true
     };
+  }
+
+  async componentDidMount() {
+    try {
+      let invitations = await this.props.api.getAllInvitations();
+      // filter for invitations to teams which still have team members (in case of leaving after invitation)
+      invitations = invitations.filter(invitation => invitation.team.members.length >= 1);
+      this.setState({
+        invitations: invitations,
+        selectedOption: (invitations.length ? 'joinTeam' : 'createTeam'),
+        isLoadingInvitations: false
+      });
+    } catch (err) {
+      throw err;
+    }
   }
 
   onClick(e) {
@@ -60,7 +75,7 @@ class CreateOrJoinTeam extends React.Component {
     if (this.state.selectedOption === 'createTeam') {
       return <TeamCreation {...this.props}>{this.props.children}</TeamCreation>;
     } else {
-      return <JoinTeam {...this.props}>{this.props.children}</JoinTeam>;
+      return <JoinTeam {...this.props} invitations={this.state.invitations}>{this.props.children}</JoinTeam>;
     }
   }
 
@@ -90,21 +105,22 @@ class CreateOrJoinTeam extends React.Component {
       link: '#'
     }];
 
-
-    return (
-      <span className="create-or-join-team">
-        <Breadcrumbs entries={entries}/>
-        <h3>Team erstellen oder beitreten</h3>
-        <SelectionSwitcher options={options} onClick={this.onClick.bind(this)}/>
-        <div style={{marginBottom: '20px'}}></div>
-        {this.renderSelectedOption()}
-      </span>
+    return (this.state.isLoadingInvitations
+      ? <div className="alert alert-info">{this.props.i18next.t('client.join_team.loading')}</div>
+      : <span className="create-or-join-team">
+          <Breadcrumbs entries={entries}/>
+          <h3>Team erstellen oder beitreten</h3>
+          <SelectionSwitcher options={options} onClick={this.onClick.bind(this)}/>
+          <div style={{marginBottom: '20px'}} />
+          {this.renderSelectedOption()}
+        </span>
     );
   }
 }
 
 CreateOrJoinTeam.propTypes = {
   children: React.PropTypes.any,
+  api: React.PropTypes.object.isRequired,
   i18next: React.PropTypes.object.isRequired
 };
 

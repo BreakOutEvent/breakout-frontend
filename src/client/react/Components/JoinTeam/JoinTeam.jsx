@@ -8,27 +8,8 @@ export default class JoinTeam extends React.Component {
     super(props);
     this.state = {
       joinTeamError: null,
-      invitations: [],
-      isSubmitting: false,
-      isLoadingInvitations: true
+      isSubmitting: false
     };
-  }
-
-  async componentDidMount() {
-    try {
-      let invitations = await this.props.api.getAllInvitations();
-      invitations = invitations.filter(invitation => invitation.team.members.length >= 1);
-      this.setState({
-        invitations: invitations,
-        isLoadingInvitations: false
-      });
-    } catch (err) {
-      this.onLoadingInvitationsError(err);
-    }
-  }
-
-  onLoadingInvitationsError(err) {
-    throw err;
   }
 
   onBeginSubmit() {
@@ -78,25 +59,18 @@ export default class JoinTeam extends React.Component {
 
 
   render() {
-    if (this.state.isLoadingInvitations) {
-      return (
-        <div className="alert alert-info">{this.props.i18next.t('client.join_team.loading')}</div>
-      );
-    } else {
-      return (
-        <JoinTeamForm i18next={this.props.i18next}
-                      onSubmit={this.onSubmit.bind(this)}
-                      teamCreationError={this.state.joinTeamError}
-                      invitations={this.state.invitations}
-                      joinTeamError={this.state.joinTeamError}
-                      isSubmitting={this.state.isSubmitting}
-                      onError={() => {
-                      }}
-                      onChange={() => {
-                      }}/>
-      );
-    }
-
+    return (
+      <JoinTeamForm i18next={this.props.i18next}
+                    onSubmit={this.onSubmit.bind(this)}
+                    teamCreationError={this.state.joinTeamError}
+                    invitations={this.props.invitations}
+                    joinTeamError={this.state.joinTeamError}
+                    isSubmitting={this.state.isSubmitting}
+                    onError={() => {
+                    }}
+                    onChange={() => {
+                    }}/>
+    );
   }
 }
 
@@ -104,4 +78,5 @@ JoinTeam.propTypes = {
   api: React.PropTypes.object.isRequired,
   i18next: React.PropTypes.object.isRequired,
   history: React.PropTypes.object.isRequired,
+  invitations: React.PropTypes.array.isRequired
 };
