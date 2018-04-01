@@ -55,16 +55,17 @@ class JoinTeamSuccess extends React.Component {
 
   invoiceText() {
     if (this.state.invoice) {
+      // TODO: This should not be hardcoded
       return <div id="invoice-text">
         <div
           className="label label-default">{this.props.i18next.t('client.join_team_success.IBAN')}</div>
-        <div className="content">DE60700222000072708326</div>
+        <div className="content">DE85 7002 2200 0020 2418 37</div>
         <div
           className="label label-default">{this.props.i18next.t('client.join_team_success.BIC')}</div>
         <div className="content">FDDODEMMXXX</div>
         <div
           className="label label-default">{this.props.i18next.t('client.join_team_success.payment_reciever')}</div>
-        <div className="content">Daria Brauner</div>
+        <div className="content">BreakOut e.V.</div>
         <div
           className="label label-default">{this.props.i18next.t('client.join_team_success.purpose_of_transaction')}</div>
         <div className="content">{this.state.invoice.purposeOfTransfer}</div>
