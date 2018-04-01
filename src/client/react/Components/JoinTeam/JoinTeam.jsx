@@ -78,5 +78,5 @@ JoinTeam.propTypes = {
   api: React.PropTypes.object.isRequired,
   i18next: React.PropTypes.object.isRequired,
   history: React.PropTypes.object.isRequired,
-  invitations: React.PropTypes.object.isRequired
+  invitations: React.PropTypes.array.isRequired
 };
