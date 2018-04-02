@@ -373,7 +373,12 @@ module.exports = {
   },
   "CLOSED": {
     "HEADLINE": "Anmeldung geschlossen",
-    "DESCRIPTION": "Leider ist die Anmeldung als Teilnehmer bei BreakOut 2018 nicht mehr offen :( Du kannst dich aber noch als Sponsor anmelden und so den EinDollarBrille e.V. unterstützen. Trage dich doch in unseren Newsletter ein, um beim nächsten safe BreakOut dabei zu sein!",
+    "DESCRIPTION": "Leider ist die Anmeldung als Teilnehmer bei BreakOut 2018 gerade nicht geöffnet :( Trag dich aber gerne in unseren Newsletter ein, um immer auf dem aktuellsten Stand zu bleiben!",
+    "LINK_DESCRIPTION": "ZURÜCK ZUR WEBSEITE"
+  },
+  "SPONSOR-CLOSED": {
+    "HEADLINE": "Sponsoren-Anmeldung geschlossen",
+    "DESCRIPTION": "Leider ist die Registrierung als Sponsor bei BreakOut 2018 gerade nicht geöffnet :(",
     "LINK_DESCRIPTION": "ZURÜCK ZUR WEBSEITE"
   },
   "MESSAGE": {

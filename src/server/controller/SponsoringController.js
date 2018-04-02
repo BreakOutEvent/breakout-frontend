@@ -392,4 +392,13 @@ sponsoring.invoice.getByTeam = (req) => co(function*() {
   throw ex;
 });
 
+sponsoring.sponsoringIsOpenForAnyEvent = (req, res, next) => co(function *(){
+  const events = yield api.event.all();
+  if (events.some(event => event.allowNewSponsoring)) {
+    next();
+  } else {
+    res.redirect('/sponsor-closed');
+  }
+});
+
 module.exports = sponsoring;

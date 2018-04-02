@@ -4,6 +4,7 @@ const DynamicController = require('../controller/DynamicController');
 const AuthenticationController = require('../controller/AuthenticationController');
 const StaticController = require('../controller/StaticController.js');
 const TeamController = require('../controller/TeamController');
+const SponsoringController = require('../controller/SponsoringController');
 
 const Router = require('co-router');
 const multer = require('multer');
@@ -50,7 +51,9 @@ router.get('/reset/:email/:token', funnelTemplate('reset-pw'));
 
 router.get('/closed', funnelTemplate('closed'));
 
-router.get('/sponsor', session.isUser, redirectIfSponsor, funnelTemplate('sponsor'));
+router.get('/sponsor-closed', funnelTemplate('sponsor-closed'));
+
+router.get('/sponsor', session.isUser, SponsoringController.sponsoringIsOpenForAnyEvent, redirectIfSponsor, funnelTemplate('sponsor'));
 
 router.get('/login', StaticController.renderLandingpage); // client-side routing
 
