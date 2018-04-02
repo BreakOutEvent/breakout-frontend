@@ -368,7 +368,8 @@ module.exports = {
     "STATUS_WITHDRAWN": "Withdrawn",
     "LABEL_EMAIL": "Email address of sponsor (optional)",
     "ESTIMATED_DONATE_PROMISE": "Estimated donate promise",
-    "SELECT_TEAM": "Select team"
+    "SELECT_TEAM": "Select team",
+    "NO_NEW_SPONSORINGS": "At the moment it is not possible to add a sponsoring."
   },
   "CLOSED": {
     "HEADLINE": "Registration closed",
