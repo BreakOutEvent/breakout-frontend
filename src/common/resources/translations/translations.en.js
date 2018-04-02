@@ -373,8 +373,13 @@ module.exports = {
   },
   "CLOSED": {
     "HEADLINE": "Registration closed",
-    "DESCRIPTION": "The registration for BreakOut 2018 is closed :( You can still register as a sponsor and support One Dollar Glasses. Sign up for our newsletter to make sure you don't miss the next BreakOut.",
+    "DESCRIPTION": "The registration for BreakOut 2018 is currently closed :( Sign up for our newsletter to make sure you don't miss any news about BreakOut.",
     "LINK_DESCRIPTION": "BACK TO THE WEBSITE"
+  },
+  "SPONSOR-CLOSED": {
+    "HEADLINE": "Registration for Sponsors closed",
+    "DESCRIPTION": "The registration as a sponsor is currently closed :(",
+    "LINK_DESCRIPTION": "ZURÜCK ZUR WEBSEITE"
   },
   "MESSAGE": {
     "HEADLINE": "Messages",
