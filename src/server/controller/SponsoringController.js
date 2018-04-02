@@ -54,22 +54,23 @@ sponsoring.showSponsorings = function*(req, res) {
   let outSponsoring = [];
   let outChallenges = [];
   let confirmedDonations = [];
-  //INCOMING
+  let teams = [];
 
+  //INCOMING
   if (req.user.status.is.team) {
     incSponsoring = yield sponsoring.getByTeam(req);
     incChallenges = yield sponsoring.challenge.getByTeam(req);
     confirmedDonations = yield sponsoring.invoice.getByTeam(req);
+    req.user.me.participant.event = yield api.event.get(req.user.me.participant.eventId);
   }
 
   //OUTGOING
   if (req.user.status.is.sponsor) {
     outSponsoring = yield sponsoring.getBySponsor(req);
     outChallenges = yield sponsoring.challenge.getBySponsor(req);
+    teams = yield sponsoring.getAllTeamsSummary(req);
+    teams = teams.filter(team => team.eventAllowNewSponsoring);
   }
-
-
-  const teams = yield sponsoring.getAllTeamsSummary(req);
 
   res.render('dynamic/sponsoring/sponsoring', {
     error: req.flash('error'),

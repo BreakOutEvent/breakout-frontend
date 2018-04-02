@@ -368,7 +368,8 @@ module.exports = {
     "STATUS_WITHDRAWN": "Zurückgezogen",
     "LABEL_EMAIL": "Emailadresse des Sponsors (optional)",
     "ESTIMATED_DONATE_PROMISE": "Geschätztes Spendenversprechen",
-    "SELECT_TEAM": "Team auswählen"
+    "SELECT_TEAM": "Team auswählen",
+    'NO_NEW_SPONSORINGS': 'Momentan können keine Sponsorings eingetragen werden.'
   },
   "CLOSED": {
     "HEADLINE": "Anmeldung geschlossen",

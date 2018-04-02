@@ -345,81 +345,90 @@
 <div class="modal" id="addSponsoring" tabindex="-1" role="dialog" aria-labelledby="addModalTitle" {{#weakIfCond mode 2}} data-showReferrer="true" {{/weakIfCond}}>
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form class="form" id="addSponsoringModal">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                    <h3 class="modal-title" id="addModalTitle">{{__ 'BTN_ADD'}}</h3>
-                </div>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title" id="addModalTitle">{{__ 'BTN_ADD'}}</h3>
+            </div>
+            {{#if teams.length}}
+                <form class="form" id="addSponsoringModal">
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xs-12" id="addResult"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <p>{{__ 'ADD_MODAL_CONTENT'}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <select name="team" id="team_select" class="form-control"
+                                            required="required">
+                                        <!-- TODO: l10n -->
+                                        <option disabled selected>{{__ 'SELECT_TEAM'}}</option>
+                                        {{#each teams}}
+                                            <option value='{"team": "{{teamId}}", "event": "{{eventId}}"}' {{#weakIfCond ../fromTeam teamId}} selected="selected" {{/weakIfCond}}>
+                                                {{teamName}} ({{teamId}}) ({{eventTitle}})
+                                            </option>
+                                        {{/each}}
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-8 hidden-xs">
+                                <div class="form-group">
+                                    <label for="amountPerKm_range">{{__ 'LABEL_AMOUNT_KM'}}</label>
+                                    <input id="amountPerKm_range" type="range" name="amountPerKm_range" class="form-control"
+                                           min="0.01" max="2" step="0.01"
+                                           value="0.3" required="required">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="amountPerKm_text">{{__ 'LABEL_AMOUNT_KM'}}</label>
+                                    <input type="text" class="form-control" name="amountPerKm_text"
+                                           id="amountPerKm_text" required="required" value="0.30"
+                                           placeholder="{{__ 'LABEL_AMOUNT_KM'}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label for="limit">{{__ 'LABEL_LIMIT'}}</label>
+                                    <input type="text" class="form-control" name="limit"
+                                           id="limit"
+                                           placeholder="{{__ 'LABEL_LIMIT'}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="well" id="output">
+
+                                </div>
+                                <h4 class="text-right">{{__ 'ESTIMATED_DONATE_PROMISE'}}: <strong><span
+                                        id="estimate"></span>€</strong></h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{{__ 'BTN_ABORT'}}</button>
+                        <button type="submit" class="btn btn-primary" id="bo-add-cta">{{__ 'BTN_ADD'}}</button>
+                    </div>
+                </form>
+            {{else}}
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-xs-12" id="addResult"></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <p>{{__ 'ADD_MODAL_CONTENT'}}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="form-group">
-                                <select name="team" id="team_select" class="form-control"
-                                        required="required">
-                                    <!-- TODO: l10n -->
-                                    <option disabled selected>{{__ 'SELECT_TEAM'}}</option>
-                                    {{#each teams}}
-                                        <option value='{"team": "{{teamId}}", "event": "{{eventId}}"}' {{#weakIfCond ../fromTeam teamId}} selected="selected" {{/weakIfCond}}>
-                                            {{teamName}} ({{teamId}}) ({{eventTitle}})
-                                        </option>
-                                    {{/each}}
-
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-8 hidden-xs">
-                            <div class="form-group">
-                                <label for="amountPerKm_range">{{__ 'LABEL_AMOUNT_KM'}}</label>
-                                <input id="amountPerKm_range" type="range" name="amountPerKm_range" class="form-control"
-                                       min="0.01" max="2" step="0.01"
-                                       value="0.3" required="required">
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label for="amountPerKm_text">{{__ 'LABEL_AMOUNT_KM'}}</label>
-                                <input type="text" class="form-control" name="amountPerKm_text"
-                                       id="amountPerKm_text" required="required" value="0.30"
-                                       placeholder="{{__ 'LABEL_AMOUNT_KM'}}">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="form-group">
-                                <label for="limit">{{__ 'LABEL_LIMIT'}}</label>
-                                <input type="text" class="form-control" name="limit"
-                                       id="limit"
-                                       placeholder="{{__ 'LABEL_LIMIT'}}">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="well" id="output">
-
-                            </div>
-                            <h4 class="text-right">{{__ 'ESTIMATED_DONATE_PROMISE'}}: <strong><span
-                                    id="estimate"></span>€</strong></h4>
-                        </div>
+                        <div class="col-xs-12">{{__ 'NO_NEW_SPONSORINGS'}}</div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">{{__ 'BTN_ABORT'}}</button>
-                    <button type="submit" class="btn btn-primary" id="bo-add-cta">{{__ 'BTN_ADD'}}</button>
-                </div>
-            </form>
+            {{/if}}
         </div>
     </div>
 </div>
@@ -427,69 +436,77 @@
 <div class="modal" id="addChallenge" tabindex="-1" role="dialog" aria-labelledby="addChallengeTitle" {{#weakIfCond mode 1}} data-showReferrer="true" {{/weakIfCond}}>
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form class="form" id="addChallengeForm">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                    <h3 class="modal-title" id="addChallengeTitle">{{__ 'BTN_ADD_CHALLENGE'}}</h3>
-                </div>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title" id="addChallengeTitle">{{__ 'BTN_ADD_CHALLENGE'}}</h3>
+            </div>
+            {{#if teams.length}}
+                <form class="form" id="addChallengeForm">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xs-12" id="addChallengeResult"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <p>{{__ 'ADD_CHALLENGE_MODAL_CONTENT'}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <select name="addChallengeTeam" id="addChallengeTeam" class="form-control" required="required">
+                                        <option disabled selected>{{__ 'SELECT_TEAM'}}</option>
+                                        {{#each teams}}
+                                            <option value='{"team": "{{teamId}}", "event": "{{eventId}}"}' {{#weakIfCond ../fromTeam teamId}} selected="selected" {{/weakIfCond}} >
+                                                {{teamName}} ({{teamId}}) ({{eventTitle}})
+                                            </option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="addChallengeRow">
+                            <div class="col-sm-9">
+                                <div class="form-group has-feedback has-feedback-left">
+                                    <label for="addChallengeDescription">{{__ 'LABEL_CHALLENGE_DESCRIPTION'}}</label>
+                                    <textarea class="form-control" name="addChallengeDescription[]"
+                                              id="addChallengeDescription" required="required"
+                                              placeholder="{{__ 'LABEL_CHALLENGE_DESCRIPTION'}}"></textarea>
+                                    <i class="form-control-feedback material-icons">description</i>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group has-feedback has-feedback-left">
+                                    <label for="addChallengeAmount">{{__ 'LABEL_CHALLENGE_AMOUNT'}}</label>
+                                    <input type="text" class="form-control" name="addChallengeAmount[]"
+                                           id="addChallengeAmount" required="required"
+                                           placeholder="{{__ 'LABEL_CHALLENGE_AMOUNT'}}">
+                                    <i class="form-control-feedback material-icons">euro_symbol</i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button type="button" id="addChallengeExtend" class="btn btn-block btn-default">
+                                    {{__ 'ADD_ANOTHER_CHALLENGE'}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{{__ 'BTN_ABORT'}}</button>
+                        <button type="submit" class="btn btn-primary"
+                                id="addChallengeCTA">{{__ 'BTN_ADD_CHALLENGE'}}</button>
+                    </div>
+                </form>
+            {{else}}
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-xs-12" id="addChallengeResult"></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <p>{{__ 'ADD_CHALLENGE_MODAL_CONTENT'}}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="form-group">
-                                <select name="addChallengeTeam" id="addChallengeTeam" class="form-control" required="required">
-                                    <option disabled selected>{{__ 'SELECT_TEAM'}}</option>
-                                    {{#each teams}}
-                                        <option value='{"team": "{{teamId}}", "event": "{{eventId}}"}' {{#weakIfCond ../fromTeam teamId}} selected="selected" {{/weakIfCond}} >
-                                            {{teamName}} ({{teamId}}) ({{eventTitle}})
-                                        </option>
-                                    {{/each}}
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" id="addChallengeRow">
-                        <div class="col-sm-9">
-                            <div class="form-group has-feedback has-feedback-left">
-                                <label for="addChallengeDescription">{{__ 'LABEL_CHALLENGE_DESCRIPTION'}}</label>
-                                <textarea class="form-control" name="addChallengeDescription[]"
-                                          id="addChallengeDescription" required="required"
-                                          placeholder="{{__ 'LABEL_CHALLENGE_DESCRIPTION'}}"></textarea>
-                                <i class="form-control-feedback material-icons">description</i>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group has-feedback has-feedback-left">
-                                <label for="addChallengeAmount">{{__ 'LABEL_CHALLENGE_AMOUNT'}}</label>
-                                <input type="text" class="form-control" name="addChallengeAmount[]"
-                                       id="addChallengeAmount" required="required"
-                                       placeholder="{{__ 'LABEL_CHALLENGE_AMOUNT'}}">
-                                <i class="form-control-feedback material-icons">euro_symbol</i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <button type="button" id="addChallengeExtend" class="btn btn-block btn-default">
-                                {{__ 'ADD_ANOTHER_CHALLENGE'}}
-                            </button>
-                        </div>
+                        <div class="col-xs-12">{{__ 'NO_NEW_SPONSORINGS'}}</div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">{{__ 'BTN_ABORT'}}</button>
-                    <button type="submit" class="btn btn-primary"
-                            id="addChallengeCTA">{{__ 'BTN_ADD_CHALLENGE'}}</button>
-                </div>
-            </form>
+            {{/if}}
         </div>
 
     </div>
@@ -590,6 +607,7 @@
                         aria-hidden="true">&times;</span></button>
                 <h3 class="modal-title" id="selfModalTitle">{{__ 'HEADER_SELF_SPONSORING'}}</h3>
             </div>
+            {{#if me.participant.event.allowNewSponsoring}}
             <form class="form" id="selfSponsoringModal">
                 <div class="modal-body">
                     <div class="row">
@@ -839,6 +857,13 @@
                             'BTN_SAVE'}}</button>
                 </div>
             </form>
+            {{else}}
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">{{__ 'NO_NEW_SPONSORINGS'}}</div>
+                </div>
+            </div>
+            {{/if}}
         </div>
     </div>
 </div>
