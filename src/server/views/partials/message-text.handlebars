@@ -1,9 +1,9 @@
 <div class="row bo-msg-wrap{{#ifCond creator.id userId}} bo-msg-self{{/ifCond}}">
     <div class="col-sm-1 bo-msg-userimg" style="
-        {{#if creator.profilePic.sizes.0.url}}
-        background-image:url({{smallestImage creator.profilePic.sizes}})
+        {{#if creator.profilePic.url}}
+            background-image:url({{creator.profilePic.url}})
         {{else}}
-        background-color:#ccc;
+            background-color:#ccc;
         {{/if}}">
     </div>
     <div class="col-sm-2 bo-msg-username" style="color: {{strColor creator.lastname}}">{{creator.firstname}} {{creator.lastname}}</div>

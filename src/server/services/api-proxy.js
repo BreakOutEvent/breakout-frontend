@@ -13,6 +13,13 @@ const config = require('../config/config.js');
 const url = `${config.api.protocol}://${config.api.url}`;
 const logger = require('../services/logger');
 const _ = require('lodash');
+const cloudinary = require('cloudinary');
+
+cloudinary.config({
+  cloud_name: config.cloudinary.cloud_name,
+  api_key: config.cloudinary.api_key,
+  api_secret: config.cloudinary.api_secret,
+});
 
 var API = {};
 
@@ -171,26 +178,24 @@ API.createUser = function (email, password) {
   });
 };
 
-API.uploadPicture = function (file, mediaObj) {
-  logger.info('Trying to upload file with id', mediaObj.id);
-  return new Promise(function (resolve, reject) {
-    request
-      .post({
-        url: `${config.media_url}`,
-        headers: { 'X-UPLOAD-TOKEN': mediaObj.uploadToken },
-        formData: {
-          id: mediaObj.id,
-          file: {
-            value: file.buffer,
-            options: {
-              filename: file.originalname,
-              encoding: file.encoding,
-              'Content-Type': file.mimetype,
-              knownLength: file.size
-            }
-          }
-        }
-      }, handleResponse(resolve, reject, 'Successfully uploaded file with id ' + mediaObj.id + ' to backend'));
+API.uploadFile = function (file, fileType = 'image') {
+  if (fileType === 'image') {
+    // do nothing
+  } else if (fileType === 'IMAGE') {
+    fileType = 'image';
+  } else if (fileType === 'VIDEO') {
+    fileType = 'video';
+  } else {
+    logger.warn(`unknown file type '${fileType}'. Trying to use raw upload`);
+    fileType = 'raw';
+  }
+
+  return new Promise((resolve, reject) => {
+    return cloudinary.v2.uploader.upload_stream({
+      resource_type: fileType
+    }, (err, res) => {
+      if (err) reject(err); else resolve(res);
+    }).end(file.buffer);
   });
 };
 
@@ -535,13 +540,16 @@ API.messaging.addMessageToGroupMessage = (token, groupMessageId, text) => {
 
 API.posting = {};
 
-API.posting.createPosting = (token, text, uploadMediaTypes, latitude, longitude) => {
+API.posting.createPosting = (token, text, mediaUrl, mediaType, latitude, longitude) => {
   logger.info('Create new Posting', text);
   return new Promise((resolve, reject) => {
 
     let body = {};
     body.text = text;
-    if (uploadMediaTypes) body.uploadMediaTypes = uploadMediaTypes;
+    if (mediaUrl) body.media = {
+      url: mediaUrl,
+      type: mediaType
+    };
     if (latitude && longitude) {
       body.postingLocation = {};
       body.postingLocation.latitude = latitude;
@@ -554,7 +562,7 @@ API.posting.createPosting = (token, text, uploadMediaTypes, latitude, longitude)
         auth: { bearer: token.access_token },
         body: JSON.stringify(body),
         headers: { 'content-type': 'application/json' }
-      }, handleResponse(resolve, reject, 'Successfully created Posting: ' + text + ' - ' + uploadMediaTypes));
+      }, handleResponse(resolve, reject, 'Successfully created Posting: ' + text + ' - ' + mediaUrl));
   });
 };
 

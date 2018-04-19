@@ -1,6 +1,6 @@
 <div class="bo-header-info">
     <div class="container">
-        <div style="background-image: url({{me.profilePic.sizes.0.url}}); height: 100px; width: 100px;"
+        <div style="background-image: url({{me.profilePic.url}}); height: 100px; width: 100px;"
              class="bo-profile-image pull-left"></div>
         <div class="bo-profile-info">
             <p>{{me.firstname}} {{me.lastname}}</p>
@@ -37,7 +37,7 @@
             <form role="form" id="profile_form">
 
                 <div class="bo-reg-uploadInputWrapper"
-                     style="height: 100px; width: 100px; background-image:url({{me.profilePic.sizes.0.url}})">
+                     style="height: 100px; width: 100px; background-image:url({{me.profilePic.url}})">
                     <input class="bo-reg-fileInput bo-reg-hiddenInput" type="file" name="profilePic"
                            id="profilePic"/>
                     <i class="material-icons registration-picture-icon">camera_alt</i>
@@ -153,7 +153,7 @@
             <div id="result_team"></div>
             <form role="form" id="team_form">
                 <div class="bo-reg-uploadInputWrapper"
-                     style="height: 100px; width: 100px; background-image: url({{team.profilePic.sizes.0.url}});">
+                     style="height: 100px; width: 100px; background-image: url({{team.profilePic.url}});">
                     <input class="bo-reg-fileInput bo-reg-hiddenInput" type="file" name="teamPic"
                            id="teamPic"/>
                     <i class="material-icons registration-picture-icon">camera_alt</i>

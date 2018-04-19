@@ -120,12 +120,18 @@ registration.createParticipant = (req, res, next) => co(function*() {
 
   logger.info('Trying to create / update a participant', updateBody);
 
-  const user = yield api.getCurrentUser(req.user);
-  const backendUser = yield api.putModel('user', user.id, req.user, updateBody);
-
   if (req.file) {
-    yield api.uploadPicture(req.file, backendUser.profilePic);
+    logger.debug('Uploading updated profile picture for user to cloudinary');
+    const res = yield api.uploadFile(req.file);
+    updateBody.profilePic = {
+      type: 'IMAGE',
+      url: res.secure_url
+    };
+    logger.debug('Attaching updated team picture url to backend request');
   }
+
+  const user = yield api.getCurrentUser(req.user);
+  yield api.putModel('user', user.id, req.user, updateBody);
 
   logger.info('Created / updated a participant', updateBody);
 
@@ -209,11 +215,15 @@ registration.createSponsor = (req, res, next) => co(function*() {
   if (req.body.isHidden && req.body.isHidden === 'on') updateBody.sponsor.hidden = true;
   if (req.body.company) updateBody.sponsor.company = req.body.company;
 
-  const sponsor = yield api.putModel('user', req.user.me.id, req.user, updateBody);
-
   if (req.file) {
-    yield api.uploadPicture(req.file, sponsor.profilePic);
+    const res = yield api.uploadFile(req.file);
+    updateBody.profilePic = {
+      url: res.secure_url,
+      type: 'IMAGE'
+    };
   }
+
+  const sponsor = yield api.putModel('user', req.user.me.id, req.user, updateBody);
 
   logger.info(
     'Created Sponsor',
@@ -256,7 +266,8 @@ registration.createTeam = (req, res, next) => co(function*() {
     yield api.postModel(`event/${req.body.event}/team/`, req.user, teamData);
 
   if (req.file) {
-    yield api.uploadPicture(req.file, team.profilePic);
+    // TODO: This is not updated for cloudinary now because it is dead code that needs to be removed at some point
+    yield api.uploadFile(req.file, team.profilePic);
   }
 
   logger.info('Created Team', req.body.teamname, 'for event', req.body.event);

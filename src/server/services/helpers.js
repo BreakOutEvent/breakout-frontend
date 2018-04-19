@@ -36,6 +36,19 @@ exports.stringify = (obj) => {
   return JSON.stringify(obj);
 };
 
+exports.thumbnail = (videoUrl, ctx) => {
+  if (videoUrl.includes('breakoutmedia.blob.core.windows.net')) {
+    // this video is served from our old azure blob storage where
+    // we can't just change the extension to get a thumbnail
+    // Instead we do nothing and have a black "thumbnail"
+    return '';
+  }
+
+  // replace the ending of the video with .png. This will use cloudinary
+  // to automatically generate a thumbnail based on the video url for us
+  return videoUrl.substr(0, videoUrl.lastIndexOf('.')) + '.png';
+};
+
 /**
  * Concatenates first and second.
  * @param first
@@ -275,100 +288,6 @@ exports.strColor = (str) => {
   return colour;
 };
 
-exports.smallestImage = (sizes) => {
-
-  if (Array.isArray(sizes) && sizes.length > 0) {
-    var minSize = sizes[0].size;
-    var url = sizes[0].url;
-
-    sizes.forEach((thisSize) => {
-      if (thisSize.size < minSize) {
-        minSize = thisSize.size;
-        url = thisSize.url;
-      }
-    });
-
-    return url;
-  }
-};
-
-exports.getImageByWidth = (width, sizes) => {
-
-  width = parseFloat(width);
-
-  if (Array.isArray(sizes)) {
-    sizes = sizes.filter((size) => size.type === 'IMAGE');
-    if (sizes.length > 0) {
-
-      var minDiff = 100000000000;
-      var bestFit = sizes[0].url;
-      sizes.forEach(s => {
-        let currDiff = s.width - width;
-        if (currDiff < 0) currDiff = currDiff * -8;
-
-        if (currDiff < minDiff) {
-          minDiff = currDiff;
-          bestFit = s.url;
-        }
-      });
-
-      return bestFit;
-    }
-  }
-};
-
-exports.getH264VideoByWidth = (width, sizes) => {
-
-  width = parseFloat(width);
-
-  if (Array.isArray(sizes)) {
-    sizes = sizes.filter((size) => size.type === 'VIDEO' && size.url.endsWith('.mp4'));
-
-    if (sizes.length > 0) {
-
-      var minDiff = 100000000000;
-      var bestFit = sizes[0].url;
-      sizes.forEach(s => {
-        let currDiff = s.width - width;
-        if (currDiff < 0) currDiff = currDiff * -8;
-
-        if (currDiff < minDiff) {
-          minDiff = currDiff;
-          bestFit = s.url;
-        }
-      });
-
-      return bestFit;
-    }
-  }
-};
-
-exports.getWebmVideoByWidth = (width, sizes) => {
-
-  width = parseFloat(width);
-
-  if (Array.isArray(sizes)) {
-    sizes = sizes.filter((size) => size.type === 'VIDEO' && size.url.endsWith('.webm'));
-
-    if (sizes.length > 0) {
-
-      var minDiff = 100000000000;
-      var bestFit = sizes[0].url;
-      sizes.forEach(s => {
-        let currDiff = s.width - width;
-        if (currDiff < 0) currDiff = currDiff * -8;
-
-        if (currDiff < minDiff) {
-          minDiff = currDiff;
-          bestFit = s.url;
-        }
-      });
-
-      return bestFit;
-    }
-  }
-};
-
 exports.round = (amount) => {
   return Math.round(parseFloat(amount)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 };
@@ -408,29 +327,6 @@ exports.prettyLocation = (location) => {
     locString = ' in ' + locString;
   }
   return locString;
-};
-
-exports.getSmallestAudio = (sizes) => {
-  if (Array.isArray(sizes) && sizes.length > 0) {
-
-    var filteredsizes = sizes.filter((size) => size.type === 'AUDIO').filter((s) => s.url.endsWith('.mp3'));
-
-    if (filteredsizes.length === 0) {
-      filteredsizes = sizes;
-    }
-
-    var minsize = 100000000000;
-    var url = filteredsizes[0].url;
-
-    filteredsizes.forEach(s => {
-      if (s.size < minsize) {
-        minsize = s.size;
-        url = s.url;
-      }
-    });
-
-    return url;
-  }
 };
 
 exports.challengeHasProof = (status) => {
