@@ -5,10 +5,10 @@ var feed = new Instafeed({
   get: 'user',
   userId: '3120245646',
   clientId: '5d325f2ba927465d9c3933be01ee870c',
-  accessToken: '244409476.ba4c844.894a51890b7e4e4cbf46662b35125d3d',
+  accessToken: '3120245646.5d325f2.0d425d18ec6e4e459683a3493c01c9cd',
   resolution: 'standard_resolution',
   template: '<div class="instaimage" style="background-image: url(\'\{{image}}\');"><a href="https://www.instagram.com/breakout_ev/"><span class="instaCaption">\{{caption}}</span><span class="instHover"></span></div></a>',
-  limit: 15
+  limit: 20
 });
 
 
