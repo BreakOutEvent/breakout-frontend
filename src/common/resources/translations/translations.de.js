@@ -20,6 +20,19 @@ module.exports = {
       "request_reset_not_registered": "Diese Emailadresse existiert nicht",
       "request_reset_enter_email": "Bitte gib eine gültige Emailadresse ein"
     },
+    "sponsor": {
+      "title": "Als Unterstützer registrieren",
+      "isSponsorOrDonor": "Teams als Spender oder Sponsor unterstützen",
+      "firstname": "Vorname",
+      "lastname": "Nachname",
+      "street": "Straße und Hausnummer",
+      "postcode": "Postleitzahl",
+      "city": "Stadt",
+      "country": "Land",
+      "company": "Firma",
+      "logo": "Firmenlogo",
+      "url": "Link zur Firmenwebsite"
+    },
     "registration": {
       "passwords_dont_match": "Die eingegebenen Passwörter müssen übereinstimmen",
     },

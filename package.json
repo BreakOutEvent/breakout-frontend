@@ -67,7 +67,7 @@
     "react-bootstrap": "^0.30.8",
     "react-dom": "^15.4.2",
     "react-ga": "^2.2.0",
-    "react-jsonschema-form": "^0.44.0",
+    "react-jsonschema-form": "1.X.X",
     "react-responsive-modal": "1.4.1",
     "react-router-dom": "latest",
     "remarkable": "^1.7.1",
