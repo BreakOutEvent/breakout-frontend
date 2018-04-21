@@ -34,13 +34,19 @@ class ProfileController {
 
     if(req.body.teamDescription) update.description = req.body.teamDescription;
 
+    if (req.file) {
+      logger.debug('Uploading updated team picture to cloudinary');
+      const res = yield api.uploadFile(req.file);
+      update.profilePic = {
+        type: 'IMAGE',
+        url: res.secure_url
+      };
+      logger.debug('Attaching updated team picture url to backend request');
+    }
+
     logger.info('Trying to update a team', update);
 
-    const backendUser = yield api.putModel(`event/${req.user.me.participant.eventId}/team`, req.user.me.participant.teamId, req.user, update);
-
-    if (req.file) {
-      yield api.uploadPicture(req.file, backendUser.profilePic);
-    }
+    yield api.putModel(`event/${req.user.me.participant.eventId}/team`, req.user.me.participant.teamId, req.user, update);
 
     logger.info('Updated a team', update);
 

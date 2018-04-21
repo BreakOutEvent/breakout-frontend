@@ -34,5 +34,10 @@
   },
   "debug": {
     "displayStackTrace": true
+  },
+  "cloudinary": {
+    "cloud_name": "fill",
+    "api_key": "me",
+    "api_secret": "in"
   }
 }

@@ -157,7 +157,8 @@ sponsoring.create = (req, res, next) => co(function*() {
 
       for (var i = 0; i < body.challenges.length; i++) {
         if (body.challenges[i] && req.file) {
-          yield api.uploadPicture(req.file, body.challenges[i].contract);
+          // TODO: Update this / remove all this code with new sponsoring logic
+          yield api.uploadFile(req.file, body.challenges[i].contract);
         }
       }
 
@@ -170,7 +171,8 @@ sponsoring.create = (req, res, next) => co(function*() {
   if (parseFloat(body.amountPerKm) > 0) {
     sponsoring = yield api.sponsoring.create(req.user, body.event, body.team, body);
     if (req.file) {
-      yield api.uploadPicture(req.file, sponsoring.contract);
+      // TODO: Update this / remove all this code with new sponsoring logic
+      yield api.uploadFile(req.file, sponsoring.contract);
     }
   } else if (!req.body.selfChallengeDescription) {
     return sendErr(res, 'Missing amountPerKm and challanges, at least one variable has to be present');

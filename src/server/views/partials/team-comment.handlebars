@@ -1,11 +1,11 @@
 <div class="bo-comment-wrap">
     <div class="row">
         <div class="col-xs-2">
-            <a href="{{getImageByWidth 800 user.profilePic.sizes}}" data-lightbox="image-{{id}}-{{user.id}}"
+            <a href="{{user.profilePic.url}}" data-lightbox="image-{{id}}-{{user.id}}"
                data-title="{{user.firstname}} {{user.lastname}}">
                 <div class="bo-card-comment-pic bo-card-profilePic"
                     {{#if user.profilePic.sizes}}
-                     style="background-image: url({{getImageByWidth 50 user.profilePic.sizes}});"
+                     style="background-image: url({{user.profilePic.url}});"
                     {{else}}
                      style="background-image: url('../img/placeholder_profile_pic.jpg');"
                     {{/if}}></div>

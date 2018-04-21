@@ -21,31 +21,6 @@ function transformEventAddYear(e) {
   return e;
 }
 
-function uploadPicture(file, mediaObj) {
-  logger.info('Trying to upload file with id', mediaObj.id);
-  return new Promise(function (resolve, reject) {
-    request.post({
-      url: `${config.media_url}`,
-      headers: {'X-UPLOAD-TOKEN': mediaObj.uploadToken},
-      formData: {
-        id: mediaObj.id,
-        file: {
-          value: file.buffer,
-          options: {
-            filename: file.originalname,
-            encoding: file.encoding,
-            'Content-Type': file.mimetype,
-            knownLength: file.size
-          }
-        }
-      }
-    }, function (err, httpRes, body) {
-      if (err) reject(err);
-      else resolve(body);
-    });
-  });
-}
-
 class TeamController {
 
   static* showTeamOverview(req, res) {
@@ -94,11 +69,19 @@ class TeamController {
 
   static* createPost(req, res, next) {
 
-    let mediaType = req.body.mediaType === '' ? null : [req.body.mediaType];
+    let mediaType = null;
+    let url = null;
+
+    if (req.body.mediaType !== '' && req.file) {
+      mediaType = req.body.mediaType;
+      let resp = yield api.uploadFile(req.file, mediaType);
+      url = resp.secure_url;
+    }
 
     let post = yield api.posting.createPosting(
       req.user,
       req.body.postText,
+      url,
       mediaType,
       req.body.latitude,
       req.body.longitude);
@@ -110,14 +93,6 @@ class TeamController {
       }
     } catch (err) {
       logger.error('Failed to add challenge to posting' + err);
-    }
-
-    if (req.body.mediaType !== '' && req.file) {
-      try {
-        yield post.media.map(m => uploadPicture(req.file, m));
-      } catch (err) {
-        logger.error('error uploading file : ' + err);
-      }
     }
 
     res.sendStatus(200);
