@@ -4,11 +4,11 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-4 col-md-3">
-            <a href="{{getImageByWidth 800 team.profilePic.sizes}}" data-lightbox="image-{{id}}-{{user.id}}"
+            <a href="{{team.profilePic.url}}" data-lightbox="image-{{id}}-{{user.id}}"
                data-title="{{name}}">
                 <div class="bo-team-picture" style="
-                    {{#if team.profilePic.sizes}}
-                    background-image:url({{getImageByWidth 200 team.profilePic.sizes}})
+                    {{#if team.profilePic}}
+                    background-image:url({{team.profilePic.url}})
                     {{else}}
                     background-image:url('../img/placeholder_profile_pic.jpg')
                     {{/if}}"></div>
@@ -48,8 +48,8 @@
                                     <div class="col-xs-3">
                                         <div class="bo-card-profilePic"
                                              style="background-image: url(
-                                                 {{#if user.profilePic.sizes.0.url}}
-                                                     {{user.profilePic.sizes.0.url}}
+                                                 {{#if user.profilePic.url}}
+                                                     {{user.profilePic.url}}
                                                  {{else}}
                                                  '../img/placeholder_profile_pic.jpg'
                                                  {{/if}});"></div>
