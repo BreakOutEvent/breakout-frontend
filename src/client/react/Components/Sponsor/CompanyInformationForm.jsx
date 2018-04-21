@@ -1,6 +1,6 @@
 import React from 'react';
 import Form from '../Form.jsx';
-import Button from '../Button';
+import Button from '../Button.jsx';
 import {Card, CardText} from 'material-ui/Card';
 
 export default class CompanyInformationForm extends React.Component {
@@ -116,6 +116,10 @@ export default class CompanyInformationForm extends React.Component {
               onSubmit={this.props.onSubmit}>
           <Button className="primary" onClick={this.props.next}>Next</Button>
           <div></div>
+          { this.props.errorMessage &&
+          <div className="alert alert-danger">
+            {this.props.errorMessage}
+          </div>}
           <div></div>
           {/*{this.props.children}*/}
         </Form>

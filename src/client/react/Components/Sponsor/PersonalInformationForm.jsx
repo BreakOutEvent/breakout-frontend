@@ -1,6 +1,6 @@
 import React from 'react';
 import Form from '../Form.jsx';
-import Button from '../Button';
+import Button from '../Button.jsx';
 
 export default class PersonalInformationForm extends React.Component {
 
@@ -29,6 +29,10 @@ export default class PersonalInformationForm extends React.Component {
           type: 'string',
           title: i18next.t('client.sponsor.street')
         },
+        housenumber: {
+          type: 'string',
+          title: i18next.t('client.sponsor.housenumber')
+        },
         postcode: {
           type: 'string',
           title: i18next.t('client.sponsor.postcode')
@@ -43,7 +47,7 @@ export default class PersonalInformationForm extends React.Component {
         }
       },
 
-      required: ['firstname', 'lastname', 'street', 'postcode', 'city', 'country'],
+      required: ['firstname', 'lastname', 'street', 'housenumber', 'postcode', 'city', 'country'],
     };
 
     const uiSchema = {};

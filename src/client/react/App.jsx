@@ -9,6 +9,7 @@ import Participation from './Components/Participate/Participation.jsx';
 import SelectRole from './Components/SelectRole/SelectRole.jsx';
 import ResetPassword from './Components/ResetPassword/ResetPassword.jsx';
 import CreateOrJoinTeam from './Components/CreateOrJoinTeam.jsx';
+import SponsorRegistration from './Components/Sponsor/Sponsor.jsx';
 import {VisitorSuccess, JoinTeamSuccess, CreateTeamSuccess} from './Components/Success.jsx';
 import de from '../../common/resources/translations/translations.de';
 import en from '../../common/resources/translations/translations.en';
@@ -105,8 +106,10 @@ class App extends React.Component {
                onHide={this.onHide.bind(this)}
                modalClassName={'modal-size-' + size + ' react-modal'}>
           <OnShowHack></OnShowHack>
-          <Comp {...props} api={this.state.api} i18next={this.state.i18next}
+          <MuiThemeProvider>
+            <Comp {...props} api={this.state.api} i18next={this.state.i18next}
                 isLoggedIn={!!window.boUserData}/>
+          </MuiThemeProvider>
         </Modal>
       );
     };
@@ -197,6 +200,9 @@ class App extends React.Component {
 
             <PrivateRoute exact path={routes.createOrJoinTeam}
                           component={this.showModalFor(CreateOrJoinTeam, 'm')}/>
+
+            <PrivateRoute exact path={routes.sponsorRegistration}
+                          component={this.showModalFor(SponsorRegistration, 'm')}/>
 
             <PrivateRoute exact path={routes.visitorSuccess}
                           component={this.showModalFor(VisitorSuccess, 's')}/>

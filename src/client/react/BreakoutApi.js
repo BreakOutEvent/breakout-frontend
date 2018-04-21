@@ -138,6 +138,35 @@ class BreakoutApi {
   }
 
   /**
+   * Let the user become a sponsor by submitting the needed data
+   *
+   * The user needs to be authenticated (via login() or setAccessToken())
+   *
+   * @param userId The userId of the user to become a sponsor
+   * @param userData The data of the user to become a sponsor. Can contain:
+   *
+    *   firstname: String,
+   *    lastname: String,
+   *    sponsor: {
+   *       company: String,
+   *       url: HttpString,
+   *       hidden: Boolean,
+   *       address: {
+   *         street: String,
+   *         housenumber: String,
+   *         city: String,
+   *         zipcode: String,
+   *         country: String
+   *       }
+   *     }
+   *
+   * @return {*|AxiosPromise} A promise which contains the api response
+   */
+  becomeSponsor(userId, userData) {
+    return this.instance.put(`/user/${userId}/`, userData).then(resp => resp.data);
+  }
+
+  /**
    * Get all events for breakout
    *
    * @return {*|AxiosPromise} An array of events

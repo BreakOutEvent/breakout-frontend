@@ -174,65 +174,7 @@ registration.joinTeamAPI = (req, res, next) => co(function*() {
   sendErr(res, err.message, err);
 });
 
-/**
- * POST route for unimplemented createSponsor endpoint.
- * @param req
- * @param res
- * @param next
- */
-registration.createSponsor = (req, res, next) => co(function*() {
-  logger.info(
-    'Trying to create sponsor for event',
-    req.body.event,
-    'with name',
-    req.body.firstname,
-    req.body.lastname
-  );
 
-  let updateBody = {
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
-    gender: req.body.gender,
-    sponsor: {
-      url: req.body.url,
-      hidden: false,
-      address: {
-        street: req.body.street,
-        housenumber: req.body.housenumber,
-        city: req.body.city,
-        zipcode: req.body.zipcode,
-        country: req.body.country
-      }
-    }
-  };
-
-  if (req.body.isHidden && req.body.isHidden === 'on') updateBody.sponsor.hidden = true;
-  if (req.body.company) updateBody.sponsor.company = req.body.company;
-
-  const sponsor = yield api.putModel('user', req.user.me.id, req.user, updateBody);
-
-  if (req.file) {
-    yield api.uploadPicture(req.file, sponsor.profilePic);
-  }
-
-  logger.info(
-    'Created Sponsor',
-    req.body.firstname,
-    ' ',
-    req.body.lastname,
-    'for event',
-    req.body.event);
-
-  if (!sponsor) return sendErr(res, 'Sponsor creation failed!');
-
-  yield session.refreshSession(req);
-
-  return res.send({
-    nextURL: URLS.SPONSOR_SUCCESS
-  });
-}).catch(err => {
-  sendErr(res, err.message, err);
-});
 
 /**
  * POST route for /team-create

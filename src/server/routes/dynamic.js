@@ -53,7 +53,8 @@ router.get('/closed', funnelTemplate('closed'));
 
 router.get('/sponsor-closed', funnelTemplate('sponsor-closed'));
 
-router.get('/sponsor', session.isUser, SponsoringController.sponsoringIsOpenForAnyEvent, redirectIfSponsor, funnelTemplate('sponsor'));
+router.get('/sponsor', session.isUser, SponsoringController.sponsoringIsOpenForAnyEvent, redirectIfSponsor,
+  StaticController.renderLandingpage); // client-side routing
 
 router.get('/login', StaticController.renderLandingpage); // client-side routing
 
@@ -93,7 +94,7 @@ router.post('/invite', session.hasTeam, registration.inviteUser);
 
 router.post('/team-invite', session.isParticipant, registration.joinTeamAPI);
 
-router.post('/sponsor', session.isUser, upload.single('profilePic'), registration.createSponsor);
+// router.post('/sponsor', session.isUser, upload.single('profilePic'), registration.createSponsor);
 
 router.post('/request-pw-reset', registration.requestPwReset);
 

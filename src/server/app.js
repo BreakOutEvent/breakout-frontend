@@ -213,6 +213,7 @@ function server(callback) {
   }
 
   if (process.env.NODE_ENVIRONMENT === 'prod' && process.env.SHOW_ERROR !== 'true') {
+    // TODO: enable in production
     // app.enable('view cache');
   }
 
