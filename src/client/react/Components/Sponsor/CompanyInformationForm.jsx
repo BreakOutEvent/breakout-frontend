@@ -8,7 +8,7 @@ export default class CompanyInformationForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      formData: {}
+      formData: this.props.formData || {}
     };
   }
 
@@ -112,9 +112,8 @@ export default class CompanyInformationForm extends React.Component {
               uiSchema={uiSchema}
               showErrorList={false}
               formData={this.state.formData}
-              onChange={(data) => this.setState({formData: data.formData})}
               onSubmit={this.props.onSubmit}>
-          <Button className="primary" onClick={this.props.next}>Next</Button>
+          <Button className="primary" onClick={this.props.next}>{i18next.t('client.sponsor.continue')}</Button>
           <div></div>
           { this.props.errorMessage &&
           <div className="alert alert-danger">

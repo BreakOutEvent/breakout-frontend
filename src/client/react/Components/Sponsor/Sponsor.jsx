@@ -14,7 +14,7 @@ export default class Sponsor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      formData: null,
+      personalData: null,
       activeStep: 0,
       isSubmitting: false
     };
@@ -22,7 +22,13 @@ export default class Sponsor extends React.Component {
 
   componentDidMount() {
     this.props.api.getMe()
-      .then(me => this.me = me)
+      .then(me => { this.setState({
+        me,
+        personalData: {
+          firstname: me.firstname,
+          lastname: me.lastname
+        }
+      });})
       .catch(this.onGetMeError.bind(this));
   }
 
@@ -54,12 +60,12 @@ export default class Sponsor extends React.Component {
     try {
       let personalData = this.state.personalData;
       let companyData = data.formData;
-      console.log(personalData, companyData);
-
       let sponsorData = {
         firstname: personalData.firstname,
         lastname: personalData.lastname,
+        preferredLanguage: window.boUserLang,
         sponsor: {
+          supporterType: companyData.supporterType,
           company: companyData.company,
           url: companyData.url,
           hidden: false,
@@ -73,29 +79,23 @@ export default class Sponsor extends React.Component {
         }
       };
 
-      const sponsor = await this.props.api.becomeSponsor(this.me.id, sponsorData);
-
+      // upload company logo to Cloudinary
       if (companyData.logo) {
-        // TODO: upload company logo
+        const signedParams = await this.props.api.signCloudinaryParams();
+
+        const upload = await this.props.api.uploadImage(companyData.logo, signedParams);
+        sponsorData.sponsor.logo = {
+          type: 'IMAGE',
+          url: upload.secure_url
+        };
       }
 
+      const sponsor = await this.props.api.updateUserData(this.state.me.id, sponsorData);
       if (!sponsor) throw new Error('Sponsor creation failed!');
-
-      await session.refreshSession(req);
     } catch (error) {
       this.onRegistrationError(error);
       return;
     }
-
-    try {
-      await this.props.api.updateUserData(account.id, {
-        preferredLanguage: window.boUserLang
-      });
-    } catch (err) {
-      console.warn('Failed to set preferredLanguage: ' + err.message);
-    }
-    // TODO: forward user
-    return
   }
 
   onRegistrationError(error) {
@@ -109,37 +109,43 @@ export default class Sponsor extends React.Component {
   }
 
   render() {
-
+    const t = content => this.props.i18next.t(`client.sponsor.${content}`)
     return (
       <div>
-        <Stepper activeStep={this.state.activeStep} orientation='vertical'>
-          <Step>
-            <StepLabel>Persönliche Daten eingeben</StepLabel>
-            <StepContent>
-              <PersonalInformationForm
-                i18next={this.props.i18next}
-                onSubmit={(data) => {
-                  this.setState({personalData: data.formData, activeStep: this.state.activeStep + 1},);
-                }}/>
-            </StepContent>
-          </Step>
-          <Step>
-            <StepLabel>Spender- oder Sponsordaten eingeben</StepLabel>
-            <StepContent>
-              <CompanyInformationForm
-                i18next={this.props.i18next}
-                isSubmitting={this.state.isSubmitting}
-                onSubmit={this.onSubmit.bind(this)}
-                errorMessage={this.state.registrationError}/>
-            </StepContent>
-          </Step>
-          <Step>
-            <StepLabel>Fertig</StepLabel>
-            <StepContent>
-              Vielen Dank, dass sie sich als Unterstützer registriert haben. Unter XYZ können Sie nun abcd machen
-            </StepContent>
-          </Step>
-        </Stepper>
+        <h1>{t('title')}</h1>
+        {(!this.state.personalData
+          ? <div className={'loading'}>{t('isLoadingMe')}...</div>
+          : <Stepper activeStep={this.state.activeStep} orientation='vertical'>
+            <Step>
+              <StepLabel>{t('personalData')}</StepLabel>
+              <StepContent>
+                <PersonalInformationForm
+                  i18next={this.props.i18next}
+                  formData={this.state.personalData}
+                  onSubmit={data => { this.setState({
+                    personalData: data.formData,
+                    activeStep: this.state.activeStep + 1
+                  });}}/>
+              </StepContent>
+            </Step>
+            <Step>
+              <StepLabel>Spender- oder Sponsordaten eingeben</StepLabel>
+              <StepContent>
+                <CompanyInformationForm
+                  i18next={this.props.i18next}
+                  isSubmitting={this.state.isSubmitting}
+                  onSubmit={this.onSubmit.bind(this)}
+                  onBack={() => {this.setState({activeStep: this.state.activeStep - 1})}}
+                  errorMessage={this.state.registrationError}/>
+              </StepContent>
+            </Step>
+            <Step>
+              <StepLabel>Fertig</StepLabel>
+              <StepContent>
+                Vielen Dank, dass sie sich als Unterstützer registriert haben. Unter <a href="/settings/sponsoring">Sponsorings</a> können Sie Sponsorings eintragen.
+              </StepContent>
+            </Step>
+          </Stepper>)}
       </div>
     );
   }

@@ -22,6 +22,9 @@ module.exports = {
     },
     "sponsor": {
       "title": "Als Unterstützer registrieren",
+      "isLoadingMe": "Daten werden geladen",
+      "personalData": "Persönliche Daten",
+      "continue": "Weiter",
       "isSponsorOrDonor": "Teams als Spender oder Sponsor unterstützen",
       "firstname": "Vorname",
       "lastname": "Nachname",

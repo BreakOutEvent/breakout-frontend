@@ -6,10 +6,12 @@ const Promise = require('bluebird');
 
 class BreakoutApi {
 
-  constructor(url, clientId, clientSecret, debug) {
+  constructor(url, clientId, clientSecret, cloudinaryCloud = '', cloudinaryApiKey = '', debug=false) {
     this.url = url;
     this.clientId = clientId;
     this.clientSecret = clientSecret;
+    this.cloudinaryCloud = cloudinaryCloud;
+    this.cloudinaryApiKey = cloudinaryApiKey;
     this.instance = axios.create({
       baseURL: `${url}`
     });
@@ -138,35 +140,6 @@ class BreakoutApi {
   }
 
   /**
-   * Let the user become a sponsor by submitting the needed data
-   *
-   * The user needs to be authenticated (via login() or setAccessToken())
-   *
-   * @param userId The userId of the user to become a sponsor
-   * @param userData The data of the user to become a sponsor. Can contain:
-   *
-    *   firstname: String,
-   *    lastname: String,
-   *    sponsor: {
-   *       company: String,
-   *       url: HttpString,
-   *       hidden: Boolean,
-   *       address: {
-   *         street: String,
-   *         housenumber: String,
-   *         city: String,
-   *         zipcode: String,
-   *         country: String
-   *       }
-   *     }
-   *
-   * @return {*|AxiosPromise} A promise which contains the api response
-   */
-  becomeSponsor(userId, userData) {
-    return this.instance.put(`/user/${userId}/`, userData).then(resp => resp.data);
-  }
-
-  /**
    * Get all events for breakout
    *
    * @return {*|AxiosPromise} An array of events
@@ -286,6 +259,41 @@ class BreakoutApi {
   fetchInvoicesForEvent(eventId) {
     return this.instance.get(`sponsoringinvoice/${eventId}/`)
       .then(resp => resp.data);
+  }
+
+  signCloudinaryParams(params = {}) {
+
+    const data = params;
+
+    return this.instance.post('/media/signCloudinaryParams/', data).then(resp => resp.data);
+  }
+
+  uploadImage(image, signedParams, onProgress = () => {}) {
+    if (global.FormData) {
+      const form = new global.FormData();
+
+      form.append("api_key", this.cloudinaryApiKey);
+      form.append("signature", signedParams.signature);
+      form.append("timestamp", signedParams.timestamp);
+      form.append("file", image.replace(/name=.*;/g, ''));
+
+      // see https://github.com/axios/axios/issues/382
+      const options = {
+        transformRequest: [(data, headers) => {
+          delete headers.common.Authorization;
+          return data
+        }],
+        onUploadProgress: onProgress
+      };
+
+      return axios.post(`https://api.cloudinary.com/v1_1/${this.cloudinaryCloud}/image/upload`, form, options)
+        .then(resp => {
+          console.log(resp);
+          return resp.data
+        });
+    } else {
+      throw new Error("Operation only supported in browser");
+    }
   }
 }
 

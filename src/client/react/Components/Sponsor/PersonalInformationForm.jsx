@@ -51,16 +51,13 @@ export default class PersonalInformationForm extends React.Component {
     };
 
     const uiSchema = {};
-
     return (
       <Form schema={schema}
             uiSchema={uiSchema}
             showErrorList={true}
-            formData={this.state.formData}
-            onChange={(data) => this.setState({formData: data.formData})}
+            formData={this.props.formData}
             onSubmit={this.props.onSubmit}>
-        <Button className="primary">Next</Button>
-        <div></div>
+        <Button className="primary">{i18next.t('client.sponsor.continue')}</Button>
         <div></div>
         {/*{this.props.children}*/}
       </Form>

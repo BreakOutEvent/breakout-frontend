@@ -28,6 +28,7 @@ import routes from './Components/routes';
 import AdminInvoicePanel from './Components/Admin/AdminInvoicePanel.jsx';
 import {MuiThemeProvider} from 'material-ui';
 
+
 class App extends React.Component {
 
   constructor(props) {
@@ -59,7 +60,8 @@ class App extends React.Component {
     const url = window.boClientConfig.baseUrl;
     const clientId = window.boClientConfig.clientId;
     const clientSecret = window.boClientConfig.clientSecret;
-    const api = new BreakoutApi(url, clientId, clientSecret);
+    const cloudinaryConfig = window.boCloudinaryConfig;
+    const api = new BreakoutApi(url, clientId, clientSecret, cloudinaryConfig.cloud_name, cloudinaryConfig.api_key);
 
     this.requestOpenRegistration(api);
 
