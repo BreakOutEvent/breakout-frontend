@@ -24,8 +24,6 @@ module.exports = {
       "title": "Als Unterstützer registrieren",
       "isLoadingMe": "Daten werden geladen",
       "personalData": "Persönliche Daten",
-      "continue": "Weiter",
-      "isSponsorOrDonor": "Teams als Spender oder Sponsor unterstützen",
       "firstname": "Vorname",
       "lastname": "Nachname",
       "street": "Straße",
@@ -33,9 +31,37 @@ module.exports = {
       "postcode": "Postleitzahl",
       "city": "Stadt",
       "country": "Land",
+      "continue": "Weiter",
+      "supporterData": {
+        "title": "Spender-/Sponsordaten",
+        "selectionText": "Im folgenden können Sie auswählen, in welcher Form Sie ein oder mehrere Teams und damit" +
+        "unseren Spendenpartner OneDollarGlasses e. V. unterstützen wollen.",
+        "selectionLabel": "Art der Unterstützung",
+        "donor": {
+          "title": "Spender",
+          "description": "Als Spender wandern 100% des gespendeten Geldes an den EinDollarGlasses e. V. und es wird Ihnen " +
+          "vom BreakOut e. V. eine Spendenquittung oder ein vereinfachter Spendennachweis ausgestellt."
+        },
+        "active": {
+          "title": "Passiver Sponsor",
+          "description": "Als passiver Sponsor können Sie Ihren Firmennamen sowie ein Logo auf der Website platzieren. " +
+          "Sie bekommen vom BreakOut e. V. eine Rechnung ausgestellt, aber es wird keine Umsatzsteuer fällig. 100% des " +
+          "Betrags gehen an den EinDollarGlasses e. V."
+        },
+        "passive": {
+          "title": "Aktiver Sponsor",
+          "description": "Als aktiver Sponsor können Sie Ihren Firmennamen, einen Link zur Firmenwebsite sowie optional " +
+          "ein Logo hochgeladen werden. Sie bekommen vom BreakOut e. V. dann eine Rechnung ausgestellt, auf der eine " +
+          "Umsatzsteuer von 19% ausgewiesen wird. Der bezahlte Betrag, abzüglich der Umsatzsteuer, geht vollständig an " +
+          "den EinDollarGlasses e. V."
+        },
+      },
       "company": "Firma",
       "logo": "Firmenlogo",
-      "url": "Link zur Firmenwebsite"
+      "url": "Link zur Firmenwebsite",
+      "finishTitle": "Fertig",
+      "finishContent": "Vielen Dank, dass sie sich als Unterstützer registriert haben. Hier " +
+      "können Sie Sponsorings eintragen: "
     },
     "registration": {
       "passwords_dont_match": "Die eingegebenen Passwörter müssen übereinstimmen",

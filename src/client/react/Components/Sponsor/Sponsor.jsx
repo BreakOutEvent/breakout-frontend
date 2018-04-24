@@ -129,8 +129,9 @@ export default class Sponsor extends React.Component {
               </StepContent>
             </Step>
             <Step>
-              <StepLabel>Spender- oder Sponsordaten eingeben</StepLabel>
+              <StepLabel>{t('supporterData.title')}</StepLabel>
               <StepContent>
+
                 <CompanyInformationForm
                   i18next={this.props.i18next}
                   isSubmitting={this.state.isSubmitting}
@@ -140,9 +141,9 @@ export default class Sponsor extends React.Component {
               </StepContent>
             </Step>
             <Step>
-              <StepLabel>Fertig</StepLabel>
+              <StepLabel>{t('finishTitle')}</StepLabel>
               <StepContent>
-                Vielen Dank, dass sie sich als Unterstützer registriert haben. Unter <a href="/settings/sponsoring">Sponsorings</a> können Sie Sponsorings eintragen.
+                {t('finishContent')} <a href="/settings/sponsoring">Sponsorings</a>
               </StepContent>
             </Step>
           </Stepper>)}

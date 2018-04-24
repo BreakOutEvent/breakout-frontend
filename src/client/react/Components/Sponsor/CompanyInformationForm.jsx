@@ -3,6 +3,10 @@ import Form from '../Form.jsx';
 import Button from '../Button.jsx';
 import {Card, CardText} from 'material-ui/Card';
 
+const DONOR = 'DONOR'
+const PASSIVE = 'PASSIVE'
+const ACTIVE = 'ACTIVE'
+
 export default class CompanyInformationForm extends React.Component {
 
   constructor(props) {
@@ -13,16 +17,18 @@ export default class CompanyInformationForm extends React.Component {
   }
 
   render() {
-    const i18next = this.props.i18next;
-
+    const t = content => this.props.i18next.t(`client.sponsor.${content}`)
     const schema = {
       type: 'object',
       properties: {
         supporterType: {
-          title: 'Art der Unterstützung auswählen',
+          title: t('supporterData.selectionLabel'),
           type: 'string',
-          enum: ['donor', 'passive', 'active'],
-          enumNames: ['Spender', 'passiver Sponsor', 'aktiver Sponsor'],
+          enum: [DONOR, PASSIVE, ACTIVE],
+          enumNames: [
+            t('supporterData.donor.title'),
+            t('supporterData.passive.title'),
+            t('supporterData.active.title')],
         }
       },
       required: ['supporterType'],
@@ -32,23 +38,23 @@ export default class CompanyInformationForm extends React.Component {
             {
               properties: {
                 supporterType: {
-                  enum: ['donor']
+                  enum: [DONOR]
                 }
               }
             },
             {
               properties: {
                 supporterType: {
-                  enum: ['passive']
+                  enum: [PASSIVE]
                 },
                 company: {
                   type: 'string',
-                  title: i18next.t('client.sponsor.company')
+                  title: t('company')
                 },
                 logo: {
                   type: 'string',
                   format: 'data-url',
-                  title: i18next.t('client.sponsor.logo')
+                  title: t('logo')
                 },
               },
               required: ['company', 'logo']
@@ -56,21 +62,21 @@ export default class CompanyInformationForm extends React.Component {
             {
               properties: {
                 supporterType: {
-                  enum: ['active']
+                  enum: [ACTIVE]
                 },
                 company: {
                   type: 'string',
-                  title: i18next.t('client.sponsor.company')
+                  title: t('company')
                 },
                 url: {
                   type: 'string',
                   format: 'uri',
-                  title: i18next.t('client.sponsor.url')
+                  title: t('url')
                 },
                 logo: {
                   type: 'string',
                   format: 'data-url',
-                  title: i18next.t('client.sponsor.logo')
+                  title: t('logo')
                 }
               },
               required: ['company', 'url']
@@ -88,32 +94,19 @@ export default class CompanyInformationForm extends React.Component {
 
     return (
       <div>
-        Im folgenden können Sie auswählen, in welcher Form Sie ein oder mehrere Teams und damit den
-        unseren Spendenpartner OneDollarGlasses e. V. unterstützen wollen
-        <br/>
-        <h5>Spender</h5>
-        Als Spender wandern 100% des gespendeten Geldes an den EinDollarGlasses e. V. und es wird ihnen vom
-        BreakOut e. V. eine Spendenquittung oder ein vereinfachter Spendennachweis ausgestellt.
-        <br/>
-        <h5>Passiver Sponsor</h5>
-        Als passiver Sponsor können Sie ihren Firmennamen so wie ein Logo auf der Website platzieren. Sie bekommen
-        vom BreakOut e. V. eine Rechnung ausgestellt, aber es wird keine Umsatzsteuer fällig. 100% des Betrags gehen
-        an den EinDollarGlasses e. V.
-        <br/>
-        <h5>Aktiver Sponsor</h5>
-        Als aktiver Sponsor können Sie ihren Firmennamen, einen Link zur Firmenwebsite so wie optional ein Logo
-        hochgeladen werden. Sie bekommen vom BreakOut e. V. dann eine Rechnung ausgestellt, auf der eine Umsatzsteuer
-        von
-        19% ausgewiesen wird. Der bezahlte Betrag, abzüglich der Umsatzsteuer, geht vollständig an den EinDollarGlasses
-        e. V.
-        <br/>
-        <br/>
+        <p>{t('supporterData.selectionText')}</p>
+        <b>{t('supporterData.donor.title')}</b>
+        <p>{t('supporterData.donor.description')}</p>
+        <b>{t('supporterData.passive.title')}</b>
+        <p>{t('supporterData.passive.description')}</p>
+        <b>{t('supporterData.active.title')}</b>
+        <p>{t('supporterData.active.description')}</p>
         <Form schema={schema}
               uiSchema={uiSchema}
               showErrorList={false}
               formData={this.state.formData}
               onSubmit={this.props.onSubmit}>
-          <Button className="primary" onClick={this.props.next}>{i18next.t('client.sponsor.continue')}</Button>
+          <Button className="primary" onClick={this.props.next}>{t('continue')}</Button>
           <div></div>
           { this.props.errorMessage &&
           <div className="alert alert-danger">
