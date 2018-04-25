@@ -8,7 +8,8 @@ const routes = {
   createOrJoinTeam: '/create-join-team',
   visitorSuccess: '/visitor-success',
   createTeamSuccess: '/create-team-success',
-  sponsorRegistration: '/sponsor'
+  sponsorRegistration: '/sponsor',
+  profileSettings: '/settings/profile'
 };
 
 export default routes;

@@ -32,6 +32,7 @@ module.exports = {
       "city": "Stadt",
       "country": "Land",
       "continue": "Weiter",
+      "save": "Speichern",
       "supporterData": {
         "title": "Spender-/Sponsordaten",
         "selectionText": "Im folgenden können Sie auswählen, in welcher Form Sie ein oder mehrere Teams und damit" +
@@ -306,10 +307,10 @@ module.exports = {
     "CTA": "NEUES TEAM ERSTELLEN"
   },
   "PROFILE": {
-    "NAVIGATION_PROFILE": "Profil Einstellungen",
-    "NAVIGATION_PARTICIPANT": "Teilnehmer Einstellungen",
-    "NAVIGATION_TEAM": "Team Einstellungen",
-    "NAVIGATION_SPONSOR": "Sponsor Einstellungen",
+    "NAVIGATION_PROFILE": "Profildaten",
+    "NAVIGATION_PARTICIPANT": "Teilnehmerdaten",
+    "NAVIGATION_TEAM": "Teamdaten",
+    "NAVIGATION_SPONSOR": "Sponsordaten",
     "LABEL_FIRSTNAME": "Vorname",
     "LABEL_NAME": "Nachname",
     "LABEL_EMAIL": "E-Mail",

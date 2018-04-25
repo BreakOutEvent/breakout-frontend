@@ -12,41 +12,39 @@ export default class PersonalInformationForm extends React.Component {
   }
 
   render() {
-    const i18next = this.props.i18next;
-
+    const t = content => this.props.i18next.t(`client.sponsor.${content}`)
     const schema = {
       type: 'object',
       properties: {
         firstname: {
           type: 'string',
-          title: i18next.t('client.sponsor.firstname')
+          title: t('firstname')
         },
         lastname: {
           type: 'string',
-          title: i18next.t('client.sponsor.lastname')
+          title: t('lastname')
         },
         street: {
           type: 'string',
-          title: i18next.t('client.sponsor.street')
+          title: t('street')
         },
         housenumber: {
           type: 'string',
-          title: i18next.t('client.sponsor.housenumber')
+          title: t('housenumber')
         },
         postcode: {
           type: 'string',
-          title: i18next.t('client.sponsor.postcode')
+          title: t('postcode')
         },
         city: {
           type: 'string',
-          title: i18next.t('client.sponsor.city')
+          title: t('city')
         },
         country: {
           type: 'string',
-          title: i18next.t('client.sponsor.country')
+          title: t('country')
         }
       },
-
       required: ['firstname', 'lastname', 'street', 'housenumber', 'postcode', 'city', 'country'],
     };
 
@@ -57,7 +55,7 @@ export default class PersonalInformationForm extends React.Component {
             showErrorList={true}
             formData={this.props.formData}
             onSubmit={this.props.onSubmit}>
-        <Button className="primary">{i18next.t('client.sponsor.continue')}</Button>
+        <Button className="primary">{t('client')}</Button>
         <div></div>
         {/*{this.props.children}*/}
       </Form>

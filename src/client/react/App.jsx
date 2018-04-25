@@ -9,7 +9,8 @@ import Participation from './Components/Participate/Participation.jsx';
 import SelectRole from './Components/SelectRole/SelectRole.jsx';
 import ResetPassword from './Components/ResetPassword/ResetPassword.jsx';
 import CreateOrJoinTeam from './Components/CreateOrJoinTeam.jsx';
-import Sponsor from './Components/Sponsor/Sponsor.jsx';
+import SponsorRegistration from './Components/Sponsor/Sponsor.jsx';
+import SponsorSettings from './Components/Sponsor/Settings.jsx'
 import {VisitorSuccess, JoinTeamSuccess, CreateTeamSuccess} from './Components/Success.jsx';
 import de from '../../common/resources/translations/translations.de';
 import en from '../../common/resources/translations/translations.en';
@@ -28,6 +29,19 @@ import routes from './Components/routes';
 import AdminInvoicePanel from './Components/Admin/AdminInvoicePanel.jsx';
 import {MuiThemeProvider} from 'material-ui';
 
+const OnShowHack = (props) => {
+  if (props.overflowHidden) {
+    document.body.className += ' ReactModal__Body--open';
+  }
+  try {
+    ReactGA.set({page: window.location.pathname});
+    ReactGA.pageview(window.location.pathname);
+  } catch (err) {
+    console.error('Error logging react view', err);
+  }
+
+  return null;
+};
 
 class App extends React.Component {
 
@@ -89,32 +103,27 @@ class App extends React.Component {
   }
 
   showModalFor(Comp, size) {
+    return (props) =>
+      <Modal show={true}
+             onHide={this.onHide.bind(this)}
+             modalClassName={'modal-size-' + size + ' react-modal'}>
+        <OnShowHack overflowHidden={true}></OnShowHack>
+        <MuiThemeProvider>
+          <Comp {...props} api={this.state.api} i18next={this.state.i18next}
+              isLoggedIn={!!window.boUserData}/>
+        </MuiThemeProvider>
+      </Modal>
+  }
 
-    const OnShowHack = () => {
-      document.body.className += ' ReactModal__Body--open';
-      try {
-        ReactGA.set({page: window.location.pathname});
-        ReactGA.pageview(window.location.pathname);
-      } catch (err) {
-        console.error('Error logging react view', err);
-      }
-
-      return null;
-    };
-
-    return (props) => {
-      return (
-        <Modal show={true}
-               onHide={this.onHide.bind(this)}
-               modalClassName={'modal-size-' + size + ' react-modal'}>
-          <OnShowHack></OnShowHack>
-          <MuiThemeProvider>
-            <Comp {...props} api={this.state.api} i18next={this.state.i18next}
+  showComponent(Comp) {
+    return (props) =>
+      <div>
+        <OnShowHack ></OnShowHack>
+        <MuiThemeProvider>
+          <Comp {...props} api={this.state.api} i18next={this.state.i18next}
                 isLoggedIn={!!window.boUserData}/>
-          </MuiThemeProvider>
-        </Modal>
-      );
-    };
+        </MuiThemeProvider>
+      </div>
   }
 
   render() {
@@ -182,7 +191,7 @@ class App extends React.Component {
                         component={this.showModalFor(Participation, 'm')}/>
 
          <RedirectRegistrationLock exact path={routes.sponsorRegistration}
-                         component={this.showModalFor(Sponsor, 'm')}/>
+                         component={this.showModalFor(SponsorRegistration, 'm')}/>
 
           <RedirectRegistrationLock exact path={routes.createOrJoinTeam}
                         component={this.showModalFor(CreateOrJoinTeam, 'm')}/>
@@ -221,7 +230,7 @@ class App extends React.Component {
                           component={this.showModalFor(CreateOrJoinTeam, 'm')}/>
 
             <RedirectSponsor exact path={routes.sponsorRegistration}
-                          component={this.showModalFor(Sponsor, 'm')}/>
+                          component={this.showModalFor(SponsorRegistration, 'm')}/>
 
             <PrivateRoute exact path={routes.visitorSuccess}
                           component={this.showModalFor(VisitorSuccess, 's')}/>
@@ -231,6 +240,9 @@ class App extends React.Component {
 
             <PrivateRoute exact path={routes.createTeamSuccess}
                           component={this.showModalFor(CreateTeamSuccess, 's')}/>
+
+            <PrivateRoute exact path={routes.profileSettings}
+                          component={this.showComponent(SponsorSettings)}/>
 
           </div>
         </Router>

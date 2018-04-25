@@ -131,7 +131,6 @@ export default class Sponsor extends React.Component {
             <Step>
               <StepLabel>{t('supporterData.title')}</StepLabel>
               <StepContent>
-
                 <CompanyInformationForm
                   i18next={this.props.i18next}
                   isSubmitting={this.state.isSubmitting}
