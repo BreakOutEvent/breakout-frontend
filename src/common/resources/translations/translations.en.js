@@ -46,13 +46,13 @@ module.exports = {
           "description": "As donor 100% of your donation will be transferred to OneDollarGlasses e. V. and you " +
           "will get a receipt or a simplified proof of donation from BreakOut e.V."
         },
-        "active": {
+        "passive": {
           "title": "Passive sponsor",
           "description": "As passive sponsor you are allowed to place your company's name and logo on our website. " +
           "You will get an invoice from BreakOut e.V. but you don't have to pay turnover tax. Thus 100% of your " +
           "donation will be transferred to OneDollarGlasses e.V."
         },
-        "passive": {
+        "active": {
           "title": "Active sponsor",
           "description": "As active sponsor you are allowed to place your company's name, website url and optionally " +
           "logo on our website. You will get an invoice from BreakOut e.V. including 19% of turnover tax. The " +

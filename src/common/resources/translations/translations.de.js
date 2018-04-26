@@ -43,13 +43,13 @@ module.exports = {
           "description": "Als Spender wandern 100% des gespendeten Geldes an den EinDollarGlasses e. V. und es wird Ihnen " +
           "vom BreakOut e. V. eine Spendenquittung oder ein vereinfachter Spendennachweis ausgestellt."
         },
-        "active": {
+        "passive": {
           "title": "Passiver Sponsor",
           "description": "Als passiver Sponsor können Sie Ihren Firmennamen sowie ein Logo auf der Website platzieren. " +
           "Sie bekommen vom BreakOut e. V. eine Rechnung ausgestellt, aber es wird keine Umsatzsteuer fällig. 100% des " +
           "Betrags gehen an den EinDollarGlasses e. V."
         },
-        "passive": {
+        "active": {
           "title": "Aktiver Sponsor",
           "description": "Als aktiver Sponsor können Sie Ihren Firmennamen, einen Link zur Firmenwebsite sowie optional " +
           "ein Logo hochgeladen werden. Sie bekommen vom BreakOut e. V. dann eine Rechnung ausgestellt, auf der eine " +

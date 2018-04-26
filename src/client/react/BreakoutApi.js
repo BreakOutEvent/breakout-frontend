@@ -287,10 +287,7 @@ class BreakoutApi {
       };
 
       return axios.post(`https://api.cloudinary.com/v1_1/${this.cloudinaryCloud}/image/upload`, form, options)
-        .then(resp => {
-          console.log(resp);
-          return resp.data;
-        });
+        .then(resp => resp.data);
     } else {
       throw new Error('Operation only supported in browser');
     }

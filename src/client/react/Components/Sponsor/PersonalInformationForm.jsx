@@ -55,7 +55,7 @@ export default class PersonalInformationForm extends React.Component {
             showErrorList={true}
             formData={this.props.formData}
             onSubmit={this.props.onSubmit}>
-        <Button className="primary">{t('client')}</Button>
+        <Button className="primary">{t('continue')}</Button>
         <div></div>
         {/*{this.props.children}*/}
       </Form>
