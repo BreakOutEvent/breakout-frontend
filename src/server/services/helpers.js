@@ -37,16 +37,22 @@ exports.stringify = (obj) => {
 };
 
 exports.thumbnail = (videoUrl, ctx) => {
-  if (videoUrl.includes('breakoutmedia.blob.core.windows.net')) {
-    // this video is served from our old azure blob storage where
-    // we can't just change the extension to get a thumbnail
-    // Instead we do nothing and have a black "thumbnail"
-    return '';
-  }
+  try {
 
-  // replace the ending of the video with .png. This will use cloudinary
-  // to automatically generate a thumbnail based on the video url for us
-  return videoUrl.substr(0, videoUrl.lastIndexOf('.')) + '.png';
+    if (videoUrl.includes('breakoutmedia.blob.core.windows.net')) {
+      // this video is served from our old azure blob storage where
+      // we can't just change the extension to get a thumbnail
+      // Instead we do nothing and have a black "thumbnail"
+      return '';
+    }
+
+    // replace the ending of the video with .png. This will use cloudinary
+    // to automatically generate a thumbnail based on the video url for us
+    return videoUrl.substr(0, videoUrl.lastIndexOf('.')) + '.png';
+
+  } catch (err) {
+    logger.error(`Error parsing thumbnail url for url '${videoUrl}'`);
+  }
 };
 
 /**

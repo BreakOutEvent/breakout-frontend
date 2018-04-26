@@ -60,6 +60,7 @@
                 </div>
             {{/ifCond}}
             {{#ifCond media.type 'VIDEO'}}
+                {{#if media.url}}
 
                 <div class="plyr">
                     <video poster="{{thumbnail media.url}}" controls preload="none">
@@ -68,6 +69,7 @@
                         <source src="{{media.url}}">
                     </video>
                 </div>
+                {{/if}}
             {{/ifCond}}
             {{#if isUserAdmin}}
                 <div class="bo-admin-delete" data-delete-type="media" data-id="{{media.0.id}}" data-posting-id="{{id}}">
