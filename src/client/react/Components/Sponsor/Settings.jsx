@@ -69,6 +69,7 @@ export default class SponsorSettings extends React.Component {
         sponsor: {
           company: formData.company,
           url: formData.url,
+          supporterType: formData.supporterType,
           address: {
             street: formData.street,
             housenumber: formData.housenumber,
@@ -207,7 +208,7 @@ export default class SponsorSettings extends React.Component {
     };
     const uiSchema = {
       'supporterType': {
-        'ui:disabled': true
+        'ui:disabled': (this.state.sponsorData && this.state.sponsorData.supporterType != null)
       }
     }
     return (
@@ -221,9 +222,10 @@ export default class SponsorSettings extends React.Component {
                     formData={this.state.sponsorData}
                     onSubmit={this.onSubmit.bind(this)}
                     >
-                <img src={this.state.me.sponsor.logo.url}
-                     className={'bo-sponsor-logo'} /><br />
-                <Button className="primary">{(this.state.isSubmitting ? '...' : t('save'))}</Button>
+                {this.state.me.sponsor.logo && <img src={this.state.me.sponsor.logo.url}
+                     className={'bo-sponsor-logo'} />}
+                     <br />
+                <Button className="primary btn btn-primary btn-block text-uppercase">{(this.state.isSubmitting ? '...' : t('save'))}</Button>
               </Form>
           </div>
         )}

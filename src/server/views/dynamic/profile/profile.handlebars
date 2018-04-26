@@ -11,18 +11,18 @@
     </div>
     <div class="container bo-secondary-nav">
         <ul class="nav nav-tabs">
-            <li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab"
+            <li role="presentation" class="{{#ifCond tab "profile"}}active{{/ifCond}}"><a href="#profile" aria-controls="profile" role="tab"
                                                       data-toggle="tab">{{__ 'NAVIGATION_PROFILE'}}</a></li>
             {{#if me.participant}}
-                <li role="presentation"><a href="#participant" aria-controls="team" role="tab"
+                <li role="presentation" class="{{#ifCond tab "participant"}}active{{/ifCond}}"><a href="#participant" aria-controls="team" role="tab"
                                            data-toggle="tab">{{__ 'NAVIGATION_PARTICIPANT'}}</a></li>
             {{/if}}
             {{#if me.participant.teamId}}
-                <li role="presentation"><a href="#team" aria-controls="team" role="tab"
+                <li role="presentation" class="{{#ifCond tab "team"}}active{{/ifCond}}"><a href="#team" aria-controls="team" role="tab"
                                            data-toggle="tab">{{__ 'NAVIGATION_TEAM'}}</a></li>
             {{/if}}
             {{#if me.sponsor}}
-                <li role="presentation"><a href="#sponsor" aria-controls="team" role="tab"
+                <li role="presentation" class="{{#ifCond tab "sponsor"}}active{{/ifCond}}"><a href="#sponsor" aria-controls="team" role="tab"
                                            data-toggle="tab">{{__ 'NAVIGATION_SPONSOR'}}</a></li>
             {{/if}}
         </ul>
@@ -31,7 +31,7 @@
 
 <!-- Tab panes -->
 <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="profile">
+    <div role="tabpanel" class="tab-pane{{#ifCond tab "profile"}} active{{/ifCond}}" id="profile">
         <div class="container bo-profile-form bo-single-row">
             <div id="result_profile"></div>
             <form role="form" id="profile_form">
@@ -79,7 +79,7 @@
         </div>
     </div>
 
-    <div role="tabpanel" class="tab-pane" id="participant">
+    <div role="tabpanel" class="tab-pane{{#ifCond tab "participant"}} active{{/ifCond}}" id="participant">
         <div class="container bo-profile-form bo-single-row">
             <div id="result_participant"></div>
             <form role="form" id="participant_form">
@@ -148,7 +148,7 @@
             </form>
         </div>
     </div>
-    <div role="tabpanel" class="tab-pane" id="team">
+    <div role="tabpanel" class="tab-pane{{#ifCond tab "team"}} active{{/ifCond}}" id="team">
         <div class="container bo-profile-form bo-single-row">
             <div id="result_team"></div>
             <form role="form" id="team_form">
@@ -192,7 +192,7 @@
         </div>
     </div>
 
-    <div role="tabpanel" class="tab-pane" id="sponsor">
+    <div role="tabpanel" class="tab-pane{{#ifCond tab "sponsor"}} active{{/ifCond}}" id="sponsor">
         <div class="container bo-profile-form bo-single-row" id="react-root">
 
         </div>

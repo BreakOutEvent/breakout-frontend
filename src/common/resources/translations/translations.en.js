@@ -35,6 +35,7 @@ module.exports = {
       "city": "City",
       "country": "State",
       "continue": "Next",
+      "save": "Save",
       "supporterData": {
         "title": "Supporter data",
         "selectionText": "You can choose which type of supporter you will be in order to support our partner" +
@@ -410,7 +411,8 @@ module.exports = {
     "LABEL_EMAIL": "Email address of sponsor (optional)",
     "ESTIMATED_DONATE_PROMISE": "Estimated donate promise",
     "SELECT_TEAM": "Select team",
-    "NO_NEW_SPONSORINGS": "At the moment it is not possible to add a sponsoring."
+    "NO_NEW_SPONSORINGS": "At the moment it is not possible to add a sponsoring.",
+    "NOTICE_MISSING_SUPPORTER_TYPE": "To manage your sponsorings, please fill in missing data in your settings: "
   },
   "CLOSED": {
     "HEADLINE": "Registration closed",

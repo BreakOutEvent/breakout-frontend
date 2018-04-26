@@ -167,99 +167,106 @@
     {{/unless}}
     " id="sponsor">
         <div class="container">
-            <div class="row registration-margin">
-                <div class="col-sm-5 col-sm-offset-7 text-right">
-                    <button id="bo-add-challenge-model-btn" type="button" class="btn btn-primary btn-lg" data-toggle="modal"
-                            data-target="#addChallenge">
-                        {{__ 'BTN_ADD_CHALLENGE'}}
-                    </button>
-                    <button id="bo-add-sponsoring-model-btn" type="button" class="btn btn-primary btn-lg" data-toggle="modal"
-                            data-target="#addSponsoring">
-                        {{__ 'BTN_ADD'}}
-                    </button>
+            {{#if hasSupporterType}}
+                <div class="row registration-margin">
+                    <div class="col-sm-5 col-sm-offset-7 text-right">
+                        <button id="bo-add-challenge-model-btn" type="button" class="btn btn-primary btn-lg" data-toggle="modal"
+                                data-target="#addChallenge">
+                            {{__ 'BTN_ADD_CHALLENGE'}}
+                        </button>
+                        <button id="bo-add-sponsoring-model-btn" type="button" class="btn btn-primary btn-lg" data-toggle="modal"
+                                data-target="#addSponsoring">
+                            {{__ 'BTN_ADD'}}
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <div id="result_out"></div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <h3>Sponsorings</h3>
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th>Team ID</th>
-                            <th>Team Name</th>
-                            <th>Euro pro KM</th>
-                            <th>Limit</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {{#unless outSponsoring}}
+                <div id="result_out"></div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h3>Sponsorings</h3>
+                        <table class="table table-striped">
+                            <thead>
                             <tr>
-                                <td colspan="4"><i>No sponsorings found</i></td>
+                                <th>Team ID</th>
+                                <th>Team Name</th>
+                                <th>Euro pro KM</th>
+                                <th>Limit</th>
                             </tr>
-                        {{/unless}}
-                        {{#each outSponsoring}}
-                            <tr>
-                                <td>{{teamId}}</td>
-                                <td>{{team}}</td>
-                                <td>{{amountPerKm}} €</td>
-                                {{#ifCond limit 1000000000}}
-                                    <td>Kein Limit</td>
-                                {{else}}
-                                    <td>{{limit}} €</td>
-                                {{/ifCond}}
-                                <td class="text-right">
-                                    <!--<button class="btn btn-warning bo-btn-edit"
+                            </thead>
+                            <tbody>
+                            {{#unless outSponsoring}}
+                                <tr>
+                                    <td colspan="4"><i>No sponsorings found</i></td>
+                                </tr>
+                            {{/unless}}
+                            {{#each outSponsoring}}
+                                <tr>
+                                    <td>{{teamId}}</td>
+                                    <td>{{team}}</td>
+                                    <td>{{amountPerKm}} €</td>
+                                    {{#ifCond limit 1000000000}}
+                                        <td>Kein Limit</td>
+                                    {{else}}
+                                        <td>{{limit}} €</td>
+                                    {{/ifCond}}
+                                    <td class="text-right">
+                                        <!--<button class="btn btn-warning bo-btn-edit"
                                             data-id="{{id}}" data-toggle="modal"
                                             data-target="#editSponsoring">{{__ 'BTN_EDIT'}}</button>-->
 
-                                    {{#ifCond status "WITHDRAWN"}}
-                                        <span class="text-danger">{{__ 'STATUS_WITHDRAWN'}}</span>
-                                    {{else}}
-                                        <button class="btn btn-danger bo-btn-delete" data-team="{{teamId}}"
-                                                data-sponsoring="{{id}}" data-event="{{eventId}}">{{__ 'BTN_DELETE'}}</button>
-                                    {{/ifCond}}
-                                </td>
-                            </tr>
-                        {{/each}}
-                        </tbody>
-                    </table>
-                    <h3>Challenges</h3>
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th>Team ID</th>
-                            <th>Team Name</th>
-                            <th>Beschreibung</th>
-                            <th>Euro</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {{#unless outChallenges}}
+                                        {{#ifCond status "WITHDRAWN"}}
+                                            <span class="text-danger">{{__ 'STATUS_WITHDRAWN'}}</span>
+                                        {{else}}
+                                            <button class="btn btn-danger bo-btn-delete" data-team="{{teamId}}"
+                                                    data-sponsoring="{{id}}" data-event="{{eventId}}">{{__ 'BTN_DELETE'}}</button>
+                                        {{/ifCond}}
+                                    </td>
+                                </tr>
+                            {{/each}}
+                            </tbody>
+                        </table>
+                        <h3>Challenges</h3>
+                        <table class="table table-striped">
+                            <thead>
                             <tr>
-                                <td colspan="4"><i>No challenges found</i></td>
+                                <th>Team ID</th>
+                                <th>Team Name</th>
+                                <th>Beschreibung</th>
+                                <th>Euro</th>
                             </tr>
-                        {{/unless}}
-                        {{#each outChallenges}}
-                            <tr>
-                                <td>{{teamId}}</td>
-                                <td>{{team}}</td>
-                                <td>{{description}}</td>
-                                <td>{{amount}} €</td>
-                                <td class="text-right">
-                                    {{#ifCond status "WITHDRAWN"}}
-                                        <span class="text-danger">{{__ 'STATUS_WITHDRAWN'}}</span>
-                                    {{else}}
-                                        <button class="btn btn-danger challengeDelete" data-team="{{teamId}}"
-                                                data-id="{{id}}" data-event="{{eventId}}">{{__ 'BTN_DELETE'}}</button>
-                                    {{/ifCond}}
-                                </td>
-                            </tr>
-                        {{/each}}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            {{#unless outChallenges}}
+                                <tr>
+                                    <td colspan="4"><i>No challenges found</i></td>
+                                </tr>
+                            {{/unless}}
+                            {{#each outChallenges}}
+                                <tr>
+                                    <td>{{teamId}}</td>
+                                    <td>{{team}}</td>
+                                    <td>{{description}}</td>
+                                    <td>{{amount}} €</td>
+                                    <td class="text-right">
+                                        {{#ifCond status "WITHDRAWN"}}
+                                            <span class="text-danger">{{__ 'STATUS_WITHDRAWN'}}</span>
+                                        {{else}}
+                                            <button class="btn btn-danger challengeDelete" data-team="{{teamId}}"
+                                                    data-id="{{id}}" data-event="{{eventId}}">{{__ 'BTN_DELETE'}}</button>
+                                        {{/ifCond}}
+                                    </td>
+                                </tr>
+                            {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
+            {{else}}
+                <div class='row' style="height: 600px; padding-top: 30px;">
+                    {{__ 'NOTICE_MISSING_SUPPORTER_TYPE'}}
+                    <a href="/settings/profile?tab=sponsor">{{__ 'PROFILE_SETTINGS_LABEL'}}</a>
+                </div>
+            {{/if}}
         </div>
     </div>
     <!-- Recorded donations -->

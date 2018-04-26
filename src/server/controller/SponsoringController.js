@@ -82,6 +82,7 @@ sponsoring.showSponsorings = function*(req, res) {
     outSponsoring: outSponsoring,
     outChallenges: outChallenges,
     confirmedDonations: confirmedDonations,
+    hasSupporterType: (req.user.me.sponsor && req.user.me.sponsor.supporterType),
     teams: teams,
     isLoggedIn: req.user,
     title: 'Sponsorings',
