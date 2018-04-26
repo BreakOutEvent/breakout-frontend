@@ -1,11 +1,11 @@
 import React from 'react';
 import Form from '../Form.jsx';
 import Button from '../Button.jsx';
-import routes from '../routes'
+import routes from '../routes';
 
-const DONOR = 'DONOR'
-const PASSIVE = 'PASSIVE'
-const ACTIVE = 'ACTIVE'
+const DONOR = 'DONOR';
+const PASSIVE = 'PASSIVE';
+const ACTIVE = 'ACTIVE';
 
 export default class SponsorSettings extends React.Component {
 
@@ -110,7 +110,7 @@ export default class SponsorSettings extends React.Component {
   }
 
   render() {
-    const t = content => this.props.i18next.t(`client.sponsor.${content}`)
+    const t = content => this.props.i18next.t(`client.sponsor.${content}`);
     const schema = {
       type: 'object',
       properties: {
@@ -210,7 +210,7 @@ export default class SponsorSettings extends React.Component {
       'supporterType': {
         'ui:disabled': (this.state.sponsorData && this.state.sponsorData.supporterType != null)
       }
-    }
+    };
     return (
       <div>
         {(!this.state.sponsorData
@@ -230,6 +230,6 @@ export default class SponsorSettings extends React.Component {
           </div>
         )}
       </div>
-    )
+    );
   }
 }

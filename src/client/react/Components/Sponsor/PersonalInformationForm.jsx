@@ -12,7 +12,7 @@ export default class PersonalInformationForm extends React.Component {
   }
 
   render() {
-    const t = content => this.props.i18next.t(`client.sponsor.${content}`)
+    const t = content => this.props.i18next.t(`client.sponsor.${content}`);
     const schema = {
       type: 'object',
       properties: {

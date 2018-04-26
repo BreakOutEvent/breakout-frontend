@@ -28,9 +28,9 @@ exports.clientConfig = () => {
 };
 
 exports.cloudinaryConfig = () => JSON.stringify({
-    cloud_name: config.cloudinary.cloud_name,
-    api_key: config.cloudinary.api_key
-})
+  cloud_name: config.cloudinary.cloud_name,
+  api_key: config.cloudinary.api_key
+});
 
 exports.stringify = (obj) => {
 

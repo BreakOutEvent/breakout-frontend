@@ -1,11 +1,10 @@
 import React from 'react';
 import Form from '../Form.jsx';
 import Button from '../Button.jsx';
-import {Card, CardText} from 'material-ui/Card';
 
-const DONOR = 'DONOR'
-const PASSIVE = 'PASSIVE'
-const ACTIVE = 'ACTIVE'
+const DONOR = 'DONOR';
+const PASSIVE = 'PASSIVE';
+const ACTIVE = 'ACTIVE';
 
 export default class CompanyInformationForm extends React.Component {
 
@@ -17,7 +16,7 @@ export default class CompanyInformationForm extends React.Component {
   }
 
   render() {
-    const t = content => this.props.i18next.t(`client.sponsor.${content}`)
+    const t = content => this.props.i18next.t(`client.sponsor.${content}`);
     const schema = {
       type: 'object',
       properties: {

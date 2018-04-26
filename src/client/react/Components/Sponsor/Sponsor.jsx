@@ -7,7 +7,7 @@ import {
 } from 'material-ui/Stepper';
 import PersonalInformationForm from './PersonalInformationForm.jsx';
 import CompanyInformationForm from './CompanyInformationForm.jsx';
-import routes from '../routes'
+import routes from '../routes';
 
 export default class Sponsor extends React.Component {
 
@@ -109,7 +109,7 @@ export default class Sponsor extends React.Component {
   }
 
   render() {
-    const t = content => this.props.i18next.t(`client.sponsor.${content}`)
+    const t = content => this.props.i18next.t(`client.sponsor.${content}`);
     return (
       <div>
         <h1>{t('title')}</h1>
@@ -135,7 +135,7 @@ export default class Sponsor extends React.Component {
                   i18next={this.props.i18next}
                   isSubmitting={this.state.isSubmitting}
                   onSubmit={this.onSubmit.bind(this)}
-                  onBack={() => {this.setState({activeStep: this.state.activeStep - 1})}}
+                  onBack={() => {this.setState({activeStep: this.state.activeStep - 1});}}
                   errorMessage={this.state.registrationError}/>
               </StepContent>
             </Step>

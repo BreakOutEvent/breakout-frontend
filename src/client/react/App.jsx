@@ -10,7 +10,7 @@ import SelectRole from './Components/SelectRole/SelectRole.jsx';
 import ResetPassword from './Components/ResetPassword/ResetPassword.jsx';
 import CreateOrJoinTeam from './Components/CreateOrJoinTeam.jsx';
 import SponsorRegistration from './Components/Sponsor/Sponsor.jsx';
-import SponsorSettings from './Components/Sponsor/Settings.jsx'
+import SponsorSettings from './Components/Sponsor/Settings.jsx';
 import {VisitorSuccess, JoinTeamSuccess, CreateTeamSuccess} from './Components/Success.jsx';
 import de from '../../common/resources/translations/translations.de';
 import en from '../../common/resources/translations/translations.en';
@@ -103,7 +103,7 @@ class App extends React.Component {
   }
 
   showModalFor(Comp, size) {
-    return (props) =>
+    return (props) => (
       <Modal show={true}
              onHide={this.onHide.bind(this)}
              modalClassName={'modal-size-' + size + ' react-modal'}>
@@ -113,10 +113,11 @@ class App extends React.Component {
               isLoggedIn={!!window.boUserData}/>
         </MuiThemeProvider>
       </Modal>
+    );
   }
 
   showComponent(Comp) {
-    return (props) =>
+    return (props) => (
       <div>
         <OnShowHack ></OnShowHack>
         <MuiThemeProvider>
@@ -124,6 +125,7 @@ class App extends React.Component {
                 isLoggedIn={!!window.boUserData}/>
         </MuiThemeProvider>
       </div>
+    );
   }
 
   render() {
