@@ -42,7 +42,6 @@ const parseAmount = (rawAmount) => {
 };
 
 sponsoring.showSponsorings = function*(req, res) {
-
   //CHECK IF USER IS SPONSOR OR PARTICIPANT
   if (!req.user.status.is.team && !req.user.status.is.sponsor) {
     req.flash('error', 'Um diese Seite aufzurufen, musst Du entweder Teil eines Teams oder ein Sponsor sein.');
@@ -83,6 +82,7 @@ sponsoring.showSponsorings = function*(req, res) {
     outSponsoring: outSponsoring,
     outChallenges: outChallenges,
     confirmedDonations: confirmedDonations,
+    hasSupporterType: (req.user.me.sponsor && req.user.me.sponsor.supporterType),
     teams: teams,
     isLoggedIn: req.user,
     title: 'Sponsorings',
@@ -206,7 +206,7 @@ sponsoring.getAllTeams = (req) => co(function*() {
 });
 
 sponsoring.getAllTeamsSummary = (req) => co(function*() {
-  let teams = yield api.getModel('/team/', req.user);
+  let teams = yield api.getModel('team', req.user);
   return _.sortBy(teams, t => t.name);
 }).catch(err => {
   throw err;

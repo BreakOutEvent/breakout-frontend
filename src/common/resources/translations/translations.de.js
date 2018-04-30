@@ -20,6 +20,50 @@ module.exports = {
       "request_reset_not_registered": "Diese Emailadresse existiert nicht",
       "request_reset_enter_email": "Bitte gib eine gültige Emailadresse ein"
     },
+    "sponsor": {
+      "title": "Als Unterstützer registrieren",
+      "isLoadingMe": "Daten werden geladen",
+      "personalData": "Persönliche Daten",
+      "firstname": "Vorname",
+      "lastname": "Nachname",
+      "street": "Straße",
+      "housenumber": "Hausnummer",
+      "postcode": "Postleitzahl",
+      "city": "Stadt",
+      "country": "Land",
+      "continue": "Weiter",
+      "save": "Speichern",
+      "supporterData": {
+        "title": "Spender-/Sponsordaten",
+        "selectionText": "Im folgenden können Sie auswählen, in welcher Form Sie ein oder mehrere Teams und damit" +
+        "unseren Spendenpartner OneDollarGlasses e. V. unterstützen wollen.",
+        "selectionLabel": "Art der Unterstützung",
+        "donor": {
+          "title": "Spender",
+          "description": "Als Spender wandern 100% des gespendeten Geldes an den EinDollarGlasses e. V. und es wird Ihnen " +
+          "vom BreakOut e. V. eine Spendenquittung oder ein vereinfachter Spendennachweis ausgestellt."
+        },
+        "passive": {
+          "title": "Passiver Sponsor",
+          "description": "Als passiver Sponsor können Sie Ihren Firmennamen sowie ein Logo auf der Website platzieren. " +
+          "Sie bekommen vom BreakOut e. V. eine Rechnung ausgestellt, aber es wird keine Umsatzsteuer fällig. 100% des " +
+          "Betrags gehen an den EinDollarGlasses e. V."
+        },
+        "active": {
+          "title": "Aktiver Sponsor",
+          "description": "Als aktiver Sponsor können Sie Ihren Firmennamen, einen Link zur Firmenwebsite sowie optional " +
+          "ein Logo hochgeladen werden. Sie bekommen vom BreakOut e. V. dann eine Rechnung ausgestellt, auf der eine " +
+          "Umsatzsteuer von 19% ausgewiesen wird. Der bezahlte Betrag, abzüglich der Umsatzsteuer, geht vollständig an " +
+          "den EinDollarGlasses e. V."
+        },
+      },
+      "company": "Firma",
+      "logo": "Firmenlogo",
+      "url": "Link zur Firmenwebsite",
+      "finishTitle": "Fertig",
+      "finishContent": "Vielen Dank, dass sie sich als Unterstützer registriert haben. Hier " +
+      "können Sie Sponsorings eintragen: "
+    },
     "registration": {
       "passwords_dont_match": "Die eingegebenen Passwörter müssen übereinstimmen",
     },
@@ -263,10 +307,10 @@ module.exports = {
     "CTA": "NEUES TEAM ERSTELLEN"
   },
   "PROFILE": {
-    "NAVIGATION_PROFILE": "Profil Einstellungen",
-    "NAVIGATION_PARTICIPANT": "Teilnehmer Einstellungen",
-    "NAVIGATION_TEAM": "Team Einstellungen",
-    "NAVIGATION_SPONSOR": "Sponsor Einstellungen",
+    "NAVIGATION_PROFILE": "Profildaten",
+    "NAVIGATION_PARTICIPANT": "Teilnehmerdaten",
+    "NAVIGATION_TEAM": "Teamdaten",
+    "NAVIGATION_SPONSOR": "Sponsordaten",
     "LABEL_FIRSTNAME": "Vorname",
     "LABEL_NAME": "Nachname",
     "LABEL_EMAIL": "E-Mail",
@@ -369,7 +413,9 @@ module.exports = {
     "LABEL_EMAIL": "Emailadresse des Sponsors (optional)",
     "ESTIMATED_DONATE_PROMISE": "Geschätztes Spendenversprechen",
     "SELECT_TEAM": "Team auswählen",
-    'NO_NEW_SPONSORINGS': 'Momentan können keine Sponsorings eingetragen werden.'
+    'NO_NEW_SPONSORINGS': 'Momentan können keine Sponsorings eingetragen werden.',
+    'NOTICE_MISSING_SUPPORTER_TYPE': 'Um Sponsorings einzutragen, ergänze zunächst fehlende Informationen: ',
+    'PROFILE_SETTINGS_LABEL': 'Profileinstellungen'
   },
   "CLOSED": {
     "HEADLINE": "Anmeldung geschlossen",

@@ -9,6 +9,8 @@ import Participation from './Components/Participate/Participation.jsx';
 import SelectRole from './Components/SelectRole/SelectRole.jsx';
 import ResetPassword from './Components/ResetPassword/ResetPassword.jsx';
 import CreateOrJoinTeam from './Components/CreateOrJoinTeam.jsx';
+import SponsorRegistration from './Components/Sponsor/Sponsor.jsx';
+import SponsorSettings from './Components/Sponsor/Settings.jsx';
 import {VisitorSuccess, JoinTeamSuccess, CreateTeamSuccess} from './Components/Success.jsx';
 import de from '../../common/resources/translations/translations.de';
 import en from '../../common/resources/translations/translations.en';
@@ -26,6 +28,20 @@ ReactGA.initialize('UA-59857227-3');
 import routes from './Components/routes';
 import AdminInvoicePanel from './Components/Admin/AdminInvoicePanel.jsx';
 import {MuiThemeProvider} from 'material-ui';
+
+const OnShowHack = (props) => {
+  if (props.overflowHidden) {
+    document.body.className += ' ReactModal__Body--open';
+  }
+  try {
+    ReactGA.set({page: window.location.pathname});
+    ReactGA.pageview(window.location.pathname);
+  } catch (err) {
+    console.error('Error logging react view', err);
+  }
+
+  return null;
+};
 
 class App extends React.Component {
 
@@ -58,7 +74,8 @@ class App extends React.Component {
     const url = window.boClientConfig.baseUrl;
     const clientId = window.boClientConfig.clientId;
     const clientSecret = window.boClientConfig.clientSecret;
-    const api = new BreakoutApi(url, clientId, clientSecret);
+    const cloudinaryConfig = window.boCloudinaryConfig;
+    const api = new BreakoutApi(url, clientId, clientSecret, cloudinaryConfig.cloud_name, cloudinaryConfig.api_key);
 
     this.requestOpenRegistration(api);
 
@@ -86,33 +103,41 @@ class App extends React.Component {
   }
 
   showModalFor(Comp, size) {
+    return (props) => (
+      <Modal show={true}
+             onHide={this.onHide.bind(this)}
+             modalClassName={'modal-size-' + size + ' react-modal'}>
+        <OnShowHack overflowHidden={true}></OnShowHack>
+        <MuiThemeProvider>
+          <Comp {...props} api={this.state.api} i18next={this.state.i18next}
+              isLoggedIn={!!window.boUserData}/>
+        </MuiThemeProvider>
+      </Modal>
+    );
+  }
 
-    const OnShowHack = () => {
-      document.body.className += ' ReactModal__Body--open';
-      try {
-        ReactGA.set({page: window.location.pathname});
-        ReactGA.pageview(window.location.pathname);
-      } catch (err) {
-        console.error('Error logging react view', err);
-      }
-
-      return null;
-    };
-
-    return (props) => {
-      return (
-        <Modal show={true}
-               onHide={this.onHide.bind(this)}
-               modalClassName={'modal-size-' + size + ' react-modal'}>
-          <OnShowHack></OnShowHack>
+  showComponent(Comp) {
+    return (props) => (
+      <div>
+        <OnShowHack ></OnShowHack>
+        <MuiThemeProvider>
           <Comp {...props} api={this.state.api} i18next={this.state.i18next}
                 isLoggedIn={!!window.boUserData}/>
-        </Modal>
-      );
-    };
+        </MuiThemeProvider>
+      </div>
+    );
   }
 
   render() {
+
+    const RedirectRegistrationLock = (props) => {
+      const render = (componentProps) => {
+        window.location.href = '/closed';
+      };
+      let propsCopy = Object.assign({}, props);
+      delete propsCopy.component;
+      return <Route {...propsCopy} render={render}/>;
+    };
 
     const PrivateRoute = (props) => {
 
@@ -129,10 +154,16 @@ class App extends React.Component {
       return <Route {...propsCopy} render={render}/>;
     };
 
-    const RedirectRegistrationLock = (props) => {
+    const RedirectSponsor = (props) => {
+
       const render = (componentProps) => {
-        window.location.href = '/closed';
+        if (window.boUserData && !window.boUserData.status.is.sponsor) {
+          return React.createElement(props.component, componentProps);
+        } else {
+          window.location.href = '/settings/sponsoring';
+        }
       };
+
       let propsCopy = Object.assign({}, props);
       delete propsCopy.component;
       return <Route {...propsCopy} render={render}/>;
@@ -161,6 +192,9 @@ class App extends React.Component {
           <RedirectRegistrationLock exact path={routes.participate}
                         component={this.showModalFor(Participation, 'm')}/>
 
+         <RedirectRegistrationLock exact path={routes.sponsorRegistration}
+                         component={this.showModalFor(SponsorRegistration, 'm')}/>
+
           <RedirectRegistrationLock exact path={routes.createOrJoinTeam}
                         component={this.showModalFor(CreateOrJoinTeam, 'm')}/>
 
@@ -179,7 +213,6 @@ class App extends React.Component {
       return (
         <Router>
           <div>
-
             <Route exact path={routes.login}
                    component={this.showModalFor(Login, 's')}/>
 
@@ -198,6 +231,9 @@ class App extends React.Component {
             <PrivateRoute exact path={routes.createOrJoinTeam}
                           component={this.showModalFor(CreateOrJoinTeam, 'm')}/>
 
+            <RedirectSponsor exact path={routes.sponsorRegistration}
+                          component={this.showModalFor(SponsorRegistration, 'm')}/>
+
             <PrivateRoute exact path={routes.visitorSuccess}
                           component={this.showModalFor(VisitorSuccess, 's')}/>
 
@@ -206,6 +242,9 @@ class App extends React.Component {
 
             <PrivateRoute exact path={routes.createTeamSuccess}
                           component={this.showModalFor(CreateTeamSuccess, 's')}/>
+
+            <PrivateRoute exact path={routes.profileSettings}
+                          component={this.showComponent(SponsorSettings)}/>
 
           </div>
         </Router>

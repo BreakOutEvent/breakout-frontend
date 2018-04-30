@@ -23,6 +23,48 @@ module.exports = {
     "registration": {
       "passwords_dont_match": "The passwords you entered did not match"
     },
+    "sponsor": {
+      "title": "Register as supporter",
+      "isLoadingMe": "Loading data",
+      "personalData": "Personal data",
+      "firstname": "First name",
+      "lastname": "Last name",
+      "street": "Street",
+      "housenumber": "House number",
+      "postcode": "Postal code",
+      "city": "City",
+      "country": "State",
+      "continue": "Next",
+      "save": "Save",
+      "supporterData": {
+        "title": "Supporter data",
+        "selectionText": "You can choose which type of supporter you will be in order to support our partner" +
+        "OneDollarGlasss e.V.",
+        "selectionLabel": "Type of support",
+        "donor": {
+          "title": "Donor",
+          "description": "As donor 100% of your donation will be transferred to OneDollarGlasses e. V. and you " +
+          "will get a receipt or a simplified proof of donation from BreakOut e.V."
+        },
+        "passive": {
+          "title": "Passive sponsor",
+          "description": "As passive sponsor you are allowed to place your company's name and logo on our website. " +
+          "You will get an invoice from BreakOut e.V. but you don't have to pay turnover tax. Thus 100% of your " +
+          "donation will be transferred to OneDollarGlasses e.V."
+        },
+        "active": {
+          "title": "Active sponsor",
+          "description": "As active sponsor you are allowed to place your company's name, website url and optionally " +
+          "logo on our website. You will get an invoice from BreakOut e.V. including 19% of turnover tax. The " +
+          "remaining donation will be transferred to OneDollarGlasses e.V."
+        },
+      },
+      "company": "Company",
+      "logo": "Logo",
+      "url": "Website",
+      "finishTitle": "Done",
+      "finishContent": "Thank you for registering as a supporter. Here you can record your sponsorings: "
+    },
     "register": {
       "description": "Create an account on break-out.org. With it, you can interact with posts of participants, become a participant yourself or support a team as their sponsor. Great having you on board!",
       "button": "Create account now",
@@ -369,7 +411,8 @@ module.exports = {
     "LABEL_EMAIL": "Email address of sponsor (optional)",
     "ESTIMATED_DONATE_PROMISE": "Estimated donate promise",
     "SELECT_TEAM": "Select team",
-    "NO_NEW_SPONSORINGS": "At the moment it is not possible to add a sponsoring."
+    "NO_NEW_SPONSORINGS": "At the moment it is not possible to add a sponsoring.",
+    "NOTICE_MISSING_SUPPORTER_TYPE": "To manage your sponsorings, please fill in missing data in your settings: "
   },
   "CLOSED": {
     "HEADLINE": "Registration closed",

@@ -6,10 +6,12 @@ const Promise = require('bluebird');
 
 class BreakoutApi {
 
-  constructor(url, clientId, clientSecret, debug) {
+  constructor(url, clientId, clientSecret, cloudinaryCloud = '', cloudinaryApiKey = '', debug=false) {
     this.url = url;
     this.clientId = clientId;
     this.clientSecret = clientSecret;
+    this.cloudinaryCloud = cloudinaryCloud;
+    this.cloudinaryApiKey = cloudinaryApiKey;
     this.instance = axios.create({
       baseURL: `${url}`
     });
@@ -257,6 +259,38 @@ class BreakoutApi {
   fetchInvoicesForEvent(eventId) {
     return this.instance.get(`sponsoringinvoice/${eventId}/`)
       .then(resp => resp.data);
+  }
+
+  signCloudinaryParams(params = {}) {
+
+    const data = params;
+
+    return this.instance.post('/media/signCloudinaryParams/', data).then(resp => resp.data);
+  }
+
+  uploadImage(image, signedParams, onProgress = () => {}) {
+    if (global.FormData) {
+      const form = new global.FormData();
+
+      form.append('api_key', this.cloudinaryApiKey);
+      form.append('signature', signedParams.signature);
+      form.append('timestamp', signedParams.timestamp);
+      form.append('file', image.replace(/name=.*;/g, ''));
+
+      // see https://github.com/axios/axios/issues/382
+      const options = {
+        transformRequest: [(data, headers) => {
+          delete headers.common.Authorization;
+          return data;
+        }],
+        onUploadProgress: onProgress
+      };
+
+      return axios.post(`https://api.cloudinary.com/v1_1/${this.cloudinaryCloud}/image/upload`, form, options)
+        .then(resp => resp.data);
+    } else {
+      throw new Error('Operation only supported in browser');
+    }
   }
 }
 

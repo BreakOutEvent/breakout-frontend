@@ -72,5 +72,8 @@ module.exports = {
       }
     ]
   },
+  node: {
+    fs: 'empty'
+  },
   plugins: [extractLess, copyAssets]
 };

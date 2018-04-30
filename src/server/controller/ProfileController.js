@@ -23,7 +23,8 @@ class ProfileController {
       me: req.user.me,
       team: team,
       isLoggedIn: req.user,
-      title: 'Profile'
+      title: 'Profile',
+      tab: req.query.tab || 'profile'
     });
   }
 
