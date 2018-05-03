@@ -3,7 +3,7 @@
         {{#each allByYear}}
             <optgroup label="{{@key}}">
                 {{#each this}}
-                    <option title="{{city}}" {{#if isActive}}selected{{/if}} data-tokens="{{id}}" class="boSelectCity">
+                    <option title="{{city}}" {{#if isActive}}selected{{/if}} value="{{id}}" class="boSelectCity">
                         {{city}} {{year}}
                     </option>
                 {{/each}}

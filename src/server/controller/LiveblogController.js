@@ -70,25 +70,10 @@ liveblog.getCounterInfos = (events) => co(function *() {
 liveblog.chooseEvent = (req, res, next) => co(function *() {
   if (!req.session.activeEvents) req.session.activeEvents = [];
 
-  let eventId = parseInt(req.body.eventId);
-  let activate = req.body.activate === 'true';
+  req.session.activeEvents = req.body.eventIds.map((id) => parseInt(id));
+  req.session.save();
+  res.send('selected event ' + req.session.activeEvents);
 
-  if (activate) {
-    if (!_.includes(req.session.activeEvents, eventId)) {
-      req.session.activeEvents.push(eventId);
-      req.session.save();
-      res.send('activated event ' + eventId);
-    }
-  } else {
-    req.session.activeEvents = req.session.activeEvents.filter(id => id !== eventId);
-    if (req.session.activeEvents.length === 0) {
-      let events = yield liveblog.getEventInfos(req.session.activeEvents);
-      req.session.activeEvents = events.activeEvents;
-    }
-    req.session.save();
-    res.send('deactivated event ' + eventId);
-  }
-  res.status(400).send('not working ' + eventId);
 }).catch(ex => {
   throw ex;
 });
