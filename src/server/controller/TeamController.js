@@ -179,6 +179,7 @@ class TeamController {
       isUserAdmin = _.findIndex(req.user.me.roles, r => r === 'ADMIN') > -1;
     }
 
+    currTeam.mapData = currTeam.mapData || [];
     res.render('dynamic/team/team-detail', {
       error: req.flash('error'),
       layout: 'master',
