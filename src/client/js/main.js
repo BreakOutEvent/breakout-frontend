@@ -6,14 +6,13 @@ let videoPlayer = require('./videoplayer.js');
 
 $(document).ready(function () {
   videoPlayer('#btnIntroVideo', '#modalIntroVideo');
-});
 
-$(window).on('load', function () {
-  $('.boSelectCity').on('click', function () {
-    var activate = 'false' === $(this).attr('aria-selected');
+  $('#boSelectEvents').on('changed.bs.select', function () {
+
+    var selectedIds = $('#boSelectEvents select').val();
+
     $.post('/liveblog/chooseEvent/', {
-      activate: activate,
-      eventId: $(this).attr('data-tokens')
+      eventIds: selectedIds
     }).success(function () {
       location.reload();
     });
