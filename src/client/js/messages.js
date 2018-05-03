@@ -20,9 +20,6 @@ $(document).ready(function () {
 
       searchval = currval;
     }
-
-
-    console.log($(this).val());
   });
 
   function renderSearchResults(data) {
@@ -67,7 +64,6 @@ $(document).ready(function () {
 
       var value = selectedResults[i];
       if (item.attr('data-id') == $(value).attr('data-id')) {
-        console.log(item.attr('data-id'), $(value).attr('data-id'));
         delete selectedResults[i];
       }
     }
@@ -81,7 +77,6 @@ $(document).ready(function () {
 
   $('#addGroupMessageModal').on('submit', function () {
     var userIds = selectedResults.map(item => parseInt($(item).attr('data-id')));
-    console.log(userIds);
 
     $.ajax({
       url: '/messages/new',

@@ -187,7 +187,6 @@ function getCityColor(team) {
 function getHeatMapColor(speed) {
 
   var normSpeed = Math.log(Math.log(speed + 11.8)) - 0.9;
-  console.log(speed, normSpeed);
   //[255, 128, 0],[106, 185, 255]
   var rgb = colorGradientByWeight([0, 255, 0], [255, 0, 0], normSpeed);
   var rgbToHex = (r, g, b) => '#' + [r, g, b].map(x => {

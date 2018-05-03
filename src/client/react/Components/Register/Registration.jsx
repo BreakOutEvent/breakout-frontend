@@ -42,7 +42,6 @@ export default class Registration extends React.Component {
   }
 
   redirectToReferrer() {
-    console.log(this.getQueryValues().refer);
     if (this.getQueryValues().refer) {
       window.location = this.getQueryValues().refer;
     } else {

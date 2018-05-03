@@ -151,7 +151,6 @@ $(window).on('load', function () {
       }
     });
 
-    console.log($('#newPost'));
     if ($('#newPost').length > 0) {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition, handleError);
@@ -317,7 +316,6 @@ function searchForString(string) {
       });
     }
   }
-  console.log(r);
   return r;
 }
 
