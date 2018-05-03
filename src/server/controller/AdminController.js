@@ -230,7 +230,8 @@ admin.getInvoices = (req) => co(function*() {
     let t = allTeams[i];
     if (t.members.length > 1) {
       let invoice = yield api.getModel('invoice/teamfee', req.user, t.invoiceId);
-      invoice.event = events[t.event - 1];
+      // TODO: This logic is very fragile b.c. it merges together two requests
+      invoice.event = events.find(event => event.id === t.event);
       invoice.members = t.members;
       invoice.teamName = t.name;
       invoice.id = t.invoiceId;
