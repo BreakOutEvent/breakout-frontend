@@ -257,10 +257,6 @@ App.propTypes = {
   api: React.PropTypes.object
 };
 
-ReactDOM.render(
-  <App />
-  , document.getElementById('react-root'));
-
 const url = window.boClientConfig.baseUrl;
 const clientId = window.boClientConfig.clientId;
 const clientSecret = window.boClientConfig.clientSecret;
@@ -272,7 +268,14 @@ if (isLoggedIn) {
   api.setAccessToken(window.boUserData.access_token);
 }
 
-const adminInvoiceRoot = document.getElementById('react-admin-invoice');
-if (adminInvoiceRoot) {
-  ReactDOM.render(<MuiThemeProvider><AdminInvoicePanel api={api}/></MuiThemeProvider>, adminInvoiceRoot);
+function renderIfExists(elem, domId) {
+  const domNode = document.getElementById(domId);
+  if (domNode) {
+    ReactDOM.render(elem, domNode);
+  } else {
+    console.warn(`Not rendering react component because node with id ${domId} does not exist`);
+  }
 }
+
+renderIfExists(<MuiThemeProvider><AdminInvoicePanel api={api}/></MuiThemeProvider>, 'react-admin-invoice');
+renderIfExists(<App/>, 'react-root');
