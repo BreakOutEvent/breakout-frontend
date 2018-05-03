@@ -31,11 +31,14 @@ $(document).ready(() => {
 
     toggleLoading(this, true);
     var button = this;
+    var invoiceId = $(this).attr('data-invoice');
+    var fidorId = parseInt($(`#fidor-id-${invoiceId}`).val());
 
     $.post('/admin/payment/add', {
       team: $(this).attr('data-team'),
       amount: $(this).attr('data-amount'),
-      invoice: $(this).attr('data-invoice')
+      invoice: invoiceId,
+      fidorId: fidorId
     }).success(function () {
       $('#results')
         .append('<div class="alert alert-success alert-dismissable">' +

@@ -7,6 +7,7 @@
         <th>Event</th>
         <th>Mitglieder</th>
         <th>Offener Betrag</th>
+        <th>Code</th>
         <th>Zahlungen eintragen</th>
     </tr>
     </thead>
@@ -23,8 +24,10 @@
                 {{/each}}
             </td>
             <td>{{open}} €</td>
+            <td>{{purposeOfTransferCode}}</td>
             {{#if open}}
                 <td>
+                    FidorId: <input class="form-control fidor-id-input" type="number" id="fidor-id-{{id}}" />
                     <button class="btn btn-primary btn-payment" data-team="{{team}}" data-invoice="{{id}}"
                             data-amount="30">ADD 30€
                     </button>
@@ -34,7 +37,7 @@
                 </td>
             {{else}}
                 <td>
-                    <span style="color: green;">ZAHLUNG ABGESCHLOSSEN</span>
+                    <span style="color: green;">✓ {{datesFidorIds}} </span>
                 </td>
             {{/if}}
 

@@ -174,7 +174,8 @@ admin.addPayment = function *(req, res) {
 
   let body = {
     amount: req.body.amount,
-    fidorId: req.body.fidorId
+    fidorId: req.body.fidorId,
+    date: Math.round(new Date().getTime() / 1000)
   };
 
   try {
@@ -243,6 +244,7 @@ admin.getInvoices = (req) => co(function*() {
       } else {
         invoice.open = invoice.amount;
       }
+      invoice.datesFidorIds = invoice.payments.map((payment) => `${new Date(payment.date * 1000).toLocaleDateString()} (id: ${payment.fidorId})`).join(', ');
       allInvoices.push(invoice);
     }
   }
