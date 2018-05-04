@@ -93,7 +93,8 @@ class App extends React.Component {
 
     this.setState({
       isRequestingOpenRegistration: false,
-      isRegistrationOpen: events.find(event => event.openForRegistration)
+      isRegistrationOpen: events.find(event => event.openForRegistration),
+      isSponsoringOpen: events.find(event => event.allowNewSponsoring)
     });
   }
 
@@ -157,10 +158,14 @@ class App extends React.Component {
     const RedirectSponsor = (props) => {
 
       const render = (componentProps) => {
-        if (window.boUserData && !window.boUserData.status.is.sponsor) {
-          return React.createElement(props.component, componentProps);
+        if (!this.state.isSponsoringOpen) {
+          window.location.href = '/sponsor-closed';
         } else {
-          window.location.href = '/settings/sponsoring';
+          if (window.boUserData && !window.boUserData.status.is.sponsor) {
+            return React.createElement(props.component, componentProps);
+          } else {
+            window.location.href = '/settings/sponsoring';
+          }
         }
       };
 
