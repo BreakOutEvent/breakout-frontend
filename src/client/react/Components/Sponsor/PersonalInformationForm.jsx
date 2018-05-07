@@ -1,7 +1,7 @@
 import React from 'react';
 import Form from '../Form.jsx';
 import Button from '../Button.jsx';
-import {BooleanWithInnerHtml} from "../Participate/ParticipationForm.jsx";
+import {BooleanWithInnerHtml} from '../Participate/ParticipationForm.jsx';
 
 export default class PersonalInformationForm extends React.Component {
 
