@@ -2,7 +2,7 @@ import Form from '../Form.jsx';
 import React from 'react';
 import Button from '../Button.jsx';
 
-const BooleanWithInnerHtml = (props) => {
+export const BooleanWithInnerHtml = (props) => {
   return (
     <span className="checkbox boolean-with-inner-html">
               <input type="checkbox"

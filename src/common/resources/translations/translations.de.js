@@ -33,6 +33,8 @@ module.exports = {
       "country": "Land",
       "continue": "Weiter",
       "save": "Speichern",
+      "accept_tos": "Hiermit akzeptiere ich die <a href='sponsor-tos'>Teilnahmebedingungen</a> für Teamunterstützer",
+      "is_18": "Ich bin mindestens 18 Jahre alt",
       "supporterData": {
         "title": "Spender-/Sponsordaten",
         "selectionText": "Im folgenden können Sie auswählen, in welcher Form Sie ein oder mehrere Teams und damit" +

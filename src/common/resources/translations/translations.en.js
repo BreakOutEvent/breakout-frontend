@@ -36,6 +36,8 @@ module.exports = {
       "country": "State",
       "continue": "Next",
       "save": "Save",
+      "accept_tos": "I hereby accept the <a href='sponsor-tos'>terms of service</a> for team supporters",
+      "is_18": "I am at least 18 years old",
       "supporterData": {
         "title": "Supporter data",
         "selectionText": "You can choose which type of supporter you will be in order to support our partner" +

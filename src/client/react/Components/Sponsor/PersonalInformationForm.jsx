@@ -1,6 +1,7 @@
 import React from 'react';
 import Form from '../Form.jsx';
 import Button from '../Button.jsx';
+import {BooleanWithInnerHtml} from "../Participate/ParticipationForm.jsx";
 
 export default class PersonalInformationForm extends React.Component {
 
@@ -43,12 +44,25 @@ export default class PersonalInformationForm extends React.Component {
         country: {
           type: 'string',
           title: t('country')
+        },
+        acceptToS: {
+          type: 'boolean',
+          title: t('accept_tos')
+        },
+        is18: {
+          type: 'boolean',
+          title: t('is_18')
         }
       },
-      required: ['firstname', 'lastname', 'street', 'housenumber', 'postcode', 'city', 'country'],
+      required: ['firstname', 'lastname', 'street', 'housenumber', 'postcode', 'city', 'country', 'acceptToS', 'is18'],
     };
 
-    const uiSchema = {};
+    const uiSchema = {
+      acceptToS: {
+        'ui:widget': BooleanWithInnerHtml,
+        classNames: 'boolean-with-inner-html'
+      },
+    };
     return (
       <Form schema={schema}
             uiSchema={uiSchema}
