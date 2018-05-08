@@ -35,6 +35,7 @@ module.exports = {
       "city": "City",
       "country": "State",
       "continue": "Next",
+      "back": "Back",
       "save": "Save",
       "accept_tos": "I hereby accept the <a href='sponsor-tos'>terms of service</a> for team supporters",
       "is_18": "I am at least 18 years old",
@@ -46,7 +47,7 @@ module.exports = {
         "donor": {
           "title": "Donor",
           "description": "As donor 100% of your donation will be transferred to OneDollarGlasses e. V. and you " +
-          "will get a receipt or a simplified proof of donation from BreakOut e.V."
+          "will get a receipt or a (simplified) proof of donation from BreakOut e.V."
         },
         "passive": {
           "title": "Passive sponsor",
