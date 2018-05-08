@@ -1,4 +1,4 @@
-FROM mhart/alpine-node
+FROM mhart/alpine-node:8
 RUN apk add --no-cache git bash make gcc g++ python
 
 COPY . /frontend

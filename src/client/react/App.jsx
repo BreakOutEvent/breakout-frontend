@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import BreakoutApi from './BreakoutApi';
+import BreakoutApi from 'breakout-api-client';
 
 import Login from './Components/Login/Login.jsx';
 import Registration from './Components/Register/Registration.jsx';
@@ -28,6 +28,8 @@ ReactGA.initialize('UA-59857227-3');
 import routes from './Components/routes';
 import AdminInvoicePanel from './Components/Admin/AdminInvoicePanel.jsx';
 import {MuiThemeProvider} from 'material-ui';
+import ListOfChallenges from './Components/TeamProfile/ListOfChallenges.jsx';
+
 
 const OnShowHack = (props) => {
   if (props.overflowHidden) {
@@ -282,5 +284,27 @@ function renderIfExists(elem, domId) {
   }
 }
 
+class StatefulListOfChallenges extends React.Component {
+  constructor(props) {
+    super(props);
+    this.teamId = window.teamId;
+    this.state = {challenges: [], error: null};
+  }
+
+  componentDidMount() {
+    this.props.api.fetchChallengesForTeam(this.teamId)
+      .then(challenges => this.setState({challenges}))
+      .catch(error => this.setState({error}));
+  }
+
+  render() {
+    if (this.state.error) {
+      return <div className="alert alert-warning">Something went wrong when loading challenges</div>;
+    }
+    return <ListOfChallenges challenges={this.state.challenges}/>;
+  }
+}
+
 renderIfExists(<MuiThemeProvider><AdminInvoicePanel api={api}/></MuiThemeProvider>, 'react-admin-invoice');
 renderIfExists(<App/>, 'react-root');
+renderIfExists(<MuiThemeProvider><StatefulListOfChallenges api={api}/></MuiThemeProvider>, 'react-challenge-list-root');

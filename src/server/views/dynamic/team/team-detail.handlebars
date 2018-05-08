@@ -1,6 +1,10 @@
 <div class="bo-header-info bo-team-header">
 
 </div>
+<script>
+    window.teamId = {{{team.id}}};
+</script>
+
 <div class="container">
     <div class="row">
         <div class="col-sm-4 col-md-3">
@@ -120,52 +124,35 @@
             <p class="bo-text">
                 {{team.description}}
             </p>
-            <h3 class="bo-team-sub-headline">{{__ 'CHALLENGES'}}</h3>
-            <ul>
-                {{#each team.challenges}}
-                    <li class="bo-sponsor-list-item {{#if (challengeHasProof status)}}bo-challenge-with-proof{{/if}}">({{amount}}
-                        €) {{description}}
-                        {{#if sponsor}}
-                            {{#unless sponsor.sponsorIsHidden}}
 
-                                {{#if sponsor.company}}
-                                    <br>von
-                                {{else}}
-                                    <br>von {{sponsor.firstname}} {{sponsor.lastname}}
-                                {{/if}}
+            <br>
+            <h3>Challenges</h3>
+            <a href="/settings/sponsoring?id={{team.id}}&mode=1">
+                <button class="btn btn-primary">
+                {{__ 'PROPOSE_CHALLENGE_NOW'}}
+                </button>
+            </a>
+            <br />
+            <br />
+            <div id="react-challenge-list-root">
+                <!-- react will render in here -->
+            </div>
 
-                                {{#if sponsor.url}}
-                                <a href="{{sponsor.url}}">
-                                {{/if}}
-                                {{#if sponsor.company}}
-                                    {{sponsor.company}}
-                                {{/if}}
-
-                                {{#if sponsor.url}}
-                                </a>
-                                {{/if}}
-                            {{/unless}}
-                        {{/if}}
-                    </li>
-                {{/each}}
-
-            </ul>
-            {{#unless team.challenges}}
-                <i class="bo-text">{{__ 'NO_CHALLENGES_YET'}}<br/></i>
-            {{/unless}}
-            <a href="/settings/sponsoring?id={{team.id}}&mode=1">{{__ 'PROPOSE_CHALLENGE_NOW'}}</a>
             <h3 class="bo-team-sub-headline">{{__ 'SPONSORS'}}</h3>
             <ul>
                 {{#each team.sponsors}}
-                    {{#if company}}
-                        {{#if url}}
-                            <li class="bo-sponsor-list-item"><a href="{{url}}">{{company}}</a></li>
+                    <li class="bo-sponsor-list-item">
+                        {{#if company}}
+                            {{#if url}}
+                                <a href="{{url}}">{{company}}</a>
+                            {{else}}
+                                {{company}}
+                            {{/if}}
+                            <br />{{#if logoUrl}}<img src="{{logoUrl}}" />{{/if}}
                         {{else}}
-                            <li class="bo-sponsor-list-item">{{company}}</li>
+                            {{firstname}} {{lastname}}
                         {{/if}}
-                    {{else}}
-                        <li class="bo-sponsor-list-item">{{firstname}} {{lastname}}</li>
-                    {{/if}}
+                    </li>
                 {{/each}}
             </ul>
             {{#unless team.sponsors}}
