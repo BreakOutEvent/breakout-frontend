@@ -32,6 +32,7 @@ module.exports = {
       "city": "Stadt",
       "country": "Land",
       "continue": "Weiter",
+      "back": "Zurück",
       "save": "Speichern",
       "accept_tos": "Hiermit akzeptiere ich die <a href='sponsor-tos'>Teilnahmebedingungen</a> für Teamunterstützer",
       "is_18": "Ich bin mindestens 18 Jahre alt",
@@ -43,7 +44,7 @@ module.exports = {
         "donor": {
           "title": "Spender",
           "description": "Als Spender wandern 100% des gespendeten Geldes an den EinDollarGlasses e. V. und es wird Ihnen " +
-          "vom BreakOut e. V. eine Spendenquittung oder ein vereinfachter Spendennachweis ausgestellt."
+          "vom BreakOut e. V. eine Spendenquittung oder ein (vereinfachter) Spendennachweis ausgestellt."
         },
         "passive": {
           "title": "Passiver Sponsor",
