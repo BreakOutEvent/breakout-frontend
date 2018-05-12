@@ -39,10 +39,10 @@
         <div class="container">
             <div class="row registration-margin">
                 <div class="col-sm-3 col-sm-offset-9 text-right">
-                    <!--<button id="bo-add-offline-sponsoring-model-btn" type="button" class="btn btn-primary btn-lg" data-toggle="modal"-->
-                            <!--data-target="#selfSponsoring">-->
-                        <!--{{__ 'BTN_ADD'}}-->
-                    <!--</button>-->
+                    <button id="bo-add-offline-sponsoring-model-btn" type="button" class="btn btn-primary btn-lg" data-toggle="modal"
+                            data-target="#selfSponsoring">
+                        {{__ 'BTN_ADD'}}
+                    </button>
                 </div>
             </div>
             <div id="result_in"></div>
@@ -345,6 +345,7 @@
 <!-- Button trigger modal -->
 
 <!-- Modal -->
+{{#if status.is.sponsor}}
 <div class="modal" id="addSponsoring" tabindex="-1" role="dialog" aria-labelledby="addModalTitle" {{#weakIfCond mode 2}} data-showReferrer="true" {{/weakIfCond}}>
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -435,6 +436,7 @@
         </div>
     </div>
 </div>
+{{/if}}
 
 <div class="modal" id="addChallenge" tabindex="-1" role="dialog" aria-labelledby="addChallengeTitle" {{#weakIfCond mode 1}} data-showReferrer="true" {{/weakIfCond}}>
     <div class="modal-dialog" role="document">
