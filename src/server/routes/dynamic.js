@@ -21,7 +21,12 @@ const funnelTemplate = renderTemplate('dynamic', 'register', 'funnel');
 // router.get('/', redirectOnLogin, funnelTemplate('register'));
 
 router.get('/honig', function (req, res, next) {
-  req.params.teamId = 278;
+  req.params.teamId = 410;
+  next();
+}, TeamController.showTeamById);
+
+router.get('/zwei', function (req, res, next) {
+  req.params.teamId = 390;
   next();
 }, TeamController.showTeamById);
 
