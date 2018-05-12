@@ -31,6 +31,7 @@ const sendErr = (res, errMsg, err) => {
 
 const parseAmount = (rawAmount) => {
   let rawAmountString = String(rawAmount);
+  console.log(rawAmount);
   let amountArray = rawAmountString.match(/(\d+)[\.|,]?(\d*)/);
   if (amountArray.length === 3) {
     return amountArray[1] + '.' + amountArray[2];
@@ -111,10 +112,14 @@ sponsoring.create = (req, res, next) => co(function*() {
     return sendErr(res, ex.message, ex);
   }
 
-  body.amountPerKm = parseAmount(req.body.amountPerKm_text);
-  if (req.body.limit) body.limit = parseAmount(req.body.limit);
-  //TODO add proper limit (BACKEND HACK)
-  else body.limit = 1000000000;
+  try {
+    body.amountPerKm = parseAmount(req.body.amountPerKm_text);
+    if (req.body.limit) body.limit = parseAmount(req.body.limit);
+    //TODO add proper limit (BACKEND HACK)
+    else body.limit = 1000000000;
+  } catch(ex) {
+    return sendErr(res, 'Invalid Amount', ex);
+  }
 
   //OFFLINE PART
   if (req.body.street) {
