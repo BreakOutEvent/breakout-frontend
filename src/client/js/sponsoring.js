@@ -156,9 +156,13 @@ $(document).ready(() => {
           window.location.reload();
         })
         .error(function (err) {
+          let errorMessage = 'Speichern fehlgeschlagen!';
+          if (err.responseJSON.error == 'Invalid Amount'){
+            errorMessage = 'Betrag ist ungültig!';
+          }
           console.log(err);
           $('#addResult')
-            .html('<div class="alert alert-danger">Speichern fehlgeschlagen!</div>');
+            .html(`<div class="alert alert-danger">${errorMessage}</div>`);
           toggleLoading('#bo-add-cta');
         });
     }
