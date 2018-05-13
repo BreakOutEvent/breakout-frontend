@@ -295,8 +295,13 @@ API.sponsoring.create = (token, event, team, body) => {
   });
 };
 
-API.sponsoring.getByTeam = (eventId, teamId) => {
-  return API.general.get(`/event/${eventId}/team/${teamId}/sponsoring/`);
+API.sponsoring.getByTeam = (eventId, teamId, token) => {
+  return new Promise((resolve, reject) => {
+    request.get({
+      url: `${url}/event/${eventId}/team/${teamId}/sponsoring/`,
+      auth: { bearer: token }
+    }, handleResponse(resolve, reject, 'Got team sponsorings from backend'));
+  });
 };
 
 API.sponsoring.getOverviewForTeamProfile = (teamId) => {
@@ -381,8 +386,13 @@ API.challenge.create = (token, eventId, teamId, body) => {
   });
 };
 
-API.challenge.getByTeam = (eventId, teamId) => {
-  return API.general.get(`/event/${eventId}/team/${teamId}/challenge/`);
+API.challenge.getByTeam = (eventId, teamId, token) => {
+  return new Promise((resolve, reject) => {
+    request.get({
+      url: `${url}/event/${eventId}/team/${teamId}/challenge/`,
+      auth: { bearer: token }
+    }, handleResponse(resolve, reject, 'Got team challenges from backend'));
+  });
 };
 
 API.challenge.getBySponsor = (token, userId) => {

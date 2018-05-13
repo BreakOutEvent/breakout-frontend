@@ -221,7 +221,8 @@ sponsoring.getByTeam = (req) => co(function*() {
 
   let allSponsorings = yield api.sponsoring.getByTeam(
     req.user.me.participant.eventId,
-    req.user.me.participant.teamId);
+    req.user.me.participant.teamId,
+    req.user.access_token);
 
   let callSponsorings = allSponsorings.filter(c => !!c.userId);
 
@@ -312,7 +313,8 @@ sponsoring.challenge.getByTeam = (req) => co(function*() {
 
   let allChallenges = yield api.challenge.getByTeam(
     req.user.me.participant.eventId,
-    req.user.me.participant.teamId);
+    req.user.me.participant.teamId,
+    req.user.access_token);
 
   let callChallenges = allChallenges.filter(c => !!c.userId);
 
