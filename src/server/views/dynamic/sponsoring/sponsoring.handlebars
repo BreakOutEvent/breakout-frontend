@@ -50,8 +50,7 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Sponsor ID</th>
-                    <th>Sponsor Name</th>
+                    <th>Sponsor</th>
                     <th>Euro pro KM</th>
                     <th>Limit</th>
                 </tr>
@@ -64,9 +63,13 @@
                 {{/unless}}
                 {{#each incSponsoring}}
                     <tr>
-                        <td>{{sponsorId}}</td>
                         {{#if unregisteredSponsor}}
-                            <td>{{unregisteredSponsor.firstname}} {{unregisteredSponsor.lastname}}</td>
+                            <td>{{unregisteredSponsor.firstname}} {{unregisteredSponsor.lastname}}
+                                ({{unregisteredSponsor.address.street}} {{unregisteredSponsor.address.housenumber}},
+                                {{unregisteredSponsor.address.zipcode}} {{unregisteredSponsor.address.city}},
+                                {{unregisteredSponsor.address.country}}{{#if unregisteredSponsor.email}},
+                                    {{unregisteredSponsor.email}}{{/if}}
+                        )</td>
                         {{else}}
                             <td>{{sponsor.firstname}} {{sponsor.lastname}}</td>
                         {{/if}}
@@ -108,8 +111,7 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Sponsor ID</th>
-                    <th>Sponsor Name</th>
+                    <th>Sponsor</th>
                     <th>Beschreibung</th>
                     <th>Euro</th>
                 </tr>
@@ -122,9 +124,13 @@
                 {{/unless}}
                 {{#each incChallenges}}
                     <tr>
-                        <td>{{sponsorId}}</td>
                         {{#if unregisteredSponsor}}
-                            <td>{{unregisteredSponsor.firstname}} {{unregisteredSponsor.lastname}}</td>
+                            <td>{{unregisteredSponsor.firstname}} {{unregisteredSponsor.lastname}}
+                                ({{unregisteredSponsor.address.street}} {{unregisteredSponsor.address.housenumber}},
+                                {{unregisteredSponsor.address.zipcode}} {{unregisteredSponsor.address.city}},
+                                {{unregisteredSponsor.address.country}}{{#if unregisteredSponsor.email}},
+                                    {{unregisteredSponsor.email}}{{/if}}
+                                )</td>
                         {{else}}
                             <td>{{sponsor.firstname}} {{sponsor.lastname}}</td>
                         {{/if}}
@@ -616,9 +622,6 @@
             <form class="form" id="selfSponsoringModal">
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-xs-12" id="selfResult"></div>
-                    </div>
-                    <div class="row">
                         <div class="col-xs-12">
                             <p>{{__ 'SELF_MODAL_TEXT'}}</p>
                         </div>
@@ -630,23 +633,6 @@
                                        style="display: none;"
                                        required="required"
                                        value='{"team": "{{me.participant.teamId}}", "event": "{{me.participant.eventId}}"}'/>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group has-feedback has-feedback-left">
-                                <label for="bo-self-gender">{{__ 'LABEL_GENDER'}}</label>
-                                <select id="bo-self-gender" class="form-control" required="required"
-                                        name="gender">
-                                    <option disabled="disabled" selected="selected">{{__
-                                            'LABEL_GENDER'}}</option>
-                                    <option value="male">Herr</option>
-                                    <option value="female">Frau</option>
-                                </select>
-                                <!-- TODO add proper icon -->
-                                <i class="form-control-feedback material-icons">person_outline</i>
                             </div>
                         </div>
                     </div>
@@ -842,12 +828,16 @@
                             </button>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-xs-12" id="selfResult"></div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">{{__
                             'BTN_ABORT'}}</button>
                     <button type="submit" class="btn btn-primary" id="bo-self-cta">{{__
                             'BTN_SAVE'}}</button>
+
                 </div>
             </form>
             {{else}}
