@@ -364,6 +364,8 @@ exports.isNewerTenMinutes = (date, context) => {
   }
 };
 
+exports.displayCurrency = (amount, context) => Number(amount).toFixed(2);
+
 /**
  * This handlebars helper will render a block in the handlerbars file if the config value is true
  *
