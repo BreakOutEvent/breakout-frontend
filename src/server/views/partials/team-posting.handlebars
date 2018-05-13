@@ -2,9 +2,9 @@
     <div class="bo-card-info">
         <div class="row">
             <div class="col-xs-3">
-                <a href="{{user.profilePic.url}}" data-lightbox="image-{{id}}-{{user.id}}" data-title="{{user.firstname}} {{user.lastname}}">
+                <a {{#if user.profilePic.url}}href="{{user.profilePic.url}}" {{user.profilePic.url }}data-lightbox="image-{{id}}-{{user.id}}" data-title="{{user.firstname}} {{user.lastname}}"{{/if}}>
                     <div class="bo-card-profilePic"
-                        {{#if user.profilePic}}
+                        {{#if user.profilePic.url}}
                          style="background-image: url({{user.profilePic.url}});"
                         {{else}}
                          style="background-image: url('../img/placeholder_profile_pic.jpg');"
