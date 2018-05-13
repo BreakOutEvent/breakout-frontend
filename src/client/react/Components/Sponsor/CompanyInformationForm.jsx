@@ -38,6 +38,10 @@ export default class CompanyInformationForm extends React.Component {
               properties: {
                 supporterType: {
                   enum: [DONOR]
+                },
+                company: {
+                  type: 'string',
+                  title: t('company')
                 }
               }
             },
@@ -105,6 +109,7 @@ export default class CompanyInformationForm extends React.Component {
               showErrorList={false}
               formData={this.state.formData}
               onSubmit={this.props.onSubmit}>
+          <Button className="primary" type="button" onClick={this.props.onBack}>{t('back')}</Button>
           <Button className="primary" onClick={this.props.next}>{t('continue')}</Button>
           <div></div>
           { this.props.errorMessage &&

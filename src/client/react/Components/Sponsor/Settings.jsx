@@ -160,6 +160,10 @@ export default class SponsorSettings extends React.Component {
               properties: {
                 supporterType: {
                   enum: [DONOR]
+                },
+                company: {
+                  type: 'string',
+                  title: t('company')
                 }
               }
             },

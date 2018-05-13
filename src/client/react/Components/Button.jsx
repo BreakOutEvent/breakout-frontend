@@ -11,7 +11,7 @@ const Button = (props) => {
         </div>
       </button >);
   } else {
-    return <button className={props.className} id={props.id} type={props.type}>
+    return <button className={props.className} id={props.id} type={props.type} onClick={props.onClick}>
       {props.children}
     </button>;
   }

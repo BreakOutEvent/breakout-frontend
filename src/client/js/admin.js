@@ -33,6 +33,7 @@ $(document).ready(() => {
     var button = this;
     var invoiceId = $(this).attr('data-invoice');
     var fidorId = parseInt($(`#fidor-id-${invoiceId}`).val());
+    fidorId = isNaN(fidorId) ? null : fidorId;
 
     $.post('/admin/payment/add', {
       team: $(this).attr('data-team'),
