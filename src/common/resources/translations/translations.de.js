@@ -34,7 +34,7 @@ module.exports = {
       "continue": "Weiter",
       "back": "Zurück",
       "save": "Speichern",
-      "accept_tos": "Hiermit akzeptiere ich die <a href='sponsor-tos'>Teilnahmebedingungen</a> für Teamunterstützer",
+      "accept_tos": "Hiermit akzeptiere ich die <a href='sponsor-tos' target='_blank'>Teilnahmebedingungen</a> für Teamunterstützer",
       "is_18": "Ich bin mindestens 18 Jahre alt",
       "supporterData": {
         "title": "Spender-/Sponsordaten",
