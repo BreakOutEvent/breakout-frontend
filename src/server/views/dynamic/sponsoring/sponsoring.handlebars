@@ -68,16 +68,15 @@
                                 ({{unregisteredSponsor.address.street}} {{unregisteredSponsor.address.housenumber}},
                                 {{unregisteredSponsor.address.zipcode}} {{unregisteredSponsor.address.city}},
                                 {{unregisteredSponsor.address.country}}{{#if unregisteredSponsor.email}},
-                                    {{unregisteredSponsor.email}}{{/if}}
-                        )</td>
+                                    {{unregisteredSponsor.email}}{{/if}})</td>
                         {{else}}
                             <td>{{sponsor.firstname}} {{sponsor.lastname}}</td>
                         {{/if}}
-                        <td>{{amountPerKm}} €</td>
+                        <td>{{displayCurrency amountPerKm}} €</td>
                         {{#ifCond limit 1000000000}}
                             <td>Kein Limit</td>
                         {{else}}
-                            <td>{{limit}} €</td>
+                            <td>{{displayCurrency limit}} €</td>
                         {{/ifCond}}
                         <td class="text-right">
                             {{#ifCond status "PROPOSED"}}
@@ -125,17 +124,16 @@
                 {{#each incChallenges}}
                     <tr>
                         {{#if unregisteredSponsor}}
-                            <td>{{unregisteredSponsor.firstname}} {{unregisteredSponsor.lastname}}
+                            <td>{{unregisteredSponsor.firstname}} {{unregisteredSponsor.lastname}}<br />
                                 ({{unregisteredSponsor.address.street}} {{unregisteredSponsor.address.housenumber}},
                                 {{unregisteredSponsor.address.zipcode}} {{unregisteredSponsor.address.city}},
                                 {{unregisteredSponsor.address.country}}{{#if unregisteredSponsor.email}},
-                                    {{unregisteredSponsor.email}}{{/if}}
-                                )</td>
+                                    {{unregisteredSponsor.email}}{{/if}})</td>
                         {{else}}
                             <td>{{sponsor.firstname}} {{sponsor.lastname}}</td>
                         {{/if}}
                         <td>{{description}}</td>
-                        <td>{{amount}} €</td>
+                        <td>{{displayCurrency amount}} €</td>
                         <td class="text-right">
                             {{#ifCond status "PROPOSED"}}
                                 <button class="btn btn-success challengeAccept" data-team="{{teamId}}"
@@ -209,11 +207,11 @@
                                 <tr>
                                     <td>{{teamId}}</td>
                                     <td>{{team}}</td>
-                                    <td>{{amountPerKm}} €</td>
+                                    <td>{{displayCurrency amountPerKm}} €</td>
                                     {{#ifCond limit 1000000000}}
                                         <td>Kein Limit</td>
                                     {{else}}
-                                        <td>{{limit}} €</td>
+                                        <td>{{displayCurrency limit}} €</td>
                                     {{/ifCond}}
                                     <td class="text-right">
                                         <!--<button class="btn btn-warning bo-btn-edit"
@@ -252,7 +250,7 @@
                                     <td>{{teamId}}</td>
                                     <td>{{team}}</td>
                                     <td>{{description}}</td>
-                                    <td>{{amount}} €</td>
+                                    <td>{{displayCurrency amount}} €</td>
                                     <td class="text-right">
                                         {{#ifCond status "WITHDRAWN"}}
                                             <span class="text-danger">{{__ 'STATUS_WITHDRAWN'}}</span>
