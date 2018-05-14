@@ -7,6 +7,10 @@ const $ = window.$;
 
 $(document).ready(() => {
 
+  function refreshWindowWithoutQueryParams() {
+    window.location = window.location.pathname;
+  }
+  
   function output(text, limit, outputHTML, estimate) {
     return function () {
       let string = `Ein Team hat 2015 im Durchschnitt 800km zurück gelegt. Bei ${text.val()}€
@@ -99,7 +103,7 @@ $(document).ready(() => {
         data: data
       })
         .success(function () {
-          window.location.reload();
+          refreshWindowWithoutQueryParams();
         })
         .error(function (err) {
           console.log(err);
@@ -126,7 +130,7 @@ $(document).ready(() => {
         data: data
       })
         .success(function () {
-          window.location.reload();
+          refreshWindowWithoutQueryParams();
         })
         .error(function (err) {
           console.log(err);
@@ -153,7 +157,7 @@ $(document).ready(() => {
         data: data
       })
         .success(function () {
-          window.location.reload();
+          refreshWindowWithoutQueryParams();
         })
         .error(function (err) {
           let errorMessage = 'Speichern fehlgeschlagen!';
@@ -177,7 +181,7 @@ $(document).ready(() => {
       sponsoringId: $(button).attr('data-sponsoring')
     })
       .success(function () {
-        window.location.reload();
+        refreshWindowWithoutQueryParams();
       })
       .error(function (err) {
         console.log(err);
@@ -196,7 +200,7 @@ $(document).ready(() => {
       sponsoringId: $(button).attr('data-sponsoring')
     })
       .success(function () {
-        window.location.reload();
+        refreshWindowWithoutQueryParams();
       })
       .error(function (err) {
         console.log(err);
@@ -215,7 +219,7 @@ $(document).ready(() => {
       sponsoringId: $(button).attr('data-sponsoring')
     })
       .success(function () {
-        window.location.reload();
+        refreshWindowWithoutQueryParams();
       })
       .error(function (err) {
         console.log(err);
@@ -252,7 +256,7 @@ $(document).ready(() => {
         data: data
       })
         .success(function () {
-          window.location.reload();
+          refreshWindowWithoutQueryParams();
         })
         .error(function (err) {
           console.log(err);
@@ -272,7 +276,7 @@ $(document).ready(() => {
       challengeId: $(button).attr('data-id')
     })
       .success(function () {
-        window.location.reload();
+        refreshWindowWithoutQueryParams();
       })
       .error(function (err) {
         console.log(err);
@@ -291,7 +295,7 @@ $(document).ready(() => {
       challengeId: $(button).attr('data-id')
     })
       .success(function () {
-        window.location.reload();
+        refreshWindowWithoutQueryParams();
       })
       .error(function (err) {
         console.log(err);
@@ -310,7 +314,7 @@ $(document).ready(() => {
       challengeId: $(button).attr('data-id')
     })
       .success(function () {
-        window.location.reload();
+        refreshWindowWithoutQueryParams();
       })
       .error(function (err) {
         console.log(err);
