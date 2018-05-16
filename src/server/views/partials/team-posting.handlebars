@@ -5,7 +5,7 @@
                 <a {{#if user.profilePic.url}}href="{{user.profilePic.url}}" {{user.profilePic.url }}data-lightbox="image-{{id}}-{{user.id}}" data-title="{{user.firstname}} {{user.lastname}}"{{/if}}>
                     <div class="bo-card-profilePic"
                         {{#if user.profilePic.url}}
-                         style="background-image: url({{user.profilePic.url}});"
+                         style="background-image: url({{transform 'c_fill,g_faces,h_70,w_70' user.profilePic.url}});"
                         {{else}}
                          style="background-image: url('../img/placeholder_profile_pic.jpg');"
                         {{/if}}></div>
@@ -45,7 +45,7 @@
         {{#if media}}
             {{#ifCond media.type 'IMAGE'}}
                 <a href="{{media.url}}" data-lightbox="image-{{id}}" data-title="{{text}}">
-                    <img class="bo-card-media-image" src="{{media.url}}"/>
+                    <img class="bo-card-media-image" src="{{transform 'w_500' media.url}}"/>
                 </a>
             {{/ifCond}}
             {{#ifCond media.type 'AUDIO'}}
@@ -64,9 +64,7 @@
 
                 <div class="plyr">
                     <video poster="{{thumbnail media.url}}" controls preload="none">
-
-                        <!-- TODO: This one right here might need some polishing! -->
-                        <source src="{{media.url}}">
+                        <source src="{{transformVideo 'q_auto:eco' media.url}}">
                     </video>
                 </div>
                 {{/if}}

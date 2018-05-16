@@ -5,7 +5,7 @@
                data-title="{{user.firstname}} {{user.lastname}}"{{/if}}>
                 <div class="bo-card-comment-pic bo-card-profilePic"
                     {{#if user.profilePic.url}}
-                     style="background-image: url({{user.profilePic.url}});"
+                     style="background-image: url({{transform 'c_fill,g_faces,h_50,w_50' user.profilePic.url}});"
                     {{else}}
                      style="background-image: url('../img/placeholder_profile_pic.jpg');"
                     {{/if}}></div>
