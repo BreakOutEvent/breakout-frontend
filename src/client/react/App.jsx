@@ -197,7 +197,7 @@ class App extends React.Component {
           <RedirectRegistrationLock exact path={routes.participate}
                         component={this.showModalFor(Participation, 'm')}/>
 
-         <RedirectRegistrationLock exact path={routes.sponsorRegistration}
+          <RedirectSponsor exact path={routes.sponsorRegistration}
                          component={this.showModalFor(SponsorRegistration, 'm')}/>
 
           <RedirectRegistrationLock exact path={routes.createOrJoinTeam}
