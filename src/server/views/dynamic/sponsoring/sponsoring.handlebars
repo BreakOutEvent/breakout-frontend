@@ -1,6 +1,6 @@
 <div class="bo-header-info">
     <div class="container">
-        <div style="background-image: url({{me.profilePic.url}}); height: 100px; width: 100px;"
+        <div style="background-image: url({{transform 'c_fill,g_faces,h_100,w_100' me.profilePic.url}}); height: 100px; width: 100px;"
              class="bo-profile-image pull-left"></div>
         <div class="bo-profile-info">
             <p>{{me.firstname}} {{me.lastname}}</p>
@@ -440,7 +440,7 @@
         </div>
     </div>
 </div>
-{{/if}}
+
 
 
 <div class="modal" id="addChallenge" tabindex="-1" role="dialog" aria-labelledby="addChallengeTitle" {{#weakIfCond mode 1}} data-showReferrer="true" {{/weakIfCond}}>

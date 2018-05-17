@@ -32,6 +32,36 @@ exports.cloudinaryConfig = () => JSON.stringify({
   api_key: config.cloudinary.api_key
 });
 
+exports.transform = function (parameters, url) {
+  if (!url) {
+    return;
+  }
+
+  let newUrl;
+  if (!url.includes('cloudinary')) {
+    // cannot transform images that are not from cloudinary
+    return url;
+  } else {
+    newUrl = url.replace(/image\/upload\/.*\//, `image/upload/${parameters}/`);
+    return newUrl;
+  }
+};
+
+exports.transformVideo = function (parameters, url) {
+  if (!url) {
+    return;
+  }
+
+  let newUrl;
+  if (!url.includes('cloudinary')) {
+    // cannot transform images that are not from cloudinary
+    return url;
+  } else {
+    newUrl = url.replace(/video\/upload\/.*\//, `video/upload/${parameters}/`);
+    return newUrl;
+  }
+};
+
 exports.stringify = (obj) => {
 
   if (!obj) {

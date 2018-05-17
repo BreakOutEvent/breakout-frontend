@@ -4,11 +4,11 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-4 col-md-3">
-        <a {{#if team.profilePic.url}}href="{{team.profilePic.url}}" data-lightbox="image-{{id}}-{{user.id}}"
+        <a {{#if team.profilePic.url}}href="{{transform 'c_fill,g_faces,h_400,w_400' team.profilePic.url}}" data-lightbox="image-{{id}}-{{user.id}}"
                data-title="{{name}}"{{/if}}>
                 <div class="bo-team-picture" style="
                     {{#if team.profilePic.url}}
-                    background-image:url({{team.profilePic.url}})
+                    background-image:url({{transform 'c_fill,g_faces,h_250,w_250' team.profilePic.url}})
                     {{else}}
                     background-image:url('../img/placeholder_profile_pic.jpg')
                     {{/if}}"></div>
