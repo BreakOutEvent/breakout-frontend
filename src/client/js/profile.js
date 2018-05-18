@@ -109,7 +109,7 @@ $(document).ready(() => {
 
       toggleLoading('#team_CTA');
       $.ajax({
-        url: '/settings/profile/team',
+        url: '/profile/team',
         type: 'PUT',
         cache: false,
         processData: false,
