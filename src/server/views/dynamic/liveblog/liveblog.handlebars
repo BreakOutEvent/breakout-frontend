@@ -81,7 +81,7 @@
         <div id="teamPosts">
             {{#each postings}}
                 <div class="col-xs-12 col-sm-6 col-lg-4 bo-team-post">
-                    {{> team-posting isUserAdmin=../isUserAdmin}}
+                    {{> team-posting isUserAdmin=../isUserAdmin currentUserId=../isLoggedIn.me.id}}
                 </div>
             {{/each}}
         </div>

@@ -29,6 +29,8 @@ router.post('/authenticated', TeamController.isAuth);
 
 router.delete('/posting/:postingId', session.isAdmin, TeamController.deletePosting);
 
+router.delete('/myposting/:postingId', session.isUser, TeamController.deleteOwnPosting);
+
 router.delete('/media/:mediaId', session.isAdmin, TeamController.deleteMedia);
 
 router.delete('/comment/:commentId', session.isAdmin, TeamController.deleteComment);

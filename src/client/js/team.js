@@ -251,7 +251,7 @@ $(window).on('load', function () {
     var id = parseInt($(this).attr('data-id'));
     var postingId = $(this).attr('data-posting-id');
 
-    if (confirm('Magst du wirklich ' + type + ' mit Id: ' + id + 'unwiederruflich löschen?')) {
+    if (confirm('Möchtest du wirklich das gewählte Element unwiderruflich löschen?')) {
       $.ajax({
         url: '/team/' + type + '/' + id,
         type: 'DELETE',

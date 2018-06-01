@@ -59,6 +59,19 @@ class TeamController {
     return res.sendStatus(500);
   }
 
+  static* deleteOwnPosting(req, res, next) {
+    if (req.params.postingId && req.params.postingId !== '') {
+      const posting = yield api.posting.getPosting(req.params.postingId);
+      logger.info('Trying to delete posting from user ', posting.user.id);
+      logger.info('Trying to delete posting by user ', req.user.me.id);
+      if (posting.user.id === req.user.me.id) {
+        yield api.admin.deletePosting(req.user, req.params.postingId);
+        return res.sendStatus(200);
+      }
+    }
+    return res.sendStatus(500);
+  }
+
   static* createComment(req, res, next) {
     if (req.body.text && req.body.text !== '') {
       yield api.posting.createComment(req.user, req.body.id, req.body.text);
