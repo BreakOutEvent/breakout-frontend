@@ -41,11 +41,14 @@ const connectFlash = require('connect-flash')();
 const http = require('http');
 const logger = require('./services/logger');
 const contentful = require('./services/contentful');
+const Raven = require('raven');
 
 const mongoose = require('./services/mongo.js');
 const passport = require('./services/auth.js');
 const API = require('./services/api-proxy');
 const websocket = require('./services/websocket');
+
+Raven.config(config.sentry.serverDsn).install();
 
 function setupLogger(app) {
   if (IS_TEST) return;
@@ -74,11 +77,15 @@ function genericErrorHandler(err, req, res, next) {
   res.status(err.status || 500);
 
   const code = err.status;
-  const message = 'Internal Server Error';
+  const message = 'Internal Server Error: ' + res.sentry;
   let stacktrace = undefined;
 
   if (config.debug && config.debug.displayStackTrace) {
-    stacktrace = formatStackTrace(err.stack);
+    try {
+      stacktrace = formatStackTrace(err.stack);
+    } catch (err) {
+      stacktrace = 'Error formatting stacktrace';
+    }
   }
 
   res.render('layouts/error', {
@@ -260,6 +267,7 @@ function server(callback) {
   app.use(contentfulRawHtml);
   // The order is important here
   // First try to handle errors
+  app.use(Raven.errorHandler());
   app.use(genericErrorHandler);
   app.use(notFoundHandler);
 

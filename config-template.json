@@ -30,7 +30,8 @@
   "sentry": {
     "enabled": false,
     "key": "example-key-123",
-    "project": "1234"
+    "project": "1234",
+    "serverDsn": "https://abc@sentry.io/123"
   },
   "debug": {
     "displayStackTrace": true
