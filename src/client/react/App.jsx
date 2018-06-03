@@ -214,6 +214,9 @@ class App extends React.Component {
           <RedirectRegistrationLock exact path={routes.createTeamSuccess}
                         component={this.showModalFor(CreateTeamSuccess, 's')}/>
 
+          <PrivateRoute exact path={routes.profileSettings}
+                        component={this.showComponent(SponsorSettings)}/>
+
         </div>
       </Router>);
     } else {
