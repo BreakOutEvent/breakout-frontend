@@ -263,11 +263,10 @@ admin.getAllTeams = function () {
 
 admin.checkinTeam = function *(req, res) {
 
-  let checkin = yield api.putModel(
-    `event/${req.body.event}/team/`, req.body.team,
-    req.user,
-    {hasStarted: true}
-  );
+  const tokens = req.user;
+  const update = {hasStarted: true};
+
+  let checkin = yield api.putModel(`event/${req.body.event}/team`, req.body.team, tokens, update);
 
   if (!checkin) return res.sendStatus(500);
 

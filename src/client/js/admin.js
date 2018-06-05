@@ -1,5 +1,6 @@
 'use strict';
 const $ = require('jquery');
+const _ = require('lodash');
 
 var toggleLoading = require('./helpers').toggleLoading;
 
@@ -101,29 +102,31 @@ $(document).ready(() => {
     }).success(onSuccess).error(onError);
   }
 
+  function onCheckinSuccess(teamId) {
+    const btn = $(`.btn-checkin[data-team="${teamId}"]`);
+    btn.text('Successfully checked in');
+    btn.addClass('btn-success');
+  }
+
+  function onCheckinError(error, teamId) {
+    const message = _.get(error, 'responseJSON.message');
+    const btn = $(`.btn-checkin[data-team="${teamId}"]`);
+    btn.text(`Error checkin in team: ${message}`);
+    btn.addClass('btn-danger');
+  }
+
   $('.btn-checkin').click(function () {
 
-    toggleLoading(this, true);
-    var button = this;
+    const teamId = $(this).attr('data-team');
 
-    $.post('/admin/team/checkin', {
-      team: $(this).attr('data-team'),
+    const payload = {
+      team: teamId,
       event: $(this).attr('data-event')
-    }).success(function () {
-      $('#results')
-        .append('<div class="alert alert-success alert-dismissable">' +
-          '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
-          'Team ' + $(button).attr('data-team') + ' erfolgreich eingecheckt</div>');
-    }).error(function (err) {
-      console.log(err);
-      $('#results')
-        .append('<div class="alert alert-danger alert-dismissable">' +
-          '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
-          'Eintragen von Team ' + $(button).attr('data-team') + ' fehlgeschlagen: ' +
-          err.responseJSON.message + ' </div>');
-    }).always(() => {
-      toggleLoading(this);
-    });
+    };
+
+    $.post('/admin/team/checkin', payload)
+      .success(() => onCheckinSuccess(teamId))
+      .error((err) => onCheckinError(err, teamId));
   });
 
   $('.btn-addamount').click(function () {

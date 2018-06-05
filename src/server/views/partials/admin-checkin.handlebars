@@ -27,7 +27,11 @@
                         {{/each}}
                     </td>
                     <td>
-                        <button class="btn btn-primary btn-checkin" data-event="{{event}}" data-team="{{id}}">TEAM EINCHECKEN</button>
+                        {{#if hasStarted}}
+                            <button class="btn btn-success btn-checkin" data-event="{{event}}" data-team="{{id}}">Successfully checked in</button>
+                        {{else}}
+                            <button class="btn btn-primary btn-checkin" data-event="{{event}}" data-team="{{id}}">Team einchecken</button>
+                        {{/if}}
                     </td>
                 </tr>
             {{/each}}
