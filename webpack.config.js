@@ -36,7 +36,7 @@ module.exports = {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        include: path.resolve(__dirname, 'src/client/react/'),
+        include: [ path.resolve(__dirname, 'src/client/react/'), path.resolve(__dirname, 'node_modules/breakout-api-client') ],
         use: {
           loader: 'babel-loader',
           options: {
