@@ -90,6 +90,27 @@ exports.thumbnail = (videoUrl, ctx) => {
   }
 };
 
+function changeExtension(videoUrl, newExtension) {
+  try {
+    if (videoUrl.includes('breakoutmedia.blob.core.windows.net')) {
+      // this video is served from our old azure blob storage where
+      return videoUrl;
+    }
+
+    // replace the ending of the video with .png. This will use cloudinary
+    // to automatically generate a thumbnail based on the video url for us
+    return videoUrl.substr(0, videoUrl.lastIndexOf('.')) + '.'+ newExtension;
+
+  } catch (err) {
+    logger.error(`Error changing extension to ${newExtension} for url '${videoUrl}'`);
+  }
+}
+
+exports.transformVideoAndExtension = (format, extension, videoUrl, ctx) => {
+  let newUrl = changeExtension(videoUrl, extension);
+  return exports.transformVideo(format, newUrl, ctx);
+};
+
 /**
  * Concatenates first and second.
  * @param first

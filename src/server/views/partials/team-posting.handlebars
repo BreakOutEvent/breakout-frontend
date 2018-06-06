@@ -69,7 +69,8 @@
 
                 <div class="plyr">
                     <video poster="{{thumbnail media.url}}" controls preload="none">
-                        <source src="{{transformVideo 'q_auto:eco' media.url}}">
+                        <source src="{{transformVideoAndExtension 'q_auto:eco' 'webm' media.url}}">
+                        <source src="{{transformVideoAndExtension 'q_auto:eco' 'mp4' media.url}}">
                     </video>
                 </div>
                 {{/if}}
