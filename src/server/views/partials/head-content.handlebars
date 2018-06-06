@@ -64,7 +64,13 @@
 {{#isEnabled 'sentry.enabled'}}
     <script src="https://cdn.ravenjs.com/3.15.0/raven.min.js"></script>
     <script type="text/javascript">
-        Raven.config('https://{{config 'sentry.key'}}@sentry.io/{{config 'sentry.project'}}').install()
+        Raven.config('https://{{config 'sentry.key'}}@sentry.io/{{config 'sentry.project'}}').install();
+
+        if (window.boUserData && window.boUserData.email) {
+            Raven.setUserContext({
+                email: window.boUserData.email
+            });
+        }
     </script>
 {{/isEnabled}}
 
