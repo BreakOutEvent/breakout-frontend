@@ -67,7 +67,7 @@
             {{#ifCond media.type 'VIDEO'}}
                 {{#if media.url}}
 
-                <div class="plyr">
+                <div class="plyr" data-fullscreen-webm="{{changeExtension media.url 'webm'}}" data-fullscreen-h264="{{changeExtension media.url 'mp4'}}">
                     <video poster="{{thumbnail media.url}}" controls preload="none">
                         <source src="{{transformVideoAndExtension 'q_auto:eco' 'webm' media.url}}">
                         <source src="{{transformVideoAndExtension 'q_auto:eco' 'mp4' media.url}}">

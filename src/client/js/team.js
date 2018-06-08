@@ -289,7 +289,6 @@ $(window).on('load', function () {
       });
     });
   }
-
 });
 
 function searchForString(string) {

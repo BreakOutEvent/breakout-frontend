@@ -106,6 +106,8 @@ function changeExtension(videoUrl, newExtension) {
   }
 }
 
+exports.changeExtension = changeExtension;
+
 exports.transformVideoAndExtension = (format, extension, videoUrl, ctx) => {
   let newUrl = changeExtension(videoUrl, extension);
   return exports.transformVideo(format, newUrl, ctx);
