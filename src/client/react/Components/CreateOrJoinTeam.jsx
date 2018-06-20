@@ -3,6 +3,7 @@ import TeamCreation from './TeamCreation/TeamCreation.jsx';
 import JoinTeam from './JoinTeam/JoinTeam.jsx';
 import Breadcrumbs from './Breadcrumb.jsx';
 import routes from './routes';
+import PropTypes from 'prop-types';
 
 const SelectionSwitcher = (props) => {
   return (
@@ -15,8 +16,8 @@ const SelectionSwitcher = (props) => {
 };
 
 SelectionSwitcher.propTypes = {
-  options: React.PropTypes.array.isRequired,
-  onClick: React.PropTypes.func.isRequired
+  options: PropTypes.array.isRequired,
+  onClick: PropTypes.func.isRequired
 };
 
 const Selection = (props) => {
@@ -36,8 +37,8 @@ const Selection = (props) => {
 };
 
 Selection.propTypes = {
-  option: React.PropTypes.object.isRequired,
-  onClick: React.PropTypes.func.isRequired
+  option: PropTypes.object.isRequired,
+  onClick: PropTypes.func.isRequired
 };
 
 class CreateOrJoinTeam extends React.Component {
@@ -119,9 +120,9 @@ class CreateOrJoinTeam extends React.Component {
 }
 
 CreateOrJoinTeam.propTypes = {
-  children: React.PropTypes.any,
-  api: React.PropTypes.object.isRequired,
-  i18next: React.PropTypes.object.isRequired
+  children: PropTypes.any,
+  api: PropTypes.object.isRequired,
+  i18next: PropTypes.object.isRequired
 };
 
 export default CreateOrJoinTeam;

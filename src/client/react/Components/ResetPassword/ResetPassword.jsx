@@ -1,5 +1,6 @@
 import React from 'react';
 import ResetPasswordForm from './ResetPasswordForm.jsx';
+import PropTypes from 'prop-types';
 
 export default class ResetPassword extends React.Component {
 
@@ -82,6 +83,6 @@ export default class ResetPassword extends React.Component {
 }
 
 ResetPassword.propTypes = {
-  i18next: React.PropTypes.object.isRequired,
-  api: React.PropTypes.object.isRequired
+  i18next: PropTypes.object.isRequired,
+  api: PropTypes.object.isRequired
 };

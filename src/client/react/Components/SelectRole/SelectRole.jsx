@@ -1,6 +1,7 @@
 import React from 'react';
 import Breadcrumbs from '../Breadcrumb.jsx';
 import routes from '../routes';
+import PropTypes from 'prop-types';
 
 export default class RoleSelector extends React.Component {
 
@@ -61,8 +62,8 @@ export default class RoleSelector extends React.Component {
 }
 
 RoleSelector.propTypes = {
-  history: React.PropTypes.object.isRequired,
-  i18next: React.PropTypes.object.isRequired
+  history: PropTypes.object.isRequired,
+  i18next: PropTypes.object.isRequired
 };
 
 const Selector = (props) => {
@@ -80,9 +81,9 @@ const Selector = (props) => {
 };
 
 Selector.propTypes = {
-  roleTitle: React.PropTypes.string.isRequired,
-  roleText: React.PropTypes.string.isRequired,
-  onClick: React.PropTypes.func.isRequired,
-  role: React.PropTypes.string.isRequired
+  roleTitle: PropTypes.string.isRequired,
+  roleText: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+  role: PropTypes.string.isRequired
 };
 

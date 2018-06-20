@@ -3,6 +3,7 @@ import React from 'react';
 import Button from '../Button.jsx';
 import {Link}from 'react-router-dom';
 import routes from '../routes';
+import PropTypes from 'prop-types';
 
 export default class LoginForm extends React.Component {
 
@@ -108,10 +109,10 @@ export default class LoginForm extends React.Component {
 }
 
 LoginForm.propTypes = {
-  i18next: React.PropTypes.object.isRequired,
-  onChange: React.PropTypes.func.isRequired,
-  onSubmit: React.PropTypes.func.isRequired,
-  onError: React.PropTypes.func.isRequired,
-  registrationError: React.PropTypes.string,
-  isSubmitting: React.PropTypes.bool.isRequired
+  i18next: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  onError: PropTypes.func.isRequired,
+  registrationError: PropTypes.string,
+  isSubmitting: PropTypes.bool.isRequired
 };

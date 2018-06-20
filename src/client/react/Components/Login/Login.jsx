@@ -1,7 +1,7 @@
 import React from 'react';
 import LoginForm from './LoginForm.jsx';
-import {Redirect} from 'react-router-dom';
 import routes from '../routes';
+import PropTypes from 'prop-types';
 
 export default class Login extends React.Component {
 
@@ -100,8 +100,8 @@ export default class Login extends React.Component {
 }
 
 Login.propTypes = {
-  history: React.PropTypes.object.isRequired,
-  i18next: React.PropTypes.object.isRequired,
-  api: React.PropTypes.object.isRequired,
-  isLoggedIn: React.PropTypes.bool.isRequired
+  history: PropTypes.object.isRequired,
+  i18next: PropTypes.object.isRequired,
+  api: PropTypes.object.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired
 };

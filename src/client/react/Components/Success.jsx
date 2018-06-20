@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Success = (props) => {
   return (
@@ -19,9 +20,9 @@ const Success = (props) => {
 };
 
 Success.propTypes = {
-  title: React.PropTypes.string.isRequired,
-  description: React.PropTypes.any.isRequired,
-  children: React.PropTypes.any
+  title: PropTypes.string.isRequired,
+  description: PropTypes.any.isRequired,
+  children: PropTypes.any
 };
 
 const VisitorSuccess = (props) => {
@@ -35,7 +36,7 @@ const VisitorSuccess = (props) => {
 };
 
 VisitorSuccess.propTypes = {
-  i18next: React.PropTypes.object.isRequired
+  i18next: PropTypes.object.isRequired
 };
 
 class JoinTeamSuccess extends React.Component {
@@ -109,8 +110,8 @@ class JoinTeamSuccess extends React.Component {
 }
 
 JoinTeamSuccess.propTypes = {
-  i18next: React.PropTypes.object.isRequired,
-  api: React.PropTypes.object.isRequired
+  i18next: PropTypes.object.isRequired,
+  api: PropTypes.object.isRequired
 };
 
 const CreateTeamSuccess = (props) => {
@@ -130,7 +131,7 @@ const CreateTeamSuccess = (props) => {
 
 
 CreateTeamSuccess.propTypes = {
-  i18next: React.PropTypes.object.isRequired
+  i18next: PropTypes.object.isRequired
 };
 
 export {Success, VisitorSuccess, JoinTeamSuccess, CreateTeamSuccess};

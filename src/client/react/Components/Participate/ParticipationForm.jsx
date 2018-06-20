@@ -1,6 +1,7 @@
 import Form from '../Form.jsx';
 import React from 'react';
 import Button from '../Button.jsx';
+import PropTypes from 'prop-types';
 
 export const BooleanWithInnerHtml = (props) => {
   return (
@@ -16,10 +17,10 @@ export const BooleanWithInnerHtml = (props) => {
 };
 
 BooleanWithInnerHtml.propTypes = {
-  value: React.PropTypes.bool,
-  required: React.PropTypes.bool.isRequired,
-  onChange: React.PropTypes.func.isRequired,
-  label: React.PropTypes.string.isRequired
+  value: PropTypes.bool,
+  required: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired
 };
 
 export default class ParticipationForm extends React.Component {
@@ -130,12 +131,12 @@ export default class ParticipationForm extends React.Component {
 }
 
 ParticipationForm.propTypes = {
-  i18next: React.PropTypes.object.isRequired,
-  onChange: React.PropTypes.func.isRequired,
-  onSubmit: React.PropTypes.func.isRequired,
-  onError: React.PropTypes.func.isRequired,
-  participationError: React.PropTypes.string,
-  isSubmitting: React.PropTypes.bool.isRequired,
-  tshirtSizes: React.PropTypes.array.isRequired,
-  formData: React.PropTypes.object
+  i18next: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  onError: PropTypes.func.isRequired,
+  participationError: PropTypes.string,
+  isSubmitting: PropTypes.bool.isRequired,
+  tshirtSizes: PropTypes.array.isRequired,
+  formData: PropTypes.object
 };

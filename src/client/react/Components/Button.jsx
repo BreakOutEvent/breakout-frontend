@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Button = (props) => {
   if (props.isLoading || false) {
@@ -18,12 +19,12 @@ const Button = (props) => {
 };
 
 Button.propTypes = {
-  className: React.PropTypes.string.isRequired,
-  id: React.PropTypes.string,
-  type: React.PropTypes.string,
-  isLoading: React.PropTypes.bool,
-  indicatorColor: React.PropTypes.string,
-  children: React.PropTypes.any
+  className: PropTypes.string.isRequired,
+  id: PropTypes.string,
+  type: PropTypes.string,
+  isLoading: PropTypes.bool,
+  indicatorColor: PropTypes.string,
+  children: PropTypes.any
 };
 
 export default Button;

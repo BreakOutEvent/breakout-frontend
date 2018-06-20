@@ -1,5 +1,6 @@
 import React from 'react';
 import ImportedModal from 'react-responsive-modal';
+import PropTypes from 'prop-types';
 
 export default class Modal extends React.Component {
 
@@ -47,7 +48,7 @@ export default class Modal extends React.Component {
 }
 
 Modal.propTypes = {
-  show: React.PropTypes.bool.isRequired,
-  onHide: React.PropTypes.func.isRequired,
-  children: React.PropTypes.any
+  show: PropTypes.bool.isRequired,
+  onHide: PropTypes.func.isRequired,
+  children: PropTypes.any
 };

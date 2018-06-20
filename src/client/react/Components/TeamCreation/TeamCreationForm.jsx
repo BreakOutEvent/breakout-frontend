@@ -1,6 +1,7 @@
 import Form from '../Form.jsx';
 import React from 'react';
 import Button from '../Button.jsx';
+import PropTypes from 'prop-types';
 
 export default class TeamCreationForm extends React.Component {
 
@@ -75,11 +76,11 @@ export default class TeamCreationForm extends React.Component {
 }
 
 TeamCreationForm.propTypes = {
-  i18next: React.PropTypes.object.isRequired,
-  events: React.PropTypes.array.isRequired,
-  onChange: React.PropTypes.func.isRequired,
-  onSubmit: React.PropTypes.func.isRequired,
-  onError: React.PropTypes.func.isRequired,
-  teamCreationError: React.PropTypes.string,
-  isSubmitting: React.PropTypes.bool.isRequired
+  i18next: PropTypes.object.isRequired,
+  events: PropTypes.array.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  onError: PropTypes.func.isRequired,
+  teamCreationError: PropTypes.string,
+  isSubmitting: PropTypes.bool.isRequired
 };

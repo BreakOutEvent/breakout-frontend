@@ -1,6 +1,7 @@
 import Form from '../Form.jsx';
 import React from 'react';
 import Button from '../Button.jsx';
+import PropTypes from 'prop-types';
 
 export default class ResetPasswordForm extends React.Component {
 
@@ -62,11 +63,11 @@ export default class ResetPasswordForm extends React.Component {
 }
 
 ResetPasswordForm.propTypes = {
-  i18next: React.PropTypes.object.isRequired,
-  onChange: React.PropTypes.func.isRequired,
-  onSubmit: React.PropTypes.func.isRequired,
-  onError: React.PropTypes.func.isRequired,
-  resetPasswordError: React.PropTypes.string,
-  resetPasswordSuccess: React.PropTypes.string,
-  isSubmitting: React.PropTypes.bool.isRequired
+  i18next: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  onError: PropTypes.func.isRequired,
+  resetPasswordError: PropTypes.string,
+  resetPasswordSuccess: PropTypes.string,
+  isSubmitting: PropTypes.bool.isRequired
 };

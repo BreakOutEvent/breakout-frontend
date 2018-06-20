@@ -2,6 +2,7 @@ import React from 'react';
 import ParticipationForm from './ParticipationForm.jsx';
 import Breadcrumbs from '../Breadcrumb.jsx';
 import routes from '../routes';
+import PropTypes from 'prop-types';
 
 export default class Participation extends React.Component {
 
@@ -114,7 +115,7 @@ export default class Participation extends React.Component {
 }
 
 Participation.propTypes = {
-  api: React.PropTypes.object.isRequired,
-  history: React.PropTypes.object.isRequired,
-  i18next: React.PropTypes.object.isRequired,
+  api: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  i18next: PropTypes.object.isRequired,
 };

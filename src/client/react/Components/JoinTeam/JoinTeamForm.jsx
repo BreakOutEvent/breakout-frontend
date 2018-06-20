@@ -2,7 +2,7 @@ import Form from '../Form.jsx';
 import React from 'react';
 import InvitationWidget from './InvitationWidget.jsx';
 import Button from '../Button.jsx';
-
+import PropTypes from 'prop-types';
 export default class JoinTeamForm extends React.Component {
 
   constructor(props) {
@@ -69,10 +69,10 @@ export default class JoinTeamForm extends React.Component {
 }
 
 JoinTeamForm.propTypes = {
-  invitations: React.PropTypes.array.isRequired,
-  i18next: React.PropTypes.object.isRequired,
-  onChange: React.PropTypes.func.isRequired,
-  onSubmit: React.PropTypes.func.isRequired,
-  joinTeamError: React.PropTypes.string,
-  isSubmitting: React.PropTypes.bool.isRequired
+  invitations: PropTypes.array.isRequired,
+  i18next: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  joinTeamError: PropTypes.string,
+  isSubmitting: PropTypes.bool.isRequired
 };

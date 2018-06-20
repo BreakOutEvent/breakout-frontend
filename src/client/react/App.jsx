@@ -264,7 +264,7 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  api: React.PropTypes.object
+  api: PropTypes.object
 };
 
 const url = window.boClientConfig.baseUrl;

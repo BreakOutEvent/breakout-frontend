@@ -1,6 +1,7 @@
 import React from 'react';
 import RegistrationForm from './RegistrationForm.jsx';
 import routes from '../routes';
+import PropTypes from 'prop-types';
 
 export default class Registration extends React.Component {
 
@@ -103,7 +104,7 @@ export default class Registration extends React.Component {
 }
 
 Registration.propTypes = {
-  api: React.PropTypes.object.isRequired,
-  history: React.PropTypes.object.isRequired,
-  i18next: React.PropTypes.object.isRequired,
+  api: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  i18next: PropTypes.object.isRequired,
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const InviteOption = (props) => {
   return (
@@ -22,9 +23,9 @@ const InviteOption = (props) => {
 };
 
 InviteOption.propTypes = {
-  label: React.PropTypes.object.isRequired,
-  onClick: React.PropTypes.func.isRequired,
-  selected: React.PropTypes.bool.isRequired
+  label: PropTypes.object.isRequired,
+  onClick: PropTypes.func.isRequired,
+  selected: PropTypes.bool.isRequired
 };
 
 class InvitationWidget extends React.Component {
@@ -62,8 +63,8 @@ class InvitationWidget extends React.Component {
 }
 
 InvitationWidget.propTypes = {
-  onChange: React.PropTypes.func.isRequired,
-  options: React.PropTypes.object.isRequired
+  onChange: PropTypes.func.isRequired,
+  options: PropTypes.object.isRequired
 };
 
 export default InvitationWidget;

@@ -1,5 +1,6 @@
 import JSForm from 'react-jsonschema-form';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Form = (props) => {
 
@@ -14,7 +15,7 @@ const Form = (props) => {
 };
 
 Form.propTypes = {
-  children: React.PropTypes.array
+  children: PropTypes.array
 };
 
 export default Form;

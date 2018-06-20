@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const Breadcrumbs = (props) => {
   return (
@@ -10,7 +11,7 @@ const Breadcrumbs = (props) => {
 };
 
 Breadcrumbs.propTypes = {
-  entries: React.PropTypes.array.isRequired
+  entries: PropTypes.array.isRequired
 };
 
 const BreadcrumbEntry = (props) => {
@@ -22,9 +23,9 @@ const BreadcrumbEntry = (props) => {
 };
 
 BreadcrumbEntry.propTypes = {
-  isActive: React.PropTypes.bool,
-  title: React.PropTypes.string.isRequired,
-  link: React.PropTypes.string.isRequired
+  isActive: PropTypes.bool,
+  title: PropTypes.string.isRequired,
+  link: PropTypes.string.isRequired
 };
 
 export default Breadcrumbs;

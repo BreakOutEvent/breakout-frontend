@@ -1,7 +1,7 @@
 import Form from '../Form.jsx';
 import React from 'react';
 import Button from '../Button.jsx';
-
+import PropTypes from 'prop-types';
 export default class LoginForm extends React.Component {
 
   constructor(props) {
@@ -84,12 +84,12 @@ export default class LoginForm extends React.Component {
 }
 
 LoginForm.propTypes = {
-  i18next: React.PropTypes.object.isRequired,
-  onChange: React.PropTypes.func.isRequired,
-  onError: React.PropTypes.func.isRequired,
-  onSubmit: React.PropTypes.func.isRequired,
-  onPasswordReset: React.PropTypes.func.isRequired,
-  onRegister: React.PropTypes.func.isRequired,
-  isSubmitting: React.PropTypes.bool.isRequired,
-  loginError: React.PropTypes.string
+  i18next: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onError: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  onPasswordReset: PropTypes.func.isRequired,
+  onRegister: PropTypes.func.isRequired,
+  isSubmitting: PropTypes.bool.isRequired,
+  loginError: PropTypes.string
 };
