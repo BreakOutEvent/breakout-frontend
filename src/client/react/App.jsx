@@ -29,7 +29,7 @@ import routes from './Components/routes';
 import AdminInvoicePanel from './Components/Admin/AdminInvoicePanel.jsx';
 import {MuiThemeProvider} from 'material-ui';
 import ListOfChallenges from './Components/TeamProfile/ListOfChallenges.jsx';
-
+import PropTypes from 'prop-types';
 
 const OnShowHack = (props) => {
   if (props.overflowHidden) {
