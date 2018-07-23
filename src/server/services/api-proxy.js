@@ -687,6 +687,19 @@ API.posting.createLike = (token, postingId) => {
   });
 };
 
+API.posting.deleteLike = (token, postingId) => {
+  logger.info('Delete like for posting', postingId);
+  return new Promise((resolve, reject) => {
+
+    request
+      .delete({
+        url: `${url}/posting/${postingId}/like/`,
+        auth: { bearer: token.access_token },
+        headers: { 'content-type': 'application/json' }
+      }, handleResponse(resolve, reject, 'Successfully deleted Like for Posting: ' + postingId));
+  });
+}
+
 API.posting.getLikesForPosting = (postingId) => {
   return API.general.get(`/posting/${postingId}/like/`);
 };
