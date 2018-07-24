@@ -117,6 +117,11 @@ class TeamController {
 
   }
 
+  static* deleteLike(req, res, next) {
+    yield api.posting.deleteLike(req.user, req.body.postingId);
+    res.sendStatus(200);
+  }
+
   static* getLikes(req, res, next) {
     let likes = yield api.posting.getLikesForPosting(req.params.postingId);
     res.send(likes);

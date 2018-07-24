@@ -165,25 +165,44 @@ $(window).on('load', function () {
         return window.location.href = '/login?return=' + window.location.pathname;
       }
 
-      $.post('/team/like', {postingId: $button.data('id')})
-        .success(function (data) {
-          $button.toggleClass('active');
-          var $likeCount = $button.find('.bo-like-count');
-          if ($likeCount.size() > 0) {
+      if($button.hasClass('active')) {
+        $.ajax({
+          url: '/team/like',
+          type: 'DELETE',
+          data: {postingId: $button.data('id')},
+          success: function(result) {
+            $button.toggleClass('active');
+            var $likeCount = $button.find('.bo-like-count');
+            var count = parseInt($likeCount.text());
+            count--;
+            $likeCount.text(count);
+            if(count === 0) {
+              $button.find('.bo-first-like').toggle();
+              $button.find('.bo-likes-text').toggle();
+            }
+          }
+        });
+      } else {
+        $.post('/team/like', {postingId: $button.data('id')})
+          .success(function (data) {
+            $button.toggleClass('active');
+            var $likeCount = $button.find('.bo-like-count');
             var count = parseInt($likeCount.text());
             count++;
             $likeCount.text(count);
-          } else {
-            $button.html('<i class="material-icons bo-card-actions-icon">favorite</i><span class="bo-like-count">1</span> Likes');
-          }
-        });
+            if(count === 1) {
+              $button.find('.bo-first-like').toggle();
+              $button.find('.bo-likes-text').toggle();
+            }
+          });
+      }
     });
 
     $('.bo-card-actions-like').on('mouseover', function () {
 
       var cardLike = $(this);
 
-      if (cardLike.find('.bo-like-count').size() > 0) {
+      if (parseInt(cardLike.find('.bo-like-count').text()) > 0) {
         cardLike.addClass('bo-tooltip');
         cardLike.attr('data-tooltip', 'Lädt...');
 

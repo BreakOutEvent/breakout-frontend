@@ -25,6 +25,8 @@ router.post('/comment/create', session.isUser, TeamController.createComment);
 
 router.post('/like', session.isUser, TeamController.createLike);
 
+router.delete('/like', session.isUser, TeamController.deleteLike);
+
 router.post('/authenticated', TeamController.isAuth);
 
 router.delete('/posting/:postingId', session.isAdmin, TeamController.deletePosting);

@@ -97,7 +97,14 @@
     </div>
     <div class="bo-card-actions">
         <a href="#" class="bo-card-actions-like {{#if hasLiked}}active{{/if}}" data-id="{{id}}"><i
-                class="material-icons bo-card-actions-icon">favorite</i>{{#if likes}}<span class="bo-like-count">{{likes}}</span> Likes{{else}}{{__ 'I_LIKE'}}{{/if}}</a>
+                class="material-icons bo-card-actions-icon">favorite</i>
+            <span class="bo-likes-text" style="display: {{#if likes}}inline{{else}}none{{/if}}">
+                <span class="bo-like-count">{{likes}}</span> Likes
+            </span>
+            <span class="bo-first-like" style="display: {{#if likes}}none{{else}}inline{{/if}}">
+                {{__ 'I_LIKE'}}
+            </span>
+        </a>
         <a href="#" class="bo-card-actions-comment"><i
                 class="material-icons bo-card-actions-icon">comment</i> {{length comments}} {{__ 'COMMENTS'}}</a>
     </div>
