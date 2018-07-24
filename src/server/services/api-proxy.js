@@ -698,7 +698,7 @@ API.posting.deleteLike = (token, postingId) => {
         headers: { 'content-type': 'application/json' }
       }, handleResponse(resolve, reject, 'Successfully deleted Like for Posting: ' + postingId));
   });
-}
+};
 
 API.posting.getLikesForPosting = (postingId) => {
   return API.general.get(`/posting/${postingId}/like/`);
