@@ -31,7 +31,7 @@ import {MuiThemeProvider} from 'material-ui';
 import AddChallenge from './Components/TeamProfile/AddChallenge.jsx';
 import ListOfChallenges from './Components/TeamProfile/ListOfChallenges.jsx';
 import PropTypes from 'prop-types';
-import AddChallenge from './Components/TeamProfile/AddChallenge'
+
 
 const OnShowHack = (props) => {
   if (props.overflowHidden) {
