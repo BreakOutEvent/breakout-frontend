@@ -28,8 +28,10 @@ ReactGA.initialize('UA-59857227-3');
 import routes from './Components/routes';
 import AdminInvoicePanel from './Components/Admin/AdminInvoicePanel.jsx';
 import {MuiThemeProvider} from 'material-ui';
+import AddChallenge from './Components/TeamProfile/AddChallenge.jsx';
 import ListOfChallenges from './Components/TeamProfile/ListOfChallenges.jsx';
 import PropTypes from 'prop-types';
+import AddChallenge from './Components/TeamProfile/AddChallenge'
 
 const OnShowHack = (props) => {
   if (props.overflowHidden) {
@@ -283,7 +285,7 @@ function renderIfExists(elem, domId) {
   if (domNode) {
     ReactDOM.render(elem, domNode);
   } else {
-    console.warn(`Not rendering react component because node with id ${domId} does not exist`);
+    // console.warn(`Not rendering react component because node with id ${domId} does not exist`);
   }
 }
 
@@ -304,7 +306,10 @@ class StatefulListOfChallenges extends React.Component {
     if (this.state.error) {
       return <div className="alert alert-warning">Something went wrong when loading challenges</div>;
     }
-    return <ListOfChallenges challenges={this.state.challenges}/>;
+    return <div>
+      <AddChallenge />
+      <ListOfChallenges challenges={this.state.challenges}/>
+    </div>;
   }
 }
 
