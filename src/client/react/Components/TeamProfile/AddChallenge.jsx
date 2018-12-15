@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import CloseIcon from '@material-ui/icons/Close';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import _ from 'lodash';
 
 const challengeSuggestions = [
@@ -57,6 +58,12 @@ class AddChallenge extends React.Component {
             placeholder={challengeSuggestions[this.state.placeholderIndex]}
             multiline
             rows={3}
+          />
+          <TextField
+            id="Amount"
+            InputProps={{
+              startAdornment: <InputAdornment position="start">€</InputAdornment>
+            }}
           />
           <Button
             variant="extendedFab"
