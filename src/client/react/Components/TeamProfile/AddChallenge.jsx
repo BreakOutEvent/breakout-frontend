@@ -9,7 +9,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import _ from 'lodash';
+import PropTypes from 'prop-types';
 
 const challengeSuggestions = [
   'Do a handstand',
@@ -24,11 +24,12 @@ class AddChallenge extends React.Component {
     super(props);
     this.state = {
       open: false,
-      placeholderIndex: 0
+      placeholderIndex: 0,
+      amount: 0,
+      description: ''
     };
-    this.interval = setInterval(this.changeSuggestions.bind(this), 3000);
-    //this.changeSuggestions = this.changeSuggestions.bind(this);
-    this.handleClickOpen = this.handleClickOpen.bind(this);
+    this.interval = setInterval(this.changeSuggestions.bind(this), 2000);
+    this.handleClickAt = this.handleClickAt.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
 
@@ -41,8 +42,17 @@ class AddChallenge extends React.Component {
     });
   }
 
-  handleClickOpen() {
-    this.setState({open: true});
+  handleClickAt() {
+    this.props.api.getMe()
+      .then(() => {
+        this.props.api.addChallenge(this.props.teamId,
+          {
+            description: this.state.description,
+            amount: this.state.amount
+          })
+          .then(response => this.props.update(response.sponsorId));
+      })
+      .catch(() => this.setState({open: true}));
   }
 
   handleClose() {
@@ -56,18 +66,22 @@ class AddChallenge extends React.Component {
           <TextField
             id="ChallengeProposal"
             placeholder={challengeSuggestions[this.state.placeholderIndex]}
+            value={this.state.dscription}
+            onChange={event=>this.setState({description:event.target.value})}
             multiline
             rows={3}
           />
           <TextField
             id="Amount"
+            value={this.state.amount}
+            onChange={event => this.setState({amount:event.target.value})}
             InputProps={{
               startAdornment: <InputAdornment position="start">€</InputAdornment>
             }}
           />
           <Button
             variant="extendedFab"
-            onClick={this.handleClickOpen}>Add a challenge</Button>
+            onClick={this.handleClickAt}>Add a challenge</Button>
         </Paper>
       <br/>
           <Dialog
@@ -90,5 +104,11 @@ class AddChallenge extends React.Component {
     );
   }
 }
+
+AddChallenge.propTypes = {
+  isLoggedIn: PropTypes.bool.isRequired,
+  api: PropTypes.object.isRequired,
+  teamId: PropTypes.number.isRequired
+};
 
 export default AddChallenge;

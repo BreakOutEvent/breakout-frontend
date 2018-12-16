@@ -294,20 +294,38 @@ class StatefulListOfChallenges extends React.Component {
     super(props);
     this.teamId = window.teamId;
     this.state = {challenges: [], error: null};
+    this.update = this.update.bind(this);
   }
 
   componentDidMount() {
     this.props.api.fetchChallengesForTeam(this.teamId)
-      .then(challenges => this.setState({challenges}))
+      .then(challenges => this.setState({
+        challenges: challenges.sort((a,b)=>b.id-a.id)}
+      ))
       .catch(error => this.setState({error}));
   }
+
+  update(sponsorId) {
+    this.props.api.fetchChallengesForTeam(this.teamId)
+      .then(challenges => {
+        let sortedByNewest = challenges.sort((a,b)=>b.id-a.id);
+        let allChallengesFromSponsor = sortedByNewest.filter(challenge=>challenge.sponsor.sponsorId===sponsorId);
+        let allChallengesFromOthers = sortedByNewest.filter(challenge=>challenge.sponsor.sponsorId!==sponsorId);
+        allChallengesFromSponsor.push(...allChallengesFromOthers);
+        this.setState({
+          challenges: allChallengesFromSponsor
+        });
+      })
+      .catch(error => this.setState({error}));
+  }
+
 
   render() {
     if (this.state.error) {
       return <div className="alert alert-warning">Something went wrong when loading challenges</div>;
     }
     return <div>
-      <AddChallenge />
+      <AddChallenge isLoggedIn={!!window.boUserData} api={api} teamId={this.teamId} update={this.update}/>
       <ListOfChallenges challenges={this.state.challenges}/>
     </div>;
   }

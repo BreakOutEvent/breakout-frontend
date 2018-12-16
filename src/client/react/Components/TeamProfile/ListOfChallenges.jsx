@@ -8,7 +8,7 @@ const ListOfChallenges = (props) => {
     <div style={{marginBottom: 20}}><ChallengeListItem {...challenge} /></div>
   );
   const challenges = props.challenges
-    .filter(challenge => challenge.status === 'WITH_PROOF' || challenge.status === 'ACCEPTED')
+    .filter(challenge => challenge.status === 'WITH_PROOF' || challenge.status === 'ACCEPTED' || challenge.status === 'PROPOSED')
     .map(renderChallenge);
 
   return (
@@ -20,9 +20,17 @@ const ListOfChallenges = (props) => {
 
 const ChallengeListItem = (props) => {
   const url = _.get(props, 'sponsor.logoUrl', '');
-
+  const icons = {
+    'WITH_PROOF': 'check',
+    'PROPOSED': 'notifications',
+    'ACCEPTED': ''
+  };
+  const iconColors = {
+    'WITH_PROOF': 'green',
+    'PROPOSED': 'grey',
+    'ACCEPTED': 'black'
+  };
   const color = (props.status === 'WITH_PROOF') ? ' green' : 'black';
-  const icon = (props.status === 'WITH_PROOF') ? 'check' : '';
 
   const style = {
     top: {
@@ -79,7 +87,7 @@ const ChallengeListItem = (props) => {
       <div style={style.top}>
         <div style={style.icon}>
           {props.amount}€
-          <FontIcon className='material-icons' style={{color}}>{icon}</FontIcon>
+          <FontIcon className='material-icons' style={{'color': iconColors[props.status]}}>{icons[props.status]}</FontIcon>
         </div>
         <div style={style.description}>{props.description}</div>
       </div>
