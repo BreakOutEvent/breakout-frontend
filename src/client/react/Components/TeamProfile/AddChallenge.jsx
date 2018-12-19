@@ -1,15 +1,11 @@
 import React from 'react';
-import Dialog from '@material-ui/core/Dialog';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import CloseIcon from '@material-ui/icons/Close';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import PropTypes from 'prop-types';
+import RegisterLogin from './RegisterLogin.jsx';
+
 
 const challengeSuggestions = [
   'Do a handstand',
@@ -23,14 +19,14 @@ class AddChallenge extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false,
+      renderDialog: false,
       placeholderIndex: 0,
       amount: 0,
       description: ''
     };
     this.interval = setInterval(this.changeSuggestions.bind(this), 2000);
     this.handleClickAt = this.handleClickAt.bind(this);
-    this.handleClose = this.handleClose.bind(this);
+    this.closeDialog = this.closeDialog.bind(this);
   }
 
   changeSuggestions() {
@@ -52,11 +48,11 @@ class AddChallenge extends React.Component {
           })
           .then(response => this.props.update(response.sponsorId));
       })
-      .catch(() => this.setState({open: true}));
+      .catch(() => this.setState({renderDialog: true}));
   }
 
-  handleClose() {
-    this.setState({open: false});
+  closeDialog() {
+    this.setState({renderDialog: false});
   }
 
   render() {
@@ -85,21 +81,9 @@ class AddChallenge extends React.Component {
             onClick={this.handleClickAt}>Add a challenge</Button>
         </Paper>
       <br/>
-          <Dialog
-          fullScreen
-          open={this.state.open}
-          onClose={this.handleClose}>
-          <AppBar>
-            <Toolbar>
-              <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
-                <CloseIcon />
-              </IconButton>
-              <Typography variant="title" color="inherit">
-                Login/Register
-              </Typography>
-            </Toolbar>
-          </AppBar>
-        </Dialog>
+        {this.state.renderDialog &&
+        <RegisterLogin
+        closeDialog={this.closeDialog}/>}
       </div>
     );
   }
@@ -108,7 +92,8 @@ class AddChallenge extends React.Component {
 AddChallenge.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   api: PropTypes.object.isRequired,
-  teamId: PropTypes.number.isRequired
+  teamId: PropTypes.number.isRequired,
+  renderDialog: PropTypes.bool.isRequired
 };
 
 export default AddChallenge;
