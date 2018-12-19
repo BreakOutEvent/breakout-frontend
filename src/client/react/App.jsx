@@ -309,11 +309,11 @@ class StatefulListOfChallenges extends React.Component {
     this.props.api.fetchChallengesForTeam(this.teamId)
       .then(challenges => {
         let sortedByNewest = challenges.sort((a,b)=>b.id-a.id);
-        let allChallengesFromSponsor = sortedByNewest.filter(challenge=>challenge.sponsor.sponsorId===sponsorId);
+        let sortedByNewestAndUser = sortedByNewest.filter(challenge=>challenge.sponsor.sponsorId===sponsorId);
         let allChallengesFromOthers = sortedByNewest.filter(challenge=>challenge.sponsor.sponsorId!==sponsorId);
-        allChallengesFromSponsor.push(...allChallengesFromOthers);
+        sortedByNewestAndUser.push(...allChallengesFromOthers);
         this.setState({
-          challenges: allChallengesFromSponsor
+          challenges: sortedByNewestAndUser
         });
       })
       .catch(error => this.setState({error}));

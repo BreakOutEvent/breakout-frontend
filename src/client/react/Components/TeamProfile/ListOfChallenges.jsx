@@ -7,6 +7,8 @@ const ListOfChallenges = (props) => {
   const renderChallenge = (challenge) => (
     <div style={{marginBottom: 20}}><ChallengeListItem {...challenge} /></div>
   );
+
+  // Todo only display proposed challenges of the logged in user
   const challenges = props.challenges
     .filter(challenge => challenge.status === 'WITH_PROOF' || challenge.status === 'ACCEPTED' || challenge.status === 'PROPOSED')
     .map(renderChallenge);

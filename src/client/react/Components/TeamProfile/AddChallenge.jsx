@@ -74,6 +74,7 @@ class AddChallenge extends React.Component {
           <TextField
             id="Amount"
             value={this.state.amount}
+            type="number"
             onChange={event => this.setState({amount:event.target.value})}
             InputProps={{
               startAdornment: <InputAdornment position="start">€</InputAdornment>
@@ -87,15 +88,14 @@ class AddChallenge extends React.Component {
           <Dialog
           fullScreen
           open={this.state.open}
-          onClose={this.handleClose}
-        >
+          onClose={this.handleClose}>
           <AppBar>
             <Toolbar>
               <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
                 <CloseIcon />
               </IconButton>
               <Typography variant="title" color="inherit">
-                Sound
+                Login/Register
               </Typography>
             </Toolbar>
           </AppBar>
