@@ -9,6 +9,7 @@ import Participation from './Components/Participate/Participation.jsx';
 import SelectRole from './Components/SelectRole/SelectRole.jsx';
 import ResetPassword from './Components/ResetPassword/ResetPassword.jsx';
 import CreateOrJoinTeam from './Components/CreateOrJoinTeam.jsx';
+import EmailConfirmationCheck from './Components/EmailConfirmationCheck.jsx';
 import SponsorRegistration from './Components/Sponsor/Sponsor.jsx';
 import SponsorSettings from './Components/Sponsor/Settings.jsx';
 import {VisitorSuccess, JoinTeamSuccess, CreateTeamSuccess} from './Components/Success.jsx';
@@ -334,3 +335,4 @@ class StatefulListOfChallenges extends React.Component {
 renderIfExists(<MuiThemeProvider><AdminInvoicePanel api={api}/></MuiThemeProvider>, 'react-admin-invoice');
 renderIfExists(<App/>, 'react-root');
 renderIfExists(<MuiThemeProvider><StatefulListOfChallenges api={api}/></MuiThemeProvider>, 'react-challenge-list-root');
+renderIfExists(<MuiThemeProvider><EmailConfirmationCheck isLoggedIn={isLoggedIn}/></MuiThemeProvider>, 'react-email-confirmation');
