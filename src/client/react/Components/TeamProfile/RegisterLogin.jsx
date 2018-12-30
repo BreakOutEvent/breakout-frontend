@@ -9,10 +9,32 @@ import TextField from '@material-ui/core/TextField';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import PropTypes from 'prop-types';
 
+const steps = {
+  email: 'EMAIL',
+  login: 'LOGIN',
+  register: 'REGISTER'
+}
+
 class RegisterLogin extends React.Component {
 
   constructor(props){
     super(props);
+
+    this.state = {
+      email: '',
+      step: steps.email
+    }
+    this.checkEmail = this.checkEmail.bind(this);
+  }
+
+  checkEmail() {
+    console.log(this.props.api);
+    this.props.api.checkEmailExistance(this.state.email).then(result =>
+    {
+      console.log(result)
+      this.setState({step: (result ? steps.login : steps.register)});
+    }
+  )
   }
 
   render() {
@@ -25,7 +47,7 @@ class RegisterLogin extends React.Component {
         onClose={() => this.props.closeDialog()}
         id="login-register"
       >
-        <DialogTitle id="login-register">{"Login/Register"}</DialogTitle>
+        <DialogTitle id="login-register">Einloggen/Registrieren</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Ooops, you aren't logged in yet. Please enter your e-mail address to proceed:
@@ -38,13 +60,14 @@ class RegisterLogin extends React.Component {
           label="Email Address"
           type="email"
           fullWidth
+          onChange={event => this.setState({email:event.target.value})}
         />
         <DialogActions>
           <Button onClick={() => this.props.closeDialog()} color="primary">
             Cancel
           </Button>
-          <Button onClick={() => this.props.closeDialog()} color="primary">
-            Subscribe
+          <Button onClick={() => this.checkEmail()} color="primary">
+            Weiter
           </Button>
         </DialogActions>
       </Dialog>

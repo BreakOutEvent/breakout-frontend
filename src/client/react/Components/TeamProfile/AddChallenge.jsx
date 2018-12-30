@@ -83,7 +83,9 @@ class AddChallenge extends React.Component {
       <br/>
         {this.state.renderDialog &&
         <RegisterLogin
-        closeDialog={this.closeDialog}/>}
+        closeDialog={this.closeDialog}
+        api={this.props.api}
+        />}
       </div>
     );
   }
