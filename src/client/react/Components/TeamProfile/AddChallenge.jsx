@@ -95,7 +95,6 @@ AddChallenge.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   api: PropTypes.object.isRequired,
   teamId: PropTypes.number.isRequired,
-  renderDialog: PropTypes.bool.isRequired
 };
 
 export default AddChallenge;
