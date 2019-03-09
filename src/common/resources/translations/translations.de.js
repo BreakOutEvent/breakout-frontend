@@ -420,6 +420,16 @@ module.exports = {
     'NOTICE_MISSING_SUPPORTER_TYPE': 'Um Sponsorings einzutragen, ergänze zunächst fehlende Informationen: ',
     'PROFILE_SETTINGS_LABEL': 'Profileinstellungen'
   },
+  "HIGHSCORE": {
+      "PLACE": "Platz",
+      "DISTANCE": "Distanz",
+      "SCORE": "Score",
+      "TEAM": "Team",
+      "BEST_SCORES": "Beste Scores",
+      "LARGEST_DISTANCE": "Größte Distanz",
+      "LARGEST_DONATION": "Am meisten Geld",
+      "POINTS": "Punkte"
+  },
   "CLOSED": {
     "HEADLINE": "Anmeldung geschlossen",
     "DESCRIPTION": "Leider ist die Anmeldung als Teilnehmer bei BreakOut 2018 gerade nicht geöffnet :( Trag dich aber gerne in unseren Newsletter ein, um immer auf dem aktuellsten Stand zu bleiben!",

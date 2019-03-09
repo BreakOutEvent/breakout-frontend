@@ -417,6 +417,16 @@ module.exports = {
     "NO_NEW_SPONSORINGS": "At the moment it is not possible to add a sponsoring.",
     "NOTICE_MISSING_SUPPORTER_TYPE": "To manage your sponsorings, please fill in missing data in your settings: "
   },
+  "HIGHSCORE": {
+      "PLACE": "Place",
+      "DISTANCE": "Distance",
+      "SCORE": "Score",
+      "TEAM": "Team",
+      "BEST_SCORES": "Best Scores",
+      "LARGEST_DISTANCE": "Largest Distance",
+      "LARGEST_DONATION": "Largest Donation",
+      "POINTS": "Points"
+  },
   "CLOSED": {
     "HEADLINE": "Registration closed",
     "DESCRIPTION": "The registration for BreakOut 2018 is currently closed :( Sign up for our newsletter to make sure you don't miss any news about BreakOut.",

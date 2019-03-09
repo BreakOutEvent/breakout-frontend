@@ -151,9 +151,11 @@ class DynamicController {
     const requests = req.session.activeEvents.map(event => liveblog.getHighscores(event));
     const highscores = yield Promise.all(requests);
     const allTeams = [].concat.apply([], highscores);
+    let sortedTeamsbyScore = ( _.sortBy(allTeams, t => t.score)).reverse();
     let sortedTeamsbyDistance = ( _.sortBy(allTeams, t => t.distance)).reverse();
     let sortedTeamsbyMoney = (_.sortBy(allTeams, t => t.donatedSum.fullSum)).reverse();
 
+    let slicedScore = sortedTeamsbyScore.slice(0, 5);
     let slicedDistance = sortedTeamsbyDistance.slice(0, 5);
     let slicedMoney = sortedTeamsbyMoney.slice(0, 5);
 
@@ -163,6 +165,7 @@ class DynamicController {
       language: req.language,
       mapData: map,
       eventsInfo: teamInfo.eventsInfo,
+      teamScoreData: slicedScore,
       teamDistanceData: slicedDistance,
       teamMoneyData: slicedMoney,
       title: 'Highscore'
