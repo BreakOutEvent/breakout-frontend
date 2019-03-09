@@ -339,15 +339,6 @@ sponsoring.challenge.getBySponsor = (req) => co(function*() {
   throw ex;
 });
 
-sponsoring.challenge.accept = (req, res, next) => co(function*() {
-
-  yield api.challenge.accept(req.user, req.body.eventId, req.body.teamId, req.body.challengeId);
-
-  return res.sendStatus(200);
-}).catch(ex => {
-  sendErr(res, ex.message, ex);
-});
-
 sponsoring.challenge.reject = (req, res, next) => co(function*() {
 
   yield api.challenge.reject(req.user, req.body.eventId, req.body.teamId, req.body.challengeId);
