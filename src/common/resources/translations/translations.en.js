@@ -415,7 +415,11 @@ module.exports = {
     "ESTIMATED_DONATE_PROMISE": "Estimated donate promise",
     "SELECT_TEAM": "Select team",
     "NO_NEW_SPONSORINGS": "At the moment it is not possible to add a sponsoring.",
-    "NOTICE_MISSING_SUPPORTER_TYPE": "To manage your sponsorings, please fill in missing data in your settings: "
+    "NOTICE_MISSING_SUPPORTER_TYPE": "To manage your sponsorings, please fill in missing data in your settings: ",
+    'MAXIMUM_COUNT': 'Fulfillable',
+    'TIMES_SINGULAR': 'time',
+    'TIMES_PLURAL': 'times',
+    'DESCRIPTION': 'Description'
   },
   "CLOSED": {
     "HEADLINE": "Registration closed",
