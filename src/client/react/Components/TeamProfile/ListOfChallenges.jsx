@@ -8,7 +8,7 @@ const ListOfChallenges = (props) => {
     <div style={{marginBottom: 20}}><ChallengeListItem {...challenge} /></div>
   );
   const challenges = props.challenges
-    .filter(challenge => challenge.status === 'WITH_PROOF' || challenge.status === 'ACCEPTED')
+    .filter(challenge => challenge.status === 'WITH_PROOF' || challenge.status === 'PROPOSED')
     .map(renderChallenge);
 
   return (
@@ -74,6 +74,16 @@ const ChallengeListItem = (props) => {
     ? <a href={props.sponsor.url}>{props.sponsor.company}</a>
     : props.sponsor.url;
 
+  var counterDescription;
+  switch (props.maximumCount) {
+      case 1:
+          counterDescription = '';
+      case undefined:
+          counterDescription = `${props.fulfilledCount}/∞`;
+      default:
+          counterDescription = `${props.fulfilledCount}/${props.maximumCount}`;
+  }
+
   return (
     <Paper zDepth={1}>
       <div style={style.top}>
@@ -81,7 +91,7 @@ const ChallengeListItem = (props) => {
           {props.amount}€
           <FontIcon className='material-icons' style={{color}}>{icon}</FontIcon>
         </div>
-        <div style={style.description}>{props.description}</div>
+        <div style={style.description}>{props.description} {counterDescription}</div>
       </div>
       <div style={style.bottom}>
         <div style={style.sponsor}>
