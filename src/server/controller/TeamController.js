@@ -13,7 +13,13 @@ function shouldSponsoringBeDisplayed(sponsoring) {
 }
 
 function shouldChallengeBeDisplayed(challenge) {
-  return challenge.status === 'ACCEPTED' || challenge.status === 'WITH_PROOF' || challenge.status === 'PROOF_ACCEPTED';
+  return challenge.status === 'PROPOSED' || challenge.status === 'WITH_PROOF';
+}
+
+function canChallengeBeFullfilled(challenge) {
+    if (challenge.maximumCount && challenge.fulfilledCount >= challenge.maximumCount)
+        return false;
+    return challenge.status === 'PROPOSED' || challenge.status === 'WITH_PROOF';
 }
 
 function transformEventAddYear(e) {
@@ -248,7 +254,7 @@ TeamController.getTeamByUrl = (teamId, token) => co(function* () {
     .map(sponsoring => sponsoring.sponsor);
 
   tempTeam.challenges = allChallenges.filter(shouldChallengeBeDisplayed);
-  tempTeam.openChallenges = allChallenges.filter(s => s.status === 'ACCEPTED');
+  tempTeam.openChallenges = allChallenges.filter(canChallengeBeFullfilled);
 
   const distances = yield [
     api.team.getDistance(teamId),
