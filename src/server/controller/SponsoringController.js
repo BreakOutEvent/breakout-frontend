@@ -298,6 +298,7 @@ sponsoring.challenge.create = (req, res, next) => co(function*() {
     (e, i) => {
       let currBody = {
         amount: parseAmount(req.body.addChallengeAmount[i]),
+        maximumCount: req.body.addChallengeMaximumCount[i],
         description: e
       };
       return api.challenge.create(req.user, body.event, body.team, currBody);
