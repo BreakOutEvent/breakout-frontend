@@ -12,11 +12,6 @@
     "port": 123456,
     "name": "name"
   },
-  "gdrive": {
-    "client_email": "client_email",
-    "document_id": "document_id",
-    "private_key": "private_key"
-  },
   "cluster": "false",
   "secret": "secret-cat",
   "media_url": "media_url",
