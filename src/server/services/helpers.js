@@ -394,11 +394,7 @@ exports.prettyLocation = (location) => {
 };
 
 exports.challengeHasProof = (status) => {
-  if (status === 'WITH_PROOF' || status === 'PROOF_ACCEPTED') {
-    return true;
-  }
-
-  return false;
+  return status === 'WITH_PROOF';
 };
 
 exports.isOlderTenMinutes = (date, context) => {
