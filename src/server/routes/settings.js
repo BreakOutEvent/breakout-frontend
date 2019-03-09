@@ -24,8 +24,6 @@ router.post('/sponsoring/delete', session.isUser, sponsoring.delete);
 
 router.post('/challenge/create', session.isUser, upload.single('contract'), sponsoring.challenge.create);
 
-router.post('/challenge/accept', session.isUser, sponsoring.challenge.accept);
-
 router.post('/challenge/reject', session.isUser, sponsoring.challenge.reject);
 
 router.post('/challenge/delete', session.isUser, sponsoring.challenge.delete);
