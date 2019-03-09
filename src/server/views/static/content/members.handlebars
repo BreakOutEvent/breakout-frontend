@@ -26,6 +26,7 @@
             {{{contentfulImage this.teamBild "img-responsive" ""}}}
         </div>
     </div>
+    {{#each this.sections}}
     <div class="row">
         <div class="col-xs-12">
             <hr class="bo-member-divider"/>
@@ -33,7 +34,7 @@
     </div>
     <div class="row">
         <div class="col-xs-12">
-            <h1>{{this.titeStellenausschreibungen}}</h1>
+            <h1>{{this.title}}</h1>
         </div>
         <div class="col-xs-12" style="height: 40px">
         </div>
@@ -41,17 +42,18 @@
     <div class="row">
         <div class="col-sm-5">
             <p class="bo-text">
-                {{{md this.beschreibungStellenausschreibung}}}
+                {{{md this.description}}}
             </p>
         </div>
         <div class="col-sm-1">
         </div>
         <div class="col-sm-6">
-          {{#each this.openings}}
-            <a class="bo-opening" target="_blank" href="{{this.dokument.fields.file.url}}"><div> {{this.titel}}</div><img class="download"  src="{{../this.downloadIcon.fields.file.url}}"/></a>
+          {{#each this.documents}}
+            <a class="bo-opening" target="_blank" href="{{this.fields.dokument.fields.file.url}}"><div> {{this.fields.titel}}</div><img class="download"  src="{{../../this.downloadIcon.fields.file.url}}"/></a>
           {{/each}}
         </div>
     </div>
+    {{/each}}
     <div class="row">
         <div class="col-xs-12">
             <hr class="bo-member-divider"/>
