@@ -267,25 +267,6 @@ $(document).ready(() => {
     }
   });
 
-  $('.challengeAccept').click(function () {
-    var button = this;
-    toggleLoading(button, true);
-    $.post('/settings/challenge/accept', {
-      teamId: $(button).attr('data-team'),
-      eventId: $(button).attr('data-event'),
-      challengeId: $(button).attr('data-id')
-    })
-      .success(function () {
-        refreshWindowWithoutQueryParams();
-      })
-      .error(function (err) {
-        console.log(err);
-        $('#result_in')
-          .html('<div class="alert alert-danger">Annehmen fehlgeschlagen!</div>');
-        toggleLoading(button);
-      });
-  });
-
   $('.challengeReject').click(function () {
     var button = this;
     toggleLoading(button, true);

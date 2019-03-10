@@ -111,7 +111,8 @@
                 <thead>
                 <tr>
                     <th>Sponsor</th>
-                    <th>Beschreibung</th>
+                    <th>{{__ 'DESCRIPTION' }}</th>
+                    <th>{{__ 'MAXIMUM_COUNT' }}</th>
                     <th>Euro</th>
                 </tr>
                 </thead>
@@ -133,28 +134,34 @@
                             <td>{{sponsor.firstname}} {{sponsor.lastname}}</td>
                         {{/if}}
                         <td>{{description}}</td>
+                        <td>
+                            {{#if maximumCount}}
+                                {{maximumCount}}
+                                {{#ifCond maximumCount 1}}
+                                    {{__ 'TIMES_SINGULAR' }}
+                                {{else}}
+                                    {{__ 'TIMES_PLURAL' }}
+                                {{/ifCond}}
+                            {{else}}
+                                ∞
+                            {{/if}}
+                        </td>
                         <td>{{displayCurrency amount}} €</td>
                         <td class="text-right">
                             {{#ifCond status "PROPOSED"}}
-                                <button class="btn btn-success challengeAccept" data-team="{{teamId}}"
-                                        data-id="{{id}}" data-event="{{eventId}}">{{__ 'BTN_ACCEPT'}}</button>
-                                <button class="btn btn-danger challengeReject" data-team="{{teamId}}"
-                                        data-id="{{id}}" data-event="{{eventId}}">{{__ 'BTN_DECLINE'}}</button>
-                            {{else}}
-                                {{#ifCond status "ACCEPTED"}}
-                                    {{#if unregisteredSponsor}}
-                                        <button class="btn btn-danger challengeDelete" data-team="{{teamId}}"
-                                                data-id="{{id}}" data-event="{{eventId}}">{{__ 'BTN_DELETE'}}</button>
-                                    {{else}}
-                                        <span class="text-success">{{__ 'STATUS_ACCEPTED'}}</span>
-                                    {{/if}}
-                                {{/ifCond}}
-                                {{#ifCond status "REJECTED"}}
-                                    <span class="text-danger">{{__ 'STATUS_REJECTED'}}</span>
-                                {{/ifCond}}
-                                {{#ifCond status "WITHDRAWN"}}
-                                    <span class="text-danger">{{__ 'STATUS_WITHDRAWN'}}</span>
-                                {{/ifCond}}
+                                {{#if unregisteredSponsor}}
+                                    <button class="btn btn-danger challengeDelete" data-team="{{teamId}}"
+                                            data-id="{{id}}" data-event="{{eventId}}">{{__ 'BTN_DELETE'}}</button>
+                                {{else}}
+                                    <button class="btn btn-danger challengeReject" data-team="{{teamId}}"
+                                            data-id="{{id}}" data-event="{{eventId}}">{{__ 'BTN_DECLINE'}}</button>
+                                {{/if}}
+                            {{/ifCond}}
+                            {{#ifCond status "REJECTED"}}
+                                <span class="text-danger">{{__ 'STATUS_REJECTED'}}</span>
+                            {{/ifCond}}
+                            {{#ifCond status "WITHDRAWN"}}
+                                <span class="text-danger">{{__ 'STATUS_WITHDRAWN'}}</span>
                             {{/ifCond}}
                         </td>
                     </tr>
@@ -235,7 +242,8 @@
                             <tr>
                                 <th>Team ID</th>
                                 <th>Team Name</th>
-                                <th>Beschreibung</th>
+                                <th>{{__ 'DESCRIPTION' }}</th>
+                                <th>{{__ 'MAXIMUM_COUNT' }}</th>
                                 <th>Euro</th>
                             </tr>
                             </thead>
@@ -250,6 +258,18 @@
                                     <td>{{teamId}}</td>
                                     <td>{{team}}</td>
                                     <td>{{description}}</td>
+                                    <td>
+                                        {{#if maximumCount}}
+                                            {{maximumCount}}
+                                            {{#ifCond maximumCount 1}}
+                                                {{__ 'TIMES_SINGULAR' }}
+                                            {{else}}
+                                                {{__ 'TIMES_PLURAL' }}
+                                            {{/ifCond}}
+                                        {{else}}
+                                            ∞
+                                        {{/if}}
+                                    </td>
                                     <td>{{displayCurrency amount}} €</td>
                                     <td class="text-right">
                                         {{#ifCond status "WITHDRAWN"}}
@@ -476,13 +496,25 @@
                             </div>
                         </div>
                         <div class="row" id="addChallengeRow">
-                            <div class="col-sm-9">
+                            <div class="col-sm-7">
                                 <div class="form-group has-feedback has-feedback-left">
                                     <label for="addChallengeDescription">{{__ 'LABEL_CHALLENGE_DESCRIPTION'}}</label>
                                     <textarea class="form-control" name="addChallengeDescription[]"
                                               id="addChallengeDescription" required="required"
                                               placeholder="{{__ 'LABEL_CHALLENGE_DESCRIPTION'}}"></textarea>
                                     <i class="form-control-feedback material-icons">description</i>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label for="addChallengeMaximumCount">{{__ 'MAXIMUM_COUNT'}}</label>
+                                    <input type="number"
+                                        min=1
+                                        class="form-control"
+                                        name="addChallengeMaximumCount[]"
+                                        id="addChallengeMaximumCount"
+                                        required="required"
+                                        value=1>
                                 </div>
                             </div>
                             <div class="col-sm-3">

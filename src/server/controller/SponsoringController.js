@@ -298,6 +298,7 @@ sponsoring.challenge.create = (req, res, next) => co(function*() {
     (e, i) => {
       let currBody = {
         amount: parseAmount(req.body.addChallengeAmount[i]),
+        maximumCount: req.body.addChallengeMaximumCount[i],
         description: e
       };
       return api.challenge.create(req.user, body.event, body.team, currBody);
@@ -337,15 +338,6 @@ sponsoring.challenge.getBySponsor = (req) => co(function*() {
 
 }).catch(ex => {
   throw ex;
-});
-
-sponsoring.challenge.accept = (req, res, next) => co(function*() {
-
-  yield api.challenge.accept(req.user, req.body.eventId, req.body.teamId, req.body.challengeId);
-
-  return res.sendStatus(200);
-}).catch(ex => {
-  sendErr(res, ex.message, ex);
 });
 
 sponsoring.challenge.reject = (req, res, next) => co(function*() {

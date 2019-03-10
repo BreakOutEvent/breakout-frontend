@@ -418,7 +418,11 @@ module.exports = {
     "SELECT_TEAM": "Team auswählen",
     'NO_NEW_SPONSORINGS': 'Momentan können keine Sponsorings eingetragen werden.',
     'NOTICE_MISSING_SUPPORTER_TYPE': 'Um Sponsorings einzutragen, ergänze zunächst fehlende Informationen: ',
-    'PROFILE_SETTINGS_LABEL': 'Profileinstellungen'
+    'PROFILE_SETTINGS_LABEL': 'Profileinstellungen',
+    'MAXIMUM_COUNT': 'Erfüllbar',
+    'TIMES_SINGULAR': 'mal',
+    'TIMES_PLURAL': 'mal',
+    'DESCRIPTION': 'Beschreibung'
   },
   "CLOSED": {
     "HEADLINE": "Anmeldung geschlossen",
