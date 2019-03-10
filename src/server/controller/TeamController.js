@@ -17,9 +17,9 @@ function shouldChallengeBeDisplayed(challenge) {
 }
 
 function canChallengeBeFullfilled(challenge) {
-    if (challenge.maximumCount && challenge.fulfilledCount >= challenge.maximumCount)
-        return false;
-    return challenge.status === 'PROPOSED' || challenge.status === 'WITH_PROOF';
+  if (challenge.maximumCount && challenge.fulfilledCount >= challenge.maximumCount)
+    return false;
+  return challenge.status === 'PROPOSED' || challenge.status === 'WITH_PROOF';
 }
 
 function transformEventAddYear(e) {

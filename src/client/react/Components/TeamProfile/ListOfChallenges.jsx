@@ -76,12 +76,15 @@ const ChallengeListItem = (props) => {
 
   var counterDescription;
   switch (props.maximumCount) {
-      case 1:
-          counterDescription = '';
-      case undefined:
-          counterDescription = `${props.fulfilledCount}/∞`;
-      default:
-          counterDescription = `${props.fulfilledCount}/${props.maximumCount}`;
+    case 1:
+      counterDescription = '';
+      break;
+    case undefined:
+      counterDescription = `${props.fulfilledCount}/∞`;
+      break;
+    default:
+      counterDescription = `${props.fulfilledCount}/${props.maximumCount}`;
+      break;
   }
 
   return (
