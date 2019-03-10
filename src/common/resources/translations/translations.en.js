@@ -419,7 +419,19 @@ module.exports = {
     'MAXIMUM_COUNT': 'Fulfillable',
     'TIMES_SINGULAR': 'time',
     'TIMES_PLURAL': 'times',
-    'DESCRIPTION': 'Description'
+    'DESCRIPTION': 'Description',
+    'NO_LIMIT': 'No Limit',
+    'INVOICE_OVERVIEW': 'Overview',
+    'SPONSOR_PAYMENTS': 'My Payments',
+    'TEAM_PAYMENTS': 'My Sponsor\'s Donations',
+    'RECIPIENT': 'Recipient',
+    'PURPOSE': 'Purpose of Transfer',
+    'INSTITUTION': 'Institution',
+    'PAID_AMOUNT': 'Amount already paid',
+    'TOTAL_AMOUNT': 'Total',
+    'TRAVELLED_DISTANCE': 'Travelled Distance',
+    'FULFILLED_COUNT': 'Fulfilled',
+    'HAS_PAID': 'Has Paid'
   },
   "HIGHSCORE": {
     "PLACE": "Place",

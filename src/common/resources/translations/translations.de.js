@@ -422,7 +422,19 @@ module.exports = {
     'MAXIMUM_COUNT': 'Erfüllbar',
     'TIMES_SINGULAR': 'mal',
     'TIMES_PLURAL': 'mal',
-    'DESCRIPTION': 'Beschreibung'
+    'DESCRIPTION': 'Beschreibung',
+    'NO_LIMIT': 'Kein Limit',
+    'INVOICE_OVERVIEW': 'Übersicht',
+    'SPONSOR_PAYMENTS': 'Meine Zahlungen',
+    'TEAM_PAYMENTS': 'Spenden meiner Sponsoren',
+    'RECIPIENT': 'Empfänger',
+    'PURPOSE': 'Verwendungszweck',
+    'INSTITUTION': 'Institut',
+    'PAID_AMOUNT': 'Bereits Bezahlt',
+    'TOTAL_AMOUNT': 'Gesamtbetrag',
+    'TRAVELLED_DISTANCE': 'Gereiste Kilometer',
+    'FULFILLED_COUNT': 'Erfüllt',
+    'HAS_PAID': 'Bereits Bezahlt'
   },
   "HIGHSCORE": {
     "PLACE": "Platz",
