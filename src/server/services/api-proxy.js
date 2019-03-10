@@ -899,7 +899,7 @@ API.invoice.getAll = (token) => {
   return new Promise((resolve, reject) => {
     request
       .get({
-        url: `${url}/invoice/sponsoring/`,
+        url: `${url}/invoice/sponsoring/admin/`,
         auth: { bearer: token.access_token }
       }, handleResponse(resolve, reject, 'Successfully got all invoices'));
   });
