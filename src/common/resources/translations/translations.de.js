@@ -476,7 +476,8 @@ module.exports = {
     "SELECT_A_CHALLENGE": "Eine Challenge auswählen",
     "WANT_TO_FULFILL_CHALLENGE": "Du willst damit eine Challenge erfüllen?",
     "NOW": "Jetzt?",
-    "SERVER_PROCESSING_REQUEST":"Medium wird vom Server verarbeitet, gib uns einen kurzen Moment!"
+    "SERVER_PROCESSING_REQUEST":"Medium wird vom Server verarbeitet, gib uns einen kurzen Moment!",
+    "POINTS": "Punkte"
   },
   "MASTER": {
     "BACK_TO_REGISTER": "Rolle auswählen",

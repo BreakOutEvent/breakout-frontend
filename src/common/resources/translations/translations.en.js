@@ -473,7 +473,8 @@ module.exports = {
     "SELECT_A_CHALLENGE": "Select a challenge",
     "WANT_TO_FULFILL_CHALLENGE": "Do you want to fulfill a challenge with this posting?",
     "NOW": "Now?",
-    "SERVER_PROCESSING_REQUEST":"Medium is being processed by the server, give us a moment!"
+    "SERVER_PROCESSING_REQUEST":"Medium is being processed by the server, give us a moment!",
+    "POINTS": "Points"
   },
   "MASTER": {
     "BACK_TO_REGISTER": "Select role",
