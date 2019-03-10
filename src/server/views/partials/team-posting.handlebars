@@ -49,9 +49,11 @@
         {{/if}}
         {{#if media}}
             {{#ifCond media.type 'IMAGE'}}
-                <a href="{{media.url}}" data-lightbox="image-{{id}}" data-title="{{text}}">
-                    <img class="bo-card-media-image" src="{{transform 'w_500' media.url}}"/>
-                </a>
+                {{#if media.url}}
+                  <a href="{{media.url}}" data-lightbox="image-{{id}}" data-title="{{text}}">
+                      <img class="bo-card-media-image" src="{{transform 'w_500' media.url}}"/>
+                  </a>
+              {{/if}}
             {{/ifCond}}
             {{#ifCond media.type 'AUDIO'}}
                 <div class="plyr">
