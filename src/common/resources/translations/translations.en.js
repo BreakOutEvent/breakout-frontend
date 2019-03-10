@@ -418,14 +418,14 @@ module.exports = {
     "NOTICE_MISSING_SUPPORTER_TYPE": "To manage your sponsorings, please fill in missing data in your settings: "
   },
   "HIGHSCORE": {
-      "PLACE": "Place",
-      "DISTANCE": "Distance",
-      "SCORE": "Score",
-      "TEAM": "Team",
-      "BEST_SCORES": "Best Scores",
-      "LARGEST_DISTANCE": "Largest Distance",
-      "LARGEST_DONATION": "Largest Donation",
-      "POINTS": "Points"
+    "PLACE": "Place",
+    "DISTANCE": "Distance",
+    "SCORE": "Score",
+    "TEAM": "Team",
+    "BEST_SCORES": "Best Scores",
+    "LARGEST_DISTANCE": "Largest Distance",
+    "LARGEST_DONATION": "Largest Donation",
+    "POINTS": "Points"
   },
   "CLOSED": {
     "HEADLINE": "Registration closed",

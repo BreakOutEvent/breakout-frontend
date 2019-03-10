@@ -421,14 +421,14 @@ module.exports = {
     'PROFILE_SETTINGS_LABEL': 'Profileinstellungen'
   },
   "HIGHSCORE": {
-      "PLACE": "Platz",
-      "DISTANCE": "Distanz",
-      "SCORE": "Score",
-      "TEAM": "Team",
-      "BEST_SCORES": "Beste Scores",
-      "LARGEST_DISTANCE": "Größte Distanz",
-      "LARGEST_DONATION": "Am meisten Geld",
-      "POINTS": "Punkte"
+    "PLACE": "Platz",
+    "DISTANCE": "Distanz",
+    "SCORE": "Score",
+    "TEAM": "Team",
+    "BEST_SCORES": "Beste Scores",
+    "LARGEST_DISTANCE": "Größte Distanz",
+    "LARGEST_DONATION": "Am meisten Geld",
+    "POINTS": "Punkte"
   },
   "CLOSED": {
     "HEADLINE": "Anmeldung geschlossen",
