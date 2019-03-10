@@ -421,6 +421,16 @@ module.exports = {
     'TIMES_PLURAL': 'times',
     'DESCRIPTION': 'Description'
   },
+  "HIGHSCORE": {
+    "PLACE": "Place",
+    "DISTANCE": "Distance",
+    "SCORE": "Score",
+    "TEAM": "Team",
+    "BEST_SCORES": "Best Scores",
+    "LARGEST_DISTANCE": "Largest Distance",
+    "LARGEST_DONATION": "Largest Donation",
+    "POINTS": "Points"
+  },
   "CLOSED": {
     "HEADLINE": "Registration closed",
     "DESCRIPTION": "The registration for BreakOut 2018 is currently closed :( Sign up for our newsletter to make sure you don't miss any news about BreakOut.",
