@@ -298,6 +298,22 @@ class StatefulListOfChallenges extends React.Component {
     this.update = this.update.bind(this);
   }
 
+  componentWillMount() {
+    i18next.init({
+      lng: window.getBoUserLang(),
+      fallbackLng: 'en',
+      resources: {
+        de: {
+          translation: de
+        },
+        en: {
+          translation: en
+        }
+      }
+    });
+    this.setState({i18next: i18next});
+  }
+
   componentDidMount() {
     this.props.api.fetchChallengesForTeam(this.teamId)
       .then(challenges => this.setState({
@@ -326,7 +342,8 @@ class StatefulListOfChallenges extends React.Component {
       return <div className="alert alert-warning">Something went wrong when loading challenges</div>;
     }
     return <div>
-      <AddChallenge isLoggedIn={!!window.boUserData} api={api} teamId={this.teamId} update={this.update}/>
+      <AddChallenge isLoggedIn={!!window.boUserData} api={api} teamId={this.teamId} update={this.update}
+                    i18next={this.state.i18next}/>
       <ListOfChallenges challenges={this.state.challenges}/>
     </div>;
   }

@@ -13,6 +13,7 @@ module.exports = {
       "button_login_text": "Einloggen",
       "button_register_text": "Account erstellen",
       "error_login": "Falsche Emailadresse oder Passwort",
+      "wrong_password": "Falsches Passwort",
       "registration_error_bad_request": "Gib eine gültige Emailadresse ein",
       "repeat_password_label": "Wiederhole das Passwort",
       "registration_error_exists": "Es existiert bereits ein Account mit dieser Emailadresse",

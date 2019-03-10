@@ -13,6 +13,7 @@ module.exports = {
       "button_login_text": "Login",
       "button_register_text": "Register",
       "error_login": "Wrong email address or password",
+      "wrong_password": "Wrong password",
       "registration_error_bad_request": "Enter a valid email address",
       "repeat_password_label": "Repeat password",
       "registration_error_exists": "An account with this email address already exists",

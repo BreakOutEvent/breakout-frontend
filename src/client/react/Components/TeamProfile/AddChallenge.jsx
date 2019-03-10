@@ -85,6 +85,8 @@ class AddChallenge extends React.Component {
         <RegisterLogin
         closeDialog={this.closeDialog}
         api={this.props.api}
+        onSuccess={this.handleClickAt}
+        i18next={this.props.i18next}
         />}
       </div>
     );
@@ -95,6 +97,7 @@ AddChallenge.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   api: PropTypes.object.isRequired,
   teamId: PropTypes.number.isRequired,
+  i18next: PropTypes.object.isRequired,
 };
 
 export default AddChallenge;
