@@ -23,6 +23,7 @@ class RegisterLogin extends React.Component {
     this.state = {
       email: '',
       password: '',
+      password2: '',
       error: null,
       step: steps.email
     }
@@ -51,13 +52,51 @@ class RegisterLogin extends React.Component {
 
   async login() {
     try {
+      await this.props.api.login(this.state.email, this.state.password);
       await this.props.api.frontendLogin(this.state.email, this.state.password);
       this.props.closeDialog();
-      this.props.onSuccess();
+      this.props.onLogin();
     } catch (err) {
-        this.onLoginError(err);
+      this.onLoginError(err);
     }
   }
+
+  registrationIsValid() {
+    let error = '';
+
+    // TODO: add translations
+    if (this.state.password.length < 6) {
+      error += this.props.i18next.t('client.registration.under_min_pw_length') + '<br />'
+    }
+
+    if (this.state.password !== this.state.password2) {
+      error += this.props.i18next.t('client.registration.passwords_dont_match') + '<br />'
+    }
+
+    this.setState({ error });
+    return (error === '');
+  }
+
+  onRegistrationError(error) {
+    this.setState({ error });
+  }
+
+  async register() {
+    if (this.registrationIsValid()) {
+      try {
+        let account = await this.props.api.createAccount(this.state.email, this.state.password);
+        await this.props.api.login(this.state.email, this.state.password);
+        await this.props.api.frontendLogin(this.state.email, this.state.password);
+        await this.props.api.updateUserData(account.id, {
+          preferredLanguage: window.boUserLang
+        });
+      } catch (err) {
+        this.onRegistrationError(err.message);
+      }
+    }
+  }
+
+
 
   render() {
     const { fullScreen } = this.props;
@@ -66,7 +105,7 @@ class RegisterLogin extends React.Component {
       <Dialog
         fullScreen={fullScreen}
         open={true}
-        onClose={() => this.props.closeDialog()}
+        onClose={() => this.props.onCancel()}
         id="login-register"
       >
         {(this.state.step === steps.email) &&
@@ -80,7 +119,7 @@ class RegisterLogin extends React.Component {
               <TextField
                 autoFocus
                 margin="dense"
-                id="name"
+                id="email"
                 label="Email Address"
                 type="email"
                 fullWidth
@@ -88,6 +127,7 @@ class RegisterLogin extends React.Component {
               />
             </DialogContent>
             <DialogActions>
+
               <Button onClick={() => this.checkEmail()} color="primary">
                 Weiter
               </Button>
@@ -104,7 +144,7 @@ class RegisterLogin extends React.Component {
             <TextField
               autoFocus
               margin="dense"
-              id="name"
+              id="password"
               label="Password"
               type="password"
               fullWidth
@@ -118,6 +158,38 @@ class RegisterLogin extends React.Component {
             </Button>
           </DialogActions>
         </div>}
+        {(this.state.step === steps.register) &&
+        <div>
+          <DialogTitle id="login-register">Registrieren</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              E-Mail-Adresse: {this.state.email}<br />
+              {this.state.error && <p>{this.state.error}</p>}
+            </DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="password"
+              label="Password"
+              type="password"
+              fullWidth
+              onChange={event => this.setState({password:event.target.value})}
+            />
+            <TextField
+              margin="dense"
+              id="name"
+              label="Password wiederholen"
+              type="password"
+              fullWidth
+              onChange={event => this.setState({password2:event.target.value})}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => this.register()} color="primary">
+              Registrieren
+            </Button>
+          </DialogActions>
+        </div>}
       </Dialog>
     );
   }
@@ -125,8 +197,9 @@ class RegisterLogin extends React.Component {
 
 RegisterLogin.propTypes = {
   fullScreen: PropTypes.bool.isRequired,
-  closeDialog: PropTypes.func.isRequired,
-  onSuccess: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
+  onLogin: PropTypes.func.isRequired,
+  onRegister: PropTypes.func.isRequired,
   i18next: PropTypes.object.isRequired,
 };
 

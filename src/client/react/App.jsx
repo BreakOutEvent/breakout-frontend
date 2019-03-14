@@ -1,5 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect
+} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import i18next from 'i18next';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import { createMuiTheme } from '@material-ui/core/styles';
+import orange from '@material-ui/core/colors/red';
 
 import BreakoutApi from 'breakout-api-client';
 
@@ -15,24 +25,26 @@ import SponsorSettings from './Components/Sponsor/Settings.jsx';
 import {VisitorSuccess, JoinTeamSuccess, CreateTeamSuccess} from './Components/Success.jsx';
 import de from '../../common/resources/translations/translations.de';
 import en from '../../common/resources/translations/translations.en';
-import i18next from 'i18next';
 import Modal from './Components/Modal.jsx';
-import {
-  BrowserRouter as Router,
-  Route,
-  Redirect
-} from 'react-router-dom';
 
 import ReactGA from 'react-ga';
 ReactGA.initialize('UA-59857227-3');
 
 import routes from './Components/routes';
-import AdminInvoicePanel from './Components/Admin/AdminInvoicePanel.jsx';
-import {MuiThemeProvider} from 'material-ui';
-import AddChallenge from './Components/TeamProfile/AddChallenge.jsx';
-import ListOfChallenges from './Components/TeamProfile/ListOfChallenges.jsx';
-import PropTypes from 'prop-types';
 
+import AddChallenge from './Components/TeamProfile/AddChallenge.jsx';
+import AdminInvoicePanel from './Components/Admin/AdminInvoicePanel.jsx';
+import ListOfChallenges from './Components/TeamProfile/ListOfChallenges.jsx';
+
+const breakoutTheme = () => createMuiTheme({
+  palette:
+    {
+      primary: orange,
+    },
+  typography: {
+    useNextVariants: true
+  }
+});
 
 const OnShowHack = (props) => {
   if (props.overflowHidden) {
@@ -114,7 +126,7 @@ class App extends React.Component {
              onHide={this.onHide.bind(this)}
              modalClassName={'modal-size-' + size + ' react-modal'}>
         <OnShowHack overflowHidden={true}></OnShowHack>
-        <MuiThemeProvider>
+        <MuiThemeProvider theme={breakoutTheme()}>
           <Comp {...props} api={this.state.api} i18next={this.state.i18next}
               isLoggedIn={!!window.boUserData}/>
         </MuiThemeProvider>
@@ -126,7 +138,7 @@ class App extends React.Component {
     return (props) => (
       <div>
         <OnShowHack ></OnShowHack>
-        <MuiThemeProvider>
+        <MuiThemeProvider theme={breakoutTheme()}>
           <Comp {...props} api={this.state.api} i18next={this.state.i18next}
                 isLoggedIn={!!window.boUserData}/>
         </MuiThemeProvider>
@@ -349,7 +361,7 @@ class StatefulListOfChallenges extends React.Component {
   }
 }
 
-renderIfExists(<MuiThemeProvider><AdminInvoicePanel api={api}/></MuiThemeProvider>, 'react-admin-invoice');
+renderIfExists(<MuiThemeProvider theme={breakoutTheme()}><AdminInvoicePanel api={api}/></MuiThemeProvider>, 'react-admin-invoice');
 renderIfExists(<App/>, 'react-root');
-renderIfExists(<MuiThemeProvider><StatefulListOfChallenges api={api}/></MuiThemeProvider>, 'react-challenge-list-root');
-renderIfExists(<MuiThemeProvider><EmailConfirmationCheck isLoggedIn={isLoggedIn}/></MuiThemeProvider>, 'react-email-confirmation');
+renderIfExists(<MuiThemeProvider theme={breakoutTheme()}><StatefulListOfChallenges api={api}/></MuiThemeProvider>, 'react-challenge-list-root');
+renderIfExists(<MuiThemeProvider theme={breakoutTheme()}><EmailConfirmationCheck isLoggedIn={isLoggedIn}/></MuiThemeProvider>, 'react-email-confirmation');

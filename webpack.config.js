@@ -40,7 +40,8 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            cacheDirectory: true
+            cacheDirectory: true,
+            plugins:[ 'transform-object-rest-spread' ]
           }
         }
       },
@@ -48,8 +49,8 @@ module.exports = {
         test: /\.(js)$/,
         include: path.resolve(__dirname, 'src/client/js'),
         use: {
-          loader: 'babel-loader'
-        }
+          loader: 'babel-loader',
+        },
       },
       {
         test: /\.(less)$/,

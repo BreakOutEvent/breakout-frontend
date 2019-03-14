@@ -24,11 +24,11 @@ export default class SponsorSettings extends React.Component {
         sponsorData: {
           firstname: me.firstname,
           lastname: me.lastname,
-          street: me.sponsor.address.street,
-          housenumber: me.sponsor.address.housenumber,
-          postcode: me.sponsor.address.zipcode,
-          city: me.sponsor.address.city,
-          country: me.sponsor.address.country,
+          street: (me.sponsor.address ? me.sponsor.address.street : null),
+          housenumber: (me.sponsor.address ? me.sponsor.address.housenumber : null),
+          postcode: (me.sponsor.address ? me.sponsor.address.zipcode : null),
+          city: (me.sponsor.address ? me.sponsor.address.city : null),
+          country: (me.sponsor.address ? me.sponsor.address.country : null),
           supporterType: me.sponsor.supporterType,
           company: me.sponsor.company,
           url: me.sponsor.url

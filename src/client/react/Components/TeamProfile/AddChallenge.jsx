@@ -1,11 +1,8 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Paper from '@material-ui/core/Paper';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import { Paper, TextField, Button, InputAdornment, FormHelperText, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import RegisterLogin from './RegisterLogin.jsx';
-
+import { styleChallenge } from './ListOfChallenges.jsx';
 
 const challengeSuggestions = [
   'Do a handstand',
@@ -19,28 +16,75 @@ class AddChallenge extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      renderDialog: false,
+      renderAll: false,
+      renderRegisterLogin: false,
+      renderEditProfile: false,
       placeholderIndex: 0,
-      amount: 0,
-      description: ''
+      amount: 10,
+      description: '',
+      me: null,
+      firstName: '',
+      lastName: '',
+      errors: {}
     };
     this.interval = setInterval(this.changeSuggestions.bind(this), 2000);
-    this.handleClickAt = this.handleClickAt.bind(this);
-    this.closeDialog = this.closeDialog.bind(this);
+    this.validateAmount = this.validateAmount.bind(this);
+    this.validateDescription = this.validateDescription.bind(this);
+    this.onClickAdd = this.onClickAdd.bind(this);
+    this.onCancelRegisterLogin = this.onCancelRegisterLogin.bind(this);
+    this.onSuccessRegisterLogin = this.onSuccessRegisterLogin.bind(this);
+    this.addChallenge = this.addChallenge.bind(this);
+  }
+
+  async componentWillMount() {
+    const me = await this.props.api.getMe();
+    this.setState({
+      me
+    })
   }
 
   changeSuggestions() {
     this.setState({placeholderIndex:
         (challengeSuggestions.length === this.state.placeholderIndex + 1
-          ?0
-          :this.state.placeholderIndex + 1
+          ? 0
+          : this.state.placeholderIndex + 1
         )
     });
   }
 
-  handleClickAt() {
+  onSuccessRegisterLogin() {
+    this.setState({
+      renderRegisterLogin: false,
+    });
+    this.addChallenge();
+  }
+
+  onCancelRegisterLogin() {
+    this.setState({
+      renderRegisterLogin: false,
+    });
+  }
+
+  onClickAdd() {
+    if(!this.validateAmount(this.state.amount) || !this.validateDescription(this.state.description)) {
+      console.log(this.state);
+      this.setState(state => ({
+        errors: {
+          ...state.errors,
+          challenge: 'Bitte behebe zunächst alle Probleme.'
+        }
+      }));
+    } else {
+      this.setState({ errors: { ...this.state.errors, challenge: undefined }} );
+      this.addChallenge();
+    }
+  }
+
+  addChallenge() {
     this.props.api.getMe()
       .then(() => {
+        // TODO: check if everything required is available
+
         this.props.api.addChallenge(this.props.teamId,
           {
             description: this.state.description,
@@ -48,45 +92,163 @@ class AddChallenge extends React.Component {
           })
           .then(response => this.props.update(response.sponsorId));
       })
-      .catch(() => this.setState({renderDialog: true}));
+      .catch(() => this.setState({renderRegisterLogin: true}));
   }
 
-  closeDialog() {
-    this.setState({renderDialog: false});
+  validateAmount(amount) {
+    const patternAmount = /^\d+[.,]?\d{0,2}$/;
+    if (!patternAmount.test(amount)) {
+      this.setState(state => ({errors: { ...state.errors, amount: 'Ungültig' }} ));
+    } else if (parseInt(this.state.amount) <= 0) {
+      this.setState(state => ({errors: { ...state.errors, amount: 'Zu gering' }} ));
+    } else {
+      this.setState({errors: { ...this.state.errors, amount: undefined }} );
+      return true;
+    }
+    return false;
+  }
+
+  validateDescription(description) {
+    if(description.length === 0) {
+      this.setState(state => ({errors: { ...this.state.errors, description: 'Bitte ausfüllen' }} ));
+    } else {
+      this.setState( {errors: {...this.state.errors, description: undefined }} );
+      return true;
+    }
+    return false;
   }
 
   render() {
+    const style = styleChallenge('black');
+    style.icon = {
+      margin: '0 10px 0 0',
+      width: '50px',
+    }
+    style.description.width = '100%';
+
+    style.name = {
+      width: '49%',
+    }
+
+    style.buttons = {
+      float: 'right',
+      display: (this.state.renderAll ? 'inline' : 'none'),
+    }
+
+    style.button = {
+      margin: '5px'
+    }
+
+    style.top.minHeight = 0;
+    style.bottom = {
+      ...style.bottom,
+      display: (this.state.renderAll ? 'block' : 'none'),
+      height: 'auto'
+    }
+
+    const me = this.state.me;
+    const company = me
+      ? me.sponsor.url
+        ? <div><a href={me.sponsor.url}>{me.sponsor.company}</a></div>
+        : me.sponsor.company
+      : undefined;
+
     return (
       <div>
-        <Paper>
-          <TextField
-            id="ChallengeProposal"
-            placeholder={challengeSuggestions[this.state.placeholderIndex]}
-            value={this.state.dscription}
-            onChange={event=>this.setState({description:event.target.value})}
-            multiline
-            rows={3}
-          />
-          <TextField
-            id="Amount"
-            value={this.state.amount}
-            type="number"
-            onChange={event => this.setState({amount:event.target.value})}
-            InputProps={{
-              startAdornment: <InputAdornment position="start">€</InputAdornment>
-            }}
-          />
-          <Button
-            variant="extendedFab"
-            onClick={this.handleClickAt}>Add a challenge</Button>
+        <Paper elevation={1}>
+          <Typography variant="h6" style={{padding: '10px 10px 5px'}}>
+            Stelle eine Challenge
+          </Typography>
+          {this.state.errors.challenge &&
+            <Typography style={{margin: '5px'}} color="error">{this.state.errors.challenge}</Typography>}
+          <div style={style.top}>
+            <div style={style.icon}>
+              <TextField
+                error={!!this.state.errors.amount}
+                id="Amount"
+                label="Summe"
+                value={this.state.amount}
+                onChange={e=>{this.setState({amount: e.target.value}); this.validateAmount(e.target.value);}}
+                onFocus={e=>this.setState({renderAll: true})}
+                InputProps={{
+                  endAdornment: <InputAdornment position="end">€</InputAdornment>
+                }}
+                required
+              />
+              {this.state.errors.amount &&
+                <FormHelperText id="component-error-text">{this.state.errors.amount}</FormHelperText>
+              }
+            </div>
+            <div style={style.description}>
+              <TextField
+              id="ChallengeProposal"
+              label="Herausforderung"
+              placeholder={challengeSuggestions[this.state.placeholderIndex]}
+              value={this.state.description}
+              onChange={e=>{this.setState({description: e.target.value}); this.validateDescription(e.target.value)}}
+              multiline
+              fullWidth
+              required
+              error={!!this.state.errors.description}
+              />
+              {this.state.errors.description &&
+              <FormHelperText id="component-error-text">{this.state.errors.description}</FormHelperText>
+              }
+            </div>
+          </div>
+          {me && <div style={style.bottom}>
+            <div style={style.sponsor}>
+              {me.firstName} {me.lastName}<br/>
+              {company}
+            </div>
+            <div style={style.logo}>
+              <img src={me.url} style={style.image}/>
+            </div>
+          </div>}
+          {!me && <div style={style.bottom}>
+              <TextField
+                style={style.name}
+                label='Vorname'
+                required
+                value={this.state.firstName}
+                onChange={event=>this.setState({firstName:event.target.value})}
+              />&nbsp;
+              <TextField
+                style={style.name}
+                label='Nachname'
+                value={this.state.lastName}
+                onChange={event=>this.setState({lastName:event.target.value})}
+              />
+          </div>}
+          <div style={style.buttons}>
+            <Button
+              variant="contained"
+              onClick={this.onClickOptions}
+              style={style.button}>Optionen</Button>
+            <Button
+              variant="contained"
+              color="primary"
+              className="btn btn-primary"
+              onClick={this.onClickAdd}
+              style={style.button}>Hinzufügen</Button>
+          </div>
+          <div style={{clear: 'both'}}></div>
         </Paper>
       <br/>
-        {this.state.renderDialog &&
+        {this.state.renderRegisterLogin &&
         <RegisterLogin
-        closeDialog={this.closeDialog}
-        api={this.props.api}
-        onSuccess={this.handleClickAt}
-        i18next={this.props.i18next}
+          onCancel={this.onCancelRegisterLogin}
+          onSuccess={this.onSuccessRegisterLogin}
+          firstName={this.state.firstName}
+          lastName={this.state.lastName}
+          api={this.props.api}
+          i18next={this.props.i18next}
+        />}
+        {this.state.renderEditProfile &&
+        <EditChallenge
+
+          api={this.props.api}
+          i18next={this.props.i18next}
         />}
       </div>
     );

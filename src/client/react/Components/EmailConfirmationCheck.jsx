@@ -12,7 +12,7 @@ class EmailConfirmationCheck extends React.Component {
       }
     };
 
-    return (this.props.isLoggedIn.me.blocked
+    return (this.props.isLoggedIn.me && this.props.isLoggedIn.me.blocked
       ? <div style={style.top}>Bitte bestätige deine Mail-Adresse</div>
       : <div></div>
     );

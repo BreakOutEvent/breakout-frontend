@@ -1,11 +1,56 @@
 import React from 'react';
-import {FontIcon, Paper} from 'material-ui';
+import {Icon, Paper} from '@material-ui/core';
 import _ from 'lodash';
+
+export const styleChallenge = color => ({
+  top: {
+    display: 'flex',
+    borderBottom: '1px solid #cbcbcb',
+    padding: 10,
+    alignItems: 'center',
+    minHeight: 80
+  },
+  icon: {
+    marginRight: 20,
+    marginLeft: 20,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color
+  },
+  description: {
+    wordBreak: 'break-word',
+    color
+  },
+  bottom: {
+    fontSize: 'small',
+    backgroundColor: '#F5F5F5',
+    padding: 10,
+    height: 50,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  sponsor: {
+    flexBasis: '60%'
+  },
+  logo: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    flexGrow: 2
+  },
+  image: {
+    maxHeight: '50px',
+    maxWidth: '100%',
+    objectFit: 'contain'
+  }
+});
 
 const ListOfChallenges = (props) => {
 
   const renderChallenge = (challenge) => (
-    <div style={{marginBottom: 20}}><ChallengeListItem {...challenge} /></div>
+    <div key={challenge.id} style={{marginBottom: 20}}><ChallengeListItem {...challenge} /></div>
   );
 
   // Todo only display proposed challenges of the logged in user
@@ -34,50 +79,7 @@ const ChallengeListItem = (props) => {
   };
   const color = (props.status === 'WITH_PROOF') ? ' green' : 'black';
 
-  const style = {
-    top: {
-      display: 'flex',
-      borderBottom: '1px solid #cbcbcb',
-      padding: 10,
-      alignItems: 'center',
-      minHeight: 80
-    },
-    icon: {
-      marginRight: 20,
-      marginLeft: 20,
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      color
-    },
-    description: {
-      wordBreak: 'break-word',
-      color
-    },
-    bottom: {
-      fontSize: 'small',
-      backgroundColor: '#F5F5F5',
-      padding: 10,
-      height: 50,
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center'
-    },
-    sponsor: {
-      flexBasis: '60%'
-    },
-    logo: {
-      display: 'flex',
-      justifyContent: 'flex-end',
-      flexGrow: 2
-    },
-    image: {
-      maxHeight: '50px',
-      maxWidth: '100%',
-      objectFit: 'contain'
-    }
-  };
+  const style = styleChallenge(color);
 
   const name = `${props.sponsor.firstname} ${props.sponsor.lastname}`;
   const company = props.sponsor.url
@@ -85,11 +87,11 @@ const ChallengeListItem = (props) => {
     : props.sponsor.url;
 
   return (
-    <Paper zDepth={1}>
+    <Paper>
       <div style={style.top}>
         <div style={style.icon}>
           {props.amount}€
-          <FontIcon className='material-icons' style={{'color': iconColors[props.status]}}>{icons[props.status]}</FontIcon>
+          <Icon style={{'color': iconColors[props.status]}}>{icons[props.status]}</Icon>
         </div>
         <div style={style.description}>{props.description}</div>
       </div>
