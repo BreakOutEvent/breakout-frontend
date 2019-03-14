@@ -2,6 +2,7 @@ import React from 'react';
 import { Paper, TextField, Button, InputAdornment, FormHelperText, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import RegisterLogin from './RegisterLogin.jsx';
+import SponsorInformation from './SponsorInformation.jsx';
 import { styleChallenge } from './ListOfChallenges.jsx';
 
 const challengeSuggestions = [
@@ -18,13 +19,11 @@ class AddChallenge extends React.Component {
     this.state = {
       renderAll: false,
       renderRegisterLogin: false,
-      renderEditProfile: false,
+      renderSponsorInformation: false,
       placeholderIndex: 0,
       amount: 10,
       description: '',
       me: null,
-      firstName: '',
-      lastName: '',
       errors: {}
     };
     this.interval = setInterval(this.changeSuggestions.bind(this), 2000);
@@ -66,8 +65,9 @@ class AddChallenge extends React.Component {
   }
 
   onClickAdd() {
-    if(!this.validateAmount(this.state.amount) || !this.validateDescription(this.state.description)) {
-      console.log(this.state);
+    if(!this.validateAmount(this.state.amount) ||
+      !this.validateDescription(this.state.description)
+    ) {
       this.setState(state => ({
         errors: {
           ...state.errors,
@@ -82,8 +82,13 @@ class AddChallenge extends React.Component {
 
   addChallenge() {
     this.props.api.getMe()
-      .then(() => {
+      .then(me => {
         // TODO: check if everything required is available
+        console.log(me);
+        if(!me.firstname) {
+          this.setState({renderSponsorInformation: true});
+          return
+        }
 
         this.props.api.addChallenge(this.props.teamId,
           {
@@ -136,7 +141,8 @@ class AddChallenge extends React.Component {
     }
 
     style.button = {
-      margin: '5px'
+      margin: '5px',
+      padding: '8px'
     }
 
     style.top.minHeight = 0;
@@ -155,7 +161,7 @@ class AddChallenge extends React.Component {
 
     return (
       <div>
-        <Paper elevation={1}>
+        <Paper style={{marginBottom: '20px'}} elevation={1}>
           <Typography variant="h6" style={{padding: '10px 10px 5px'}}>
             Stelle eine Challenge
           </Typography>
@@ -173,7 +179,6 @@ class AddChallenge extends React.Component {
                 InputProps={{
                   endAdornment: <InputAdornment position="end">€</InputAdornment>
                 }}
-                required
               />
               {this.state.errors.amount &&
                 <FormHelperText id="component-error-text">{this.state.errors.amount}</FormHelperText>
@@ -186,9 +191,9 @@ class AddChallenge extends React.Component {
               placeholder={challengeSuggestions[this.state.placeholderIndex]}
               value={this.state.description}
               onChange={e=>{this.setState({description: e.target.value}); this.validateDescription(e.target.value)}}
+              onFocus={e=>this.setState({renderAll: true})}
               multiline
               fullWidth
-              required
               error={!!this.state.errors.description}
               />
               {this.state.errors.description &&
@@ -205,36 +210,16 @@ class AddChallenge extends React.Component {
               <img src={me.url} style={style.image}/>
             </div>
           </div>}
-          {!me && <div style={style.bottom}>
-              <TextField
-                style={style.name}
-                label='Vorname'
-                required
-                value={this.state.firstName}
-                onChange={event=>this.setState({firstName:event.target.value})}
-              />&nbsp;
-              <TextField
-                style={style.name}
-                label='Nachname'
-                value={this.state.lastName}
-                onChange={event=>this.setState({lastName:event.target.value})}
-              />
-          </div>}
           <div style={style.buttons}>
             <Button
-              variant="contained"
-              onClick={this.onClickOptions}
-              style={style.button}>Optionen</Button>
-            <Button
-              variant="contained"
+              variant="outlined"
               color="primary"
-              className="btn btn-primary"
               onClick={this.onClickAdd}
               style={style.button}>Hinzufügen</Button>
           </div>
-          <div style={{clear: 'both'}}></div>
+          <div style={{clear: 'both'}} />
         </Paper>
-      <br/>
+
         {this.state.renderRegisterLogin &&
         <RegisterLogin
           onCancel={this.onCancelRegisterLogin}
@@ -244,9 +229,10 @@ class AddChallenge extends React.Component {
           api={this.props.api}
           i18next={this.props.i18next}
         />}
-        {this.state.renderEditProfile &&
-        <EditChallenge
-
+        {this.state.renderSponsorInformation &&
+        <SponsorInformation
+          onCancel={e => {this.setState({renderSponsorInformation: false})}}
+          onSuccess={e => {this.setState({renderSponsorInformation: false})}}
           api={this.props.api}
           i18next={this.props.i18next}
         />}
