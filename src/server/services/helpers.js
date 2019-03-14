@@ -40,7 +40,11 @@ exports.transform = function (parameters, url) {
   let newUrl;
   if (!url.includes('cloudinary')) {
     // cannot transform images that are not from cloudinary
-    return url;
+    var myRegexp = /w_(\d+)/g;
+    var match = myRegexp.exec(parameters);
+
+    newUrl = 'https://images.break-out.org/' + match[1] + 'x,q80/' + url;
+    return newUrl;
   } else {
     newUrl = url.replace(/image\/upload\/.*\//, `image/upload/${parameters}/`);
     return newUrl;
@@ -99,7 +103,7 @@ function changeExtension(videoUrl, newExtension) {
 
     // replace the ending of the video with .png. This will use cloudinary
     // to automatically generate a thumbnail based on the video url for us
-    return videoUrl.substr(0, videoUrl.lastIndexOf('.')) + '.'+ newExtension;
+    return videoUrl.substr(0, videoUrl.lastIndexOf('.')) + '.' + newExtension;
 
   } catch (err) {
     logger.error(`Error changing extension to ${newExtension} for url '${videoUrl}'`);
@@ -394,11 +398,7 @@ exports.prettyLocation = (location) => {
 };
 
 exports.challengeHasProof = (status) => {
-  if (status === 'WITH_PROOF' || status === 'PROOF_ACCEPTED') {
-    return true;
-  }
-
-  return false;
+  return status === 'WITH_PROOF';
 };
 
 exports.isOlderTenMinutes = (date, context) => {

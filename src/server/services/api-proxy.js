@@ -443,10 +443,6 @@ API.challenge.reject = (token, eventId, teamId, challengeId) => {
   return API.challenge.changeStatus(token, eventId, teamId, challengeId, 'rejected');
 };
 
-API.challenge.accept = (token, eventId, teamId, challengeId) => {
-  return API.challenge.changeStatus(token, eventId, teamId, challengeId, 'accepted');
-};
-
 API.challenge.delete = (token, eventId, teamId, challengeId) => {
   return API.challenge.changeStatus(token, eventId, teamId, challengeId, 'withdrawn');
 };

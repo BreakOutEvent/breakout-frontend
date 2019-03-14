@@ -419,7 +419,21 @@ module.exports = {
     "SELECT_TEAM": "Team auswählen",
     'NO_NEW_SPONSORINGS': 'Momentan können keine Sponsorings eingetragen werden.',
     'NOTICE_MISSING_SUPPORTER_TYPE': 'Um Sponsorings einzutragen, ergänze zunächst fehlende Informationen: ',
-    'PROFILE_SETTINGS_LABEL': 'Profileinstellungen'
+    'PROFILE_SETTINGS_LABEL': 'Profileinstellungen',
+    'MAXIMUM_COUNT': 'Erfüllbar',
+    'TIMES_SINGULAR': 'mal',
+    'TIMES_PLURAL': 'mal',
+    'DESCRIPTION': 'Beschreibung'
+  },
+  "HIGHSCORE": {
+    "PLACE": "Platz",
+    "DISTANCE": "Distanz",
+    "SCORE": "Score",
+    "TEAM": "Team",
+    "BEST_SCORES": "Beste Scores",
+    "LARGEST_DISTANCE": "Größte Distanz",
+    "LARGEST_DONATION": "Am meisten Geld",
+    "POINTS": "Punkte"
   },
   "CLOSED": {
     "HEADLINE": "Anmeldung geschlossen",
@@ -463,7 +477,8 @@ module.exports = {
     "SELECT_A_CHALLENGE": "Eine Challenge auswählen",
     "WANT_TO_FULFILL_CHALLENGE": "Du willst damit eine Challenge erfüllen?",
     "NOW": "Jetzt?",
-    "SERVER_PROCESSING_REQUEST":"Medium wird vom Server verarbeitet, gib uns einen kurzen Moment!"
+    "SERVER_PROCESSING_REQUEST":"Medium wird vom Server verarbeitet, gib uns einen kurzen Moment!",
+    "POINTS": "Punkte"
   },
   "MASTER": {
     "BACK_TO_REGISTER": "Rolle auswählen",

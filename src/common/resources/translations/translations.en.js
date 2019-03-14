@@ -416,7 +416,21 @@ module.exports = {
     "ESTIMATED_DONATE_PROMISE": "Estimated donate promise",
     "SELECT_TEAM": "Select team",
     "NO_NEW_SPONSORINGS": "At the moment it is not possible to add a sponsoring.",
-    "NOTICE_MISSING_SUPPORTER_TYPE": "To manage your sponsorings, please fill in missing data in your settings: "
+    "NOTICE_MISSING_SUPPORTER_TYPE": "To manage your sponsorings, please fill in missing data in your settings: ",
+    'MAXIMUM_COUNT': 'Fulfillable',
+    'TIMES_SINGULAR': 'time',
+    'TIMES_PLURAL': 'times',
+    'DESCRIPTION': 'Description'
+  },
+  "HIGHSCORE": {
+    "PLACE": "Place",
+    "DISTANCE": "Distance",
+    "SCORE": "Score",
+    "TEAM": "Team",
+    "BEST_SCORES": "Best Scores",
+    "LARGEST_DISTANCE": "Largest Distance",
+    "LARGEST_DONATION": "Largest Donation",
+    "POINTS": "Points"
   },
   "CLOSED": {
     "HEADLINE": "Registration closed",
@@ -460,7 +474,8 @@ module.exports = {
     "SELECT_A_CHALLENGE": "Select a challenge",
     "WANT_TO_FULFILL_CHALLENGE": "Do you want to fulfill a challenge with this posting?",
     "NOW": "Now?",
-    "SERVER_PROCESSING_REQUEST":"Medium is being processed by the server, give us a moment!"
+    "SERVER_PROCESSING_REQUEST":"Medium is being processed by the server, give us a moment!",
+    "POINTS": "Points"
   },
   "MASTER": {
     "BACK_TO_REGISTER": "Select role",

@@ -25,7 +25,7 @@
                     {{#each team.members}}
                         {{firstname}} {{#if @first}}&{{/if}}
                     {{/each}}
-                    | {{round team.max.distance}} km | {{team.max.donations}} €
+                  | <span class="bo-points">{{round team.score}} {{__ 'POINTS'}}</span> | {{round team.max.distance}} km | {{team.max.donations}} €
                 </h4>
             </div>
         </div>

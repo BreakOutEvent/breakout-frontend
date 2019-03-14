@@ -97,6 +97,12 @@ $(document).ready(function () {
               setTimeout(function () {
                 window.msnry.layout();
               }, 2000);
+              setTimeout(function () {
+                window.msnry.layout();
+              }, 5000);
+              setTimeout(function () {
+                window.msnry.layout();
+              }, 15000);
               loading = false;
             }
           }).error(function () {

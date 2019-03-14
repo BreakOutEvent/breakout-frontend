@@ -14,15 +14,45 @@
         </div>
     </div>
     <div class="row" style="margin-top: 30px;">
+        <div class="col-sm-8 center-block" style="float:none">
+            <h3>{{__ 'BEST_SCORES' }}*</h3>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>{{__ 'PLACE'}}</th>
+                    <th>{{__ 'TEAM'}}</th>
+                    <th>{{__ 'SCORE'}}</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {{#each teamScoreData}}
+                    <tr>
+                        <td>{{addOne @index}}</td>
+                        <td>
+                            <a href="/team/{{teamId}}">{{teamName}}</a></td>
+
+                        <td>
+                            {{round score}}
+                            {{__ 'POINTS' }}
+                        </td>
+                    </tr>
+                {{/each}}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 30px;">
         <div class="col-sm-6">
-            <h3>Die größte Distanz*</h3>
+            <h3>{{__ 'LARGEST_DISTANCE' }}*</h3>
 
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Platz</th>
-                    <th>Teamname</th>
-                    <th>Distanz</th>
+                    <th>{{__ 'PLACE'}}</th>
+                    <th>{{__ 'TEAM'}}</th>
+                    <th>{{__ 'DISTANCE'}}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -41,13 +71,13 @@
             </table>
         </div>
         <div class="col-sm-6">
-            <h3>Am meisten Geld*</h3>
+            <h3>{{__ 'LARGEST_DONATION' }}*</h3>
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Platz</th>
-                    <th>Teamname</th>
-                    <th>Betrag</th>
+                    <th>{{__ 'PLACE'}}</th>
+                    <th>{{__ 'TEAM'}}</th>
+                    <th>{{__ 'DISTANCE'}}</th>
                 </tr>
                 </thead>
                 <tbody>

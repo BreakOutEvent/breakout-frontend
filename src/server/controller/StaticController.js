@@ -147,13 +147,13 @@ class StaticController {
     const data = yield Promise.all([
       contentful.getFieldsForContentType('members', req.contentfulLocale),
       contentful.getFieldsForContentType('teammitglieder', req.contentfulLocale),
-      contentful.getFieldsForContentType('ausschreibungen', req.contentfulLocale)
+      contentful.getFieldsForContentType('aboutUsSection', req.contentfulLocale)
     ]);
 
     const fields = data[0][0];
     const members = data[1];
-    const openings = data[2];
-
+    const sections = data[2];
+    
     let options = extendDefaultOptions(req, {
       titelAbout: fields.titelAbout,
       page: fields,
@@ -161,7 +161,7 @@ class StaticController {
       beschreibungStellenausschreibung: fields.beschreibungStellenausschreibung,
       titeStellenausschreibungen: fields.titeStellenausschreibungen,
       teamBild: fields.teamBild,
-      openings: openings,
+      sections: sections,
       downloadIcon: fields.downloadIcon,
       titelMembers: fields.titelMembers,
       activeMembers: members.filter(m => m.isAktive),

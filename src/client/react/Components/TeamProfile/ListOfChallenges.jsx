@@ -67,17 +67,8 @@ const ListOfChallenges = (props) => {
 
 const ChallengeListItem = (props) => {
   const url = _.get(props, 'sponsor.logoUrl', '');
-  const icons = {
-    'WITH_PROOF': 'check',
-    'PROPOSED': 'notifications',
-    'ACCEPTED': ''
-  };
-  const iconColors = {
-    'WITH_PROOF': 'green',
-    'PROPOSED': 'grey',
-    'ACCEPTED': 'black'
-  };
   const color = (props.status === 'WITH_PROOF') ? ' green' : 'black';
+  const icon = (props.status === 'WITH_PROOF') ? 'check' : '';
 
   const style = styleChallenge(color);
 
@@ -86,14 +77,27 @@ const ChallengeListItem = (props) => {
     ? <a href={props.sponsor.url}>{props.sponsor.company}</a>
     : props.sponsor.url;
 
+  var counterDescription;
+  switch (props.maximumCount) {
+    case 1:
+      counterDescription = '';
+      break;
+    case undefined:
+      counterDescription = `${props.fulfilledCount}/∞`;
+      break;
+    default:
+      counterDescription = `${props.fulfilledCount}/${props.maximumCount}`;
+      break;
+  }
+
   return (
     <Paper>
       <div style={style.top}>
         <div style={style.icon}>
           {props.amount}€
-          <Icon style={{'color': iconColors[props.status]}}>{icons[props.status]}</Icon>
+          <Icon style={{color}}>{icon}</Icon>
         </div>
-        <div style={style.description}>{props.description}</div>
+        <div style={style.description}>{props.description} {counterDescription}</div>
       </div>
       <div style={style.bottom}>
         <div style={style.sponsor}>
