@@ -56,12 +56,10 @@ class RegisterLogin extends React.Component {
   async login(event) {
     event.preventDefault();
     try {
-      await this.props.api.login(this.state.email, this.state.password);
       await this.props.api.frontendLogin(this.state.email, this.state.password);
       this.props.onSuccess();
     } catch (err) {
-      console.log(err);
-      this.onLoginError(err.message.error_description);
+      this.onLoginError(err);
     }
   }
 
@@ -89,15 +87,11 @@ class RegisterLogin extends React.Component {
     event.preventDefault();
     if (this.registrationIsValid()) {
       try {
-        let account = await this.props.api.createAccount(this.state.email, this.state.password);
-        await this.props.api.login(this.state.email, this.state.password);
+        await this.props.api.createAccount(this.state.email, this.state.password);
         await this.props.api.frontendLogin(this.state.email, this.state.password);
-        await this.props.api.updateUserData(account.id, {
-          preferredLanguage: window.boUserLang
-        });
-        this.props.onSuccess(account);
+        this.props.onSuccess();
       } catch (err) {
-        this.onRegistrationError(err.message);
+        this.onRegistrationError(err);
       }
     }
   }
@@ -112,7 +106,7 @@ class RegisterLogin extends React.Component {
       <form onSubmit={this.checkEmail}>
         <DialogTitle id="login-register">Benutzerkonto</DialogTitle>
         <DialogContent>
-          {this.state.error &&  <Typography variant="body1" color="error">{this.state.error}</Typography>}
+          {this.state.error && <Typography variant="body1" color="error">{this.state.error}</Typography>}
             <TextField
               autoFocus
               label="E-Mail-Addresse"
@@ -165,7 +159,7 @@ class RegisterLogin extends React.Component {
       <form onSubmit={this.register}>
         <DialogTitle>Registrieren</DialogTitle>
         <DialogContent>
-          {this.state.error && <p>{this.state.error}</p>}
+          {this.state.error && <p>{this.state.error.toString()}</p>}
           <TextField
             margin="dense"
             id="email"

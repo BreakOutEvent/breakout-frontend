@@ -1,5 +1,6 @@
 import React from 'react';
 import { Paper, TextField, Button, InputAdornment, FormHelperText, Typography } from '@material-ui/core';
+import URL from 'url';
 import PropTypes from 'prop-types';
 import RegisterLogin from './RegisterLogin.jsx';
 import SponsorInformation from './SponsorInformation.jsx';
@@ -33,6 +34,7 @@ class AddChallenge extends React.Component {
     this.onCancelRegisterLogin = this.onCancelRegisterLogin.bind(this);
     this.onSuccessRegisterLogin = this.onSuccessRegisterLogin.bind(this);
     this.addChallenge = this.addChallenge.bind(this);
+    this.onSuccessSponsorInformation = this.onSuccessSponsorInformation.bind(this);
   }
 
   async componentWillMount() {
@@ -40,6 +42,16 @@ class AddChallenge extends React.Component {
     this.setState({
       me
     })
+    const params = new URLSearchParams(URL.parse(window.location.href).search);
+    const amount = params.get('amount');
+    const description = params.get('description');
+    if(amount && description) {
+      this.setState({
+        amount,
+        description
+      });
+      this.addChallenge();
+    }
   }
 
   changeSuggestions() {
@@ -55,7 +67,9 @@ class AddChallenge extends React.Component {
     this.setState({
       renderRegisterLogin: false,
     });
-    this.addChallenge();
+    // TODO: add anchor
+    const { amount, description } = this.state;
+    window.location = `${window.location.href}?amount=${amount}&description=${description}`;
   }
 
   onCancelRegisterLogin() {
@@ -83,12 +97,12 @@ class AddChallenge extends React.Component {
   addChallenge() {
     this.props.api.getMe()
       .then(me => {
-        // TODO: check if everything required is available
-        console.log(me);
         if(!me.firstname) {
           this.setState({renderSponsorInformation: true});
           return
         }
+
+        // TODO: check if everything required is available
 
         this.props.api.addChallenge(this.props.teamId,
           {
@@ -96,6 +110,7 @@ class AddChallenge extends React.Component {
             amount: this.state.amount
           })
           .then(response => this.props.update(response.sponsorId));
+        // TODO: clean form
       })
       .catch(() => this.setState({renderRegisterLogin: true}));
   }
@@ -121,6 +136,11 @@ class AddChallenge extends React.Component {
       return true;
     }
     return false;
+  }
+
+  onSuccessSponsorInformation() {
+    this.setState({renderSponsorInformation: false});
+    this.addChallenge();
   }
 
   render() {
@@ -232,7 +252,7 @@ class AddChallenge extends React.Component {
         {this.state.renderSponsorInformation &&
         <SponsorInformation
           onCancel={e => {this.setState({renderSponsorInformation: false})}}
-          onSuccess={e => {this.setState({renderSponsorInformation: false})}}
+          onSuccess={this.onSuccessSponsorInformation}
           api={this.props.api}
           i18next={this.props.i18next}
         />}
