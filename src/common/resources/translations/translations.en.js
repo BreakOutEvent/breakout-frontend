@@ -436,6 +436,7 @@ module.exports = {
   "HIGHSCORE": {
     "PLACE": "Place",
     "DISTANCE": "Distance",
+    "DONATION": "Donation",
     "SCORE": "Score",
     "TEAM": "Team",
     "BEST_SCORES": "Best Scores",
