@@ -44,7 +44,7 @@ class AddChallenge extends React.Component {
     const me = await this.props.api.getMe();
     this.setState({
       me
-    })
+    });
     const params = new URLSearchParams(URL.parse(window.location.href).search);
     const amount = params.get('amount');
     const description = params.get('description');
@@ -87,8 +87,7 @@ class AddChallenge extends React.Component {
 
   onClickAdd() {
     this.setState({isAdding: true});
-    if(!this.validateAmount(this.state.amount) ||
-      !this.validateDescription(this.state.description)
+    if(!this.validateDescription(this.state.description)
     ) {
       this.setState(state => ({
         errors: {
@@ -128,7 +127,7 @@ class AddChallenge extends React.Component {
     const patternAmount = /^\d+[.,]?\d{0,2}$/;
     if (!patternAmount.test(amount)) {
       this.setState(state => ({errors: { ...state.errors, amount: 'Ungültig' }} ));
-    } else if (parseInt(this.state.amount) <= 0) {
+    } else if (parseInt(amount.replace(',', '.')) <= 0) {
       this.setState(state => ({errors: { ...state.errors, amount: 'Zu gering' }} ));
     } else {
       this.setState({errors: { ...this.state.errors, amount: undefined }} );
@@ -226,6 +225,9 @@ class AddChallenge extends React.Component {
               onFocus={e=>this.setState({renderAll: true})}
               multiline
               fullWidth
+              InputLabelProps={{
+                shrink: true,
+              }}
               error={!!this.state.errors.description}
               />
               {this.state.errors.description &&
