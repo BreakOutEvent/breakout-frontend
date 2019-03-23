@@ -119,7 +119,7 @@ class AddChallenge extends React.Component {
     const patternAmount = /^\d+[.,]?\d{0,2}$/;
     if (!patternAmount.test(amount)) {
       this.setState(state => ({errors: { ...state.errors, amount: 'Ungültig' }} ));
-    } else if (parseInt(this.state.amount) <= 0) {
+    } else if (parseInt(amount.replace(',', '.')) <= 0) {
       this.setState(state => ({errors: { ...state.errors, amount: 'Zu gering' }} ));
     } else {
       this.setState({errors: { ...this.state.errors, amount: undefined }} );
@@ -214,6 +214,9 @@ class AddChallenge extends React.Component {
               onFocus={e=>this.setState({renderAll: true})}
               multiline
               fullWidth
+              InputLabelProps={{
+                shrink: true,
+              }}
               error={!!this.state.errors.description}
               />
               {this.state.errors.description &&
