@@ -44,7 +44,7 @@ class AddChallenge extends React.Component {
     const me = await this.props.api.getMe();
     this.setState({
       me
-    })
+    });
     const params = new URLSearchParams(URL.parse(window.location.href).search);
     const amount = params.get('amount');
     const description = params.get('description');
@@ -87,8 +87,7 @@ class AddChallenge extends React.Component {
 
   onClickAdd() {
     this.setState({isAdding: true});
-    if(!this.validateAmount(this.state.amount) ||
-      !this.validateDescription(this.state.description)
+    if(!this.validateDescription(this.state.description)
     ) {
       this.setState(state => ({
         errors: {
