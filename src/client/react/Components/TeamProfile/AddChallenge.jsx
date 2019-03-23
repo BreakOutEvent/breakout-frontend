@@ -147,8 +147,9 @@ class AddChallenge extends React.Component {
     return false;
   }
 
-  onSuccessSponsorInformation() {
-    this.setState({renderSponsorInformation: false});
+  async onSuccessSponsorInformation() {
+    const me = await this.props.api.getMe();
+    this.setState({renderSponsorInformation: false, me});
     if (this.state.isAdding) {
       this.addChallenge();
     }
@@ -234,7 +235,7 @@ class AddChallenge extends React.Component {
           </div>
           {me && <div style={style.bottom}>
             <div style={style.sponsor}>
-              {me.firstName} {me.lastName}<br/>
+              {me.firstname} {me.lastname}<br/>
               {company}
             </div>
             <div style={style.logo}>
