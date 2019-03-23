@@ -25,7 +25,8 @@ class AddChallenge extends React.Component {
       amount: 10,
       description: '',
       me: null,
-      errors: {}
+      errors: {},
+      isAdding: false,
     };
     this.interval = setInterval(this.changeSuggestions.bind(this), 2000);
     this.validateAmount = this.validateAmount.bind(this);
@@ -35,6 +36,8 @@ class AddChallenge extends React.Component {
     this.onSuccessRegisterLogin = this.onSuccessRegisterLogin.bind(this);
     this.addChallenge = this.addChallenge.bind(this);
     this.onSuccessSponsorInformation = this.onSuccessSponsorInformation.bind(this);
+    this.onClickAdd = this.onClickAdd.bind(this);
+    this.onClickOptions = this.onClickOptions.bind(this);
   }
 
   async componentWillMount() {
@@ -78,7 +81,12 @@ class AddChallenge extends React.Component {
     });
   }
 
+  onClickOptions() {
+    this.setState({renderSponsorInformation: true})
+  }
+
   onClickAdd() {
+    this.setState({isAdding: true});
     if(!this.validateAmount(this.state.amount) ||
       !this.validateDescription(this.state.description)
     ) {
@@ -109,9 +117,10 @@ class AddChallenge extends React.Component {
             description: this.state.description,
             amount: this.state.amount
           })
-          .then(response => this.props.update(response.sponsorId));
-        // TODO: clean form
-      })
+          .then(response => {
+            this.props.update(response.sponsorId);
+            this.setState({isAdding: false, amount: 10, description: ""});
+          })})
       .catch(() => this.setState({renderRegisterLogin: true}));
   }
 
@@ -140,7 +149,9 @@ class AddChallenge extends React.Component {
 
   onSuccessSponsorInformation() {
     this.setState({renderSponsorInformation: false});
-    this.addChallenge();
+    if (this.state.isAdding) {
+      this.addChallenge();
+    }
   }
 
   render() {
@@ -234,6 +245,10 @@ class AddChallenge extends React.Component {
             </div>
           </div>}
           <div style={style.buttons}>
+            {me && <Button
+              variant="outlined"
+              onClick={this.onClickOptions}
+              style={style.button}>Optionen</Button>}
             <Button
               variant="outlined"
               color="primary"
@@ -254,7 +269,7 @@ class AddChallenge extends React.Component {
         />}
         {this.state.renderSponsorInformation &&
         <SponsorInformation
-          onCancel={e => {this.setState({renderSponsorInformation: false})}}
+          onCancel={e => this.setState({renderSponsorInformation: false})}
           onSuccess={this.onSuccessSponsorInformation}
           api={this.props.api}
           i18next={this.props.i18next}
