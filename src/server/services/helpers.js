@@ -152,7 +152,7 @@ exports.weakIfCond = function (v1, v2, options) {
 exports.fixed = function (v1, options) {
   let number = new Number(options.fn(this));
   return number.toFixed(v1);
-}
+};
 
 exports.isEven = function (context) {
   if ((context.data.index % 2) === 0) {

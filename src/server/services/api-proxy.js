@@ -917,15 +917,15 @@ API.invoice.getByTeam = (token, teamId) => {
 };
 
 API.invoice.getBySponsor = (token) => {
-    logger.info('Getting invoices for sponsor');
-    return new Promise((resolve, reject) => {
-      request
-        .get({
-          url: `${url}/invoice/sponsoring/`,
-          auth: { bearer: token.access_token }
-        }, handleResponse(resolve, reject, 'Successfully got all invoices for sponsor'));
-    });
-}
+  logger.info('Getting invoices for sponsor');
+  return new Promise((resolve, reject) => {
+    request
+      .get({
+        url: `${url}/invoice/sponsoring/`,
+        auth: { bearer: token.access_token }
+      }, handleResponse(resolve, reject, 'Successfully got all invoices for sponsor'));
+  });
+};
 
 API.invoice.addAmount = (token, invoiceId, amount) => {
   logger.info('Adding payment to invoice', invoiceId, 'with amount', amount);

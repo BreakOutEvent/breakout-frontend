@@ -369,10 +369,9 @@ sponsoring.invoice.getByTeam = (req) => co(function*() {
   let rawInvoices = yield api.invoice.getByTeam(req.user, req.user.me.participant.teamId);
 
   let invoices = rawInvoices.map(i => {
-    return {
-      ...i,
+    return Object.assign({}, i, {
       hasFullyPaid: i.payed + 0.005 >= i.amount
-    };
+    });
   });
 
   let confirmedDonations = {};
@@ -393,13 +392,12 @@ sponsoring.invoice.getBySponsor = (req) => co(function*() {
   let rawInvoices = yield api.invoice.getBySponsor(req.user);
 
   return rawInvoices.map(i => {
-    return {
-      ...i,
+    return Object.assign({}, i, {
       challenges: i.challenges.filter((c) => c.billableAmount > 0),
       sponsorings: i.sponsorings.filter((s) => s.billableAmount > 0),
       hasFullyPaid: i.payed + 0.005 >= i.amount,
-      includesTax: i.type != "DONOR"
-    };
+      includesTax: i.type != 'DONOR'
+    });
   });
 }).catch(ex => {
   throw ex;
