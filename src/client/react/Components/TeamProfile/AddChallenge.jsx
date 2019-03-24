@@ -45,16 +45,6 @@ class AddChallenge extends React.Component {
     this.setState({
       me
     });
-    const params = new URLSearchParams(URL.parse(window.location.href).search);
-    const amount = params.get('amount');
-    const description = params.get('description');
-    if(amount && description) {
-      this.setState({
-        amount,
-        description
-      });
-      this.addChallenge();
-    }
   }
 
   changeSuggestions() {
@@ -70,9 +60,7 @@ class AddChallenge extends React.Component {
     this.setState({
       renderRegisterLogin: false,
     });
-    // TODO: add anchor
-    const { amount, description } = this.state;
-    window.location = `${window.location.href}?amount=${amount}&description=${description}`;
+    this.addChallenge();
   }
 
   onCancelRegisterLogin() {

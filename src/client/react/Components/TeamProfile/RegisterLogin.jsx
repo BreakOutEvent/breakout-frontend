@@ -56,6 +56,7 @@ class RegisterLogin extends React.Component {
   async login(event) {
     event.preventDefault();
     try {
+      await this.props.api.login(this.state.email, this.state.password);
       await this.props.api.frontendLogin(this.state.email, this.state.password);
       this.props.onSuccess();
     } catch (err) {
@@ -88,6 +89,7 @@ class RegisterLogin extends React.Component {
     if (this.registrationIsValid()) {
       try {
         await this.props.api.createAccount(this.state.email, this.state.password);
+        await this.props.api.login(this.state.email, this.state.password);
         await this.props.api.frontendLogin(this.state.email, this.state.password);
         this.props.onSuccess();
       } catch (err) {

@@ -30,6 +30,7 @@ class SponsorInformation extends React.Component {
 
   async componentWillMount() {
     const me = await this.props.api.getMe();
+    me.sponsor.supporterType = (me.sponsor.supporterType ? me.sponsor.supporterType : DONOR);
     this.setState({
       me,
       showCompany: (me.sponsor.supporterType !== DONOR)
@@ -201,7 +202,7 @@ class SponsorInformation extends React.Component {
         <DialogTitle id="login-register">Sponsorinformationen</DialogTitle>
         <DialogContent>
           {this.state.errors.information &&  <Typography variant="body1" color="error">Bitte Fehler beheben.</Typography>}
-          <Typography>Um ein Team zu unterstützen benötigen wir noch Informationen über dich.</Typography>
+          <Typography>Um ein Team zu unterstützen, benötigen wir diese Informationen über dich.</Typography>
           {this.state.me && <div>
             <TextField
               value={this.state.me.firstname}
