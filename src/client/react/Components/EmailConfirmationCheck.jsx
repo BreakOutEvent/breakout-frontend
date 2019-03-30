@@ -23,7 +23,7 @@ class EmailConfirmationCheck extends React.Component {
               horizontal: 'center',
               width: '100%'
             }}
-            open='true'
+            open
             onClose={this.handleClose}
             ContentProps={{
               'aria-describedby': 'message-id',

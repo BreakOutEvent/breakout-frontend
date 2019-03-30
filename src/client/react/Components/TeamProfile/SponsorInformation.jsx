@@ -20,6 +20,7 @@ class SponsorInformation extends React.Component {
     this.validateLastname = this.validateLastname.bind(this);
     this.validateCompany = this.validateCompany.bind(this);
     this.validateUrl = this.validateUrl.bind(this);
+    this.validateLogo = this.validateLogo.bind(this);
     this.validateStreet = this.validateStreet.bind(this);
     this.validateHousenumber = this.validateHousenumber.bind(this);
     this.validateZipcode = this.validateZipcode.bind(this);
@@ -30,6 +31,8 @@ class SponsorInformation extends React.Component {
 
   async componentWillMount() {
     const me = await this.props.api.getMe();
+    me.firstname = (me.firstname ? me.firstname : '');
+    me.lastname = (me.lastname ? me.lastname : '');
     me.sponsor.supporterType = (me.sponsor.supporterType ? me.sponsor.supporterType : DONOR);
     this.setState({
       me,
@@ -89,6 +92,20 @@ class SponsorInformation extends React.Component {
         this.setState(state => ({errors: { ...state.errors, url: 'Bitte ausfüllen' }} ));
       } else {
         this.setState({errors: { ...this.state.errors, url: undefined }} );
+        return true;
+      }
+      return false;
+    }
+    return true;
+  }
+
+  validateLogo(logo) {
+    this.determineSupporterType();
+    if(logo && logo.type) {
+      if (logo.type.toLowerCase().indexOf('image') === -1) {
+        this.setState(state => ({errors: { ...state.errors, logo: 'Bitte ein Bild auswählen' }} ));
+      } else {
+        this.setState({errors: { ...this.state.errors, logo: undefined }} );
         return true;
       }
       return false;
@@ -176,6 +193,7 @@ class SponsorInformation extends React.Component {
       this.validateLastname(me.lastname) &&
       this.validateCompany(me.sponsor.company) &&
       this.validateUrl(me.sponsor.url) &&
+      this.validateLogo(me.sponsor.logo) &&
       validateAddress) {
       this.setState({errors: { information: undefined }});
     } else {
@@ -183,16 +201,31 @@ class SponsorInformation extends React.Component {
     }
 
     try {
+      if (me.sponsor.logo && me.sponsor.logo.name) {
+        me.sponsor.logo = await new Promise((resolve) => {
+          let fileReader = new FileReader();
+          fileReader.onload = (e) => resolve(fileReader.result);
+          fileReader.readAsDataURL(me.sponsor.logo );
+        });
+        const signedParams = await this.props.api.signCloudinaryParams();
+        const upload = await this.props.api.uploadImage(me.sponsor.logo, signedParams);
+        me.sponsor.logo = {
+          type: 'IMAGE',
+          url: upload.secure_url
+        };
+      }
+
       const updatedMe = await this.props.api.updateUserData(me.id, me);
       if (!updatedMe) throw new Error('Information update failed!');
       this.props.onSuccess();
     } catch (error) {
-      this.onRegistrationError(error);
+      console.log(error);
+      this.setState({errors: { information: error }});;
     }
   }
 
   render() {
-
+    const logo = this.state.me && this.state.me.sponsor.logo;
     return <Dialog
       open={true}
       fullScreen={this.props.fullScreen}
@@ -238,6 +271,9 @@ class SponsorInformation extends React.Component {
                   let nextState = state;
                   nextState.showCompany = e.target.checked;
                   if (e.target.checked) {
+                    nextState.me.sponsor.logo = {};
+                    nextState.me.sponsor.company = '';
+                    nextState.me.sponsor.url = '';
                     nextState.me.sponsor.address = {
                       street: '',
                       housenumber: '',
@@ -247,8 +283,8 @@ class SponsorInformation extends React.Component {
                   } else {
                     nextState.me.sponsor.supporterType = DONOR;
                     nextState.me.sponsor.logo = null;
-                    nextState.me.sponsor.company = '';
-                    nextState.me.sponsor.url = '';
+                    nextState.me.sponsor.company = null;
+                    nextState.me.sponsor.url = null;
                     nextState.me.sponsor.address = null;
                   }
                   return nextState;
@@ -281,7 +317,30 @@ class SponsorInformation extends React.Component {
                 }}
               />{this.state.errors.url &&
             <FormHelperText id="component-error-text">{this.state.errors.url}</FormHelperText>
-            }<br />
+            }<br /><br />
+              <FormControlLabel
+                control={
+                  <input
+                    accept="image/*"
+                    style={{ display: 'none' }}
+                    id="raised-button-file"
+                    type="file"
+                    onChange={event => {
+                      event.persist();
+                      this.setState(state => ({me: {...state.me, sponsor: {...state.me.sponsor, logo: event.target.files[0]}}}));
+                      this.validateLogo(event.target.files[0]);
+                    }}
+                  />}
+                label={<span><Button style={{marginLeft: '10px'}} variant="contained" component="span">
+                  Logo hochladen
+                </Button>&nbsp;
+                  {logo.name && <span>{logo.name.substr(logo.name.lastIndexOf('\\')+1)}</span>}
+                  {logo.url && <img src={logo.url} style={{maxHeight: '100px'}} />}
+                </span>} />
+              {this.state.errors.logo &&
+              <FormHelperText id="component-error-text">{this.state.errors.logo}</FormHelperText>
+              }
+              <br />
               <TextField
                 value={this.state.me.sponsor.address.street}
                 label="Straße"

@@ -3,7 +3,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContentText from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogTitle';
-import { DialogActions, Typography } from '@material-ui/core';
+import { DialogActions, Typography, FormControlLabel, Checkbox, FormHelperText } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
@@ -24,8 +24,10 @@ class RegisterLogin extends React.Component {
       email: '',
       password: '',
       password2: '',
-      error: null,
-      step: steps.email
+      error: {},
+      step: steps.email,
+      acceptedPrivacy: false,
+      acceptedSponsorToS: false,
     }
     this.checkEmail = this.checkEmail.bind(this);
     this.login = this.login.bind(this);
@@ -65,19 +67,27 @@ class RegisterLogin extends React.Component {
   }
 
   registrationIsValid() {
-    let error = '';
+    let error = {};
 
     // TODO: add translations
     if (this.state.password.length < 6) {
-      error += this.props.i18next.t('client.registration.under_min_pw_length') + '<br />'
+      error.password = this.props.i18next.t('client.registration.under_min_pw_length')
     }
 
     if (this.state.password !== this.state.password2) {
-      error += this.props.i18next.t('client.registration.passwords_dont_match') + '<br />'
+      error.password2 = this.props.i18next.t('client.registration.passwords_dont_match')
+    }
+
+    if (!this.state.acceptedPrivacy) {
+      error.privacy = 'Bitte akzeptiere die Datenschutzerklärung';
+    }
+
+    if (!this.state.acceptedSponsorToS) {
+      error.sponsorToS = 'Bitte akzeptiere die Teilnahmebedingungen';
     }
 
     this.setState({ error });
-    return (error === '');
+    return (error !== {});
   }
 
   onRegistrationError(error) {
@@ -108,7 +118,7 @@ class RegisterLogin extends React.Component {
       <form onSubmit={this.checkEmail}>
         <DialogTitle id="login-register">Benutzerkonto</DialogTitle>
         <DialogContent>
-          {this.state.error && <Typography variant="body1" color="error">{this.state.error}</Typography>}
+          {this.state.error.mail && <Typography variant="body1" color="error">{this.state.error.mail}</Typography>}
             <TextField
               autoFocus
               label="E-Mail-Addresse"
@@ -161,31 +171,54 @@ class RegisterLogin extends React.Component {
       <form onSubmit={this.register}>
         <DialogTitle>Registrieren</DialogTitle>
         <DialogContent>
-          {this.state.error && <p>{this.state.error.toString()}</p>}
           <TextField
             margin="dense"
-            id="email"
             value={this.state.email}
             label="E-Mail-Addresse"
             type="email"
-            fullWidth
             onChange={event => this.setState({email:event.target.value})}
-          />
+          /><br />
           <TextField
             autoFocus
             margin="dense"
-            id="password"
             label="Password"
             type="password"
-            fullWidth
             onChange={event => this.setState({password:event.target.value})}
-          />
-          <TextField
+          />{this.state.error.password &&
+        <FormHelperText id="component-error-text">{this.state.error.password}</FormHelperText>}<br/>
+        <TextField
             label="Password wiederholen"
             type="password"
-            fullWidth
+            margin="dense"
             onChange={event => this.setState({password2:event.target.value})}
-          />
+          />{this.state.error.password2 &&
+        <FormHelperText id="component-error-text">{this.state.error.password2}</FormHelperText>}<br/>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={this.state.acceptedPrivacy}
+                onChange={e => {
+                  e.persist();
+                  this.setState({acceptedPrivacy: e.target.checked})
+                }}
+                color="primary"
+              />}
+            label={<span>Ich akzeptiere die <a href="/privacy-policy" target="_blank">Datenschutzbedingungen</a></span>}
+          />{this.state.error.privacy &&
+        <FormHelperText id="component-error-text">{this.state.error.privacy}</FormHelperText>}<br/>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={this.state.acceptedSponsorToS}
+                onChange={e => {
+                  e.persist();
+                  this.setState({acceptedSponsorToS: e.target.checked})
+                }}
+                color="primary"
+              />}
+            label={<span>Ich akzeptiere die <a href="/sponsor-tos" target="_blank">Teilnahmebedingungen</a></span>}
+          />{this.state.error.sponsorToS &&
+        <FormHelperText id="component-error-text">{this.state.error.sponsorToS}</FormHelperText>}
         </DialogContent>
         <DialogActions>
           <Button onClick={this.props.onCancel} color="primary">

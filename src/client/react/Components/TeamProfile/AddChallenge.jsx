@@ -97,8 +97,6 @@ class AddChallenge extends React.Component {
           return
         }
 
-        // TODO: check if everything required is available
-
         this.props.api.addChallenge(this.props.teamId,
           {
             description: this.state.description,
@@ -167,14 +165,13 @@ class AddChallenge extends React.Component {
     style.top.minHeight = 0;
     style.bottom = {
       ...style.bottom,
-      display: (this.state.renderAll ? 'block' : 'none'),
-      height: 'auto'
+      display: (this.state.renderAll ? 'flex' : 'none'),
     }
 
     const me = this.state.me;
     const company = me
       ? me.sponsor.url
-        ? <div><a href={me.sponsor.url}>{me.sponsor.company}</a></div>
+        ? <a href={me.sponsor.url}>{me.sponsor.company}</a>
         : me.sponsor.company
       : undefined;
 
@@ -229,7 +226,7 @@ class AddChallenge extends React.Component {
               {company}
             </div>
             <div style={style.logo}>
-              <img src={me.url} style={style.image}/>
+              <img src={me.sponsor.logo && me.sponsor.logo.url} style={style.image}/>
             </div>
           </div>}
           <div style={style.buttons}>
@@ -241,7 +238,7 @@ class AddChallenge extends React.Component {
               variant="outlined"
               color="primary"
               onClick={this.onClickAdd}
-              style={style.button}>Hinzufügen</Button>
+              style={style.button}>Senden</Button>
           </div>
           <div style={{clear: 'both'}} />
         </Paper>
