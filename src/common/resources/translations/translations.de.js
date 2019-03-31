@@ -430,11 +430,11 @@ module.exports = {
     'RECIPIENT': 'Empfänger',
     'PURPOSE': 'Verwendungszweck',
     'INSTITUTION': 'Institut',
-    'PAID_AMOUNT': 'Bereits Bezahlt',
+    'PAID_AMOUNT': 'Bereits bezahlt',
     'TOTAL_AMOUNT': 'Gesamtbetrag',
     'TRAVELLED_DISTANCE': 'Gereiste Kilometer',
     'FULFILLED_COUNT': 'Erfüllt',
-    'HAS_PAID': 'Bereits Bezahlt'
+    'HAS_PAID': 'Bereits bezahlt'
   },
   "HIGHSCORE": {
     "PLACE": "Platz",
