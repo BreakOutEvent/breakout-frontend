@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextField, Checkbox, FormControlLabel, Dialog, DialogTitle, DialogContent, Button, FormHelperText,
-  DialogActions, Typography, withMobileDialog } from '@material-ui/core';
+  DialogActions, Typography, withMobileDialog, Paper } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
 const DONOR = 'DONOR';
@@ -226,6 +226,19 @@ class SponsorInformation extends React.Component {
 
   render() {
     const logo = this.state.me && this.state.me.sponsor.logo;
+    const width = 'calc(50% - 10px)';
+    const styles = {
+      leftInput: {
+        width,
+        marginRight: '16px'
+      },
+      rightInput: {
+        width
+      },
+      logo: {
+        marginLeft: '0'
+      }
+    }
     return <Dialog
       open={true}
       fullScreen={this.props.fullScreen}
@@ -241,6 +254,7 @@ class SponsorInformation extends React.Component {
               value={this.state.me.firstname}
               label="Vorname"
               required
+              style={styles.leftInput}
               onChange={event => {
                 event.persist();
                 this.setState(state => ({me: {...state.me, firstname: event.target.value}}));
@@ -253,6 +267,7 @@ class SponsorInformation extends React.Component {
               value={this.state.me.lastname}
               label="Nachname"
               required={this.state.showCompany}
+              style={styles.rightInput}
               onChange={event => {
                 event.persist();
                 this.setState(state => ({me: {...state.me, lastname: event.target.value}}));
@@ -299,6 +314,7 @@ class SponsorInformation extends React.Component {
                 value={this.state.me.sponsor.company}
                 label="Firmenname"
                 required
+                style={styles.leftInput}
                 onChange={event => {
                   event.persist();
                   this.setState(state => ({me: {...state.me, sponsor: {...state.me.sponsor, company: event.target.value}}}));
@@ -310,6 +326,7 @@ class SponsorInformation extends React.Component {
               <TextField
                 value={this.state.me.sponsor.url}
                 label="Webseite"
+                style={styles.rightInput}
                 onChange={event => {
                   event.persist();
                   this.setState(state => ({me: {...state.me, sponsor: {...state.me.sponsor, url: event.target.value}}}));
@@ -319,6 +336,7 @@ class SponsorInformation extends React.Component {
             <FormHelperText id="component-error-text">{this.state.errors.url}</FormHelperText>
             }<br /><br />
               <FormControlLabel
+                style={styles.logo}
                 control={
                   <input
                     accept="image/*"
@@ -331,12 +349,11 @@ class SponsorInformation extends React.Component {
                       this.validateLogo(event.target.files[0]);
                     }}
                   />}
-                label={<span><Button style={{marginLeft: '10px'}} variant="contained" component="span">
+                label={<Button style={{width: '100%'}} variant="contained" component="span">
                   Logo hochladen
-                </Button>&nbsp;
-                  {logo.name && <span>{logo.name.substr(logo.name.lastIndexOf('\\')+1)}</span>}
-                  {logo.url && <img src={logo.url} style={{maxHeight: '100px'}} />}
-                </span>} />
+                </Button>} />
+              {logo.name && <span>{logo.name.substr(logo.name.lastIndexOf('\\')+1)}</span>}
+              {logo.url && <img src={logo.url} style={{maxHeight: '100px'}} />}
               {this.state.errors.logo &&
               <FormHelperText id="component-error-text">{this.state.errors.logo}</FormHelperText>
               }
@@ -345,6 +362,7 @@ class SponsorInformation extends React.Component {
                 value={this.state.me.sponsor.address.street}
                 label="Straße"
                 required
+                style={styles.leftInput}
                 onChange={event => {
                   event.persist();
                   this.setState(state => ({
@@ -366,6 +384,7 @@ class SponsorInformation extends React.Component {
               value={this.state.me.sponsor.address.housenumber}
               label="Nr."
               required
+              style={styles.rightInput}
               onChange={event => {
                 event.persist();
                 this.setState(state => ({
@@ -386,6 +405,7 @@ class SponsorInformation extends React.Component {
               value={this.state.me.sponsor.address.zipcode}
               label="Postleitzahl"
               required
+              style={styles.leftInput}
               onChange={event => {
                 event.persist();
                 this.setState(state => ({
@@ -407,6 +427,7 @@ class SponsorInformation extends React.Component {
               value={this.state.me.sponsor.address.city}
               label="Stadt"
               required
+              style={styles.rightInput}
               onChange={event => {
                 event.persist();
                 this.setState(state => ({
@@ -428,6 +449,7 @@ class SponsorInformation extends React.Component {
               value={this.state.me.sponsor.address.country}
               label="Land"
               required
+              style={styles.leftInput}
               onChange={event => {
                 event.persist();
                 this.setState(state => ({
@@ -445,7 +467,18 @@ class SponsorInformation extends React.Component {
               />{this.state.errors.country &&
             <FormHelperText id="component-error-text">{this.state.errors.country}</FormHelperText>
             }
-            </div>}
+            </div>}<br />
+            <Paper>
+              {(this.state.me.sponsor.supporterType === ACTIVE) && <Typography>
+                {this.props.i18next.t('client.sponsor.supporterData.active.title')}
+              </Typography>}
+              {(this.state.me.sponsor.supporterType === PASSIVE) && <Typography>
+                {this.props.i18next.t('client.sponsor.supporterData.passive.title')}
+              </Typography>}
+              {(this.state.me.sponsor.supporterType === DONOR) && <Typography>
+                {this.props.i18next.t('client.sponsor.supporterData.donor.title')}
+              </Typography>}
+            </Paper>
           </div>}
         </DialogContent>
         <DialogActions style={{justifyContent: 'flex-end'}}>

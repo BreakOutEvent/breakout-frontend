@@ -51,7 +51,7 @@ class RegisterLogin extends React.Component {
       message = this.props.i18next.t('client.login.wrong_password');
     }
     this.setState({
-      error: message
+      error: {credentials: message}
     });
   }
 
@@ -87,7 +87,7 @@ class RegisterLogin extends React.Component {
     }
 
     this.setState({ error });
-    return (error !== {});
+    return (!error.password && !error.password2 && !error.privacy && !error.privacy && !error.sponsorToS);
   }
 
   onRegistrationError(error) {
@@ -156,7 +156,7 @@ class RegisterLogin extends React.Component {
             fullWidth
             onChange={event => this.setState({password:event.target.value})}
           />
-          {this.state.error && <p>{this.state.error }</p>}
+          {this.state.error.credentials && <p>{this.state.error.credentials}</p>}
         </DialogContent>
         <DialogActions>
           <Button onClick={this.props.onCancel} color="primary">
@@ -186,7 +186,7 @@ class RegisterLogin extends React.Component {
             onChange={event => this.setState({password:event.target.value})}
           />{this.state.error.password &&
         <FormHelperText id="component-error-text">{this.state.error.password}</FormHelperText>}<br/>
-        <TextField
+          <TextField
             label="Password wiederholen"
             type="password"
             margin="dense"
@@ -203,9 +203,9 @@ class RegisterLogin extends React.Component {
                 }}
                 color="primary"
               />}
-            label={<span>Ich akzeptiere die <a href="/privacy-policy" target="_blank">Datenschutzbedingungen</a></span>}
+            label={<span>Ich akzeptiere die <a href="/privacy-policy" target="_blank">Datenschutzerklärung</a></span>}
           />{this.state.error.privacy &&
-        <FormHelperText id="component-error-text">{this.state.error.privacy}</FormHelperText>}<br/>
+        <FormHelperText id="component-error-text">{this.state.error.privacy}</FormHelperText>}<br />
           <FormControlLabel
             control={
               <Checkbox
