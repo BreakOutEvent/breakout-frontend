@@ -29,10 +29,11 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>Team-Name</th>
-                <th>Mitglieder</th>
+                <th>Status</th>
+                <th>Team</th>
+                <th>Participants</th>
                 <th>
-                  Letzer Post
+                  Last Post
                   <form action="/admin/teamoverview" method="get">
                     <input class="invisible " name="sortBy" value="lastPosting">
                     <input class="invisible swap" name="direction" value="up">
@@ -42,7 +43,7 @@
                 <th>
                   <form action="/admin/teamoverview" method="get">
                     <input class="invisible" name="sortBy" value="lastLocation">
-                    Letzer Ort
+                    Last Location
                     <input class="invisible swap" name="direction" value="up">
                     <button type="submit" class="btn-link"><i class="material-icons">swap_vert</i></button>
                   </form>
@@ -50,7 +51,7 @@
                 <th>
                   <form action="/admin/teamoverview" method="get">
                     <input class="invisible" name="sortBy" value="lastContactWithHeadquarters">
-                    Letzter Kontakt mit HQ
+                    Last Contact with HQ
                     <input class="invisible swap" name="direction" value="up">
                     <button type="submit" class="btn-link"><i class="material-icons">swap_vert</i></button>
                   </form>
@@ -58,57 +59,109 @@
                 <th>
                   <form action="/admin/teamoverview" method="get">
                     <input class="invisible" name="sortBy" value="lastContact">
-                    Letzter Kontakt allgemein
+                    Last Seen
                     <input class="invisible swap" name="direction" value="up">
                     <button type="submit" class="btn-link"><i class="material-icons">swap_vert</i></button>
                   </form>
                 </th>
+                <th>Log a Call</th>
             </tr>
             </thead>
             <tbody id="list">
             {{#each this}}
                 <tr>
-                    <td>{{teamName}} {{teamId}}<br>{{event.name}}</td>
+                    <td>
+                      <h3>
+                      {{#if asleep}}
+                        💤
+                      {{else}}
+                        🤘
+                      {{/if}}
+                      </h3>
+                    </td>
+                    <td>
+                      <a target="_blank" href="/team/{{teamId}}">
+                        {{teamId}} - {{teamName}}
+                      </a>
+                      <br>
+                      {{event.name}}
+                    </td>
                     <td>
                         {{#each members}}
-                            <b class="member">{{firstname}} {{lastname}}</b></br>
+                            <b class="member">
+                              {{firstname}} {{lastname}}
+                            </b>
+                            </br>
+                            Phone: <a href="tel://{{contactPhone}}">{{contactPhone}}</a>
+                            <br>
                             <div class="moreinfo">
-                              ID: {{id}} <br>
-                              Kontakt: {{contactPhone}}<br>
-                              Notfall: {{emergencyPhone}}<br>
+                              <br>
+                              💣 Emergency Contact: <a href="tel://{{emergencyPhone}}">{{emergencyPhone}}</a>
+                              <br>
                             </div>
                             <br>
                         {{/each}}
                     </td>
                     <td>
                       {{beautifuldate lastPosting.timestamp}}
+                      {{#if lastPosting.id}}
+                        <br/>
+                        <br/>
+                        <a target="_blank" href="/post/{{lastPosting.id}}">Link</a>
+                      {{/if}}
                     </td>
                     <td>
-                        Maps: <a target="_blank" href="https://www.google.com/maps/place/{{lastLocation.coord.latitude}},{{lastLocation.coord.longitude}}">
-                            {{#if lastLocation.locationData.LOCALITY}}
-                                {{lastLocation.locationData.LOCALITY}}, {{lastLocation.locationData.POLITICAL}}
-                            {{else}}
-                                Link
-                            </a><br/>
-                            {{/if}}
-                        Latitude: {{lastLocation.coord.latitude}}
-                        Longitude: {{lastLocation.coord.longitude}}
-                        Datum: {{ beautifuldate lastLocation.timestamp}}
+                        {{ beautifuldate lastLocation.timestamp}}
+                        <br/>
+                        <br/>
+                        <a target="_blank" href="https://www.google.com/maps/place/{{lastLocation.coord.latitude}},{{lastLocation.coord.longitude}}">
+                          {{#if lastLocation.locationData.LOCALITY}}
+                            {{lastLocation.locationData.LOCALITY}}, {{lastLocation.locationData.POLITICAL}}
+                          {{else}}
+                            Link
+                          {{/if}}
+                        </a>
                     </td>
                     <td>
-                      {{beautifuldate lastContactWithHeadquarters.timestamp}}</br></br>
-                      <p class="lastComment">
-                      "{{lastContactWithHeadquarters.comment}}"
-                      </p>
+                      {{beautifuldate lastContactWithHeadquarters.timestamp}}
+                      {{#if lastContactWithHeadquarters.admin}}
+                        </br></br>
+                        <p>
+                          <b>Reason:</b>
+                          <br>
+                          {{getAtIndex callReasons lastContactWithHeadquarters.reason}}
+                          <br>
+                        </p>
+                        {{#if lastContactWithHeadquarters.comment}}
+                          <p>
+                            <b>Comment:</b>
+                            <br>
+                            "{{lastContactWithHeadquarters.comment}}"
+                          </p>
+                        {{/if}}
+                        <p>
+                          <b>Admin:</b>
+                          <br> 
+                          {{lastContactWithHeadquarters.admin.firstname}} {{lastContactWithHeadquarters.admin.lastname}}
+                        </p>
+                      {{/if}}
+                    </td>
+                    <td>
+                      {{beautifuldate lastContact.timestamp}}
+                    </td>
+                    <td>
                       <form action="/admin/lastcontact" method="post">
                         <input name="teamid" class="invisible" value={{teamId}}>
-                        <textarea class="inputfield" name="update"></textarea>
+                        <select name="reason" class="form-control" required="required">
+                          <option disabled selected>Reason</option>
+                          {{callReasons}}
+                          {{#each callReasons}}
+                          <option value='{{@index}}'>{{this}}</option>
+                          {{/each}}
+                        </select>
+                        <textarea class="inputfield" name="update" placeholder="Comment"></textarea>
                         <button type="submit" class="btn btn-default">Submit</button>
                       </form>
-                    </td>
-                    <td>
-                      <p> Zuletzt allgemein von denen gehört:</p><br>
-                      {{beautifuldate lastContact.timestamp}}</br></br>
                     </td>
                 </tr>
             {{/each}}

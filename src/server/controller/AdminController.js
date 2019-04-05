@@ -69,6 +69,11 @@ admin.showDashboardCheckin = function*(req, res) {
 
 admin.showOverview = function*(req, res) {
 
+  if (!req.query.sortBy) {
+    req.query.sortBy = 'lastContact';
+    req.query.direction = 'up';
+  }
+
   function compare(a,b) {
     if(a[req.query.sortBy]){
       if(req.query.direction === 'up'){
@@ -92,22 +97,19 @@ admin.showOverview = function*(req, res) {
   options.view = 'admin-teamoverview';                 // TODO: .then should be moved to api layer
   options.data = yield api.getTeamOverview(getAccessTokenFromRequest(req)).then(resp => resp.data);
 
-  let defaultValue;
-  if(req.query.direction) {
-    if(req.query.direction === 'up') {
-      defaultValue = Number.MAX_VALUE;
-    } else if (req.query.direction === 'down') {
-      defaultValue = 0;
-    } else {
-      throw new Error('invalid sort criteria '+req.query.direction);
-    }
-  } else {
-    defaultValue = 0;
-    req.query.direction = 'up';
-  }
+  let callReasons = [
+    'Technical Problem',
+    '5h Update',
+    'New Transport',
+    'Finished BreakOut',
+    'Sickness',
+    'Emergency',
+    'Other'
+  ];
 
   options.data = options.data.map(function(team){
     team.lastContact = {};
+    team.callReasons = callReasons;
 
     let validInfo = [team.lastContactWithHeadquarters, team.lastPosting, team.lastLocation].filter(function(elem){
       return elem;
@@ -121,24 +123,23 @@ admin.showOverview = function*(req, res) {
 
     if(validTimestamps.length != 0){
       team.lastContact.timestamp = Math.max.apply(Math, validTimestamps);
-    }
-    else{
-      team.lastContact.timestamp = defaultValue;
+    } else {
+      team.lastContact.timestamp = null;
     }
 
     if(!team.lastContactWithHeadquarters) {
       team.lastContactWithHeadquarters = {};
-      team.lastContactWithHeadquarters.timestamp = defaultValue;
+      team.lastContactWithHeadquarters.timestamp = null;
     }
 
     if(!team.lastPosting) {
       team.lastPosting = {};
-      team.lastPosting.timestamp = defaultValue;
+      team.lastPosting.timestamp = null;
     }
 
     if(!team.lastLocation) {
       team.lastLocation = {};
-      team.lastLocation.timestamp = defaultValue;
+      team.lastLocation.timestamp = null;
     }
 
     return team;
@@ -197,7 +198,7 @@ admin.updateLastContact = function *(req, res) {
 
 
   try {
-    let comment = yield api.postModel(`teamoverview/${req.body.teamid}/lastContactWithHeadquarters/`, req.user, {comment: req.body.update});
+    let comment = yield api.postModel(`teamoverview/${req.body.teamid}/lastContactWithHeadquarters/`, req.user, { comment: req.body.update, reason: req.body.reason });
     res.redirect('/admin/teamoverview/');
   } catch (err) {
     res.status(500);

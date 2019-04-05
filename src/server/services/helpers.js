@@ -194,10 +194,8 @@ exports.date = function makeDate(timestamp, context) {
 };
 
 exports.beautifuldate = function makeDate(timestamp, context) {
-  if (timestamp === Number.MAX_VALUE) {
-    return 'Kein Datum vorhanden';
-  } else if (timestamp === 0) {
-    return 'Kein Datum vorhanden';
+  if (timestamp == null) {
+    return 'No Date Available';
   }
 
   let date = new Date(timestamp);
@@ -289,6 +287,10 @@ exports.debug = function (optionalValue) {
 exports.json = function (context) {
   return JSON.stringify(context);
 };
+
+exports.getAtIndex = function (array, index) {
+  return array[index];
+}
 
 /**
  * Calculate a 32 bit FNV-1a hash
