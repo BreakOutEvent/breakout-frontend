@@ -1,6 +1,7 @@
 import React from 'react';
-import { Paper, TextField, Button, InputAdornment, FormHelperText, Typography } from '@material-ui/core';
-import URL from 'url';
+import { Paper, TextField, Button, InputAdornment, FormHelperText, Typography, IconButton,
+  Snackbar } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 import PropTypes from 'prop-types';
 import RegisterLogin from './RegisterLogin.jsx';
 import SponsorInformation from './SponsorInformation.jsx';
@@ -27,6 +28,7 @@ class AddChallenge extends React.Component {
       me: null,
       errors: {},
       isAdding: false,
+      justAdded: false,
     };
     this.interval = setInterval(this.changeSuggestions.bind(this), 2000);
     this.validateAmount = this.validateAmount.bind(this);
@@ -104,7 +106,7 @@ class AddChallenge extends React.Component {
           })
           .then(response => {
             this.props.update(response.sponsorId);
-            this.setState({isAdding: false, amount: 10, description: ""});
+            this.setState({isAdding: false, amount: 10, description: "", justAdded: true});
           })})
       .catch(() => this.setState({renderRegisterLogin: true}));
   }
@@ -259,6 +261,27 @@ class AddChallenge extends React.Component {
           api={this.props.api}
           i18next={this.props.i18next}
         />}
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left'
+          }}
+          open={this.state.justAdded}
+          ContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+          message={<span id="message-id">Challenge wurde hinzugefügt</span>}
+          action={[
+          <IconButton
+            key="close"
+            aria-label="Close"
+            color="inherit"
+            onClick={e=>this.setState({justAdded: false})}
+          >
+            <CloseIcon />
+          </IconButton>,
+          ]}
+        />
       </div>
     );
   }

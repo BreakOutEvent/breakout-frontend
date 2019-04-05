@@ -43,24 +43,24 @@ module.exports = {
       "supporterData": {
         "title": "Supporter data",
         "selectionText": "You can choose which type of supporter you will be in order to support our partner" +
-        "OneDollarGlasss e.V.",
+        "Zeltschule e.V.",
         "selectionLabel": "Type of support",
         "donor": {
           "title": "Donor",
-          "description": "As donor 100% of your donation will be transferred to OneDollarGlasses e. V. and you " +
+          "description": "As donor 100% of your donation will be transferred to Zeltschule e.V. and you " +
           "will get a receipt or a (simplified) proof of donation from BreakOut e.V."
         },
         "passive": {
           "title": "Passive sponsor",
           "description": "As passive sponsor you are allowed to place your company's name and logo on our website. " +
           "You will get an invoice from BreakOut e.V. but you don't have to pay turnover tax. Thus 100% of your " +
-          "donation will be transferred to OneDollarGlasses e.V."
+          "donation will be transferred to Zeltschule e.V."
         },
         "active": {
           "title": "Active sponsor",
           "description": "As active sponsor you are allowed to place your company's name, website url and optionally " +
           "logo on our website. You will get an invoice from BreakOut e.V. including 19% of turnover tax. The " +
-          "remaining donation will be transferred to OneDollarGlasses e.V."
+          "remaining donation will be transferred to Zeltschule e.V."
         },
       },
       "company": "Company",
@@ -350,7 +350,7 @@ module.exports = {
     "ELEMENT_2": "Starter-kit",
     "ELEMENT_3": "BreakOut Hotline",
     "DESCRIPTION_2": "All of these come back to you directly or indirectly. Your safety is of utmost importance to us, that is why the BreakOut Hotline will be available throughout the entire 36 hours.",
-    "DESCRIPTION_3": "Since the idea behind BreakOut is to give donations to One Dollar Glasses, we want to make sure that every team supports this social idea. Therefore you are required to give a deposit of 20€. You will get it back after the event, if your team has generated more than 100€ in donations. Otherwise the 20€ will go directly to One Dollar Glasses in your name. But don't worry, the goal is easily reached! <3",
+    "DESCRIPTION_3": "Since the idea behind BreakOut is to give donations to Zeltschule e.V., we want to make sure that every team supports this social idea. Therefore you are required to give a deposit of 20€. You will get it back after the event, if your team has generated more than 100€ in donations. Otherwise the 20€ will go directly to Zeltschule e.V. in your name. But don't worry, the goal is easily reached! <3",
     "DESCRIPTION_4": "So the total amount per term is 60€ (20€ Registration per person + 20€ Deposit). For a succesful registration the total amount has to be transferred by 16th May 2018. Please use the <strong>mentioned purpose</strong> and the following bank account:",
     "SUBHEADLINE_1": "Transfer",
     "ACCNUMBER": "IBAN",

@@ -40,25 +40,25 @@ module.exports = {
       "supporterData": {
         "title": "Spender-/Sponsordaten",
         "selectionText": "Im folgenden können Sie auswählen, in welcher Form Sie ein oder mehrere Teams und damit" +
-        "unseren Spendenpartner OneDollarGlasses e. V. unterstützen wollen.",
+        "unseren Spendenpartner Zeltschule e. V. unterstützen wollen.",
         "selectionLabel": "Art der Unterstützung",
         "donor": {
           "title": "Spender",
-          "description": "Als Spender wandern 100% des gespendeten Geldes an den EinDollarGlasses e. V. und es wird Ihnen " +
-          "vom BreakOut e. V. eine Spendenquittung oder ein (vereinfachter) Spendennachweis ausgestellt."
+          "description": "100% des gespendeten Geldes gehen an den Zeltschule e.V. und es wird Ihnen " +
+          "vom BreakOut e.V. eine Spendenquittung oder ein (vereinfachter) Spendennachweis ausgestellt."
         },
         "passive": {
           "title": "Passiver Sponsor",
           "description": "Als passiver Sponsor können Sie Ihren Firmennamen sowie ein Logo auf der Website platzieren. " +
-          "Sie bekommen vom BreakOut e. V. eine Rechnung ausgestellt, aber es wird keine Umsatzsteuer fällig. 100% des " +
-          "Betrags gehen an den EinDollarGlasses e. V."
+          "Sie bekommen vom Zeltschule e.V. eine Rechnung ausgestellt, aber es wird keine Umsatzsteuer fällig. 100% des " +
+          "Betrags gehen an den Zeltschule e.V."
         },
         "active": {
           "title": "Aktiver Sponsor",
           "description": "Als aktiver Sponsor können Sie Ihren Firmennamen, einen Link zur Firmenwebsite sowie optional " +
-          "ein Logo hochgeladen werden. Sie bekommen vom BreakOut e. V. dann eine Rechnung ausgestellt, auf der eine " +
+          "ein Logo präsentieren. Sie bekommen vom BreakOut e.V. dann eine Rechnung ausgestellt, auf der eine " +
           "Umsatzsteuer von 19% ausgewiesen wird. Der bezahlte Betrag, abzüglich der Umsatzsteuer, geht vollständig an " +
-          "den EinDollarGlasses e. V."
+          "den Zeltschule e.V."
         },
       },
       "company": "Firma",
@@ -352,7 +352,7 @@ module.exports = {
     "ELEMENT_2": "Starterkit",
     "ELEMENT_3": "BreakOut Hotline",
     "DESCRIPTION_2": "Alle diese Posten fließen direkt oder indirekt wieder an Euch zurück. Eure Sicherheit steht für uns an erster Stelle, weshalb die BreakOut Hotline die ganzen 36 Stunden für Euch erreichbar sein wird.",
-    "DESCRIPTION_3": "Da der Grundgedanke von BreakOut das Spenden an den EinDollarBrille e. V. ist, möchten wir sicherstellen, dass jedes Team diesen sozialen Gedanken unterstützt. Wir erheben deshalb 20€ Kaution pro Team. Diese überweisen wir Euch nach dem Event zurück, wenn Ihr über 100€ an Spenden generiert habt. Andernfalls gehen die 20€ in Eurem Namen direkt an den EinDollarBrille e.V. Aber keine Panik, das kriegt Ihr locker hin! <3",
+    "DESCRIPTION_3": "Da der Grundgedanke von BreakOut das Spenden an den Zeltschule e.V. ist, möchten wir sicherstellen, dass jedes Team diesen sozialen Gedanken unterstützt. Wir erheben deshalb 20€ Kaution pro Team. Diese überweisen wir Euch nach dem Event zurück, wenn Ihr über 100€ an Spenden generiert habt. Andernfalls gehen die 20€ in Eurem Namen direkt an den EinDollarBrille e.V. Aber keine Panik, das kriegt Ihr locker hin! <3",
     "DESCRIPTION_4": "Das heißt die Gesamtkosten pro Team betragen 60,-€ (20€ Anmeldegebühr pro Person + 20€ Spendendeposit). Für eine erfolreiche Anmeldung muss der Gesamtbetrag bis zum 16. Mai 2018 überwiesen worden sein. Nutzt hierfür den <strong>angegebenen Verwendungszweck</strong> und folgende Kontoverbindung:",
     "SUBHEADLINE_1": "Überweisung",
     "ACCNUMBER": "IBAN",
@@ -517,7 +517,7 @@ module.exports = {
   },
   "LIVEBLOG": {
     "HEADLINE": "Was ist BreakOut?",
-    "DESCRIPTION": "Bei BreakOut versuchen Teams von je zwei Personen innerhalb von 36 Stunden so weit wie möglich vom Ausgangspunkt (München, Berlin oder Barcelona) weg zu reisen, ohne Geld für die Fortbewegung auszugeben. Jedes Team sucht Sponsoren, die - pro Kilometer oder für die Erfüllung gestellter Aufgaben (Challenges), einen gewissen Betrag für den EinDollarBrille e. V. spenden.",
+    "DESCRIPTION": "Bei BreakOut versuchen Teams von je zwei Personen innerhalb von 36 Stunden so weit wie möglich vom Ausgangspunkt (München, Berlin oder Barcelona) weg zu reisen, ohne Geld für die Fortbewegung auszugeben. Jedes Team sucht Sponsoren, die - pro Kilometer oder für die Erfüllung gestellter Aufgaben (Challenges), einen gewissen Betrag für den Zeltschule e.V. spenden.",
     "TIME_H": "BreakOut Event",
     "TIME_PRE": "Bis BreakOut startet",
     "TIME_DURING": "Bis BreakOut endet",

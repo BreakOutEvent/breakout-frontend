@@ -1,11 +1,18 @@
 import React from 'react';
 import { TextField, Checkbox, FormControlLabel, Dialog, DialogTitle, DialogContent, Button, FormHelperText,
-  DialogActions, Typography, withMobileDialog, Paper } from '@material-ui/core';
+  DialogActions, Typography, withMobileDialog, Paper, IconButton, withStyles } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
 import PropTypes from 'prop-types';
 
 const DONOR = 'DONOR';
 const PASSIVE = 'PASSIVE';
 const ACTIVE = 'ACTIVE';
+
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+  },
+});
 
 class SponsorInformation extends React.Component {
 
@@ -27,6 +34,7 @@ class SponsorInformation extends React.Component {
     this.validateCity = this.validateCity.bind(this);
     this.validateCountry = this.validateCountry.bind(this);
     this.determineSupporterType = this.determineSupporterType.bind(this);
+    this.deleteLogo = this.deleteLogo.bind(this);
   }
 
   async componentWillMount() {
@@ -36,8 +44,14 @@ class SponsorInformation extends React.Component {
     me.sponsor.supporterType = (me.sponsor.supporterType ? me.sponsor.supporterType : DONOR);
     this.setState({
       me,
-      showCompany: (me.sponsor.supporterType !== DONOR)
+      showCompany: (me.sponsor.supporterType !== DONOR),
+      lockSupporterType: (me.sponsor.supporterType !== DONOR),
     });
+  }
+
+  deleteLogo(event) {
+    event.persist();
+    this.setState(state => ({me: {...state.me, sponsor: {...state.me.sponsor, logo: {}}}}));
   }
 
   validateFirstname(name) {
@@ -64,11 +78,13 @@ class SponsorInformation extends React.Component {
   }
 
   determineSupporterType() {
-    this.setState(state => {
-      let newState = state;
-      newState.me.sponsor.supporterType = (state.me.sponsor.company ? (state.me.sponsor.url ? ACTIVE : PASSIVE) : DONOR);
-      return newState;
-    })
+    if (!this.state.lockSupporterType) {
+      this.setState(state => {
+        let newState = state;
+        newState.me.sponsor.supporterType = (state.me.sponsor.company ? (state.me.sponsor.url ? ACTIVE : PASSIVE) : DONOR);
+        return newState;
+      })
+    }
   }
 
   validateCompany(company) {
@@ -213,10 +229,13 @@ class SponsorInformation extends React.Component {
           type: 'IMAGE',
           url: upload.secure_url
         };
+      } else {
+        me.sponsor.logo = undefined;
       }
 
       const updatedMe = await this.props.api.updateUserData(me.id, me);
       if (!updatedMe) throw new Error('Information update failed!');
+      me.sponsor.logo = (me.sponsor.logo ? me.sponsor.logo : {});
       this.props.onSuccess();
     } catch (error) {
       console.log(error);
@@ -280,6 +299,7 @@ class SponsorInformation extends React.Component {
               control={
             <Checkbox
               checked={this.state.showCompany}
+              disabled={this.state.lockSupporterType}
               onChange={e => {
                 e.persist();
                 this.setState(state => {
@@ -323,7 +343,7 @@ class SponsorInformation extends React.Component {
               />{this.state.errors.company &&
             <FormHelperText id="component-error-text">{this.state.errors.company}</FormHelperText>
             }&nbsp;
-              <TextField
+              {(this.state.me.sponsor.url || !this.state.lockSupporterType) && <TextField
                 value={this.state.me.sponsor.url}
                 label="Webseite"
                 style={styles.rightInput}
@@ -332,7 +352,7 @@ class SponsorInformation extends React.Component {
                   this.setState(state => ({me: {...state.me, sponsor: {...state.me.sponsor, url: event.target.value}}}));
                   this.validateUrl(event.target.value);
                 }}
-              />{this.state.errors.url &&
+              />}{this.state.errors.url &&
             <FormHelperText id="component-error-text">{this.state.errors.url}</FormHelperText>
             }<br /><br />
               <FormControlLabel
@@ -352,8 +372,11 @@ class SponsorInformation extends React.Component {
                 label={<Button style={{width: '100%'}} variant="contained" component="span">
                   Logo hochladen
                 </Button>} />
-              {logo.name && <span>{logo.name.substr(logo.name.lastIndexOf('\\')+1)}</span>}
-              {logo.url && <img src={logo.url} style={{maxHeight: '100px'}} />}
+              {logo && logo.name && <span>{logo.name.substr(logo.name.lastIndexOf('\\')+1)}</span>}
+              {logo && logo.url && <img src={logo.url} style={{maxHeight: '100px'}} />}
+              {logo && (logo.name || logo.url) && <IconButton onClick={this.deleteLogo} aria-label="Delete">
+                <DeleteIcon fontSize="small" />
+              </IconButton>}
               {this.state.errors.logo &&
               <FormHelperText id="component-error-text">{this.state.errors.logo}</FormHelperText>
               }
@@ -468,17 +491,30 @@ class SponsorInformation extends React.Component {
             <FormHelperText id="component-error-text">{this.state.errors.country}</FormHelperText>
             }
             </div>}<br />
-            <Paper>
-              {(this.state.me.sponsor.supporterType === ACTIVE) && <Typography>
-                {this.props.i18next.t('client.sponsor.supporterData.active.title')}
-              </Typography>}
-              {(this.state.me.sponsor.supporterType === PASSIVE) && <Typography>
-                {this.props.i18next.t('client.sponsor.supporterData.passive.title')}
-              </Typography>}
-              {(this.state.me.sponsor.supporterType === DONOR) && <Typography>
-                {this.props.i18next.t('client.sponsor.supporterData.donor.title')}
-              </Typography>}
-            </Paper>
+            {(this.state.me.sponsor.supporterType === ACTIVE) && <Paper style={{padding: "10px"}}>
+              <Typography variant="subtitle1">
+                Sie sind: {this.props.i18next.t('client.sponsor.supporterData.active.title')}
+              </Typography>
+              <Typography variant="body2">
+                {this.props.i18next.t('client.sponsor.supporterData.active.description')}
+              </Typography>
+            </Paper>}
+            {(this.state.me.sponsor.supporterType === PASSIVE) && <Paper style={{padding: "10px"}}>
+              <Typography variant="subtitle1">
+                Sie sind: {this.props.i18next.t('client.sponsor.supporterData.passive.title')}
+              </Typography>
+              <Typography variant="body2">
+                {this.props.i18next.t('client.sponsor.supporterData.passive.description')}
+              </Typography>
+            </Paper>}
+            {(this.state.me.sponsor.supporterType === DONOR) && <Paper style={{padding: "10px"}}>
+              <Typography variant="subtitle1">
+                Sie sind: {this.props.i18next.t('client.sponsor.supporterData.donor.title')}
+              </Typography>
+              <Typography variant="body2">
+                {this.props.i18next.t('client.sponsor.supporterData.donor.description')}
+              </Typography>
+            </Paper>}
           </div>}
         </DialogContent>
         <DialogActions style={{justifyContent: 'flex-end'}}>
@@ -501,4 +537,4 @@ SponsorInformation.propTypes = {
   fullScreen: PropTypes.bool.isRequired,
 };
 
-export default withMobileDialog()(SponsorInformation);
+export default withMobileDialog()(withStyles(styles)(SponsorInformation));

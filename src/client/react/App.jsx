@@ -365,4 +365,3 @@ class StatefulListOfChallenges extends React.Component {
 renderIfExists(<MuiThemeProvider theme={breakoutTheme()}><AdminInvoicePanel api={api}/></MuiThemeProvider>, 'react-admin-invoice');
 renderIfExists(<App/>, 'react-root');
 renderIfExists(<MuiThemeProvider theme={breakoutTheme()}><StatefulListOfChallenges api={api}/></MuiThemeProvider>, 'react-challenge-list-root');
-renderIfExists(<MuiThemeProvider theme={breakoutTheme()}><EmailConfirmationCheck isLoggedIn={isLoggedIn}/></MuiThemeProvider>, 'react-email-confirmation');

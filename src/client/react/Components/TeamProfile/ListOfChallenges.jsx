@@ -68,8 +68,6 @@ const ListOfChallenges = (props) => {
 const ChallengeListItem = (props) => {
   const url = _.get(props, 'sponsor.logoUrl', '');
   const color = (props.status === 'WITH_PROOF') ? ' green' : 'black';
-  const icon = (props.status === 'WITH_PROOF') ? 'check' : '';
-
   const style = styleChallenge(color);
 
   const name = `${props.sponsor.firstname} ${props.sponsor.lastname}`;
@@ -95,7 +93,7 @@ const ChallengeListItem = (props) => {
       <div style={style.top}>
         <div style={style.icon}>
           {props.amount}€
-          <Icon style={{color}}>{icon}</Icon>
+          {(props.status === 'WITH_PROOF') && <Icon style={{color}}>check</Icon>}
         </div>
         <div style={style.description}>{props.description} {counterDescription}</div>
       </div>
