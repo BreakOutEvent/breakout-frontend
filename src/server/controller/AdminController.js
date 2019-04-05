@@ -197,7 +197,7 @@ admin.updateLastContact = function *(req, res) {
 
 
   try {
-    let comment = yield api.postModel(`/teamoverview/${req.body.teamid}/lastContactWithHeadquarters/`, req.user, {comment: req.body.update});
+    let comment = yield api.postModel(`teamoverview/${req.body.teamid}/lastContactWithHeadquarters/`, req.user, {comment: req.body.update});
     res.redirect('/admin/teamoverview/');
   } catch (err) {
     res.status(500);
