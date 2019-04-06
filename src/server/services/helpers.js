@@ -290,7 +290,7 @@ exports.json = function (context) {
 
 exports.getAtIndex = function (array, index) {
   return array[index];
-}
+};
 
 /**
  * Calculate a 32 bit FNV-1a hash
