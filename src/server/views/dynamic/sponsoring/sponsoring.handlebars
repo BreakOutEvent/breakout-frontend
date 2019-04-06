@@ -27,7 +27,11 @@
             {{/if}}
             {{#if status.is.team}}
                 <li role="presentation"><a href="#result" aria-controls="result" role="tab"
-                                                          data-toggle="tab">{{__ 'NAVIGATION_RESULT'}}</a></li>
+                                                          data-toggle="tab">{{__ 'TEAM_PAYMENTS'}}</a></li>
+            {{/if}}
+            {{#if confirmedInvoices.length}}
+                <li role="presentation"><a href="#invoices" aria-controls="invoices" role="tab"
+                                                          data-toggle="tab">{{__ 'SPONSOR_PAYMENTS'}}</a></li>
             {{/if}}
         </ul>
     </div>
@@ -74,7 +78,7 @@
                         {{/if}}
                         <td>{{displayCurrency amountPerKm}} €</td>
                         {{#ifCond limit 1000000000}}
-                            <td>Kein Limit</td>
+                            <td>{{__ 'NO_LIMIT'}}</td>
                         {{else}}
                             <td>{{displayCurrency limit}} €</td>
                         {{/ifCond}}
@@ -216,7 +220,7 @@
                                     <td>{{team}}</td>
                                     <td>{{displayCurrency amountPerKm}} €</td>
                                     {{#ifCond limit 1000000000}}
-                                        <td>Kein Limit</td>
+                                        <td>{{__ 'NO_LIMIT'}}</td>
                                     {{else}}
                                         <td>{{displayCurrency limit}} €</td>
                                     {{/ifCond}}
@@ -298,71 +302,160 @@
         <div class="container">
             <div class="registration-margin"></div>
             <div id="result_in"></div>
-            <h3>{{__ 'NAVIGATION_RESULT'}} (Total: {{confirmedDonations.totalSum}} € in {{confirmedDonations.totalCount}})</h3>
+            <h3>{{__ 'NAVIGATION_RESULT'}}</h3>
 
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Soll</th>
-                    <th>Ist</th>
-                    <th>Offen</th>
+                    <th>{{__ 'HAS_PAID'}}</th>
                     <th>Sponsor</th>
+                    <th>{{__ 'PURPOSE'}}</th>
                 </tr>
                 </thead>
                 <tbody id="list">
                 {{#each confirmedDonations.invoices}}
                     <tr>
-                        <td>{{amount}} €</td>
-                        <td>{{payed}} €</td>
-                        <td>{{open}} €</td>
                         <td>
-                            {{#if firstname}}
+                          {{#if hasFullyPaid}}
+                            ✅
+                          {{else}}
+                            ❗️
+                          {{/if}}
+                        </td>
+                        <td>
+                            {{#with sponsor}}
                                 {{#if company}}
                                     {{company}} -
                                 {{/if}}
                                 {{firstname}}
                                 {{lastname}}
-                            {{else}}
-                                {{#if sponsorings}}
-                                    {{#if sponsorings.0.unregisteredSponsor}}
-                                        {{#if sponsorings.0.unregisteredSponsor.company}}
-                                            {{sponsorings.0.unregisteredSponsor.company}} -
-                                        {{/if}}
-                                        {{sponsorings.0.unregisteredSponsor.firstname}}
-                                        {{sponsorings.0.unregisteredSponsor.lastname}}
-                                    {{else}}
-                                        {{#if sponsorings.0.company}}
-                                            {{sponsorings.0.company}} -
-                                        {{/if}}
-                                        {{sponsorings.0.firstname}}
-                                        {{sponsorings.0.lastname}}
-                                    {{/if}}
-                                {{else}}
-                                    {{#if challenges.0.unregisteredSponsor}}
-                                        {{#if challenges.0.unregisteredSponsor.company}}
-                                            {{challenges.0.unregisteredSponsor.company}} -
-                                        {{/if}}
-                                        {{challenges.0.unregisteredSponsor.firstname}}
-                                        {{challenges.0.unregisteredSponsor.lastname}}
-                                    {{else}}
-                                        {{#if challenges.0.company}}
-                                            {{challenges.0.company}} -
-                                        {{/if}}
-                                        {{challenges.0.firstname}}
-                                        {{challenges.0.lastname}}
-                                    {{/if}}
-                                {{/if}}
-                            {{/if}}
-
-                            {{#each members}}
-                                {{firstname}} {{lastname}} ({{gender}} - {{participant.tshirtSize}}){{#if @first}}
-                                <br/>{{/if}}
-                            {{/each}}
+                            {{/with}}
                         </td>
+                        <td>{{purposeOfTransfer}}</td>
                     </tr>
                 {{/each}}
                 </tbody>
             </table>
+        </div>
+    </div>
+    <!-- Invoices -->
+    <div role="tabpanel" class="tab-pane" id="invoices">
+        <div class="container">
+            <div class="registration-margin"></div>
+            <div id="invoices_out"></div>
+
+            {{#each confirmedInvoices}}
+                  <h3>
+                    {{event.title}}
+                    {{#if hasFullyPaid}}
+                      ✅
+                    {{else}}
+                      ❗️
+                    {{/if}}
+                  </h3>
+
+                  <h4>{{__ 'INVOICE_OVERVIEW'}}</h4>
+
+                  <table class="table table-striped text-left" style="min-width: 450px; width: 50%">
+                      <tr>
+                          <td>{{__ 'RECIPIENT'}}</td>
+                          <td>BreakOut e.V.</td>
+                      </tr>
+                      <tr>
+                        <td>IBAN</td>
+                        <td>DE85 7002 2200 0020 2418 37</td>
+                      </tr>
+                      <tr>
+                        <td>BIC</td>
+                        <td>FDDODEMMXXX</td>
+                      </tr>
+                      <tr>
+                        <td>{{__ 'INSTITUTION'}}</td>
+                        <td>Fidor Bank</td>
+                      </tr>
+                      <tr>
+                        <td>{{__ 'LABEL_CHALLENGE_AMOUNT'}}</td>
+                        <td>
+                          {{#fixed 2}}{{amount}}{{/fixed}} €
+                          {{#if includesTax}}
+                            + USt
+                          {{/if}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>{{__ 'PAID_AMOUNT'}}</td>
+                        <td>{{#fixed 2}}{{payed}}{{/fixed}} €</td>
+                      </tr>
+                      <tr>
+                        <td>{{__ 'PURPOSE'}}</td>
+                        <td>{{purposeOfTransfer}}</td>
+                      </tr>
+                    </table>
+
+                  <br>
+
+                  {{#if challenges.length}}
+
+                  <h4>Challenges</h4>
+
+                  <table class="table table-striped">
+                      <thead>
+                      <tr>
+                          <th>Team</th>
+                          <th>{{__ 'DESCRIPTION'}}</th>
+                          <th style="text-align: right;">{{__ 'LABEL_CHALLENGE_AMOUNT'}}</th>
+                          <th style="text-align: right;">{{__ 'FULFILLED_COUNT'}}</th>
+                          <th style="text-align: right;">{{__ 'TOTAL_AMOUNT'}}</th>
+                      </tr>
+                      </thead>
+                      {{#each challenges}}
+                      <tr>
+                          <td>{{this.teamId}} - {{this.team}}</td>
+                          <td>{{this.description}}</td>
+                          <td style="text-align: right">{{#fixed 2}}{{amount}}{{/fixed}} €</td>
+                          <td style="text-align: right">{{fulfilledCount}}</td>
+                          <td style="text-align: right">{{#fixed 2}}{{billableAmount}}{{/fixed}} €</td>
+                      </tr>
+                      {{/each}}
+                  </table>
+
+                  {{/if}}
+
+
+                  {{#if sponsorings.length}}
+
+                  <h4>Sponsorings</h4>
+
+                  <table class="table table-striped">
+                      <thead>
+                      <tr>
+                          <th>Team</th>
+                          <th>{{__ 'LABEL_AMOUNT_KM'}}</th>
+                          <th style="text-align: right;">{{__ 'LABEL_LIMIT'}}</th>
+                          <th style="text-align: right;">{{__ 'TRAVELLED_DISTANCE'}}</th>
+                          <th style="text-align: right;">{{__ 'TOTAL_AMOUNT'}}</th>
+                      </tr>
+                      </thead>
+                      {{#each sponsorings}}
+                      <tr>
+                          <td>{{this.teamId}} - {{this.team}}</td>
+                          <td>{{#fixed 2}}{{amountPerKm}}{{/fixed}} €</td>
+                          <td style="text-align: right">
+                            {{#ifCond limit 1000000000}}
+                                <td>{{__ 'NO_LIMIT'}}</td>
+                            {{else}}
+                              {{#fixed 2}}{{limit}}{{/fixed}} €
+                            {{/ifCond}}
+                          </td>
+                          <td style="text-align: right">{{#fixed 2}}{{teamDistance}}{{/fixed}} km</td>
+                          <td style="text-align: right">{{#fixed 2}}{{billableAmount}}{{/fixed}} €</td>
+                      </tr>
+                      {{/each}}
+                  </table>
+
+                  {{/if}}
+                  <br>
+            {{/each}}
         </div>
     </div>
 </div>

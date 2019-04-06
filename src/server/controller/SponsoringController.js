@@ -55,12 +55,14 @@ sponsoring.showSponsorings = function*(req, res) {
   let outChallenges = [];
   let confirmedDonations = [];
   let teams = [];
+  let confirmedInvoices = [];
 
   //INCOMING
   if (req.user.status.is.team) {
     incSponsoring = yield sponsoring.getByTeam(req);
     incChallenges = yield sponsoring.challenge.getByTeam(req);
     confirmedDonations = yield sponsoring.invoice.getByTeam(req);
+
     req.user.me.participant.event = yield api.event.get(req.user.me.participant.eventId);
   }
 
@@ -68,6 +70,7 @@ sponsoring.showSponsorings = function*(req, res) {
   if (req.user.status.is.sponsor) {
     outSponsoring = yield sponsoring.getBySponsor(req);
     outChallenges = yield sponsoring.challenge.getBySponsor(req);
+    confirmedInvoices = yield sponsoring.invoice.getBySponsor(req);
     teams = yield sponsoring.getAllTeamsSummary(req);
     teams = teams.filter(team => team.eventAllowNewSponsoring);
   }
@@ -83,6 +86,7 @@ sponsoring.showSponsorings = function*(req, res) {
     outSponsoring: outSponsoring,
     outChallenges: outChallenges,
     confirmedDonations: confirmedDonations,
+    confirmedInvoices: confirmedInvoices,
     hasSupporterType: (req.user.me.sponsor && req.user.me.sponsor.supporterType),
     teams: teams,
     isLoggedIn: req.user,
@@ -365,17 +369,9 @@ sponsoring.invoice.getByTeam = (req) => co(function*() {
   let rawInvoices = yield api.invoice.getByTeam(req.user, req.user.me.participant.teamId);
 
   let invoices = rawInvoices.map(i => {
-    if (i.payments.length) {
-      i.payed = i.payments.reduce((prev, curr) => {
-        return prev + curr.amount;
-      }, 0);
-      i.open = i.amount - i.payed;
-      if (i.open < 0) i.open = 0;
-    } else {
-      i.payed = 0;
-      i.open = i.amount;
-    }
-    return i;
+    return Object.assign({}, i, {
+      hasFullyPaid: i.payed + 0.005 >= i.amount
+    });
   });
 
   let confirmedDonations = {};
@@ -386,9 +382,23 @@ sponsoring.invoice.getByTeam = (req) => co(function*() {
 
   confirmedDonations.totalCount = invoices.filter(i => i.payed > 0).length;
 
-
   return confirmedDonations;
 
+}).catch(ex => {
+  throw ex;
+});
+
+sponsoring.invoice.getBySponsor = (req) => co(function*() {
+  let rawInvoices = yield api.invoice.getBySponsor(req.user);
+
+  return rawInvoices.map(i => {
+    return Object.assign({}, i, {
+      challenges: i.challenges.filter((c) => c.billableAmount > 0),
+      sponsorings: i.sponsorings.filter((s) => s.billableAmount > 0),
+      hasFullyPaid: i.payed + 0.005 >= i.amount,
+      includesTax: i.type != 'DONOR'
+    });
+  });
 }).catch(ex => {
   throw ex;
 });
