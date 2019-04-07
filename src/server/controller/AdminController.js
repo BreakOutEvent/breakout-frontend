@@ -194,8 +194,24 @@ admin.addPayment = function *(req, res) {
   }
 };
 
-admin.updateLastContact = function *(req, res) {
+admin.setTeamSleepStatus = function *(req, res) {
 
+  try {
+    let team = yield api.putModel(`event/${req.body.eventid}/team`, req.body.teamid, req.user, { asleep: req.body.asleep });
+    res.redirect('/admin/teamoverview/');
+  } catch (err) {
+    res.status(500);
+    logger.error(`An error occured while trying to update the last contact ${req.body.update}: `, err);
+    if (err.message) {
+      res.json({message: err.message});
+    } else {
+      res.json({message: 'An unknown error occured'});
+    }
+  }
+
+}
+
+admin.updateLastContact = function *(req, res) {
 
   try {
     let comment = yield api.postModel(`teamoverview/${req.body.teamid}/lastContactWithHeadquarters/`, req.user, { comment: req.body.update, reason: req.body.reason });
