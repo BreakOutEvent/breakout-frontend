@@ -81,8 +81,7 @@ class AddChallenge extends React.Component {
     ) {
       this.setState(state => ({
         errors: {
-          ...state.errors,
-          challenge: 'Bitte behebe zunächst alle Probleme.'
+          ...state.errors
         }
       }));
     } else {
@@ -181,10 +180,8 @@ class AddChallenge extends React.Component {
       <div>
         <Paper style={{marginBottom: '20px'}} elevation={1}>
           <Typography variant="h6" style={{padding: '10px 10px 5px'}}>
-            Stelle eine Challenge
+            Team herausfordern
           </Typography>
-          {this.state.errors.challenge &&
-            <Typography style={{margin: '5px'}} color="error">{this.state.errors.challenge}</Typography>}
           <div style={style.top}>
             <div style={style.icon}>
               <TextField
@@ -233,11 +230,9 @@ class AddChallenge extends React.Component {
           </div>}
           <div style={style.buttons}>
             {me && <Button
-              variant="outlined"
               onClick={this.onClickOptions}
               style={style.button}>Optionen</Button>}
             <Button
-              variant="outlined"
               color="primary"
               onClick={this.onClickAdd}
               style={style.button}>Senden</Button>

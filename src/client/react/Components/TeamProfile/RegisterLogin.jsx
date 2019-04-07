@@ -28,6 +28,7 @@ class RegisterLogin extends React.Component {
       step: steps.email,
       acceptedPrivacy: false,
       acceptedSponsorToS: false,
+      isRegistering: false,
     }
     this.checkEmail = this.checkEmail.bind(this);
     this.login = this.login.bind(this);
@@ -98,6 +99,7 @@ class RegisterLogin extends React.Component {
     event.preventDefault();
     if (this.registrationIsValid()) {
       try {
+        this.setState({isRegistering: true})
         await this.props.api.createAccount(this.state.email, this.state.password);
         await this.props.api.login(this.state.email, this.state.password);
         await this.props.api.frontendLogin(this.state.email, this.state.password);
@@ -139,7 +141,6 @@ class RegisterLogin extends React.Component {
       {(this.state.step === steps.login) &&
       <form onSubmit={this.login}>
         <DialogTitle>Einloggen</DialogTitle>
-
         <DialogContent>
           <TextField
             value={this.state.email}
@@ -176,10 +177,12 @@ class RegisterLogin extends React.Component {
             value={this.state.email}
             label="E-Mail-Addresse"
             type="email"
+            fullWidth
             onChange={event => this.setState({email:event.target.value})}
           /><br />
           <TextField
             autoFocus
+            fullWidth
             margin="dense"
             label="Password"
             type="password"
@@ -190,6 +193,7 @@ class RegisterLogin extends React.Component {
             label="Password wiederholen"
             type="password"
             margin="dense"
+            fullWidth
             onChange={event => this.setState({password2:event.target.value})}
           />{this.state.error.password2 &&
         <FormHelperText id="component-error-text">{this.state.error.password2}</FormHelperText>}<br/>
@@ -227,6 +231,7 @@ class RegisterLogin extends React.Component {
           <Button type="submit" color="primary">
             Registrieren
           </Button>
+          {this.state.isRegistering && <CircularProgress size={24} thickness={5} />}
         </DialogActions>
       </form>}
     </Dialog>
