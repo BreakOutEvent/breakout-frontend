@@ -47,7 +47,10 @@ class SponsorInformation extends React.Component {
     if (!this.state.lockSupporterType) {
       this.setState(state => {
         let newState = state;
-        newState.me.sponsor.supporterType = (state.me.sponsor.company ? (state.me.sponsor.url ? ACTIVE : PASSIVE) : DONOR);
+        newState.me.sponsor.supporterType = (state.me.sponsor.logo
+          ? (state.me.sponsor.url
+            ? ACTIVE : PASSIVE)
+          : DONOR);
         return newState;
       })
     }
@@ -308,7 +311,7 @@ class SponsorInformation extends React.Component {
             </div>}<br />
             <Paper style={{padding: "10px"}}>
               <Typography variant="subtitle1">
-                Sie gelten als: {this.t(`supporterData.${type}.title`)}
+                {this.t('donate_as')}: {this.t(`supporterData.${type}.title`)}
               </Typography>
               <Typography variant="body2">
                 {this.t(`supporterData.${type}.description`)}

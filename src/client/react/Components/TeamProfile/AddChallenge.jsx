@@ -8,6 +8,13 @@ import SponsorPresentation from './SponsorPresentation.jsx';
 import SponsorInformation from './SponsorInformation.jsx';
 import { styleChallenge } from './ListOfChallenges.jsx';
 
+const calcRows = (width) => {
+  if (width < 200) return 4;
+  if (width < 300) return 3;
+  if (width < 500 ) return 2;
+  return 1;
+}
+
 const style = styleChallenge('black');
 style.title = {
   padding: '10px 10px 5px',
@@ -33,7 +40,7 @@ class AddChallenge extends React.Component {
       renderRegisterLogin: false,
       renderSponsorInformation: false,
       placeholderIndex: 0,
-      suggestionCount: 4,
+      suggestionCount: 8,
       amount: 10,
       description: '',
       me: null,
@@ -151,7 +158,7 @@ class AddChallenge extends React.Component {
               value={this.state.description}
               onChange={e=>this.setState({description: e.target.value})}
               InputLabelProps={{ shrink: true }}
-              rows={(Math.ceil(750 / this.state.width))}
+              rows={calcRows(this.state.width)}
               error={this.state.errors.description}
               />
             </div>

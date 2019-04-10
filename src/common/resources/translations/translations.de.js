@@ -43,6 +43,7 @@ module.exports = {
       "save": "Speichern",
       "accept_tos": "Hiermit akzeptiere ich die <a href='sponsor-tos' target='_blank'>Teilnahmebedingungen</a> für Teamunterstützer",
       "is_18": "Ich bin mindestens 18 Jahre alt",
+      "donate_as": "Sie gelten als",
       "supporterData": {
         "title": "Spender-/Sponsordaten",
         "selectionText": "Im folgenden können Sie auswählen, in welcher Form Sie ein oder mehrere Teams und damit" +
@@ -63,8 +64,7 @@ module.exports = {
           "title": "Aktiver Sponsor",
           "description": "Als aktiver Sponsor können Sie Ihren Firmennamen, einen Link zur Firmenwebsite sowie optional " +
           "ein Logo präsentieren. Sie bekommen vom BreakOut e.V. dann eine Rechnung ausgestellt, auf der eine " +
-          "Umsatzsteuer von 19% ausgewiesen wird. Der bezahlte Betrag, abzüglich der Umsatzsteuer, geht vollständig an " +
-          "den Zeltschule e.V."
+          "Umsatzsteuer von 19% ausgewiesen wird. Der bezahlte Betrag, abzüglich der Umsatzsteuer, geht vollständig an den Zeltschule e.V."
         },
       },
       "supportAsCompany": "Als Firma unterstützen",
@@ -74,8 +74,7 @@ module.exports = {
       "errorNoImage": "Bitte eine Bilddatei auswählen",
       "url": "Firmenwebsite",
       "finishTitle": "Fertig",
-      "finishContent": "Vielen Dank, dass sie sich als Unterstützer registriert haben. Hier " +
-      "können Sie Sponsorings eintragen: ",
+      "finishContent": "Vielen Dank, dass sie sich als Unterstützer registriert haben. Hier können Sie Sponsorings eintragen: ",
       "addChallenge": {
         "title": "Team herausfordern",
         "description": "Herausforderung",
@@ -83,14 +82,18 @@ module.exports = {
         "submit": "Senden",
         "success": "Challenge wurde hinzugefügt",
         "suggestions": {
-          "0": 'Ride with a policeman in his cars with sirenes on and do a selfie',
-          "1": 'Hitchhike naked',
-          "2": 'Kiss a random person',
-          "3": 'Do a big mountain climb in the south of Germany with my friend Amanda, whom you are going to meet at a Hostel.'
+          "0": 'Bei der Polizei im Streifenwagen mitfahren und ein Selfie machen',
+          "1": 'Ein Stück eurer Reise in Unterwäsche trampen',
+          "2": 'Eine wildfremde Person auf der Straße küssen',
+          "3": 'Gönnt euch eine Erfrischung und springt in einen Brunnen',
+          "4": 'Findet ein Musikinstrument und spielt für die Menschen',
+          "5": 'Sendet mir eine Postkarte aus dem schönsten Ort eurer Reise',
+          "6": 'Camouflage-mäßig mit einem Mülltransporter trampen',
+          "7": 'Macht mit zwei Menschen im Ausland den Sonnengruß'
         }
       },
       "addSponsoring": {
-        "title": "Strecke honorieren",
+        "title": "Pro Kilometer spenden",
         "amount": "Betrag pro KM",
         "limit": "Höchstbetrag",
         "options": "Optionen",
