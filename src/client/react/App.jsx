@@ -32,9 +32,10 @@ ReactGA.initialize('UA-59857227-3');
 
 import routes from './Components/routes';
 
-import AddChallenge from './Components/TeamProfile/AddChallenge.jsx';
 import AdminInvoicePanel from './Components/Admin/AdminInvoicePanel.jsx';
+import AddChallenge from './Components/TeamProfile/AddChallenge.jsx'
 import ListOfChallenges from './Components/TeamProfile/ListOfChallenges.jsx';
+import ListOfSponsors from './Components/TeamProfile/ListOfSponsors.jsx';
 
 const breakoutTheme = () => createMuiTheme({
   palette:
@@ -60,6 +61,19 @@ const OnShowHack = (props) => {
   return null;
 };
 
+i18next.init({
+  lng: window.getBoUserLang(),
+  fallbackLng: 'en',
+  resources: {
+    de: {
+      translation: de
+    },
+    en: {
+      translation: en
+    }
+  }
+});
+
 class App extends React.Component {
 
   constructor(props) {
@@ -75,18 +89,7 @@ class App extends React.Component {
 
   componentWillMount() {
 
-    i18next.init({
-      lng: window.getBoUserLang(),
-      fallbackLng: 'en',
-      resources: {
-        de: {
-          translation: de
-        },
-        en: {
-          translation: en
-        }
-      }
-    });
+
 
     const url = window.boClientConfig.baseUrl;
     const clientId = window.boClientConfig.clientId;
@@ -312,18 +315,6 @@ class StatefulListOfChallenges extends React.Component {
   }
 
   componentWillMount() {
-    i18next.init({
-      lng: window.getBoUserLang(),
-      fallbackLng: 'en',
-      resources: {
-        de: {
-          translation: de
-        },
-        en: {
-          translation: en
-        }
-      }
-    });
     this.setState({i18next: i18next});
   }
 
@@ -356,7 +347,7 @@ class StatefulListOfChallenges extends React.Component {
     }
     return <div>
       <AddChallenge isLoggedIn={!!window.boUserData} api={api} teamId={this.teamId} update={this.update}
-                    i18next={this.state.i18next}/>
+                    i18next={i18next}/>
       <ListOfChallenges challenges={this.state.challenges}/>
     </div>;
   }
@@ -365,3 +356,5 @@ class StatefulListOfChallenges extends React.Component {
 renderIfExists(<MuiThemeProvider theme={breakoutTheme()}><AdminInvoicePanel api={api}/></MuiThemeProvider>, 'react-admin-invoice');
 renderIfExists(<App/>, 'react-root');
 renderIfExists(<MuiThemeProvider theme={breakoutTheme()}><StatefulListOfChallenges api={api}/></MuiThemeProvider>, 'react-challenge-list-root');
+renderIfExists(<MuiThemeProvider theme={breakoutTheme()}><ListOfSponsors api={api} teamId={window.teamId}
+  i18next={i18next}  /></MuiThemeProvider>, 'react-sponsoring-list-root');

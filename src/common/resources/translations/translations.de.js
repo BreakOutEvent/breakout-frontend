@@ -72,7 +72,22 @@ module.exports = {
         "description": "Herausforderung",
         "options": "Optionen",
         "submit": "Senden",
-        "success": "Challenge wurde hinzugefügt"
+        "success": "Challenge wurde hinzugefügt",
+        "suggestions": {
+          "0": 'Ride with a policeman in his cars with sirenes on and do a selfie',
+          "1": 'Hitchhike naked',
+          "2": 'Kiss a random person',
+          "3": 'Do a big mountain climb in the south of Germany with my friend Amanda, whom you are going to meet at a Hostel.'
+        }
+      },
+      "addSponsoring": {
+        "title": "Strecke honorieren",
+        "amount": "Betrag pro KM",
+        "limit": "Höchstbetrag",
+        "options": "Optionen",
+        "submit": "Senden",
+        "success": "Kilometerspende wurde hinzugefügt",
+        "privacyNote": "Beträge sind nicht öffentlich"
       }
     },
     "registration": {

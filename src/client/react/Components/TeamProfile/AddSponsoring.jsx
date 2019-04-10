@@ -17,14 +17,23 @@ style.icon = {
   width: 50,
 }
 style.top.padding = 10;
-style.top.alignItems = 'top';
+style.top.flexWrap = "wrap";
+style.inputLeft = {
+  marginRight: 10,
+  minWidth: 110,
+  width: "calc(50% - 5px)",
+};
+style.inputRight = {
+  width: "calc(50% - 5px)",
+  maxWidth: "calc(100% - 120px)"
+};
 style.description.width = '100%';
 style.buttons = {
   display: 'flex',
   justifyContent: 'flex-end'
 }
 
-class AddChallenge extends React.Component {
+class AddSponsoring extends React.Component {
 
   constructor(props) {
     super(props);
@@ -32,43 +41,23 @@ class AddChallenge extends React.Component {
       renderAll: false,
       renderRegisterLogin: false,
       renderSponsorInformation: false,
-      placeholderIndex: 0,
-      suggestionCount: 4,
-      amount: 10,
-      description: '',
+      amount: "0,10",
+      limit: "",
       me: null,
       errors: {},
       isAdding: false,
       justAdded: false,
-      width: 200,
     };
-    this.interval = setInterval(this.changeSuggestions.bind(this), 3000);
-    this.validateAmount = this.validateAmount.bind(this);
+    this.validate = this.validate.bind(this);
     this.onSuccessRegisterLogin = this.onSuccessRegisterLogin.bind(this);
     this.onSuccessSponsorInformation = this.onSuccessSponsorInformation.bind(this);
-    this.addChallenge = this.addChallenge.bind(this);
-    this.updateWidth = this.updateWidth.bind(this);
-    this.t = (content) => this.props.i18next.t(`client.sponsor.addChallenge.${content}`);
+    this.addSponsoring = this.addSponsoring.bind(this);
+    this.t = (content) => this.props.i18next.t(`client.sponsor.addSponsoring.${content}`);
   }
 
   async componentDidMount() {
     this.setState({
       me: await this.props.api.getMe()
-    });
-    this.updateWidth();
-    window.addEventListener("resize", this.updateWidth);
-  }
-
-  updateWidth() {
-    this.setState({width: document.getElementById('add-challenge').offsetWidth});
-  }
-
-  changeSuggestions() {
-    this.setState({placeholderIndex:
-        (this.state.placeholderIndex + 1 === this.state.suggestionCount
-          ? 0
-          : this.state.placeholderIndex + 1
-        )
     });
   }
 
@@ -76,12 +65,14 @@ class AddChallenge extends React.Component {
     this.setState({
       renderRegisterLogin: false,
     });
-    this.addChallenge();
+    this.addSponsoring();
   }
 
-  addChallenge(event) {
+  addSponsoring(event) {
     if(event) event.preventDefault();
-    if (this.state.errors.amount) return false;
+
+    if (!this.validate('amount', this.state.amount)
+        || !this.validate('limit', this.state.limit) ) return false;
     this.setState({isAdding: true});
 
     this.props.api.getMe()
@@ -91,26 +82,29 @@ class AddChallenge extends React.Component {
           return
         }
 
-        this.props.api.addChallenge(this.props.teamId,
+        this.props.api.addSponsoring(this.props.teamId,
           {
-            description: this.state.description,
-            amount: this.state.amount
+            limit: (this.state.limit ? this.state.limit.replace(',', '.') : 9999999999),
+            amountPerKm: this.state.amount.replace(',', '.')
           })
           .then(response => {
             if(this.props.update) this.props.update(response.sponsorId);
-            this.setState({isAdding: false, amount: 10, description: "", justAdded: true});
+            this.setState({isAdding: false, amount: "0,10", limit: "", justAdded: true});
           })})
       .catch(() => this.setState({renderRegisterLogin: true}));
   }
 
-  validateAmount(amount) {
-    const error = (/^\d+[.,]?\d{0,2}$/.test(amount)
-      ? (parseInt(amount.replace(',', '.')) > 0
-          ? undefined : true)
-      : true
+  validate(property, value) {
+    let error = (property === 'limit' && value === ''
+      ? undefined
+      : (/^\d+[.,]?\d{0,2}$/.test(value)
+        ? (parseFloat(value.replace(',', '.')) > 0
+            ? undefined : true)
+        : true
+      )
     );
-    this.setState(state => ({errors: { ...state.errors, amount: error }} ));
-    return error;
+    this.setState(state => ({errors: { ...state.errors, [property]: error }} ));
+    return !error;
   }
 
   async onSuccessSponsorInformation() {
@@ -118,7 +112,7 @@ class AddChallenge extends React.Component {
     this.setState({renderSponsorInformation: false, me});
     this.props.update();
     if (this.state.isAdding) {
-      this.addChallenge();
+      this.addSponsoring();
     }
   }
 
@@ -129,33 +123,33 @@ class AddChallenge extends React.Component {
       <Paper elevation={1} id="add-challenge">
         <form
           onFocus={e=>this.setState({renderAll: true})}
-          onSubmit={this.addChallenge}
+          onSubmit={this.addSponsoring}
         >
           <Typography variant="h6" style={style.title}>
             {this.t('title')}
           </Typography>
           <div style={style.top}>
-            <div style={style.icon}>
-              <TextField
-                label=" "
-                value={this.state.amount}
-                onChange={e=>{this.setState({amount: e.target.value}); this.validateAmount(e.target.value);}}
-                InputProps={{ endAdornment: <InputAdornment position="end">€</InputAdornment> }}
-                error={this.state.errors.amount}
-              />
-            </div>
-            <div style={style.description}>
-              <TextField multiline fullWidth required
-              label={this.t('description')}
-              placeholder={this.t(`suggestions.${this.state.placeholderIndex}`)}
-              value={this.state.description}
-              onChange={e=>this.setState({description: e.target.value})}
-              InputLabelProps={{ shrink: true }}
-              rows={(Math.ceil(750 / this.state.width))}
-              error={this.state.errors.description}
-              />
-            </div>
+            <TextField
+              label={this.t('amount')}
+              value={this.state.amount}
+              onChange={e=>{this.setState({amount: e.target.value}); this.validate('amount', e.target.value);}}
+              InputProps={{ endAdornment: <InputAdornment position="end">€</InputAdornment> }}
+              error={this.state.errors.amount}
+              style={style.inputLeft}
+            />
+            <TextField
+              label={this.t('limit')}
+              value={this.state.limit}
+              onChange={e=>{this.setState({limit: e.target.value}); this.validate('limit', e.target.value);}}
+              InputProps={{ endAdornment: <InputAdornment position="end">€</InputAdornment> }}
+              error={this.state.errors.limit}
+              style={style.inputRight}
+            />
+            <Typography variant="body2" style={{marginTop: 10}}>
+              {this.t('privacyNote')}
+            </Typography>
           </div>
+
           {me && this.state.renderAll && <SponsorPresentation
             firstname={me.firstname}
             lastname={me.lastname}
@@ -208,10 +202,10 @@ class AddChallenge extends React.Component {
   }
 }
 
-AddChallenge.propTypes = {
+AddSponsoring.propTypes = {
   api: PropTypes.object.isRequired,
   teamId: PropTypes.number.isRequired,
   i18next: PropTypes.object.isRequired,
 };
 
-export default AddChallenge;
+export default AddSponsoring;

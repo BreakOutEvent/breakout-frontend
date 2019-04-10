@@ -1,15 +1,15 @@
 import React from 'react';
-import {Icon, Paper} from '@material-ui/core';
-import SponsorPresentation from './SponsorPresentation.jsx';
 import _ from 'lodash';
+import {Icon, Paper} from '@material-ui/core';
+
+import SponsorPresentation from './SponsorPresentation.jsx';
 
 export const styleChallenge = color => ({
   top: {
     display: 'flex',
     borderBottom: '1px solid #cbcbcb',
-    padding: 10,
     alignItems: 'center',
-    minHeight: 80
+    minHeight: 60,
   },
   icon: {
     marginRight: 20,
@@ -24,28 +24,6 @@ export const styleChallenge = color => ({
     wordBreak: 'break-word',
     color
   },
-  bottom: {
-    fontSize: 'small',
-    backgroundColor: '#F5F5F5',
-    padding: 10,
-    height: 50,
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  sponsor: {
-    flexBasis: '60%'
-  },
-  logo: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    flexGrow: 2
-  },
-  image: {
-    maxHeight: '50px',
-    maxWidth: '100%',
-    objectFit: 'contain'
-  }
 });
 
 const ListOfChallenges = (props) => {
@@ -54,7 +32,6 @@ const ListOfChallenges = (props) => {
     <div key={challenge.id} style={{marginBottom: 20}}><ChallengeListItem {...challenge} /></div>
   );
 
-  // Todo only display proposed challenges of the logged in user
   const challenges = props.challenges
     .filter(challenge => challenge.status === 'WITH_PROOF' || challenge.status === 'ACCEPTED' || challenge.status === 'PROPOSED')
     .map(renderChallenge);
@@ -71,7 +48,7 @@ const ChallengeListItem = (props) => {
   const color = (props.status === 'WITH_PROOF') ? ' green' : 'black';
   const style = styleChallenge(color);
 
-  var counterDescription;
+  let counterDescription;
   switch (props.maximumCount) {
     case 1:
       counterDescription = '';

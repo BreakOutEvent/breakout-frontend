@@ -132,26 +132,9 @@
             </div>
 
             <h3 class="bo-team-sub-headline">{{__ 'SPONSORS'}}</h3>
-            <ul>
-                {{#each team.sponsors}}
-                    <li class="bo-sponsor-list-item">
-                        {{#if company}}
-                            {{#if url}}
-                                <a href="{{url}}">{{company}}</a>
-                            {{else}}
-                                {{company}}
-                            {{/if}}
-                            <br />{{#if logoUrl}}<img src="{{logoUrl}}" />{{/if}}
-                        {{else}}
-                            {{firstname}} {{lastname}}
-                        {{/if}}
-                    </li>
-                {{/each}}
-            </ul>
-            {{#unless team.sponsors}}
-                <i class="bo-text">{{__ 'NO_SPONSORS_YET'}}<br/></i>
-            {{/unless}}
-            <a href="/settings/sponsoring?id={{team.id}}&mode=2">{{__ 'SUPPORT_NOW'}}</a>
+            <div id="react-sponsoring-list-root">
+                <!-- react will render in here -->
+            </div>
         </div>
         <!-- / side panel -->
     </div>

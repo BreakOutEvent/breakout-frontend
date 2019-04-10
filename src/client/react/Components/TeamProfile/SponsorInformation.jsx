@@ -234,6 +234,7 @@ class SponsorInformation extends React.Component {
         firstname: me.firstname,
         lastname: me.lastname,
         sponsor: {
+          supporterType: me.sponsor.supporterType,
           company: me.sponsor.company,
           logo: me.sponsor.logo,
           url: (me.sponsor.url ? me.sponsor.url : null),
@@ -284,7 +285,7 @@ class SponsorInformation extends React.Component {
       <form onSubmit={this.updateInformation}>
         <DialogTitle id="login-register">Profil</DialogTitle>
         <DialogContent>
-          <Typography style={styles.introduction}>Die Adresse wird nicht öffentlich angezeigt.</Typography>
+          <Typography style={styles.introduction}>Bereits versprochene Spenden werden ebenfalls aktualisiert. Die Adresse wird nicht öffentlich angezeigt.</Typography>
           {this.state.me && <div>
             <TextField
               value={this.state.me.firstname}
@@ -504,7 +505,7 @@ class SponsorInformation extends React.Component {
             </div>}<br />
             <Paper style={{padding: "10px"}}>
               <Typography variant="subtitle1">
-                Sie sind: {this.props.i18next.t(`client.sponsor.supporterData.${type}.title`)}
+                Sie gelten als: {this.props.i18next.t(`client.sponsor.supporterData.${type}.title`)}
               </Typography>
               <Typography variant="body2">
                 {this.props.i18next.t(`client.sponsor.supporterData.${type}.description`)}

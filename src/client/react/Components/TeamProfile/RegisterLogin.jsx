@@ -1,12 +1,6 @@
 import React from 'react';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContentText from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogTitle';
-import { DialogActions, Typography, FormControlLabel, Checkbox, FormHelperText } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import withMobileDialog from '@material-ui/core/withMobileDialog';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography, FormControlLabel, Checkbox,
+  FormHelperText, CircularProgress, TextField, withMobileDialog } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
 const steps = {
@@ -69,6 +63,10 @@ class RegisterLogin extends React.Component {
 
   registrationIsValid() {
     let error = {};
+
+    if (!this.state.email.length) {
+      error.email = "Bitte ausfüllen";
+    }
 
     // TODO: add translations
     if (this.state.password.length < 6) {
@@ -179,7 +177,9 @@ class RegisterLogin extends React.Component {
             type="email"
             fullWidth
             onChange={event => this.setState({email:event.target.value})}
-          /><br />
+            error={!!this.state.error.email}
+          />{this.state.error.email &&
+        <FormHelperText id="component-error-text">{this.state.error.email}</FormHelperText>}<br/>
           <TextField
             autoFocus
             fullWidth
@@ -187,6 +187,7 @@ class RegisterLogin extends React.Component {
             label="Password"
             type="password"
             onChange={event => this.setState({password:event.target.value})}
+            error={!!this.state.error.password}
           />{this.state.error.password &&
         <FormHelperText id="component-error-text">{this.state.error.password}</FormHelperText>}<br/>
           <TextField
@@ -195,6 +196,7 @@ class RegisterLogin extends React.Component {
             margin="dense"
             fullWidth
             onChange={event => this.setState({password2:event.target.value})}
+            error={!!this.state.error.password2}
           />{this.state.error.password2 &&
         <FormHelperText id="component-error-text">{this.state.error.password2}</FormHelperText>}<br/>
           <FormControlLabel
@@ -208,6 +210,7 @@ class RegisterLogin extends React.Component {
                 color="primary"
               />}
             label={<span>Ich akzeptiere die <a href="/privacy-policy" target="_blank">Datenschutzerklärung</a></span>}
+            error={this.state.error.acceptedPrivacy}
           />{this.state.error.privacy &&
         <FormHelperText id="component-error-text">{this.state.error.privacy}</FormHelperText>}<br />
           <FormControlLabel
@@ -221,6 +224,7 @@ class RegisterLogin extends React.Component {
                 color="primary"
               />}
             label={<span>Ich akzeptiere die <a href="/sponsor-tos" target="_blank">Teilnahmebedingungen</a></span>}
+            error={this.state.error.acceptedSponsorToS}
           />{this.state.error.sponsorToS &&
         <FormHelperText id="component-error-text">{this.state.error.sponsorToS}</FormHelperText>}
         </DialogContent>
