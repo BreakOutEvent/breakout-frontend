@@ -28,7 +28,8 @@ const SponsorPresentation = (props) => {
     }
   };
 
-  const name = `${props.firstname}${(props.lastname ? ` ${props.lastname}` :'')}`;
+  const name = `${(props.firstname ? props.firstname : '')}${(props.lastname ? ` ${props.lastname}` :'')}`;
+
   const company = props.url
     ? <a href={props.url}>{props.company}</a>
     : props.company;

@@ -2,27 +2,32 @@
 module.exports = {
   "client": {
     "login": {
+      "title_login_register": "Benutzerkonto",
       "enter_email_or_password": "Bitte gib deine Email und Passwort ein",
       "button_login_headline": "Login",
       "button_registration_headline": "Account erstellen",
-      "email_label": "Emailadresse",
-      "email_placeholder": "Gib eine Emailadresse ein",
+      "button_cancel": "Abbrechen",
+      "button_continue": "Weiter",
+      "email_label": "E-Mail-Adresse",
+      "email_placeholder": "Gib eine E-Mail-Adresse ein",
       "password_label": "Passwort",
       "password_placeholder": "Gib ein Passwort ein",
       "password_reset_text": "Passwort vergessen?",
       "button_login_text": "Einloggen",
       "button_register_text": "Account erstellen",
-      "error_login": "Falsche Emailadresse oder Passwort",
+      "error_login": "Falsche E-Mail-Adresse oder Passwort",
       "wrong_password": "Falsches Passwort",
-      "registration_error_bad_request": "Gib eine gültige Emailadresse ein",
+      "registration_error_bad_request": "Gib eine gültige E-Mail-Adresse ein",
       "repeat_password_label": "Wiederhole das Passwort",
-      "registration_error_exists": "Es existiert bereits ein Account mit dieser Emailadresse",
+      "registration_error_exists": "Es existiert bereits ein Account mit dieser E-Mail-Adresse",
       "request_reset_success": "Wir haben dir eine Email mit Anleitung zum Zurücksetzen deines Passworts geschickt",
-      "request_reset_not_registered": "Diese Emailadresse existiert nicht",
-      "request_reset_enter_email": "Bitte gib eine gültige Emailadresse ein"
+      "request_reset_not_registered": "Diese E-Mail-Adresse existiert nicht",
+      "request_reset_enter_email": "Bitte gib eine gültige E-Mail-Adresse ein"
     },
     "sponsor": {
       "title": "Als Unterstützer registrieren",
+      "titleEdit": "Unterstützerprofil",
+      "profileNote": "Bereits versprochene Spenden werden ebenfalls aktualisiert. Die Adresse wird nicht öffentlich angezeigt.",
       "isLoadingMe": "Daten werden geladen",
       "personalData": "Persönliche Daten",
       "firstname": "Vorname",
@@ -32,6 +37,7 @@ module.exports = {
       "postcode": "Postleitzahl",
       "city": "Stadt",
       "country": "Land",
+      "cancel": "Abbrechen",
       "continue": "Weiter",
       "back": "Zurück",
       "save": "Speichern",
@@ -61,9 +67,12 @@ module.exports = {
           "den Zeltschule e.V."
         },
       },
+      "supportAsCompany": "Als Firma unterstützen",
       "company": "Firma",
       "logo": "Firmenlogo",
-      "url": "Link zur Firmenwebsite",
+      "uploadLogo": "Firmenlogo hochladen",
+      "errorNoImage": "Bitte eine Bilddatei auswählen",
+      "url": "Firmenwebsite",
       "finishTitle": "Fertig",
       "finishContent": "Vielen Dank, dass sie sich als Unterstützer registriert haben. Hier " +
       "können Sie Sponsorings eintragen: ",
@@ -92,6 +101,13 @@ module.exports = {
     },
     "registration": {
       "passwords_dont_match": "Die eingegebenen Passwörter müssen übereinstimmen",
+      "under_min_pw_length": "Das Passwort ist zu kurz",
+      "repeat_password": "Password wiederholen",
+      "accept": "Ich akzeptiere die",
+      "privacy": "Datenschutzerklärung",
+      "sponsor_tos": "Teilnahmebedingungen",
+      "accept_privacy": "Bitte akzeptiere die Datenschutzerklärung",
+      "accept_sponsor_tos": "Bitte akzeptiere die Teilnahmebedingungen"
     },
     "register": {
       "description": "Erstelle einen Account auf break-out.org. Damit kannst du mit Posts der Teilnehmer interagieren, selbst zum Teilnehmer werden oder als Sponsor ein Team unterstützen. Wir freuen uns auf Dich! ",

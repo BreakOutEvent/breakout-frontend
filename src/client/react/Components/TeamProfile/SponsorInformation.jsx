@@ -23,18 +23,11 @@ class SponsorInformation extends React.Component {
       errors: [],
       showCompany: false,
     }
-    this.updateInformation = this.updateInformation.bind(this);
-    this.validateFirstname = this.validateFirstname.bind(this);
-    this.validateLastname = this.validateLastname.bind(this);
-    this.validateCompany = this.validateCompany.bind(this);
-    this.validateUrl = this.validateUrl.bind(this);
     this.validateLogo = this.validateLogo.bind(this);
-    this.validateStreet = this.validateStreet.bind(this);
-    this.validateHousenumber = this.validateHousenumber.bind(this);
-    this.validateZipcode = this.validateZipcode.bind(this);
-    this.validateCity = this.validateCity.bind(this);
-    this.validateCountry = this.validateCountry.bind(this);
+    this.setAddress = this.setAddress.bind(this);
     this.determineSupporterType = this.determineSupporterType.bind(this);
+    this.updateInformation = this.updateInformation.bind(this);
+    this.t = (literal) => props.i18next.t(`client.sponsor.${literal}`);
   }
 
   async componentWillMount() {
@@ -50,29 +43,6 @@ class SponsorInformation extends React.Component {
     });
   }
 
-  validateFirstname(name) {
-   if (!name.length) {
-      this.setState(state => ({errors: { ...state.errors, firstname: 'Bitte ausfüllen' }} ));
-    } else {
-      this.setState({errors: { ...this.state.errors, firstname: undefined }} );
-      return true;
-    }
-    return false;
-  }
-
-  validateLastname(name) {
-    if (this.state.me.sponsor.supporterType !== DONOR) {
-      if (!name.length) {
-        this.setState(state => ({errors: { ...state.errors, lastname: 'Bitte ausfüllen' }} ));
-      } else {
-        this.setState({errors: { ...this.state.errors, lastname: undefined }} );
-        return true;
-      }
-      return false;
-    }
-    return true;
-  }
-
   determineSupporterType() {
     if (!this.state.lockSupporterType) {
       this.setState(state => {
@@ -83,39 +53,11 @@ class SponsorInformation extends React.Component {
     }
   }
 
-  validateCompany(company) {
-    this.determineSupporterType();
-    if (this.state.me.sponsor.supporterType !== DONOR) {
-      if (!company.length) {
-        this.setState(state => ({errors: { ...state.errors, company: 'Bitte ausfüllen' }} ));
-      } else {
-        this.setState(state => ({errors: { ...state.errors, company: undefined }} ));
-        return true;
-      }
-      return false;
-    }
-    return true;
-  }
-
-  validateUrl(url) {
-    this.determineSupporterType();
-    if (url) {
-      if (!url.length) {
-        this.setState(state => ({errors: { ...state.errors, url: 'Bitte ausfüllen' }} ));
-      } else {
-        this.setState({errors: { ...this.state.errors, url: undefined }} );
-        return true;
-      }
-      return false;
-    }
-    return true;
-  }
-
   validateLogo(logo) {
     this.determineSupporterType();
     if(logo && logo.type) {
       if (logo.type.toLowerCase().indexOf('image') === -1) {
-        this.setState(state => ({errors: { ...state.errors, logo: 'Bitte ein Bild auswählen' }} ));
+        this.setState(state => ({errors: { ...state.errors, logo: this.t('errorNoImage') }} ));
       } else {
         this.setState({errors: { ...this.state.errors, logo: undefined }} );
         return true;
@@ -125,101 +67,34 @@ class SponsorInformation extends React.Component {
     return true;
   }
 
-  validateStreet(value) {
-    if (this.state.me.sponsor.supporterType !== DONOR) {
-      if (!value.length) {
-        this.setState(state => ({errors: { ...state.errors, street: 'Bitte ausfüllen' }} ));
-      } else {
-        this.setState(state => ({errors: { ...state.errors, street: undefined }} ));
-        return true;
-      }
-      return false;
+  setAddress(part) {
+    return (event) => {
+      event.persist();
+      this.setState(state => ({
+        me:
+          {
+            ...state.me, sponsor:
+              {
+                ...state.me.sponsor, address:
+                  {...state.me.sponsor.address, [part]: event.target.value}
+              }
+          }
+      }));
     }
-    return true;
   }
 
-  validateHousenumber(value) {
-    if (this.state.me.sponsor.supporterType !== DONOR) {
-      if (!value.length) {
-        this.setState(state => ({errors: { ...state.errors, housenumber: 'Bitte ausfüllen' }} ));
-      } else {
-        this.setState(state => ({errors: { ...state.errors, housenumber: undefined }} ));
-        return true;
-      }
-      return false;
-    }
-    return true;
-  }
-
-  validateZipcode(value) {
-    if (this.state.me.sponsor.supporterType !== DONOR) {
-      if (!value.length) {
-        this.setState(state => ({errors: { ...state.errors, zipcode: 'Bitte ausfüllen' }} ));
-      } else {
-        this.setState(state => ({errors: { ...state.errors, zipcode: undefined }} ));
-        return true;
-      }
-      return false;
-    }
-    return true;
-  }
-
-  validateCity(value) {
-    if (this.state.me.sponsor.supporterType !== DONOR) {
-      if (!value.length) {
-        this.setState(state => ({errors: { ...state.errors, city: 'Bitte ausfüllen' }} ));
-      } else {
-        this.setState(state => ({errors: { ...state.errors, city: undefined }} ));
-        return true;
-      }
-      return false;
-    }
-    return true;
-  }
-
-  validateCountry(value) {
-    if (this.state.me.sponsor.supporterType !== DONOR) {
-      if (!value.length) {
-        this.setState(state => ({errors: { ...state.errors, country: 'Bitte ausfüllen' }} ));
-      } else {
-        this.setState(state => ({errors: { ...state.errors, country: undefined }} ));
-        return true;
-      }
-      return false;
-    }
-    return true;
-  }
-
-  async updateInformation(e) {
-    e.preventDefault();
+  async updateInformation(event) {
+    event.preventDefault();
     const me = this.state.me;
-    const validateAddress = (me.sponsor.address
-    ? this.validateStreet(me.sponsor.address.street) &&
-      this.validateHousenumber(me.sponsor.address.housenumber) &&
-      this.validateZipcode(me.sponsor.address.zipcode) &&
-      this.validateCity(me.sponsor.address.city) &&
-      this.validateCountry(me.sponsor.address.country)
-    : true);
 
-    if(this.validateFirstname(me.firstname) &&
-      this.validateLastname(me.lastname) &&
-      this.validateCompany(me.sponsor.company) &&
-      this.validateUrl(me.sponsor.url) &&
-      this.validateLogo(me.sponsor.logo) &&
-      validateAddress) {
-      this.setState({errors: { information: undefined }, isSaving: true});
-    } else {
-      return false;
-    }
-
-
+    if (this.state.errors.logo) return false;
+    this.setState({isSaving: true});
 
     try {
-      let newLogo = me.sponsor.logo;
       if (me.sponsor.logo && me.sponsor.logo.name) {
         const logo = await new Promise((resolve) => {
           let fileReader = new FileReader();
-          fileReader.onload = (e) => resolve(fileReader.result);
+          fileReader.onload = (_) => resolve(fileReader.result);
           fileReader.readAsDataURL(me.sponsor.logo);
         });
         const signedParams = await this.props.api.signCloudinaryParams();
@@ -283,32 +158,30 @@ class SponsorInformation extends React.Component {
       onClose={this.props.onCancel}
     >
       <form onSubmit={this.updateInformation}>
-        <DialogTitle id="login-register">Profil</DialogTitle>
+        <DialogTitle id="login-register">{this.t('titleEdit')}</DialogTitle>
         <DialogContent>
-          <Typography style={styles.introduction}>Bereits versprochene Spenden werden ebenfalls aktualisiert. Die Adresse wird nicht öffentlich angezeigt.</Typography>
+          <Typography style={styles.introduction}>{this.t('profileNote')}</Typography>
           {this.state.me && <div>
             <TextField
               value={this.state.me.firstname}
-              label="Vorname"
+              label={this.t('firstname')}
               required
               error={!!this.state.errors.firstname}
               style={styles.leftInput}
               onChange={event => {
                 event.persist();
                 this.setState(state => ({me: {...state.me, firstname: event.target.value}}));
-                this.validateFirstname(event.target.value);
               }}
             />&nbsp;
             <TextField
               value={this.state.me.lastname}
-              label="Nachname"
+              label={this.t('lastname')}
               required={this.state.showCompany}
               error={!!this.state.errors.lastname}
               style={styles.rightInput}
               onChange={event => {
                 event.persist();
                 this.setState(state => ({me: {...state.me, lastname: event.target.value}}));
-                this.validateLastname(event.target.value);
               }}
             /><br />
             <FormControlLabel
@@ -322,7 +195,7 @@ class SponsorInformation extends React.Component {
                   let nextState = state;
                   nextState.showCompany = e.target.checked;
                   if (e.target.checked) {
-                    nextState.me.sponsor.logo = {};
+                    nextState.me.sponsor.logo = null;
                     nextState.me.sponsor.company = '';
                     nextState.me.sponsor.url = '';
                     nextState.me.sponsor.address = {
@@ -330,7 +203,8 @@ class SponsorInformation extends React.Component {
                       housenumber: '',
                       city: '',
                       zipcode: '',
-                      country: ''};
+                      country: ''
+                    };
                   } else {
                     nextState.me.sponsor.supporterType = DONOR;
                     nextState.me.sponsor.logo = null;
@@ -343,30 +217,29 @@ class SponsorInformation extends React.Component {
               }}
               color="primary"
             />}
-              label="Als Firma unterstützen"
+              label={this.t('supportAsCompany')}
             />
             {this.state.showCompany && <div>
               <TextField
                 value={this.state.me.sponsor.company}
-                label="Firmenname"
+                label={this.t('company')}
                 error={!!this.state.errors.company}
                 required
                 style={styles.leftInput}
                 onChange={event => {
                   event.persist();
                   this.setState(state => ({me: {...state.me, sponsor: {...state.me.sponsor, company: event.target.value}}}));
-                  this.validateCompany(event.target.value);
+                  this.determineSupporterType();
                 }}
               />&nbsp;
               {((this.state.me.sponsor.supporterType === ACTIVE) || !this.state.lockSupporterType) && <TextField
                 value={this.state.me.sponsor.url}
-                label="Webseite"
-                error={!!this.state.errors.url}
+                label={this.t('url')}
                 style={styles.rightInput}
                 onChange={event => {
                   event.persist();
                   this.setState(state => ({me: {...state.me, sponsor: {...state.me.sponsor, url: event.target.value}}}));
-                  this.validateUrl(event.target.value);
+                  this.determineSupporterType();
                 }}
               />}<br />
               <FormControlLabel
@@ -375,7 +248,6 @@ class SponsorInformation extends React.Component {
                   <input
                     accept="image/*"
                     style={{ display: 'none' }}
-                    id="raised-button-file"
                     type="file"
                     onChange={event => {
                       event.persist();
@@ -384,7 +256,7 @@ class SponsorInformation extends React.Component {
                     }}
                   />}
                 label={<Button style={{width: '100%'}} variant="contained" component="span">
-                  Logo hochladen
+                  {this.t('uploadLogo')}
                 </Button>} />
               {logo && logo.name && <span>{logo.name.substr(logo.name.lastIndexOf('\\')+1)}</span>}
               {logo && logo.url && <img src={logo.url} style={styles.logoPreview} />}
@@ -400,125 +272,56 @@ class SponsorInformation extends React.Component {
               <br />
               <TextField
                 value={this.state.me.sponsor.address.street}
-                label="Straße"
+                label={this.t('street')}
                 required
-                error={!!this.state.errors.street}
                 style={styles.leftInput}
-                onChange={event => {
-                  event.persist();
-                  this.setState(state => ({
-                    me:
-                      {
-                        ...state.me, sponsor:
-                          {
-                            ...state.me.sponsor, address:
-                              {...state.me.sponsor.address, street: event.target.value}
-                          }
-                      }
-                  }));
-                  this.validateStreet(event.target.value);
-                }}
+                onChange={this.setAddress('street')}
               />&nbsp;
             <TextField
               value={this.state.me.sponsor.address.housenumber}
-              label="Nr."
-              error={!!this.state.errors.housenumber}
+              label={this.t('housenumber')}
               required
               style={styles.rightInput}
-              onChange={event => {
-                event.persist();
-                this.setState(state => ({
-                  me:
-                    {
-                      ...state.me, sponsor:
-                        {
-                          ...state.me.sponsor, address:
-                            {...state.me.sponsor.address, housenumber: event.target.value}
-                        }
-                    }
-                }));
-                this.validateHousenumber(event.target.value);
-            }}/><br />
+              onChange={this.setAddress('housenumber')}
+            /><br />
             <TextField
               value={this.state.me.sponsor.address.zipcode}
-              label="Postleitzahl"
+              label={this.t('postcode')}
               required
-              error={!!this.state.errors.zipcode}
               style={styles.leftInput}
-              onChange={event => {
-                event.persist();
-                this.setState(state => ({
-                  me:
-                    {
-                      ...state.me, sponsor:
-                        {
-                          ...state.me.sponsor, address:
-                            {...state.me.sponsor.address, zipcode: event.target.value}
-                        }
-                    }
-                }));
-                this.validateZipcode(event.target.value);
-            }}
+              onChange={this.setAddress('zipcode')}
               />&nbsp;
             <TextField
               value={this.state.me.sponsor.address.city}
-              label="Stadt"
+              label={this.t('city')}
               required
-              error={!!this.state.errors.city}
               style={styles.rightInput}
-              onChange={event => {
-                event.persist();
-                this.setState(state => ({
-                  me:
-                    {
-                      ...state.me, sponsor:
-                        {
-                          ...state.me.sponsor, address:
-                            {...state.me.sponsor.address, city: event.target.value}
-                        }
-                    }
-                }));
-              this.validateCity(event.target.value);
-            }}
+              onChange={this.setAddress('city')}
               /><br />
             <TextField
               value={this.state.me.sponsor.address.country}
-              label="Land"
+              label={this.t('country')}
               required
               style={styles.leftInput}
-              error={!!this.state.errors.country}
-              onChange={event => {
-                event.persist();
-                this.setState(state => ({
-                  me:
-                    {
-                      ...state.me, sponsor:
-                        {
-                          ...state.me.sponsor, address:
-                            {...state.me.sponsor.address, country: event.target.value}
-                        }
-                    }
-                }));
-                this.validateCountry(event.target.value);
-            }}
+              onChange={this.setAddress('country')}
               />
             </div>}<br />
             <Paper style={{padding: "10px"}}>
               <Typography variant="subtitle1">
-                Sie gelten als: {this.props.i18next.t(`client.sponsor.supporterData.${type}.title`)}
+                Sie gelten als: {this.t(`supporterData.${type}.title`)}
               </Typography>
               <Typography variant="body2">
-                {this.props.i18next.t(`client.sponsor.supporterData.${type}.description`)}
+                {this.t(`supporterData.${type}.description`)}
               </Typography>
             </Paper>
           </div>}
         </DialogContent>
         <DialogActions style={{justifyContent: 'flex-end'}}>
           <Button onClick={this.props.onCancel} color="primary">
-            Abbrechen
+            {this.t('cancel')}
           </Button>
           <Button type="submit" color="primary">
-            Weiter
+            {this.t('continue')}
           </Button>
           {this.state.isSaving && <CircularProgress size={24} thickness={5} />}
         </DialogActions>

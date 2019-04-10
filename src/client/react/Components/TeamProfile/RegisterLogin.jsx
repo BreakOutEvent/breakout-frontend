@@ -29,6 +29,7 @@ class RegisterLogin extends React.Component {
     this.onLoginError = this.onLoginError.bind(this);
     this.register = this.register.bind(this);
     this.onRegistrationError = this.onRegistrationError.bind(this);
+    this.t = (content) => this.props.i18next.t(`client.${content}`);
   }
 
   checkEmail(event) {
@@ -43,7 +44,7 @@ class RegisterLogin extends React.Component {
   onLoginError(err) {
     let message = err.message;
     if (err.response && err.response.status === 401) {
-      message = this.props.i18next.t('client.login.wrong_password');
+      message = this.t('login.wrong_password');
     }
     this.setState({
       error: {credentials: message}
@@ -65,24 +66,24 @@ class RegisterLogin extends React.Component {
     let error = {};
 
     if (!this.state.email.length) {
-      error.email = "Bitte ausfüllen";
+      error.email = this.t('login.request_reset_enter_email');
     }
 
     // TODO: add translations
     if (this.state.password.length < 6) {
-      error.password = this.props.i18next.t('client.registration.under_min_pw_length')
+      error.password = this.t('registration.under_min_pw_length');
     }
 
     if (this.state.password !== this.state.password2) {
-      error.password2 = this.props.i18next.t('client.registration.passwords_dont_match')
+      error.password2 = this.t('registration.passwords_dont_match');
     }
 
     if (!this.state.acceptedPrivacy) {
-      error.privacy = 'Bitte akzeptiere die Datenschutzerklärung';
+      error.privacy = this.t('registration.accept_privacy');
     }
 
     if (!this.state.acceptedSponsorToS) {
-      error.sponsorToS = 'Bitte akzeptiere die Teilnahmebedingungen';
+      error.sponsorToS = this.t('registration.accept_sponsor_tos');
     }
 
     this.setState({ error });
@@ -116,9 +117,9 @@ class RegisterLogin extends React.Component {
     >
       {(this.state.step === steps.email) &&
       <form onSubmit={this.checkEmail}>
-        <DialogTitle id="login-register">Benutzerkonto</DialogTitle>
+        <DialogTitle id="login-register">{this.t('login.title_login_register')}</DialogTitle>
         <DialogContent>
-          {this.state.error.mail && <Typography variant="body1" color="error">{this.state.error.mail}</Typography>}
+          {this.state.error.email && <Typography variant="body1" color="error">{this.state.error.email}</Typography>}
             <TextField
               autoFocus
               label="E-Mail-Addresse"
@@ -128,21 +129,21 @@ class RegisterLogin extends React.Component {
         </DialogContent>
         <DialogActions style={{justifyContent: 'flex-end'}}>
           <Button onClick={this.props.onCancel} color="primary">
-            Abbrechen
+            {this.t('login.button_cancel')}
           </Button>
           <Button type="submit" color="primary">
-            Weiter
+            {this.t('login.button_continue')}
           </Button>
         </DialogActions>
       </form>}
 
       {(this.state.step === steps.login) &&
       <form onSubmit={this.login}>
-        <DialogTitle>Einloggen</DialogTitle>
+        <DialogTitle>{this.t('login.button_login_headline')}</DialogTitle>
         <DialogContent>
           <TextField
             value={this.state.email}
-            label="E-Mail-Addresse"
+            label={this.t('login.email_label')}
             fullWidth
             onChange={event => this.setState({email:event.target.value})}
           />
@@ -150,7 +151,7 @@ class RegisterLogin extends React.Component {
             autoFocus
             margin="dense"
             id="password"
-            label="Password"
+            label={this.t('login.password_label')}
             type="password"
             fullWidth
             onChange={event => this.setState({password:event.target.value})}
@@ -159,10 +160,10 @@ class RegisterLogin extends React.Component {
         </DialogContent>
         <DialogActions>
           <Button onClick={this.props.onCancel} color="primary">
-            Abbrechen
+            {this.t('login.button_cancel')}
           </Button>
           <Button type="submit" color="primary">
-            Einloggen
+            {this.t('login.button_login_headline')}
           </Button>
         </DialogActions>
       </form>}
@@ -173,7 +174,7 @@ class RegisterLogin extends React.Component {
           <TextField
             margin="dense"
             value={this.state.email}
-            label="E-Mail-Addresse"
+            label={this.t('login.email_label')}
             type="email"
             fullWidth
             onChange={event => this.setState({email:event.target.value})}
@@ -184,14 +185,14 @@ class RegisterLogin extends React.Component {
             autoFocus
             fullWidth
             margin="dense"
-            label="Password"
+            label={this.t('login.password_label')}
             type="password"
             onChange={event => this.setState({password:event.target.value})}
             error={!!this.state.error.password}
           />{this.state.error.password &&
         <FormHelperText id="component-error-text">{this.state.error.password}</FormHelperText>}<br/>
           <TextField
-            label="Password wiederholen"
+            label={this.t('registration.repeat_password')}
             type="password"
             margin="dense"
             fullWidth
@@ -209,7 +210,7 @@ class RegisterLogin extends React.Component {
                 }}
                 color="primary"
               />}
-            label={<span>Ich akzeptiere die <a href="/privacy-policy" target="_blank">Datenschutzerklärung</a></span>}
+            label={<span>{this.t('registration.accept')} <a href="/privacy-policy" target="_blank">{this.t('registration.privacy')}</a></span>}
             error={this.state.error.acceptedPrivacy}
           />{this.state.error.privacy &&
         <FormHelperText id="component-error-text">{this.state.error.privacy}</FormHelperText>}<br />
@@ -223,17 +224,17 @@ class RegisterLogin extends React.Component {
                 }}
                 color="primary"
               />}
-            label={<span>Ich akzeptiere die <a href="/sponsor-tos" target="_blank">Teilnahmebedingungen</a></span>}
+            label={<span>{this.t('registration.accept')} <a href="/sponsor-tos" target="_blank">{this.t('registration.sponsor_tos')}</a></span>}
             error={this.state.error.acceptedSponsorToS}
           />{this.state.error.sponsorToS &&
         <FormHelperText id="component-error-text">{this.state.error.sponsorToS}</FormHelperText>}
         </DialogContent>
         <DialogActions>
           <Button onClick={this.props.onCancel} color="primary">
-            Abbrechen
+            {this.t('login.button_cancel')}
           </Button>
           <Button type="submit" color="primary">
-            Registrieren
+            {this.t('login.button_registration_headline')}
           </Button>
           {this.state.isRegistering && <CircularProgress size={24} thickness={5} />}
         </DialogActions>
