@@ -17,7 +17,7 @@ module.exports = {
       "registration_error_bad_request": "Gib eine gültige Emailadresse ein",
       "repeat_password_label": "Wiederhole das Passwort",
       "registration_error_exists": "Es existiert bereits ein Account mit dieser Emailadresse",
-      "request_reset_success": "Wir haben dir eine Email mit Anleitung zum zurücksetzen deines Passworts geschickt",
+      "request_reset_success": "Wir haben dir eine Email mit Anleitung zum Zurücksetzen deines Passworts geschickt",
       "request_reset_not_registered": "Diese Emailadresse existiert nicht",
       "request_reset_enter_email": "Bitte gib eine gültige Emailadresse ein"
     },
@@ -66,7 +66,14 @@ module.exports = {
       "url": "Link zur Firmenwebsite",
       "finishTitle": "Fertig",
       "finishContent": "Vielen Dank, dass sie sich als Unterstützer registriert haben. Hier " +
-      "können Sie Sponsorings eintragen: "
+      "können Sie Sponsorings eintragen: ",
+      "addChallenge": {
+        "title": "Team herausfordern",
+        "description": "Herausforderung",
+        "options": "Optionen",
+        "submit": "Senden",
+        "success": "Challenge wurde hinzugefügt"
+      }
     },
     "registration": {
       "passwords_dont_match": "Die eingegebenen Passwörter müssen übereinstimmen",

@@ -4,11 +4,12 @@ import { Paper, TextField, Button, InputAdornment, FormHelperText, Typography, I
 import CloseIcon from '@material-ui/icons/Close';
 import PropTypes from 'prop-types';
 import RegisterLogin from './RegisterLogin.jsx';
+import SponsorPresentation from './SponsorPresentation.jsx';
 import SponsorInformation from './SponsorInformation.jsx';
 import { styleChallenge } from './ListOfChallenges.jsx';
 
 const challengeSuggestions = [
-  'Do a handstand',
+  'Ride with a policeman in his cars with sirenes on and do a selfie',
   'Hitchhike naked',
   'Kiss a random person',
   'Do a big mountain climb in the south of Germany with my friend Amanda, whom you are going to meet at a Hostel.'
@@ -29,17 +30,18 @@ class AddChallenge extends React.Component {
       errors: {},
       isAdding: false,
       justAdded: false,
+      width: 200,
     };
     this.interval = setInterval(this.changeSuggestions.bind(this), 2000);
     this.validateAmount = this.validateAmount.bind(this);
-    this.validateDescription = this.validateDescription.bind(this);
-    this.onClickAdd = this.onClickAdd.bind(this);
     this.onCancelRegisterLogin = this.onCancelRegisterLogin.bind(this);
     this.onSuccessRegisterLogin = this.onSuccessRegisterLogin.bind(this);
     this.addChallenge = this.addChallenge.bind(this);
     this.onSuccessSponsorInformation = this.onSuccessSponsorInformation.bind(this);
-    this.onClickAdd = this.onClickAdd.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
     this.onClickOptions = this.onClickOptions.bind(this);
+    this.updateWidth = this.updateWidth.bind(this);
+    this.t = (content) => this.props.i18next.t(`client.sponsor.addChallenge.${content}`);
   }
 
   async componentWillMount() {
@@ -47,6 +49,15 @@ class AddChallenge extends React.Component {
     this.setState({
       me
     });
+  }
+
+  componentDidMount() {
+    this.updateWidth();
+    window.addEventListener("resize", this.updateWidth);
+  }
+
+  updateWidth() {
+    this.setState({width: document.getElementById('add-challenge').offsetWidth});
   }
 
   changeSuggestions() {
@@ -75,17 +86,10 @@ class AddChallenge extends React.Component {
     this.setState({renderSponsorInformation: true})
   }
 
-  onClickAdd() {
-    this.setState({isAdding: true});
-    if(!this.validateDescription(this.state.description)
-    ) {
-      this.setState(state => ({
-        errors: {
-          ...state.errors
-        }
-      }));
-    } else {
-      this.setState({ errors: { ...this.state.errors, challenge: undefined }} );
+  onSubmit(event) {
+    event.preventDefault();
+    if (!this.state.errors.amount) {
+      this.setState({isAdding: true});
       this.addChallenge();
     }
   }
@@ -111,26 +115,12 @@ class AddChallenge extends React.Component {
   }
 
   validateAmount(amount) {
-    const patternAmount = /^\d+[.,]?\d{0,2}$/;
-    if (!patternAmount.test(amount)) {
-      this.setState(state => ({errors: { ...state.errors, amount: 'Ungültig' }} ));
-    } else if (parseInt(amount.replace(',', '.')) <= 0) {
-      this.setState(state => ({errors: { ...state.errors, amount: 'Zu gering' }} ));
-    } else {
-      this.setState({errors: { ...this.state.errors, amount: undefined }} );
-      return true;
-    }
-    return false;
-  }
-
-  validateDescription(description) {
-    if(description.length === 0) {
-      this.setState(state => ({errors: { ...this.state.errors, description: 'Bitte ausfüllen' }} ));
-    } else {
-      this.setState( {errors: {...this.state.errors, description: undefined }} );
-      return true;
-    }
-    return false;
+    const error = (/^\d+[.,]?\d{0,2}$/.test(amount)
+      ? (parseInt(amount.replace(',', '.')) > 0 ? undefined : true)
+      : true
+    );
+    this.setState(state => ({errors: { ...state.errors, amount: error }} ));
+    return error;
   }
 
   async onSuccessSponsorInformation() {
@@ -149,97 +139,59 @@ class AddChallenge extends React.Component {
     }
     style.description.width = '100%';
 
-    style.name = {
-      width: '49%',
-    }
-
     style.buttons = {
-      float: 'right',
-      display: (this.state.renderAll ? 'inline' : 'none'),
-    }
-
-    style.button = {
-      margin: '5px',
-      padding: '8px'
-    }
-
-    style.top.minHeight = 0;
-    style.bottom = {
-      ...style.bottom,
-      display: (this.state.renderAll ? 'flex' : 'none'),
+      display: 'flex',
+      justifyContent: 'flex-end'
     }
 
     const me = this.state.me;
-    const company = me
-      ? me.sponsor.url
-        ? <a href={me.sponsor.url}>{me.sponsor.company}</a>
-        : me.sponsor.company
-      : undefined;
 
     return (
-      <div>
-        <Paper style={{marginBottom: '20px'}} elevation={1}>
-          <Typography variant="h6" style={{padding: '10px 10px 5px'}}>
-            Team herausfordern
-          </Typography>
-          <div style={style.top}>
-            <div style={style.icon}>
-              <TextField
-                error={!!this.state.errors.amount}
-                id="Amount"
-                label="Summe"
-                value={this.state.amount}
-                onChange={e=>{this.setState({amount: e.target.value}); this.validateAmount(e.target.value);}}
-                onFocus={e=>this.setState({renderAll: true})}
-                InputProps={{
-                  endAdornment: <InputAdornment position="end">€</InputAdornment>
-                }}
-              />
-              {this.state.errors.amount &&
-                <FormHelperText id="component-error-text">{this.state.errors.amount}</FormHelperText>
-              }
+      <div id="add-challenge">
+        <Paper elevation={1}>
+          <form
+            onFocus={e=>this.setState({renderAll: true})}
+            onSubmit={this.onSubmit}
+          >
+            <Typography variant="h6" style={{padding: '10px 10px 5px'}}>
+              {this.t('title')}
+            </Typography>
+            <div style={style.top}>
+              <div style={style.icon}>
+                <TextField
+                  label=" "
+                  value={this.state.amount}
+                  onChange={e=>{this.setState({amount: e.target.value}); this.validateAmount(e.target.value);}}
+                  InputProps={{ endAdornment: <InputAdornment position="end">€</InputAdornment> }}
+                  error={this.state.errors.amount}
+                />
+              </div>
+              <div style={style.description}>
+                <TextField multiline fullWidth required
+                label={this.t('description')}
+                placeholder={challengeSuggestions[this.state.placeholderIndex]}
+                value={this.state.description}
+                onChange={e=>this.setState({description: e.target.value})}
+                InputLabelProps={{ shrink: true }}
+                rows={(this.state.width < 250 ? 4 : 2)}
+                error={this.state.errors.description}
+                />
+              </div>
             </div>
-            <div style={style.description}>
-              <TextField
-              id="ChallengeProposal"
-              label="Herausforderung"
-              placeholder={challengeSuggestions[this.state.placeholderIndex]}
-              value={this.state.description}
-              onChange={e=>{this.setState({description: e.target.value}); this.validateDescription(e.target.value)}}
-              onFocus={e=>this.setState({renderAll: true})}
-              multiline
-              fullWidth
-              InputLabelProps={{
-                shrink: true,
-              }}
-              error={!!this.state.errors.description}
-              />
-              {this.state.errors.description &&
-              <FormHelperText id="component-error-text">{this.state.errors.description}</FormHelperText>
-              }
-            </div>
-          </div>
-          {me && <div style={style.bottom}>
-            <div style={style.sponsor}>
-              {me.firstname} {me.lastname}<br/>
-              {company}
-            </div>
-            <div style={style.logo}>
-              <img src={me.sponsor.logo && me.sponsor.logo.url} style={style.image}/>
-            </div>
-          </div>}
-          <div style={style.buttons}>
-            {me && <Button
-              onClick={this.onClickOptions}
-              style={style.button}>Optionen</Button>}
-            <Button
-              color="primary"
-              onClick={this.onClickAdd}
-              style={style.button}>Senden</Button>
-          </div>
-          <div style={{clear: 'both'}} />
+            {me && this.state.renderAll && <SponsorPresentation
+              firstname={me.firstname}
+              lastname={me.lastname}
+              company={me.sponsor.company}
+              url={me.sponsor.url}
+              logoUrl={me.sponsor.logo && me.sponsor.logo.url}
+            />}
+            {this.state.renderAll && <div style={style.buttons}>
+              {me && <Button onClick={this.onClickOptions}>{this.t('options')}</Button>}
+              <Button type="submit" color="primary">{this.t('submit')}</Button>
+            </div>}
+          </form>
         </Paper>
-
+        <br />
         {this.state.renderRegisterLogin &&
         <RegisterLogin
           onCancel={this.onCancelRegisterLogin}
@@ -262,10 +214,7 @@ class AddChallenge extends React.Component {
             horizontal: 'left'
           }}
           open={this.state.justAdded}
-          ContentProps={{
-            'aria-describedby': 'message-id',
-          }}
-          message={<span id="message-id">Challenge wurde hinzugefügt</span>}
+          message={<span id="message-id">{this.t('success')}</span>}
           action={[
           <IconButton
             key="close"

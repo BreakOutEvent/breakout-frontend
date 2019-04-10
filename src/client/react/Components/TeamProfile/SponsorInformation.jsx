@@ -41,6 +41,7 @@ class SponsorInformation extends React.Component {
     const me = await this.props.api.getMe();
     me.firstname = (me.firstname ? me.firstname : '');
     me.lastname = (me.lastname ? me.lastname : '');
+    me.sponsor.url = (me.sponsor.url ? me.sponsor.url : '');
     me.sponsor.supporterType = (me.sponsor.supporterType ? me.sponsor.supporterType : DONOR);
     this.setState({
       me,
@@ -211,7 +212,10 @@ class SponsorInformation extends React.Component {
       return false;
     }
 
+
+
     try {
+      let newLogo = me.sponsor.logo;
       if (me.sponsor.logo && me.sponsor.logo.name) {
         const logo = await new Promise((resolve) => {
           let fileReader = new FileReader();
@@ -224,13 +228,19 @@ class SponsorInformation extends React.Component {
           type: 'IMAGE',
           url: upload.secure_url
         };
-      } else {
-        me.sponsor.logo = undefined;
       }
 
-      const updatedMe = await this.props.api.updateUserData(me.id, me);
+      const updatedMe = await this.props.api.updateUserData(me.id, {
+        firstname: me.firstname,
+        lastname: me.lastname,
+        sponsor: {
+          company: me.sponsor.company,
+          logo: me.sponsor.logo,
+          url: (me.sponsor.url ? me.sponsor.url : null),
+          address: me.sponsor.address
+        }
+      });
       if (!updatedMe) throw new Error('Information update failed!');
-      me.sponsor.logo = (me.sponsor.logo ? me.sponsor.logo : {});
       this.props.onSuccess();
     } catch (error) {
       console.log(error);
@@ -247,7 +257,7 @@ class SponsorInformation extends React.Component {
       },
       leftInput: {
         width,
-        marginRight: '16px',
+        marginRight: '15px',
         marginTop: '10px',
       },
       rightInput: {
@@ -377,9 +387,9 @@ class SponsorInformation extends React.Component {
                 </Button>} />
               {logo && logo.name && <span>{logo.name.substr(logo.name.lastIndexOf('\\')+1)}</span>}
               {logo && logo.url && <img src={logo.url} style={styles.logoPreview} />}
-              {logo && (logo.name || logo.url) && <IconButton onClick={event => {
+              {logo && <IconButton onClick={event => {
                 event.persist();
-                this.setState(state => ({me: {...state.me, sponsor: {...state.me.sponsor, logo: {}}}}));
+                this.setState(state => ({me: {...state.me, sponsor: {...state.me.sponsor, logo: null}}}));
               }} aria-label="Delete">
                 <DeleteIcon fontSize="small" />
               </IconButton>}

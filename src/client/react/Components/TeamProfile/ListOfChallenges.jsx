@@ -1,5 +1,6 @@
 import React from 'react';
 import {Icon, Paper} from '@material-ui/core';
+import SponsorPresentation from './SponsorPresentation.jsx';
 import _ from 'lodash';
 
 export const styleChallenge = color => ({
@@ -70,11 +71,6 @@ const ChallengeListItem = (props) => {
   const color = (props.status === 'WITH_PROOF') ? ' green' : 'black';
   const style = styleChallenge(color);
 
-  const name = `${props.sponsor.firstname} ${props.sponsor.lastname}`;
-  const company = props.sponsor.url
-    ? <a href={props.sponsor.url}>{props.sponsor.company}</a>
-    : props.sponsor.url;
-
   var counterDescription;
   switch (props.maximumCount) {
     case 1:
@@ -97,15 +93,7 @@ const ChallengeListItem = (props) => {
         </div>
         <div style={style.description}>{props.description} {counterDescription}</div>
       </div>
-      <div style={style.bottom}>
-        <div style={style.sponsor}>
-          {name}<br/>
-          {company}
-        </div>
-        <div style={style.logo}>
-          <img src={url} style={style.image}/>
-        </div>
-      </div>
+      <SponsorPresentation {...props.sponsor} />
     </Paper>
   );
 };
