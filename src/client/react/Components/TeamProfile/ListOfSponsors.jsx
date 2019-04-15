@@ -58,7 +58,7 @@ class ListOfSponsors extends React.Component {
 
 ListOfSponsors.propTypes = {
   api: PropTypes.object.isRequired,
-  teamId: PropTypes.number.isRequired,
+  teamId: PropTypes.number,
   i18next: PropTypes.object.isRequired,
 };
 

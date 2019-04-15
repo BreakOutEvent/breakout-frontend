@@ -41,6 +41,7 @@ module.exports = {
       "continue": "Weiter",
       "back": "Zurück",
       "save": "Speichern",
+      "saved": "Informationen gespeichert",
       "accept_tos": "Hiermit akzeptiere ich die <a href='sponsor-tos' target='_blank'>Teilnahmebedingungen</a> für Teamunterstützer",
       "is_18": "Ich bin mindestens 18 Jahre alt",
       "donate_as": "Sie gelten als",
@@ -535,7 +536,7 @@ module.exports = {
     "POINTS": "Punkte"
   },
   "MASTER": {
-    "BACK_TO_REGISTER": "Rolle auswählen",
+    "PARTICIPATE": "Teilnehmen",
     "LIVE_BLOG": "Live Blog",
     "LIVE_BLOG_LINK": "/live",
     "ABOUT": "Worum gehts",

@@ -58,6 +58,8 @@
                             {{#if isLoggedIn.me.participant.teamId}}
                                 <li><a href="/team/{{isLoggedIn.me.participant.teamId}}">{{__
                                         'MASTER.MY_TEAM_PROFILE'}}</a></li>
+                            {{else}}
+                                <li><a href="/participate">{{__ 'MASTER.PARTICIPATE'}}</a></li>
                             {{/if}}
                             <li><a href="/settings/profile">{{__ 'MASTER.ACCOUNT_SETTINGS'}}</a>
                             </li>
@@ -65,7 +67,6 @@
                             </li>
                             <li><a href="/messages">{{__ 'MASTER.MESSAGES'}}</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="/select-role">{{__ 'MASTER.BACK_TO_REGISTER'}}</a></li>
                             <li><a href="/logout">{{__ 'MASTER.LOGOUT'}}</a></li>
                         </ul>
                     </li>
@@ -95,12 +96,13 @@
                             {{#if isLoggedIn.me.participant.teamId}}
                                 <li><a class="bo-nav-sub-link" href="/team/{{isLoggedIn.me.participant.teamId}}">{{__
                                         'MASTER.MY_TEAM_PROFILE'}}</a></li>
+                            {{else}}
+                                <li><a href="/participate">{{__ 'MASTER.PARTICIPATE'}}</a></li>
                             {{/if}}
                             <li><a class="bo-nav-sub-link" href="/settings/profile">{{__ 'MASTER.ACCOUNT_SETTINGS'}}</a>
                             </li>
                             <li><a class="bo-nav-sub-link" href="/settings/sponsoring">{{__ 'MASTER.SPONSORINGS'}}</a></li>
                             <li><a class="bo-nav-sub-link" href="/messages">{{__ 'MASTER.MESSAGES'}}</a></li>
-                            <li><a class="bo-nav-sub-link" href="/select-role">{{__ 'MASTER.BACK_TO_REGISTER'}}</a></li>
                             <li><a class="bo-nav-sub-link" href="/logout">{{__ 'MASTER.LOGOUT'}}</a></li>
                         </ul>
                     </li>

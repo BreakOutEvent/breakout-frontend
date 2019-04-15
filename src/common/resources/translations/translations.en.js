@@ -41,6 +41,7 @@ module.exports = {
       "continue": "Next",
       "back": "Back",
       "save": "Save",
+      "saved": "Information was saved.",
       "accept_tos": "I hereby accept the <a href='sponsor-tos' target='_blank'>terms of service</a> for team supporters",
       "is_18": "I am at least 18 years old",
       "donate_as": "You donate as",
@@ -534,7 +535,7 @@ module.exports = {
     "POINTS": "Points"
   },
   "MASTER": {
-    "BACK_TO_REGISTER": "Select role",
+    "PARTICIPATE": "Teilnehmen",
     "LIVE_BLOG": "Live Blog",
     "LIVE_BLOG_LINK": "/live",
     "ABOUT": "About BreakOut",

@@ -1,8 +1,9 @@
 import React from 'react';
 import { TextField, Checkbox, FormControlLabel, Dialog, DialogTitle, DialogContent, Button, FormHelperText,
-  DialogActions, Typography, withMobileDialog, Paper, IconButton, withStyles, CircularProgress
+  DialogActions, Typography, withMobileDialog, Paper, IconButton, withStyles, CircularProgress, Snackbar
 } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
+import Delete from '@material-ui/icons/Delete';
+import Close from '@material-ui/icons/Close';
 import PropTypes from 'prop-types';
 
 const DONOR = 'DONOR';
@@ -22,6 +23,7 @@ class SponsorInformation extends React.Component {
     this.state = {
       errors: [],
       showCompany: false,
+      saved: false,
     }
     this.validateLogo = this.validateLogo.bind(this);
     this.setAddress = this.setAddress.bind(this);
@@ -120,7 +122,8 @@ class SponsorInformation extends React.Component {
         }
       });
       if (!updatedMe) throw new Error('Information update failed!');
-      this.props.onSuccess();
+      if(this.props.onSuccess) this.props.onSuccess();
+      this.setState({isSaving: false, saved: true});
     } catch (error) {
       console.log(error);
       this.setState({errors: { information: error }, isSaving: false});
@@ -155,11 +158,8 @@ class SponsorInformation extends React.Component {
     }
     const type = this.state.me && this.state.me.sponsor.supporterType.toLowerCase();
 
-    return <Dialog
-      open={true}
-      fullScreen={this.props.fullScreen}
-      onClose={this.props.onCancel}
-    >
+    const form = (
+      <div>
       <form onSubmit={this.updateInformation}>
         <DialogTitle id="login-register">{this.t('titleEdit')}</DialogTitle>
         <DialogContent>
@@ -267,7 +267,7 @@ class SponsorInformation extends React.Component {
                 event.persist();
                 this.setState(state => ({me: {...state.me, sponsor: {...state.me.sponsor, logo: null}}}));
               }} aria-label="Delete">
-                <DeleteIcon fontSize="small" />
+                <Delete fontSize="small" />
               </IconButton>}
               {this.state.errors.logo &&
               <FormHelperText id="component-error-text">{this.state.errors.logo}</FormHelperText>
@@ -320,24 +320,52 @@ class SponsorInformation extends React.Component {
           </div>}
         </DialogContent>
         <DialogActions style={{justifyContent: 'flex-end'}}>
-          <Button onClick={this.props.onCancel} color="primary">
+          {this.props.onCancel && <Button onClick={this.props.onCancel} color="primary">
             {this.t('cancel')}
-          </Button>
-          <Button type="submit" color="primary">
-            {this.t('continue')}
-          </Button>
+          </Button>}
           {this.state.isSaving && <CircularProgress size={24} thickness={5} />}
+          <Button type="submit" color="primary">
+            {(this.props.onSuccess ? this.t('continue') : this.t('save'))}
+          </Button>
         </DialogActions>
       </form>
-    </Dialog>
+      <Snackbar
+        autoHideDuration={5000}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+        open={this.state.saved}
+        message={<span id="message-id">{this.t('saved')}</span>}
+        onClose={e=>this.setState({saved: false})}
+        action={[
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              onClick={e=>this.setState({saved: false})}
+            >
+              <Close />
+            </IconButton>,
+      ]}
+      />
+    </div>
+    );
+
+    return (this.props.onCancel
+      ? <Dialog
+        open={true}
+        fullScreen={this.props.fullScreen}
+        onClose={this.props.onCancel}
+      >{form}</Dialog>
+      : form
+    );
   }
 }
 
 SponsorInformation.propTypes = {
-  onCancel: PropTypes.func.isRequired,
-  onSuccess: PropTypes.func.isRequired,
+  onCancel: PropTypes.func,
+  onSuccess: PropTypes.func,
   i18next: PropTypes.object.isRequired,
-  fullScreen: PropTypes.bool.isRequired,
+  fullScreen: PropTypes.bool,
+  api: PropTypes.object.isRequired,
 };
 
 export default withMobileDialog()(withStyles(styles)(SponsorInformation));

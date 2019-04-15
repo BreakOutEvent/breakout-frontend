@@ -3,9 +3,9 @@ import { Paper, TextField, Button, InputAdornment, FormHelperText, Typography, I
   Snackbar } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import PropTypes from 'prop-types';
-import RegisterLogin from './RegisterLogin.jsx';
+import RegisterLogin from '../Register/RegisterLogin.jsx';
 import SponsorPresentation from './SponsorPresentation.jsx';
-import SponsorInformation from './SponsorInformation.jsx';
+import SponsorInformation from '../Sponsor/SponsorInformation.jsx';
 import { styleChallenge } from './ListOfChallenges.jsx';
 
 const calcRows = (width) => {

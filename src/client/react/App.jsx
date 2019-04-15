@@ -20,8 +20,7 @@ import SelectRole from './Components/SelectRole/SelectRole.jsx';
 import ResetPassword from './Components/ResetPassword/ResetPassword.jsx';
 import CreateOrJoinTeam from './Components/CreateOrJoinTeam.jsx';
 import EmailConfirmationCheck from './Components/EmailConfirmationCheck.jsx';
-import SponsorRegistration from './Components/Sponsor/Sponsor.jsx';
-import SponsorSettings from './Components/Sponsor/Settings.jsx';
+import SponsorInformation from './Components/Sponsor/SponsorInformation.jsx';
 import {VisitorSuccess, JoinTeamSuccess, CreateTeamSuccess} from './Components/Success.jsx';
 import de from '../../common/resources/translations/translations.de';
 import en from '../../common/resources/translations/translations.en';
@@ -60,6 +59,10 @@ const OnShowHack = (props) => {
 
   return null;
 };
+
+const SponsorRegistration = (props) => (<SponsorInformation
+  {...props} onSuccess={e=>window.location.href=routes.sponsorings}
+/>);
 
 i18next.init({
   lng: window.getBoUserLang(),
@@ -233,7 +236,7 @@ class App extends React.Component {
                         component={this.showModalFor(CreateTeamSuccess, 's')}/>
 
           <PrivateRoute exact path={routes.profileSettings}
-                        component={this.showComponent(SponsorSettings)}/>
+                        component={this.showComponent(SponsorInformation)}/>
 
         </div>
       </Router>);
@@ -272,7 +275,7 @@ class App extends React.Component {
                           component={this.showModalFor(CreateTeamSuccess, 's')}/>
 
             <PrivateRoute exact path={routes.profileSettings}
-                          component={this.showComponent(SponsorSettings)}/>
+                          component={this.showComponent(SponsorInformation)}/>
 
           </div>
         </Router>
