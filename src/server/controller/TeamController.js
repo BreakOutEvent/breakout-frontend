@@ -205,7 +205,7 @@ class TeamController {
     }
 
     if (isUserOfTeam && !currTeam.hasFullyPaid) {
-      teamFee = api.team.getFee(teamId);
+      teamFee = yield api.team.getFee(teamId, req.user);
     }
 
     currTeam.mapData = currTeam.mapData || [];
