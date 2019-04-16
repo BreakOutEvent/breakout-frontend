@@ -1,7 +1,7 @@
 import React from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import Button from '@material-ui/core/Button';
-
+import PropTypes from 'prop-types';
 
 class EmailConfirmationCheck extends React.Component {
   componentDidMount() {
@@ -18,6 +18,7 @@ class EmailConfirmationCheck extends React.Component {
     return (this.props.isLoggedIn.me && this.props.isLoggedIn.me.blocked
       ? <div>
           <Snackbar
+            style={style.top}
             anchorOrigin={{
               vertical: 'bottom',
               horizontal: 'center',
@@ -40,5 +41,9 @@ class EmailConfirmationCheck extends React.Component {
     );
   }
 }
+
+EmailConfirmationCheck.propTypes = {
+  isLoggedIn: PropTypes.object.isRequired,
+};
 
 export default EmailConfirmationCheck;

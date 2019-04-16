@@ -1,30 +1,30 @@
 import React from 'react';
-import _ from 'lodash';
+import PropTypes from 'prop-types';
 
 const SponsorPresentation = (props) => {
 
   const style = {
     bottom: {
       fontSize: 'small',
-        backgroundColor: '#F5F5F5',
-        padding: '10px 0 10px 10px',
-        height: 50,
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
+      backgroundColor: '#F5F5F5',
+      padding: '10px 0 10px 10px',
+      height: 50,
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
     },
     sponsor: {
       flexBasis: '60%'
     },
     logo: {
       display: 'flex',
-        justifyContent: 'flex-end',
-        flexGrow: 2
+      justifyContent: 'flex-end',
+      flexGrow: 2
     },
     image: {
       maxHeight: '50px',
-        maxWidth: '100%',
-        objectFit: 'contain'
+      maxWidth: '100%',
+      objectFit: 'contain'
     }
   };
 
@@ -43,6 +43,14 @@ const SponsorPresentation = (props) => {
       <img src={props.logoUrl} style={style.image}/>
     </div>
   </div>;
+};
+
+SponsorPresentation.propTypes = {
+  firstname: PropTypes.string,
+  lastname: PropTypes.string,
+  url: PropTypes.string,
+  company: PropTypes.string,
+  logoUrl: PropTypes.string,
 };
 
 export default SponsorPresentation;

@@ -1,6 +1,5 @@
 import React from 'react';
-import { Paper, TextField, Button, InputAdornment, FormHelperText, Typography, IconButton,
-  Snackbar } from '@material-ui/core';
+import { Paper, TextField, Button, InputAdornment, Typography, IconButton, Snackbar } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import PropTypes from 'prop-types';
 import RegisterLogin from '../Register/RegisterLogin.jsx';
@@ -11,27 +10,27 @@ import { styleChallenge } from './ListOfChallenges.jsx';
 const style = styleChallenge('black');
 style.title = {
   padding: '10px 10px 5px',
-}
+};
 style.icon = {
   marginRight: 10,
   width: 50,
-}
+};
 style.top.padding = 10;
-style.top.flexWrap = "wrap";
+style.top.flexWrap = 'wrap';
 style.inputLeft = {
   marginRight: 10,
   minWidth: 110,
-  width: "calc(50% - 5px)",
+  width: 'calc(50% - 5px)',
 };
 style.inputRight = {
-  width: "calc(50% - 5px)",
-  maxWidth: "calc(100% - 120px)"
+  width: 'calc(50% - 5px)',
+  maxWidth: 'calc(100% - 120px)'
 };
 style.description.width = '100%';
 style.buttons = {
   display: 'flex',
   justifyContent: 'flex-end'
-}
+};
 
 class AddSponsoring extends React.Component {
 
@@ -41,8 +40,8 @@ class AddSponsoring extends React.Component {
       renderAll: false,
       renderRegisterLogin: false,
       renderSponsorInformation: false,
-      amount: "0,10",
-      limit: "",
+      amount: '0,10',
+      limit: '',
       me: null,
       errors: {},
       isAdding: false,
@@ -75,23 +74,22 @@ class AddSponsoring extends React.Component {
         || !this.validate('limit', this.state.limit) ) return false;
     this.setState({isAdding: true});
 
-    this.props.api.getMe()
-      .then(me => {
-        if(!me.firstname) {
-          this.setState({renderSponsorInformation: true});
-          return
-        }
+    this.props.api.getMe().then(me => {
+      if(!me.firstname) {
+        this.setState({renderSponsorInformation: true});
+        return;
+      }
 
-        this.props.api.addSponsoring(this.props.teamId,
-          {
-            limit: (this.state.limit ? this.state.limit.replace(',', '.') : 9999999999),
-            amountPerKm: this.state.amount.replace(',', '.')
-          })
-          .then(response => {
-            if(this.props.update) this.props.update(response.sponsorId);
-            this.setState({isAdding: false, amount: "0,10", limit: "", justAdded: true});
-          })})
-      .catch(() => this.setState({renderRegisterLogin: true}));
+      this.props.api.addSponsoring(this.props.teamId,
+        {
+          limit: (this.state.limit ? this.state.limit.replace(',', '.') : 9999999999),
+          amountPerKm: this.state.amount.replace(',', '.')
+        })
+        .then(response => {
+          if(this.props.update) this.props.update(response.sponsorId);
+          this.setState({isAdding: false, amount: '0,10', limit: '', justAdded: true});
+        });
+    }).catch(() => this.setState({renderRegisterLogin: true}));
   }
 
   validate(property, value) {
@@ -122,10 +120,10 @@ class AddSponsoring extends React.Component {
     return <div>
       <Paper elevation={1} id="add-challenge">
         <form
-          onFocus={e=>this.setState({renderAll: true})}
+          onFocus={()=>this.setState({renderAll: true})}
           onSubmit={this.addSponsoring}
         >
-          <Typography variant="h6" style={style.title}>
+          <Typography variant="subtitle1" style={style.title}>
             {this.t('title')}
           </Typography>
           <div style={style.top}>
@@ -159,7 +157,7 @@ class AddSponsoring extends React.Component {
           />}
           {this.state.renderAll && <div style={style.buttons}>
             {me && <Button
-              onClick={e=>this.setState({renderSponsorInformation: true})}>
+              onClick={()=>this.setState({renderSponsorInformation: true})}>
               {this.t('options')}
             </Button>}
             <Button type="submit" color="primary">{this.t('submit')}</Button>
@@ -169,7 +167,7 @@ class AddSponsoring extends React.Component {
       <br />
       {this.state.renderRegisterLogin &&
       <RegisterLogin
-        onCancel={e => this.setState({ renderRegisterLogin: false })}
+        onCancel={() => this.setState({ renderRegisterLogin: false })}
         onSuccess={this.onSuccessRegisterLogin}
         firstName={this.state.firstName}
         lastName={this.state.lastName}
@@ -178,7 +176,7 @@ class AddSponsoring extends React.Component {
       />}
       {this.state.renderSponsorInformation &&
       <SponsorInformation
-        onCancel={e => this.setState({renderSponsorInformation: false})}
+        onCancel={() => this.setState({renderSponsorInformation: false})}
         onSuccess={this.onSuccessSponsorInformation}
         api={this.props.api}
         i18next={this.props.i18next}
@@ -188,14 +186,14 @@ class AddSponsoring extends React.Component {
         open={this.state.justAdded}
         message={<span id="message-id">{this.t('success')}</span>}
         action={[
-        <IconButton
-          key="close"
-          aria-label="Close"
-          color="inherit"
-          onClick={e=>this.setState({justAdded: false})}
-        >
-          <CloseIcon />
-        </IconButton>,
+          <IconButton
+            key="close"
+            aria-label="Close"
+            color="inherit"
+            onClick={()=>this.setState({justAdded: false})}
+          >
+            <CloseIcon />
+          </IconButton>,
         ]}
       />
     </div>;
@@ -206,6 +204,7 @@ AddSponsoring.propTypes = {
   api: PropTypes.object.isRequired,
   teamId: PropTypes.number.isRequired,
   i18next: PropTypes.object.isRequired,
+  update: PropTypes.func,
 };
 
 export default AddSponsoring;

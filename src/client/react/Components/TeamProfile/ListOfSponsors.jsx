@@ -14,9 +14,9 @@ class ListOfSponsors extends React.Component {
 
   componentDidMount() {
     this.props.api.fetchSponsoringsForTeam(this.props.teamId)
-      .then(sponsorings => {this.setState({
-        sponsors: sponsorings.sort((a,b)=>b.id-a.id)}
-      )})
+      .then(sponsorings => {
+        this.setState({ sponsors: sponsorings.sort((a,b)=>b.id-a.id) });
+      })
       .catch(error => this.setState({error}));
   }
 
@@ -42,7 +42,7 @@ class ListOfSponsors extends React.Component {
 
     let key = 0;
     const renderSponsor = (sponsoring) => {
-      return <Paper key={key++} style={{marginBottom: 20}}><SponsorPresentation {...sponsoring.sponsor} /></Paper>
+      return <Paper key={key++} style={{marginBottom: 20}}><SponsorPresentation {...sponsoring.sponsor} /></Paper>;
     };
 
     const sponsors = this.state.sponsors && this.state.sponsors

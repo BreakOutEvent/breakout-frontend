@@ -2,13 +2,13 @@ import React from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography, FormControlLabel, Checkbox,
   FormHelperText, CircularProgress, TextField, withMobileDialog } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import routes from '../routes'
+import routes from '../routes';
 
 const steps = {
   email: 'EMAIL',
   login: 'LOGIN',
-  register: 'REGISTER'
-}
+  register: 'REGISTER',
+};
 
 class RegisterLogin extends React.Component {
 
@@ -24,7 +24,7 @@ class RegisterLogin extends React.Component {
       acceptedPrivacy: false,
       acceptedSponsorToS: false,
       isRegistering: false,
-    }
+    };
     this.checkEmail = this.checkEmail.bind(this);
     this.login = this.login.bind(this);
     this.onLoginError = this.onLoginError.bind(this);
@@ -35,11 +35,9 @@ class RegisterLogin extends React.Component {
 
   checkEmail(event) {
     event.preventDefault();
-    this.props.api.checkEmailExistance(this.state.email).then(result =>
-    {
+    this.props.api.checkEmailExistance(this.state.email).then(result => {
       this.setState({step: (result ? steps.login : steps.register)});
-    }
-  )
+    });
   }
 
   onLoginError(err) {
@@ -99,7 +97,7 @@ class RegisterLogin extends React.Component {
     event.preventDefault();
     if (this.registrationIsValid()) {
       try {
-        this.setState({isRegistering: true})
+        this.setState({isRegistering: true});
         await this.props.api.createAccount(this.state.email, this.state.password);
         await this.props.api.login(this.state.email, this.state.password);
         await this.props.api.frontendLogin(this.state.email, this.state.password);
@@ -160,7 +158,7 @@ class RegisterLogin extends React.Component {
           {this.state.error.credentials && <FormHelperText error>{this.state.error.credentials}</FormHelperText>}
         </DialogContent>
         <DialogActions>
-          <Button onClick={e => { window.location.href = routes.resetPassword; }} color="primary">
+          <Button onClick={() => { window.location.href = routes.resetPassword; }} color="primary">
             {this.t('login.password_reset_text')}
           </Button>
           <Button onClick={this.props.onCancel} color="primary">
@@ -210,7 +208,7 @@ class RegisterLogin extends React.Component {
                 checked={this.state.acceptedPrivacy}
                 onChange={e => {
                   e.persist();
-                  this.setState({acceptedPrivacy: e.target.checked})
+                  this.setState({acceptedPrivacy: e.target.checked});
                 }}
                 color="primary"
               />}
@@ -224,7 +222,7 @@ class RegisterLogin extends React.Component {
                 checked={this.state.acceptedSponsorToS}
                 onChange={e => {
                   e.persist();
-                  this.setState({acceptedSponsorToS: e.target.checked})
+                  this.setState({acceptedSponsorToS: e.target.checked});
                 }}
                 color="primary"
               />}
@@ -243,7 +241,7 @@ class RegisterLogin extends React.Component {
           {this.state.isRegistering && <CircularProgress size={24} thickness={5} />}
         </DialogActions>
       </form>}
-    </Dialog>
+    </Dialog>;
   }
 }
 
@@ -252,6 +250,7 @@ RegisterLogin.propTypes = {
   onSuccess: PropTypes.func.isRequired,
   i18next: PropTypes.object.isRequired,
   fullScreen: PropTypes.bool.isRequired,
+  api: PropTypes.object.isRequired,
 };
 
 export default withMobileDialog()(RegisterLogin);

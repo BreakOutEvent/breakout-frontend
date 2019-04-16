@@ -24,7 +24,7 @@ class SponsorInformation extends React.Component {
       errors: [],
       showCompany: false,
       saved: false,
-    }
+    };
     this.validateLogo = this.validateLogo.bind(this);
     this.setAddress = this.setAddress.bind(this);
     this.determineSupporterType = this.determineSupporterType.bind(this);
@@ -54,7 +54,7 @@ class SponsorInformation extends React.Component {
             ? ACTIVE : PASSIVE)
           : DONOR);
         return newState;
-      })
+      });
     }
   }
 
@@ -76,16 +76,15 @@ class SponsorInformation extends React.Component {
     return (event) => {
       event.persist();
       this.setState(state => ({
-        me:
-          {
-            ...state.me, sponsor:
-              {
-                ...state.me.sponsor, address:
-                  {...state.me.sponsor.address, [part]: event.target.value}
-              }
+        me: {
+          ...state.me, sponsor: {
+            ...state.me.sponsor, address: {
+              ...state.me.sponsor.address, [part]: event.target.value
+            }
           }
+        }
       }));
-    }
+    };
   }
 
   async updateInformation(event) {
@@ -99,7 +98,7 @@ class SponsorInformation extends React.Component {
       if (me.sponsor.logo && me.sponsor.logo.name) {
         const logo = await new Promise((resolve) => {
           let fileReader = new FileReader();
-          fileReader.onload = (_) => resolve(fileReader.result);
+          fileReader.onload = () => resolve(fileReader.result);
           fileReader.readAsDataURL(me.sponsor.logo);
         });
         const signedParams = await this.props.api.signCloudinaryParams();
@@ -155,7 +154,7 @@ class SponsorInformation extends React.Component {
         maxHeight: '75px',
         margin: '10px',
       }
-    }
+    };
     const type = this.state.me && this.state.me.sponsor.supporterType.toLowerCase();
 
     const form = (
@@ -216,7 +215,7 @@ class SponsorInformation extends React.Component {
                     nextState.me.sponsor.address = null;
                   }
                   return nextState;
-                })
+                });
               }}
               color="primary"
             />}
@@ -309,7 +308,7 @@ class SponsorInformation extends React.Component {
               onChange={this.setAddress('country')}
               />
             </div>}<br />
-            <Paper style={{padding: "10px"}}>
+            <Paper style={{padding: '10px'}}>
               <Typography variant="subtitle1">
                 {this.t('donate_as')}: {this.t(`supporterData.${type}.title`)}
               </Typography>
@@ -334,17 +333,17 @@ class SponsorInformation extends React.Component {
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         open={this.state.saved}
         message={<span id="message-id">{this.t('saved')}</span>}
-        onClose={e=>this.setState({saved: false})}
+        onClose={()=>this.setState({saved: false})}
         action={[
-            <IconButton
-              key="close"
-              aria-label="Close"
-              color="inherit"
-              onClick={e=>this.setState({saved: false})}
-            >
-              <Close />
-            </IconButton>,
-      ]}
+          <IconButton
+            key="close"
+            aria-label="Close"
+            color="inherit"
+            onClick={()=>this.setState({saved: false})}
+          >
+            <Close />
+          </IconButton>,
+        ]}
       />
     </div>
     );

@@ -1,6 +1,5 @@
 import React from 'react';
-import { Paper, TextField, Button, InputAdornment, FormHelperText, Typography, IconButton,
-  Snackbar } from '@material-ui/core';
+import { Paper, TextField, Button, InputAdornment, Typography, IconButton, Snackbar } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import PropTypes from 'prop-types';
 import RegisterLogin from '../Register/RegisterLogin.jsx';
@@ -13,23 +12,23 @@ const calcRows = (width) => {
   if (width < 300) return 3;
   if (width < 500 ) return 2;
   return 1;
-}
+};
 
 const style = styleChallenge('black');
 style.title = {
   padding: '10px 10px 5px',
-}
+};
 style.icon = {
   marginRight: 10,
   width: 50,
-}
+};
 style.top.padding = 10;
 style.top.alignItems = 'top';
 style.description.width = '100%';
 style.buttons = {
   display: 'flex',
   justifyContent: 'flex-end'
-}
+};
 
 class AddChallenge extends React.Component {
 
@@ -42,6 +41,7 @@ class AddChallenge extends React.Component {
       placeholderIndex: 0,
       suggestionCount: 8,
       amount: 10,
+      maximumCount: 1,
       description: '',
       me: null,
       errors: {},
@@ -51,6 +51,7 @@ class AddChallenge extends React.Component {
     };
     this.interval = setInterval(this.changeSuggestions.bind(this), 3000);
     this.validateAmount = this.validateAmount.bind(this);
+    this.validateMaximum = this.validateMaximum.bind(this);
     this.onSuccessRegisterLogin = this.onSuccessRegisterLogin.bind(this);
     this.onSuccessSponsorInformation = this.onSuccessSponsorInformation.bind(this);
     this.addChallenge = this.addChallenge.bind(this);
@@ -63,7 +64,7 @@ class AddChallenge extends React.Component {
       me: await this.props.api.getMe()
     });
     this.updateWidth();
-    window.addEventListener("resize", this.updateWidth);
+    window.addEventListener('resize', this.updateWidth);
   }
 
   updateWidth() {
@@ -89,24 +90,27 @@ class AddChallenge extends React.Component {
   addChallenge(event) {
     if(event) event.preventDefault();
     if (this.state.errors.amount) return false;
+    if (this.state.errors.maximum) return false;
     this.setState({isAdding: true});
 
     this.props.api.getMe()
       .then(me => {
         if(!me.firstname) {
           this.setState({renderSponsorInformation: true});
-          return
+          return;
         }
 
         this.props.api.addChallenge(this.props.teamId,
           {
             description: this.state.description,
-            amount: this.state.amount
+            amount: this.state.amount,
+            maximumCount: this.state.maximumCount,
           })
           .then(response => {
             if(this.props.update) this.props.update(response.sponsorId);
-            this.setState({isAdding: false, amount: 10, description: "", justAdded: true});
-          })})
+            this.setState({isAdding: false, amount: 10, description: '', justAdded: true});
+          });
+      })
       .catch(() => this.setState({renderRegisterLogin: true}));
   }
 
@@ -117,6 +121,15 @@ class AddChallenge extends React.Component {
       : true
     );
     this.setState(state => ({errors: { ...state.errors, amount: error }} ));
+    return error;
+  }
+
+  validateMaximum(count) {
+    const error = (/^\d*$/.test(count)
+      ? ((parseInt(count) > 0) ? undefined : true)
+      : true
+    );
+    this.setState(state => ({errors: { ...state.errors, maximum: error }} ));
     return error;
   }
 
@@ -135,10 +148,10 @@ class AddChallenge extends React.Component {
     return <div>
       <Paper elevation={1} id="add-challenge">
         <form
-          onFocus={e=>this.setState({renderAll: true})}
+          onFocus={()=>this.setState({renderAll: true})}
           onSubmit={this.addChallenge}
         >
-          <Typography variant="h6" style={style.title}>
+          <Typography variant="subtitle1" style={style.title}>
             {this.t('title')}
           </Typography>
           <div style={style.top}>
@@ -161,6 +174,17 @@ class AddChallenge extends React.Component {
               rows={calcRows(this.state.width)}
               error={this.state.errors.description}
               />
+              <TextField fullWidth
+                label=""
+                value={this.state.maximumCount}
+                onChange={e=>{this.setState({maximumCount: e.target.value}); this.validateMaximum(e.target.value);}}
+                type="number"
+                InputProps={{ endAdornment: <InputAdornment style={{width: 30}} position="end">Mal</InputAdornment> }}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                error={this.state.errors.maximum}
+              />
             </div>
           </div>
           {me && this.state.renderAll && <SponsorPresentation
@@ -172,7 +196,7 @@ class AddChallenge extends React.Component {
           />}
           {this.state.renderAll && <div style={style.buttons}>
             {me && <Button
-              onClick={e=>this.setState({renderSponsorInformation: true})}>
+              onClick={()=>this.setState({renderSponsorInformation: true})}>
               {this.t('options')}
             </Button>}
             <Button type="submit" color="primary">{this.t('submit')}</Button>
@@ -182,7 +206,7 @@ class AddChallenge extends React.Component {
       <br />
       {this.state.renderRegisterLogin &&
       <RegisterLogin
-        onCancel={e => this.setState({ renderRegisterLogin: false })}
+        onCancel={() => this.setState({ renderRegisterLogin: false })}
         onSuccess={this.onSuccessRegisterLogin}
         firstName={this.state.firstName}
         lastName={this.state.lastName}
@@ -191,7 +215,7 @@ class AddChallenge extends React.Component {
       />}
       {this.state.renderSponsorInformation &&
       <SponsorInformation
-        onCancel={e => this.setState({renderSponsorInformation: false})}
+        onCancel={() => this.setState({renderSponsorInformation: false})}
         onSuccess={this.onSuccessSponsorInformation}
         api={this.props.api}
         i18next={this.props.i18next}
@@ -201,14 +225,14 @@ class AddChallenge extends React.Component {
         open={this.state.justAdded}
         message={<span id="message-id">{this.t('success')}</span>}
         action={[
-        <IconButton
-          key="close"
-          aria-label="Close"
-          color="inherit"
-          onClick={e=>this.setState({justAdded: false})}
-        >
-          <CloseIcon />
-        </IconButton>,
+          <IconButton
+            key="close"
+            aria-label="Close"
+            color="inherit"
+            onClick={()=>this.setState({justAdded: false})}
+          >
+            <CloseIcon />
+          </IconButton>,
         ]}
       />
     </div>;
@@ -219,6 +243,7 @@ AddChallenge.propTypes = {
   api: PropTypes.object.isRequired,
   teamId: PropTypes.number.isRequired,
   i18next: PropTypes.object.isRequired,
+  update: PropTypes.func,
 };
 
 export default AddChallenge;

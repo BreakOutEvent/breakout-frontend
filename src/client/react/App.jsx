@@ -19,7 +19,6 @@ import Participation from './Components/Participate/Participation.jsx';
 import SelectRole from './Components/SelectRole/SelectRole.jsx';
 import ResetPassword from './Components/ResetPassword/ResetPassword.jsx';
 import CreateOrJoinTeam from './Components/CreateOrJoinTeam.jsx';
-import EmailConfirmationCheck from './Components/EmailConfirmationCheck.jsx';
 import SponsorInformation from './Components/Sponsor/SponsorInformation.jsx';
 import {VisitorSuccess, JoinTeamSuccess, CreateTeamSuccess} from './Components/Success.jsx';
 import de from '../../common/resources/translations/translations.de';
@@ -32,15 +31,14 @@ ReactGA.initialize('UA-59857227-3');
 import routes from './Components/routes';
 
 import AdminInvoicePanel from './Components/Admin/AdminInvoicePanel.jsx';
-import AddChallenge from './Components/TeamProfile/AddChallenge.jsx'
+import AddChallenge from './Components/TeamProfile/AddChallenge.jsx';
 import ListOfChallenges from './Components/TeamProfile/ListOfChallenges.jsx';
 import ListOfSponsors from './Components/TeamProfile/ListOfSponsors.jsx';
 
 const breakoutTheme = () => createMuiTheme({
-  palette:
-    {
-      primary: orange,
-    },
+  palette: {
+    primary: orange,
+  },
   typography: {
     useNextVariants: true
   }
@@ -61,7 +59,7 @@ const OnShowHack = (props) => {
 };
 
 const SponsorRegistration = (props) => (<SponsorInformation
-  {...props} onSuccess={e=>window.location.href=routes.sponsorings}
+  {...props} onSuccess={()=>window.location.href=routes.sponsorings}
 />);
 
 i18next.init({
@@ -155,7 +153,7 @@ class App extends React.Component {
   render() {
 
     const RedirectRegistrationLock = (props) => {
-      const render = (componentProps) => {
+      const render = () => {
         window.location.href = '/closed';
       };
       let propsCopy = Object.assign({}, props);
@@ -355,6 +353,10 @@ class StatefulListOfChallenges extends React.Component {
     </div>;
   }
 }
+
+StatefulListOfChallenges.propTypes = {
+  api: PropTypes.object.isRequired,
+};
 
 renderIfExists(<MuiThemeProvider theme={breakoutTheme()}><AdminInvoicePanel api={api}/></MuiThemeProvider>, 'react-admin-invoice');
 renderIfExists(<App/>, 'react-root');

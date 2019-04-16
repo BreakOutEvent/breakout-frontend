@@ -91,7 +91,9 @@ module.exports = {
           "5": 'Send me a postcard from the most beautiful place of your trip',
           "6": 'Hitchhike with the garbage collection',
           "7": 'Find two people abroad to do the sun salutation together'
-        }
+        },
+        "fulfillable": "Fulfillable",
+        "times": "X",
       },
       "addSponsoring": {
         "title": "Donate per distance",

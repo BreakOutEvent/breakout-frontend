@@ -91,12 +91,14 @@ module.exports = {
           "5": 'Sendet mir eine Postkarte aus dem schönsten Ort eurer Reise',
           "6": 'Camouflage-mäßig mit einem Mülltransporter trampen',
           "7": 'Macht mit zwei Menschen im Ausland den Sonnengruß'
-        }
+        },
+        "fulfillable": "Erfüllbar",
+        "times": "Mal",
       },
       "addSponsoring": {
-        "title": "Pro Kilometer spenden",
+        "title": "Für Distanz spenden",
         "amount": "Betrag pro KM",
-        "limit": "Höchstbetrag",
+        "limit": "Limit",
         "options": "Optionen",
         "submit": "Senden",
         "success": "Kilometerspende wurde hinzugefügt",

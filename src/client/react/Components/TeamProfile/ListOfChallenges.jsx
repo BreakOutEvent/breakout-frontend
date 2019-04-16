@@ -1,5 +1,5 @@
 import React from 'react';
-import _ from 'lodash';
+import PropTypes from 'prop-types';
 import {Icon, Paper} from '@material-ui/core';
 
 import SponsorPresentation from './SponsorPresentation.jsx';
@@ -43,8 +43,11 @@ const ListOfChallenges = (props) => {
   );
 };
 
+ListOfChallenges.propTypes = {
+  challenges: PropTypes.array,
+};
+
 const ChallengeListItem = (props) => {
-  const url = _.get(props, 'sponsor.logoUrl', '');
   const color = (props.status === 'WITH_PROOF') ? ' green' : 'black';
   const style = styleChallenge(color);
 
@@ -74,5 +77,16 @@ const ChallengeListItem = (props) => {
     </Paper>
   );
 };
+
+ChallengeListItem.propTypes = {
+  sponsor: PropTypes.object.isRequired,
+  description: PropTypes.string.isRequired,
+  status: PropTypes.string,
+  maximumCount: PropTypes.number,
+  fulfilledCount: PropTypes.number,
+  amount: PropTypes.number.isRequired,
+};
+
+
 
 export default ListOfChallenges;
