@@ -487,7 +487,13 @@ module.exports = {
     "WANT_TO_FULFILL_CHALLENGE": "Do you want to fulfill a challenge with this posting?",
     "NOW": "Now?",
     "SERVER_PROCESSING_REQUEST":"Medium is being processed by the server, give us a moment!",
-    "POINTS": "Points"
+    "POINTS": "Points",
+    "TEAM_FEE_HEADING": "Thank you for signing up for BreakOut!",
+    "TEAM_FEE_DESCRIPTION": "To complete your registration, please transfer your registration fee as soon as possible. We can only activate your team once we've received the registration fee. Please transfer the fee by latest May 16th so that we can equip you with a t-shirt and your starter kit.",
+    "TEAM_FEE_TRANSFER_INFO_HEADING": "Please transfer the registration fee to the following account:",
+    "OWNER": "Account owner",
+    "PURPOSE": "Purpose of transfer",
+    "AMOUNT": "Amount"
   },
   "MASTER": {
     "BACK_TO_REGISTER": "Select role",

@@ -490,7 +490,13 @@ module.exports = {
     "WANT_TO_FULFILL_CHALLENGE": "Du willst damit eine Challenge erfüllen?",
     "NOW": "Jetzt?",
     "SERVER_PROCESSING_REQUEST":"Medium wird vom Server verarbeitet, gib uns einen kurzen Moment!",
-    "POINTS": "Punkte"
+    "POINTS": "Punkte",
+    "TEAM_FEE_HEADING": "Vielen Dank, dass Ihr Euch für den BreakOut angemeldet habt!",
+    "TEAM_FEE_DESCRIPTION": " Um Eure Anmeldung abzuschließen, müsst Ihr noch 60€ Teilnahmegebühr überweisen. Solange Ihr keine Teilnahmegebühr überwiesen habt, können wir Euer Team nicht freischalten. Bitte überweist das Geld bis spätestens 16. Mai, damit wir euch mit einem T-Shirt und Starterkit für Eure Reise ausstatten können.",
+    "TEAM_FEE_TRANSFER_INFO_HEADING": "Bitte überweist eure Teamgebühr an folgendes Konto:",
+    "OWNER": "Kontoinhaber",
+    "PURPOSE": "Verwendungszweck",
+    "AMOUNT": "Betrag"
   },
   "MASTER": {
     "BACK_TO_REGISTER": "Rolle auswählen",
