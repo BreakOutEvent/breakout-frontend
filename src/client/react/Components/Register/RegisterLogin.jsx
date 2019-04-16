@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography, FormControlLabel, Checkbox,
   FormHelperText, CircularProgress, TextField, withMobileDialog } from '@material-ui/core';
 import PropTypes from 'prop-types';
+import routes from '../routes'
 
 const steps = {
   email: 'EMAIL',
@@ -43,7 +44,7 @@ class RegisterLogin extends React.Component {
 
   onLoginError(err) {
     let message = err.message;
-    if (err.response && err.response.status === 401) {
+    if (err.response && err.response.status === 400) {
       message = this.t('login.wrong_password');
     }
     this.setState({
@@ -156,9 +157,12 @@ class RegisterLogin extends React.Component {
             fullWidth
             onChange={event => this.setState({password:event.target.value})}
           />
-          {this.state.error.credentials && <p>{this.state.error.credentials}</p>}
+          {this.state.error.credentials && <FormHelperText error>{this.state.error.credentials}</FormHelperText>}
         </DialogContent>
         <DialogActions>
+          <Button onClick={e => { window.location.href = routes.resetPassword; }} color="primary">
+            {this.t('login.password_reset_text')}
+          </Button>
           <Button onClick={this.props.onCancel} color="primary">
             {this.t('login.button_cancel')}
           </Button>

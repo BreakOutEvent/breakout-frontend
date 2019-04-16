@@ -12,7 +12,7 @@ module.exports = {
       "email_placeholder": "Gib eine E-Mail-Adresse ein",
       "password_label": "Passwort",
       "password_placeholder": "Gib ein Passwort ein",
-      "password_reset_text": "Passwort vergessen?",
+      "password_reset_text": "Passwort vergessen",
       "button_login_text": "Einloggen",
       "button_register_text": "Account erstellen",
       "error_login": "Falsche E-Mail-Adresse oder Passwort",
