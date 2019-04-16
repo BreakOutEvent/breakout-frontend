@@ -707,6 +707,10 @@ API.team.get = function (teamId) {
   return API.general.get(`/event/1/team/${teamId}/`);
 };
 
+API.team.getFee = function (teamId) {
+  return API.general.get(`/team/${teamId}/startingfee`);
+}
+
 API.team.getPostings = function (token, teamId, page) {
 
   logger.info('Getting all postings ');
