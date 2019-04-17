@@ -194,6 +194,7 @@ class TeamController {
     });
 
     let currentUser = null;
+    let teamFee = null;
     let isUserOfTeam = false;
     let isUserAdmin = false;
 
@@ -201,6 +202,10 @@ class TeamController {
       currentUser = req.user.me;
       isUserOfTeam = _.findIndex(currTeam.members, m => m.id === currentUser.id) > -1;
       isUserAdmin = _.findIndex(req.user.me.roles, r => r === 'ADMIN') > -1;
+    }
+
+    if (isUserOfTeam && !currTeam.hasFullyPaid) {
+      teamFee = yield api.team.getFee(teamId, req.user);
     }
 
     currTeam.mapData = currTeam.mapData || [];
@@ -213,6 +218,7 @@ class TeamController {
       isUserOfTeam: isUserOfTeam,
       isUserAdmin: isUserAdmin,
       isLoggedIn: req.user,
+      teamFee: teamFee,
       title: currTeam.name
     });
   }
