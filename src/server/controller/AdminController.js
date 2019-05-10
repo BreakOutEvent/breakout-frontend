@@ -63,7 +63,7 @@ admin.showDashboardPayment = function*(req, res) {
 admin.showDashboardCheckin = function*(req, res) {
   let options = defaultOptions(req);
   options.view = 'admin-checkin';
-  options.data = yield admin.getAllTeams(req);
+  options.data = yield admin.getAllCurrentTeams(req);
   res.render('static/admin/dashboard', options);
 };
 
@@ -269,8 +269,9 @@ admin.getInvoices = (req) => co(function*() {
   throw ex;
 });
 
-admin.getAllTeams = function () {
+admin.getAllCurrentTeams = function () {
   return Promise.resolve(api.event.all())
+    .filter(event => event.isCurrent)
     .map(event => api.team.getAllByEvent(event.id))
     .reduce((a, b) => a.concat(b), [])
     .filter(team => team.hasFullyPaid);
