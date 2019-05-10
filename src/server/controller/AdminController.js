@@ -237,34 +237,27 @@ admin.getAllEmailsTo = function(emailAddress) {
 admin.getInvoices = (req) => co(function*() {
   const events = yield api.getModel('event', req.user);
 
-  let teamsByEvent = yield events.map((e) => api.getModel(`event/${e.id}/team`, req.user));
+  let teamsByEvent = yield events
+    .filter((e) => e.isCurrent)
+    .map((e) => api.getModel(`event/${e.id}/team/teamfee`, req.user));
+    
   let allTeams = _.flatten(teamsByEvent);
-
-  let allInvoices = [];
-
-  for (let i = 0; i < allTeams.length; i++) {
-    let t = allTeams[i];
-    if (t.members.length > 1) {
-      let invoice = yield api.getModel('invoice/teamfee', req.user, t.invoiceId);
-      // TODO: This logic is very fragile b.c. it merges together two requests
-      invoice.event = events.find(event => event.id === t.event);
-      invoice.members = t.members;
-      invoice.teamName = t.name;
-      invoice.id = t.invoiceId;
-      invoice.teamId = t.id;
-      if (invoice.payments.length) {
-        invoice.open = invoice.amount - invoice.payments.reduce((prev, curr) => {
-          return prev + curr.amount;
-        }, 0);
-      } else {
-        invoice.open = invoice.amount;
-      }
-      invoice.datesFidorIds = invoice.payments.map((payment) => `${new Date(payment.date * 1000).toLocaleDateString()} (id: ${payment.fidorId})`).join(', ');
-      allInvoices.push(invoice);
+  return allTeams.map((x) => {
+    let payed = x.invoice.payments.reduce((prev, curr) => {
+      return prev + curr.amount;
+    }, 0);
+    
+    return {
+      ...x.invoice,
+      event: events.find(event => event.id === x.team.event),
+      members: x.team.members,
+      teamName: x.team.name,
+      id: x.team.invoiceId,
+      teamId: x.team.id,
+      open: x.invoice.amount - payed,
+      datesFidorIds: x.invoice.payments.map((payment) => `${new Date(payment.date * 1000).toLocaleDateString()} (id: ${payment.fidorId})`).join(', ')
     }
-  }
-
-  return allInvoices;
+  });
 }).catch((ex) => {
   throw ex;
 });
