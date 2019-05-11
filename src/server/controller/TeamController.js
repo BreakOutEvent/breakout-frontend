@@ -242,7 +242,11 @@ TeamController.getTeamByUrl = (teamId, token) => co(function* () {
   let postings = responses[4];
   let locations = responses[5];
 
-  tempTeam.postings = postings;
+  tempTeam.postings = postings.map(p => {
+    p.teamId = tempTeam.id;
+    p.teamName = tempTeam.name;
+    return p;
+  });
 
   tempTeam.event = events
     .filter((event) => event.id === tempTeam.event)
