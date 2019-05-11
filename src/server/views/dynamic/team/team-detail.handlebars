@@ -82,7 +82,7 @@
                                         <div class="bo-card-profilePic"
                                              style="background-image: url(
                                                  {{#if user.profilePic.url}}
-                                                     {{user.profilePic.url}}
+                                                    {{transform 'c_fill,g_faces,h_400,w_400' user.profilePic.url}}
                                                  {{else}}
                                                  '../img/placeholder_profile_pic.jpg'
                                                  {{/if}});"></div>
