@@ -2,7 +2,8 @@
 module.exports = {
     "env": {
         "es6": true,
-        "node": true
+        "node": true,
+        "jquery": true
     },
     "extends": "eslint:recommended",
     "rules": {
