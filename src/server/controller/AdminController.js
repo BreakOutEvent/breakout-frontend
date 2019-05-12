@@ -247,8 +247,7 @@ admin.getInvoices = (req) => co(function*() {
       return prev + curr.amount;
     }, 0);
     
-    return {
-      ...x.invoice,
+    return Object.assign({}, x.invoice, {
       event: events.find(event => event.id === x.team.event),
       members: x.team.members,
       teamName: x.team.name,
@@ -256,7 +255,7 @@ admin.getInvoices = (req) => co(function*() {
       teamId: x.team.id,
       open: x.invoice.amount - payed,
       datesFidorIds: x.invoice.payments.map((payment) => `${new Date(payment.date * 1000).toLocaleDateString()} (id: ${payment.fidorId})`).join(', ')
-    }
+    });
   });
 }).catch((ex) => {
   throw ex;
