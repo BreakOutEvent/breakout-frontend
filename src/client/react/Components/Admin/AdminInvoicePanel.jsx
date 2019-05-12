@@ -133,7 +133,7 @@ export default class AdminInvoicePanel extends React.Component {
   }
 
   onSearch(query) {
-    this.setState({ isLoading: true })
+    this.setState({ isLoading: true });
     this.props.api.searchInvoices(query)
       .then(data => this.setState({ data, isLoading: false }))
       .catch(err => this.setState({ error: err, isLoading: false }));
