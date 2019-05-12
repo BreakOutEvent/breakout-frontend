@@ -1,6 +1,7 @@
 import React from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import filterFactory, {selectFilter, textFilter} from 'react-bootstrap-table2-filter';
+import InvoiceFilterSearchForm from './InvoiceFilterSearchForm.jsx';
 
 const customTextFilter = textFilter({
   delay: 1,
@@ -125,65 +126,20 @@ export default class AdminInvoicePanel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      isLoading: false,
       data: [],
       events: []
     };
   }
 
-  componentDidMount() {
-    this.props.api.getAllEvents()
-      .then(events => this.setState({events: events}))
-      .catch(err => this.setState({error: err}));
-  }
-
-  applySearch(row) {
-    const searchTerm = this.state.searchTerm;
-    if (!searchTerm) {
-      return true;
-    }
-
-    const searchString = [
-      row.sponsor.firstname,
-      row.sponsor.lastname,
-      row.sponsor.address.street,
-      row.sponsor.address.housenumber,
-      row.sponsor.address.city,
-      row.sponsor.address.country,
-      row.sponsor.lastname,
-      row.purposeOfTransfer,
-      row.sponsor.company,
-      row.sponsor.url,
-      row.amount.toString(),
-      row.payed.toString()
-    ];
-
-    return searchString.join(' ').toLowerCase().includes(searchTerm.toLowerCase());
-  }
-
-  onSearch(event) {
-    const searchTerm = event.target.value;
-    this.setState({searchTerm});
-  }
-
-  onEventSelected(event) {
-    // HTMLOptionsCollection is only array like so we make it an array
-    const options = Array.apply(null, event.target.options);
-    this.setState({
-      data: []
-    });
-
-    options.filter(option => option.selected)
-      .map(option => this.fetchInvoicesForEvent(option.value));
-  }
-
-  fetchInvoicesForEvent(eventId) {
-    this.props.api.fetchInvoicesForEvent(eventId, true)
-      .then(newData => this.setState({data: [...this.state.data, ...newData]}))
-      .catch(err => this.setState({error: err}));
+  onSearch(query) {
+    this.setState({ isLoading: true });
+    this.props.api.searchInvoices(query)
+      .then(data => this.setState({ data, isLoading: false }))
+      .catch(err => this.setState({ error: err, isLoading: false }));
   }
 
   render() {
-
     let selectedInvoice;
     if (this.state.data && this.state.selectedInvoiceId) {
       selectedInvoice = this.state.data.filter(invoice => invoice.id === this.state.selectedInvoiceId)[0];
@@ -203,29 +159,17 @@ export default class AdminInvoicePanel extends React.Component {
     const columns = [{
       dataField: 'sponsor',
       text: 'Name',
-      formatter: sponsorFormatter,
-      filter: customTextFilter,
+      formatter: sponsorFormatter
     }, {
       dataField: 'type',
-      text: 'Art',
-      filter: selectFilter({
-        options: {
-          'DONOR': 'DONOR',
-          'ACTIVE': 'ACTIVE',
-          'PASSIVE': 'PASSIVE'
-        }
-      })
+      text: 'Art'
     }, {
       dataField: 'amount',
       text: 'Spenden versprechen', // There is this ugly space in there for now to allow this to break line
       formatter: euroFormatter,
-      filter: customTextFilter,
-      sort: 'true'
     }, {
       dataField: 'payed',
-      text: 'Bereits bezahlt',
-      formatter: euroFormatter,
-      filter: customTextFilter
+      text: 'Bereits bezahlt'
     }];
 
     if (this.state.error) {
@@ -233,24 +177,12 @@ export default class AdminInvoicePanel extends React.Component {
     } else {
       return (
         <div>
-          <div className="panel panel-default">
-            <div className="panel-heading" style={{display: 'flex'}}>
-              <input type="text"
-                     className="form-control"
-                     placeholder="Suche"
-                     style={{borderRadius: '20px', border: '1px solid rgba(180,180,180)', marginRight: 30}}
-                     onChange={this.onSearch.bind(this)}/>
-              <select className="selectpicker" onChange={this.onEventSelected.bind(this)}>
-                {this.state.events.map(event => <option key={event.id} value={event.id}>{event.title}</option>)}
-              </select>
-            </div>
-          </div>
-
+          <InvoiceFilterSearchForm onSearch={this.onSearch.bind(this)} api={this.props.api} isLoading={this.state.isLoading}/>
           <div style={{display: 'flex'}}>
             <div style={{flex: 1, marginRight: '10px'}}>
                 <BootstrapTable
                   keyField="id"
-                  data={this.state.data.filter(this.applySearch.bind(this))}
+                  data={this.state.data}
                   columns={columns}
                   filter={filterFactory()}
                   selectRow={selectRow}
