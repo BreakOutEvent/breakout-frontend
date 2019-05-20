@@ -31,7 +31,8 @@ export default class SponsorSettings extends React.Component {
           country: me.sponsor.address.country,
           supporterType: me.sponsor.supporterType,
           company: me.sponsor.company,
-          url: me.sponsor.url
+          url: me.sponsor.url,
+          hidden: me.sponsor.hidden
         }
       });})
       .catch(this.onGetMeError.bind(this));
@@ -67,6 +68,7 @@ export default class SponsorSettings extends React.Component {
         firstname: formData.firstname,
         lastname: formData.lastname,
         sponsor: {
+          hidden: formData.hidden,
           company: formData.company,
           url: formData.url,
           supporterType: formData.supporterType,
@@ -150,6 +152,10 @@ export default class SponsorSettings extends React.Component {
             t('supporterData.donor.title'),
             t('supporterData.passive.title'),
             t('supporterData.active.title')],
+        },
+        hidden: {
+          type: 'boolean',
+          title: t('hidden')
         }
       },
       required: ['supporterType', 'firstname', 'lastname', 'street', 'housenumber', 'postcode', 'city', 'country'],

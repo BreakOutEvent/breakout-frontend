@@ -34,6 +34,7 @@ module.exports = {
       "continue": "Weiter",
       "back": "Zurück",
       "save": "Speichern",
+      "hidden": "Sponsoring verstecken",
       "accept_tos": "Hiermit akzeptiere ich die <a href='sponsor-tos' target='_blank'>Teilnahmebedingungen</a> für Teamunterstützer",
       "is_18": "Ich bin mindestens 18 Jahre alt",
       "supporterData": {

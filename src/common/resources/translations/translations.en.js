@@ -37,6 +37,7 @@ module.exports = {
       "continue": "Next",
       "back": "Back",
       "save": "Save",
+      "hidden": "Hide Sponsoring",
       "accept_tos": "I hereby accept the <a href='sponsor-tos' target='_blank'>terms of service</a> for team supporters",
       "is_18": "I am at least 18 years old",
       "supporterData": {
