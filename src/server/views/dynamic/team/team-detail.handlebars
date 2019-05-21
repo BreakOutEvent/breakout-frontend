@@ -44,6 +44,35 @@
 
             <div class="row" id="teamPosts">
                 {{#if isUserOfTeam}}
+                    {{#if teamFee}}
+                        <div class="col-lg-6 col-sm-12 bo-team-post">
+                            <div class=" bo-team-card">
+                                <div class="bo-card-content">
+                                    <span class="bo-card-info-headline" style="text-align: center">🎉🎉🎉</span>
+                                    <span class="bo-card-info-headline" style="text-align: center">{{__ 'TEAM_FEE_HEADING'}}</span>
+                                    <br>
+                                    <p>{{__ 'TEAM_FEE_DESCRIPTION'}}</p>
+                                    <br>
+                                    <p>{{__ 'TEAM_FEE_TRANSFER_INFO_HEADING'}}</p>
+                                    <p>
+                                        <b>{{__ 'OWNER'}}:</b> BreakOut e.V.
+                                    </p>
+                                    <p>
+                                        <b>IBAN:</b> DE85 7002 2200 0020 2418 37
+                                    </p>
+                                    <p>
+                                        <b>BIC:</b> FDDODEMMXXX
+                                    </p>
+                                    <p>
+                                        <b>{{__ 'PURPOSE'}}</b> {{teamFee.purposeOfTransfer}}
+                                    </p>
+                                    <p>
+                                        <b>{{__ 'AMOUNT'}}: </b> 60.00€
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    {{/if}}
                     <div class="col-lg-6 col-sm-12 bo-team-post">
                         <form id="newPost">
                             <div class=" bo-team-card">
@@ -53,7 +82,7 @@
                                         <div class="bo-card-profilePic"
                                              style="background-image: url(
                                                  {{#if user.profilePic.url}}
-                                                     {{user.profilePic.url}}
+                                                    {{transform 'c_fill,g_faces,h_400,w_400' user.profilePic.url}}
                                                  {{else}}
                                                  '../img/placeholder_profile_pic.jpg'
                                                  {{/if}});"></div>

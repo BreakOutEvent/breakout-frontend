@@ -63,11 +63,16 @@ admin.showDashboardPayment = function*(req, res) {
 admin.showDashboardCheckin = function*(req, res) {
   let options = defaultOptions(req);
   options.view = 'admin-checkin';
-  options.data = yield admin.getAllTeams(req);
+  options.data = yield admin.getAllCurrentTeams(req);
   res.render('static/admin/dashboard', options);
 };
 
 admin.showOverview = function*(req, res) {
+
+  if (!req.query.sortBy) {
+    req.query.sortBy = 'lastContact';
+    req.query.direction = 'up';
+  }
 
   function compare(a,b) {
     if(a[req.query.sortBy]){
@@ -92,22 +97,19 @@ admin.showOverview = function*(req, res) {
   options.view = 'admin-teamoverview';                 // TODO: .then should be moved to api layer
   options.data = yield api.getTeamOverview(getAccessTokenFromRequest(req)).then(resp => resp.data);
 
-  let defaultValue;
-  if(req.query.direction) {
-    if(req.query.direction === 'up') {
-      defaultValue = Number.MAX_VALUE;
-    } else if (req.query.direction === 'down') {
-      defaultValue = 0;
-    } else {
-      throw new Error('invalid sort criteria '+req.query.direction);
-    }
-  } else {
-    defaultValue = 0;
-    req.query.direction = 'up';
-  }
+  let callReasons = [
+    'Technical Problem',
+    '5h Update',
+    'New Transport',
+    'Finished BreakOut',
+    'Sickness',
+    'Emergency',
+    'Other'
+  ];
 
   options.data = options.data.map(function(team){
     team.lastContact = {};
+    team.callReasons = callReasons;
 
     let validInfo = [team.lastContactWithHeadquarters, team.lastPosting, team.lastLocation].filter(function(elem){
       return elem;
@@ -121,24 +123,23 @@ admin.showOverview = function*(req, res) {
 
     if(validTimestamps.length != 0){
       team.lastContact.timestamp = Math.max.apply(Math, validTimestamps);
-    }
-    else{
-      team.lastContact.timestamp = defaultValue;
+    } else {
+      team.lastContact.timestamp = null;
     }
 
     if(!team.lastContactWithHeadquarters) {
       team.lastContactWithHeadquarters = {};
-      team.lastContactWithHeadquarters.timestamp = defaultValue;
+      team.lastContactWithHeadquarters.timestamp = null;
     }
 
     if(!team.lastPosting) {
       team.lastPosting = {};
-      team.lastPosting.timestamp = defaultValue;
+      team.lastPosting.timestamp = null;
     }
 
     if(!team.lastLocation) {
       team.lastLocation = {};
-      team.lastLocation.timestamp = defaultValue;
+      team.lastLocation.timestamp = null;
     }
 
     return team;
@@ -193,11 +194,25 @@ admin.addPayment = function *(req, res) {
   }
 };
 
+admin.setTeamSleepStatus = function *(req, res) {
+  try {
+    let team = yield api.putModel(`event/${req.body.eventid}/team`, req.body.teamid, req.user, { asleep: req.body.asleep });
+    res.redirect('/admin/teamoverview/');
+  } catch (err) {
+    res.status(500);
+    logger.error(`An error occured while trying to update the last contact ${req.body.update}: `, err);
+    if (err.message) {
+      res.json({message: err.message});
+    } else {
+      res.json({message: 'An unknown error occured'});
+    }
+  }
+};
+
 admin.updateLastContact = function *(req, res) {
 
-
   try {
-    let comment = yield api.postModel(`/teamoverview/${req.body.teamid}/lastContactWithHeadquarters/`, req.user, {comment: req.body.update});
+    let comment = yield api.postModel(`teamoverview/${req.body.teamid}/lastContactWithHeadquarters/`, req.user, { comment: req.body.update, reason: req.body.reason });
     res.redirect('/admin/teamoverview/');
   } catch (err) {
     res.status(500);
@@ -222,40 +237,33 @@ admin.getAllEmailsTo = function(emailAddress) {
 admin.getInvoices = (req) => co(function*() {
   const events = yield api.getModel('event', req.user);
 
-  let teamsByEvent = yield events.map((e) => api.getModel(`event/${e.id}/team`, req.user));
+  let teamsByEvent = yield events
+    .filter((e) => e.isCurrent)
+    .map((e) => api.getModel(`event/${e.id}/team/teamfee`, req.user));
+    
   let allTeams = _.flatten(teamsByEvent);
-
-  let allInvoices = [];
-
-  for (let i = 0; i < allTeams.length; i++) {
-    let t = allTeams[i];
-    if (t.members.length > 1) {
-      let invoice = yield api.getModel('invoice/teamfee', req.user, t.invoiceId);
-      // TODO: This logic is very fragile b.c. it merges together two requests
-      invoice.event = events.find(event => event.id === t.event);
-      invoice.members = t.members;
-      invoice.teamName = t.name;
-      invoice.id = t.invoiceId;
-      invoice.teamId = t.id;
-      if (invoice.payments.length) {
-        invoice.open = invoice.amount - invoice.payments.reduce((prev, curr) => {
-          return prev + curr.amount;
-        }, 0);
-      } else {
-        invoice.open = invoice.amount;
-      }
-      invoice.datesFidorIds = invoice.payments.map((payment) => `${new Date(payment.date * 1000).toLocaleDateString()} (id: ${payment.fidorId})`).join(', ');
-      allInvoices.push(invoice);
-    }
-  }
-
-  return allInvoices;
+  return allTeams.map((x) => {
+    let payed = x.invoice.payments.reduce((prev, curr) => {
+      return prev + curr.amount;
+    }, 0);
+    
+    return Object.assign({}, x.invoice, {
+      event: events.find(event => event.id === x.team.event),
+      members: x.team.members,
+      teamName: x.team.name,
+      id: x.team.invoiceId,
+      teamId: x.team.id,
+      open: x.invoice.amount - payed,
+      datesFidorIds: x.invoice.payments.map((payment) => `${new Date(payment.date * 1000).toLocaleDateString()} (id: ${payment.fidorId})`).join(', ')
+    });
+  });
 }).catch((ex) => {
   throw ex;
 });
 
-admin.getAllTeams = function () {
+admin.getAllCurrentTeams = function () {
   return Promise.resolve(api.event.all())
+    .filter(event => event.isCurrent)
     .map(event => api.team.getAllByEvent(event.id))
     .reduce((a, b) => a.concat(b), [])
     .filter(team => team.hasFullyPaid);

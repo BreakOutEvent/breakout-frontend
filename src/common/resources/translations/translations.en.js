@@ -42,6 +42,7 @@ module.exports = {
       "back": "Back",
       "save": "Save",
       "saved": "Information was saved.",
+      "hidden": "Hide Sponsoring",
       "accept_tos": "I hereby accept the <a href='sponsor-tos' target='_blank'>terms of service</a> for team supporters",
       "is_18": "I am at least 18 years old",
       "donate_as": "You donate as",
@@ -52,7 +53,7 @@ module.exports = {
         "selectionLabel": "Type of support",
         "donor": {
           "title": "Donor",
-          "description": "As donor 100% of your donation will be transferred to Zeltschule e.V. and you " +
+          "description": "As donor 100% of your donation will be transferred to Zeltschule e. V. and you " +
           "will get a receipt or a (simplified) proof of donation from BreakOut e.V."
         },
         "passive": {
@@ -212,7 +213,7 @@ module.exports = {
     },
     "join_team_success": {
       "title": "Team sucessfully joined",
-      "description": "You and your team partner have sucessfully registered for BreakOut 2019! Please transfer the participation fee with the aforementioned purpose before 16th of May.",
+      "description": "You and your team partner have sucessfully registered for BreakOut 2019! Please transfer the participation fee with the aforementioned purpose before 25th of May.",
       "loading_purpose_of_transfer": "Loading purpose of transfer...",
       "IBAN": "IBAN",
       "BIC": "BIC",
@@ -377,7 +378,7 @@ module.exports = {
     "OPTION_SHIRT_2": "Size M",
     "OPTION_SHIRT_3": "Size L",
     "OPTION_SHIRT_4": "Size XL",
-    "PAYMENT_INFO": "The payment of your participation fee (30,-€) has not yet reached us. Please transfer the amount by 16th of May to participate in the event.",
+    "PAYMENT_INFO": "The payment of your participation fee (30,-€) has not yet reached us. Please transfer the amount by 25th of May to participate in the event.",
     "BUTTON_SAVE": "Save changes",
     "BUTTON_PAY": "Pay the participation fee",
     "LABEL_SPONSORSTREET": "Street",
@@ -396,8 +397,8 @@ module.exports = {
     "ELEMENT_2": "Starter-kit",
     "ELEMENT_3": "BreakOut Hotline",
     "DESCRIPTION_2": "All of these come back to you directly or indirectly. Your safety is of utmost importance to us, that is why the BreakOut Hotline will be available throughout the entire 36 hours.",
-    "DESCRIPTION_3": "Since the idea behind BreakOut is to give donations to Zeltschule e.V., we want to make sure that every team supports this social idea. Therefore you are required to give a deposit of 20€. You will get it back after the event, if your team has generated more than 100€ in donations. Otherwise the 20€ will go directly to Zeltschule e.V. in your name. But don't worry, the goal is easily reached! <3",
-    "DESCRIPTION_4": "So the total amount per term is 60€ (20€ Registration per person + 20€ Deposit). For a succesful registration the total amount has to be transferred by 16th May 2019. Please use the <strong>mentioned purpose</strong> and the following bank account:",
+    "DESCRIPTION_3": "Since the idea behind BreakOut is to give donations to Zeltschule, we want to make sure that every team supports this social idea. Therefore you are required to give a deposit of 20€. You will get it back after the event, if your team has generated more than 100€ in donations. Otherwise the 20€ will go directly to Zeltschule e. V. in your name. But don't worry, the goal is easily reached! <3",
+    "DESCRIPTION_4": "So the total amount per term is 60€ (20€ Registration per person + 20€ Deposit). For a succesful registration the total amount has to be transferred by 25th May 2019. Please use the <strong>mentioned purpose</strong> and the following bank account:",
     "SUBHEADLINE_1": "Transfer",
     "ACCNUMBER": "IBAN",
     "BANKNUMBER": "BIC",
@@ -534,7 +535,13 @@ module.exports = {
     "WANT_TO_FULFILL_CHALLENGE": "Do you want to fulfill a challenge with this posting?",
     "NOW": "Now?",
     "SERVER_PROCESSING_REQUEST":"Medium is being processed by the server, give us a moment!",
-    "POINTS": "Points"
+    "POINTS": "Points",
+    "TEAM_FEE_HEADING": "Thank you for signing up for BreakOut!",
+    "TEAM_FEE_DESCRIPTION": "To complete your registration, please transfer your registration fee as soon as possible. We can only activate your team once we've received the registration fee. Please transfer the fee by latest May 25th so that we can equip you with a t-shirt and your starter kit.",
+    "TEAM_FEE_TRANSFER_INFO_HEADING": "Please transfer the registration fee to the following account:",
+    "OWNER": "Account owner",
+    "PURPOSE": "Purpose of transfer",
+    "AMOUNT": "Amount"
   },
   "MASTER": {
     "PARTICIPATE": "Teilnehmen",

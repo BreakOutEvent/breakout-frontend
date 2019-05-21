@@ -707,6 +707,17 @@ API.team.get = function (teamId) {
   return API.general.get(`/event/1/team/${teamId}/`);
 };
 
+API.team.getFee = function (teamId, token) {
+  let options = {
+    url: `${url}/team/${teamId}/startingfee`,
+    auth: { bearer: token.access_token }
+  };
+  
+  return new Promise((resolve, reject) => {
+    request.get(options, handleResponse(resolve, reject, 'Successfully got the Team Fee'));
+  });
+};
+
 API.team.getPostings = function (token, teamId, page) {
 
   logger.info('Getting all postings ');

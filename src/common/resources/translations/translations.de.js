@@ -42,6 +42,7 @@ module.exports = {
       "back": "Zurück",
       "save": "Speichern",
       "saved": "Informationen gespeichert",
+      "hidden": "Sponsoring verstecken",
       "accept_tos": "Hiermit akzeptiere ich die <a href='sponsor-tos' target='_blank'>Teilnahmebedingungen</a> für Teamunterstützer",
       "is_18": "Ich bin mindestens 18 Jahre alt",
       "donate_as": "Sie gelten als",
@@ -53,19 +54,20 @@ module.exports = {
         "donor": {
           "title": "Spender",
           "description": "100% des gespendeten Geldes gehen an den Zeltschule e.V. und es wird Ihnen " +
-          "vom BreakOut e.V. eine Spendenquittung oder ein (vereinfachter) Spendennachweis ausgestellt."
+          "vom BreakOut e. V. eine Spendenquittung oder ein (vereinfachter) Spendennachweis ausgestellt."
         },
         "passive": {
           "title": "Passiver Sponsor",
           "description": "Als passiver Sponsor können Sie Ihren Firmennamen sowie ein Logo auf der Website platzieren. " +
-          "Sie bekommen vom Zeltschule e.V. eine Rechnung ausgestellt, aber es wird keine Umsatzsteuer fällig. 100% des " +
-          "Betrags gehen an den Zeltschule e.V."
+          "Sie bekommen vom BreakOut e. V. eine Rechnung ausgestellt, aber es wird keine Umsatzsteuer fällig. 100% des " +
+          "Betrags gehen an den Zeltschule e. V."
         },
         "active": {
           "title": "Aktiver Sponsor",
           "description": "Als aktiver Sponsor können Sie Ihren Firmennamen, einen Link zur Firmenwebsite sowie optional " +
-          "ein Logo präsentieren. Sie bekommen vom BreakOut e.V. dann eine Rechnung ausgestellt, auf der eine " +
-          "Umsatzsteuer von 19% ausgewiesen wird. Der bezahlte Betrag, abzüglich der Umsatzsteuer, geht vollständig an den Zeltschule e.V."
+          "ein Logo hochgeladen werden. Sie bekommen vom BreakOut e. V. dann eine Rechnung ausgestellt, auf der eine " +
+          "Umsatzsteuer von 19% ausgewiesen wird. Der bezahlte Betrag, abzüglich der Umsatzsteuer, geht vollständig an " +
+          "den Zeltschule e. V."
         },
       },
       "supportAsCompany": "Als Firma unterstützen",
@@ -212,7 +214,7 @@ module.exports = {
     },
     "join_team_success": {
       "title": "Team erfolgreich beigetreten",
-      "description": "Herzlichen Glückwunsch. Du und dein Teampartner habt euch erfolgreich für BreakOut 2019 registriert. Bitte überweist nun die Teilnahmegebühr mit dem unten stehenden Verwendungszweck bis zum 16. Mai 2019.",
+      "description": "Herzlichen Glückwunsch. Du und dein Teampartner habt euch erfolgreich für BreakOut 2019 registriert. Bitte überweist nun die Teilnahmegebühr mit dem unten stehenden Verwendungszweck bis zum 25. Mai 2019.",
       "loading_purpose_of_transfer": "Euer Überweisungszweck wird geladen...",
       "IBAN": "IBAN",
       "BIC": "BIC",
@@ -377,7 +379,7 @@ module.exports = {
     "OPTION_SHIRT_2": "Größe M",
     "OPTION_SHIRT_3": "Größe L",
     "OPTION_SHIRT_4": "Größe XL",
-    "PAYMENT_INFO": "Die Zahlung Deines Eventbeitrags (30,- €) ist noch nicht bei uns eingetroffen. Bitte überweise den Betrag bis zum 16. Mai 2019, um am Event teilzunehmen.",
+    "PAYMENT_INFO": "Die Zahlung Deines Eventbeitrags (30,- €) ist noch nicht bei uns eingetroffen. Bitte überweise den Betrag bis zum 25. Mai 2019, um am Event teilzunehmen.",
     "BUTTON_SAVE": "Änderungen speichern",
     "BUTTON_PAY": "Event Beitrag bezahlen",
     "LABEL_SPONSORSTREET": "Straße",
@@ -396,8 +398,8 @@ module.exports = {
     "ELEMENT_2": "Starterkit",
     "ELEMENT_3": "BreakOut Hotline",
     "DESCRIPTION_2": "Alle diese Posten fließen direkt oder indirekt wieder an Euch zurück. Eure Sicherheit steht für uns an erster Stelle, weshalb die BreakOut Hotline die ganzen 36 Stunden für Euch erreichbar sein wird.",
-    "DESCRIPTION_3": "Da der Grundgedanke von BreakOut das Spenden an den ZeltSchule e.V. ist, möchten wir sicherstellen, dass jedes Team diesen sozialen Gedanken unterstützt. Wir erheben deshalb 20€ Kaution pro Team. Diese überweisen wir Euch nach dem Event zurück, wenn Ihr über 100€ an Spenden generiert habt. Andernfalls gehen die 20€ in Eurem Namen direkt an den ZeltSchule e.V. Aber keine Panik, das kriegt Ihr locker hin! <3",
-    "DESCRIPTION_4": "Das heißt die Gesamtkosten pro Team betragen 60,-€ (20€ Anmeldegebühr pro Person + 20€ Spendendeposit). Für eine erfolreiche Anmeldung muss der Gesamtbetrag bis zum 16. Mai 2019 überwiesen worden sein. Nutzt hierfür den <strong>angegebenen Verwendungszweck</strong> und folgende Kontoverbindung:",
+    "DESCRIPTION_3": "Da der Grundgedanke von BreakOut das Spenden an den Zeltschule e. V. ist, möchten wir sicherstellen, dass jedes Team diesen sozialen Gedanken unterstützt. Wir erheben deshalb 20€ Kaution pro Team. Diese überweisen wir Euch nach dem Event zurück, wenn Ihr über 100€ an Spenden generiert habt. Andernfalls gehen die 20€ in Eurem Namen direkt an den Zeltschule e.V. Aber keine Panik, das kriegt Ihr locker hin! <3",
+    "DESCRIPTION_4": "Das heißt die Gesamtkosten pro Team betragen 60,-€ (20€ Anmeldegebühr pro Person + 20€ Spendendeposit). Für eine erfolreiche Anmeldung muss der Gesamtbetrag bis zum 25. Mai 2019 überwiesen worden sein. Nutzt hierfür den <strong>angegebenen Verwendungszweck</strong> und folgende Kontoverbindung:",
     "SUBHEADLINE_1": "Überweisung",
     "ACCNUMBER": "IBAN",
     "BANKNUMBER": "BIC",
@@ -535,7 +537,13 @@ module.exports = {
     "WANT_TO_FULFILL_CHALLENGE": "Du willst damit eine Challenge erfüllen?",
     "NOW": "Jetzt?",
     "SERVER_PROCESSING_REQUEST":"Medium wird vom Server verarbeitet, gib uns einen kurzen Moment!",
-    "POINTS": "Punkte"
+    "POINTS": "Punkte",
+    "TEAM_FEE_HEADING": "Vielen Dank, dass Ihr Euch für den BreakOut angemeldet habt!",
+    "TEAM_FEE_DESCRIPTION": " Um Eure Anmeldung abzuschließen, müsst Ihr noch 60€ Teilnahmegebühr überweisen. Solange Ihr keine Teilnahmegebühr überwiesen habt, können wir Euer Team nicht freischalten. Bitte überweist das Geld bis spätestens 25. Mai, damit wir euch mit einem T-Shirt und Starterkit für Eure Reise ausstatten können.",
+    "TEAM_FEE_TRANSFER_INFO_HEADING": "Bitte überweist eure Teamgebühr an folgendes Konto:",
+    "OWNER": "Kontoinhaber",
+    "PURPOSE": "Verwendungszweck",
+    "AMOUNT": "Betrag"
   },
   "MASTER": {
     "PARTICIPATE": "Teilnehmen",
@@ -574,7 +582,7 @@ module.exports = {
   },
   "LIVEBLOG": {
     "HEADLINE": "Was ist BreakOut?",
-    "DESCRIPTION": "Bei BreakOut versuchen Teams von je zwei Personen innerhalb von 36 Stunden so weit wie möglich vom Ausgangspunkt (München, Berlin oder Barcelona) weg zu reisen, ohne Geld für die Fortbewegung auszugeben. Jedes Team sucht Sponsoren, die - pro Kilometer oder für die Erfüllung gestellter Aufgaben (Challenges), einen gewissen Betrag für den Zeltschule e.V. spenden.",
+    "DESCRIPTION": "Bei BreakOut versuchen Teams von je zwei Personen innerhalb von 36 Stunden so weit wie möglich vom Ausgangspunkt (München, Berlin oder Barcelona) weg zu reisen, ohne Geld für die Fortbewegung auszugeben. Jedes Team sucht Sponsoren, die - pro Kilometer oder für die Erfüllung gestellter Aufgaben (Challenges), einen gewissen Betrag für den Zeltschule e. V. spenden.",
     "TIME_H": "BreakOut Event",
     "TIME_PRE": "Bis BreakOut startet",
     "TIME_DURING": "Bis BreakOut endet",
