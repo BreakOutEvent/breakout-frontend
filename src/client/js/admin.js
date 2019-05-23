@@ -77,7 +77,6 @@ $(document).ready(() => {
         .filter(elem => elem.name === 'add-to-invoice-fidorid')[0].value;
     }
 
-
     const invoiceId = parseInt($(this).attr('data-invoice'));
 
     addPaymentToInvoice(invoiceId, amount, fidorId,
