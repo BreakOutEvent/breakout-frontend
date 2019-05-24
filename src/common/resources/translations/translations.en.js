@@ -418,6 +418,7 @@ module.exports = {
     "NO_NEW_SPONSORINGS": "At the moment it is not possible to add a sponsoring.",
     "NOTICE_MISSING_SUPPORTER_TYPE": "To manage your sponsorings, please fill in missing data in your settings: ",
     'MAXIMUM_COUNT': 'Fulfillable',
+    'MAXIMUM_COUNT_FIELD': 'How many times fulfillable?',
     'TIMES_SINGULAR': 'time',
     'TIMES_PLURAL': 'times',
     'DESCRIPTION': 'Description',
