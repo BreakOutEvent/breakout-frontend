@@ -57,9 +57,20 @@ registration.lock = function*(req, res, next) {
   const events = yield api.event.all();
   if (events.find(event => event.openForRegistration)) {
     next();
-  } else {
-    res.redirect('/closed');
+    return;
   }
+
+  const time = new Date().getTime();
+  const currentEventIds = events.filter((event) => event.date * 1000 > time).map((event) => event.id);
+  const teams = yield registration.getInvites(req);
+  const currentTeams = teams.filter((team) => currentEventIds.indexOf(team.event) >= 0);
+
+  if (currentTeams.length > 0) {
+    next();
+    return;
+  }
+
+  res.redirect('/closed');
 };
 
 /**
