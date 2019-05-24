@@ -1,5 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect
+} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import i18next from 'i18next';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import { createMuiTheme } from '@material-ui/core/styles';
+import orange from '@material-ui/core/colors/orange';
 
 import BreakoutApi from 'breakout-api-client';
 
@@ -9,27 +19,30 @@ import Participation from './Components/Participate/Participation.jsx';
 import SelectRole from './Components/SelectRole/SelectRole.jsx';
 import ResetPassword from './Components/ResetPassword/ResetPassword.jsx';
 import CreateOrJoinTeam from './Components/CreateOrJoinTeam.jsx';
-import SponsorRegistration from './Components/Sponsor/Sponsor.jsx';
-import SponsorSettings from './Components/Sponsor/Settings.jsx';
+import SponsorInformation from './Components/Sponsor/SponsorInformation.jsx';
 import {VisitorSuccess, JoinTeamSuccess, CreateTeamSuccess} from './Components/Success.jsx';
 import de from '../../common/resources/translations/translations.de';
 import en from '../../common/resources/translations/translations.en';
-import i18next from 'i18next';
 import Modal from './Components/Modal.jsx';
-import {
-  BrowserRouter as Router,
-  Route,
-  Redirect
-} from 'react-router-dom';
 
 import ReactGA from 'react-ga';
 ReactGA.initialize('UA-59857227-3');
 
 import routes from './Components/routes';
+
 import AdminInvoicePanel from './Components/Admin/AdminInvoicePanel.jsx';
-import {MuiThemeProvider} from 'material-ui';
+import AddChallenge from './Components/TeamProfile/AddChallenge.jsx';
 import ListOfChallenges from './Components/TeamProfile/ListOfChallenges.jsx';
-import PropTypes from 'prop-types';
+import ListOfSponsors from './Components/TeamProfile/ListOfSponsors.jsx';
+
+const breakoutTheme = () => createMuiTheme({
+  palette: {
+    primary: orange,
+  },
+  typography: {
+    useNextVariants: true
+  }
+});
 
 const OnShowHack = (props) => {
   if (props.overflowHidden) {
@@ -44,6 +57,23 @@ const OnShowHack = (props) => {
 
   return null;
 };
+
+const SponsorRegistration = (props) => (<SponsorInformation
+  {...props} onSuccess={()=>window.location.href=routes.sponsorings}
+/>);
+
+i18next.init({
+  lng: window.getBoUserLang(),
+  fallbackLng: 'en',
+  resources: {
+    de: {
+      translation: de
+    },
+    en: {
+      translation: en
+    }
+  }
+});
 
 class App extends React.Component {
 
@@ -60,18 +90,7 @@ class App extends React.Component {
 
   componentWillMount() {
 
-    i18next.init({
-      lng: window.getBoUserLang(),
-      fallbackLng: 'en',
-      resources: {
-        de: {
-          translation: de
-        },
-        en: {
-          translation: en
-        }
-      }
-    });
+
 
     const url = window.boClientConfig.baseUrl;
     const clientId = window.boClientConfig.clientId;
@@ -111,7 +130,7 @@ class App extends React.Component {
              onHide={this.onHide.bind(this)}
              modalClassName={'modal-size-' + size + ' react-modal'}>
         <OnShowHack overflowHidden={true}></OnShowHack>
-        <MuiThemeProvider>
+        <MuiThemeProvider theme={breakoutTheme()}>
           <Comp {...props} api={this.state.api} i18next={this.state.i18next}
               isLoggedIn={!!window.boUserData}/>
         </MuiThemeProvider>
@@ -123,7 +142,7 @@ class App extends React.Component {
     return (props) => (
       <div>
         <OnShowHack ></OnShowHack>
-        <MuiThemeProvider>
+        <MuiThemeProvider theme={breakoutTheme()}>
           <Comp {...props} api={this.state.api} i18next={this.state.i18next}
                 isLoggedIn={!!window.boUserData}/>
         </MuiThemeProvider>
@@ -134,7 +153,7 @@ class App extends React.Component {
   render() {
 
     const RedirectRegistrationLock = (props) => {
-      const render = (componentProps) => {
+      const render = () => {
         window.location.href = '/closed';
       };
       let propsCopy = Object.assign({}, props);
@@ -215,7 +234,7 @@ class App extends React.Component {
                         component={this.showModalFor(CreateTeamSuccess, 's')}/>
 
           <PrivateRoute exact path={routes.profileSettings}
-                        component={this.showComponent(SponsorSettings)}/>
+                        component={this.showComponent(SponsorInformation)}/>
 
         </div>
       </Router>);
@@ -254,7 +273,7 @@ class App extends React.Component {
                           component={this.showModalFor(CreateTeamSuccess, 's')}/>
 
             <PrivateRoute exact path={routes.profileSettings}
-                          component={this.showComponent(SponsorSettings)}/>
+                          component={this.showComponent(SponsorInformation)}/>
 
           </div>
         </Router>
@@ -270,7 +289,8 @@ App.propTypes = {
 const url = window.boClientConfig.baseUrl;
 const clientId = window.boClientConfig.clientId;
 const clientSecret = window.boClientConfig.clientSecret;
-const api = new BreakoutApi(url, clientId, clientSecret);
+const cloudinaryConfig = window.boCloudinaryConfig;
+const api = new BreakoutApi(url, clientId, clientSecret, cloudinaryConfig.cloud_name, cloudinaryConfig.api_key);
 
 const isLoggedIn = window.boUserData;
 
@@ -283,7 +303,7 @@ function renderIfExists(elem, domId) {
   if (domNode) {
     ReactDOM.render(elem, domNode);
   } else {
-    console.warn(`Not rendering react component because node with id ${domId} does not exist`);
+    console.debug(`Not rendering react component because node with id ${domId} does not exist`);
   }
 }
 
@@ -292,22 +312,54 @@ class StatefulListOfChallenges extends React.Component {
     super(props);
     this.teamId = window.teamId;
     this.state = {challenges: [], error: null};
+    this.update = this.update.bind(this);
+  }
+
+  componentWillMount() {
+    this.setState({i18next: i18next});
   }
 
   componentDidMount() {
     this.props.api.fetchChallengesForTeam(this.teamId)
-      .then(challenges => this.setState({challenges}))
+      .then(challenges => this.setState({
+        challenges: challenges.sort((a,b)=>b.id-a.id)}
+      ))
       .catch(error => this.setState({error}));
   }
+
+  update(sponsorId) {
+    this.props.api.fetchChallengesForTeam(this.teamId)
+      .then(challenges => {
+        let sortedByNewest = challenges.sort((a,b)=>b.id-a.id);
+        let sortedByNewestAndUser = sortedByNewest.filter(challenge=>challenge.sponsor.sponsorId===sponsorId);
+        let allChallengesFromOthers = sortedByNewest.filter(challenge=>challenge.sponsor.sponsorId!==sponsorId);
+        sortedByNewestAndUser.push(...allChallengesFromOthers);
+        this.setState({
+          challenges: sortedByNewestAndUser
+        });
+      })
+      .catch(error => this.setState({error}));
+  }
+
 
   render() {
     if (this.state.error) {
       return <div className="alert alert-warning">Something went wrong when loading challenges</div>;
     }
-    return <ListOfChallenges challenges={this.state.challenges}/>;
+    return <div>
+      <AddChallenge isLoggedIn={!!window.boUserData} api={api} teamId={this.teamId} update={this.update}
+                    i18next={i18next}/>
+      <ListOfChallenges challenges={this.state.challenges}/>
+    </div>;
   }
 }
 
-renderIfExists(<MuiThemeProvider><AdminInvoicePanel api={api}/></MuiThemeProvider>, 'react-admin-invoice');
+StatefulListOfChallenges.propTypes = {
+  api: PropTypes.object.isRequired,
+};
+
+renderIfExists(<MuiThemeProvider theme={breakoutTheme()}><AdminInvoicePanel api={api}/></MuiThemeProvider>, 'react-admin-invoice');
 renderIfExists(<App/>, 'react-root');
-renderIfExists(<MuiThemeProvider><StatefulListOfChallenges api={api}/></MuiThemeProvider>, 'react-challenge-list-root');
+renderIfExists(<MuiThemeProvider theme={breakoutTheme()}><StatefulListOfChallenges api={api}/></MuiThemeProvider>, 'react-challenge-list-root');
+renderIfExists(<MuiThemeProvider theme={breakoutTheme()}><ListOfSponsors api={api} teamId={window.teamId && window.teamId}
+  i18next={i18next}  /></MuiThemeProvider>, 'react-sponsoring-list-root');

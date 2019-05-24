@@ -1,14 +1,39 @@
 import React from 'react';
-import {FontIcon, Paper} from 'material-ui';
-import _ from 'lodash';
+import PropTypes from 'prop-types';
+import {Icon, Paper} from '@material-ui/core';
+
+import SponsorPresentation from './SponsorPresentation.jsx';
+
+export const styleChallenge = color => ({
+  top: {
+    display: 'flex',
+    borderBottom: '1px solid #cbcbcb',
+    alignItems: 'center',
+    minHeight: 60,
+  },
+  icon: {
+    marginRight: 20,
+    marginLeft: 20,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color
+  },
+  description: {
+    wordBreak: 'break-word',
+    color
+  },
+});
 
 const ListOfChallenges = (props) => {
 
   const renderChallenge = (challenge) => (
-    <div style={{marginBottom: 20}}><ChallengeListItem {...challenge} /></div>
+    <div key={challenge.id} style={{marginBottom: 20}}><ChallengeListItem {...challenge} /></div>
   );
+
   const challenges = props.challenges
-    .filter(challenge => challenge.status === 'WITH_PROOF' || challenge.status === 'PROPOSED')
+    .filter(challenge => challenge.status === 'WITH_PROOF' || challenge.status === 'ACCEPTED' || challenge.status === 'PROPOSED')
     .map(renderChallenge);
 
   return (
@@ -18,63 +43,15 @@ const ListOfChallenges = (props) => {
   );
 };
 
+ListOfChallenges.propTypes = {
+  challenges: PropTypes.array,
+};
+
 const ChallengeListItem = (props) => {
-  const url = _.get(props, 'sponsor.logoUrl', '');
-
   const color = (props.status === 'WITH_PROOF') ? ' green' : 'black';
-  const icon = (props.status === 'WITH_PROOF') ? 'check' : '';
+  const style = styleChallenge(color);
 
-  const style = {
-    top: {
-      display: 'flex',
-      borderBottom: '1px solid #cbcbcb',
-      padding: 10,
-      alignItems: 'center',
-      minHeight: 80
-    },
-    icon: {
-      marginRight: 20,
-      marginLeft: 20,
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      color
-    },
-    description: {
-      wordBreak: 'break-word',
-      color
-    },
-    bottom: {
-      fontSize: 'small',
-      backgroundColor: '#F5F5F5',
-      padding: 10,
-      height: 50,
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center'
-    },
-    sponsor: {
-      flexBasis: '60%'
-    },
-    logo: {
-      display: 'flex',
-      justifyContent: 'flex-end',
-      flexGrow: 2
-    },
-    image: {
-      maxHeight: '50px',
-      maxWidth: '100%',
-      objectFit: 'contain'
-    }
-  };
-
-  const name = `${props.sponsor.firstname} ${props.sponsor.lastname}`;
-  const company = props.sponsor.url
-    ? <a href={props.sponsor.url}>{props.sponsor.company}</a>
-    : props.sponsor.url;
-
-  var counterDescription;
+  let counterDescription;
   switch (props.maximumCount) {
     case 1:
       counterDescription = '';
@@ -88,25 +65,28 @@ const ChallengeListItem = (props) => {
   }
 
   return (
-    <Paper zDepth={1}>
+    <Paper>
       <div style={style.top}>
         <div style={style.icon}>
           {props.amount}€
-          <FontIcon className='material-icons' style={{color}}>{icon}</FontIcon>
+          {(props.status === 'WITH_PROOF') && <Icon style={{color}}>check</Icon>}
         </div>
         <div style={style.description}>{props.description} {counterDescription}</div>
       </div>
-      <div style={style.bottom}>
-        <div style={style.sponsor}>
-          {name}<br/>
-          {company}
-        </div>
-        <div style={style.logo}>
-          <img src={url} style={style.image}/>
-        </div>
-      </div>
+      <SponsorPresentation {...props.sponsor} />
     </Paper>
   );
 };
+
+ChallengeListItem.propTypes = {
+  sponsor: PropTypes.object.isRequired,
+  description: PropTypes.string.isRequired,
+  status: PropTypes.string,
+  maximumCount: PropTypes.number,
+  fulfilledCount: PropTypes.number,
+  amount: PropTypes.number.isRequired,
+};
+
+
 
 export default ListOfChallenges;

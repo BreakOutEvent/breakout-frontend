@@ -2,9 +2,12 @@
 module.exports = {
   "client": {
     "login": {
+      "title_login_register": "Account",
       "enter_email_or_password": "Please enter your email and password",
       "button_login_headline": "Login",
       "button_registration_headline": "Create Account",
+      "button_cancel": "Cancel",
+      "button_continue": "Continue",
       "email_label": "Email Address",
       "email_placeholder": "Please enter your email address",
       "password_label": "Password",
@@ -13,6 +16,7 @@ module.exports = {
       "button_login_text": "Login",
       "button_register_text": "Register",
       "error_login": "Wrong email address or password",
+      "wrong_password": "Wrong password",
       "registration_error_bad_request": "Enter a valid email address",
       "repeat_password_label": "Repeat password",
       "registration_error_exists": "An account with this email address already exists",
@@ -20,11 +24,10 @@ module.exports = {
       "request_reset_not_registered": "This email address does not exist",
       "request_reset_enter_email": "Please enter a valid email address"
     },
-    "registration": {
-      "passwords_dont_match": "The passwords you entered did not match"
-    },
     "sponsor": {
       "title": "Register as supporter",
+      "titleEdit": "Supporter profile",
+      "profileNote": "Already proposed donations will be updated. The address is not displayed publicly.",
       "isLoadingMe": "Loading data",
       "personalData": "Personal data",
       "firstname": "First name",
@@ -34,12 +37,15 @@ module.exports = {
       "postcode": "Postal code",
       "city": "City",
       "country": "State",
+      "cancel": "Abbrechen",
       "continue": "Next",
       "back": "Back",
       "save": "Save",
-      "hidden": "Hide Sponsoring",
+      "saved": "Information was saved.",
+      "hidden": "Support anonymously",
       "accept_tos": "I hereby accept the <a href='sponsor-tos' target='_blank'>terms of service</a> for team supporters",
       "is_18": "I am at least 18 years old",
+      "donate_as": "You donate as",
       "supporterData": {
         "title": "Supporter data",
         "selectionText": "You can choose which type of supporter you will be in order to support our partner" +
@@ -63,11 +69,52 @@ module.exports = {
           "remaining donation will be transferred to Zeltschule e.V."
         },
       },
+      "supportAsCompany": "Support as company",
       "company": "Company",
       "logo": "Logo",
+      "uploadLogo": "Upload logo",
+      "errorNoImage": "Please select an image file",
       "url": "Website",
       "finishTitle": "Done",
-      "finishContent": "Thank you for registering as a supporter. Here you can record your sponsorings: "
+      "finishContent": "Thank you for registering as a supporter. Here you can record your sponsorings: ",
+      "addChallenge": {
+        "title": "Challenge team",
+        "description": "Challenge",
+        "options": "Options",
+        "submit": "Submit",
+        "success": "Challenge was added",
+        "suggestions": {
+          "0": 'Get a lift by the police in their car and do a selfie',
+          "1": 'Hitchhike a part of your journey in underwear',
+          "2": 'Kiss a random stranger on the street',
+          "3": 'Get refreshed and jump into a public fountain',
+          "4": 'Find an instrument and play for other people',
+          "5": 'Send me a postcard from the most beautiful place of your trip',
+          "6": 'Hitchhike with the garbage collection',
+          "7": 'Find two people abroad to do the sun salutation together'
+        },
+        "fulfillable": "Fulfillable",
+        "times": "X",
+      },
+      "addSponsoring": {
+        "title": "Donate per distance",
+        "amount": "Amount per KM",
+        "limit": "Maximum",
+        "options": "Options",
+        "submit": "Submit",
+        "success": "Donation per KM was added",
+        "privacyNote": "Amounts are not public"
+      }
+    },
+    "registration": {
+      "passwords_dont_match": "The passwords need to correspond",
+      "under_min_pw_length": "The password is too short",
+      "repeat_password": "Repear password",
+      "accept": "I accept the",
+      "privacy": "privacy policy",
+      "sponsor_tos": "terms and conditions",
+      "accept_privacy": "Please accept the privacy policy",
+      "accept_sponsor_tos": "Please accept the terms and conditions"
     },
     "register": {
       "description": "Create an account on break-out.org. With it, you can interact with posts of participants, become a participant yourself or support a team as their sponsor. Great having you on board!",
@@ -497,7 +544,7 @@ module.exports = {
     "AMOUNT": "Amount"
   },
   "MASTER": {
-    "BACK_TO_REGISTER": "Select role",
+    "PARTICIPATE": "Teilnehmen",
     "LIVE_BLOG": "Live Blog",
     "LIVE_BLOG_LINK": "/live",
     "ABOUT": "About BreakOut",

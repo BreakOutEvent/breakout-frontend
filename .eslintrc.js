@@ -26,5 +26,11 @@ module.exports = {
       "ROOT": true,
       "IS_TEST": true,
       "HBS": true
-    }
+    },
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "ecmaFeatures": {
+        "experimentalObjectRestSpread": true
+      }
+    },
 }

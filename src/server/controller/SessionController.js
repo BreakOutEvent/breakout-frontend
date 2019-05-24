@@ -19,7 +19,7 @@ let ses = {};
 ses.refreshSession = (req, res, next) => co(function*() {
 
   if (!req.user) {
-    next();
+    if (next) next();
   } else {
     const session = yield passport.createSession(req.user.email, req.user);
 
