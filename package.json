@@ -36,7 +36,7 @@
     "body-parser": "^1.18.3",
     "bootstrap": "^3.4.1",
     "bootstrap-select": "^1.13.6",
-    "breakout-api-client": "^0.15.2",
+    "breakout-api-client": "^0.16.1",
     "bunyan": "^1.8.0",
     "cloudinary": "^1.13.2",
     "co": "^4.6.0",

@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import i18next from 'i18next';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import { createMuiTheme } from '@material-ui/core/styles';
-import orange from '@material-ui/core/colors/red';
+import orange from '@material-ui/core/colors/orange';
 
 import BreakoutApi from 'breakout-api-client';
 
@@ -303,7 +303,7 @@ function renderIfExists(elem, domId) {
   if (domNode) {
     ReactDOM.render(elem, domNode);
   } else {
-    // console.warn(`Not rendering react component because node with id ${domId} does not exist`);
+    console.debug(`Not rendering react component because node with id ${domId} does not exist`);
   }
 }
 

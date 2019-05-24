@@ -113,13 +113,16 @@ class SponsorInformation extends React.Component {
         firstname: me.firstname,
         lastname: me.lastname,
         sponsor: {
+          hidden: me.sponsor.hidden,
           supporterType: me.sponsor.supporterType,
           company: me.sponsor.company,
-          logo: me.sponsor.logo,
-          url: (me.sponsor.url ? me.sponsor.url : null),
+          logo: (me.sponsor.logo ? me.sponsor.logo : undefined),
+          url: (me.sponsor.url ? me.sponsor.url : undefined),
           address: me.sponsor.address
         }
       });
+      if (!me.sponsor.logo) await this.props.api.removeUserLogo(me.id);
+      if (!me.sponsor.url) await this.props.api.removeSponsorUrl(me.id);
       if (!updatedMe) throw new Error('Information update failed!');
       if(this.props.onSuccess) this.props.onSuccess();
       this.setState({isSaving: false, saved: true});
@@ -186,6 +189,20 @@ class SponsorInformation extends React.Component {
                 this.setState(state => ({me: {...state.me, lastname: event.target.value}}));
               }}
             /><br />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={!!this.state.me.sponsor.hidden}
+                  onChange={e => {
+                    e.persist();
+                    this.setState(state => ({me: {...state.me, sponsor: {
+                      ...state.me.sponsor, hidden: e.target.checked
+                    }}}));
+                  }}
+                  color="primary"
+                />}
+              label={this.t('hidden')}
+              />
             <FormControlLabel
               control={
             <Checkbox
@@ -264,7 +281,7 @@ class SponsorInformation extends React.Component {
               {logo && logo.url && <img src={logo.url} style={styles.logoPreview} />}
               {logo && <IconButton onClick={event => {
                 event.persist();
-                this.setState(state => ({me: {...state.me, sponsor: {...state.me.sponsor, logo: null}}}));
+                this.setState(state => ({me: {...state.me, sponsor: {...state.me.sponsor, logo: 'DELETE'}}}));
               }} aria-label="Delete">
                 <Delete fontSize="small" />
               </IconButton>}
