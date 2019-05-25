@@ -467,6 +467,7 @@ module.exports = {
     'NOTICE_MISSING_SUPPORTER_TYPE': 'Um Sponsorings einzutragen, ergänze zunächst fehlende Informationen: ',
     'PROFILE_SETTINGS_LABEL': 'Profileinstellungen',
     'MAXIMUM_COUNT': 'Erfüllbar',
+    'MAXIMUM_COUNT_FIELD': 'Wie oft erfüllbar?',
     'TIMES_SINGULAR': 'mal',
     'TIMES_PLURAL': 'mal',
     'DESCRIPTION': 'Beschreibung',
