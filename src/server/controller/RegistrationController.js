@@ -334,7 +334,7 @@ registration.getInvites = (req) => co(function*() {
 
 registration.getOpenEvents = (req) => co(function*() {
   logger.info('Trying to get events that are open for', req.user);
-  return yield api.getModel(`/me/event/open/`, req.user);
+  return yield api.getModel('/me/event/open/', req.user);
 }).catch(ex => {
   throw ex;
 });
