@@ -98,23 +98,25 @@ class App extends React.Component {
     const cloudinaryConfig = window.boCloudinaryConfig;
     const api = new BreakoutApi(url, clientId, clientSecret, cloudinaryConfig.cloud_name, cloudinaryConfig.api_key);
 
-    this.requestOpenRegistration(api);
-
     const isLoggedIn = window.boUserData;
 
     if (isLoggedIn) {
       api.setAccessToken(window.boUserData.access_token);
     }
 
+    this.requestOpenRegistration(api);
+
     this.setState({i18next: i18next, api: api});
   }
 
   async requestOpenRegistration(api) {
-    const events = await api.getAllEvents();
+    const events = await api.getAllOpenEvents();
+
+    console.log(events);
 
     this.setState({
       isRequestingOpenRegistration: false,
-      isRegistrationOpen: events.find(event => event.openForRegistration),
+      isRegistrationOpen: events.length > 0,
       isSponsoringOpen: events.find(event => event.allowNewSponsoring)
     });
   }

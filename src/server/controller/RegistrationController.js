@@ -54,12 +54,13 @@ const sendErr = (res, errMsg, err) => {
  */
 
 registration.lock = function*(req, res, next) {
-  const events = yield api.event.all();
-  if (events.find(event => event.openForRegistration)) {
+  const events = yield registration.getOpenEvents(req);
+  if (events.length > 0) {
     next();
-  } else {
-    res.redirect('/closed');
+    return;
   }
+  
+  res.redirect('/closed');
 };
 
 /**
@@ -327,6 +328,13 @@ registration.getInvites = (req) => co(function*() {
   logger.info('Got all Invites for user', req.user);
 
   return allInvites;
+}).catch(ex => {
+  throw ex;
+});
+
+registration.getOpenEvents = (req) => co(function*() {
+  logger.info('Trying to get events that are open for', req.user);
+  return yield api.getModel('/me/event/open/', req.user);
 }).catch(ex => {
   throw ex;
 });
