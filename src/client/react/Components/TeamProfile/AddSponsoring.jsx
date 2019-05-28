@@ -82,7 +82,7 @@ class AddSponsoring extends React.Component {
 
       this.props.api.addSponsoring(this.props.teamId,
         {
-          limit: (this.state.limit ? this.state.limit.replace(',', '.') : 9999999999),
+          limit: (this.state.limit ? this.state.limit.replace(',', '.') : 1000000000),
           amountPerKm: this.state.amount.replace(',', '.')
         })
         .then(response => {
