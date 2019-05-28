@@ -281,7 +281,7 @@ class SponsorInformation extends React.Component {
               {logo && logo.url && <img src={logo.url} style={styles.logoPreview} />}
               {logo && <IconButton onClick={event => {
                 event.persist();
-                this.setState(state => ({me: {...state.me, sponsor: {...state.me.sponsor, logo: 'DELETE'}}}));
+                this.setState(state => ({me: {...state.me, sponsor: {...state.me.sponsor, logo: undefined}}}));
               }} aria-label="Delete">
                 <Delete fontSize="small" />
               </IconButton>}
