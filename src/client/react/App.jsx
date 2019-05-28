@@ -110,13 +110,12 @@ class App extends React.Component {
   }
 
   async requestOpenRegistration(api) {
-    const events = await api.getAllOpenEvents();
-
-    console.log(events);
+    const events = await api.getAllEvents();
+    const openEvents = await api.getAllOpenEvents();
 
     this.setState({
       isRequestingOpenRegistration: false,
-      isRegistrationOpen: events.length > 0,
+      isRegistrationOpen: openEvents.length > 0,
       isSponsoringOpen: events.find(event => event.allowNewSponsoring)
     });
   }
