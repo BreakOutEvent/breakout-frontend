@@ -2,24 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const SponsorPresentation = (props) => {
-
+  const sponsorWidth = (props.logoUrl ? '60%' : '100%');
   const style = {
     bottom: {
       fontSize: 'small',
       backgroundColor: '#F5F5F5',
-      padding: '10px 0 10px 10px',
-      height: 50,
+      minHeight: 50,
+      padding: '0 0 0 10px',
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
     },
     sponsor: {
-      flexBasis: '60%'
+      flexBasis: sponsorWidth,
     },
     logo: {
       display: 'flex',
       justifyContent: 'flex-end',
-      flexGrow: 2
+      flexGrow: 2,
+      flexBasis: '40%',
     },
     image: {
       maxHeight: '50px',
@@ -39,9 +40,9 @@ const SponsorPresentation = (props) => {
       {name}<br/>
       {company}
     </div>
-    <div style={style.logo}>
+    {props.logoUrl && <div style={style.logo}>
       <img src={props.logoUrl} style={style.image}/>
-    </div>
+    </div>}
   </div>;
 };
 
