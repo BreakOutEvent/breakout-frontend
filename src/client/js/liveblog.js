@@ -8,8 +8,9 @@ $(document).ready(function () {
 
 
   function updateCounter() {
+    const now = new Date();
     var counter = {
-      current: Date.now(),
+      current: now.setHours(now.getHours() + 2),
       start: $counter.data('start'),
       end: $counter.data('end'),
       time: {}
