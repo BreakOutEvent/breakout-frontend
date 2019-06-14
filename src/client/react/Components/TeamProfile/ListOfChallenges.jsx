@@ -64,6 +64,8 @@ const ChallengeListItem = (props) => {
       break;
   }
 
+  const link = (props.status === 'WITH_PROOF') ? { href: `/challenge/${props.id}` } :  {};
+
   return (
     <Paper>
       <div style={style.top}>
@@ -71,7 +73,7 @@ const ChallengeListItem = (props) => {
           {props.amount}€
           {(props.status === 'WITH_PROOF') && <Icon style={{color}}>check</Icon>}
         </div>
-        <div style={style.description}>{props.description} {counterDescription}</div>
+        <a style={style.description} {...link}>{props.description} {counterDescription}</a>
       </div>
       <SponsorPresentation {...props.sponsor} />
     </Paper>

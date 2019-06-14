@@ -453,6 +453,21 @@ API.challenge.delete = (token, eventId, teamId, challengeId) => {
   return API.challenge.changeStatus(token, eventId, teamId, challengeId, 'withdrawn');
 };
 
+API.challenge.getPostings = (user, challengeId) => {
+
+  let options = {
+    url: `${url}/challenge/${challengeId}/posting/`,
+  }
+
+  if (user) {
+    options.auth = { bearer: user.access_token  };
+  }
+
+  return new Promise((resolve, reject) => {
+    request.get(options, handleResponse(resolve, reject, 'Got postings for challenge from backend'));
+  });
+}
+
 API.pwreset = {};
 
 API.pwreset.requestPwReset = (email) => {
