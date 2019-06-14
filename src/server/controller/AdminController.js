@@ -160,7 +160,7 @@ admin.showCallsForTeam = function*(req, res) {
   options.team = team;
   options.calls = calls.map((call) => Object.assign({}, call, { callReasons }));
   res.render('static/admin/calls', options);
-}
+};
 
 function getAccessTokenFromRequest(req) {
   return req.user.access_token;
