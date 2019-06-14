@@ -155,7 +155,7 @@ class DynamicController {
     let sortedTeamsbyDistance = ( _.sortBy(allTeams, t => t.distance)).reverse();
     let sortedTeamsbyMoney = (_.sortBy(allTeams, t => t.donatedSum.fullSum)).reverse();
 
-    let slicedScore = sortedTeamsbyScore.slice(0, 5);
+    let slicedScore = sortedTeamsbyScore.slice(0, 10);
     let slicedDistance = sortedTeamsbyDistance.slice(0, 5);
     let slicedMoney = sortedTeamsbyMoney.slice(0, 5);
 
