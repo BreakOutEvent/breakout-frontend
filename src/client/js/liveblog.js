@@ -160,33 +160,33 @@ $(document).ready(function () {
     onComplete: null  // callback method for when the element finishes updating
   };
 
-  
+
   function loadData() {
     var currentDonations = {};
     window.activeEvents.forEach(function(id) {
       $.get(
-        'https://backend.break-out.org/event/' + id + '/donatesum/', 
+        'https://backend.break-out.org/event/' + id + '/donatesum/',
         function (data) {
           currentDonations[id] = data.fullSum;
           if(Object.keys(currentDonations).length === window.activeEvents.length) {
-            count('bo-donate-sum', currentDonations)
+            count('bo-donate-sum', currentDonations);
           }
         }
-      )
-    })
+      );
+    });
 
     var currentDistance = {};
     window.activeEvents.forEach(function(id) {
       $.get(
-        'https://backend.break-out.org/event/' + id + '/distance/', 
+        'https://backend.break-out.org/event/' + id + '/distance/',
         function (data) {
           currentDistance[id] = data.distance;
           if(Object.keys(currentDistance).length === window.activeEvents.length) {
-            count('bo-distance-sum', currentDistance)
+            count('bo-distance-sum', currentDistance);
           }
         }
-      )
-    })
+      );
+    });
   }
 
   function count(target, currentData) {
@@ -197,10 +197,10 @@ $(document).ready(function () {
 
     if(old) {
       window.activeEvents.forEach(function(id) {
-        $("." + target + "[data-id='" + id + "']").countTo({from: Math.round(old[id]), to: Math.round(currentData[id])});
+        $(`.${target}[data-id='${id}']`).countTo({from: Math.round(old[id]), to: Math.round(currentData[id])});
         oldTotal += Math.round(old[id]);
         newTotal += Math.round(currentData[id]);
-      })
+      });
       $('#' + target).countTo({from: oldTotal, to: newTotal});
     }
 
