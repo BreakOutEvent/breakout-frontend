@@ -22,6 +22,8 @@ router.get('/invoice', session.isAdmin, admin.showDashboardInvoice);
 
 router.get('/teamoverview', session.isAdmin, admin.showOverview);
 
+router.get('/teamoverview/calls', session.isAdmin, admin.showCallsForTeam);
+
 router.post('/payment/add', session.isAdmin, admin.addPayment);
 
 router.post('/sleep', session.isAdmin, admin.setTeamSleepStatus);

@@ -13,6 +13,16 @@ const axios = require('axios');
 
 let admin = {};
 
+let callReasons = [
+  'Technical Problem',
+  '5h Update',
+  'New Transport',
+  'Finished BreakOut',
+  'Sickness',
+  'Emergency',
+  'Other'
+];
+
 const defaultOptions = (req) => {
   return {
     error: req.flash('error'),
@@ -97,16 +107,6 @@ admin.showOverview = function*(req, res) {
   options.view = 'admin-teamoverview';                 // TODO: .then should be moved to api layer
   options.data = yield api.getTeamOverview(getAccessTokenFromRequest(req)).then(resp => resp.data);
 
-  let callReasons = [
-    'Technical Problem',
-    '5h Update',
-    'New Transport',
-    'Finished BreakOut',
-    'Sickness',
-    'Emergency',
-    'Other'
-  ];
-
   options.data = options.data.map(function(team){
     team.lastContact = {};
     team.callReasons = callReasons;
@@ -151,6 +151,16 @@ admin.showOverview = function*(req, res) {
 
   res.render('static/admin/dashboard', options);
 };
+
+admin.showCallsForTeam = function*(req, res) {
+  let options = defaultOptions(req);
+  const teamId = req.query.teamId;
+  const team = yield api.team.get(teamId);
+  const calls = yield api.getCallsForTeam(getAccessTokenFromRequest(req), teamId).then(resp => resp.data);
+  options.team = team;
+  options.calls = calls.map((call) => Object.assign({}, call, { callReasons }));
+  res.render('static/admin/calls', options);
+}
 
 function getAccessTokenFromRequest(req) {
   return req.user.access_token;
@@ -240,13 +250,13 @@ admin.getInvoices = (req) => co(function*() {
   let teamsByEvent = yield events
     .filter((e) => e.isCurrent)
     .map((e) => api.getModel(`event/${e.id}/team/teamfee`, req.user));
-    
+
   let allTeams = _.flatten(teamsByEvent);
   return allTeams.map((x) => {
     let payed = x.invoice.payments.reduce((prev, curr) => {
       return prev + curr.amount;
     }, 0);
-    
+
     return Object.assign({}, x.invoice, {
       event: events.find(event => event.id === x.team.event),
       members: x.team.members,

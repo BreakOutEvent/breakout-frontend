@@ -29,6 +29,12 @@ API.getTeamOverview = (accessToken) => {
   });
 };
 
+API.getCallsForTeam = (accessToken, teamId) => {
+  return axios.get(`${url}/teamoverview/${teamId}/calls/`, {
+    headers: { 'Authorization': `Bearer ${accessToken}`}
+  });
+};
+
 API.authenticate = (username, password) => {
   logger.info('Trying to login user', username);
   return new Promise((resolve, reject) => {
@@ -712,7 +718,7 @@ API.team.getFee = function (teamId, token) {
     url: `${url}/team/${teamId}/startingfee`,
     auth: { bearer: token.access_token }
   };
-  
+
   return new Promise((resolve, reject) => {
     request.get(options, handleResponse(resolve, reject, 'Successfully got the Team Fee'));
   });
