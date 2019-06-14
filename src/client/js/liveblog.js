@@ -114,51 +114,100 @@ $(document).ready(function () {
       }
     });
   });
-  (function ($) {
-    $.fn.countTo = function (options) {
-      // merge the default plugin settings with the custom options
-      options = $.extend({}, $.fn.countTo.defaults, options || {});
 
-      // how many times to update the value, and how much to increment the value on each update
-      var loops = Math.ceil(options.speed / options.refreshInterval),
-        increment = (options.to - options.from) / loops;
+  $.fn.countTo = function (options) {
+    // merge the default plugin settings with the custom options
+    options = $.extend({}, $.fn.countTo.defaults, options || {});
 
-      return $(this).each(function () {
-        var _this = this,
-          loopCount = 0,
-          value = options.from,
-          interval = setInterval(updateTimer, options.refreshInterval);
+    // how many times to update the value, and how much to increment the value on each update
+    var loops = Math.ceil(options.speed / options.refreshInterval),
+      increment = (options.to - options.from) / loops;
 
-        function updateTimer() {
-          value += increment;
-          loopCount++;
-          $(_this).html(value.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
+    return $(this).each(function () {
+      var _this = this,
+        loopCount = 0,
+        value = options.from,
+        interval = setInterval(updateTimer, options.refreshInterval);
 
-          if (typeof(options.onUpdate) == 'function') {
-            options.onUpdate.call(_this, value);
-          }
+      function updateTimer() {
+        value += increment;
+        loopCount++;
+        $(_this).html(value.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
 
-          if (loopCount >= loops) {
-            clearInterval(interval);
-            value = options.to;
+        if (typeof(options.onUpdate) == 'function') {
+          options.onUpdate.call(_this, value);
+        }
 
-            if (typeof(options.onComplete) == 'function') {
-              options.onComplete.call(_this, value);
-            }
+        if (loopCount >= loops) {
+          clearInterval(interval);
+          value = options.to;
+
+          if (typeof(options.onComplete) == 'function') {
+            options.onComplete.call(_this, value);
           }
         }
-      });
-    };
+      }
+    });
+  };
 
-    $.fn.countTo.defaults = {
-      from: 0,  // the number the element should start at
-      to: 100,  // the number the element should end at
-      speed: 1000,  // how long it should take to count between the target numbers
-      refreshInterval: 100,  // how often the element should be updated
-      decimals: 0,  // the number of decimal places to show
-      onUpdate: null,  // callback method for every time the element is updated,
-      onComplete: null  // callback method for when the element finishes updating
-    };
-  })($);
+  $.fn.countTo.defaults = {
+    from: 0,  // the number the element should start at
+    to: 100,  // the number the element should end at
+    speed: 1000,  // how long it should take to count between the target numbers
+    refreshInterval: 100,  // how often the element should be updated
+    decimals: 0,  // the number of decimal places to show
+    onUpdate: null,  // callback method for every time the element is updated,
+    onComplete: null  // callback method for when the element finishes updating
+  };
+
+
+  function loadData() {
+    var currentDonations = {};
+    window.activeEvents.forEach(function(id) {
+      $.get(
+        'https://backend.break-out.org/event/' + id + '/donatesum/',
+        function (data) {
+          currentDonations[id] = data.fullSum;
+          if(Object.keys(currentDonations).length === window.activeEvents.length) {
+            count('bo-donate-sum', currentDonations);
+          }
+        }
+      );
+    });
+
+    var currentDistance = {};
+    window.activeEvents.forEach(function(id) {
+      $.get(
+        'https://backend.break-out.org/event/' + id + '/distance/',
+        function (data) {
+          currentDistance[id] = data.distance;
+          if(Object.keys(currentDistance).length === window.activeEvents.length) {
+            count('bo-distance-sum', currentDistance);
+          }
+        }
+      );
+    });
+  }
+
+  function count(target, currentData) {
+    var old = window.oldData[target];
+
+    var oldTotal = 0;
+    var newTotal = 0;
+
+    if(old) {
+      window.activeEvents.forEach(function(id) {
+        $(`.${target}[data-id='${id}']`).countTo({from: Math.round(old[id]), to: Math.round(currentData[id])});
+        oldTotal += Math.round(old[id]);
+        newTotal += Math.round(currentData[id]);
+      });
+      $('#' + target).countTo({from: oldTotal, to: newTotal});
+    }
+
+    window.oldData[target] = currentData;
+  }
+
+  window.oldData = {};
+  setInterval(loadData, 5000);
 
 });
