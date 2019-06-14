@@ -457,7 +457,7 @@ API.challenge.getPostings = (user, challengeId) => {
 
   let options = {
     url: `${url}/challenge/${challengeId}/posting/`,
-  }
+  };
 
   if (user) {
     options.auth = { bearer: user.access_token  };
@@ -466,7 +466,7 @@ API.challenge.getPostings = (user, challengeId) => {
   return new Promise((resolve, reject) => {
     request.get(options, handleResponse(resolve, reject, 'Got postings for challenge from backend'));
   });
-}
+};
 
 API.pwreset = {};
 
