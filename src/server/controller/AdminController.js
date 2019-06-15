@@ -77,6 +77,17 @@ admin.showDashboardCheckin = function*(req, res) {
   res.render('static/admin/dashboard', options);
 };
 
+admin.showAllChallenges = function* (req, res) {
+  let options = defaultOptions(req);
+
+  options.view = 'admin-allchallenges';
+  options.data = yield api.getAllChallenges(getAccessTokenFromRequest(req)).then(resp => resp.data);
+  options.data = options.data.filter(challenge => challenge.status === 'PROPOSED');
+  options.data.sort((a, b) => b.amount - a.amount);
+
+  res.render('static/admin/dashboard', options);
+};
+
 admin.showOverview = function*(req, res) {
 
   if (!req.query.sortBy) {

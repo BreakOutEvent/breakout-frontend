@@ -29,6 +29,12 @@ API.getTeamOverview = (accessToken) => {
   });
 };
 
+API.getAllChallenges = (accessToken) => {
+  return axios.get(`${url}/admin/allchallenges/`, {
+    headers: { 'Authorization': `Bearer ${accessToken}`}
+  });
+};
+
 API.getCallsForTeam = (accessToken, teamId) => {
   return axios.get(`${url}/teamoverview/${teamId}/calls/`, {
     headers: { 'Authorization': `Bearer ${accessToken}`}

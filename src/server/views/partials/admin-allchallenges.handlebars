@@ -1,0 +1,28 @@
+
+<div class="row">
+    <div class="col-xs-12">
+        <input type="search" class="form-control" placeholder="Suche...">
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+              <th>Team</th>
+              <th>Text</th>
+              <th>Amount</th>
+            </tr>
+            </thead>
+            <tbody id="list">
+            {{#each this}}
+                <tr>
+                    <td><a href="/team/{{teamId}}">{{teamId}}</a></td>
+                    <td>{{description}}</td>
+                    <td>{{amount}}€</td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
