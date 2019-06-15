@@ -926,18 +926,18 @@ API.admin.deleteComment = (token, commentId, postingId) => {
 API.admin.challengeProof = (token, challengeId, postId) => {
   logger.info('Trying to proof challenge', challengeId);
   return new Promise(function (resolve, reject) {
-      let body = {};
-      body.status = 'WITH_PROOF';
-      body.postingId = postId;
-      request
-        .post({
-          url: `${url}/admin/challenge/${challengeId}/proof/`,
-          auth: { bearer: token },
-          body: JSON.stringify(body),
-          headers: { 'content-type': 'application/json' }
-        }, handleResponse(resolve, reject, 'Successfully changed status of challenge ' + challengeId + ' to WITH_PROOF'));
-    });
-}
+    let body = {};
+    body.status = 'WITH_PROOF';
+    body.postingId = postId;
+    request
+      .post({
+        url: `${url}/admin/challenge/${challengeId}/proof/`,
+        auth: { bearer: token },
+        body: JSON.stringify(body),
+        headers: { 'content-type': 'application/json' }
+      }, handleResponse(resolve, reject, 'Successfully changed status of challenge ' + challengeId + ' to WITH_PROOF'));
+  });
+};
 
 API.invoice = {};
 
