@@ -70,6 +70,12 @@ admin.showDashboardPayment = function*(req, res) {
   res.render('static/admin/dashboard', options);
 };
 
+admin.showDashboardUsers = function*(req, res) {
+  let options = defaultOptions(req);
+  options.view = 'admin-users';
+  res.render('static/admin/dashboard', options);
+};
+
 admin.showDashboardCheckin = function*(req, res) {
   let options = defaultOptions(req);
   options.view = 'admin-checkin';

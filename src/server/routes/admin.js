@@ -18,6 +18,8 @@ router.get('/payment', session.isAdmin, admin.showDashboardPayment);
 
 router.get('/checkin', session.isAdmin, admin.showDashboardCheckin);
 
+router.get('/users', session.isAdmin, admin.showDashboardUsers);
+
 router.get('/invoice', session.isAdmin, admin.showDashboardInvoice);
 
 router.get('/teamoverview', session.isAdmin, admin.showOverview);
