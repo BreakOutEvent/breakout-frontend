@@ -153,7 +153,7 @@ $(document).ready(function () {
   $.fn.countTo.defaults = {
     from: 0,  // the number the element should start at
     to: 100,  // the number the element should end at
-    speed: 120000,  // how long it should take to count between the target numbers
+    speed: 30000,  // how long it should take to count between the target numbers
     refreshInterval: 100,  // how often the element should be updated
     decimals: 0,  // the number of decimal places to show
     onUpdate: null,  // callback method for every time the element is updated,
@@ -208,6 +208,6 @@ $(document).ready(function () {
   }
 
   window.oldData = {};
-  setInterval(loadData, 120000);
+  setInterval(loadData, 30000);
 
 });
