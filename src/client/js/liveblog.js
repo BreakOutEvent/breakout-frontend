@@ -208,6 +208,6 @@ $(document).ready(function () {
   }
 
   window.oldData = {};
-  setInterval(loadData, 30000);
+  setInterval(loadData, 120000);
 
 });
