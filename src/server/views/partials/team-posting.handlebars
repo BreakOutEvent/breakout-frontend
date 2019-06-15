@@ -95,6 +95,27 @@
                     <span>{{proves.amount}} € - {{proves.description}}</span>
                 </div>
             </div>
+        {{else}}
+          {{#if isUserAdmin}}
+            {{#if openChallenges}}
+              <form class="adminChallengeProof">
+                <div class="col-xs-9">
+                  <select class="form-control" name="challengeId">
+                    <option disabled="disabled" selected="selected">{{__ 'SELECT_A_CHALLENGE'}}
+                    </option>
+                    {{#each openChallenges}}
+                      <option value="{{id}}">{{description}}</option>
+                    {{/each}}
+                  </select>
+                  <input type="hidden" name="postingId" style="display: none;" value="{{id}}"/>
+                </div>
+                <div class="col-xs-3">
+                    <button class="btn btn-block btn-default" type="submit">ADD</button>
+                </div>
+                <div class="clearfix"></div>
+              </form>
+            {{/if}}
+          {{/if}}
         {{/if}}
     </div>
     <div class="bo-card-actions">

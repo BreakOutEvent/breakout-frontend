@@ -363,5 +363,13 @@ admin.addInvoice = function *(req, res) {
 
 };
 
+admin.challengeProof = function *(req, res) {
+  console.log(req.body);
+  let challenge = yield api.admin.challengeProof(req.user.access_token, req.body.challengeId, req.body.postingId);
+
+  if (!challenge) return res.sendStatus(500);
+
+  return res.status(200).send(challenge);
+}
 
 module.exports = admin;

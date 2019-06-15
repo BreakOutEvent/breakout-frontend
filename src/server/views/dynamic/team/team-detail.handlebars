@@ -138,10 +138,9 @@
                         </form>
                     </div>
                 {{/if}}
-
                 {{#each team.postings}}
                     <div class="col-sm-12 col-lg-6 bo-team-post">
-                        {{> team-posting isUserAdmin=../isUserAdmin currentUserId=../user.id}}
+                        {{> team-posting isUserAdmin=../isUserAdmin currentUserId=../user.id openChallenges=../team.openChallenges}}
                     </div>
                 {{/each}}
             </div>

@@ -31,10 +31,11 @@ router.post('/sleep', session.isAdmin, admin.setTeamSleepStatus);
 router.post('/lastcontact', session.isAdmin, admin.updateLastContact);
 
 router.post('/invoice/amount/add', session.isAdmin, admin.addAmountToInvoice);
-
 router.post('/invoice/add', session.isAdmin, admin.addInvoice);
 
 router.post('/team/checkin', session.isAdmin, admin.checkinTeam);
+
+router.post('/challengeProof', session.isAdmin, admin.challengeProof);
 
 
 module.exports = router;

@@ -88,6 +88,23 @@ $(window).on('load', function () {
       });
     });
 
+    $('.adminChallengeProof').on('submit', function (e) {
+      e.preventDefault();
+
+      var data = new FormData($(this)[0]);
+
+      $.post('/admin/challengeProof', {
+        challengeId: data.get('challengeId'),
+        postingId: data.get('postingId')
+      }).success(function () {
+        window.location.reload();
+      }).error(function (err) {
+        $('#bo-post-result')
+          .html('<div class="alert alert-danger">Speichern fehlgeschlagen!</div>');
+        window.msnry.layout();
+      });
+    });
+
     $('#postPic').change(function () {
       if (this.files && this.files[0]) {
         var reader = new FileReader();
