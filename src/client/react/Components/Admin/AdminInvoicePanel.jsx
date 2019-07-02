@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useCallback} from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import filterFactory, {selectFilter, textFilter} from 'react-bootstrap-table2-filter';
 import InvoiceFilterSearchForm from './InvoiceFilterSearchForm.jsx';
@@ -15,6 +15,23 @@ const customTextFilter = textFilter({
 });
 
 const Invoice = (props) => {
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [value, setValue] = useState(props.amount.toFixed(2));
+  const [fidorId, setFidorId] = useState(null);
+
+  const addPayment = useCallback(() => {
+    setIsLoading(true);
+    props.api.addPayment(props.id, new Number(value), fidorId)
+      .then(() => {
+        setIsLoading(false);
+        props.reload();
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        alert(error.message);
+      });
+  }, [fidorId, value, props.id]);
 
   const columns = [{
     dataField: 'team',
@@ -116,6 +133,39 @@ const Invoice = (props) => {
           condensed
         />
 
+        <h4>Zahlung Eintragen</h4>
+
+        <form>
+          <div className="panel-heading" style={{ display: 'flex' }}>
+            <h5 style={{ marginRight: 20 }}>Amount:</h5>
+            <input type="text"
+              className="form-control"
+              value={value}
+              style={{ borderRadius: '20px', border: '1px solid rgba(180,180,180)' }}
+              onChange={event => setValue(event.target.value)}/>
+          </div>
+          <div className="panel-heading" style={{ display: 'flex' }}>
+            <h5 style={{ marginRight: 20 }}>FidorID:</h5>
+            <input type="text"
+              className="form-control"
+              style={{ borderRadius: '20px', border: '1px solid rgba(180,180,180)' }}
+              onChange={event => setFidorId(event.target.value)}/>
+          </div>
+
+          {isLoading ?
+            (<button className="btn btn-primary">
+              <div className="spinner">
+                <div className="bounce1" style={{ backgroundColor: 'white' }}></div>
+                <div className="bounce2" style={{ backgroundColor: 'white' }}></div>
+                <div className="bounce3" style={{ backgroundColor: 'white' }}></div>
+              </div>
+            </button>)
+          : (<input
+              value="Add Payment"
+              id='register-btn'
+              className="btn btn-primary"
+              onClick={() => addPayment()}/>)}
+        </form>
       </div>
     </div>
   );
@@ -128,12 +178,16 @@ export default class AdminInvoicePanel extends React.Component {
     this.state = {
       isLoading: false,
       data: [],
-      events: []
+      events: [],
+      query: {}
     };
   }
 
   onSearch(query) {
-    this.setState({ isLoading: true });
+    if (!query) {
+      query = this.state.query;
+    }
+    this.setState({ query, isLoading: true });
     this.props.api.searchInvoices(query)
       .then(data => this.setState({ data, isLoading: false }))
       .catch(err => this.setState({ error: err, isLoading: false }));
@@ -175,9 +229,10 @@ export default class AdminInvoicePanel extends React.Component {
     if (this.state.error) {
       return (<div>Something wrent wrong loading invoices: {this.state.error.message}</div>);
     } else {
+      const onSearch = this.onSearch.bind(this);
       return (
         <div>
-          <InvoiceFilterSearchForm onSearch={this.onSearch.bind(this)} api={this.props.api} isLoading={this.state.isLoading}/>
+          <InvoiceFilterSearchForm onSearch={onSearch} api={this.props.api} isLoading={this.state.isLoading}/>
           <div style={{display: 'flex'}}>
             <div style={{flex: 1, marginRight: '10px'}}>
                 <BootstrapTable
@@ -190,7 +245,7 @@ export default class AdminInvoicePanel extends React.Component {
                   condensed
                 />
             </div>
-            {selectedInvoice && <div style={{flex: 1}}><Invoice {...selectedInvoice} /></div>}
+            {selectedInvoice && <div style={{flex: 1}}><Invoice {...selectedInvoice} api={this.props.api} reload={onSearch}/></div>}
           </div>
         </div>
       );
