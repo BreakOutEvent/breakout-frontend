@@ -26,12 +26,12 @@ export default function AdminUserRow(props) {
     } catch(error) {
       await props.api.swapPasswords(props.user.id);
       await props.api.frontendLogout();
-      alert("Error logging", error.message);
-      window.location = "/";
+      alert('Error logging', error.message);
+      window.location = '/';
       return;
     }
     await props.api.swapPasswords(props.user.id);
-    window.location = "/";
+    window.location = '/';
   };
 
   return (

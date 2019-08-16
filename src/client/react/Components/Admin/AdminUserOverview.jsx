@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import filterFactory, {selectFilter, textFilter} from 'react-bootstrap-table2-filter';
-import AdminUserRow from './AdminUserRow.jsx'
+import AdminUserRow from './AdminUserRow.jsx';
 
 function useDebouncedValue(value, delayMS) {
   const [debouncedValue, setDebouncedValue] = useState(value);

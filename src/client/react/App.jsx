@@ -31,7 +31,7 @@ ReactGA.initialize('UA-59857227-3');
 import routes from './Components/routes';
 
 import AdminInvoicePanel from './Components/Admin/AdminInvoicePanel.jsx';
-import AdminUserOverview from './Components/Admin/AdminUserOverview.jsx'
+import AdminUserOverview from './Components/Admin/AdminUserOverview.jsx';
 import AddChallenge from './Components/TeamProfile/AddChallenge.jsx';
 import ListOfChallenges from './Components/TeamProfile/ListOfChallenges.jsx';
 import ListOfSponsors from './Components/TeamProfile/ListOfSponsors.jsx';
