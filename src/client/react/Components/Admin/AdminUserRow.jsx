@@ -16,7 +16,8 @@ export default function AdminUserRow(props) {
     props.onChange();
   };
 
-  const login = async () => {
+  const login = async (event) => {
+    if (event) event.preventDefault();
     await props.api.swapPasswords(props.user.id);
     try {
       const clonedApi = props.api.cloneSettings();
@@ -61,7 +62,7 @@ export default function AdminUserRow(props) {
           fullScreen={false}
           onClose={() => setDialogOpen(false)}
         >
-          <form onSubmit={() => login()}>
+          <form onSubmit={login}>
             <DialogTitle id="login-register">Type your password</DialogTitle>
             <DialogContent>
                 <TextField
@@ -76,7 +77,7 @@ export default function AdminUserRow(props) {
               <Button onClick={() => setDialogOpen(false)} color="primary">
                 Cancel
               </Button>
-              <Button color="primary" onClick={() => login()}>
+              <Button type="submit" color="primary">
                 Continue
               </Button>
             </DialogActions>
