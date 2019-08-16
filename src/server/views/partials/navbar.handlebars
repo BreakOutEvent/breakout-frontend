@@ -66,6 +66,12 @@
                             <li><a href="/settings/sponsoring">{{__ 'MASTER.SPONSORINGS'}}</a>
                             </li>
                             <li><a href="/messages">{{__ 'MASTER.MESSAGES'}}</a></li>
+
+                            {{#if isLoggedIn.status.is.admin}}
+                                <li role="separator" class="divider"></li>
+                                <li><a href="/admin">ADMIN TOOLS</a></li>
+                            {{/if}}
+                            
                             <li role="separator" class="divider"></li>
                             <li><a href="/logout">{{__ 'MASTER.LOGOUT'}}</a></li>
                         </ul>
