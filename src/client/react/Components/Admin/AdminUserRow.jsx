@@ -1,10 +1,15 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography, FormControlLabel, Checkbox,
   FormHelperText, CircularProgress, TextField, withMobileDialog } from '@material-ui/core';
 
 export default function AdminUserRow(props) {
-  const [dialogOpen, setDialogOpen] = useState(false);
+  const [deletionDialogOpen, setDeletionDialogOpen] = useState(false);
+  const [loginDialogOpen, setLoginDialogOpen] = useState(false);
   const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+
+  useEffect(() => setEmail(""), [deletionDialogOpen]);
+  useEffect(() => setPassword(""), [loginDialogOpen]);
 
   const makeAdmin = async () => {
     await props.api.makeAdmin(props.user.id);
@@ -34,6 +39,21 @@ export default function AdminUserRow(props) {
     window.location = '/';
   };
 
+  const deleteAccount = async (event) => {
+    if (event) event.preventDefault();
+    if (email != props.user.email) return;
+
+    try {
+      await props.api.deleteAccount(props.user.id);
+    } catch(error) {
+      console.log(error);
+      alert(error);
+    }
+    
+    setDeletionDialogOpen(false);
+    props.onChange();
+  }
+
   return (
       <tr>
         <td>
@@ -52,15 +72,42 @@ export default function AdminUserRow(props) {
           {!props.user.admin &&
             <div>
               <Button color="primary" onClick={makeAdmin}>Make Admin</Button>
-              <Button style={{paddingLeft: 8}} color="secondary" onClick={() => setDialogOpen(true)}>Log in as this user</Button>
+              <Button color="secondary" onClick={() => setDeletionDialogOpen(true)}>Delete Account</Button>
+              <Button style={{paddingLeft: 8}} color="secondary" onClick={() => setLoginDialogOpen(true)}>Log in as this user</Button>
             </div>
           }
         </td>
 
         <Dialog
-          open={dialogOpen}
+          open={deletionDialogOpen}
           fullScreen={false}
-          onClose={() => setDialogOpen(false)}
+          onClose={() => setDeletionDialogOpen(false)}
+        >
+          <form onSubmit={deleteAccount}>
+            <DialogTitle id="deletion-warning">Are you sure you want to delete {props.user.email}'s Account?</DialogTitle>
+            <DialogContent>
+                <TextField
+                  autoFocus
+                  label="Enter the email address again, just to be sure..."
+                  fullWidth
+                  onChange={event => setEmail(event.target.value)}
+                />
+            </DialogContent>
+            <DialogActions style={{justifyContent: 'flex-end'}}>
+              <Button onClick={() => setDeletionDialogOpen(false)} color="primary">
+                Cancel
+              </Button>
+              <Button type="submit" color="primary" disabled={email != props.user.email}>
+                Delete Account
+              </Button>
+            </DialogActions>
+          </form>
+        </Dialog>
+
+        <Dialog
+          open={loginDialogOpen}
+          fullScreen={false}
+          onClose={() => setLoginDialogOpen(false)}
         >
           <form onSubmit={login}>
             <DialogTitle id="login-register">Type your password</DialogTitle>
@@ -74,7 +121,7 @@ export default function AdminUserRow(props) {
                 />
             </DialogContent>
             <DialogActions style={{justifyContent: 'flex-end'}}>
-              <Button onClick={() => setDialogOpen(false)} color="primary">
+              <Button onClick={() => setLoginDialogOpen(false)} color="primary">
                 Cancel
               </Button>
               <Button type="submit" color="primary">
