@@ -8,8 +8,8 @@ export default function AdminUserRow(props) {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
 
-  useEffect(() => setEmail(""), [deletionDialogOpen]);
-  useEffect(() => setPassword(""), [loginDialogOpen]);
+  useEffect(() => setEmail(''), [deletionDialogOpen]);
+  useEffect(() => setPassword(''), [loginDialogOpen]);
 
   const makeAdmin = async () => {
     await props.api.makeAdmin(props.user.id);
@@ -52,7 +52,7 @@ export default function AdminUserRow(props) {
     
     setDeletionDialogOpen(false);
     props.onChange();
-  }
+  };
 
   return (
       <tr>
