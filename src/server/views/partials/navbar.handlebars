@@ -67,9 +67,18 @@
                             </li>
                             <li><a href="/messages">{{__ 'MASTER.MESSAGES'}}</a></li>
 
-                            {{#if isLoggedIn.status.is.admin}}
+                            {{#if isLoggedIn.status.is.employee}}
                                 <li role="separator" class="divider"></li>
-                                <li><a href="/admin">ADMIN TOOLS</a></li>
+                            {{/if}}
+
+                            {{#if isLoggedIn.status.is.admin}}
+                                <li><a href="/admin">Admin Tools</a></li>
+                            {{/if}}
+                            {{#if isLoggedIn.status.is.eventManager}}
+                                <li><a href="/admin/event">Event Tools</a></li>
+                            {{/if}}
+                            {{#if isLoggedIn.status.is.finance}}
+                                <li><a href="/admin/finance">Finance Tools</a></li>
                             {{/if}}
                             
                             <li role="separator" class="divider"></li>

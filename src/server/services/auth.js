@@ -46,13 +46,13 @@ passport.createSession = (username, user) => co(function*() {
       participant: false,
       sponsor: false,
       team: false,
-      admin: false
+      admin: false,
+      finance: false,
+      eventManager: false,
+      eventOwner: false,
+      employee: false,
     }
   };
-
-  if (_.includes(me.roles, 'ADMIN')) {
-    user.status.is.admin = true;
-  }
 
   if (_.includes(me.roles, 'SPONSOR')) {
     user.status.is.sponsor = true;
@@ -63,6 +63,26 @@ passport.createSession = (username, user) => co(function*() {
     if (me.participant.teamId) {
       user.status.is.team = true;
     }
+  }
+
+  if (_.includes(me.roles, 'ADMIN')) {
+    user.status.is.admin = true;
+    user.status.is.employee = true;
+  }
+
+  if (_.includes(me.roles, 'FINANCE_MANAGER')) {
+    user.status.is.finance = true;
+    user.status.is.employee = true;
+  }
+
+  if (_.includes(me.roles, 'EVENT_MANAGER')) {
+    user.status.is.eventManager = true;
+    user.status.is.employee = true;
+  }
+
+  if (_.includes(me.roles, 'EVENT_OWNER')) {
+    user.status.is.eventOwner = true;
+    user.status.is.employee = true;
   }
 
   user.email = username;
