@@ -252,6 +252,8 @@ function server(callback) {
   app.use('/messages', require('./routes/messages'));
   app.use('/settings', require('./routes/settings'));
   app.use('/admin', require('./routes/admin'));
+  app.use('/admin/event', require('./routes/event'));
+  app.use('/admin/finance', require('./routes/finance'));
   app.use('/challenge', require('./routes/challenge'));
 
   // ENV specific setup
