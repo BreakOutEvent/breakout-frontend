@@ -165,7 +165,7 @@ $(document).ready(function () {
     var currentDonations = {};
     window.activeEvents.forEach(function(id) {
       $.get(
-        'https://backend.break-out.org/event/' + id + '/donatesum/',
+        window.boClientConfig.baseUrl + '/event/' + id + '/donatesum/',
         function (data) {
           currentDonations[id] = data.fullSum;
           if(Object.keys(currentDonations).length === window.activeEvents.length) {
@@ -178,7 +178,7 @@ $(document).ready(function () {
     var currentDistance = {};
     window.activeEvents.forEach(function(id) {
       $.get(
-        'https://backend.break-out.org/event/' + id + '/distance/',
+        window.boClientConfig.baseUrl + '/event/' + id + '/distance/',
         function (data) {
           currentDistance[id] = data.distance;
           if(Object.keys(currentDistance).length === window.activeEvents.length) {
