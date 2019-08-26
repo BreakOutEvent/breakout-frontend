@@ -18,17 +18,18 @@ router.get('/emails', session.isAdmin, admin.showDashboardEmails);
 
 router.get('/users', session.isAdmin, admin.showDashboardUsers);
 
-router.post('/payment/add', session.isAdmin, admin.addPayment);
+router.post('/payment/add', session.isFinanceManager, admin.addPayment);
 
-router.post('/sleep', session.isAdmin, admin.setTeamSleepStatus);
+router.post('/sleep', session.isEventManager, admin.setTeamSleepStatus);
 
-router.post('/lastcontact', session.isAdmin, admin.updateLastContact);
+router.post('/lastcontact', session.isEventManager, admin.updateLastContact);
 
-router.post('/invoice/amount/add', session.isAdmin, admin.addAmountToInvoice);
-router.post('/invoice/add', session.isAdmin, admin.addInvoice);
+router.post('/invoice/amount/add', session.isFinanceManager, admin.addAmountToInvoice);
 
-router.post('/team/checkin', session.isAdmin, admin.checkinTeam);
+router.post('/invoice/add', session.isFinanceManager, admin.addInvoice);
 
-router.post('/challengeProof', session.isAdmin, admin.challengeProof);
+router.post('/team/checkin', session.isEventManager, admin.checkinTeam);
+
+router.post('/challengeProof', session.isEventManager, admin.challengeProof);
 
 module.exports = router;

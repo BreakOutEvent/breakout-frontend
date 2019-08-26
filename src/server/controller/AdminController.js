@@ -109,7 +109,7 @@ admin.updateLastContact = function *(req, res) {
 
   try {
     let comment = yield api.postModel(`teamoverview/${req.body.teamid}/lastContactWithHeadquarters/`, req.user, { comment: req.body.update, reason: req.body.reason });
-    res.redirect('/admin/teamoverview/');
+    res.redirect('/admin/event/teamoverview/');
   } catch (err) {
     res.status(500);
     logger.error(`An error occured while trying to update the last contact ${req.body.update}: `, err);

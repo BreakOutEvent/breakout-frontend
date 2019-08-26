@@ -17,7 +17,7 @@ class DynamicController {
     let isUserAdmin = false;
 
     if (req.user && req.user.me) {
-      isUserAdmin = _.findIndex(req.user.me.roles, r => r === 'ADMIN') > -1;
+      isUserAdmin = _.findIndex(req.user.me.roles, r => r === 'EVENT_MANAGER') > -1;
     }
 
     let events = yield liveblog.getEventInfos(req.session.activeEvents);
