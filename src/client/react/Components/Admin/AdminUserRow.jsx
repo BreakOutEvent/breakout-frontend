@@ -1,8 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography, FormControlLabel, Checkbox,
-  FormHelperText, CircularProgress, TextField, withMobileDialog } from '@material-ui/core';
+  FormHelperText, CircularProgress, TextField, withMobileDialog, Switch } from '@material-ui/core';
 
 export default function AdminUserRow(props) {
+  const [user, setUser] = useState(props.user);
+  const [roles, setRoles] = useState({});
   const [deletionDialogOpen, setDeletionDialogOpen] = useState(false);
   const [loginDialogOpen, setLoginDialogOpen] = useState(false);
   const [password, setPassword] = useState('');
@@ -11,14 +13,16 @@ export default function AdminUserRow(props) {
   useEffect(() => setEmail(''), [deletionDialogOpen]);
   useEffect(() => setPassword(''), [loginDialogOpen]);
 
-  const makeAdmin = async () => {
-    await props.api.makeAdmin(props.user.id);
-    props.onChange();
+  const makeAdmin = async (right) => {
+    const newUser = await props.api.makeAdmin(user.id, right);
+    console.log(newUser);
+    setUser(newUser);
   };
 
-  const removeAdmin = async () => {
-    await props.api.removeAdmin(props.user.id);
-    props.onChange();
+  const removeAdmin = async (right) => {
+    const newUser = await props.api.removeAdmin(user.id, right);
+    console.log(newUser);
+    setUser(newUser);
   };
 
   const login = async (event) => {
@@ -57,25 +61,28 @@ export default function AdminUserRow(props) {
   return (
       <tr>
         <td>
-          {props.user.firstname}
+          {user.firstname}
         </td>
         <td>
-          {props.user.lastname}
+          {user.lastname}
         </td>
         <td>
-          {props.user.email}
+          {user.email}
         </td>
+        {props.rights.map((right) => 
+          <td>
+            <Switch 
+              key={`${user.id}${right}`} 
+              checked={user.roles.indexOf(right) >= 0} 
+              onChange={(element, checked) => (checked ? makeAdmin : removeAdmin)(right)}
+              />
+          </td>
+        )}
         <td>
-          {props.user.admin &&
-            <Button color="secondary" onClick={removeAdmin}>Revoke Admin Rights</Button>
-          }
-          {!props.user.admin &&
-            <div>
-              <Button color="primary" onClick={makeAdmin}>Make Admin</Button>
-              <Button color="secondary" onClick={() => setDeletionDialogOpen(true)}>Delete Account</Button>
+          <div>
               <Button style={{paddingLeft: 8}} color="secondary" onClick={() => setLoginDialogOpen(true)}>Log in as this user</Button>
+              <Button color="secondary" onClick={() => setDeletionDialogOpen(true)}>Delete Account</Button>
             </div>
-          }
         </td>
 
         <Dialog
