@@ -5,22 +5,22 @@ import AdminUserRow from './AdminUserRow.jsx';
 
 const rights = [
   {
-    key: "ADMIN",
-    name: "Admin"
+    key: 'ADMIN',
+    name: 'Admin'
   },
   {
-    key: "FINANCE_MANAGER",
-    name: "Finance Manager"
+    key: 'FINANCE_MANAGER',
+    name: 'Finance Manager'
   },
   {
-    key: "EVENT_OWNER",
-    name: "Event Owner"
+    key: 'EVENT_OWNER',
+    name: 'Event Owner'
   },
   {
-    key: "EVENT_MANAGER",
-    name: "Event Manager"
+    key: 'EVENT_MANAGER',
+    name: 'Event Manager'
   }
-]
+];
 
 function useDebouncedValue(value, delayMS) {
   const [debouncedValue, setDebouncedValue] = useState(value);
