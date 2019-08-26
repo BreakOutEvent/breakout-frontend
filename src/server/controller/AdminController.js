@@ -93,7 +93,7 @@ admin.addPayment = function *(req, res) {
 admin.setTeamSleepStatus = function *(req, res) {
   try {
     let team = yield api.putModel(`event/${req.body.eventid}/team`, req.body.teamid, req.user, { asleep: req.body.asleep });
-    res.redirect('/admin/teamoverview/');
+    res.redirect('/admin/event/teamoverview/');
   } catch (err) {
     res.status(500);
     logger.error(`An error occured while trying to update the last contact ${req.body.update}: `, err);
