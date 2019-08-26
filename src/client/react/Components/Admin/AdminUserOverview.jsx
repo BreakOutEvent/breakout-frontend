@@ -3,6 +3,25 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import filterFactory, {selectFilter, textFilter} from 'react-bootstrap-table2-filter';
 import AdminUserRow from './AdminUserRow.jsx';
 
+const rights = [
+  {
+    key: "ADMIN",
+    name: "Admin"
+  },
+  {
+    key: "FINANCE_MANAGER",
+    name: "Finance Manager"
+  },
+  {
+    key: "EVENT_OWNER",
+    name: "Event Owner"
+  },
+  {
+    key: "EVENT_MANAGER",
+    name: "Event Manager"
+  }
+]
+
 function useDebouncedValue(value, delayMS) {
   const [debouncedValue, setDebouncedValue] = useState(value);
 
@@ -65,11 +84,12 @@ export default function AdminUserOverview(props) {
                           <th>Firstname</th>
                           <th>Lastname</th>
                           <th>Email</th>
+                          {rights.map((right) => <th>Is {right.name}</th>)}
                           <th>Aktion</th>
                       </tr>
                       </thead>
                       <tbody id="list">
-                        {results.map((user) => <AdminUserRow key={user.id} api={props.api} user={user} onChange={search}/>)}
+                        {results.map((user) => <AdminUserRow key={user.id} api={props.api} user={user} onChange={search} rights={rights.map(right => right.key)}/>)}
                       </tbody>
                   </table>
               </div>
