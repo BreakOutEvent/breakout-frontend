@@ -55,5 +55,7 @@ ses.isParticipant = ses.generalAuth('/select-role', 'ein Teilnehmer', (status) =
 ses.isSponsor = ses.generalAuth('/select-role', 'ein Sponsor', (status) => status.is.sponsor);
 ses.hasTeam = ses.generalAuth('/team-invite', 'Teil eines Teams', (status) => status.is.team);
 ses.isAdmin = ses.generalAuth('/login', 'Administrator', (status) => status.is.admin);
+ses.isFinanceManager = ses.generalAuth('/login', 'Finance Manager', (status) => status.is.finance);
+ses.isEventManager = ses.generalAuth('/login', 'Event Manager', (status) => status.is.eventManager);
 
 module.exports = ses;

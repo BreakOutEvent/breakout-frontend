@@ -10,10 +10,10 @@ const Router = require('co-router');
 const router = new Router();
 
 //VIEWS
-router.get('/', session.isAdmin, finance.showDashboardPayment);
+router.get('/', session.isFinanceManager, finance.showDashboardPayment);
 
-router.get('/payment', session.isAdmin, finance.showDashboardPayment);
+router.get('/payment', session.isFinanceManager, finance.showDashboardPayment);
 
-router.get('/invoice', session.isAdmin, finance.showDashboardInvoice);
+router.get('/invoice', session.isFinanceManager, finance.showDashboardInvoice);
 
 module.exports = router;
