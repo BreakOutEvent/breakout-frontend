@@ -27,7 +27,7 @@ export default class Participation extends React.Component {
             firstname: me.firstname,
             lastname: me.lastname
           }
-        })
+        });
       })
       .catch(this.onGetMeError.bind(this));
   }

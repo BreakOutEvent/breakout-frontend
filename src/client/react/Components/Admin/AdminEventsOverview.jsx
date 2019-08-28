@@ -14,7 +14,7 @@ export default function AdminEventsOverview(props) {
     });
     props.api.getMe().then(me => {
       setCanEdit(me.roles.indexOf('EVENT_OWNER') > -1);
-    })
+    });
   };
 
   useEffect(() => {
