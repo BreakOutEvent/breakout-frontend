@@ -55,7 +55,9 @@ class CreateOrJoinTeam extends React.Component {
     try {
       let invitations = await this.props.api.getAllInvitations();
       // filter for invitations to teams which still have team members (in case of leaving after invitation)
-      invitations = invitations.filter(invitation => invitation.team.members.length >= 1);
+      invitations = invitations
+        .filter(invitation => invitation.team.members.length == 1)
+        .filter(invitation => invitation.current);
       this.setState({
         invitations: invitations,
         selectedOption: (invitations.length ? 'joinTeam' : 'createTeam'),
