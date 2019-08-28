@@ -10,11 +10,13 @@ const Router = require('co-router');
 const router = new Router();
 
 //VIEWS
-router.get('/', session.isEventManager, event.showDashboardCheckin);
+router.get('/', session.isEventManager, event.showEventsOverview);
+
+router.get('/overview', session.isEventManager, event.showEventsOverview);
 
 router.get('/checkin', session.isEventManager, event.showDashboardCheckin);
 
-router.get('/teamoverview', session.isEventManager, event.showOverview);
+router.get('/teamoverview', session.isEventManager, event.showTeamOverview);
 
 router.get('/allchallenges', session.isEventManager, event.showAllChallenges);
 

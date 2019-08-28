@@ -55,12 +55,16 @@
                         <ul class="dropdown-menu dropdown-menu-right"
                             aria-labelledby="userDropDown">
 
+                            {{#unless isLoggedIn.me.participant.current}}
+                                <li><a href="/participate">{{__ 'MASTER.PARTICIPATE'}}</a></li>
+                                <li role="separator" class="divider"></li>
+                            {{/unless}}
+
                             {{#if isLoggedIn.me.participant.teamId}}
                                 <li><a href="/team/{{isLoggedIn.me.participant.teamId}}">{{__
                                         'MASTER.MY_TEAM_PROFILE'}}</a></li>
-                            {{else}}
-                                <li><a href="/participate">{{__ 'MASTER.PARTICIPATE'}}</a></li>
                             {{/if}}
+
                             <li><a href="/settings/profile">{{__ 'MASTER.ACCOUNT_SETTINGS'}}</a>
                             </li>
                             <li><a href="/settings/sponsoring">{{__ 'MASTER.SPONSORINGS'}}</a>

@@ -40,6 +40,14 @@ admin.showDashboardCheckin = function*(req, res) {
   res.render('static/event/dashboard', options);
 };
 
+admin.showEventsOverview = function* (req, res) {
+  let options = defaultOptions(req);
+
+  options.view = 'admin-events-overview';
+
+  res.render('static/event/dashboard', options);
+};
+
 admin.showAllChallenges = function* (req, res) {
   let options = defaultOptions(req);
 
@@ -51,7 +59,7 @@ admin.showAllChallenges = function* (req, res) {
   res.render('static/event/dashboard', options);
 };
 
-admin.showOverview = function*(req, res) {
+admin.showTeamOverview = function*(req, res) {
 
   if (!req.query.sortBy) {
     req.query.sortBy = 'lastContact';

@@ -18,7 +18,17 @@ export default class Participation extends React.Component {
 
   componentDidMount() {
     this.props.api.getMe()
-      .then(me => this.me = me)
+      .then(me => {
+        this.me = me;
+        const participant = me.participant || {};
+        this.setState({
+          formData: {
+            ...participant,
+            firstname: me.firstname,
+            lastname: me.lastname
+          }
+        });
+      })
       .catch(this.onGetMeError.bind(this));
   }
 

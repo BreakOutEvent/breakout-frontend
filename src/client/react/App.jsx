@@ -35,6 +35,7 @@ import AdminUserOverview from './Components/Admin/AdminUserOverview.jsx';
 import AddChallenge from './Components/TeamProfile/AddChallenge.jsx';
 import ListOfChallenges from './Components/TeamProfile/ListOfChallenges.jsx';
 import ListOfSponsors from './Components/TeamProfile/ListOfSponsors.jsx';
+import AdminEventsOverview from './Components/Admin/AdminEventsOverview.jsx';
 
 const breakoutTheme = () => createMuiTheme({
   palette: {
@@ -362,6 +363,7 @@ StatefulListOfChallenges.propTypes = {
 
 renderIfExists(<MuiThemeProvider theme={breakoutTheme()}><AdminInvoicePanel api={api}/></MuiThemeProvider>, 'react-admin-invoice');
 renderIfExists(<MuiThemeProvider theme={breakoutTheme()}><AdminUserOverview api={api}/></MuiThemeProvider>, 'react-admin-users');
+renderIfExists(<MuiThemeProvider theme={breakoutTheme()}><AdminEventsOverview api={api}/></MuiThemeProvider>, 'react-admin-events-overview');
 renderIfExists(<App/>, 'react-root');
 renderIfExists(<MuiThemeProvider theme={breakoutTheme()}><StatefulListOfChallenges api={api}/></MuiThemeProvider>, 'react-challenge-list-root');
 renderIfExists(<MuiThemeProvider theme={breakoutTheme()}><ListOfSponsors api={api} teamId={window.teamId && window.teamId}
