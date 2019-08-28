@@ -19,11 +19,11 @@ liveblog.getEventInfos = (activeEvents) => co(function *() {
 
   return {
     activeEvents: eventsInfo.activeEvents,
-    allSameYear: eventsInfo.allSameYear,
-    allOfYear: eventsInfo.allOfYear,
+    allSameBrand: eventsInfo.allSameBrand,
+    allOfBrand: eventsInfo.allOfBrand,
     allCurrent: eventsInfo.allCurrent,
     allOfCurrent: eventsInfo.allOfCurrent,
-    allByYear: eventsInfo.allByYear,
+    allByBrand: eventsInfo.allByBrand,
     eventString: eventsInfo.eventString,
     individual: events,
     global: {

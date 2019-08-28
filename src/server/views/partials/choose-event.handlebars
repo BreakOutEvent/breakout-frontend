@@ -1,6 +1,6 @@
 <div id="boSelectEvents" {{#unless allOfCurrent}}class="boEventsNotAllCurrent"{{/unless}}>
     <select class="selectpicker" multiple>
-        {{#each allByYear}}
+        {{#each allByBrand}}
             <optgroup label="{{@key}}">
                 {{#each this}}
                     <option title="{{city}}" {{#if isActive}}selected{{/if}} value="{{id}}" class="boSelectCity">

@@ -793,52 +793,49 @@ API.event.all = function () {
 API.event.allActiveInfo = (activeEvents) => co(function *() {
   let allEvents = yield API.event.all();
   allEvents = allEvents.map(e => {
-    e.year = new Date(e.date * 1000).getFullYear();
-
     if (!activeEvents || activeEvents.length === 0) {
       e.isActive = e.isCurrent;
     } else {
       e.isActive = _.includes(activeEvents, e.id);
     }
-
     return e;
   });
 
   activeEvents = allEvents.filter(e => e.isActive).map(e => e.id);
   let filteredEvents = allEvents.filter(e => _.includes(activeEvents, e.id));
 
-  let allByYear = {};
+  let allByBrand = {};
   allEvents.forEach(e => {
-    let key = e.year;
-    allByYear[key] = allByYear[key] || [];
-    allByYear[key].push(e);
+    let key = e.brand;
+    allByBrand[key] = allByBrand[key] || [];
+    allByBrand[key].push(e);
   });
 
   let countEvents = {};
-  Object.keys(allByYear).map(year => countEvents[year] = allByYear[year].length);
+  Object.keys(allByBrand).map(brand => countEvents[brand] = allByBrand[brand].length);
 
-  let allSameYear = filteredEvents.every(e => e.year === filteredEvents[0].year);
-  let allOfYear = allSameYear && filteredEvents.length === countEvents[filteredEvents[0].year];
+  let allSameBrand = filteredEvents.every(e => e.brand === filteredEvents[0].brand);
+  let allOfBrand = allSameBrand && filteredEvents.length === countEvents[filteredEvents[0].brand];
   let allCurrent = filteredEvents.every(e => e.isCurrent);
   let hasActiveAfterStart = filteredEvents.filter(e => e.isActive && e.date * 1000 < new Date().getTime()).length > 0;
-  let allOfCurrent = allOfYear && allCurrent;
+  let allOfCurrent = allOfBrand && allCurrent;
 
   var eventString = filteredEvents.map(e => {
-    return `${e.city} ${e.year}`;
+    return `${e.brand} ${e.city}`;
   }).join(' & ');
 
-  if (allSameYear) {
+  if (allSameBrand) {
     let eventCities = filteredEvents.map(e => e.city).join(' & ');
-    eventString = `${filteredEvents[0].year} ${eventCities}`;
+    eventString = `${filteredEvents[0].brand} ${eventCities}`;
   }
 
-  if (allOfYear) eventString = filteredEvents[0].year;
+  if (allOfBrand) eventString = filteredEvents[0].brand;
 
   return {
     activeEvents: activeEvents,
-    allByYear: allByYear,
-    allSameYear: allSameYear,
-    allOfYear: allOfYear,
+    allByBrand: allByBrand,
+    allSameBrand: allSameBrand,
+    allOfBrand: allOfBrand,
     allCurrent: allCurrent,
     allOfCurrent: allOfCurrent,
     hasActiveAfterStart: hasActiveAfterStart,
