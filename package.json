@@ -55,7 +55,7 @@
     "express-session": "^1.13.0",
     "i18next": "^7.1.2",
     "instafeed.js": "^1.4.1",
-    "jquery": "^2.2.4",
+    "jquery": "^3.4.0",
     "jwt-simple": "^0.5.5",
     "lightbox2": "^2.8.2",
     "lodash": "^4.17.11",
