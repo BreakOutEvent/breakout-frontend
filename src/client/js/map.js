@@ -174,13 +174,14 @@ function colorGradientByWeight(color1, color2, weight) {
 
 //Select Teamcolor for Event
 function getCityColor(team) {
-  var colorlist = {
+  const colorlist = {
     'München': '#F7931D',
     'Berlin': '#5AACA5',
-    'Barcelona': '#415dac'
+    'Barcelona': '#415dac',
+    'Köln': '#6b5aac'
   };
 
-  return colorlist[team.event.city];
+  return colorlist[team.event.city] ? colorlist[team.event.city] : randomColor();
 }
 
 //Select Teamcolor for Munich/Berlin
