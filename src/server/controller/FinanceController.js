@@ -63,9 +63,9 @@ admin.getInvoices = (req) => co(function*() {
 
   let allTeams = _.flatten(teamsByEvent);
   return allTeams.map((x) => {
-    let payed = x.invoice.payments.reduce((prev, curr) => {
+    let payed = x.invoice ? x.invoice.payments.reduce((prev, curr) => {
       return prev + curr.amount;
-    }, 0);
+    }, 0) : 0;
 
     return Object.assign({}, x.invoice, {
       event: events.find(event => event.id === x.team.event),
@@ -73,8 +73,8 @@ admin.getInvoices = (req) => co(function*() {
       teamName: x.team.name,
       id: x.team.invoiceId,
       teamId: x.team.id,
-      open: x.invoice.amount - payed,
-      datesFidorIds: x.invoice.payments.map((payment) => `${new Date(payment.date * 1000).toLocaleDateString()} (id: ${payment.fidorId})`).join(', ')
+      open: (x.invoice ? x.invoice.amount : 0) - payed,
+      datesFidorIds: x.invoice ? x.invoice.payments.map((payment) => `${new Date(payment.date * 1000).toLocaleDateString()} (id: ${payment.fidorId})`).join(', ') : ''
     });
   });
 }).catch((ex) => {
