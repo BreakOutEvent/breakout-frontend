@@ -181,7 +181,22 @@ function getCityColor(team) {
     'Köln': '#6b5aac'
   };
 
-  return colorlist[team.event.city] ? colorlist[team.event.city] : randomColor();
+  return colorlist[team.event.city] ? colorlist[team.event.city] : stringColor(team.event.city);
+}
+
+function stringColor(string) {
+  var hash = 0;
+  if (string.length === 0) return hash;
+  for (var i = 0; i < string.length; i++) {
+    hash = string.charCodeAt(i) + ((hash << 5) - hash);
+    hash = hash & hash;
+  }
+  var color = '#';
+  for (var j = 0; j < 3; j++) {
+    var value = (hash >> (j * 8)) & 255;
+    color += ('00' + value.toString(16)).substr(-2);
+  }
+  return color;
 }
 
 //Select Teamcolor for Munich/Berlin
