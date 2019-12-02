@@ -60,10 +60,10 @@ class JoinTeamSuccess extends React.Component {
       return <div id="invoice-text">
         <div
           className="label label-default">{this.props.i18next.t('client.join_team_success.IBAN')}</div>
-        <div className="content">DE85 7002 2200 0020 2418 37</div>
+        <div className="content">{this.state.invoice.event.iban}</div>
         <div
           className="label label-default">{this.props.i18next.t('client.join_team_success.BIC')}</div>
-        <div className="content">FDDODEMMXXX</div>
+        <div className="content">{this.state.invoice.event.bic}</div>
         <div
           className="label label-default">{this.props.i18next.t('client.join_team_success.payment_reciever')}</div>
         <div className="content">BreakOut e.V.</div>

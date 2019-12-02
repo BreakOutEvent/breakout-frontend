@@ -58,16 +58,16 @@
                                         <b>{{__ 'OWNER'}}:</b> BreakOut e.V.
                                     </p>
                                     <p>
-                                        <b>IBAN:</b> DE85 7002 2200 0020 2418 37
+                                        <b>IBAN:</b> {{team.event.iban}}
                                     </p>
                                     <p>
-                                        <b>BIC:</b> FDDODEMMXXX
+                                        <b>BIC:</b> {{team.event.bic}}
                                     </p>
                                     <p>
                                         <b>{{__ 'PURPOSE'}}</b> {{teamFee.purposeOfTransfer}}
                                     </p>
                                     <p>
-                                        <b>{{__ 'AMOUNT'}}: </b> 60.00€
+                                        <b>{{__ 'AMOUNT'}}: </b> {{#fixed 2}}{{teamFee.amount}}{{/fixed}} €
                                     </p>
                                 </div>
                             </div>
