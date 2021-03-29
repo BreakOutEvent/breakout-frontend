@@ -69,16 +69,25 @@ var drawRoute = function (teams) {
 
   teams.forEach(function (team) {
     if (!team) return;
-    var startingposition = new google.maps.LatLng(team.event.startingLocation.latitude, team.event.startingLocation.longitude);
-    markers_list.push(startingposition);
-    var route = [startingposition];
+    var route = [];
+    if (team.event.id !== 20) {
+      var startingposition = new google.maps.LatLng(team.event.startingLocation.latitude, team.event.startingLocation.longitude);
+      markers_list.push(startingposition);
+      route = [startingposition];
+    }
+   
     var priorLocation = null;
 
     team.locations.forEach(function (location) {
       var loc = new google.maps.LatLng(location.latitude, location.longitude);
 
       if (isSingleTeam) {
-        route = [startingposition, loc];
+        if (team.event.id !== 20) {
+          route = [startingposition, loc];
+        } else {
+          route = [loc];
+        }
+        
         var color = '#919191';
 
         if (priorLocation) {
