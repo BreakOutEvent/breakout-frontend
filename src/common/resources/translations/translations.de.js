@@ -138,6 +138,7 @@ module.exports = {
       "gender": "Geschlecht",
       "male": "Männlich",
       "female": "Weiblich",
+      "diverse": "Divers",
       "enter_full_data": "Bitte gib deine Daten vollständig an",
       "firstname": {
         "label": "Vorname",
@@ -228,6 +229,7 @@ module.exports = {
     "GENDER": "Geschlecht",
     "MALE": "Männlich",
     "FEMALE": "Weiblich",
+    "DIVERSE": "Divers",
     "FIRSTNAME_LABEL": "Vorname",
     "FIRSTNAME_PLACEHOLDER": "Jon",
     "LASTNAME_LABEL": "Nachname",
@@ -375,6 +377,7 @@ module.exports = {
     "LABEL_DESCRIPTION": "Beschreibung",
     "OPTION_GENDER_1": "Männlich",
     "OPTION_GENDER_2": "Weiblich",
+    "OPTION_GENDER_3": "Divers",
     "OPTION_SHIRT_1": "Größe S",
     "OPTION_SHIRT_2": "Größe M",
     "OPTION_SHIRT_3": "Größe L",

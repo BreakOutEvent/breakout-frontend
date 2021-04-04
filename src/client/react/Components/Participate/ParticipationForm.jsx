@@ -45,8 +45,8 @@ export default class ParticipationForm extends React.Component {
         gender: {
           type: 'string',
           title: i18next.t('client.participate.gender'),
-          enumNames: [i18next.t('client.participate.male'), i18next.t('client.participate.female')],
-          enum: ['male', 'female']
+          enumNames: [i18next.t('client.participate.male'), i18next.t('client.participate.female'), i18next.t('client.participate.diverse')],
+          enum: ['male', 'female', 'diverse']
         },
         firstname: {
           type: 'string',

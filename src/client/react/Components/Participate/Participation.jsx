@@ -92,6 +92,11 @@ export default class Participation extends React.Component {
         formData: data.formData,
         tshirtSizes: ['S', 'M', 'L', 'XL']
       });
+    } else if (data.formData.gender === 'diverse') {
+      this.setState({
+        formData: data.formData,
+        tshirtSizes: ['S', 'M', 'L', 'XL']
+      });
     }
   }
 
