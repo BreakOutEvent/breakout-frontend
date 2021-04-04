@@ -40,3 +40,54 @@
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+<script>
+window.cookieconsent.initialise({
+  "palette": {
+    "popup": {
+      "background": "#e6823c",
+      "text": "#34323b"
+    },
+    "button": {
+      "background": "#eae79e",
+      "text": "#34323b"
+    }
+  },
+  "theme": "classic",
+  "type": "opt-out",
+  "content": {
+    "message": "We use cookies to ensure you get the best experience at BreakOut. ",
+    "allow": "Alright",
+    "deny": "I don't like cookies.",
+    "link": "Go to our Privacy Police",
+    "href": "https://break-out.org/privacy-policy"
+  },
+  onStatusChange: function setCookie(status) {
+    if (this.hasConsented()){
+        document.cookie = "cookiesAre=allowed; expires=Thu, 18 Dec 2040 12:00:00 UTC; path=/";
+    } else {
+        // check if cookie is set, then delete
+    }
+    //TODO: cookie banner verbergen
+  }
+});
+
+function checkCookie() {
+  var name = "cookiesAre=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      if (c.substring(name.length, c.length)=="allowed"){
+        //TODO: jetzt erst alle Cookies zulassen
+      }
+    }
+  }
+  console.log("CHECK COOKIE AUFGERUFEN !!!!!!");
+};
+window.onload=checkCookie;
+</script>
