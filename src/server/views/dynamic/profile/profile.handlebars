@@ -64,6 +64,8 @@
                 <div class="form-group has-feedback has-feedback-left">
                     <label for="gender">{{__ 'LABEL_GENDER'}}</label>
                     <select class="form-control" id="gender" name="gender" readonly>
+                        <option value=""
+                                {{#ifCond me.gender null}}selected="selected"{{/ifCond}}>-</option>
                         <option value="male"
                                 {{#ifCond me.gender "male"}}selected="selected"{{/ifCond}}>{{__ 'OPTION_GENDER_1'}}</option>
                         <option value="female"
@@ -88,27 +90,8 @@
                     <div class="form-group has-feedback has-feedback-left">
                         <label for="tshirtsize">{{__ 'LABEL_SHIRT'}}</label>
 
-                        {{#ifCond me.gender "male"}}
-                            <select class="form-control" id="tshirtsize" name="tshirtsize" readonly>
-                                <option value="S" {{#ifCond me.participant.tshirtsize "S"}}selected="selected"{{/ifCond}}>S
-                                </option>
-                                <option value="M" {{#ifCond me.participant.tshirtsize "M"}}selected="selected"{{/ifCond}}>M
-                                </option>
-                                <option value="L" {{#ifCond me.participant.tshirtsize "L"}}selected="selected"{{/ifCond}}>L
-                                </option>
-                                <option value="XL" {{#ifCond me.participant.tshirtsize "XL"}}selected="selected"{{/ifCond}}>XL
-                                </option>
-                                <option value="2XL" {{#ifCond me.participant.tshirtsize "2XL"}}selected="selected"{{/ifCond}}>2XL
-                                </option>
-                                <option value="3XL" {{#ifCond me.participant.tshirtsize "3XL"}}selected="selected"{{/ifCond}}>3XL
-                                </option>
-                            </select>
-                        {{/ifCond}}
 
-                        {{#ifCond me.gender "female"}}
                             <select class="form-control" id="tshirtsize" name="tshirtsize" readonly>
-                                <option value="XS" {{#ifCond me.participant.tshirtsize "XS"}}selected="selected"{{/ifCond}}>XS
-                                </option>
                                 <option value="S" {{#ifCond me.participant.tshirtsize "S"}}selected="selected"{{/ifCond}}>S
                                 </option>
                                 <option value="M" {{#ifCond me.participant.tshirtsize "M"}}selected="selected"{{/ifCond}}>M
@@ -117,10 +100,7 @@
                                 </option>
                                 <option value="XL" {{#ifCond me.participant.tshirtsize "XL"}}selected="selected"{{/ifCond}}>XL
                                 </option>
-                                <option value="2XL" {{#ifCond me.participant.tshirtsize "2XL"}}selected="selected"{{/ifCond}}>2XL
-                                </option>
                             </select>
-                        {{/ifCond}}
 
                         <i class="form-control-feedback material-icons">accessibility</i>
                     </div>
