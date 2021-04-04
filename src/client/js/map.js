@@ -1,4 +1,5 @@
 const $ = require('jquery');
+const SLOWOUT = 'Everywhere';
 
 $(document).ready(function () {
   exportsMap.init('map', window.mapData);
@@ -92,7 +93,9 @@ var drawRoute = function (teams) {
 
         if (priorLocation) {
           route = [priorLocation, loc];
-          color = getHeatMapColor(location.speed | 0);
+          color = (team.event.city == SLOWOUT
+            ? getHeatMapColor(location.speed * 100 | 0)
+            : getHeatMapColor(location.speed | 0));
         }
 
         var flightPath = new google.maps.Polyline({
@@ -194,6 +197,7 @@ function getCityColor(team) {
 }
 
 function stringColor(string) {
+  if (string === SLOWOUT) return '#e6823c';
   var hash = 0;
   if (string.length === 0) return hash;
   for (var i = 0; i < string.length; i++) {
