@@ -75,6 +75,10 @@
                     </select>
                     <i class="form-control-feedback material-icons">wc</i>
                 </div>
+                <div class="form-group has-feedback has-feedback-left">
+                    <label for="newsletter">{{__ 'LABEL_NEWSLETTER'}}</label>
+                    <input type="checkbox" class="form-control" id="newsletter" name="newsletter" {{#if me.newsletter}}checked="checked"{{/if}} value="true">
+                </div>
                 <div class="form-buttons">
                     <button type="submit" class="btn btn-primary btn-block text-uppercase"
                             id="profile_CTA">{{__ 'BUTTON_SAVE'}}</button>

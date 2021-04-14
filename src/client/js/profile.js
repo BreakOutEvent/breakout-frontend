@@ -43,6 +43,7 @@ $(document).ready(() => {
       }
 
       var data = new FormData($('#profile_form')[0]);
+      data.set('newsletter', data.has('newsletter'));
 
       toggleLoading('#profile_CTA');
       $.ajax({

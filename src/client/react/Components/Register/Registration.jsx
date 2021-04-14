@@ -53,9 +53,10 @@ export default class Registration extends React.Component {
   async onSubmitImpl(data) {
     const email = data.formData.email;
     const pw = data.formData.password1;
+    const newsletter = (data.formData.newsletter);
     let account;
     try {
-      account = await this.props.api.createAccount(email, pw);
+      account = await this.props.api.createAccount(email, pw, newsletter);
       await this.props.api.login(email, pw);
       await this.props.api.frontendLogin(email, pw);
     } catch (err) {
