@@ -119,7 +119,8 @@ module.exports = {
     "register": {
       "description": "Create an account on break-out.org. With it, you can interact with posts of participants, become a participant yourself or support a team as their sponsor. Great having you on board!",
       "button": "Create account now",
-      "back_to_login": "Back to Login"
+      "back_to_login": "Back to Login",
+      "newsletter": "I'd like to receive the newsletter."
     },
     "role_select": {
       "visitor_title": "Visitor",
@@ -378,6 +379,7 @@ module.exports = {
     "OPTION_GENDER_1": "Male",
     "OPTION_GENDER_2": "Female",
     "OPTION_GENDER_3": "Diverse",
+    "LABEL_NEWSLETTER": "I'd like to receive the newsletter.",
     "OPTION_SHIRT_1": "Size S",
     "OPTION_SHIRT_2": "Size M",
     "OPTION_SHIRT_3": "Size L",

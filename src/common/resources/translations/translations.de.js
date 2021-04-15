@@ -120,7 +120,8 @@ module.exports = {
     "register": {
       "description": "Erstelle einen Account auf break-out.org. Damit kannst du mit Posts der Teilnehmer interagieren, selbst zum Teilnehmer werden oder als Sponsor ein Team unterstützen. Wir freuen uns auf Dich! ",
       "button": "Jetzt Account erstellen",
-      "back_to_login": "Zurück zum Login"
+      "back_to_login": "Zurück zum Login",
+      "newsletter": "Ich möchte den Newsletter empfangen."
     },
     "role_select": {
       "visitor_title": "Zuschauer",
@@ -173,10 +174,10 @@ module.exports = {
         "label": "Teamname",
         "placeholder": "Wähle einen Teamnamen"
       },
-      "select_event": "Wähle von welcher Stadt ihr starten wollt",
+      "select_event": "Wähle das Event aus",
       "partner_email": {
-        "label": "Emailadresse des Teampartners",
-        "placeholder": "Die Emailadresse deines Teampartners"
+        "label": "E-Mail-Adresse des Teampartners",
+        "placeholder": "Die E-Mail-Adresse deines Teampartners"
       },
       "button_create_text": "Team erstellen",
       "button_join_text": "Dem ausgewähltem Team beitreten",
@@ -378,6 +379,7 @@ module.exports = {
     "OPTION_GENDER_1": "Männlich",
     "OPTION_GENDER_2": "Weiblich",
     "OPTION_GENDER_3": "Divers",
+    "LABEL_NEWSLETTER": "Ich möchte den Newsletter empfangen.",
     "OPTION_SHIRT_1": "Größe S",
     "OPTION_SHIRT_2": "Größe M",
     "OPTION_SHIRT_3": "Größe L",
