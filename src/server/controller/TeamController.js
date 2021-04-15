@@ -257,7 +257,7 @@ TeamController.getTeamByUrl = (teamId, token) => co(function* () {
   tempTeam.max.donations = 0;
 
   //ONLY VIEW FULLY PAID TEAMS
-  // if (!tempTeam.hasFullyPaid) return tempTeam;
+  if (!tempTeam.hasFullyPaid) return tempTeam;
 
   tempTeam.sponsors = allSponsors
     .filter(shouldSponsoringBeDisplayed)

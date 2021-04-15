@@ -382,6 +382,7 @@ module.exports = {
     "OPTION_GENDER_1": "Male",
     "OPTION_GENDER_2": "Female",
     "OPTION_GENDER_3": "Diverse",
+    "LABEL_NEWSLETTER": "I'd like to receive the newsletter.",
     "OPTION_SHIRT_1": "Size S",
     "OPTION_SHIRT_2": "Size M",
     "OPTION_SHIRT_3": "Size L",
