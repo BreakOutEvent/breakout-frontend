@@ -183,9 +183,6 @@ module.exports = {
       "select_team_to_join": "Choose a team you would like to join",
       "team_description": {
         "label": "Enter your team description "
-      },
-      "postaddress": {
-        "label": "Tell us the address we will send your starter kit to (including name)*"
       }
     },
     "create_team": {

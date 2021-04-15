@@ -184,9 +184,6 @@ module.exports = {
       "select_team_to_join": "Wähle ein Team, dem du beitreten möchtest",
       "team_description": {
         "label": "Gib eine Beschreibung für dein Team ein"
-      },
-      "postaddress": {
-        "label": "Nenn uns die Anschrift, an die euer Starterkit gehen soll*"
       }
     },
     "create_team": {

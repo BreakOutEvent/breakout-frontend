@@ -37,10 +37,6 @@ export default class TeamCreationForm extends React.Component {
         partneremail: {
           type: 'string',
           title: i18next.t('client.create_or_join_team.partner_email.label'),
-        },
-        postaddress: {
-          type: 'string',
-          title: i18next.t('client.create_or_join_team.postaddress.label'),
         }
       }
     };
@@ -50,9 +46,6 @@ export default class TeamCreationForm extends React.Component {
         'ui:widget': 'email'
       },
       teamdescription: {
-        'ui:widget': 'textarea'
-      },
-      postaddress: {
         'ui:widget': 'textarea'
       }
     };
