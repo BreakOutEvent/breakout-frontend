@@ -183,6 +183,9 @@ module.exports = {
       "select_team_to_join": "Choose a team you would like to join",
       "team_description": {
         "label": "Enter your team description "
+      },
+      "postaddress": {
+        "label": "Tell us the address we will send your starter kit to (including name)*"
       }
     },
     "create_team": {
@@ -376,6 +379,7 @@ module.exports = {
     "LABEL_TEAMID": "Team number",
     "LABEL_LOCATION": "Starting location",
     "LABEL_DESCRIPTION": "Description",
+    "LABEL_POSTADDRESS": "Post address for starterkit",
     "OPTION_GENDER_1": "Male",
     "OPTION_GENDER_2": "Female",
     "OPTION_GENDER_3": "Diverse",

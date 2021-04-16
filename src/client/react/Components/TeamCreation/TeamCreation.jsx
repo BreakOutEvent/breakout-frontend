@@ -55,7 +55,8 @@ export default class TeamCreation extends React.Component {
 
     const teamData = {
       name: data.formData.teamname,
-      description: data.formData.teamdescription
+      description: data.formData.teamdescription,
+      postaddress: data.formData.postaddress
     };
 
     let team;
