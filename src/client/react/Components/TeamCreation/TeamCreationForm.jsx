@@ -19,7 +19,7 @@ export default class TeamCreationForm extends React.Component {
     const schema = {
       type: 'object',
       description: i18next.t('client.create_team.description'),
-      required: ['city', 'teamname', 'teamdescription', 'partneremail'],
+      required: ['city', 'teamname', 'teamdescription', 'partneremail', 'postaddress'],
       properties: {
         city: {
           type: 'string',
