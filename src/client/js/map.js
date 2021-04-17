@@ -1,5 +1,5 @@
 const $ = require('jquery');
-const SLOWOUT = 'Everywhere';
+const SLOWOUT = 'Anywhere';
 
 $(document).ready(function () {
   exportsMap.init('map', window.mapData);
