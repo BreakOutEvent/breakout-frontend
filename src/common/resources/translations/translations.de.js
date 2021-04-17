@@ -186,7 +186,7 @@ module.exports = {
         "label": "Gib eine Beschreibung für dein Team ein"
       },
       "postaddress": {
-        "label": "Nenn uns die Anschrift, an die euer Starterkit gehen soll*"
+        "label": "Nenn uns die Anschrift (inkl. Name, Straße + Hausnr, PLZ + Ort) an die euer Starterkit verschickt werden soll \n (Versanddatum ca. 15.06.21, Versand nur nach Deutschland möglich)"
       }
     },
     "create_team": {

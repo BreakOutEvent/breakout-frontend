@@ -185,7 +185,7 @@ module.exports = {
         "label": "Enter your team description "
       },
       "postaddress": {
-        "label": "Tell us the address we will send your starter kit to (including name)*"
+        "label": "Tell us the address (name, street + nr., PLZ + city) where your starterkit will be sent to \n (shipping date approx. 15.06.21, shipping only available in Germany)"
       }
     },
     "create_team": {
