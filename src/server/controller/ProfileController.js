@@ -34,6 +34,7 @@ class ProfileController {
     };
 
     if(req.body.teamDescription) update.description = req.body.teamDescription;
+    if(req.body.postaddress) update.postaddress = req.body.postaddress;
 
     if (req.file) {
       logger.debug('Uploading updated team picture to cloudinary');

@@ -184,6 +184,9 @@ module.exports = {
       "select_team_to_join": "Wähle ein Team, dem du beitreten möchtest",
       "team_description": {
         "label": "Gib eine Beschreibung für dein Team ein"
+      },
+      "postaddress": {
+        "label": "Nenn uns die Anschrift (inkl. Name, Straße + Hausnr, PLZ + Ort) an die euer Starterkit verschickt werden soll \n (Versanddatum ca. 15.06.21, Versand nur nach Deutschland möglich)"
       }
     },
     "create_team": {
@@ -376,6 +379,7 @@ module.exports = {
     "LABEL_TEAMID": "Teamnummer",
     "LABEL_LOCATION": "Startort",
     "LABEL_DESCRIPTION": "Beschreibung",
+    "LABEL_POSTADDRESS": "Versandaddresse für das Starterkit",
     "OPTION_GENDER_1": "Männlich",
     "OPTION_GENDER_2": "Weiblich",
     "OPTION_GENDER_3": "Divers",
