@@ -275,7 +275,7 @@ module.exports = {
     "CTA": "CREATE A TEAM",
     "LABEL_TEAMNAME": "Your team name",
     "PLACEHOLDER_TEAMNAME": "Winner of Hearts",
-    "LABEL_EMAIL": "Your partner's email",
+    "LABEL_EMAIL": "Your team-partner's email-address",
     "PLACEHOLDER_EMAIL": "travelcompanion@adventure.eu",
     "LABEL_CITY": "Starting city"
   },
@@ -538,7 +538,7 @@ module.exports = {
     "SERVER_PROCESSING_REQUEST":"Medium is being processed by the server, give us a moment!",
     "POINTS": "Points",
     "TEAM_FEE_HEADING": "Thank you for signing up for BreakOut!",
-    "TEAM_FEE_DESCRIPTION": "To complete your registration, please transfer your registration fee as soon as possible. We can only activate your team once we've received the registration fee. Please transfer the fee by latest May 25th so that we can equip you with a t-shirt and your starter kit.",
+    "TEAM_FEE_DESCRIPTION": "To complete your registration, please transfer your registration fee as soon as possible. We can only activate your team once we've received the registration fee. Please transfer the fee by latest May 24th 2021 so that we can equip you with a t-shirt and your starter kit.",
     "TEAM_FEE_TRANSFER_INFO_HEADING": "Please transfer the registration fee to the following account:",
     "OWNER": "Account owner",
     "PURPOSE": "Purpose of transfer",
@@ -581,7 +581,7 @@ module.exports = {
   },
   "LIVEBLOG": {
     "HEADLINE": "What is BreakOut?",
-    "DESCRIPTION": "BreakOut challenges the participants to travel in teams of two as far away as possible without spending money on transportation from Munich, Berlin or Barcelona. Each team collects donations from their team sponsors for every kilometer traveled and each challenge accomplished. 100% of these donations are going to the charity organization One Dollar Glasses",
+    "DESCRIPTION": "BreakOut challenges the participants to travel in teams of two as far away as possible from their starting location without spending money on transportation. Each team collects donations from their team sponsors for every kilometer traveled and each challenge accomplished. 100% of these donations are going to the charity organization Viva con Agua de Sankt Pauli e.V.",
     "TIME_H": "BreakOut Event",
     "TIME_PRE": "Until BreakOut starts",
     "TIME_DURING": "Until BreakOut ends",

@@ -276,7 +276,7 @@ module.exports = {
     "CTA": "TEAM ERSTELLEN",
     "LABEL_TEAMNAME": "Euer Teamname",
     "PLACEHOLDER_TEAMNAME": "Sieger der Herzen",
-    "LABEL_EMAIL": "Email Deines Partners",
+    "LABEL_EMAIL": "Email Deines Team-Partners",
     "PLACEHOLDER_EMAIL": "reisebegleitung@abenteuer.eu",
     "LABEL_CITY": "Startstadt"
   },
@@ -540,7 +540,7 @@ module.exports = {
     "SERVER_PROCESSING_REQUEST":"Medium wird vom Server verarbeitet, gib uns einen kurzen Moment!",
     "POINTS": "Punkte",
     "TEAM_FEE_HEADING": "Vielen Dank, dass Ihr Euch für den BreakOut angemeldet habt!",
-    "TEAM_FEE_DESCRIPTION": " Um Eure Anmeldung abzuschließen, müsst Ihr noch 60€ Teilnahmegebühr überweisen. Solange Ihr keine Teilnahmegebühr überwiesen habt, können wir Euer Team nicht freischalten. Bitte überweist das Geld bis spätestens 25. Mai, damit wir euch mit einem T-Shirt und Starterkit für Eure Reise ausstatten können.",
+    "TEAM_FEE_DESCRIPTION": " Um Eure Anmeldung abzuschließen, müsst Ihr noch 60€ Teilnahmegebühr überweisen. Solange Ihr keine Teilnahmegebühr überwiesen habt, können wir Euer Team nicht freischalten. Bitte überweist das Geld bis spätestens 24. Mai 2021, damit wir euch mit einem T-Shirt und Starterkit für Eure Reise ausstatten können.",
     "TEAM_FEE_TRANSFER_INFO_HEADING": "Bitte überweist eure Teamgebühr an folgendes Konto:",
     "OWNER": "Kontoinhaber",
     "PURPOSE": "Verwendungszweck",
@@ -583,7 +583,7 @@ module.exports = {
   },
   "LIVEBLOG": {
     "HEADLINE": "Was ist BreakOut?",
-    "DESCRIPTION": "Bei BreakOut versuchen Teams von je zwei Personen innerhalb von 36 Stunden so weit wie möglich vom Ausgangspunkt (München, Berlin oder Barcelona) weg zu reisen, ohne Geld für die Fortbewegung auszugeben. Jedes Team sucht Sponsoren, die - pro Kilometer oder für die Erfüllung gestellter Aufgaben (Challenges), einen gewissen Betrag für den Zeltschule e. V. spenden.",
+    "DESCRIPTION": "Bei BreakOut versuchen Teams von je zwei Personen innerhalb von 36 Stunden so weit wie möglich von ihrem Ausgangspunkt weg zu reisen, ohne Geld für die Fortbewegung auszugeben. Jedes Team sucht Sponsoren, die - pro Kilometer oder für die Erfüllung gestellter Aufgaben (Challenges), einen gewissen Betrag für den Viva con Agua de Sankt Pauli e.V. spenden.",
     "TIME_H": "BreakOut Event",
     "TIME_PRE": "Bis BreakOut startet",
     "TIME_DURING": "Bis BreakOut endet",
