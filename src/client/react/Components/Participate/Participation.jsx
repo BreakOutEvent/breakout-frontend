@@ -63,7 +63,8 @@ export default class Participation extends React.Component {
         emergencynumber: data.formData.emergencynumber,
         tshirtsize: data.formData.tshirtSize,
         phonenumber: data.formData.phonenumber
-      }
+      },
+      newsletter: this.me.newsletter
     };
 
     return this.props.api.becomeParticipant(this.me.id, participantData)

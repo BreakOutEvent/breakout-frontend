@@ -133,6 +133,7 @@ registration.createParticipant = (req, res, next) => co(function*() {
   }
 
   const user = yield api.getCurrentUser(req.user);
+  updateBody.newsletter = (typeof req.body.newsletter === 'undefined' ? user.newsletter : req.body.newsletter);
   yield api.putModel('user', user.id, req.user, updateBody);
 
   logger.info('Created / updated a participant', updateBody);
