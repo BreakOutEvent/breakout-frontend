@@ -64,12 +64,20 @@
                 <div class="form-group has-feedback has-feedback-left">
                     <label for="gender">{{__ 'LABEL_GENDER'}}</label>
                     <select class="form-control" id="gender" name="gender" readonly>
+                        <option value=""
+                                {{#ifCond me.gender null}}selected="selected"{{/ifCond}}>-</option>
                         <option value="male"
                                 {{#ifCond me.gender "male"}}selected="selected"{{/ifCond}}>{{__ 'OPTION_GENDER_1'}}</option>
                         <option value="female"
                                 {{#ifCond me.gender "female"}}selected="selected"{{/ifCond}}>{{__ 'OPTION_GENDER_2'}}</option>
+                        <option value="diverse"
+                                {{#ifCond me.gender "diverse"}}selected="selected"{{/ifCond}}>{{__ 'OPTION_GENDER_3'}}</option>
                     </select>
                     <i class="form-control-feedback material-icons">wc</i>
+                </div>
+                <div class="form-group has-feedback has-feedback-left">
+                    <label for="newsletter">{{__ 'LABEL_NEWSLETTER'}}</label>
+                    <input type="checkbox" class="form-control" id="newsletter" name="newsletter" {{#if me.newsletter}}checked="checked"{{/if}} value="true">
                 </div>
                 <div class="form-buttons">
                     <button type="submit" class="btn btn-primary btn-block text-uppercase"
@@ -86,27 +94,8 @@
                     <div class="form-group has-feedback has-feedback-left">
                         <label for="tshirtsize">{{__ 'LABEL_SHIRT'}}</label>
 
-                        {{#ifCond me.gender "male"}}
-                            <select class="form-control" id="tshirtsize" name="tshirtsize" readonly>
-                                <option value="S" {{#ifCond me.participant.tshirtsize "S"}}selected="selected"{{/ifCond}}>S
-                                </option>
-                                <option value="M" {{#ifCond me.participant.tshirtsize "M"}}selected="selected"{{/ifCond}}>M
-                                </option>
-                                <option value="L" {{#ifCond me.participant.tshirtsize "L"}}selected="selected"{{/ifCond}}>L
-                                </option>
-                                <option value="XL" {{#ifCond me.participant.tshirtsize "XL"}}selected="selected"{{/ifCond}}>XL
-                                </option>
-                                <option value="2XL" {{#ifCond me.participant.tshirtsize "2XL"}}selected="selected"{{/ifCond}}>2XL
-                                </option>
-                                <option value="3XL" {{#ifCond me.participant.tshirtsize "3XL"}}selected="selected"{{/ifCond}}>3XL
-                                </option>
-                            </select>
-                        {{/ifCond}}
 
-                        {{#ifCond me.gender "female"}}
                             <select class="form-control" id="tshirtsize" name="tshirtsize" readonly>
-                                <option value="XS" {{#ifCond me.participant.tshirtsize "XS"}}selected="selected"{{/ifCond}}>XS
-                                </option>
                                 <option value="S" {{#ifCond me.participant.tshirtsize "S"}}selected="selected"{{/ifCond}}>S
                                 </option>
                                 <option value="M" {{#ifCond me.participant.tshirtsize "M"}}selected="selected"{{/ifCond}}>M
@@ -115,10 +104,7 @@
                                 </option>
                                 <option value="XL" {{#ifCond me.participant.tshirtsize "XL"}}selected="selected"{{/ifCond}}>XL
                                 </option>
-                                <option value="2XL" {{#ifCond me.participant.tshirtsize "2XL"}}selected="selected"{{/ifCond}}>2XL
-                                </option>
                             </select>
-                        {{/ifCond}}
 
                         <i class="form-control-feedback material-icons">accessibility</i>
                     </div>
@@ -168,7 +154,7 @@
                     </div>
                     <div class="form-group has-feedback has-feedback-left">
                         <label for="teamName">{{__ 'LABEL_TEAMNAME'}}</label>
-                        <input type="text" class="form-control" id="teamName" name="teamName"
+                        <input required="required" type="text" class="form-control" id="teamName" name="teamName"
                                value="{{team.name}}" required="required">
                         <i class="form-control-feedback material-icons">people</i>
                     </div>
@@ -181,9 +167,15 @@
                     </div>
                     <div class="form-group has-feedback has-feedback-left">
                         <label for="teamDescription">{{__ 'LABEL_DESCRIPTION'}}</label>
-                        <textarea id="teamDescription" rows="10" name="teamDescription"
+                        <textarea required="required" id="teamDescription" rows="10" name="teamDescription"
                                   class="form-control">{{team.description}}</textarea>
                         <i class="form-control-feedback material-icons">comment</i>
+                    </div>
+                    <div class="form-group has-feedback has-feedback-left">
+                        <label for="postaddress">{{__ 'LABEL_POSTADDRESS'}}</label>
+                        <textarea id="postaddress" rows="3" name="postaddress"
+                                  class="form-control" required="required">{{team.postaddress}}</textarea>
+                        <i class="form-control-feedback material-icons">mail</i>
                     </div>
 
                     <div class="form-buttons">

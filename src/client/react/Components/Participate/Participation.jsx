@@ -63,7 +63,8 @@ export default class Participation extends React.Component {
         emergencynumber: data.formData.emergencynumber,
         tshirtsize: data.formData.tshirtSize,
         phonenumber: data.formData.phonenumber
-      }
+      },
+      newsletter: this.me.newsletter
     };
 
     return this.props.api.becomeParticipant(this.me.id, participantData)
@@ -88,6 +89,11 @@ export default class Participation extends React.Component {
         tshirtSizes: ['S', 'M', 'L', 'XL']
       });
     } else if (data.formData.gender === 'female') {
+      this.setState({
+        formData: data.formData,
+        tshirtSizes: ['S', 'M', 'L', 'XL']
+      });
+    } else if (data.formData.gender === 'diverse') {
       this.setState({
         formData: data.formData,
         tshirtSizes: ['S', 'M', 'L', 'XL']

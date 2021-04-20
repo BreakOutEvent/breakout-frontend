@@ -120,7 +120,8 @@ module.exports = {
     "register": {
       "description": "Erstelle einen Account auf break-out.org. Damit kannst du mit Posts der Teilnehmer interagieren, selbst zum Teilnehmer werden oder als Sponsor ein Team unterstützen. Wir freuen uns auf Dich! ",
       "button": "Jetzt Account erstellen",
-      "back_to_login": "Zurück zum Login"
+      "back_to_login": "Zurück zum Login",
+      "newsletter": "Ich möchte den Newsletter empfangen."
     },
     "role_select": {
       "visitor_title": "Zuschauer",
@@ -138,6 +139,7 @@ module.exports = {
       "gender": "Geschlecht",
       "male": "Männlich",
       "female": "Weiblich",
+      "diverse": "Divers",
       "enter_full_data": "Bitte gib deine Daten vollständig an",
       "firstname": {
         "label": "Vorname",
@@ -172,16 +174,19 @@ module.exports = {
         "label": "Teamname",
         "placeholder": "Wähle einen Teamnamen"
       },
-      "select_event": "Wähle von welcher Stadt ihr starten wollt",
+      "select_event": "Wähle das Event aus",
       "partner_email": {
-        "label": "Emailadresse des Teampartners",
-        "placeholder": "Die Emailadresse deines Teampartners"
+        "label": "E-Mail-Adresse des Teampartners",
+        "placeholder": "Die E-Mail-Adresse deines Teampartners"
       },
       "button_create_text": "Team erstellen",
       "button_join_text": "Dem ausgewähltem Team beitreten",
       "select_team_to_join": "Wähle ein Team, dem du beitreten möchtest",
       "team_description": {
         "label": "Gib eine Beschreibung für dein Team ein"
+      },
+      "postaddress": {
+        "label": "Nenn uns die Anschrift (inkl. Name, Straße + Hausnr, PLZ + Ort) an die euer Starterkit verschickt werden soll \n (Versanddatum ca. 15.06.21, Versand nur nach Deutschland möglich)"
       }
     },
     "create_team": {
@@ -228,6 +233,7 @@ module.exports = {
     "GENDER": "Geschlecht",
     "MALE": "Männlich",
     "FEMALE": "Weiblich",
+    "DIVERSE": "Divers",
     "FIRSTNAME_LABEL": "Vorname",
     "FIRSTNAME_PLACEHOLDER": "Jon",
     "LASTNAME_LABEL": "Nachname",
@@ -373,8 +379,11 @@ module.exports = {
     "LABEL_TEAMID": "Teamnummer",
     "LABEL_LOCATION": "Startort",
     "LABEL_DESCRIPTION": "Beschreibung",
+    "LABEL_POSTADDRESS": "Versandaddresse für das Starterkit",
     "OPTION_GENDER_1": "Männlich",
     "OPTION_GENDER_2": "Weiblich",
+    "OPTION_GENDER_3": "Divers",
+    "LABEL_NEWSLETTER": "Ich möchte den Newsletter empfangen.",
     "OPTION_SHIRT_1": "Größe S",
     "OPTION_SHIRT_2": "Größe M",
     "OPTION_SHIRT_3": "Größe L",

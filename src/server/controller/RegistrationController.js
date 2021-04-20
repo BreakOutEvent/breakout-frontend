@@ -104,6 +104,7 @@ registration.createParticipant = (req, res, next) => co(function*() {
   if (req.body.firstname) data.firstname = req.body.firstname;
   if (req.body.lastname) data.lastname = req.body.lastname;
   if (req.body.gender) data.gender = req.body.gender;
+  if (typeof req.body.newsletter !== 'undefined') data.newsletter = (req.body.newsletter === 'true');
 
   if (Object.keys(data).length > 0) {
     updateBody = data;
@@ -132,6 +133,7 @@ registration.createParticipant = (req, res, next) => co(function*() {
   }
 
   const user = yield api.getCurrentUser(req.user);
+  updateBody.newsletter = (typeof req.body.newsletter === 'undefined' ? user.newsletter : req.body.newsletter);
   yield api.putModel('user', user.id, req.user, updateBody);
 
   logger.info('Created / updated a participant', updateBody);

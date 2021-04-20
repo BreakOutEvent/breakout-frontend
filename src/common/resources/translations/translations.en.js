@@ -119,7 +119,8 @@ module.exports = {
     "register": {
       "description": "Create an account on break-out.org. With it, you can interact with posts of participants, become a participant yourself or support a team as their sponsor. Great having you on board!",
       "button": "Create account now",
-      "back_to_login": "Back to Login"
+      "back_to_login": "Back to Login",
+      "newsletter": "I'd like to receive the newsletter."
     },
     "role_select": {
       "visitor_title": "Visitor",
@@ -137,6 +138,7 @@ module.exports = {
       "gender": "Gender",
       "male": "Male",
       "female": "Female",
+      "diverse": "Diverse",
       "enter_full_data": "Please enter all required information",
       "firstname": {
         "label": "Firstname",
@@ -181,6 +183,9 @@ module.exports = {
       "select_team_to_join": "Choose a team you would like to join",
       "team_description": {
         "label": "Enter your team description "
+      },
+      "postaddress": {
+        "label": "Tell us the address (name, street + nr., PLZ + city) where your starterkit will be sent to \n (shipping date approx. 15.06.21, shipping only available in Germany)"
       }
     },
     "create_team": {
@@ -227,6 +232,7 @@ module.exports = {
     "GENDER": "Gender",
     "MALE": "Male",
     "FEMALE": "Female",
+    "DIVERSE": "Diverse",
     "FIRSTNAME_LABEL": "First name",
     "FIRSTNAME_PLACEHOLDER": "Jon",
     "LASTNAME_LABEL": "Last name",
@@ -283,6 +289,7 @@ module.exports = {
     "GENDER": "Gender",
     "MALE": "Male",
     "FEMALE": "Female",
+    "DIVERSE": "Diverse",
     "FIRST_NAME": "First Name",
     "LAST_NAME": "Last Name",
     "TSHIRT": "T-Shirt Size",
@@ -372,8 +379,11 @@ module.exports = {
     "LABEL_TEAMID": "Team number",
     "LABEL_LOCATION": "Starting location",
     "LABEL_DESCRIPTION": "Description",
+    "LABEL_POSTADDRESS": "Post address for starterkit",
     "OPTION_GENDER_1": "Male",
     "OPTION_GENDER_2": "Female",
+    "OPTION_GENDER_3": "Diverse",
+    "LABEL_NEWSLETTER": "I'd like to receive the newsletter.",
     "OPTION_SHIRT_1": "Size S",
     "OPTION_SHIRT_2": "Size M",
     "OPTION_SHIRT_3": "Size L",

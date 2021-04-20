@@ -55,6 +55,10 @@ export default class LoginForm extends React.Component {
           type: 'string',
           title: i18next.t('client.login.repeat_password_label'),
           minLength: 3
+        },
+        newsletter: {
+          type: 'boolean',
+          title: i18next.t('client.register.newsletter'),
         }
       }
     };
