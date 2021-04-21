@@ -71,7 +71,7 @@ var drawRoute = function (teams) {
   teams.forEach(function (team) {
     if (!team) return;
     var route = [];
-    if (team.event.city !== SLOWOUT {
+    if (team.event.city !== SLOWOUT) {
       var startingposition = new google.maps.LatLng(team.event.startingLocation.latitude, team.event.startingLocation.longitude);
       markers_list.push(startingposition);
       route = [startingposition];
