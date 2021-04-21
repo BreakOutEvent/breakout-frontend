@@ -94,7 +94,7 @@ var drawRoute = function (teams) {
         if (priorLocation) {
           route = [priorLocation, loc];
           color = (team.event.city == SLOWOUT
-            ? getHeatMapColor(location.speed * 100 | 0)
+            ? getHeatMapColor(location.speed * 30 | 0)
             : getHeatMapColor(location.speed | 0));
         }
 
