@@ -1,5 +1,4 @@
 const $ = require('jquery');
-const SLOWOUT = 'Anywhere';
 
 $(document).ready(function () {
   exportsMap.init('map', window.mapData);
@@ -70,32 +69,21 @@ var drawRoute = function (teams) {
 
   teams.forEach(function (team) {
     if (!team) return;
-    var route = [];
-    if (team.event.city !== SLOWOUT {
-      var startingposition = new google.maps.LatLng(team.event.startingLocation.latitude, team.event.startingLocation.longitude);
-      markers_list.push(startingposition);
-      route = [startingposition];
-    }
-   
+    var startingposition = new google.maps.LatLng(team.event.startingLocation.latitude, team.event.startingLocation.longitude);
+    markers_list.push(startingposition);
+    var route = [startingposition];
     var priorLocation = null;
 
     team.locations.forEach(function (location) {
       var loc = new google.maps.LatLng(location.latitude, location.longitude);
 
       if (isSingleTeam) {
-        if (team.event.city !== SLOWOUT) {
-          route = [startingposition, loc];
-        } else {
-          route = [loc];
-        }
-        
+        route = [startingposition, loc];
         var color = '#919191';
 
         if (priorLocation) {
           route = [priorLocation, loc];
-          color = (team.event.city == SLOWOUT
-            ? getHeatMapColor(location.speed * 100 | 0)
-            : getHeatMapColor(location.speed | 0));
+          color = getHeatMapColor(location.speed | 0);
         }
 
         var flightPath = new google.maps.Polyline({
@@ -197,7 +185,6 @@ function getCityColor(team) {
 }
 
 function stringColor(string) {
-  if (string === SLOWOUT) return '#e6823c';
   var hash = 0;
   if (string.length === 0) return hash;
   for (var i = 0; i < string.length; i++) {
