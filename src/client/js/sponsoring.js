@@ -13,18 +13,18 @@ $(document).ready(() => {
   
   function output(text, limit, outputHTML, estimate) {
     return function () {
-      let string = `Ein Team hat 2015 im Durchschnitt 800km zurück gelegt. Bei ${text.val()}€
-      pro Kilometer ergäbe das eine Spendensummme von ${Math.round(800 * text.val())}€.`;
-      if (limit.val() > 0 && limit.val() < Math.round(800 * text.val())) {
+      let string = `Angenommen ein Team legt 100km zurück. Bei ${text.val()}€
+      pro Kilometer ergäbe das eine Spendensummme von ${Math.round(100 * text.val())}€.`;
+      if (limit.val() > 0 && limit.val() < Math.round(100 * text.val())) {
         string += ` Durch das Limit wird die Spendensumme
       auf maximal ${Math.round(limit.val())}€ beschränkt.`;
       }
       outputHTML.html(string);
       estimate.html(() => {
-        if (limit.val() > 0 && limit.val() < Math.round(800 * text.val())) {
+        if (limit.val() > 0 && limit.val() < Math.round(100 * text.val())) {
           return Math.round(limit.val());
         } else {
-          return Math.round(800 * text.val());
+          return Math.round(100 * text.val());
         }
       });
     };
