@@ -152,7 +152,7 @@ class DynamicController {
     const highscores = yield Promise.all(requests);
     let allTeams = [].concat.apply([], highscores);
     const disqualified = [598];
-    allTeams = allTeams.filter(t => !disqualified.includes(t.teamId))
+    allTeams = allTeams.filter(t => !disqualified.includes(t.teamId));
     let sortedTeamsbyScore = ( _.sortBy(allTeams, t => t.score)).reverse();
     let sortedTeamsbyDistance = ( _.sortBy(allTeams, t => t.distance)).reverse();
     let sortedTeamsbyMoney = (_.sortBy(allTeams, t => t.donatedSum.fullSum)).reverse();
