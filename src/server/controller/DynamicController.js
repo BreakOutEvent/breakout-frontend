@@ -150,7 +150,9 @@ class DynamicController {
 
     const requests = req.session.activeEvents.map(event => liveblog.getHighscores(event));
     const highscores = yield Promise.all(requests);
-    const allTeams = [].concat.apply([], highscores);
+    let allTeams = [].concat.apply([], highscores);
+    const disqualified = [598];
+    allTeams = allTeams.filter(t => !disqualified.includes(t.teamId))
     let sortedTeamsbyScore = ( _.sortBy(allTeams, t => t.score)).reverse();
     let sortedTeamsbyDistance = ( _.sortBy(allTeams, t => t.distance)).reverse();
     let sortedTeamsbyMoney = (_.sortBy(allTeams, t => t.donatedSum.fullSum)).reverse();
