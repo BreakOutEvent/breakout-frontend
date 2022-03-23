@@ -49,25 +49,25 @@ module.exports = {
       "supporterData": {
         "title": "Spender-/Sponsordaten",
         "selectionText": "Im folgenden können Sie auswählen, in welcher Form Sie ein oder mehrere Teams und damit" +
-        "unseren Spendenpartner Viva con Agua de St. Pauli e. V. unterstützen wollen.",
+        "unseren Spendenpartner Zeltschule e.V. unterstützen wollen.",
         "selectionLabel": "Art der Unterstützung",
         "donor": {
           "title": "Spender",
-          "description": "100% des gespendeten Geldes gehen an den Viva con Agua de St. Pauli e. V. und es wird Ihnen " +
+          "description": "100% des gespendeten Geldes gehen an den Zeltschule e.V. und es wird Ihnen " +
           "vom BreakOut e. V. eine Spendenquittung oder ein (vereinfachter) Spendennachweis ausgestellt."
         },
         "passive": {
           "title": "Passiver Sponsor",
           "description": "Als passiver Sponsor können Sie Ihren Firmennamen sowie ein Logo auf der Website platzieren. " +
           "Sie bekommen vom BreakOut e. V. eine Rechnung ausgestellt, aber es wird keine Umsatzsteuer fällig. 100% des " +
-          "Betrags gehen an den Viva con Agua de St. Pauli e. V."
+          "Betrags gehen an den Zeltschule e.V."
         },
         "active": {
           "title": "Aktiver Sponsor",
           "description": "Als aktiver Sponsor können Sie Ihren Firmennamen, einen Link zur Firmenwebsite sowie optional " +
           "ein Logo hochgeladen werden. Sie bekommen vom BreakOut e. V. dann eine Rechnung ausgestellt, auf der eine " +
           "Umsatzsteuer von 19% ausgewiesen wird. Der bezahlte Betrag, abzüglich der Umsatzsteuer, geht vollständig an " +
-          "den Viva con Agua de St. Pauli e. V. "
+          "den Zeltschule e.V. "
         },
       },
       "supportAsCompany": "Als Firma unterstützen",
@@ -127,7 +127,7 @@ module.exports = {
       "visitor_title": "Zuschauer",
       "visitor_text": "Als Zuschauer kannst du Postings kommentieren und perfekt die Reise deiner Freunde mitverfolgen.",
       "participant_title": "Teilnehmer",
-      "participant_text": "Hier kannst du bei BreakOut 2021 teilnehmen und ein Team erstellen oder einem Team beitreten. Als Teilnehmer wird pro Team eine Startgebühr von 50€ fällig.",
+      "participant_text": "Hier kannst du bei BreakOut 2022 teilnehmen und ein Team erstellen oder einem Team beitreten. Als Teilnehmer wird pro Team eine Startgebühr von 50€ fällig.",
       "sponsor_title": "Sponsor",
       "sponsor_text": "Unterstütze ein oder mehrere Teams mit Kilometerspenden oder indem du ihnen eine Challenge stellst.",
       "description": "Herzlich Willkommen bei BreakOut! Wir freuen uns, dich als Teil von BreakOut bei uns zu sehen. Du kannst nun eine Rolle auswählen. Du kannst jederzeit über dein Profilmenü hierher zurückkommen. Du kannst auch gleichzeitig Teilnehmer und Sponsor sein!",
@@ -219,7 +219,7 @@ module.exports = {
     },
     "join_team_success": {
       "title": "Team erfolgreich beigetreten",
-      "description": "Herzlichen Glückwunsch. Du und dein Teampartner habt euch erfolgreich für BreakOut 2021 registriert. Bitte überweist nun die Teilnahmegebühr mit dem unten stehenden Verwendungszweck bis zum 24. Mai 2021.",
+      "description": "Herzlichen Glückwunsch. Du und dein Teampartner habt euch erfolgreich für BreakOut 2022 registriert. Bitte überweist nun die Teilnahmegebühr mit dem unten stehenden Verwendungszweck bis zum 31. Mai 2022.",
       "loading_purpose_of_transfer": "Euer Überweisungszweck wird geladen...",
       "IBAN": "IBAN",
       "BIC": "BIC",
@@ -263,9 +263,9 @@ module.exports = {
     "DESCRIPTION_SPONSOR": "Ihr aktueller Status ist: <strong>Sponsor</strong>. Damit können Sie Teams pro Kilometer unterstützen oder ihnen unvergessliche Challenges mit auf den Weg geben!",
     "DESCRIPTION_3": "Das ist Dir noch nicht genug? Wir bieten auf unserer Plattform auch noch weitere Accounts an:",
     "PARTICIPANT_H": "Jetzt Teilnehmer werden",
-    "PARTICIPANT": "Du willst Dein eigenes Abenteuer erleben und an BreakOut 2021 teilnehmen? Dann geht's hier weiter zur Anmeldung.",
+    "PARTICIPANT": "Du willst Dein eigenes Abenteuer erleben und an BreakOut 2022 teilnehmen? Dann geht's hier weiter zur Anmeldung.",
     "SPONSOR_H": "Sponsor",
-    "SPONSOR": "Sie wollen Ihr favorisiertes Team bei BreakOut 2021 unterstützen und damit etwas Gutes tun? Dann hier klicken und als Sponsor anmelden.",
+    "SPONSOR": "Sie wollen Ihr favorisiertes Team bei BreakOut 2022 unterstützen und damit etwas Gutes tun? Dann hier klicken und als Sponsor anmelden.",
     "OBSERVER": "Du bist erstmal mit Deinem aktuellen Status zufrieden? (Du kannst jederzeit wieder auf diese Seite!)",
     "NOTEAM": "Du bist zwar bereits als Teilnehmer angemeldet, hast aber noch kein Team. Klicke hier um zu sehen ob du Einladungen erhalten hast oder um ein Team zu gründen.",
     "NOTEAM_H": "Team beitreten / erstellen",
@@ -388,7 +388,7 @@ module.exports = {
     "OPTION_SHIRT_2": "Größe M",
     "OPTION_SHIRT_3": "Größe L",
     "OPTION_SHIRT_4": "Größe XL",
-    "PAYMENT_INFO": "Die Zahlung Deines Team Teilnehmerbeitrags (50,- €) ist noch nicht bei uns eingetroffen. Bitte überweise den Betrag bis zum 24. Mai 2021, um am Event teilzunehmen.",
+    "PAYMENT_INFO": "Die Zahlung Deines Team Teilnehmerbeitrags (50,- €) ist noch nicht bei uns eingetroffen. Bitte überweise den Betrag bis zum 31. Mai 2022, um am Event teilzunehmen.",
     "BUTTON_SAVE": "Änderungen speichern",
     "BUTTON_PAY": "Event Beitrag bezahlen",
     "LABEL_SPONSORSTREET": "Straße",
@@ -407,8 +407,8 @@ module.exports = {
     "ELEMENT_2": "Starterkit",
     "ELEMENT_3": "BreakOut Hotline",
     "DESCRIPTION_2": "Alle diese Posten fließen direkt oder indirekt wieder an Euch zurück. Eure Sicherheit steht für uns an erster Stelle, weshalb die BreakOut Hotline die ganzen 36 Stunden für Euch erreichbar sein wird.",
-    "DESCRIPTION_3": "Da der Grundgedanke von BreakOut das Spenden an den Viva con Agua de St. Pauli e. V. ist, möchten wir sicherstellen, dass jedes Team diesen sozialen Gedanken unterstützt. Wir erheben deshalb 20€ Kaution pro Team. Diese überweisen wir Euch nach dem Event zurück, wenn Ihr über 100€ an Spenden generiert habt. Andernfalls gehen die 20€ in Eurem Namen direkt an den Viva con Agua de St. Pauli e. V. Aber keine Panik, das kriegt Ihr locker hin! <3",
-    "DESCRIPTION_4": "Das heißt die Gesamtkosten pro Team betragen 50,-€ (20€ Anmeldegebühr pro Person + 15€ Spendendeposit). Für eine erfolreiche Anmeldung muss der Gesamtbetrag bis zum 24. Mai 2021 überwiesen worden sein. Nutzt hierfür den <strong>angegebenen Verwendungszweck</strong> und folgende Kontoverbindung:",
+    "DESCRIPTION_3": "Da der Grundgedanke von BreakOut das Spenden an den Zeltschule e.V. ist, möchten wir sicherstellen, dass jedes Team diesen sozialen Gedanken unterstützt. Wir erheben deshalb 20€ Kaution pro Team. Diese überweisen wir Euch nach dem Event zurück, wenn Ihr über 100€ an Spenden generiert habt. Andernfalls gehen die 20€ in Eurem Namen direkt an den Zeltschule e.V. Aber keine Panik, das kriegt Ihr locker hin! <3",
+    "DESCRIPTION_4": "Das heißt die Gesamtkosten pro Team betragen 50,-€ (20€ Anmeldegebühr pro Person + 15€ Spendendeposit). Für eine erfolreiche Anmeldung muss der Gesamtbetrag bis zum 31. Mai 2022 überwiesen worden sein. Nutzt hierfür den <strong>angegebenen Verwendungszweck</strong> und folgende Kontoverbindung:",
     "SUBHEADLINE_1": "Überweisung",
     "ACCNUMBER": "IBAN",
     "BANKNUMBER": "BIC",
@@ -506,12 +506,12 @@ module.exports = {
   },
   "CLOSED": {
     "HEADLINE": "Anmeldung geschlossen",
-    "DESCRIPTION": "Leider ist die Anmeldung als Teilnehmer bei BreakOut 2021 gerade nicht geöffnet :( Trag dich aber gerne in unseren Newsletter ein, um immer auf dem aktuellsten Stand zu bleiben!",
+    "DESCRIPTION": "Leider ist die Anmeldung als Teilnehmer bei BreakOut 2022 gerade nicht geöffnet :( Trag dich aber gerne in unseren Newsletter ein, um immer auf dem aktuellsten Stand zu bleiben!",
     "LINK_DESCRIPTION": "ZURÜCK ZUR WEBSEITE"
   },
   "SPONSOR-CLOSED": {
     "HEADLINE": "Sponsoren-Anmeldung geschlossen",
-    "DESCRIPTION": "Leider ist die Registrierung als Sponsor bei BreakOut 2021 gerade nicht geöffnet :(",
+    "DESCRIPTION": "Leider ist die Registrierung als Sponsor bei BreakOut 2022 gerade nicht geöffnet :(",
     "LINK_DESCRIPTION": "ZURÜCK ZUR WEBSEITE"
   },
   "MESSAGE": {
@@ -549,7 +549,7 @@ module.exports = {
     "SERVER_PROCESSING_REQUEST":"Medium wird vom Server verarbeitet, gib uns einen kurzen Moment!",
     "POINTS": "Punkte",
     "TEAM_FEE_HEADING": "Vielen Dank, dass Ihr Euch für den BreakOut angemeldet habt!",
-    "TEAM_FEE_DESCRIPTION": " Um Eure Anmeldung abzuschließen, müsst Ihr noch 50€ Teilnahmegebühr überweisen. Solange Ihr keine Teilnahmegebühr überwiesen habt, können wir Euer Team nicht freischalten. Bitte überweist das Geld bis spätestens 24. Mai 2021, damit wir euch mit einem T-Shirt und Starterkit für Eure Reise ausstatten können.",
+    "TEAM_FEE_DESCRIPTION": " Um Eure Anmeldung abzuschließen, müsst Ihr noch 50€ Teilnahmegebühr überweisen. Solange Ihr keine Teilnahmegebühr überwiesen habt, können wir Euer Team nicht freischalten. Bitte überweist das Geld bis spätestens 31. Mai 2022, damit wir euch mit einem T-Shirt und Starterkit für Eure Reise ausstatten können.",
     "TEAM_FEE_TRANSFER_INFO_HEADING": "Bitte überweist eure Teamgebühr an folgendes Konto:",
     "OWNER": "Kontoinhaber",
     "PURPOSE": "Verwendungszweck",
@@ -592,7 +592,7 @@ module.exports = {
   },
   "LIVEBLOG": {
     "HEADLINE": "Was ist BreakOut?",
-    "DESCRIPTION": "Bei BreakOut versuchen Teams von je zwei Personen innerhalb von 36 Stunden so weit wie möglich von Ihrem Ausgangspunkt weg zu reisen, ohne Geld für die Fortbewegung auszugeben. Jedes Team sucht Sponsoren, die - pro Kilometer oder für die Erfüllung gestellter Aufgaben (Challenges), einen gewissen Betrag für den Viva con Agua de Sankt Pauli e. V. spenden.",
+    "DESCRIPTION": "Bei BreakOut versuchen Teams von je zwei Personen innerhalb von 36 Stunden so weit wie möglich von Ihrem Ausgangspunkt weg zu reisen, ohne Geld für die Fortbewegung auszugeben. Jedes Team sucht Sponsoren, die - pro Kilometer oder für die Erfüllung gestellter Aufgaben (Challenges), einen gewissen Betrag für den Zeltschule e.V. spenden.",
     "TIME_H": "BreakOut Event",
     "TIME_PRE": "Bis BreakOut startet",
     "TIME_DURING": "Bis BreakOut endet",
@@ -604,7 +604,7 @@ module.exports = {
     "BERLIN": "Berlin",
     "POSTS_HEADLINE": "Aktuelle Posts von Teams",
     "BTN": "Zur Anmeldung",
-    "NEWSLETTER": "Sei bei BreakOut 2021 dabei...",
+    "NEWSLETTER": "Sei bei BreakOut 2022 dabei...",
     "MEDIA_LOADING": "Medien verarbeiten noch",
     "MEDIA_ABORTED": "Medien hochladen fehlgeschlagen",
     "COMMENTS": "Kommentare",

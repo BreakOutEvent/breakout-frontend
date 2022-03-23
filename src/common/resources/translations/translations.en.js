@@ -49,24 +49,24 @@ module.exports = {
       "supporterData": {
         "title": "Supporter data",
         "selectionText": "You can choose which type of supporter you will be in order to support our partner" +
-        "Viva con Agua de St. Pauli e. V.",
+        "Zeltschule e.V.",
         "selectionLabel": "Type of support",
         "donor": {
           "title": "Donor",
-          "description": "As donor 100% of your donation will be transferred to Viva con Agua de St. Pauli e. V. and you " +
+          "description": "As donor 100% of your donation will be transferred to Zeltschule e.V. and you " +
           "will get a receipt or a (simplified) proof of donation from BreakOut e.V."
         },
         "passive": {
           "title": "Passive sponsor",
           "description": "As passive sponsor you are allowed to place your company's name and logo on our website. " +
           "You will get an invoice from BreakOut e.V. but you don't have to pay turnover tax. Thus 100% of your " +
-          "donation will be transferred to Viva con Agua de St. Pauli e. V."
+          "donation will be transferred to Zeltschule e.V."
         },
         "active": {
           "title": "Active sponsor",
           "description": "As active sponsor you are allowed to place your company's name, website url and optionally " +
           "logo on our website. You will get an invoice from BreakOut e.V. including 19% of turnover tax. The " +
-          "remaining donation will be transferred to Viva con Agua de St. Pauli e. V."
+          "remaining donation will be transferred to Zeltschule e.V."
         },
       },
       "supportAsCompany": "Support as company",
@@ -126,7 +126,7 @@ module.exports = {
       "visitor_title": "Visitor",
       "visitor_text": "As a visitor you can comment on postings and view your friends travel.",
       "participant_title": "Participant",
-      "participant_text": "Here you can participate at BreakOut 2021 and create or join a team. A fee of 50€ per team is required after registration.  ",
+      "participant_text": "Here you can participate at BreakOut 2022 and create or join a team. A fee of 50€ per team is required after registration.  ",
       "sponsor_title": "Sponsor",
       "sponsor_text": "Support one or more teams with kilometer donations or by setting challenges for them.",
       "description": "Welcome to BreakOut! We are happy to see that you want to be a part of BreakOut! You can now select an account type. You can come back here from your profile menu and can change this at any time! You can also be a participant and a sponsor at the same time.",
@@ -218,7 +218,7 @@ module.exports = {
     },
     "join_team_success": {
       "title": "Team sucessfully joined",
-      "description": "You and your team partner have sucessfully registered for BreakOut 2021! Please transfer the participation fee with the aforementioned purpose before 25th of May.",
+      "description": "You and your team partner have sucessfully registered for BreakOut 2022! Please transfer the participation fee with the aforementioned purpose before 25th of May.",
       "loading_purpose_of_transfer": "Loading purpose of transfer...",
       "IBAN": "IBAN",
       "BIC": "BIC",
@@ -262,9 +262,9 @@ module.exports = {
     "DESCRIPTION_SPONSOR": "Your current status is: <strong>Sponsor</strong>. You can support teams per kilometer or challenge them with unforgettable tasks.",
     "DESCRIPTION_3": "That's not enough? On our platform we also offer other accounts:",
     "PARTICIPANT_H": "Become a participant",
-    "PARTICIPANT": "You would like to take part in BreakOut 2021 and embark on your own adventure? Follow these steps to sign up",
+    "PARTICIPANT": "You would like to take part in BreakOut 2022 and embark on your own adventure? Follow these steps to sign up",
     "SPONSOR_H": "Sponsor",
-    "SPONSOR": "You want to support your favorite team during BreakOut 2021 and thereby do something good? Click here to sign up as a sponsor.",
+    "SPONSOR": "You want to support your favorite team during BreakOut 2022 and thereby do something good? Click here to sign up as a sponsor.",
     "OBSERVER": "Are you happy with your status for now? (You can come back to this page at any time!)",
     "NOTEAM": "You are registered as a participant, but you are not yet part of a team. Click here to see if you have received inviations or to create a team.",
     "NOTEAM_H": "Join / Create a team",
@@ -388,7 +388,7 @@ module.exports = {
     "OPTION_SHIRT_2": "Size M",
     "OPTION_SHIRT_3": "Size L",
     "OPTION_SHIRT_4": "Size XL",
-    "PAYMENT_INFO": "The payment of your team participation fee (50,-€) has not yet reached us. Please transfer the amount by 24th of May 2021 to participate in the event.",
+    "PAYMENT_INFO": "The payment of your team participation fee (50,-€) has not yet reached us. Please transfer the amount by 31th of May 2022 to participate in the event.",
     "BUTTON_SAVE": "Save changes",
     "BUTTON_PAY": "Pay the participation fee",
     "LABEL_SPONSORSTREET": "Street",
@@ -407,8 +407,8 @@ module.exports = {
     "ELEMENT_2": "Starter-kit",
     "ELEMENT_3": "BreakOut Hotline",
     "DESCRIPTION_2": "All of these come back to you directly or indirectly. Your safety is of utmost importance to us, that is why the BreakOut Hotline will be available throughout the entire 36 hours.",
-    "DESCRIPTION_3": "Since the idea behind BreakOut is to give donations to Viva con Agua de St. Pauli e. V., we want to make sure that every team supports this social idea. Therefore you are required to give a deposit of 20€. You will get it back after the event, if your team has generated more than 100€ in donations. Otherwise the 20€ will go directly to Viva con Agua de St. Pauli e. V. in your name. But don't worry, the goal is easily reached! <3",
-    "DESCRIPTION_4": "So the total amount per term is 50€ (15€ Registration per person + 20€ Deposit). For a succesful registration the total amount has to be transferred by 24th May 2021. Please use the <strong>mentioned purpose</strong> and the following bank account:",
+    "DESCRIPTION_3": "Since the idea behind BreakOut is to give donations to Zeltschule e.V., we want to make sure that every team supports this social idea. Therefore you are required to give a deposit of 20€. You will get it back after the event, if your team has generated more than 100€ in donations. Otherwise the 20€ will go directly to Zeltschule e.V. in your name. But don't worry, the goal is easily reached! <3",
+    "DESCRIPTION_4": "So the total amount per term is 50€ (15€ Registration per person + 20€ Deposit). For a succesful registration the total amount has to be transferred by 31th May 2022. Please use the <strong>mentioned purpose</strong> and the following bank account:",
     "SUBHEADLINE_1": "Transfer",
     "ACCNUMBER": "IBAN",
     "BANKNUMBER": "BIC",
@@ -505,7 +505,7 @@ module.exports = {
   },
   "CLOSED": {
     "HEADLINE": "Registration closed",
-    "DESCRIPTION": "The registration for BreakOut 2021 is currently closed :( Sign up for our newsletter to make sure you don't miss any news about BreakOut.",
+    "DESCRIPTION": "The registration for BreakOut 2022 is currently closed :( Sign up for our newsletter to make sure you don't miss any news about BreakOut.",
     "LINK_DESCRIPTION": "BACK TO THE WEBSITE"
   },
   "SPONSOR-CLOSED": {
@@ -548,7 +548,7 @@ module.exports = {
     "SERVER_PROCESSING_REQUEST":"Medium is being processed by the server, give us a moment!",
     "POINTS": "Points",
     "TEAM_FEE_HEADING": "Thank you for signing up for BreakOut!",
-    "TEAM_FEE_DESCRIPTION": "To complete your registration, please transfer your registration fee as soon as possible. We can only activate your team once we've received the registration fee. Please transfer the fee by latest May 24th 2021 so that we can equip you with a t-shirt and your starter kit.",
+    "TEAM_FEE_DESCRIPTION": "To complete your registration, please transfer your registration fee as soon as possible. We can only activate your team once we've received the registration fee. Please transfer the fee by latest May 31th 2022 so that we can equip you with a t-shirt and your starter kit.",
     "TEAM_FEE_TRANSFER_INFO_HEADING": "Please transfer the registration fee to the following account:",
     "OWNER": "Account owner",
     "PURPOSE": "Purpose of transfer",
@@ -603,7 +603,7 @@ module.exports = {
     "BERLIN": "Berlin",
     "POSTS_HEADLINE": "Posts from teams",
     "BTN": "Become a sponsor now!",
-    "NEWSLETTER": "Be part of BreakOut 2021...",
+    "NEWSLETTER": "Be part of BreakOut 2022...",
     "MEDIA_LOADING": "Media still processing",
     "MEDIA_ABORTED": "Media upload failed",
     "COMMENTS": "Comments",
