@@ -58,12 +58,29 @@
                 <div class="form-group has-feedback has-feedback-left">
                     <label for="email">{{__ 'LABEL_EMAIL'}}</label>
                     <input type="email" class="form-control" id="email" name="email" value="{{me.email}}"
-                           readonly>
+                           >
+                    <i class="form-control-feedback material-icons">mail_outline</i>
+                </div>
+                 <div class="form-group has-feedback has-feedback-left" 
+                           {{#ifCond me.email me.newemailtovalidate}}style="display:none"
+                           {{else}}style="display"
+                           {{/ifCond}}>
+                    <label for="newemailtovalidate">{{__ 'LABEL_NEWEMAILTOVALIDATE'}}</label>
+                    <input type="email" class="form-control" id="newemailtovalidate" name="newemailtovalidate" value="{{me.newemailtovalidate}}"
+                        >       
                     <i class="form-control-feedback material-icons">mail_outline</i>
                 </div>
                 <div class="form-group has-feedback has-feedback-left">
+                    <label for="New_Password">{{__ 'LABEL_NEWPASSWORD'}}</label>
+                    <input type="password" class="form-control" id="New_Password" name="New_Password"/>
+                </div>
+                <div class="form-group has-feedback has-feedback-left">
+                    <label for="Confirm_Password">{{__ 'LABEL_CONFIRMPASSWORD'}}</label>
+                    <input type="password" class="form-control" id="Confirm_Password" name="Confirm_Password"/>
+                </div>
+                <div class="form-group has-feedback has-feedback-left">
                     <label for="gender">{{__ 'LABEL_GENDER'}}</label>
-                    <select class="form-control" id="gender" name="gender" readonly>
+                    <select class="form-control" id="gender" name="gender">
                         <option value=""
                                 {{#ifCond me.gender null}}selected="selected"{{/ifCond}}>-</option>
                         <option value="male"
