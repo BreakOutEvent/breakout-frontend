@@ -103,6 +103,7 @@ registration.createParticipant = (req, res, next) => co(function*() {
 
   if (req.body.firstname) data.firstname = req.body.firstname;
   if (req.body.lastname) data.lastname = req.body.lastname;
+  if (req.body.newEmailToValidate) data.newEmailToValidate = req.body.newEmailToValidate;
   if (req.body.gender) data.gender = req.body.gender;
   if (typeof req.body.newsletter !== 'undefined') data.newsletter = (req.body.newsletter === 'true');
 
