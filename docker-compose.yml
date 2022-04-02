@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  breakout-frontend:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./config-prod.json:/frontend/config-prod.json
+    networks:
+      - network
+  breakout-mongo:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - "27017:27017"
+    networks:
+      - network
+networks:
+  network:
