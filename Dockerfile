@@ -1,12 +1,17 @@
-FROM mhart/alpine-node:10
-RUN apk add --no-cache git bash make gcc g++ python
+FROM node:16-alpine
 
-COPY . /frontend
 WORKDIR /frontend
 
-RUN npm install
-RUN npm run build
 RUN npm install -g forever
+
+COPY package.json /frontend
+COPY package-lock.json /frontend
+
+RUN npm ci
+
+COPY . /frontend
+
+RUN npm run build
 
 ENV NODE_ENVIRONMENT prod
 

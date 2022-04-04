@@ -6,11 +6,11 @@
     "protocol": "https"
   },
   "db": {
-    "user": "user",
-    "password": "password",
-    "url": "url",
-    "port": 123456,
-    "name": "name"
+    "user": "root",
+    "password": "example",
+    "url": "mongo",
+    "port": 27017,
+    "name": "admin"
   },
   "cluster": "false",
   "secret": "secret-cat",
@@ -35,5 +35,7 @@
     "cloud_name": "fill",
     "api_key": "me",
     "api_secret": "in"
-  }
+  },
+  "space": "contentful-space",
+  "accessToken": "contentful-token"
 }

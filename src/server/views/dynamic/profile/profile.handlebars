@@ -62,11 +62,10 @@
                     <i class="form-control-feedback material-icons">mail_outline</i>
                 </div>
                  <div class="form-group has-feedback has-feedback-left" 
-                           {{#ifCond me.email me.newemailtovalidate}}style="display:none"
-                           {{else}}style="display"
+                           {{#ifCond me.email me.newEmailToValidate}}style="display:none"
                            {{/ifCond}}>
-                    <label for="newemailtovalidate">{{__ 'LABEL_NEWEMAILTOVALIDATE'}}</label>
-                    <input type="email" class="form-control" id="newemailtovalidate" name="newemailtovalidate" value="{{me.newemailtovalidate}}"
+                    <label for="newEmailToValidate">{{__ 'LABEL_NEWEMAILTOVALIDATE'}}</label>
+                    <input type="email" class="form-control" id="newEmailToValidate" name="newEmailToValidate" value="{{me.newEmailToValidate}}"
                         >       
                     <i class="form-control-feedback material-icons">mail_outline</i>
                 </div>

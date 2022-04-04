@@ -370,7 +370,7 @@ module.exports = {
     "LABEL_FIRSTNAME": "First name",
     "LABEL_NAME": "Last name",
     "LABEL_EMAIL": "Email",
-    "LABEL_NEWEMAILTOVALIDATE": "New E-Mail",
+    "LABEL_NEWEMAILTOVALIDATE": "New Email",
     "LABEL_NEWPASSWORD": "New Password",
     "LABEL_CONFIRMPASSWORD": "Confirm Password",
     "LABEL_GENDER": "Gender",
