@@ -371,6 +371,7 @@ module.exports = {
     "LABEL_NAME": "Last name",
     "LABEL_EMAIL": "Email",
     "LABEL_NEWEMAILTOVALIDATE": "New Email",
+    "LABEL_PASSWORD": "Password",
     "LABEL_NEWPASSWORD": "New Password",
     "LABEL_CONFIRMPASSWORD": "Confirm Password",
     "LABEL_GENDER": "Gender",
@@ -594,7 +595,7 @@ module.exports = {
   },
   "LIVEBLOG": {
     "HEADLINE": "What is BreakOut?",
-    "DESCRIPTION": "BreakOut challenges the participants to travel in teams of two as far away as possible from their starting location without spending money on transportation. Each team collects donations from their team sponsors for every kilometer traveled and each challenge accomplished. 100% of these donations are going to the charity organization One Dollar Glasses",
+    "DESCRIPTION": "BreakOut challenges the participants to travel in teams of two as far away as possible from their starting location without spending money on transportation. Each team collects donations from their team sponsors for every kilometer traveled and each challenge accomplished. 100% of these donations are going to the charity organization Zeltschule e.V.",
     "TIME_H": "BreakOut Event",
     "TIME_PRE": "Until BreakOut starts",
     "TIME_DURING": "Until BreakOut ends",

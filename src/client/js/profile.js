@@ -29,6 +29,12 @@ $(document).ready(() => {
       reader.readAsDataURL(this.files[0]);
     }
   });
+  $('#newPassword, #confirmNewPassword').on('keyup', function () {
+    if ($('#newPassword').val() == $('#confirmNewPassword').val()) {
+      $('#message').html('Matching').css('color', 'green');
+    } else 
+      $('#message').html('Not Matching').css('color', 'red');
+  }); 
 
 
   $('#profile_form').submit(function (e) {
@@ -64,7 +70,6 @@ $(document).ready(() => {
         toggleLoading('#profile_CTA');
       });
     }
-
   });
 
 
