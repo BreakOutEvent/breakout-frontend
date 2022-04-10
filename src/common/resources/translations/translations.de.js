@@ -189,6 +189,9 @@ module.exports = {
         "label": "Nenn uns die Anschrift (inkl. Name, Straße + Hausnr, PLZ + Ort) an die euer Starterkit verschickt werden soll \n (Versanddatum ca. 15.06.21, Versand nur nach Deutschland möglich)"
       }
     },
+    "team_settings": {
+      "delete_team": "Teamprofil löschen"
+    },
     "create_team": {
       "title": "Team erstellen",
       "description": "Erstelle ein Team und lade deinen Teampartner dazu ein",
@@ -540,6 +543,7 @@ module.exports = {
     "PROPOSE_CHALLENGE_NOW": "Jetzt Challenges stellen!",
     "CHALLENGES": "Challenges",
     "SPONSORS": "Sponsoren",
+    "SETTINGS": "Einstellungen",
     "NO_SPONSORS_YET": "Dieses Team hat bisher keine Sponsoren.",
     "SUPPORT_NOW": "Jetzt unterstützen!",
     "NO_POSITION": "Keine Position",

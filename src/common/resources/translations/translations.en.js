@@ -188,6 +188,9 @@ module.exports = {
         "label": "Tell us the address (name, street + nr., PLZ + city) where your starterkit will be sent to \n (shipping date approx. 15.06.21, shipping only available in Germany)"
       }
     },
+    "team_settings": {
+      "delete_team": "Delete team"
+    },
     "create_team": {
       "title": "Create a team",
       "description": "Create a team and invite your team partner",
@@ -539,6 +542,7 @@ module.exports = {
     "PROPOSE_CHALLENGE_NOW": "Propose challenges now!",
     "CHALLENGES": "Challenges",
     "SPONSORS": "Sponsors",
+    "SETTINGS": "Settings",
     "NO_SPONSORS_YET": "This team has no sponsors yet.",
     "SUPPORT_NOW": "Support now!",
     "NO_POSITION": "No position",
