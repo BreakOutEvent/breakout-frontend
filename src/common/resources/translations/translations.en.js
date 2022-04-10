@@ -354,6 +354,11 @@ module.exports = {
     "DESCRIPTION": "You have successfully signed up as a viewer for BreakOut. Thank you for your participation! For further clips and news go back to the homepage. Feel free to contact us with any further questions.",
     "LINK_DESCRIPTION": "BACK TO THE HOMEPAGE"
   },
+  "TEAMDELETION-SUCCESS": {
+    "HEADLINE": "Made it!",
+    "DESCRIPTION": "You have sucessfully deleted your team. You got redirected to the homepage.",
+    "LINK_DESCRIPTION": "BACK TO THE HOMEPAGE"
+  },
   "PAYMENT-SUCCESS": {
     "HEADLINE": "Made it!",
     "DESCRIPTION": "Thank you for your participation. As soon as your payment has reached us, you will get a confirmation via email. For travel tips and BreakOut news go back to the website. If you have any questions, we are happy to help you any time.",

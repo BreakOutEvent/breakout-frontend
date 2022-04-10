@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
+import routes from '../routes';
 import PropTypes from 'prop-types';
 
 class ListOfSettings extends React.Component {
@@ -8,18 +9,16 @@ class ListOfSettings extends React.Component {
     this.state = {error: null};
   }
 
-  redirectToReferrer() {
-      window.location = '/';
-  }
 
   deleteTeamProfile(teamId)  {
-      console.log(teamId);
-
     this.props.api.deleteTeam(this.props.teamId)
       .then(data => {
-        this.redirectToReferrer();
+        window.location.href = routes.teamDeletionSuccess;
       })
-      .catch(error => this.setState({error}));
+      .catch(error => {
+
+        this.setState({error});
+      });
   }
 
   render() {
@@ -41,7 +40,7 @@ class ListOfSettings extends React.Component {
 ListOfSettings.propTypes = {
   api: PropTypes.object.isRequired,
   teamId: PropTypes.number,
-  i18next: PropTypes.object.isRequired,
+  i18next: PropTypes.object.isRequired
 };
 
 export default ListOfSettings;

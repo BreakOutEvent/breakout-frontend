@@ -7,6 +7,7 @@ const routes = {
   joinTeamSuccess: '/join-team-success',
   createOrJoinTeam: '/create-join-team',
   visitorSuccess: '/visitor-success',
+  teamDeletionSuccess: "/teamDeletionSuccess",
   createTeamSuccess: '/create-team-success',
   sponsorRegistration: '/sponsor',
   profileSettings: '/settings/profile',

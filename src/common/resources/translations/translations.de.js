@@ -354,6 +354,11 @@ module.exports = {
     "DESCRIPTION": "Du hast Dich erfolgreich als Zuschauer für BreakOut registriert. Vielen Dank für Deine Teilnahme! Für weitere Clips und Neuigkeiten gehe zurück zur Homepage. Bei Fragen steht unser Support jederzeit zu Deiner Verfügung.",
     "LINK_DESCRIPTION": "ZURÜCK ZUR HOMEPAGE"
   },
+  "TEAMDELETION-SUCCESS": {
+    "HEADLINE": "Geschafft!",
+    "DESCRIPTION": "Du hast erfolgreich dein Team gelöscht. Du bist zur Homepage weitergeleitet worden.",
+    "LINK_DESCRIPTION": "ZURÜCK ZUR HOMEPAGE"
+  },
   "PAYMENT-SUCCESS": {
     "HEADLINE": "Geschafft!",
     "DESCRIPTION": "Vielen Dank für Deine Teilnahme! Sobald die Zahlung bei uns eingegangen ist, erhältst du eine Bestätigungsbenachrichtigung per E-Mail. Für Tipps zum Reisen und Neuigkeiten rund um BreakOut gehe zurück zur Homepage. Bei Fragen steht unser Support jederzeit zu deiner Verfügung.",

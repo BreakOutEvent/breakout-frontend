@@ -20,7 +20,7 @@ import SelectRole from './Components/SelectRole/SelectRole.jsx';
 import ResetPassword from './Components/ResetPassword/ResetPassword.jsx';
 import CreateOrJoinTeam from './Components/CreateOrJoinTeam.jsx';
 import SponsorInformation from './Components/Sponsor/SponsorInformation.jsx';
-import {VisitorSuccess, JoinTeamSuccess, CreateTeamSuccess} from './Components/Success.jsx';
+import {VisitorSuccess, JoinTeamSuccess, CreateTeamSuccess, TeamDeletionSuccess} from './Components/Success.jsx';
 import de from '../../common/resources/translations/translations.de';
 import en from '../../common/resources/translations/translations.en';
 import Modal from './Components/Modal.jsx';
@@ -231,6 +231,9 @@ class App extends React.Component {
           <PrivateRoute exact path={routes.visitorSuccess}
                         component={this.showModalFor(VisitorSuccess, 's')}/>
 
+          <PrivateRoute exact path={routes.teamDeletionSuccess}
+                          component={this.showModalFor(TeamDeletionSuccess, 's')}/>
+
           <RedirectRegistrationLock exact path={routes.joinTeamSuccess}
                         component={this.showModalFor(JoinTeamSuccess, 'm')}/>
 
@@ -269,6 +272,9 @@ class App extends React.Component {
 
             <PrivateRoute exact path={routes.visitorSuccess}
                           component={this.showModalFor(VisitorSuccess, 's')}/>
+
+            <PrivateRoute exact path={routes.teamDeletionSuccess}
+                          component={this.showModalFor(TeamDeletionSuccess, 's')}/>
 
             <PrivateRoute exact path={routes.joinTeamSuccess}
                           component={this.showModalFor(JoinTeamSuccess, 'm')}/>
