@@ -103,8 +103,8 @@ registration.createParticipant = (req, res, next) => co(function*() {
 
   if (req.body.firstname) data.firstname = req.body.firstname;
   if (req.body.lastname) data.lastname = req.body.lastname;
-  if (req.body.newEmailToValidate) data.newEmailToValidate = req.body.newEmailToValidate;
   if (req.body.password) data.password = req.body.password;
+  if (req.body.email) data.email = req.body.email;
   if (req.body.newPassword) data.newPassword = req.body.newPassword;
   if (req.body.gender) data.gender = req.body.gender;
   if (typeof req.body.newsletter !== 'undefined') data.newsletter = (req.body.newsletter === 'true');
@@ -285,11 +285,21 @@ registration.getTransactionPurpose = (req) => co(function*() {
 });
 
 /**
- * Activates the given token and refreshes our user session.
+ * Activates the given token.
  * @param token
  */
 registration.activateUser = (token) => co(function*() {
   yield api.activateUser(token);
+}).catch(ex => {
+  throw ex;
+});
+
+/**
+ * Confirms the email change.
+ * @param token
+ */
+registration.confirmEmailChange = (token) => co(function*() {
+  yield api.confirmEmailChange(token);
 }).catch(ex => {
   throw ex;
 });

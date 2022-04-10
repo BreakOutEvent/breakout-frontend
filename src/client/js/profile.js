@@ -30,10 +30,10 @@ $(document).ready(() => {
     }
   });
   $('#newPassword, #confirmNewPassword').on('keyup', function () {
-    if ($('#newPassword').val() == $('#confirmNewPassword').val()) {
-      $('#message').html('Matching').css('color', 'green');
-    } else 
-      $('#message').html('Not Matching').css('color', 'red');
+    const confirmNewPasswordValue = $('#confirmNewPassword').val();
+    if (!confirmNewPasswordValue) return;
+    const matches = $('#newPassword').val() === confirmNewPasswordValue;
+    $('#confirmNewPasswordContainer')[matches ? 'removeClass' : 'addClass']('has-error');
   }); 
 
 
@@ -64,8 +64,12 @@ $(document).ready(() => {
           .html('<div class="alert alert-success">Erfolgreich gespeichert!</div>');
       }).error(function (err) {
         console.log(err);
+        const errorText = err && err.responseJSON && err.responseJSON.error === 'Current password is wrong'
+          ? 'Speichern fehlgeschlagen, da aktuelles Passwort nicht übereinstimmt!'
+          : 'Speichern fehlgeschlagen';
+
         $('#result_profile')
-          .html('<div class="alert alert-error">Speichern fehlgeschlagen!</div>');
+          .html(`<div class="alert alert-danger">${errorText}!</div>`);
       }).always(() => {
         toggleLoading('#profile_CTA');
       });

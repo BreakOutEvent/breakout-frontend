@@ -374,6 +374,7 @@ module.exports = {
     "LABEL_PASSWORD": "Password",
     "LABEL_NEWPASSWORD": "New Password",
     "LABEL_CONFIRMPASSWORD": "Confirm Password",
+    "LABEL_PASSWORD_NOT_MATCHING": "Passwords are not the same",
     "LABEL_GENDER": "Gender",
     "LABEL_SHIRT": "T-Shirt size",
     "LABEL_CITY": "Hometown",
@@ -423,8 +424,13 @@ module.exports = {
   },
   "ACTIVATION": {
     "HEADLINE": "Activation successful!",
-    "DESCRIPTION": "Your email adress has been successfully confirmed",
+    "DESCRIPTION": "Your e-mail adress has been successfully confirmed",
     "CTA": "CONTINUE TO LOGIN"
+  },
+  "CONFIRMEMAILCHANGE": {
+    "HEADLINE": "E-mail change successful!",
+    "DESCRIPTION": "Your e-mail address has been successfully changed",
+    "CTA": "TO YOUR PROFILE"
   },
   "MAINTENANCE": {
     "HEADLINE": "Maintenance",
