@@ -15,11 +15,7 @@
     "eslint": "eslint --ext .js --ext .jsx .",
     "react": "webpack",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
-    "start:local:legacy": "REACT_BASEURL=http://localhost:8082 REACT_CLIENT_SECRET=123456789 REACT_CLIENT_ID=client_app npm start",
-    "start:local:react": "REACT_BASEURL=http://localhost:8082 REACT_CLIENT_SECRET=123456789 REACT_CLIENT_ID=client_app npm run build-watch",
-    "start:remote:legacy": "REACT_BASEURL=https://backend.break-out.org REACT_CLIENT_SECRET=123456789 REACT_CLIENT_ID=client_app npm start",
-    "start:remote:react": "REACT_BASEURL=https://backend.break-out.org REACT_CLIENT_SECRET=123456789 REACT_CLIENT_ID=client_app npm run build-watch"
+    "build-storybook": "build-storybook"
   },
   "repository": {
     "type": "git",
