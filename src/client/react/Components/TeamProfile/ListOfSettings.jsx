@@ -8,13 +8,16 @@ class ListOfSettings extends React.Component {
     this.state = {error: null};
   }
 
+  redirectToReferrer() {
+      window.location = '/';
+  }
+
   deleteTeamProfile(teamId)  {
       console.log(teamId);
-      return;
-      
-    this.props.api.deleteTeamProfile(this.props.teamId)
-      .then(sponsors => {
-       
+
+    this.props.api.deleteTeam(this.props.teamId)
+      .then(data => {
+        this.redirectToReferrer();
       })
       .catch(error => this.setState({error}));
   }
