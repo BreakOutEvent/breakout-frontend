@@ -99,6 +99,10 @@ export default class ParticipationForm extends React.Component {
         'ui:widget': BooleanWithInnerHtml,
         classNames: 'boolean-with-inner-html'
       },
+      is18: {
+        'ui:widget': BooleanWithInnerHtml,
+        classNames: 'boolean-with-inner-html'
+      },
       tshirtSize: {
         'ui:placeholder': i18next.t('client.participate.tshirtsize.placeholder')
       }
