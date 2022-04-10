@@ -6,18 +6,18 @@ class ListOfSettings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {error: null};
-    this.deleteTeamProfile = this.deleteTeamProfile.bind(this);
   }
 
-
-  deleteTeamProfile(teamId) {
+  deleteTeamProfile(teamId)  {
+      console.log(teamId);
+      return;
+      
     this.props.api.deleteTeamProfile(this.props.teamId)
       .then(sponsors => {
        
       })
       .catch(error => this.setState({error}));
   }
-
 
   render() {
     const i18next = this.props.i18next;
@@ -27,6 +27,7 @@ class ListOfSettings extends React.Component {
 
     return <div>
          <Button id='deleteTeamProfile'
+        onClick={() => this.deleteTeamProfile(this.props.teamId)}
                   className="btn btn-primary">
             {i18next.t('client.team_settings.delete_team')}
           </Button>
