@@ -35,7 +35,7 @@ import AddChallenge from './Components/TeamProfile/AddChallenge.jsx';
 import ListOfChallenges from './Components/TeamProfile/ListOfChallenges.jsx';
 import ListOfSponsors from './Components/TeamProfile/ListOfSponsors.jsx';
 import AdminEventsOverview from './Components/Admin/AdminEventsOverview.jsx';
-import UserTracking from './Components/UserTracking.jsx';
+import CookieConsentBanner from './Components/CookieConsentBanner.jsx';
 
 const breakoutTheme = () => createMuiTheme({
   palette: {
@@ -242,7 +242,7 @@ class App extends React.Component {
         <PrivateRoute exact path={routes.profileSettings}
                       component={this.showComponent(SponsorInformation)}/>
 
-        <UserTracking />
+        <CookieConsentBanner />
       </div>
     </Router>;
   }
