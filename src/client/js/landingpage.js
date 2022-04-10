@@ -6,7 +6,7 @@ $(function () {
     $('#landingpage-video-before').hide();
     $('#video-bg').hide();
     $('#landingpage-video').show();
-    $('iframe#landingpage-video-iframe').attr('src', $('iframe#landingpage-video-iframe').attr('src').replace('autoplay=0', 'autoplay=1'));
+    $('iframe#landingpage-video-iframe').attr('src', $('iframe#landingpage-video-iframe').attr('data-src').replace('autoplay=0', 'autoplay=1'));
   });
 });
 
