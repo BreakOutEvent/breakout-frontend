@@ -128,6 +128,39 @@ $(document).ready(() => {
 
   });
 
+  
+
+  $('#teammembers_form').submit(function (e) {
+    e.preventDefault();
+    if (sanityCheck('teammembers_form')) {
+
+      var data = new FormData($('#teammembers_form')[0]);
+      const result = {};
+
+      for (var entry of data.entries())
+      {
+        result[entry[0]] = entry[1];
+      }
+      toggleLoading('#teammembers_CTA');
+      $.ajax({
+        url: '/settings/profile/team/members',
+        type: 'POST',
+        cache: false,
+        processData: false,
+        contentType: 'application/json',
+        data: JSON.stringify(result)
+      }).success(function () {
+        $('#result_teammember').html('<div class="alert alert-success">Einladung versendet!</div>');
+      }).error(function (err) {
+        console.log(err);
+        $('#result_teammember').html('<div class="alert alert-danger">Speichern fehlgeschlagen!</div>');
+      }).always(() => {
+        toggleLoading('#teammembers_CTA');
+      });
+    }
+
+  });
+
 
   $('#sponsor_form').submit(function (e) {
     e.preventDefault();

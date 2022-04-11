@@ -374,6 +374,7 @@ module.exports = {
     "NAVIGATION_PROFILE": "Profile settings",
     "NAVIGATION_PARTICIPANT": "Participant settings",
     "NAVIGATION_TEAM": "Team settings",
+    "NAVIGATION_TEAM_MEMBERS": "Team members",
     "NAVIGATION_SPONSOR": "Sponsor settings",
     "LABEL_FIRSTNAME": "First name",
     "LABEL_NAME": "Last name",
@@ -384,6 +385,7 @@ module.exports = {
     "LABEL_PHONE": "Cell phone number",
     "LABEL_PHONE_EMERGENCY": "Emergency contact number",
     "LABEL_TEAMNAME": "Team name",
+    "LABEL_INVITE_TEAM_PARTNER": "Invite team partner",
     "LABEL_TEAMID": "Team number",
     "LABEL_LOCATION": "Starting location",
     "LABEL_DESCRIPTION": "Description",
@@ -399,6 +401,7 @@ module.exports = {
     "PAYMENT_INFO": "The payment of your team participation fee (50,-€) has not yet reached us. Please transfer the amount by 31st of May 2022 to participate in the event.",
     "BUTTON_SAVE": "Save changes",
     "BUTTON_PAY": "Pay the participation fee",
+    "BUTTON_INVITE": "Invite",
     "LABEL_SPONSORSTREET": "Street",
     "LABEL_SPONSORHOUSENUMBER": "House number",
     "LABEL_SPONSORZIPCODE": "Zipcode",
@@ -406,7 +409,13 @@ module.exports = {
     "LABEL_SPONSORCOUNTRY": "Country",
     "LABEL_SPONSORCOMPANY": "Company",
     "LABEL_SPONSORHIDE": "Hide profile publicly",
-    "LABEL_SPONSORURL": "Your website"
+    "LABEL_SPONSORURL": "Your website",
+    "TEAM_COMPLETE": "Yeah, there are two of you and you are a complete team! Have fun together and create your unique moments on your journey.",
+    "TEAM_MEMBER_YOU": "You",
+    "TEAM_YOU_ARE_ALONE": "You are still alone in the team at the moment.",
+    "TEAM_PENDING_INVITES": "The following invites are pending:",
+    "TEAM_REINVITE": "Wrong e-mail address? Simply send a new invite:",
+    "TEAM_SEND_INVITE": "Invite your partner via e-mail address:"
   },
   "PAYMENT": {
     "HEADLINE": "Payment",

@@ -9,11 +9,13 @@ class ProfileController {
   static *showProfile(req, res) {
 
     let team = null;
+    let teamInvitations = null;
 
     if (req.user.status.is.team) {
       const userTeamId = req.user.me.participant.teamId;
       const token = req.user;
       team = yield api.getModel(`event/${req.user.me.participant.eventId}/team`, token, userTeamId);
+      teamInvitations = yield api.getModel(`team/${team.id}/invitations`, token);
     }
 
     res.render('dynamic/profile/profile', {
@@ -22,6 +24,7 @@ class ProfileController {
       language: req.language,
       me: req.user.me,
       team: team,
+      teamInvitations,
       isLoggedIn: req.user,
       title: 'Profile',
       tab: req.query.tab || 'profile'
@@ -55,6 +58,30 @@ class ProfileController {
     yield session.refreshSession(req);
     return res.send({});
   }
+
+  static *inviteTeamMember(req, res) {
+    const email = req.body.teamMemberEmail;
+    if (!email) return sendErr(res, 'Empty email!');
+    const token = req.user;
+
+    const { eventId, teamId } = req.user.me.participant;
+
+    logger.info('Trying to invite user', email, 'to team', teamId);
+    const invite = yield api.inviteUser(token, eventId, teamId, email);
+    if (!invite) return sendErr(res, 'Invite creation failed!');
+
+    logger.info('Created Invitation for user', req.body.email, 'to team', teamId);
+
+    return res.send(invite);
+  }
 }
+
+const sendErr = (res, errMsg, err) => {
+
+  if (err) logger.error(errMsg, err);
+  else logger.error(errMsg);
+
+  res.status(500).send({ error: errMsg });
+};
 
 module.exports = ProfileController;
