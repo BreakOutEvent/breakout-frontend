@@ -233,6 +233,9 @@ class App extends React.Component {
 
         <LockedPageComponent exact path={routes.createOrJoinTeam}
                       component={this.showModalFor(CreateOrJoinTeam, 'm')}/>
+                      
+        <PrivateRoute exact path={routes.teamDeletionSuccess}
+                      component={this.showModalFor(TeamDeletionSuccess, 's')}/>
 
         <PrivateRoute exact path={routes.visitorSuccess}
                       component={this.showModalFor(VisitorSuccess, 's')}/>
