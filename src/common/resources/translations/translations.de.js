@@ -229,6 +229,11 @@ module.exports = {
       "payment_reciever": "Zahlungsempfänger",
       "purpose_of_transaction": "Überweisungszweck",
       "add_sponsorings_link_text": "Hier entlang, um neue Sponsoren einzutragen"
+    },
+    "cookie_consent": {
+      "description": "Wir verwenden Cookies, um die Benutzer-Erfahrung zu verbessern.",
+      "accept": "Ja klar, kein Problem",
+      "decline": "Ablehnen"
     }
   },
   "BECOME_SPONSOR": {

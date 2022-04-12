@@ -249,7 +249,7 @@ class App extends React.Component {
         <PrivateRoute exact path={routes.profileSettings}
                       component={this.showComponent(SponsorInformation)}/>
 
-        <CookieConsentBanner />
+        <CookieConsentBanner i18next={this.state.i18next} />
       </div>
     </Router>;
   }

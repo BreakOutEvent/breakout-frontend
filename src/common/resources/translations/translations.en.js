@@ -228,6 +228,11 @@ module.exports = {
       "payment_reciever": "Payment recipient",
       "purpose_of_transaction": "Purpose of transaction",
       "add_sponsorings_link_text": "Click here to add challenges and sponsors"
+    },
+    "cookie_consent": {
+      "description": "Wir verwenden Cookies, um die Benutzer-Erfahrung zu verbessern.",
+      "accept": "Ja klar, kein Problem",
+      "decline": "Ablehnen"
     }
   },
   "BECOME_SPONSOR": {

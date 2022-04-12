@@ -4,12 +4,13 @@ import CookieConsent, {
   Cookies,
 } from 'react-cookie-consent';
 import ReactGA from 'react-ga';
+import PropTypes from 'prop-types';
 
 function handleAcceptCookie() {
   ReactGA.initialize('UA-59857227-3');
 }
 
-export default function UserTracking() {
+function CookieConsentBanner({ i18next }) {
   const handleDeclineCookie = () => {
     //remove google analytics cookies
     Cookies.remove('_ga');
@@ -29,8 +30,9 @@ export default function UserTracking() {
       enableDeclineButton
       onAccept={handleAcceptCookie}
       onDecline={handleDeclineCookie}
-      buttonText='Ja, kein Problem'
-      declineButtonText='Ablehnen'
+      buttonText={i18next.t('client.cookie_consent.accept')}
+      declineButtonText={i18next.t('client.cookie_consent.decline')}
+      style={{zIndex: 2000}}
       buttonStyle={{
         background: '#e6823c'
       }}
@@ -38,7 +40,13 @@ export default function UserTracking() {
         background: '#444'
       }}
     >
-      Wir verwenden Cookies, um die Benutzer-Erfahrung zu verbessern.
+      {i18next.t('client.cookie_consent.description')}
     </CookieConsent>
   );
 }
+
+CookieConsentBanner.propTypes = {
+  i18next: PropTypes.object.isRequired
+};
+
+export default CookieConsentBanner;
