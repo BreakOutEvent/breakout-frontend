@@ -379,6 +379,11 @@ module.exports = {
     "LABEL_FIRSTNAME": "First name",
     "LABEL_NAME": "Last name",
     "LABEL_EMAIL": "Email",
+    "LABEL_NEWEMAILTOVALIDATE": "New Email",
+    "LABEL_PASSWORD": "Password",
+    "LABEL_NEWPASSWORD": "New Password",
+    "LABEL_CONFIRMPASSWORD": "Confirm Password",
+    "LABEL_PASSWORD_NOT_MATCHING": "Passwords are not the same",
     "LABEL_GENDER": "Gender",
     "LABEL_SHIRT": "T-Shirt size",
     "LABEL_CITY": "Hometown",
@@ -436,8 +441,13 @@ module.exports = {
   },
   "ACTIVATION": {
     "HEADLINE": "Activation successful!",
-    "DESCRIPTION": "Your email adress has been successfully confirmed",
+    "DESCRIPTION": "Your e-mail adress has been successfully confirmed",
     "CTA": "CONTINUE TO LOGIN"
+  },
+  "CONFIRMEMAILCHANGE": {
+    "HEADLINE": "E-mail change successful!",
+    "DESCRIPTION": "Your e-mail address has been successfully changed",
+    "CTA": "TO YOUR PROFILE"
   },
   "MAINTENANCE": {
     "HEADLINE": "Maintenance",
@@ -609,7 +619,7 @@ module.exports = {
   },
   "LIVEBLOG": {
     "HEADLINE": "What is BreakOut?",
-    "DESCRIPTION": "BreakOut challenges the participants to travel in teams of two as far away as possible from their starting location without spending money on transportation. Each team collects donations from their team sponsors for every kilometer traveled and each challenge accomplished. 100% of these donations are going to the charity organization One Dollar Glasses",
+    "DESCRIPTION": "BreakOut challenges the participants to travel in teams of two as far away as possible from their starting location without spending money on transportation. Each team collects donations from their team sponsors for every kilometer traveled and each challenge accomplished. 100% of these donations are going to the charity organization Zeltschule e.V.",
     "TIME_H": "BreakOut Event",
     "TIME_PRE": "Until BreakOut starts",
     "TIME_DURING": "Until BreakOut ends",

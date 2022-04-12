@@ -379,6 +379,11 @@ module.exports = {
     "LABEL_FIRSTNAME": "Vorname",
     "LABEL_NAME": "Nachname",
     "LABEL_EMAIL": "E-Mail",
+    "LABEL_NEWEMAILTOVALIDATE": "Neue E-Mail",
+    "LABEL_PASSWORD": "Passwort",
+    "LABEL_NEWPASSWORD": "Neues Passwort",
+    "LABEL_CONFIRMPASSWORD": "Passwort bestätigen",
+    "LABEL_PASSWORD_NOT_MATCHING": "Passwörter stimmen nicht überein",
     "LABEL_GENDER": "Geschlecht",
     "LABEL_SHIRT": "T-Shirt Größe",
     "LABEL_CITY": "Heimatstadt",
@@ -438,6 +443,11 @@ module.exports = {
     "HEADLINE": "Aktivierung erfolgreich!",
     "DESCRIPTION": "Deine E-Mail Adresse wurde erfolgreich bestätigt!",
     "CTA": "WEITER ZUM LOGIN"
+  },
+  "CONFIRMEMAILCHANGE": {
+    "HEADLINE": "E-Mail geändert!",
+    "DESCRIPTION": "Deine E-Mail Adresse wurde erfolgreich geändert!",
+    "CTA": "ZUM PROFIL"
   },
   "MAINTENANCE": {
     "HEADLINE": "Wartungsarbeiten",

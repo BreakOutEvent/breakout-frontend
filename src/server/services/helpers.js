@@ -149,6 +149,36 @@ exports.unlessCond = function (v1, v2, options) {
   return options.inverse(this);
 };
 
+exports.ifCondOperator = function (v1, operator, v2, options) {
+  switch (operator) {
+  case '==':
+  case 'is':
+    return v1 == v2 ? options.fn(this) : options.inverse(this);
+  case '===':
+    return v1 === v2 ? options.fn(this) : options.inverse(this);
+  case '!=':
+    return v1 != v2 ? options.fn(this) : options.inverse(this);
+  case '!==':
+    return v1 !== v2 ? options.fn(this) : options.inverse(this);
+  case '<':
+    return v1 < v2 ? options.fn(this) : options.inverse(this);
+  case '<=':
+    return v1 <= v2 ? options.fn(this) : options.inverse(this);
+  case '>':
+    return v1 > v2 ? options.fn(this) : options.inverse(this);
+  case '>=':
+    return v1 >= v2 ? options.fn(this) : options.inverse(this);
+  case '&&':
+  case 'and':
+    return v1 && v2 ? options.fn(this) : options.inverse(this);
+  case '||':
+  case 'or':
+    return v1 || v2 ? options.fn(this) : options.inverse(this);
+  default:
+    options.inverse(this);
+  }
+};
+
 exports.weakIfCond = function (v1, v2, options) {
 
   if (v1 == v2) {

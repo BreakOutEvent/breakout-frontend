@@ -29,6 +29,12 @@ $(document).ready(() => {
       reader.readAsDataURL(this.files[0]);
     }
   });
+  $('#newPassword, #confirmNewPassword').on('keyup', function () {
+    const confirmNewPasswordValue = $('#confirmNewPassword').val();
+    if (!confirmNewPasswordValue) return;
+    const matches = $('#newPassword').val() === confirmNewPasswordValue;
+    $('#confirmNewPasswordContainer')[matches ? 'removeClass' : 'addClass']('has-error');
+  }); 
 
 
   $('#profile_form').submit(function (e) {
@@ -58,13 +64,16 @@ $(document).ready(() => {
           .html('<div class="alert alert-success">Erfolgreich gespeichert!</div>');
       }).error(function (err) {
         console.log(err);
+        const errorText = err && err.responseJSON && err.responseJSON.error === 'Current password is wrong'
+          ? 'Speichern fehlgeschlagen, da aktuelles Passwort nicht übereinstimmt!'
+          : 'Speichern fehlgeschlagen';
+
         $('#result_profile')
-          .html('<div class="alert alert-error">Speichern fehlgeschlagen!</div>');
+          .html(`<div class="alert alert-danger">${errorText}!</div>`);
       }).always(() => {
         toggleLoading('#profile_CTA');
       });
     }
-
   });
 
 
