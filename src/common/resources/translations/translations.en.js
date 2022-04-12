@@ -543,7 +543,7 @@ module.exports = {
   "SPONSOR-CLOSED": {
     "HEADLINE": "Registration for Sponsors closed",
     "DESCRIPTION": "The registration as a sponsor is currently closed :(",
-    "LINK_DESCRIPTION": "ZURÜCK ZUR WEBSEITE"
+    "LINK_DESCRIPTION": "BACK TO THE WEBSITE"
   },
   "MESSAGE": {
     "HEADLINE": "Messages",
