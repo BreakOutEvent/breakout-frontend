@@ -203,7 +203,7 @@ class App extends React.Component {
       return null;
     }
 
-    const LockedPageComponent = this.state.isRequestingOpenRegistration
+    const LockedPageComponent = this.state.isRegistrationOpen
       ? PrivateRoute
       : RedirectRegistrationLock;
       
