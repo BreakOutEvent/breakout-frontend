@@ -534,6 +534,10 @@ module.exports = {
   "CLOSED": {
     "HEADLINE": "Registration closed",
     "DESCRIPTION": "The registration for BreakOut 2022 is currently closed :( Sign up for our newsletter to make sure you don't miss any news about BreakOut.",
+    "SUBSCRIBE": "Subscribe",
+    "REQUIRED": "indicates required",
+    "EMAIL_ADDRESS": "E-mail address",
+    "FIRSTNAME": "First name",
     "LINK_DESCRIPTION": "BACK TO THE WEBSITE"
   },
   "SPONSOR-CLOSED": {

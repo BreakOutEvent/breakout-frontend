@@ -535,6 +535,10 @@ module.exports = {
   "CLOSED": {
     "HEADLINE": "Anmeldung geschlossen",
     "DESCRIPTION": "Leider ist die Anmeldung als Teilnehmer bei BreakOut 2022 gerade nicht geöffnet :( Trag dich aber gerne in unseren Newsletter ein, um immer auf dem aktuellsten Stand zu bleiben!",
+    "SUBSCRIBE": "Abonnieren",
+    "REQUIRED": "Angabe benötigt",
+    "EMAIL_ADDRESS": "E-Mail-Adresse",
+    "FIRSTNAME": "Vorname",
     "LINK_DESCRIPTION": "ZURÜCK ZUR WEBSEITE"
   },
   "SPONSOR-CLOSED": {
