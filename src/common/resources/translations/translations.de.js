@@ -420,7 +420,8 @@ module.exports = {
     "TEAM_YOU_ARE_ALONE": "Du bist momentan noch allein im Team.",
     "TEAM_PENDING_INVITES": "Folgende Einladung wurden versandt:",
     "TEAM_REINVITE": "Falsche E-Mail-Adresse? Versende eine neue Einladung:",
-    "TEAM_SEND_INVITE": "Lade Deinen Partner per E-Mail-Adresse ein:"
+    "TEAM_SEND_INVITE": "Lade Deinen Partner per E-Mail-Adresse ein:",
+    "TEAM_MEMBER_UNKNOWN_NAME": "Partner ohne Name"
   },
   "PAYMENT": {
     "HEADLINE": "Zahlung",
