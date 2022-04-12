@@ -48,6 +48,8 @@ router.get('/sponsor-success', session.isSponsor, funnelTemplate('sponsor-succes
 
 router.get('/visitor-success', StaticController.renderLandingpage); // client-side routing
 
+router.get('/teamDeletionSuccess', StaticController.renderLandingpage); // client-side routing
+
 router.get('/invite', session.hasTeam, registration.lock, funnelTemplate('invite'));
 
 router.get('/reset-password', StaticController.renderLandingpage); // client-side routing

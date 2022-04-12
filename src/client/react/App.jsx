@@ -20,7 +20,7 @@ import SelectRole from './Components/SelectRole/SelectRole.jsx';
 import ResetPassword from './Components/ResetPassword/ResetPassword.jsx';
 import CreateOrJoinTeam from './Components/CreateOrJoinTeam.jsx';
 import SponsorInformation from './Components/Sponsor/SponsorInformation.jsx';
-import {VisitorSuccess, JoinTeamSuccess, CreateTeamSuccess} from './Components/Success.jsx';
+import {VisitorSuccess, JoinTeamSuccess, CreateTeamSuccess, TeamDeletionSuccess} from './Components/Success.jsx';
 import de from '../../common/resources/translations/translations.de';
 import en from '../../common/resources/translations/translations.en';
 import Modal from './Components/Modal.jsx';
@@ -34,6 +34,7 @@ import AdminUserOverview from './Components/Admin/AdminUserOverview.jsx';
 import AddChallenge from './Components/TeamProfile/AddChallenge.jsx';
 import ListOfChallenges from './Components/TeamProfile/ListOfChallenges.jsx';
 import ListOfSponsors from './Components/TeamProfile/ListOfSponsors.jsx';
+import ListOfSettings from './Components/TeamProfile/ListOfSettings.jsx';
 import AdminEventsOverview from './Components/Admin/AdminEventsOverview.jsx';
 import CookieConsentBanner from './Components/CookieConsentBanner.jsx';
 
@@ -229,6 +230,9 @@ class App extends React.Component {
 
         <LockedPageComponent exact path={routes.createOrJoinTeam}
                       component={this.showModalFor(CreateOrJoinTeam, 'm')}/>
+                      
+        <PrivateRoute exact path={routes.teamDeletionSuccess}
+                      component={this.showModalFor(TeamDeletionSuccess, 's')}/>
 
         <PrivateRoute exact path={routes.visitorSuccess}
                       component={this.showModalFor(VisitorSuccess, 's')}/>
@@ -328,6 +332,13 @@ renderIfExists(<MuiThemeProvider theme={breakoutTheme()}><AdminInvoicePanel api=
 renderIfExists(<MuiThemeProvider theme={breakoutTheme()}><AdminUserOverview api={api}/></MuiThemeProvider>, 'react-admin-users');
 renderIfExists(<MuiThemeProvider theme={breakoutTheme()}><AdminEventsOverview api={api}/></MuiThemeProvider>, 'react-admin-events-overview');
 renderIfExists(<App/>, 'react-root');
-renderIfExists(<MuiThemeProvider theme={breakoutTheme()}><StatefulListOfChallenges api={api}/></MuiThemeProvider>, 'react-challenge-list-root');
-renderIfExists(<MuiThemeProvider theme={breakoutTheme()}><ListOfSponsors api={api} teamId={window.teamId && window.teamId}
+renderIfExists(
+<MuiThemeProvider theme={breakoutTheme()}>
+  <StatefulListOfChallenges api={api}/>
+  </MuiThemeProvider>, 'react-challenge-list-root');
+renderIfExists(<MuiThemeProvider theme={breakoutTheme()}>
+  <ListOfSponsors api={api} teamId={window.teamId && window.teamId}
   i18next={i18next}  /></MuiThemeProvider>, 'react-sponsoring-list-root');
+renderIfExists(<MuiThemeProvider theme={breakoutTheme()}>
+  <ListOfSettings api={api} teamId={window.teamId && window.teamId}  i18next={i18next}/>
+  </MuiThemeProvider>, 'react-settings-list-root');

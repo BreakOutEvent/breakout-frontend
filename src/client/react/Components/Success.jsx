@@ -39,6 +39,20 @@ VisitorSuccess.propTypes = {
   i18next: PropTypes.object.isRequired
 };
 
+const TeamDeletionSuccess = (props) => {
+  return (
+    <Success title={props.i18next.t('TEAMDELETION-SUCCESS.HEADLINE')}
+             description={props.i18next.t('TEAMDELETION-SUCCESS.DESCRIPTION')}>
+
+        <div id="success-btn-container"><a
+          href="/">{props.i18next.t('SPECTATOR-SUCCESS.LINK_DESCRIPTION')}</a></div>
+    </Success>);
+};
+
+TeamDeletionSuccess.propTypes = {
+  i18next: PropTypes.object.isRequired
+};
+
 class JoinTeamSuccess extends React.Component {
 
   constructor(props) {
@@ -134,4 +148,4 @@ CreateTeamSuccess.propTypes = {
   i18next: PropTypes.object.isRequired
 };
 
-export {Success, VisitorSuccess, JoinTeamSuccess, CreateTeamSuccess};
+export {Success, VisitorSuccess, JoinTeamSuccess, TeamDeletionSuccess, CreateTeamSuccess};

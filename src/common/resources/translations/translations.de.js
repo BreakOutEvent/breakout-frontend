@@ -189,6 +189,9 @@ module.exports = {
         "label": "Nenn uns die Anschrift (inkl. Name, Straße + Hausnr, PLZ + Ort) an die euer Starterkit verschickt werden soll \n (Versanddatum ca. 15.06.21, Versand nur nach Deutschland möglich)"
       }
     },
+    "team_settings": {
+      "delete_team": "Teamprofil löschen"
+    },
     "create_team": {
       "title": "Team erstellen",
       "description": "Erstelle ein Team und lade deinen Teampartner dazu ein",
@@ -349,6 +352,11 @@ module.exports = {
   "SPECTATOR-SUCCESS": {
     "HEADLINE": "Geschafft!",
     "DESCRIPTION": "Du hast Dich erfolgreich als Zuschauer für BreakOut registriert. Vielen Dank für Deine Teilnahme! Für weitere Clips und Neuigkeiten gehe zurück zur Homepage. Bei Fragen steht unser Support jederzeit zu Deiner Verfügung.",
+    "LINK_DESCRIPTION": "ZURÜCK ZUR HOMEPAGE"
+  },
+  "TEAMDELETION-SUCCESS": {
+    "HEADLINE": "Geschafft!",
+    "DESCRIPTION": "Du hast erfolgreich dein Team gelöscht. Du bist zur Homepage weitergeleitet worden.",
     "LINK_DESCRIPTION": "ZURÜCK ZUR HOMEPAGE"
   },
   "PAYMENT-SUCCESS": {
@@ -550,6 +558,7 @@ module.exports = {
     "PROPOSE_CHALLENGE_NOW": "Jetzt Challenges stellen!",
     "CHALLENGES": "Challenges",
     "SPONSORS": "Sponsoren",
+    "SETTINGS": "Einstellungen",
     "NO_SPONSORS_YET": "Dieses Team hat bisher keine Sponsoren.",
     "SUPPORT_NOW": "Jetzt unterstützen!",
     "NO_POSITION": "Keine Position",
