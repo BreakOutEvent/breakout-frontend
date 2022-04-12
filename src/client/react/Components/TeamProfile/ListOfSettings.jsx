@@ -28,9 +28,8 @@ class ListOfSettings extends React.Component {
     }
 
     return <div>
-         <Button id='deleteTeamProfile'
-        onClick={() => this.deleteTeamProfile(this.props.teamId)}
-                  className="btn btn-primary">
+         <Button id='deleteTeamProfile' color="secondary" size="small"
+        onClick={() => this.deleteTeamProfile(this.props.teamId)}>
             {i18next.t('client.team_settings.delete_team')}
           </Button>
     </div>;
