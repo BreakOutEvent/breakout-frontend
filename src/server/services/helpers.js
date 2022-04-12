@@ -140,6 +140,15 @@ exports.ifCond = function (v1, v2, options) {
   return options.inverse(this);
 };
 
+exports.unlessCond = function (v1, v2, options) {
+
+  if (v1 !== v2) {
+    return options.fn(this);
+  }
+
+  return options.inverse(this);
+};
+
 exports.ifCondOperator = function (v1, operator, v2, options) {
   switch (operator) {
   case '==':
@@ -496,4 +505,14 @@ exports.config = function (key, context) {
   } else {
     throw new Error(`Couldn't find value for key '${key}' in configuration`);
   }
+};
+
+exports.eachObject = function (context, options) {
+  var ret = '';
+
+  for (var i = 0, j = context.length; i < j; i++) {
+    ret = ret + options.fn({...this, ...context[i]});
+  }
+
+  return ret;
 };

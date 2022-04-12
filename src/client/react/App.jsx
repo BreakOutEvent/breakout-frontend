@@ -228,6 +228,9 @@ class App extends React.Component {
         <RedirectSponsor exact path={routes.sponsorRegistration}
                         component={this.showModalFor(SponsorRegistration, 'm')}/>
 
+        <PrivateRoute exact path={routes.teamDeletionSuccess}
+                      component={this.showModalFor(TeamDeletionSuccess, 's')}/>
+
         <LockedPageComponent exact path={routes.createOrJoinTeam}
                       component={this.showModalFor(CreateOrJoinTeam, 'm')}/>
                       

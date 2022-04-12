@@ -30,4 +30,6 @@ router.post('/challenge/delete', session.isUser, sponsoring.challenge.delete);
 
 router.put('/profile/team', session.hasTeam, upload.single('teamPic'), ProfileController.putTeam);
 
+router.post('/profile/team/members', session.hasTeam, ProfileController.inviteTeamMember);
+
 module.exports = router;

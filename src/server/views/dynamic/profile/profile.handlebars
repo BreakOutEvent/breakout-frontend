@@ -14,15 +14,19 @@
             <li role="presentation" class="{{#ifCond tab "profile"}}active{{/ifCond}}"><a href="#profile" aria-controls="profile" role="tab"
                                                       data-toggle="tab">{{__ 'NAVIGATION_PROFILE'}}</a></li>
             {{#if me.participant}}
-                <li role="presentation" class="{{#ifCond tab "participant"}}active{{/ifCond}}"><a href="#participant" aria-controls="team" role="tab"
+                <li role="presentation" class="{{#ifCond tab "participant"}}active{{/ifCond}}"><a href="#participant" aria-controls="participant" role="tab"
                                            data-toggle="tab">{{__ 'NAVIGATION_PARTICIPANT'}}</a></li>
             {{/if}}
             {{#if me.participant.teamId}}
                 <li role="presentation" class="{{#ifCond tab "team"}}active{{/ifCond}}"><a href="#team" aria-controls="team" role="tab"
                                            data-toggle="tab">{{__ 'NAVIGATION_TEAM'}}</a></li>
             {{/if}}
+            {{#if me.participant.teamId}}
+                <li role="presentation" class="{{#ifCond tab "teamMembers"}}active{{/ifCond}}"><a href="#teamMembers" aria-controls="teamMembers" role="tab"
+                                           data-toggle="tab">{{__ 'NAVIGATION_TEAM_MEMBERS'}}</a></li>
+            {{/if}}
             {{#if me.sponsor}}
-                <li role="presentation" class="{{#ifCond tab "sponsor"}}active{{/ifCond}}"><a href="#sponsor" aria-controls="team" role="tab"
+                <li role="presentation" class="{{#ifCond tab "sponsor"}}active{{/ifCond}}"><a href="#sponsor" aria-controls="sponsor" role="tab"
                                            data-toggle="tab">{{__ 'NAVIGATION_SPONSOR'}}</a></li>
             {{/if}}
         </ul>
@@ -166,6 +170,7 @@
                                id="teamPic"/>
                         <i class="material-icons registration-picture-icon">camera_alt</i>
                     </div>
+
                     <div class="form-group has-feedback has-feedback-left">
                         <label for="teamId">{{__ 'LABEL_TEAMID'}}</label>
                         <input type="text" class="form-control" id="teamId" name="teamId"
@@ -202,6 +207,61 @@
                         <button type="submit" class="btn btn-primary btn-block text-uppercase"
                                 id="team_CTA">{{__ 'BUTTON_SAVE'}}</button>
                     </div>
+                </form>
+            </div>
+        </div>
+    {{/if}}
+    {{#if me.participant.teamId}}
+        <div role="tabpanel" class="tab-pane{{#ifCond tab "teamMembers"}} active{{/ifCond}}" id="teamMembers">
+            <div class="container bo-profile-form bo-single-row">
+                <div id="result_teammember"></div>
+                <form role="form" id="teammembers_form">
+                    {{#ifCondOperator team.members.length '>=' 2 }}
+                        <p>{{__ 'TEAM_COMPLETE'}}</p>
+                        <ul>
+                            <li>{{__ 'TEAM_MEMBER_YOU'}}</li>
+                            {{#eachObject team.members}}
+                                {{#unlessCond id me.id }}
+                                <li>
+                                    {{#ifCondOperator firstname.length 'or' lastname.length}}
+                                        {{ firstname }} {{ lastname }}                                        
+                                    {{else}}   
+                                        {{__ 'TEAM_MEMBER_UNKNOWN_NAME'}}
+                                    {{/ifCondOperator}}
+                                </li>
+                                {{/unlessCond}}
+                            {{/eachObject}}
+                        </ul>
+                    {{/ifCondOperator}}
+                    {{#unlessCond team.members.length 2}}
+                        <p>{{__ 'TEAM_YOU_ARE_ALONE'}}</p>
+
+                        
+                        {{#if teamInvitations.length }}
+                            <p>{{__ 'TEAM_PENDING_INVITES'}}</p>
+                            <ul>
+                            {{#each teamInvitations}}
+                                <li>{{ email }}</li>
+                            {{/each}}
+                            </ul>
+
+                            <p style="margin-top: 48px">{{__ 'TEAM_REINVITE'}}</p>
+                        {{/if}}
+                        {{#unless teamInvitations.length }}
+                            <p>{{__ 'TEAM_SEND_INVITE'}}</p>
+                        {{/unless}}
+
+                        <div class="form-group has-feedback has-feedback-left">
+                            <label for="teamMemberEmail">{{__ 'LABEL_INVITE_TEAM_PARTNER'}}</label>
+                            <input required="required" type="email" class="form-control" id="teamMemberEmail" name="teamMemberEmail" placeholder="E-Mail-Adresse">
+                            <i class="form-control-feedback material-icons">people</i>
+                        </div>
+
+                        <div class="form-buttons">
+                            <button type="submit" class="btn btn-primary btn-block text-uppercase"
+                                    id="teammembers_CTA">{{__ 'BUTTON_INVITE'}}</button>
+                        </div>
+                    {{/unlessCond}}
                 </form>
             </div>
         </div>
