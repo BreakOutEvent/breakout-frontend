@@ -415,7 +415,7 @@ module.exports = {
     "LABEL_SPONSORHIDE": "Profil öffentlich verstecken",
     "LABEL_SPONSORCOMPANY": "Firma",
     "LABEL_SPONSORURL": "Ihre Webseite",
-    "TEAM_COMPLETE": "Yeah, ihr seid zu zweit und somit ein vollständiges Team! Habt Spaß zusammen und schafft eure einzigartigen Momente auf eurer Reise.",
+    "TEAM_COMPLETE": "Yeah, ihr seid zu zweit und somit ein vollständiges Team! Habt Spaß zusammen und schafft einzigartige Momente auf eurer Reise.",
     "TEAM_MEMBER_YOU": "Du",
     "TEAM_YOU_ARE_ALONE": "Du bist momentan noch allein im Team.",
     "TEAM_PENDING_INVITES": "Folgende Einladung wurden versandt:",

@@ -415,7 +415,7 @@ module.exports = {
     "LABEL_SPONSORCOMPANY": "Company",
     "LABEL_SPONSORHIDE": "Hide profile publicly",
     "LABEL_SPONSORURL": "Your website",
-    "TEAM_COMPLETE": "Yeah, there are two of you and you are a complete team! Have fun together and create your unique moments on your journey.",
+    "TEAM_COMPLETE": "Yeah, there are two of you and you are a complete team! Have fun together and create unique moments on your journey.",
     "TEAM_MEMBER_YOU": "You",
     "TEAM_YOU_ARE_ALONE": "You are still alone in the team at the moment.",
     "TEAM_PENDING_INVITES": "The following invites are pending:",
