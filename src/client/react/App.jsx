@@ -26,7 +26,6 @@ import en from '../../common/resources/translations/translations.en';
 import Modal from './Components/Modal.jsx';
 
 import ReactGA from 'react-ga';
-ReactGA.initialize('UA-59857227-3');
 
 import routes from './Components/routes';
 
@@ -37,6 +36,7 @@ import ListOfChallenges from './Components/TeamProfile/ListOfChallenges.jsx';
 import ListOfSponsors from './Components/TeamProfile/ListOfSponsors.jsx';
 import ListOfSettings from './Components/TeamProfile/ListOfSettings.jsx';
 import AdminEventsOverview from './Components/Admin/AdminEventsOverview.jsx';
+import CookieConsentBanner from './Components/CookieConsentBanner.jsx';
 
 const breakoutTheme = () => createMuiTheme({
   palette: {
@@ -145,7 +145,7 @@ class App extends React.Component {
   showComponent(Comp) {
     return (props) => (
       <div>
-        <OnShowHack ></OnShowHack>
+        <OnShowHack />
         <MuiThemeProvider theme={breakoutTheme()}>
           <Comp {...props} api={this.state.api} i18next={this.state.i18next}
                 isLoggedIn={!!window.boUserData}/>
@@ -203,92 +203,52 @@ class App extends React.Component {
       return null;
     }
 
-    if(!this.state.isRegistrationOpen) {
-      return (<Router>
-        <div>
+    const LockedPageComponent = this.state.isRequestingOpenRegistration
+      ? PrivateRoute
+      : RedirectRegistrationLock;
+      
+    return <Router>
+      <div>
 
-          <Route exact path={routes.login}
-                 component={this.showModalFor(Login, 's')}/>
+        <Route exact path={routes.login}
+                component={this.showModalFor(Login, 's')}/>
 
-          <Route exact path={routes.register}
-                 component={this.showModalFor(Registration, 's')}/>
+        <Route exact path={routes.register}
+                component={this.showModalFor(Registration, 's')}/>
 
-          <Route exact path={routes.resetPassword}
-                 component={this.showModalFor(ResetPassword, 's')}/>
+        <Route exact path={routes.resetPassword}
+                component={this.showModalFor(ResetPassword, 's')}/>
 
-          <PrivateRoute exact path={routes.selectRole}
-                        component={this.showModalFor(SelectRole, 'm')}/>
+        <PrivateRoute exact path={routes.selectRole}
+                      component={this.showModalFor(SelectRole, 'm')}/>
 
-          <RedirectRegistrationLock exact path={routes.participate}
-                        component={this.showModalFor(Participation, 'm')}/>
+        <LockedPageComponent exact path={routes.participate}
+                      component={this.showModalFor(Participation, 'm')}/>
 
-          <RedirectSponsor exact path={routes.sponsorRegistration}
-                         component={this.showModalFor(SponsorRegistration, 'm')}/>
+        <RedirectSponsor exact path={routes.sponsorRegistration}
+                        component={this.showModalFor(SponsorRegistration, 'm')}/>
 
-          <RedirectRegistrationLock exact path={routes.createOrJoinTeam}
-                        component={this.showModalFor(CreateOrJoinTeam, 'm')}/>
+        <PrivateRoute exact path={routes.teamDeletionSuccess}
+                      component={this.showModalFor(TeamDeletionSuccess, 's')}/>
 
-          <PrivateRoute exact path={routes.visitorSuccess}
-                        component={this.showModalFor(VisitorSuccess, 's')}/>
+        <LockedPageComponent exact path={routes.createOrJoinTeam}
+                      component={this.showModalFor(CreateOrJoinTeam, 'm')}/>
 
-          <PrivateRoute exact path={routes.teamDeletionSuccess}
-                          component={this.showModalFor(TeamDeletionSuccess, 's')}/>
+        <PrivateRoute exact path={routes.visitorSuccess}
+                      component={this.showModalFor(VisitorSuccess, 's')}/>
 
-          <RedirectRegistrationLock exact path={routes.joinTeamSuccess}
-                        component={this.showModalFor(JoinTeamSuccess, 'm')}/>
+        <LockedPageComponent exact path={routes.joinTeamSuccess}
+                      component={this.showModalFor(JoinTeamSuccess, 'm')}/>
 
-          <RedirectRegistrationLock exact path={routes.createTeamSuccess}
-                        component={this.showModalFor(CreateTeamSuccess, 's')}/>
+        <LockedPageComponent exact path={routes.createTeamSuccess}
+                      component={this.showModalFor(CreateTeamSuccess, 's')}/>
 
-          <PrivateRoute exact path={routes.profileSettings}
-                        component={this.showComponent(SponsorInformation)}/>
+        <PrivateRoute exact path={routes.profileSettings}
+                      component={this.showComponent(SponsorInformation)}/>
 
-        </div>
-      </Router>);
-    } else {
-      return (
-        <Router>
-          <div>
-            <Route exact path={routes.login}
-                   component={this.showModalFor(Login, 's')}/>
-
-            <Route exact path={routes.register}
-                   component={this.showModalFor(Registration, 's')}/>
-
-            <Route exact path={routes.resetPassword}
-                   component={this.showModalFor(ResetPassword, 's')}/>
-
-            <PrivateRoute exact path={routes.selectRole}
-                          component={this.showModalFor(SelectRole, 'm')}/>
-
-            <PrivateRoute exact path={routes.participate}
-                          component={this.showModalFor(Participation, 'm')}/>
-
-            <PrivateRoute exact path={routes.createOrJoinTeam}
-                          component={this.showModalFor(CreateOrJoinTeam, 'm')}/>
-
-            <RedirectSponsor exact path={routes.sponsorRegistration}
-                          component={this.showModalFor(SponsorRegistration, 'm')}/>
-
-            <PrivateRoute exact path={routes.visitorSuccess}
-                          component={this.showModalFor(VisitorSuccess, 's')}/>
-
-            <PrivateRoute exact path={routes.teamDeletionSuccess}
-                          component={this.showModalFor(TeamDeletionSuccess, 's')}/>
-
-            <PrivateRoute exact path={routes.joinTeamSuccess}
-                          component={this.showModalFor(JoinTeamSuccess, 'm')}/>
-
-            <PrivateRoute exact path={routes.createTeamSuccess}
-                          component={this.showModalFor(CreateTeamSuccess, 's')}/>
-
-            <PrivateRoute exact path={routes.profileSettings}
-                          component={this.showComponent(SponsorInformation)}/>
-
-          </div>
-        </Router>
-      );
-    }
+        <CookieConsentBanner />
+      </div>
+    </Router>;
   }
 }
 
