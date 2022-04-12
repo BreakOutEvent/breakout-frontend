@@ -228,6 +228,11 @@ module.exports = {
       "payment_reciever": "Payment recipient",
       "purpose_of_transaction": "Purpose of transaction",
       "add_sponsorings_link_text": "Click here to add challenges and sponsors"
+    },
+    "cookie_consent": {
+      "description": "Wir verwenden Cookies, um die Benutzer-Erfahrung zu verbessern.",
+      "accept": "Ja klar, kein Problem",
+      "decline": "Ablehnen"
     }
   },
   "BECOME_SPONSOR": {
@@ -534,12 +539,16 @@ module.exports = {
   "CLOSED": {
     "HEADLINE": "Registration closed",
     "DESCRIPTION": "The registration for BreakOut 2022 is currently closed :( Sign up for our newsletter to make sure you don't miss any news about BreakOut.",
+    "SUBSCRIBE": "Subscribe",
+    "REQUIRED": "indicates required",
+    "EMAIL_ADDRESS": "E-mail address",
+    "FIRSTNAME": "First name",
     "LINK_DESCRIPTION": "BACK TO THE WEBSITE"
   },
   "SPONSOR-CLOSED": {
     "HEADLINE": "Registration for Sponsors closed",
     "DESCRIPTION": "The registration as a sponsor is currently closed :(",
-    "LINK_DESCRIPTION": "ZURÜCK ZUR WEBSEITE"
+    "LINK_DESCRIPTION": "BACK TO THE WEBSITE"
   },
   "MESSAGE": {
     "HEADLINE": "Messages",
