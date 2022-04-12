@@ -194,6 +194,26 @@ class DynamicController {
     }
   }
 
+  static *confirmEmailChange(req, res) {
+    try {
+      yield registration.confirmEmailChange(req.params.token);
+      yield session.refreshSession(req);
+
+      res.render('dynamic/register/confirmEmailChange', {
+        error: null,
+        layout: 'funnel',
+        language: req.language
+      });
+
+    } catch (err) {
+      res.render('dynamic/register/confirmEmailChange', {
+        error: 'The token you provided is not valid (anymore).',
+        layout: 'funnel',
+        language: req.language
+      });
+    }
+  }
+
   static *showCreateTeamPage(req, res, next) {
 
     const events = yield registration.getEvents(req);

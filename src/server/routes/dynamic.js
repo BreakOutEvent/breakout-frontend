@@ -83,6 +83,8 @@ router.get('/create-join-team', StaticController.renderLandingpage); // client-s
 
 router.get('/activation/:token', DynamicController.activateAccount);
 
+router.get('/confirmEmailChange/:token', DynamicController.confirmEmailChange);
+
 router.get('/highscore', DynamicController.showHighscores);
 
 router.post('/liveblog/posting/', liveblog.returnPostings);

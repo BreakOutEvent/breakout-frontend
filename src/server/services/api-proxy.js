@@ -264,12 +264,25 @@ API.activateUser = (token) => {
   logger.info('Trying to activate user with token', token);
   return new Promise(function (resolve, reject) {
     request
-      .get({
-        url: `${url}/activation`,
+      .post({
+        url: `${url}/activation/user`,
         qs: {
           token: token
         }
       }, handleResponse(resolve, reject, 'Successfully activated user with token ' + token));
+  });
+};
+
+API.confirmEmailChange = (token) => {
+  logger.info('Trying to confirm email change with token', token);
+  return new Promise(function (resolve, reject) {
+    request
+      .post({
+        url: `${url}/activation/email`,
+        qs: {
+          token: token
+        }
+      }, handleResponse(resolve, reject, 'Successfully confirmed email change with token ' + token));
   });
 };
 
