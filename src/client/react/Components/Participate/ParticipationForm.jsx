@@ -3,6 +3,27 @@ import React from 'react';
 import Button from '../Button.jsx';
 import PropTypes from 'prop-types';
 
+export const BooleanWithInnerHtml = (props) => {
+  return (
+    <span className="checkbox boolean-with-inner-html">
+      <label>
+        <input type="checkbox"
+                value={props.value}
+                required={props.required}
+                onChange={(event) => props.onChange((event.target.value === 'checked'))}/>
+        <span dangerouslySetInnerHTML={{__html: props.label}}></span>
+      </label>
+    </span>
+  );
+};
+
+BooleanWithInnerHtml.propTypes = {
+  value: PropTypes.bool,
+  required: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired
+};
+
 export default class ParticipationForm extends React.Component {
 
   constructor(props) {
@@ -51,15 +72,15 @@ export default class ParticipationForm extends React.Component {
         },
         acceptToS: {
           type: 'boolean',
-          title: <span dangerouslySetInnerHTML={{__html: i18next.t('client.participate.accept_tos')}} />
+          title: i18next.t('client.participate.accept_tos')
         },
         acceptCoH: {
           type: 'boolean',
-          title: <span dangerouslySetInnerHTML={{__html: i18next.t('client.participate.accept_code_of_honour')}} />
+          title: i18next.t('client.participate.accept_code_of_honour')
         },
         is18: {
           type: 'boolean',
-          title: <span dangerouslySetInnerHTML={{__html: i18next.t('client.participate.is_18')}} />
+          title: i18next.t('client.participate.is_18')
         }
       }
     };
@@ -70,6 +91,18 @@ export default class ParticipationForm extends React.Component {
         'ui:options': {
           inline: true
         },
+      },
+      acceptToS: {
+        'ui:widget': BooleanWithInnerHtml,
+        classNames: 'boolean-with-inner-html'
+      },
+      acceptCoH: {
+        'ui:widget': BooleanWithInnerHtml,
+        classNames: 'boolean-with-inner-html'
+      },
+      is18: {
+        'ui:widget': BooleanWithInnerHtml,
+        classNames: 'boolean-with-inner-html'
       },
       tshirtSize: {
         'ui:placeholder': i18next.t('client.participate.tshirtsize.placeholder')
