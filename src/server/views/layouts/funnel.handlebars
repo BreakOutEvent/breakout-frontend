@@ -13,6 +13,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Google Tag Manager -->
+    <script>
+      // Define dataLayer and the gtag function.
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      window.gtag = gtag;
+
+      gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'analytics_storage': 'denied'
+      });
+      </script>
     <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-KH8FMS"
                       height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -33,6 +44,7 @@
 <body>
 <div class="registration-body">
     {{{body}}}
+    <div id="cookie-consent"></div>
 </div>
 <script type="text/javascript" src="/js/bundle.js"></script>
 <script type="text/javascript" src="/js/registration.js"></script>

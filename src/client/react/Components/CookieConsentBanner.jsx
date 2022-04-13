@@ -8,6 +8,12 @@ import PropTypes from 'prop-types';
 
 function handleAcceptCookie() {
   ReactGA.initialize('UA-59857227-3');
+  if(window.gtag) {
+    window.gtag('consent', 'update', {
+      'ad_storage': 'granted',
+      'analytics_storage': 'granted'
+    });
+  }
 }
 
 function CookieConsentBanner({ i18next }) {
