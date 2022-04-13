@@ -6,13 +6,14 @@ import PropTypes from 'prop-types';
 export const BooleanWithInnerHtml = (props) => {
   return (
     <span className="checkbox boolean-with-inner-html">
-              <input type="checkbox"
-                     className="Checkbox with inner html"
-                     value={props.value}
-                     required={props.required}
-                     onChange={(event) => props.onChange((event.target.value === 'checked'))}/>
-              <label className="customLabel" dangerouslySetInnerHTML={{__html: props.label}}/>
-            </span>
+      <label>
+        <input type="checkbox"
+                value={props.value}
+                required={props.required}
+                onChange={(event) => props.onChange((event.target.value === 'checked'))}/>
+        <span dangerouslySetInnerHTML={{__html: props.label}}></span>
+      </label>
+    </span>
   );
 };
 
