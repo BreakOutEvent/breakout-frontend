@@ -248,8 +248,6 @@ class App extends React.Component {
 
         <PrivateRoute exact path={routes.profileSettings}
                       component={this.showComponent(SponsorInformation)}/>
-
-        <CookieConsentBanner i18next={this.state.i18next} />
       </div>
     </Router>;
   }
@@ -345,3 +343,4 @@ renderIfExists(<MuiThemeProvider theme={breakoutTheme()}>
 renderIfExists(<MuiThemeProvider theme={breakoutTheme()}>
   <ListOfSettings api={api} teamId={window.teamId && window.teamId}  i18next={i18next}/>
   </MuiThemeProvider>, 'react-settings-list-root');
+renderIfExists(<CookieConsentBanner i18next={i18next} />, 'cookie-consent');
