@@ -11,7 +11,7 @@ export default class Participation extends React.Component {
     this.state = {
       participationError: null,
       isSubmitting: false,
-      tshirtSizes: [],
+      tshirtSizes: ['S', 'M', 'L', 'XL'],
       formData: null
     };
   }
@@ -82,23 +82,10 @@ export default class Participation extends React.Component {
     });
   }
 
-  onChange(data) {
-    if (data.formData.gender === 'male') {
-      this.setState({
-        formData: data.formData,
-        tshirtSizes: ['S', 'M', 'L', 'XL']
-      });
-    } else if (data.formData.gender === 'female') {
-      this.setState({
-        formData: data.formData,
-        tshirtSizes: ['S', 'M', 'L', 'XL']
-      });
-    } else if (data.formData.gender === 'diverse') {
-      this.setState({
-        formData: data.formData,
-        tshirtSizes: ['S', 'M', 'L', 'XL']
-      });
-    }
+  onChange({ formData }) {
+    this.setState({
+      formData
+    });
   }
 
   render() {
