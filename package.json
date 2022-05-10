@@ -35,7 +35,7 @@
     "bluebird": "^3.5.3",
     "body-parser": "^1.18.3",
     "bootstrap": "^3.4.1",
-    "bootstrap-select": "^1.13.6",
+    "bootstrap-select": "^1.13.18",
     "breakout-api-client": "^0.18.6",
     "bunyan": "^1.8.0",
     "cloudinary": "^1.13.2",

@@ -49,7 +49,29 @@ $(document).ready(() => {
       });
     };
   }
-  
+  $('#addChallengeTeam, #team_select').selectpicker();
+  $("select").each(function() {
+    $(this).selectpicker();
+    $(this).on('changed.bs.select loaded.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+        var $title = $(this).parent().find('.filter-option-inner-inner');
+        var selectedText = $title.text();
+        var $rootEl = $(this).parent();
+      
+        if ($(this).parent().find('.bs-placeholder').length === 0) {
+            
+            var selectedCount = selectedText.split(', ').length;
+            if( selectedCount > 1) {
+              selectedText = selectedCount;
+            }
+            $title.text($(this).data('prefix') + selectedText);
+            $rootEl.addClass('has-selected');
+        } else {
+            $title.text($(this).data('placeholder'));
+            $rootEl.removeClass('has-selected');
+        }
+    });
+});
+
   $('*[data-showReferrer="true"]').modal('show');
   
   const addText = $('#amountPerKm_text');
@@ -243,9 +265,9 @@ $(document).ready(() => {
 
   $('#addChallengeForm').submit(function (e) {
     e.preventDefault();
-    if (sanityCheck('addSponsoringModal')) {
+    if (sanityCheck('addChallengeForm')) {
       var data = new FormData($('#addChallengeForm')[0]);
-
+      
       toggleLoading('#addChallengeCTA', true);
       $.ajax({
         url: '/settings/challenge/create',

@@ -305,7 +305,7 @@ sponsoring.challenge.create = (req, res, next) => co(function*() {
         maximumCount: req.body.addChallengeMaximumCount[i],
         description: e
       };
-      return api.challenge.create(req.user, body.event, body.team, currBody);
+      return api.challenge.create(req.user, body.event, body.team, currBody); 
     });
 
   res.sendStatus(200);

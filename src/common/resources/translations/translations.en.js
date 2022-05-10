@@ -505,6 +505,7 @@ module.exports = {
     "LABEL_EMAIL": "Email address of sponsor (optional)",
     "ESTIMATED_DONATE_PROMISE": "Estimated donate promise",
     "SELECT_TEAM": "Select team",
+    "SELECTED_TEAMS": "Selected teams: ",
     "NO_NEW_SPONSORINGS": "At the moment it is not possible to add a sponsoring.",
     "NOTICE_MISSING_SUPPORTER_TYPE": "To manage your sponsorings, please fill in missing data in your settings: ",
     'MAXIMUM_COUNT': 'Fulfillable',
