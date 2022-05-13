@@ -399,15 +399,15 @@ API.challenge.getOverviewForTeamProfile = (teamId) => {
   return API.general.get(`/team/${teamId}/challenge/`);
 };
 
-API.challenge.create = (token, eventId, teamId, body) => {
+API.challenge.create = (token, eventId, body) => {
   return new Promise(function (resolve, reject) {
     request
       .post({
-        url: `${url}/event/${eventId}/team/${teamId}/challenge/`,
+        url: `${url}/event/${eventId}/challenge/`,
         body: JSON.stringify(body),
         headers: { 'content-type': 'application/json' },
         auth: { bearer: token.access_token }
-      }, handleResponse(resolve, reject, 'Challenge created for team' + teamId));
+      }, handleResponse(resolve, reject, 'Challenge created'));
   });
 };
 
