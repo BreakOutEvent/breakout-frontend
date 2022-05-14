@@ -46,6 +46,9 @@ export default function AdminEventRow(props) {
       <td>
         <Button disabled={!props.canEdit} color="secondary" onClick={() => setIsDialogOpen(true)}>Edit</Button>
       </td>
+      <td>
+      <Button disabled={!props.canEdit} color="secondary" onClick={() => setIsDialogOpen(true) }>Download CSV</Button>
+      </td>
 
       <EditEventModal open={isDialogOpen} event={event} onChange={event => setEvent(event)} onClose={() => setIsDialogOpen(false)} />
     </tr>
