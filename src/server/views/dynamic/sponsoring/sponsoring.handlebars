@@ -490,8 +490,8 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="form-group">
-                                    <select multiple data-prefix="{{__ 'SELECTED_TEAMS'}}"  data-actions-box="true" name="team" id="team_select" class="form-control"
-                                            required="required" title="{{__ 'SELECT_TEAM'}}">
+                                    <select multiple data-actions-box="true " name="team" id="team_select" class="form-control" required="required" 
+                                    title="{{__ 'SELECT_TEAM'}}" data-count-selected-text="{0} {{__ 'SELECTED_TEAMS'}}" data-selected-text-format="count">
                                         <!-- TODO: l10n -->  
                                         {{#each teams}}
                                             <option value='{"team": "{{teamId}}", "event": "{{eventId}}"}' {{#weakIfCond ../fromTeam teamId}} selected="selected" {{/weakIfCond}}>
@@ -580,7 +580,8 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="form-group">
-                                    <select multiple  data-prefix="{{__ 'SELECTED_TEAMS'}}" data-actions-box="true" name="addChallengeTeam" id="addChallengeTeam" class="form-control" required="required" title="{{__ 'SELECT_TEAM'}}">
+                                    <select multiple data-actions-box="true" name="addChallengeTeam" id="addChallengeTeam" class="form-control" required="required" 
+                                    title="{{__ 'SELECT_TEAM'}}" data-count-selected-text="{0} {{__ 'SELECTED_TEAMS'}}" data-selected-text-format="count">
                                         {{#each teams}}
                                             <option value='{"team": "{{teamId}}", "event": "{{eventId}}"}' {{#weakIfCond ../fromTeam teamId}} selected="selected" {{/weakIfCond}} >
                                                 {{teamName}} ({{teamId}}) ({{eventTitle}})

@@ -107,15 +107,19 @@ sponsoring.showSponsorings = function*(req, res) {
 sponsoring.create = (req, res, next) => co(function*() {
 
   let body = {};
-
+  
   try {
-    let obj = JSON.parse(req.body.team);
-    body.team = obj.team;
-    body.event = obj.event;
+     // convert single team into single item array.
+     const teamJsonObjects = Array.isArray(req.body.team) ? req.body.team : [req.body.team];
+     // parse stringified JSON into objects of {team, event}
+     const teamObjects = teamJsonObjects.map(x => JSON.parse(x));
+     // only select team IDs
+     body.teams = teamObjects.map(x => x.team);
+     body.event = teamObjects[0].event
   } catch (ex) {
     return sendErr(res, ex.message, ex);
   }
-
+  
   try {
     body.amountPerKm = parseAmount(req.body.amountPerKm_text);
     if (req.body.limit) body.limit = parseAmount(req.body.limit);
@@ -158,7 +162,7 @@ sponsoring.create = (req, res, next) => co(function*() {
               unregisteredSponsor: body.unregisteredSponsor
             };
             if (parseFloat(currBody.amount) > 0) {
-              return api.challenge.create(req.user, body.event, body.team, currBody);
+              return api.challenge.create(req.user, body.event, currBody);
             }
           }
           return null;
@@ -178,7 +182,7 @@ sponsoring.create = (req, res, next) => co(function*() {
   let sponsoring = null;
 
   if (parseFloat(body.amountPerKm) > 0) {
-    sponsoring = yield api.sponsoring.create(req.user, body.event, body.team, body);
+    sponsoring = yield api.sponsoring.create(req.user, body.event, body);
     if (req.file) {
       // TODO: Update this / remove all this code with new sponsoring logic
       yield api.uploadFile(req.file, sponsoring.contract);
@@ -287,9 +291,13 @@ sponsoring.challenge.create = (req, res, next) => co(function*() {
   let body = {};
 
   try {
-    let obj = JSON.parse(req.body.addChallengeTeam);
-    body.team = obj.team;
-    body.event = obj.event;
+       // convert single team into single item array.
+       const teamJsonObjects = Array.isArray(req.body.addChallengeTeam) ? req.body.addChallengeTeam : [req.body.addChallengeTeam];
+       // parse stringified JSON into objects of {team, event}
+       const teamObjects = teamJsonObjects.map(x => JSON.parse(x));
+       // only select team IDs
+       body.teams = teamObjects.map(x => x.team);
+       body.event = teamObjects[0].event
   } catch (ex) {
     return sendErr(res, ex.message, ex);
   }
@@ -301,11 +309,12 @@ sponsoring.challenge.create = (req, res, next) => co(function*() {
   let test = yield req.body.addChallengeDescription.map(
     (e, i) => {
       let currBody = {
+        ...body,
         amount: parseAmount(req.body.addChallengeAmount[i]),
         maximumCount: req.body.addChallengeMaximumCount[i],
         description: e
       };
-      return api.challenge.create(req.user, body.event, currBody); //body.team
+      return api.challenge.create(req.user, body.event, currBody);
     });
 
   res.sendStatus(200);

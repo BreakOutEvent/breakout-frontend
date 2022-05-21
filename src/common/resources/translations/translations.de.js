@@ -505,7 +505,7 @@ module.exports = {
     "LABEL_EMAIL": "Emailadresse des Sponsors (optional)",
     "ESTIMATED_DONATE_PROMISE": "Geschätztes Spendenversprechen",
     "SELECT_TEAM": "Team auswählen",
-    "SELECTED_TEAMS": "Ausgewählte Teams: ",
+    "SELECTED_TEAMS": "ausgewählte Teams",
     'NO_NEW_SPONSORINGS': 'Momentan können keine Sponsorings eingetragen werden.',
     'NOTICE_MISSING_SUPPORTER_TYPE': 'Um Sponsorings einzutragen, ergänze zunächst fehlende Informationen: ',
     'PROFILE_SETTINGS_LABEL': 'Profileinstellungen',

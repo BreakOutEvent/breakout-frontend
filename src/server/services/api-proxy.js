@@ -306,17 +306,17 @@ API.general.get = (modelURL) => {
 
 API.sponsoring = {};
 
-API.sponsoring.create = (token, event, team, body) => {
-  logger.info('Trying to create sponsoring for team', team);
+API.sponsoring.create = (token, event, body) => {
+  logger.info('Trying to create sponsoring for teams');
 
   return new Promise(function (resolve, reject) {
     request
       .post({
-        url: `${url}/event/${event}/team/${team}/sponsoring/`,
+        url: `${url}/event/${event}/sponsoring/`,
         auth: { bearer: token.access_token },
         body: JSON.stringify(body),
         headers: { 'content-type': 'application/json' }
-      }, handleResponse(resolve, reject, 'Successfully created sponsoring for team ' + team));
+      }, handleResponse(resolve, reject, 'Successfully created sponsoring for teams '));
   });
 };
 
@@ -407,7 +407,7 @@ API.challenge.create = (token, eventId, body) => {
         body: JSON.stringify(body),
         headers: { 'content-type': 'application/json' },
         auth: { bearer: token.access_token }
-      }, handleResponse(resolve, reject, 'Challenge created'));
+      }, handleResponse(resolve, reject, 'Challenge created for teams'));
   });
 };
 
