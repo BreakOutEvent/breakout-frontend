@@ -33,10 +33,10 @@ jobs:
         uses: docker/login-action@v1
         with:
           registry: ${{ secrets.DOCKER_REGISTRY }}
-          username: ${{ secrets.DOCKER_USERNAME }}
+          username: breakout
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: breakout/breakout-frontend:${{ env.BRANCH }}${{ ( env.BRANCH == 'master' && ',breakout/breakout-frontend:latest') || '' }}
+          tags: ${{ secrets.DOCKER_REGISTRY }}/breakout-frontend:${{ env.BRANCH }}
