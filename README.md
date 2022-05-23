@@ -1,4 +1,5 @@
-![Travis Build Status](https://travis-ci.org/BreakOutEvent/breakout-frontend.svg?branch=develop)
+![main workflow](https://github.com/BreakOutEvent/breakout-frontend/actions/workflows/main.yml/badge.svg)
+
 # frontend
 Web Frontend for BreakOut
 
