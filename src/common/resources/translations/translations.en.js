@@ -185,7 +185,7 @@ module.exports = {
         "label": "Enter your team description "
       },
       "postaddress": {
-        "label": "Tell us the address (name, street + nr., PLZ + city) where your starterkit will be sent to \n (shipping date approx. 20.06.22, shipping only available in Germany)"
+        "label": "If you want to start in München, please write us: \"Start and Pick up at the starting location\". \nIf you want to start from home, please tell us the address (name, street + no., zip code + city) where your starterkit will be sent to (shipping date approx. 20.06.22, shipping only available in Germany)"
       }
     },
     "team_settings": {
