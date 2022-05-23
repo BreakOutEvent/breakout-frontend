@@ -1,0 +1,61 @@
+name: Test and build
+
+on:
+  push:
+    branches: [ develop, master ]
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  build_and_test:
+    name: Build and test
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install ESLint
+        run: |
+          npm install eslint@8.10.0
+          npm install @microsoft/eslint-formatter-sarif@2.1.7
+
+      - name: Run ESLint
+        run: npx eslint .
+          --config .eslintrc.js
+          --ext .js,.jsx,.ts,.tsx
+          --format @microsoft/eslint-formatter-sarif 
+          --output-file eslint-results.sarif
+        continue-on-error: true
+
+      - name: Upload analysis results to GitHub
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: eslint-results.sarif
+          wait-for-processing: true
+  build_and_push_docker_to_registry:
+      name: Push Docker image to Registry
+      runs-on: ubuntu-latest
+      steps:
+          -
+              name: Check out the repo
+              uses: actions/checkout@v2
+          -
+              name: What
+              run: echo "BRANCH=${GITHUB_REF##*/}" >> $GITHUB_ENV
+          -
+              name: Login to DockerHub
+              uses: docker/login-action@v1
+              with:
+                registry: ${{ secrets.DOCKER_REGISTRY }}
+                username: ${{ secrets.DOCKER_USERNAME }}
+                password: ${{ secrets.DOCKER_PASSWORD }}
+          -
+              name: Build and push
+              uses: docker/build-push-action@v2
+              with:
+                  push: true
+                  tags: ${{ secrets.DOCKER_REPOSITORY }}/breakout-frontend:${{ env.BRANCH }}
+                  build-args: |
+                      BRANCH=${{ env.BRANCH }}
