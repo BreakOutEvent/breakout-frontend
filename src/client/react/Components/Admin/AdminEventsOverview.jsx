@@ -68,7 +68,7 @@ export default function AdminEventsOverview(props) {
                     <th>Is Open for Registration</th>
                     <th>Allows new Sponsorings</th>
                     <th>Edit</th>
-                    <th>Download</th>
+                    <th>Export to CSV</th>
                   </tr>
                 </thead>
                 <tbody id="list">
