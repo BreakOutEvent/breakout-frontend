@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Button, Switch } from '@material-ui/core';
 import EditEventModal from './EditEventModal.jsx';
-import CSVDownload from './ExportCSV.jsx';
+import getEntryList from './ExportCSV.jsx';
 
 export default function AdminEventRow(props) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -48,7 +48,7 @@ export default function AdminEventRow(props) {
         <Button disabled={!props.canEdit} color="secondary" onClick={() => setIsDialogOpen(true)}>Edit</Button>
       </td>
       <td>
-      <Button disabled={!props.canEdit} color="secondary" onClick={() => CSVDownload(true)}>Download</Button>
+      <Button disabled={!props.canEdit} color="secondary" onClick={() => getEntryList(true)}>Download</Button>
       </td>
 
       <EditEventModal open={isDialogOpen} event={event} onChange={event => setEvent(event)} onClose={() => setIsDialogOpen(false)} />
