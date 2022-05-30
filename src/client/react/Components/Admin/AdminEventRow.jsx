@@ -1,12 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Button, Switch } from '@material-ui/core';
 import EditEventModal from './EditEventModal.jsx';
-import getEntryList from './ExportCSV.jsx';
+import axios from "axios";
+import { CSVLink } from "react-csv";
 
 export default function AdminEventRow(props) {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isDialogOpen, setIsDialogOpen,] = useState(false);
+  const [loading, setIsLoading] = useState(false);
+  const [listOfUsers, setListOfUsers] = useState([]);
+
   const [event, setEvent] = useState(props.event);
   const hasChanged = useRef(false);
+  const csvLink = useRef();
 
   const date = new Date(event.date * 1000);
 
@@ -20,6 +25,37 @@ export default function AdminEventRow(props) {
     }
     hasChanged.current = true;
   }, [event]);
+
+  const getUsers = async () => {
+    if (!loading) {
+      setIsLoading(true);
+
+      await axios.get("http://localhost:8082/user/")
+        .then((userListJson) => {
+          setListOfUsers(userListJson.data);
+          setIsLoading(false);
+        }).catch((e) => {
+          setIsLoading(false);
+          console.log(e);
+        });
+
+      csvLink.current.link.click();
+    }
+  }
+
+  const headers = [
+    { label: "Vorname", key: "firstname" },
+    { label: "Nachname", key: "lastname" },
+    { label: "Geschlecht", key: "gender" },
+    { label: "ID", key: "id" },
+    { label: "Event ID", key: "eventId" },
+    { label: "Stadt", key: "eventCity" },
+    { label: "Team ID", key: "teamId" },
+    { label: "Team Name", key: "teamName" },
+    { label: "Tshirtgröße", key: "tshirtSize" }
+  ];
+
+
 
   return (
     <tr>
@@ -48,7 +84,15 @@ export default function AdminEventRow(props) {
         <Button disabled={!props.canEdit} color="secondary" onClick={() => setIsDialogOpen(true)}>Edit</Button>
       </td>
       <td>
-      <Button disabled={!props.canEdit} color="secondary" onClick={() => getEntryList(true)}>Download</Button>
+        <Button onClick={getUsers}>Download</Button>
+        <CSVLink
+          data={listOfUsers}
+          headers={headers}
+          filename='transactions.csv'
+          ref={csvLink}
+          className='hidden'
+          target='_blank'
+        />
       </td>
 
       <EditEventModal open={isDialogOpen} event={event} onChange={event => setEvent(event)} onClose={() => setIsDialogOpen(false)} />
