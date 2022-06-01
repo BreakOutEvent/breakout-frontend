@@ -3,6 +3,7 @@ import { Button, Switch } from '@material-ui/core';
 import EditEventModal from './EditEventModal.jsx';
 import axios from "axios";
 import { CSVLink } from "react-csv";
+import { PARTICIPANT } from '../../../../common/resources/translations/translations.en.js';
 
 export default function AdminEventRow(props) {
   const [isDialogOpen, setIsDialogOpen,] = useState(false);
@@ -38,7 +39,6 @@ export default function AdminEventRow(props) {
           setIsLoading(false);
           console.log(e);
         });
-
       csvLink.current.link.click();
     }
   }
@@ -48,11 +48,11 @@ export default function AdminEventRow(props) {
     { label: "Nachname", key: "lastname" },
     { label: "Geschlecht", key: "gender" },
     { label: "ID", key: "id" },
-    { label: "Event ID", key: "eventId" },
-    { label: "Stadt", key: "eventCity" },
-    { label: "Team ID", key: "teamId" },
-    { label: "Team Name", key: "teamName" },
-    { label: "Tshirtgröße", key: "tshirtSize" }
+    { label: "Event ID", key: "participant.eventId" },
+    { label: "Stadt", key: "participant.eventCity" },
+    { label: "Team ID", key: "participant.teamId" },
+    { label: "Team Name", key: "participant.teamName" },
+    { label: "Tshirtgröße", key: "participant.tshirtSize" }
   ];
 
 
