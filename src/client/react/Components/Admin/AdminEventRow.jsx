@@ -3,7 +3,6 @@ import { Button, Switch } from '@material-ui/core';
 import EditEventModal from './EditEventModal.jsx';
 import axios from "axios";
 import { CSVLink } from "react-csv";
-import { PARTICIPANT } from '../../../../common/resources/translations/translations.en.js';
 
 export default function AdminEventRow(props) {
   const [isDialogOpen, setIsDialogOpen,] = useState(false);
@@ -52,7 +51,9 @@ export default function AdminEventRow(props) {
     { label: "Stadt", key: "participant.eventCity" },
     { label: "Team ID", key: "participant.teamId" },
     { label: "Team Name", key: "participant.teamName" },
-    { label: "Tshirtgröße", key: "participant.tshirtSize" }
+    { label: "Tshirtgröße", key: "participant.tshirtSize" },
+    { label: "Email", key: "email"},
+    { label: "Address", key: "postaddress"}
   ];
 
 
