@@ -23,6 +23,12 @@ cloudinary.config({
 
 var API = {};
 
+API.getParticipantList = (accessToken) => {
+  return axios.get(`${url}/admin/event`, {
+    headers: { 'Authorization': `Bearer ${accessToken}`}
+  });
+};
+
 API.getTeamOverview = (accessToken) => {
   return axios.get(`${url}/teamoverview/`, {
     headers: { 'Authorization': `Bearer ${accessToken}`}
