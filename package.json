@@ -93,6 +93,8 @@
     "@storybook/addon-links": "^3.4.11",
     "@storybook/addons": "^3.4.11",
     "@storybook/react": "^3.4.11",
+    "@types/googlemaps": "^3.43.3",
+    "@types/markerclustererplus": "^2.1.33",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-plugin-transform-async-to-generator": "^6.22.0",
