@@ -31,19 +31,18 @@ export default function AdminEventRow(props) {
   const apiUrl = window.boClientConfig.baseUrl
 
   const getUsers = async () => {
-    if (!loading) {
+     if (!loading) {
       setIsLoading(true);
-
-      await axios.get(`${apiUrl}/event/${event.id}/participants/`, { headers: { authorization: `Bearer ${accessToken}` } })
-        .then((userListJson) => {
-          setListOfUsers(userListJson.data);
-          setIsLoading(false);
-        }).catch((e) => {
-          setIsLoading(false);
-          console.log(e);
-        });
+      try {
+        const userListJson = await axios.get(`${apiUrl}/event/${event.id}/participants/`, { headers: { authorization: `Bearer ${accessToken}` } })
+        setListOfUsers(userListJson.data);
+        setIsLoading(false);
+      }
+      catch (e) {
+        setIsLoading(false);
+        console.log(e);
+      }; 
       csvLink.current.link.click();
-      console.log('data:', csvLink)
     }
   }
 
@@ -89,7 +88,7 @@ export default function AdminEventRow(props) {
         <Button disabled={!props.canEdit} color="secondary" onClick={() => setIsDialogOpen(true)}>Edit</Button>
       </td>
       <td>
-        <Button color="secondary" onClick={getUsers}>Download</Button>
+      <Button color="secondary" onClick={getUsers}>Download</Button>
         <CSVLink
           data={listOfUsers}
           headers={headers}
