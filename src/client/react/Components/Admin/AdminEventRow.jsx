@@ -34,7 +34,7 @@ export default function AdminEventRow(props) {
     if (!loading) {
       setIsLoading(true);
 
-      await axios.get(`${apiUrl}/event/${event.id}/participants/`, {headers: {authorization: `Bearer ${accessToken}`}})
+      await axios.get(`${apiUrl}/event/${event.id}/participants/`, { headers: { authorization: `Bearer ${accessToken}` } })
         .then((userListJson) => {
           setListOfUsers(userListJson.data);
           setIsLoading(false);
