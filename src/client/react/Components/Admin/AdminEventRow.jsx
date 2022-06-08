@@ -27,23 +27,14 @@ export default function AdminEventRow(props) {
     hasChanged.current = true;
   }, [event]);
 
-  const accessToken = 'e0c7b104-e64e-44be-b23d-31a57ac8b964'
-  const apiUrl = 'http://localhost:8082'
+  const accessToken = window.boUserData.access_token
+  const apiUrl = window.boClientConfig.baseUrl
 
-  axios.interceptors.request.use(
-    config => {
-      config.headers.authorization = `Bearer ${accessToken}`;
-      return config;
-    },
-    error => {
-    return Promise.reject(error);
-    }  
-  )
   const getUsers = async () => {
     if (!loading) {
       setIsLoading(true);
 
-      await axios.get(`${apiUrl}/event/2/participants/`)
+      await axios.get(`${apiUrl}/event/${event.id}/participants/`, {headers: {authorization: `Bearer ${accessToken}`}})
         .then((userListJson) => {
           setListOfUsers(userListJson.data);
           setIsLoading(false);
@@ -69,21 +60,6 @@ export default function AdminEventRow(props) {
     { label: "Email", key: "email" },
     { label: "Addresse", key: "postaddress" }
   ];
-
- /* const headers = [
-    { label: "ID", key: "id" },
-    { label: "Vorname", key: "firstname" },
-    { label: "Nachname", key: "lastname" },
-    { label: "Geschlecht", key: "gender" },
-    { label: "Event ID", key: "participant.eventId" },
-    { label: "Stadt", key: "participant.eventCity" },
-    { label: "Team ID", key: "participant.teamId" },
-    { label: "Team Name", key: "participant.teamName" },
-    { label: "Tshirtgröße", key: "participant.tshirtSize" },
-    { label: "Email", key: "email" },
-    { label: "Addresse", key: "participant.postaddress" }
-  ];
-*/
 
 
   return (
