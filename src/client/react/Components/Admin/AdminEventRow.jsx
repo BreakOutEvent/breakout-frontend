@@ -2,12 +2,25 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Button, Switch } from '@material-ui/core';
 import EditEventModal from './EditEventModal.jsx';
 import axios from 'axios';
-import { CSVLink } from 'react-csv';
+import csvDownload from 'json-to-csv-export';
+
+const CSV_HEADER_MAPPING = [
+  { label: 'ID', key: 'id' },
+  { label: 'Vorname', key: 'firstname' },
+  { label: 'Nachname', key: 'lastname' },
+  { label: 'Geschlecht', key: 'gender' },
+  { label: 'T-Shirt-Größe', key: 'tshirtsize' },
+  { label: 'Email', key: 'email' },
+  { label: 'Adresse', key: 'postaddress' },
+  { label: 'Event-ID', key: 'eventId' },
+  { label: 'Event-Stadt', key: 'eventCity' },
+  { label: 'Team-ID', key: 'teamId' },
+  { label: 'Team-Name', key: 'teamName' },
+];
 
 export default function AdminEventRow(props) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [loading, setIsLoading] = useState(false);
-  const [listOfUsers, setListOfUsers] = useState([]);
 
   const [event, setEvent] = useState(props.event);
   const hasChanged = useRef(false);
@@ -27,40 +40,28 @@ export default function AdminEventRow(props) {
   const accessToken = window.boUserData.access_token;
   const apiUrl = window.boClientConfig.baseUrl;
 
-  const getUsers = async (event, done) => {
+  const getUsers = async () => {
     if (loading) {
-      return done(false);
+      return;
     }
 
     setIsLoading(true);
     try {
-      const userListJson = await axios.get(
+      const { data } = await axios.get(
         `${apiUrl}/event/${event.id}/participants/`,
         { headers: { authorization: `Bearer ${accessToken}` } }
       );
-      setListOfUsers(userListJson.data);
-      done();
+      const csvData = data.map(row => {
+        const entries = CSV_HEADER_MAPPING.map(({ key, label }) => ([label, row[key]]));
+        return Object.fromEntries(entries);
+      });
+      csvDownload(csvData, `event-${event.id}-${new Date().toISOString()}.csv`);
     } catch (e) {
       console.error(e);
-      done(false);
     } finally {
       setIsLoading(false);
     }
   };
-
-  const headers = [
-    { label: 'ID', key: 'id' },
-    { label: 'Vorname', key: 'firstname' },
-    { label: 'Nachname', key: 'lastname' },
-    { label: 'Geschlecht', key: 'gender' },
-    { label: 'Event ID', key: 'eventId' },
-    { label: 'Stadt', key: 'eventCity' },
-    { label: 'Team ID', key: 'teamId' },
-    { label: 'Team Name', key: 'teamName' },
-    { label: 'Tshirtgröße', key: 'tshirtsize' },
-    { label: 'Email', key: 'email' },
-    { label: 'Addresse', key: 'postaddress' },
-  ];
 
   return (
     <tr>
@@ -103,14 +104,8 @@ export default function AdminEventRow(props) {
       <td>
         <Button
           color='secondary'
-          isLoading={loading}
-          component={CSVLink}
-          asyncOnClick={true}
           onClick={getUsers}
-          data={listOfUsers}
-          headers={headers}
-          filename={`participants-${event.id}.csv`}
-          target='_blank'
+          disabled={loading}
         >
           Download
         </Button>
