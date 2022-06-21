@@ -150,6 +150,19 @@ class TeamController {
     return res.sendStatus(500);
   }
 
+  static* deleteOwnComment(req, res) {
+    if (req.params.commentId && req.params.commentId !== '') {
+      const postingId = yield api.posting.getPosting(req.params.postingId);
+      logger.info('Trying to delete comment from user ', postingId.user.id);
+      logger.info('Trying to delete comment by user ', req.user.me.id);
+      if (postingId.user.id === req.user.me.id) {
+        yield api.admin.deleteComment(req.user, req.params.commentId, postingId);
+      return res.sendStatus(200);
+      }
+    }
+    return res.sendStatus(500);
+  }
+
   static isAuth(req, res) {
     if (!req.isAuthenticated()) {
       return res.sendStatus(401);

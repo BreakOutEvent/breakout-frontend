@@ -310,6 +310,32 @@ $(window).on('load', function () {
     'wrapAround': true
   });
 
+  $(function (){
+    $("#bo-user-delete").click(function() {
+      var result = confirm('Möchtest du wirklich das gewählte Element unwiderruflich löschen?');
+      const accessToken = window.boUserData.access_token;
+      const user = window.boUserData.me.id;
+      const apiUrl = window.boClientConfig.baseUrl;
+      const id = parseInt($(this).attr('data-id'));
+
+      if (result == true) {
+        fetch(`${apiUrl}/posting/${user}/comment/${id}`, {
+          method: "DELETE",
+          headers: {
+            authorization: `Bearer ${accessToken}`
+          },
+        success: function () {
+          alert('DELETED!');
+          window.location.reload();
+        },
+        error: function () {
+          alert('Es ist ein Fehler beim Löschen aufgetreten');
+        }
+        })
+      }
+    })
+  })
+
   if (players) {
     players.forEach(function (instance) {
       instance.on('enterfullscreen', function (event) {

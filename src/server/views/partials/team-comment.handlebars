@@ -33,6 +33,11 @@
             <i class="material-icons bo-card-actions-icon">delete forever</i>
         </div>
     {{/if}}
+    {{#ifCond user.id currentUserId}}
+       <div class="bo-user-delete" data-delete-type="mycomment" data-id="{{id}}" data-posting-id="{{posting-id}}">
+            <i class="material-icons bo-card-actions-icon">delete forever</i>
+        </div>
+     {{/ifCond}}
 </div>
 
 

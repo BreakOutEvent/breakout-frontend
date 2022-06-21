@@ -37,4 +37,6 @@ router.delete('/media/:mediaId', session.isEventManager, TeamController.deleteMe
 
 router.delete('/comment/:commentId', session.isEventManager, TeamController.deleteComment);
 
+router.delete('/mycomment/:commentId', session.isUser, TeamController.deleteOwnComment);
+
 module.exports = router;
