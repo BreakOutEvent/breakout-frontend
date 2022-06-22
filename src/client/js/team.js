@@ -309,7 +309,7 @@ $(window).on('load', function () {
     'resizeDuration': 200,
     'wrapAround': true
   });
-
+/*
   $(function (){
     $("#bo-user-delete").click(function() {
       var result = confirm('Möchtest du wirklich das gewählte Element unwiderruflich löschen?');
@@ -335,7 +335,7 @@ $(window).on('load', function () {
       }
     })
   })
-
+*/
   if (players) {
     players.forEach(function (instance) {
       instance.on('enterfullscreen', function (event) {

@@ -671,6 +671,20 @@ API.posting.getPosting = (postingId, token) => {
   });
 };
 
+API.posting.getComment = (commentId, token) => {
+  let options = {
+    url: `${url}/comment/${commentId}/`
+  };
+
+  if (token) options.auth = { bearer: token.access_token };
+  if (token) options.qs = { userid: token.me.id };
+
+  return new Promise((resolve, reject) => {
+    request.get(options, handleResponse(resolve, reject, 'Successfully got Comment: ' + commentId));
+  });
+};
+
+
 API.posting.getPostingIdsSince = (postingId) => {
   return API.general.get(`/posting/get/since/${postingId}/`);
 };
