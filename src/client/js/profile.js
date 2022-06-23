@@ -44,7 +44,7 @@ $(document).ready(() => {
       const apiUrl = window.boClientConfig.baseUrl;
 
       if (result == true) {
-        fetch(`${apiUrl}/user/${user}/user/`, {
+        fetch(`${apiUrl}/user/${user}/`, {
           method: 'DELETE',
           headers: {
             authorization: `Bearer ${accessToken}`
