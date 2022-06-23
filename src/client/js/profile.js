@@ -60,7 +60,6 @@ $(document).ready(() => {
             }
             return res;
           })
-          .then(res => console.log(res));
       }
       else {
         return false;
