@@ -36,6 +36,36 @@ $(document).ready(() => {
     $('#confirmNewPasswordContainer')[matches ? 'removeClass' : 'addClass']('has-error');
   }); 
 
+  $(function () {
+    $("#delete_user").click(function () {
+      var result = confirm("Sind Sie sicher, dass Sie Ihr Konto löschen möchten?\nDann werden ihre personenbezogenen Daten gelöscht und ihre Beiträge auf der Website anonymisiert.");
+      const accessToken = window.boUserData.access_token;
+      const user = window.boUserData.me.id;
+      const apiUrl = window.boClientConfig.baseUrl;
+
+      if (result == true) {
+        fetch(`${apiUrl}/user/${user}/user/`, {
+          method: "DELETE",
+          headers: {
+            authorization: `Bearer ${accessToken}`
+          },
+        })
+          .then(res => {
+            if (res.ok) {
+            console.log("successful");
+            return window.location.href = '/logout';
+            }
+            else { console.log("unsuccessful"); }
+            return res;
+          })
+          .then(res => console.log(res));
+          alert("Ihr Konto wurde erfolgreich gelöscht!\nIhre Daten werden überall anonymisiert.")
+      }
+      else {
+        return false;
+      }
+    });
+  });
 
   $('#profile_form').submit(function (e) {
     e.preventDefault();
