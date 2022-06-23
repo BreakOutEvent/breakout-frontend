@@ -59,7 +59,7 @@ $(document).ready(() => {
               alert('Es gab ein Problem bei der Löschung Ihres Kontos.');
             }
             return res;
-          })
+          });
       }
       else {
         return false;
