@@ -410,6 +410,7 @@ module.exports = {
     "OPTION_SHIRT_4": "Größe XL",
     "PAYMENT_INFO": "Die Zahlung Deines Team Teilnehmerbeitrags (50,- €) ist noch nicht bei uns eingetroffen. Bitte überweise den Betrag bis zum 31. Mai 2022, um am Event teilzunehmen.",
     "BUTTON_SAVE": "Änderungen speichern",
+    "BUTTON_DELETE_USER": "Konto löschen",
     "BUTTON_PAY": "Event Beitrag bezahlen",
     "BUTTON_INVITE": "Einladen",
     "LABEL_SPONSORSTREET": "Straße",

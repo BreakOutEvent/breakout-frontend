@@ -410,6 +410,7 @@ module.exports = {
     "OPTION_SHIRT_4": "Size XL",
     "PAYMENT_INFO": "The payment of your team participation fee (50,-€) has not yet reached us. Please transfer the amount by 31st of May 2022 to participate in the event.",
     "BUTTON_SAVE": "Save changes",
+    "BUTTON_DELETE_USER": "Delete account",
     "BUTTON_PAY": "Pay the participation fee",
     "BUTTON_INVITE": "Invite",
     "LABEL_SPONSORSTREET": "Street",
