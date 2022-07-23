@@ -282,7 +282,7 @@ $(window).on('load', function () {
     $(this).html(wrapped);
   });
 
-  $('.bo-admin-delete').on('click', function () {
+  $('.bo-btn-delete').on('click', function () {
     var type = $(this).attr('data-delete-type');
     var id = parseInt($(this).attr('data-id'));
     var postingId = $(this).attr('data-posting-id');
@@ -295,7 +295,6 @@ $(window).on('load', function () {
           posting: postingId
         },
         success: function () {
-          alert('DELETED!');
           window.location.reload();
         },
         error: function () {

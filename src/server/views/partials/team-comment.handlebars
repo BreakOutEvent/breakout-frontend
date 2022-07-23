@@ -29,10 +29,15 @@
     </div>
 
     {{#if isUserAdmin}}
-        <div class="bo-admin-delete" data-delete-type="comment" data-id="{{id}}" data-posting-id="{{posting-id}}">
+        <button class="bo-btn-delete" data-delete-type="comment" data-id="{{id}}" data-posting-id="{{posting-id}}">
             <i class="material-icons bo-card-actions-icon">delete forever</i>
-        </div>
+        </button>
     {{/if}}
+    {{#ifCond user.id currentUserId}}
+        <button class="bo-btn-delete" data-delete-type="mycomment" data-id="{{id}}" data-posting-id="{{posting-id}}">
+            <i class="material-icons bo-card-actions-icon">delete forever</i>
+        </button>
+    {{/ifCond}}
 </div>
 
 
