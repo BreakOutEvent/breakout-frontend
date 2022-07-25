@@ -65,7 +65,7 @@ class TeamController {
     return res.sendStatus(500);
   }
 
-  static* deleteOwnPosting(req, res, next) {
+  static* deleteOwnPosting(req, res) {
     if (req.params.postingId && req.params.postingId !== '') {
       const posting = yield api.posting.getPosting(req.params.postingId);
       logger.info('Trying to delete posting from user ', posting.user.id);
@@ -146,6 +146,22 @@ class TeamController {
       const postingId = req.body.posting;
       yield api.admin.deleteComment(req.user, req.params.commentId, postingId);
       return res.sendStatus(200);
+    }
+    return res.sendStatus(500);
+  }
+
+  static* deleteOwnComment(req, res) {
+    const commentId = req.params.commentId;
+    if (commentId && commentId !== '') {
+      const postingId = req.body.posting;
+      const posting = yield api.posting.getPosting(postingId);
+      if(posting && posting.comments) {
+        const comment = posting.comments.find(x => x.id == commentId); // must be == due to string/number comparison
+        if (comment && comment.user && comment.user.id === req.user.me.id) {
+          yield api.admin.deleteComment(req.user, commentId, postingId);
+          return res.sendStatus(200);
+        }
+      }
     }
     return res.sendStatus(500);
   }
